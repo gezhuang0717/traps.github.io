@@ -591,23 +591,23 @@
       lines.forEach((s,i)=>c.fillText(s,left,top+i*14));
     }
   }
-  function drawResidual(){
+  function drawResidual(c=rg,width=pc._cw,height=Math.max(230,Math.min(320,width*.45)),exporting=false){
     if(!plotDomain||root.querySelector('.nc-residual-panel').hidden)return;
-    const width=pc._cw,height=Math.max(230,Math.min(320,width*.45));sizeCanvas(rc,width,height);rg.setTransform(rc.width/width,0,0,rc.height/height,0,0);rg.clearRect(0,0,width,height);
+    if(c===rg){sizeCanvas(rc,width,height);c.setTransform(rc.width/width,0,0,rc.height/height,0,0);}c.clearRect(0,0,width,height);if(exporting){c.fillStyle='#fff';c.fillRect(0,0,width,height);}
     const domain={...CP.chainExtent(residualPts,[],{errors:true}),x0:plotDomain.x0,x1:plotDomain.x1};
     domain.y0=Math.min(domain.y0,0);domain.y1=Math.max(domain.y1,0);residualDomain=domain;
     const geom=CP.geometry(domain,width,height,(plotPts.groups||[]).length>1),{L,R,T:top,B,px,py}=geom;
-    rg.strokeStyle='rgba(127,127,160,.5)';rg.strokeRect(L,top,width-L-R,height-B-top);rg.fillStyle=ink;rg.font='11px system-ui';
-    rg.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>rg.fillText(fmtTick(y),L-5,py(y)+3));rg.textAlign='center';
-    niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>rg.fillText(x,px(x),height-B+15));
-    rg.fillText('Δ (keV) = series − AME2020',(L+width-R)/2,12);rg.beginPath();rg.moveTo(L,py(0));rg.lineTo(width-R,py(0));rg.stroke();
-    rg.save();rg.beginPath();rg.rect(L,top,width-L-R,height-B-top);rg.clip();
+    c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font='11px system-ui';
+    c.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>c.fillText(fmtTick(y),L-5,py(y)+3));c.textAlign='center';
+    niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>c.fillText(x,px(x),height-B+15));
+    c.fillText('Δ (keV) = series − AME2020',(L+width-R)/2,12);c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
+    c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
-      const ps=residualPts.filter(p=>p.series===s.id&&p.g===group);rg.strokeStyle=s.color;rg.fillStyle=s.color;rg.setLineDash(s.shape==='model'?[5,3]:[]);
-      rg.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?rg.lineTo(px(p.x),py(p.y)):rg.moveTo(px(p.x),py(p.y)));rg.stroke();rg.setLineDash([]);
-      ps.forEach(p=>{rg.beginPath();rg.arc(px(p.x),py(p.y),2.5,0,6.283);rg.fill();if(p.e>0){rg.beginPath();rg.moveTo(px(p.x),py(p.y-p.e));rg.lineTo(px(p.x),py(p.y+p.e));rg.stroke();}});
+      const ps=residualPts.filter(p=>p.series===s.id&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:[]);
+      c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();c.setLineDash([]);
+      ps.forEach(p=>{const x=px(p.x),y=py(p.y);c.beginPath();if(s.shape==='square')c.rect(x-2.5,y-2.5,5,5);else if(s.shape==='diamond'){c.moveTo(x,y-3.5);c.lineTo(x+3.5,y);c.lineTo(x,y+3.5);c.lineTo(x-3.5,y);c.closePath();}else c.arc(x,y,2.5,0,6.283);c.fillStyle=p.est?(exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff'):s.color;c.fill();if(p.est)c.stroke();if(p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
-    rg.restore();rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
+    c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
   rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=CP.geometry(residualDomain,rc._cw,rc._ch,(plotPts.groups||[]).length>1);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
   function plotAt(e) {
@@ -696,12 +696,19 @@
     X.record(cv, 9, "chart-of-nuclides-tour", on => { b.disabled = on; b.classList.toggle("is-rec", on); if (!on) { sizeCanvas(cv, keep[0], keep[1]); draw(); } });
     fit(); let i = 0; const next = () => { if (i < tour.length) { const r = tour[i++]; pin = r; zoomTo(r, 30, () => setTimeout(next, 900)); } else setTimeout(fit, 400); }; setTimeout(next, 600);
   };
-  root.querySelector("[data-nc=ppng]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = pc._cw * sc; o.height = pc._ch * sc; drawPlot(o.getContext("2d"), o.width, o.height, sc); return o; }, "chain-" + pq.value, 6);
+  root.querySelector("[data-nc=ppng]").onclick = () => X.png(sc => {
+    const o=document.createElement('canvas'),includeResidual=!root.querySelector('.nc-residual-panel').hidden;
+    const residualHeight=includeResidual?Math.max(230,Math.min(320,pc._cw*.45)):0,gap=includeResidual?18:0;
+    o.width=pc._cw*sc;o.height=(pc._ch+gap+residualHeight)*sc;
+    const ctx=o.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,o.width,o.height);drawPlot(ctx,o.width,pc._ch*sc,sc);
+    if(includeResidual){ctx.save();ctx.setTransform(sc,0,0,sc,0,(pc._ch+gap)*sc);drawResidual(ctx,pc._cw,residualHeight,true);ctx.restore();}
+    return o;
+  },"chain-"+pq.value,6);
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts.map(p=>({...p,panel:'residual',unit:'keV'})));
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1'],
-      points.map(p=>[p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:'',p.panel==='value'?plotDomain.y1:'']),'chain-'+pq.value);
+      points.map(p=>[p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'']),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
