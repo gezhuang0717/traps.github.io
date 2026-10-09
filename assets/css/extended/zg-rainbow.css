@@ -39,6 +39,16 @@ article h1, .post-title, .profile_inner h1, main h1 {
 
 /* ── publication lists ─────────────────────────────────────────────────── */
 .zg-papers { padding-left: 1.4em; }
+.zg-publication-search { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; padding: 1rem; border: 1px solid var(--zg-blue); border-radius: .6rem; }
+.zg-publication-search label { display: grid; gap: .25rem; flex: 1 1 10rem; min-width: 0; font-size: .92rem; }
+.zg-publication-search label:first-child { flex-basis: 100%; }
+.zg-publication-search input, .zg-publication-search select { width: 100%; box-sizing: border-box; min-height: 2.5rem; padding: .4rem; border: 1px solid #8888; border-radius: .3rem; background: var(--entry, transparent); color: inherit; font: inherit; }
+.zg-publication-search button { padding: .5rem .75rem; border: 1px solid var(--zg-blue); border-radius: .3rem; background: transparent; color: inherit; cursor: pointer; }
+.zg-publication-search [data-pub-count], .zg-publication-search [data-pub-empty], .zg-publication-help { flex-basis: 100%; margin: 0; }
+.zg-publication-help summary, .zg-full-authors summary { cursor: pointer; }
+.zg-publication-help p { font-size: .92rem; line-height: 1.6; }
+.zg-section-count { font-size: .9rem; opacity: .85; margin-bottom: .5rem; }
+.zg-publication-search [hidden], .zg-publication-section[hidden], .zg-publication-section [hidden] { display: none !important; }
 .zg-paper { margin: .45em 0; line-height: 1.5; }
 .zg-paper::marker { color: var(--zg-blue); font-weight: 700; }
 .zg-paper .zg-title { font-style: italic; }

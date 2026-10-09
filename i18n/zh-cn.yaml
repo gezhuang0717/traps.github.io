@@ -62,7 +62,7 @@ zg_invited_tag: "（邀请报告）"
 zg_corresponding_author: "通讯作者"
 zg_first_author_tag: "第一作者"
 zg_coauthor_tag: "合作作者"
-zg_pub_records: "篇论文"
+zg_pub_records: "条文献记录"
 zg_pub_query: "检索标题、作者、DOI 或主题"
 zg_pub_year: "年份"
 zg_pub_all_years: "所有年份"
@@ -73,3 +73,18 @@ zg_all_authors:
 zg_author_source:
   other: 作者名单来源
 test_site_note: "测试副本，非正式网站"
+
+# Publication list controls and counting
+zg_second_author: "第二作者"
+zg_pub_topic: "主题"
+zg_pub_all_topics: "所有主题"
+zg_pub_topic_nz: "N = Z 原子核"
+zg_pub_topic_neutrino: "中微子与衰变 Q 值"
+zg_pub_topic_isotope_shift: "同位素位移"
+zg_pub_topic_detectors: "探测器与仪器"
+zg_pub_reset: "重置筛选"
+zg_pub_help_title: "如何使用文献列表"
+zg_pub_help_search: "多个检索词须同时匹配标题、完整作者名单、文献、DOI 或已标注主题。年份、作者角色和主题筛选同时生效。仅部分文献已标注主题；选择所有主题可查看完整列表。"
+zg_pub_help_sections: "主要论文包括第一作者、第二作者或明确记录的通讯作者论文。各分区互不重复。计数仅针对本页文献记录，包含期刊论文、会议论文、报告和预印本，并非被引次数。主要论文按当前可见条目倒序编号，筛选后重新编号。展开全部作者可查看完整名单及其来源。"
+zg_pub_empty: "没有匹配文献。请清除部分条件或重置筛选。"
+zg_pub_full_list: "打开完整文献列表与筛选器"

@@ -209,31 +209,36 @@
       "zg_first_author_tag": "First author",
       "zg_corresponding_author": "Corresponding author",
       "zg_coauthor_tag": "Co-author",
-      "zg_pub_records": "papers"
+      "zg_pub_records": "bibliography records",
+      "zg_pub_full_list": "Open the full publication list and filters"
     },
     "zh": {
       "zg_first_author_tag": "第一作者",
       "zg_corresponding_author": "通讯作者",
       "zg_coauthor_tag": "合作作者",
-      "zg_pub_records": "篇论文"
+      "zg_pub_records": "条文献记录",
+      "zg_pub_full_list": "打开完整文献列表与筛选器"
     },
     "fi": {
       "zg_first_author_tag": "Ensimmäinen kirjoittaja",
       "zg_corresponding_author": "Vastaava kirjoittaja",
       "zg_coauthor_tag": "Yhteiskirjoittaja",
-      "zg_pub_records": "julkaisua"
+      "zg_pub_records": "viitetietuetta",
+      "zg_pub_full_list": "Avaa koko julkaisuluettelo ja suodattimet"
     },
     "de": {
       "zg_first_author_tag": "Erstautor",
       "zg_corresponding_author": "Korrespondierender Autor",
       "zg_coauthor_tag": "Mitautor",
-      "zg_pub_records": "Publikationen"
+      "zg_pub_records": "Literatureinträge",
+      "zg_pub_full_list": "Vollständige Publikationsliste und Filter öffnen"
     },
     "ja": {
       "zg_first_author_tag": "筆頭著者",
       "zg_corresponding_author": "責任著者",
       "zg_coauthor_tag": "共著者",
-      "zg_pub_records": "件の論文"
+      "zg_pub_records": "件の文献記録",
+      "zg_pub_full_list": "文献リストと絞り込みを開く"
     }
   },
   "links": [

@@ -62,7 +62,7 @@ zg_invited_tag: "(eingeladener Vortrag)"
 zg_corresponding_author: "Korrespondierender Autor"
 zg_first_author_tag: "Erstautor"
 zg_coauthor_tag: "Mitautor"
-zg_pub_records: "Publikationen"
+zg_pub_records: "Literatureinträge"
 zg_pub_query: "Titel, Autor, DOI oder Thema suchen"
 zg_pub_year: "Jahr"
 zg_pub_all_years: "Alle Jahre"
@@ -73,3 +73,18 @@ zg_all_authors:
 zg_author_source:
   other: Quelle der Autorenliste
 test_site_note: "Testkopie, nicht die Live-Seite"
+
+# Publication list controls and counting
+zg_second_author: "Zweiter Autor"
+zg_pub_topic: "Thema"
+zg_pub_all_topics: "Alle Themen"
+zg_pub_topic_nz: "N = Z-Kerne"
+zg_pub_topic_neutrino: "Neutrinos und Zerfalls-Q-Werte"
+zg_pub_topic_isotope_shift: "Isotopieverschiebungen"
+zg_pub_topic_detectors: "Detektoren und Instrumentierung"
+zg_pub_reset: "Filter zurücksetzen"
+zg_pub_help_title: "So verwenden Sie die Liste"
+zg_pub_help_search: "Alle Suchwörter müssen in Titel, vollständiger Autorenliste, Referenz, DOI oder Themenmarkierung vorkommen. Jahr, Autorenrolle und Thema werden kombiniert. Nur ausgewählte Einträge haben Themenmarkierungen; Alle Themen zeigt die vollständige Liste."
+zg_pub_help_sections: "Hauptpublikationen umfassen Erst-, Zweit- oder ausdrücklich vermerkte korrespondierende Autorschaft. Die Abschnitte überschneiden sich nicht. Gezählt werden Einträge dieser Seite, einschließlich Tagungsbeiträgen, Berichten und Preprints, keine Zitierungen. Die Nummern zählen innerhalb der sichtbaren Hauptpublikationen rückwärts und werden beim Filtern angepasst. Alle Autoren öffnet Namen und Quellen."
+zg_pub_empty: "Keine passenden Einträge. Entfernen Sie einen Filter oder setzen Sie die Suche zurück."
+zg_pub_full_list: "Vollständige Publikationsliste und Filter öffnen"

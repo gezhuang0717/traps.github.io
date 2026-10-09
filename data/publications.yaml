@@ -7,7 +7,8 @@
 #   role:      first | corresponding | coauthor
 #   corresponding: true → also a corresponding author (independent of author position).
 #   position:  my place in the author list (1 = first). Papers with role first or
-#              corresponding, or position 2, form the "Main papers" list.
+#              corresponding, corresponding: true, or position 2, form "Main papers".
+#              First author alone does not imply corresponding author.
 #   year:      publication year (number)
 #   authors:   author string; Markdown allowed, **Z. Ge** is bolded
 #   title:     paper title (Unicode superscripts such as ¹⁰⁰Sn are fine)

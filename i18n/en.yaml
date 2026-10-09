@@ -63,7 +63,7 @@ zg_invited_tag: "(invited talk)"
 zg_corresponding_author: "Corresponding author"
 zg_first_author_tag: "First author"
 zg_coauthor_tag: "Co-author"
-zg_pub_records: "papers"
+zg_pub_records: "bibliography records"
 zg_pub_query: "Search title, author, DOI or topic"
 zg_pub_year: "Year"
 zg_pub_all_years: "All years"
@@ -74,3 +74,18 @@ zg_all_authors:
 zg_author_source:
   other: Author-list source
 test_site_note: "staging copy, not the live site"
+
+# Publication list controls and counting
+zg_second_author: "Second author"
+zg_pub_topic: "Topic"
+zg_pub_all_topics: "All topics"
+zg_pub_topic_nz: "N = Z nuclei"
+zg_pub_topic_neutrino: "Neutrino and decay Q values"
+zg_pub_topic_isotope_shift: "Isotope shifts"
+zg_pub_topic_detectors: "Detectors and instrumentation"
+zg_pub_reset: "Reset filters"
+zg_pub_help_title: "How to use this list"
+zg_pub_help_search: "Search words are combined: every word must match the title, full author list, reference, DOI or assigned topic. Year, author role and topic filters are combined. Topic tags cover selected records only; use All topics for the full bibliography."
+zg_pub_help_sections: "Main papers include first, second or explicitly recorded corresponding authorship. These sections do not overlap. The count covers the records on this page, including journal articles, proceedings, reports and preprints; it is not a citation count. Numbers count down within the visible Main papers list and update when you filter. Expand All authors to see the full names and their source."
+zg_pub_empty: "No matching records. Clear a filter or reset to show the full list."
+zg_pub_full_list: "Open the full publication list and filters"

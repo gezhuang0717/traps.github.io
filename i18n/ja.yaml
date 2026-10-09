@@ -62,7 +62,7 @@ zg_invited_tag: "（招待講演）"
 zg_corresponding_author: "責任著者"
 zg_first_author_tag: "筆頭著者"
 zg_coauthor_tag: "共著者"
-zg_pub_records: "件の論文"
+zg_pub_records: "件の文献記録"
 zg_pub_query: "題名・著者・DOI・研究テーマで検索"
 zg_pub_year: "年"
 zg_pub_all_years: "すべての年"
@@ -73,3 +73,18 @@ zg_all_authors:
 zg_author_source:
   other: 著者一覧の出典
 test_site_note: "テスト用コピー（公開サイトではありません）"
+
+# Publication list controls and counting
+zg_second_author: "第二著者"
+zg_pub_topic: "テーマ"
+zg_pub_all_topics: "すべてのテーマ"
+zg_pub_topic_nz: "N = Z 核"
+zg_pub_topic_neutrino: "ニュートリノと崩壊 Q 値"
+zg_pub_topic_isotope_shift: "同位体シフト"
+zg_pub_topic_detectors: "検出器と装置"
+zg_pub_reset: "絞り込みを解除"
+zg_pub_help_title: "リストの使い方"
+zg_pub_help_search: "すべての検索語がタイトル、全著者名、文献情報、DOI、または付与されたテーマに含まれるものを表示します。年・著者の役割・テーマは同時に適用されます。テーマは一部の文献のみに付いています。全件を見るには、すべてのテーマを選んでください。"
+zg_pub_help_sections: "主要論文は第一著者、第二著者、または明示された責任著者の論文です。各区分に重複はありません。件数はこのページの文献記録で、会議論文・報告・プレプリントを含み、被引用数ではありません。主要論文の番号は表示中の件数から降順に付き、絞り込みで更新されます。全著者を開くと氏名と出典を確認できます。"
+zg_pub_empty: "該当する文献がありません。条件を減らすか、絞り込みを解除してください。"
+zg_pub_full_list: "文献リストと絞り込みを開く"

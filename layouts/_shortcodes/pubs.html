@@ -20,17 +20,19 @@
 {{- $list := slice -}}
 {{- range hugo.Data.publications.papers -}}
   {{- $ok := true -}}
-  {{- $matchesRole := or (eq .role $role) (and (eq $role "corresponding") (or (eq .role "first") (.corresponding | default false))) -}}
+  {{- $matchesRole := or (eq .role $role) (and (eq $role "corresponding") (.corresponding | default false)) -}}
   {{- if and $role (not $matchesRole) }}{{ $ok = false }}{{ end -}}
   {{- if and $theme (not (in (.themes | default slice) $theme)) }}{{ $ok = false }}{{ end -}}
   {{- if and (eq $hl "only") (not .highlight) }}{{ $ok = false }}{{ end -}}
   {{- if and (eq $hl "exclude") .highlight }}{{ $ok = false }}{{ end -}}
-  {{- $isMain := or (ne .role "coauthor") (eq (.position | default 0) 2) -}}
+  {{- $isMain := or (ne .role "coauthor") (.corresponding | default false) (eq (.position | default 0) 2) -}}
   {{- if and (eq $main "only") (not $isMain) }}{{ $ok = false }}{{ end -}}
   {{- if and (eq $main "exclude") $isMain }}{{ $ok = false }}{{ end -}}
   {{- if $ok }}{{ $list = $list | append . }}{{ end -}}
 {{- end -}}
 {{- $list = sort $list "year" "desc" -}}
+<div class="zg-publication-section" data-pub-section>
+<p class="zg-section-count" data-pub-section-count data-total="{{ len $list }}">{{ len $list }} {{ i18n "zg_pub_records" }}</p>
 {{- if eq $group "year" -}}
   {{- $years := slice -}}{{- range $list }}{{ $years = $years | append .year }}{{ end -}}
   {{- range sort (uniq $years) "value" "desc" -}}
@@ -39,5 +41,6 @@
 <ul class="zg-papers">{{ range where $list "year" $y }}{{ partial "zg/paper.html" . }}{{ end }}</ul>
   {{- end -}}
 {{- else }}
-{{ if $numbered }}<ol class="zg-papers" reversed>{{ range $list }}{{ partial "zg/paper.html" . }}{{ end }}</ol>{{ else }}<ul class="zg-papers">{{ range $list }}{{ partial "zg/paper.html" . }}{{ end }}</ul>{{ end }}
+{{ if $numbered }}<ol class="zg-papers" reversed start="{{ len $list }}">{{ range $i, $paper := $list }}{{ partial "zg/paper.html" (merge $paper (dict "list_number" (sub (len $list) $i))) }}{{ end }}</ol>{{ else }}<ul class="zg-papers">{{ range $list }}{{ partial "zg/paper.html" . }}{{ end }}</ul>{{ end }}
 {{- end }}
+</div>

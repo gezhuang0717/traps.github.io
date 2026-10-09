@@ -434,8 +434,6 @@ def clean_pub(raw: dict) -> dict:
         raise ValueError(f"role must be one of {ROLES}")
     if "corresponding" in p and not isinstance(p["corresponding"], bool):
         raise ValueError("corresponding must be true or false")
-    if p["role"] == "first":
-        p["corresponding"] = True
     if not str(p.get("title", "")).strip():
         raise ValueError("title is required")
     try:
@@ -782,7 +780,7 @@ def cmd_export_react(a):
         pages[lang["code"]] = local
     fs = maintenance.facilities(ROOT)
     publication_labels = {lang["code"]: {key: load_yaml(ROOT / "i18n" / (lang["code"] + ".yaml"))[key]
-                          for key in ("zg_first_author_tag", "zg_corresponding_author", "zg_coauthor_tag", "zg_pub_records")}
+                          for key in ("zg_first_author_tag", "zg_corresponding_author", "zg_coauthor_tag", "zg_pub_records", "zg_pub_full_list")}
                           for lang in cfg["languages"]}
     payload = {"schema_version": 1, "generated": maintenance.utc(), "config": cfg, "publication_labels": publication_labels,
                "links": cfg.get("links", []), "papers": pubs, "talks": talks,

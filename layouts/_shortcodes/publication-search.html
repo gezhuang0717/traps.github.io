@@ -1,6 +1,11 @@
 <div class="zg-publication-search" data-pub-search data-papers-label="{{ i18n "zg_pub_records" }}">
 <label>{{ i18n "zg_pub_query" }}<input type="search" name="pub-query" autocomplete="off"></label>
 <label>{{ i18n "zg_pub_year" }}<select name="pub-year"><option value="">{{ i18n "zg_pub_all_years" }}</option>{{ range sort (uniq (collections.Apply hugo.Data.publications.papers "index" "." "year")) "value" "desc" }}<option>{{ . }}</option>{{ end }}</select></label>
-<label>{{ i18n "zg_pub_role" }}<select name="pub-role"><option value="">{{ i18n "zg_all" }}</option><option value="first">{{ i18n "zg_first_author_tag" }}</option><option value="corresponding">{{ i18n "zg_corresponding_author" }}</option><option value="coauthor">{{ i18n "zg_coauthor_tag" }}</option></select></label>
-<p data-pub-count aria-live="polite"></p></div>
+<label>{{ i18n "zg_pub_role" }}<select name="pub-role"><option value="">{{ i18n "zg_all" }}</option><option value="first">{{ i18n "zg_first_author_tag" }}</option><option value="second">{{ i18n "zg_second_author" }}</option><option value="corresponding">{{ i18n "zg_corresponding_author" }}</option><option value="coauthor">{{ i18n "zg_coauthor_tag" }}</option></select></label>
+<label>{{ i18n "zg_pub_topic" }}<select name="pub-topic"><option value="">{{ i18n "zg_pub_all_topics" }}</option>{{ range slice "nz" "neutrino" "isotope-shift" "detectors" }}<option value="{{ . }}">{{ i18n (printf "zg_pub_topic_%s" (replace . "-" "_")) }}</option>{{ end }}</select></label>
+<button type="button" data-pub-reset>{{ i18n "zg_pub_reset" }}</button>
+<p data-pub-count role="status" aria-live="polite">{{ len hugo.Data.publications.papers }} {{ i18n "zg_pub_records" }}</p>
+<p data-pub-empty hidden>{{ i18n "zg_pub_empty" }}</p>
+<details class="zg-publication-help"><summary>{{ i18n "zg_pub_help_title" }}</summary><p>{{ i18n "zg_pub_help_search" }}</p><p>{{ i18n "zg_pub_help_sections" }}</p></details>
+</div>
 <script defer src="{{ "js/publication-search.js" | relURL }}"></script>

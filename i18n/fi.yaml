@@ -62,7 +62,7 @@ zg_invited_tag: "(kutsuesitelmä)"
 zg_corresponding_author: "Vastaava kirjoittaja"
 zg_first_author_tag: "Ensimmäinen kirjoittaja"
 zg_coauthor_tag: "Yhteiskirjoittaja"
-zg_pub_records: "julkaisua"
+zg_pub_records: "viitetietuetta"
 zg_pub_query: "Hae otsikkoa, kirjoittajaa, DOI-tunnusta tai aihetta"
 zg_pub_year: "Vuosi"
 zg_pub_all_years: "Kaikki vuodet"
@@ -73,3 +73,18 @@ zg_all_authors:
 zg_author_source:
   other: Tekijäluettelon lähde
 test_site_note: "testikopio, ei julkinen sivusto"
+
+# Publication list controls and counting
+zg_second_author: "Toinen kirjoittaja"
+zg_pub_topic: "Aihe"
+zg_pub_all_topics: "Kaikki aiheet"
+zg_pub_topic_nz: "N = Z -ytimet"
+zg_pub_topic_neutrino: "Neutriinot ja hajoamisen Q-arvot"
+zg_pub_topic_isotope_shift: "Isotooppisiirtymät"
+zg_pub_topic_detectors: "Ilmaisimet ja laitteistot"
+zg_pub_reset: "Nollaa suodattimet"
+zg_pub_help_title: "Luettelon käyttö"
+zg_pub_help_search: "Kaikkien hakusanojen on löydyttävä otsikosta, tekijäluettelosta, viitteestä, DOI:sta tai aihetunnisteesta. Vuosi-, tekijärooli- ja aihesuodattimet toimivat yhdessä. Vain osa viitteistä on merkitty aihetunnisteella; Kaikki aiheet näyttää koko luettelon."
+zg_pub_help_sections: "Pääjulkaisuihin kuuluvat ensimmäisen ja toisen tekijän sekä erikseen merkityn vastaavan tekijän julkaisut. Osat eivät ole päällekkäisiä. Luvut koskevat tämän sivun viitteitä, myös konferenssijulkaisuja, raportteja ja esijulkaisuja, eivät viittausmääriä. Numerointi laskee näkyvien pääjulkaisujen määrän mukaan ja päivittyy suodatettaessa. Kaikki kirjoittajat avaa nimet ja niiden lähteen."
+zg_pub_empty: "Ei vastaavia viitteitä. Poista suodatin tai nollaa haku."
+zg_pub_full_list: "Avaa koko julkaisuluettelo ja suodattimet"
