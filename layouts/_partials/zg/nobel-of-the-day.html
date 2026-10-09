@@ -1,0 +1,25 @@
+{{- $lang := . -}}
+{{- $t := index hugo.Data.nobel_labels $lang -}}
+{{- $collection := "static/data/nobel-laureates.json" | readFile | transform.Unmarshal -}}
+{{- $entry := index $collection.entries 0 -}}
+{{- $text := index $entry.texts $lang -}}
+<section class="zg-card zg-nobel" data-nobel-card data-lang="{{ $lang }}" data-src="{{ "data/nobel-laureates.json" | relURL }}?v={{ ("static/data/nobel-laureates.json" | readFile | sha256) | truncate 12 "" }}" data-labels="{{ $t | jsonify }}">
+  <div class="zg-card-label">🏅 {{ $t.title }}</div>
+  <div class="zg-nobel-content" aria-live="polite" aria-atomic="true">
+    <p class="zg-nobel-award">{{ $entry.year }} · {{ index $t.categories 0 }}</p>
+    <h3 class="zg-nobel-name">{{ $entry.name }}</h3>
+    <p class="zg-nobel-origin">{{ $t.born }} · {{ $entry.birthplace }}</p>
+    <p><strong>{{ $t.reason }}</strong><br><span class="zg-nobel-reason">{{ $text.reason }}</span></p>
+    <p><strong>{{ $t.work }}</strong><br><span class="zg-nobel-work">{{ $text.work }}</span></p>
+    <p class="zg-nobel-economics" hidden>{{ $t.economics }}</p>
+  </div>
+  <details class="zg-nobel-more"><summary>{{ $t.more }}</summary>
+    <dl class="zg-nobel-facts"><dt>{{ $t.born }}</dt><dd>{{ $entry.born }} · {{ $entry.birthplace }}</dd>{{ range $entry.affiliations }}<dt>{{ $t.affiliation }}</dt><dd>{{ . }}</dd>{{ end }}<dt>{{ $t.share }}</dt><dd>1/1</dd><dt>{{ $t.shared }}</dt><dd>{{ $t.sole }}</dd></dl>
+    <p><strong>{{ $t.context }}</strong><br><span class="zg-nobel-context">{{ $text.context }}</span></p>
+  </details>
+  <nav class="zg-nobel-sources" aria-label="{{ $t.facts }}"><a data-source="facts" href="{{ $entry.sources.facts }}" target="_blank" rel="noopener">{{ $t.facts }}</a><a data-source="lecture" href="{{ $entry.sources.lecture }}" target="_blank" rel="noopener">{{ $t.lecture }}</a><a data-source="summary" href="{{ $entry.sources.summary }}" target="_blank" rel="noopener">{{ $t.summary }}</a></nav>
+  <div class="zg-row"><button type="button" class="zg-btn" data-nobel-next disabled>{{ $t.another }} ↻</button><button type="button" class="zg-btn zg-btn-ghost" data-nobel-today disabled>{{ $t.today }}</button></div>
+  <p class="zg-nobel-count" role="status">{{ $t.loading }}</p>
+  <div class="zg-nobel-error" hidden><p>{{ $t.error }}</p><button type="button" class="zg-btn" data-nobel-retry>{{ $t.retry }}</button> <a href="https://www.nobelprize.org/">NobelPrize.org</a></div>
+  <details><summary>{{ $t.how }}</summary><p>{{ $t.note }}</p></details>
+</section>

@@ -46,6 +46,7 @@
     <p class="zg-word-s" id="zg-word-s"></p>
     <button type="button" class="zg-btn" id="zg-word-next">{{ i18n "zg_another" | default "Another one" }} ↻</button>
   </section>
+  {{ partial "zg/nobel-of-the-day.html" $base }}
   {{- $rt := index hugo.Data.daily_reading_labels $base -}}
   <section class="zg-card zg-reading" data-daily-reading data-lang="{{ $base }}" data-src="{{ (printf "data/daily-readings/%s.json" $base) | relURL }}" data-labels="{{ $rt | jsonify }}">
     <div class="zg-card-label">🪶 {{ $rt.title }}</div>
@@ -69,6 +70,7 @@
 </div>
 <script defer src="{{ "js/country-card.js" | relURL }}"></script>
 <script defer src="{{ "js/daily-reading.js" | relURL }}"></script>
+<script defer src="{{ "js/nobel-of-the-day.js" | relURL }}?v={{ ("static/js/nobel-of-the-day.js" | readFile | sha256) | truncate 12 "" }}"></script>
 <script>
 (function () {
   var items = {{ $items | jsonify | safeJS }}, lang = {{ .Page.Language.Locale | default $lang }};
