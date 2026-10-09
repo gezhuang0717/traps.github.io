@@ -3,7 +3,7 @@
 {{- $collection := "static/data/nobel-laureates.json" | readFile | transform.Unmarshal -}}
 {{- $entry := index $collection.entries 0 -}}
 {{- $text := index $entry.texts $lang -}}
-<section class="zg-card zg-nobel" data-nobel-card data-lang="{{ $lang }}" data-src="{{ "data/nobel-laureates.json" | relURL }}?v={{ ("static/data/nobel-laureates.json" | readFile | sha256) | truncate 12 "" }}" data-labels="{{ $t | jsonify }}">
+<section class="zg-card zg-nobel" data-nobel-card data-lang="{{ $lang }}" data-src="{{ "data/nobel-laureates.json" | relURL }}?v={{ ("static/data/nobel-laureates.json" | readFile | sha256) | truncate 12 "" }}" data-directory-src="{{ "data/nobel-directory.json" | relURL }}?v={{ ("static/data/nobel-directory.json" | readFile | sha256) | truncate 12 "" }}" data-labels="{{ $t | jsonify }}">
   <div class="zg-card-label">🏅 {{ $t.title }}</div>
   <div class="zg-nobel-content" aria-live="polite" aria-atomic="true">
     <p class="zg-nobel-award">{{ $entry.year }} · {{ index $t.categories 0 }}</p>
@@ -13,13 +13,30 @@
     <p><strong>{{ $t.work }}</strong><br><span class="zg-nobel-work">{{ $text.work }}</span></p>
     <p class="zg-nobel-economics" hidden>{{ $t.economics }}</p>
   </div>
+  <p><strong>{{ $t.award_people }}</strong></p>
+  <ul class="zg-nobel-recipients">{{ range $entry.award_people }}<li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a> · {{ .share }}</li>{{ end }}</ul>
   <details class="zg-nobel-more"><summary>{{ $t.more }}</summary>
     <dl class="zg-nobel-facts"><dt>{{ $t.born }}</dt><dd>{{ $entry.born }} · {{ $entry.birthplace }}</dd>{{ range $entry.affiliations }}<dt>{{ $t.affiliation }}</dt><dd>{{ . }}</dd>{{ end }}<dt>{{ $t.share }}</dt><dd>1/1</dd><dt>{{ $t.shared }}</dt><dd>{{ $t.sole }}</dd></dl>
     <p><strong>{{ $t.context }}</strong><br><span class="zg-nobel-context">{{ $text.context }}</span></p>
+    <p><strong>{{ $t.question }}</strong><br><span class="zg-nobel-question">{{ $text.question }}</span></p>
   </details>
   <nav class="zg-nobel-sources" aria-label="{{ $t.facts }}"><a data-source="facts" href="{{ $entry.sources.facts }}" target="_blank" rel="noopener">{{ $t.facts }}</a><a data-source="lecture" href="{{ $entry.sources.lecture }}" target="_blank" rel="noopener">{{ $t.lecture }}</a><a data-source="summary" href="{{ $entry.sources.summary }}" target="_blank" rel="noopener">{{ $t.summary }}</a></nav>
   <div class="zg-row"><button type="button" class="zg-btn" data-nobel-next disabled>{{ $t.another }} ↻</button><button type="button" class="zg-btn zg-btn-ghost" data-nobel-today disabled>{{ $t.today }}</button></div>
   <p class="zg-nobel-count" role="status">{{ $t.loading }}</p>
   <div class="zg-nobel-error" hidden><p>{{ $t.error }}</p><button type="button" class="zg-btn" data-nobel-retry>{{ $t.retry }}</button> <a href="https://www.nobelprize.org/">NobelPrize.org</a></div>
+  <details><summary>{{ $t.profiles }}</summary><label>{{ $t.choose }} <select data-nobel-choose aria-label="{{ $t.choose }}" disabled><option>{{ $t.loading }}</option></select></label></details>
+  <details data-nobel-directory><summary>{{ $t.directory }}</summary>
+    <p>{{ $t.directory_note }}</p>
+    <div class="zg-nobel-filters">
+      <label>{{ $t.search }} <input type="search" data-nobel-search aria-label="{{ $t.search }}" disabled></label>
+      <label>{{ $t.all_categories }} <select data-nobel-category aria-label="{{ $t.all_categories }}" disabled><option value="">{{ $t.all_categories }}</option>{{ range $i, $key := slice "phy" "che" "med" "lit" "pea" "eco" }}<option value="{{ $key }}">{{ index $t.categories $i }}</option>{{ end }}</select></label>
+      <label>{{ $t.all_years }} <select data-nobel-year aria-label="{{ $t.all_years }}" disabled><option value="">{{ $t.all_years }}</option></select></label>
+    </div>
+    <p role="status" data-nobel-directory-count>{{ $t.loading }}</p>
+    <ol class="zg-nobel-directory-list" data-nobel-directory-list></ol>
+    <button type="button" class="zg-btn" data-nobel-more hidden>{{ $t.show_more }}</button>
+    <button type="button" class="zg-btn" data-nobel-directory-retry hidden>{{ $t.retry }}</button>
+    <p><a href="https://api.nobelprize.org/2.1/nobelPrizes?limit=1000" target="_blank" rel="noopener">NobelPrize.org · API</a></p>
+  </details>
   <details><summary>{{ $t.how }}</summary><p>{{ $t.note }}</p></details>
 </section>

@@ -31,7 +31,19 @@
       "Literature",
       "Peace",
       "Economic Sciences"
-    ]
+    ],
+    "award_people": "All recipients of this prize",
+    "profiles": "Explore the curated profiles",
+    "directory": "Complete official laureate list",
+    "search": "Search name",
+    "all_categories": "All subjects",
+    "all_years": "All years",
+    "show_more": "Show more",
+    "question": "Question to explore",
+    "announced": "Announcement date",
+    "directory_count": "{count} matching laureates and organisations · official snapshot {min}–{max} · reviewed {date}",
+    "directory_note": "The full list contains names and awards from the official registry. Twelve curated profiles have detailed descriptions in five languages; other names link to official biographies.",
+    "choose": "Selected profile"
   },
   "zh": {
     "title": "每日诺贝尔奖",
@@ -79,7 +91,19 @@
       "France": "法国",
       "United Kingdom": "英国",
       "now": "现为"
-    }
+    },
+    "award_people": "该奖项的全部获奖者",
+    "profiles": "浏览精选人物目录",
+    "directory": "完整官方获奖者名单",
+    "search": "搜索姓名",
+    "all_categories": "全部领域",
+    "all_years": "全部年份",
+    "show_more": "显示更多",
+    "question": "进一步思考",
+    "announced": "公布日期",
+    "directory_count": "匹配 {count} 位获奖者及组织 · 官方快照 {min}–{max} · 核对 {date}",
+    "directory_note": "完整名单来自官方奖项数据库。十二位精选人物有五语言详细介绍；其他姓名链接到官方生平页面。",
+    "choose": "选择人物"
   },
   "fi": {
     "title": "Päivän Nobel-palkinto",
@@ -127,7 +151,19 @@
       "France": "Ranska",
       "United Kingdom": "Britannia",
       "now": "nykyisin"
-    }
+    },
+    "award_people": "Tämän palkinnon kaikki saajat",
+    "profiles": "Selaa valittuja henkilökuvia",
+    "directory": "Virallinen palkittujen luettelo",
+    "search": "Hae nimellä",
+    "all_categories": "Kaikki alat",
+    "all_years": "Kaikki vuodet",
+    "show_more": "Näytä lisää",
+    "question": "Pohdittava kysymys",
+    "announced": "Julkistamispäivä",
+    "directory_count": "{count} palkittua tai järjestöä · virallinen otos {min}–{max} · tarkistettu {date}",
+    "directory_note": "Täydellinen luettelo sisältää virallisen rekisterin nimet ja palkinnot. Kahdellatoista valitulla henkilökuvalla on kuvaukset viidellä kielellä; muut nimet johtavat virallisiin elämäkertoihin.",
+    "choose": "Valitse henkilö"
   },
   "de": {
     "title": "Nobelpreis des Tages",
@@ -175,7 +211,19 @@
       "France": "Frankreich",
       "United Kingdom": "Vereinigtes Königreich",
       "now": "heute"
-    }
+    },
+    "award_people": "Alle Empfänger dieses Preises",
+    "profiles": "Ausgewählte Porträts durchsuchen",
+    "directory": "Vollständige offizielle Liste",
+    "search": "Name suchen",
+    "all_categories": "Alle Fachgebiete",
+    "all_years": "Alle Jahre",
+    "show_more": "Mehr anzeigen",
+    "question": "Frage zum Weiterdenken",
+    "announced": "Bekanntgabedatum",
+    "directory_count": "{count} Personen und Organisationen · offizieller Stand {min}–{max} · geprüft {date}",
+    "directory_note": "Die vollständige Liste enthält Namen und Preise aus dem offiziellen Register. Zwölf ausgewählte Porträts bieten Beschreibungen in fünf Sprachen; weitere Namen führen zu offiziellen Biografien.",
+    "choose": "Porträt wählen"
   },
   "ja": {
     "title": "今日のノーベル賞",
@@ -223,6 +271,18 @@
       "France": "フランス",
       "United Kingdom": "英国",
       "now": "現在"
-    }
+    },
+    "award_people": "この賞の全受賞者",
+    "profiles": "選定した人物紹介を探す",
+    "directory": "公式受賞者の全一覧",
+    "search": "名前を検索",
+    "all_categories": "すべての分野",
+    "all_years": "すべての年",
+    "show_more": "さらに表示",
+    "question": "考えてみよう",
+    "announced": "発表日",
+    "directory_count": "{count} 人・団体が一致 · 公式データ {min}–{max} · 確認 {date}",
+    "directory_note": "全一覧は公式データベースの名前と受賞情報を含みます。選定した12人は5言語の詳しい紹介があり、他の名前は公式の略歴にリンクします。",
+    "choose": "人物を選択"
   }
 }

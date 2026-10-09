@@ -432,3 +432,9 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .nc-independent-panel iframe{display:block;width:100%;height:900px;border:0;background:var(--zg-card)}
 .nc-panel-workspace input[name=panel-link]{width:100%;min-width:0}
 @media(max-width:1000px){.nc-panel-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Bounded, folded Nobel registry: only the visible page is mounted. */
+.zg-nobel select,.zg-nobel input{max-width:100%;padding:.45rem;border:1px solid var(--border);border-radius:6px;background:var(--theme);color:var(--primary);font:inherit}
+.zg-nobel-filters{display:flex;flex-wrap:wrap;gap:.7rem}.zg-nobel-filters label{display:flex;flex-direction:column;flex:1 1 170px;min-width:0}
+.zg-nobel-directory-list{padding-inline-start:1.7rem}.zg-nobel-directory-list li{margin:.7rem 0;overflow-wrap:anywhere}.zg-nobel-directory-list span{display:block;font-size:.85rem;color:var(--zg-muted)}
+.zg-nobel-recipients{padding-inline-start:1.3rem}.zg-nobel-recipients li{margin:.25rem 0;overflow-wrap:anywhere}
