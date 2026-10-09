@@ -19,3 +19,19 @@ def test_reviewed_facility_relationships_preserve_canonical_export():
   assert a['research_units'] and a['content_checked']=='2026-10-10'
   assert all(u['url'] in a['source_urls'] and u['purpose']['zh'] for u in a['research_units'])
  assert 'KISS' not in next(f for f in canonical if f['id']=='riken-ribf')['name']['en']
+
+
+def test_testsite_ribbon_honours_boolean_and_text_environment_values(tmp_path):
+ import os,shutil,subprocess
+ import pytest
+ hugo=shutil.which('hugo')
+ if not hugo:pytest.skip('Pinned Hugo not on PATH')
+ fixture=tmp_path/'ribbon';(fixture/'layouts/_partials/zg').mkdir(parents=True)
+ (fixture/'layouts/home.html').write_text('{{ partial "zg/fun.html" . }}')
+ (fixture/'layouts/_partials/zg/fun.html').write_bytes((ROOT/'layouts/_partials/zg/fun.html').read_bytes())
+ (fixture/'layouts/_partials/zg/glossary.html').write_text('')
+ for value,expected in [(False,False),('false',False),(True,True),('true',True)]:
+  (fixture/'hugo.json').write_text(json.dumps({'baseURL':'https://example.org/','params':{'testsite':value}}))
+  result=subprocess.run([hugo,'--source',str(fixture),'--destination',str(fixture/'public'),'--noBuildLock'],capture_output=True,text=True,env={**os.environ,'GOMAXPROCS':'1','GOMEMLIMIT':'96MiB'})
+  assert result.returncode==0,result.stderr
+  assert ('TEST SITE' in (fixture/'public/index.html').read_text())==expected
