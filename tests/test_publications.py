@@ -47,5 +47,6 @@ def test_hugo_numbering_and_independent_roles_in_all_languages(tmp_path):
         assert 'js/publication-search.js?v='+version in html
         assert len(p.papers)==102 and p.starts==['26']
         assert [int(x['value']) for x in p.papers if 'value' in x]==list(range(26,0,-1))
+        assert html.count('class="zg-author-role"') == (23 if lang=='zh' else 0)
         corresponding=Papers((base/'roles/index.html').read_text()).papers
         assert len(corresponding)==23 and all(x['data-corresponding']=='true' for x in corresponding)

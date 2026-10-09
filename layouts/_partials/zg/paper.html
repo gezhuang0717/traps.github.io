@@ -14,6 +14,6 @@
   {{ if $href }}<a class="zg-ref" href="{{ $href }}" target="_blank" rel="noopener">{{ $ref | safeHTML }}</a>{{ else }}<span class="zg-ref">{{ $ref | safeHTML }}</span>{{ end -}}
   {{- with $p.arxiv }} · <a class="zg-arxiv" href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener">arXiv:{{ . }}</a>{{ end -}}
   {{- with $p.note }} <span class="zg-note">— {{ . | markdownify }}</span>{{ end }}
-  {{- if $corresponding }} <span class="zg-author-role">· {{ i18n "zg_corresponding_author" }}</span>{{ end }}
+  {{- if and $corresponding (in (slice "zh" "zh-hans" "zh-cn") site.Language.Lang) }} <span class="zg-author-role">· {{ i18n "zg_corresponding_author" }}</span>{{ end }}
   {{ with $p.full_authors }}<details class="zg-full-authors"><summary>{{ i18n "zg_all_authors" }} ({{ len . }})</summary><p>{{ delimit . "; " }}{{ with $p.collaboration }} · {{ . }}{{ end }}</p>{{ with $p.authors_source }}<a href="{{ . }}" target="_blank" rel="noopener">{{ i18n "zg_author_source" }}</a>{{ end }}</details>{{ end }}
 </li>

@@ -394,7 +394,50 @@
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
   const palette=['#167d45','#b94e00','#0095a8','#7352bd','#96610b','#0d807b','#c54646','#525d76','#668100','#874d70','#566bba','#8b651f'];
-  const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'New',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'New + AME2020',color:'#b41c81',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
+  const labelStyles=new Map(),labelColors=['#b41c81','#008080','#d2691e','#6a5acd','#228b22','#dc143c','#4682b4'];
+  const markerPairs=[['diamond','square'],['triangle','down'],['circle','hexagon'],['star','diamond'],['hexagon','triangle'],['square','star']];
+  function labelStyle(labels=['New']){
+    const key=JSON.stringify(labels.length?labels:['New']);
+    if(!labelStyles.has(key)){const i=labelStyles.size,pair=markerPairs[i%markerPairs.length];labelStyles.set(key,{labels:labels.length?labels:['New'],color:labelColors[i%labelColors.length],loaded:pair[0],hybrid:pair[1]});}
+    return {key,...labelStyles.get(key)};
+  }
+  labelStyle();
+  const seriesMeta=(k,labels)=>{
+    if(['loaded','hybrid'].includes(k)){
+      const style=labelStyle(labels),name=style.labels.join(' / ')+(k==='hybrid'?' + AME2020':'');
+      return {id:k,key:k+':'+style.key,labelKey:style.key,name,short:name,color:style.color,shape:style[k],open:k==='hybrid'};
+    }
+    return k==='ame'?{id:k,key:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:{id:k,key:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
+  };
+  const inSeries=(p,s)=>p.styleKey===s.key;
+  const chainColor=group=>{const groups=plotPts.groups||[];return groups.length>1?'hsl('+groups.indexOf(group)/groups.length*300+',75%,45%)':'#3b5bdb';};
+  const pointColor=(p,s)=>s.id==='ame'?chainColor(p.g):s.color;
+  let markerSignature='';
+  function markerControls(){
+    const current=new Set();
+    for(const active of inputTable?.active.values()||[])if(!active.state.source_state_index)current.add(labelStyle(MM.labels(active.value,inputTable)).key);
+    for(const s of visibleSeries)if(s.labelKey)current.add(s.labelKey);
+    if(!current.size)current.add(labelStyle().key);
+    const entries=[...labelStyles].filter(([key])=>current.has(key)),signature=JSON.stringify(entries.map(([key])=>key));if(signature===markerSignature)return;markerSignature=signature;
+    root.querySelector('.nc-marker-rows').innerHTML=entries.map(([key,s])=>'<fieldset class="nc-marker-row" data-marker-key="'+escape(key)+'"><legend>'+escape(s.labels.join(' / '))+'</legend>'+['loaded','hybrid'].map(k=>'<label>'+escape(k==='loaded'?T.marker_new:T.marker_hybrid)+' <select data-marker-kind="'+k+'" aria-label="'+escape(s.labels.join(' / ')+' — '+(k==='loaded'?T.marker_new:T.marker_hybrid))+'">'+Object.keys(CP.markers).map(shape=>'<option value="'+shape+'"'+(s[k]===shape?' selected':'')+'>'+CP.markers[shape][k==='hybrid'?1:0]+' '+escape(T.marker_names[shape])+'</option>').join('')+'</select></label>').join('')+'<label>'+escape(T.marker_color)+' <select data-marker-kind="color" aria-label="'+escape(s.labels.join(' / ')+' — '+T.marker_color)+'">'+labelColors.map((color,i)=>'<option value="'+color+'"'+(s.color===color?' selected':'')+'>'+escape(T.marker_colors[i])+'</option>').join('')+'</select></label></fieldset>').join('');
+  }
+  root.querySelector('.nc-marker-rows').addEventListener('change',e=>{
+    const control=e.target.closest('[data-marker-kind]');if(!control)return;
+    const style=labelStyles.get(control.closest('[data-marker-key]').dataset.markerKey),kind=control.dataset.markerKind,old=style[kind];style[kind]=control.value;
+    const other=kind==='loaded'?'hybrid':'loaded',collision=kind!=='color'&&style[kind]===style[other];
+    if(collision){style[other]=old;markerSignature='';}
+    root.querySelector('.nc-marker-status').textContent=collision?T.marker_swap:'';plotChain();
+  });
+  const markerGlyph=s=>s.shape==='model'?'– –':CP.markers[s.shape][s.open?1:0];
+  const hasEstimated=s=>plotPts.concat(modPts).some(p=>inSeries(p,s)&&p.est);
+  const legendGlyph=s=>markerGlyph(s)+(s.id==='ame'?' ○#':s.id==='loaded'&&hasEstimated(s)?' '+CP.markers[s.shape][1]+'#':s.id==='hybrid'&&hasEstimated(s)?'#':'');
+  function seriesLegendLines(w){
+    const max=Math.max(12,Math.floor((w-120)/6.2)),out=[];
+    for(const s of visibleSeries.slice(0,16)){
+      const name=s.short.slice(0,160);for(let i=0;i<name.length;i+=max)out.push({style:s,first:i===0,text:name.slice(i,i+max)});
+    }
+    if(visibleSeries.length>16)out.push({text:T.marker_more.replace('{n}',visibleSeries.length-16)});return out;
+  }
   let inputLegend=[];
   function inputLegendLines(w){
     const max=Math.max(15,Math.floor((w-80)/6.2)),lines=[];
@@ -402,7 +445,7 @@
       const words=entry.text.slice(0,400).split(/\s+/);let line='';for(const word of words){if(line&&(line+' '+word).length>max){lines.push(line);line='';}if(word.length>max){if(line){lines.push(line);line='';}for(let i=0;i<word.length;i+=max)lines.push(word.slice(i,i+max));}else line=line?line+' '+word:word;}if(line)lines.push(line);
     }if(inputLegend.length>8)lines.push('+ '+(inputLegend.length-8)+' · '+T.loaded_details);return lines;
   }
-  const legendHeight=w=>16*(Math.ceil(visibleSeries.length/Math.max(1,Math.floor((w-80)/140)))+inputLegendLines(w).length);
+  const legendHeight=w=>16*(seriesLegendLines(w).length+inputLegendLines(w).length);
   const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc));
   function humanInputs(p){
     return MM.provenance(p.valueObj,inputTable).map(x=>{
@@ -492,6 +535,7 @@
     const inX=(z,n)=>(xlo==null||xv(z,n)>=xlo)&&(xhi==null||xv(z,n)<=xhi);
     const advanced=shown<=6,filter=chainInput('exp-filter').value,maxSigma=axisNumber('max-sigma');
     const hasNewGround=!!inputTable&&[...inputTable.active.values()].some(r=>!r.state.source_state_index);
+    [...inputTable?.active.values()||[]].filter(r=>!r.state.source_state_index).map(r=>MM.labels(r.value,inputTable)).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))).forEach(labels=>labelStyle(labels));
     for(const s of ['loaded','hybrid']){
       const control=root.querySelector('[data-series='+s+']');
       control.disabled=!hasNewGround;
@@ -507,7 +551,10 @@
     };
     const makePoint=(r,s)=>{
       const v=q[1](derivedZN(r[0],r[1],s==='loaded'?'hybrid':s),r);if(!v||!Number.isFinite(v.v)||!passPoint(r,v,s))return null;
-      return {r,x:xv(r[0],r[1]),y:v.v/1000,e:v.e==null?null:v.e/1000,est:!!v.est,g:group(r[0],r[1]),series:s,source:seriesMeta(s).name,valueObj:v};
+      const primitiveValue=pq.value==='dme'?derivedZN(r[0],r[1],s==='loaded'?'hybrid':s).me:v,composition=CP.composition(primitiveValue);
+      if(s==='hybrid'&&!composition.mixed||s==='loaded'&&!composition.experimental.length)return null;
+      const labels=['loaded','hybrid'].includes(s)?MM.labels(primitiveValue,inputTable):[],style=seriesMeta(s,labels);
+      return {r,x:xv(r[0],r[1]),y:v.v/1000,e:v.e==null?null:v.e/1000,est:!!v.est,g:group(r[0],r[1]),series:s,styleKey:style.key,labels,source:style.name,valueObj:v};
     };
     plotPts=[];modPts=[];residualPts=[];bands=[];plotHover=null;pointDetail(null);
     const centres=new Map(rows.filter(r=>belongs(r[0],r[1])).map(r=>[key(r[0],r[1]),r]));
@@ -533,10 +580,12 @@
     }
     const sort=(a,b)=>a.series.localeCompare(b.series)||a.g-b.g||a.x-b.x;plotPts.sort(sort);modPts.sort(sort);
     plotPts.groups=[...new Set(plotPts.concat(modPts).map(p=>p.g))];
-    visibleSeries=[...new Set(plotPts.concat(modPts).map(p=>p.series))].map(seriesMeta);
-    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'">'+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>p.series===s.id).length+')</span>').join('');
+    const seriesRank=s=>s.id==='ame'?0:s.id==='loaded'?1:s.id==='hybrid'?2:3;
+    visibleSeries=[...new Map(plotPts.concat(modPts).map(p=>[p.styleKey,seriesMeta(p.series,p.labels)])).values()].sort((a,b)=>seriesRank(a)-seriesRank(b)||a.name.localeCompare(b.name));
+    markerControls();
+    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
     inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys(p.valueObj.terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
-    root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>'◆ '+x.text).join(' · ');
+    root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>x.text).join(' · ');
     if(chainInput('band').checked){
       const b=new Map();for(const p of modPts){const k=p.g+':'+p.x;if(!b.has(k))b.set(k,[]);b.get(k).push(p);}
       bands=[...b.values()].filter(ps=>ps.length>=2).map(ps=>({g:ps[0].g,x:ps[0].x,lo:Math.min(...ps.map(p=>p.y)),hi:Math.max(...ps.map(p=>p.y)),count:ps.length})).sort((a,b)=>a.g-b.g||a.x-b.x);
@@ -575,18 +624,18 @@
     MAGIC.forEach(m => { if (m > x0 && m < x1) { c.beginPath(); c.moveTo(px(m), Tp); c.lineTo(px(m), Hd - B); c.stroke(); } }); c.setLineDash([]);
     c.save(); c.beginPath(); c.rect(L,Tp,Wd-L-R,Hd-B-Tp); c.clip();
     const groups=plotPts.groups||[],multi=groups.length>1;
-    const gcol=k=>multi?'hsl('+groups.indexOf(k)/groups.length*300+',75%,45%)':'#3b5bdb';
+    const gcol=chainColor;
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     if(bands.length){
       c.fillStyle='rgba(30,135,95,.17)';
       bands.forEach(b=>c.fillRect(px(b.x)-2*sc,py(b.hi),4*sc,Math.max(sc,py(b.lo)-py(b.hi))));
       for(let i=1;i<bands.length;i++){const a=bands[i-1],b=bands[i];if(a.g!==b.g||b.x-a.x!==1)continue;c.beginPath();c.moveTo(px(a.x),py(a.lo));c.lineTo(px(a.x),py(a.hi));c.lineTo(px(b.x),py(b.hi));c.lineTo(px(b.x),py(b.lo));c.closePath();c.fill();}
     }
-    // Draw recalculation first: coincident unchanged AME lines retain their blue colour.
+    // Mixed calculations first, then the reference and new input centres.
     const paintOrder=visibleSeries.slice().sort((a,b)=>(a.id==='loaded'?2:a.id==='ame'?1:0)-(b.id==='loaded'?2:b.id==='ame'?1:0));
     for(const s of paintOrder)for(const group of groups){
-      const ps=plotPts.concat(modPts).filter(p=>p.series===s.id&&p.g===group);if(!ps.length)continue;
-      const col=s.id==='ame'&&multi?gcol(group):s.color;
+      const ps=plotPts.concat(modPts).filter(p=>inSeries(p,s)&&p.g===group);if(!ps.length)continue;
+      const col=pointColor(ps[0],s);
       c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lineWidth()*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       for(const p of ps){
@@ -594,21 +643,18 @@
         const xx=px(p.x),yy=py(p.y),color=col;c.strokeStyle=color;c.fillStyle=color;
         if(p.y<y0||p.y>y1){const y=geom.clampY(p.y),sign=p.y>y1?1:-1;c.beginPath();c.moveTo(xx,y);c.lineTo(xx-4*sc,y+sign*7*sc);c.lineTo(xx+4*sc,y+sign*7*sc);c.closePath();c.fill();continue;}
         if(showErr&&p.e>0){c.beginPath();c.moveTo(xx,py(p.y-p.e));c.lineTo(xx,py(p.y+p.e));for(const ey of [p.y-p.e,p.y+p.e]){c.moveTo(xx-3*sc,py(ey));c.lineTo(xx+3*sc,py(ey));}c.stroke();}
-        const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*sc;c.beginPath();
-        if(s.shape==='diamond'){c.moveTo(xx,yy-radius-1*sc);c.lineTo(xx+radius+1*sc,yy);c.lineTo(xx,yy+radius+1*sc);c.lineTo(xx-radius-1*sc,yy);c.closePath();}
-        else if(s.shape==='square')c.rect(xx-radius,yy-radius,radius*2,radius*2);
-        else c.arc(xx,yy,radius,0,6.283);
-        // Recalculated squares outline the reference rather than painting over it.
-        if(s.id==='hybrid')c.stroke();
-        else if(p.est){c.fillStyle=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';c.fill();c.stroke();}else c.fill();
+        const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*sc;
+        const background=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';
+        CP.paintMarker(c,s.shape,xx,yy,radius,color,p.est||s.open,background);
         if(chainInput('reference-ring').checked&&chain&&p.r[0]===chain[0]&&p.r[1]===chain[1]){c.strokeStyle='#e5484d';c.lineWidth=1.5*sc;c.beginPath();c.arc(xx,yy,7*sc,0,6.283);c.stroke();}
       }
     }
     c.restore();
     if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=10*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
-    const columns=Math.max(1,Math.floor((Wd/sc-80)/140));c.textAlign='left';c.font=10.5*sc+'px system-ui';
-    visibleSeries.forEach((s,i)=>{const x=L+(i%columns)*140*sc,y=12*sc+Math.floor(i/columns)*16*sc;c.fillStyle=s.color;c.fillText(s.shape==='diamond'?'◆':s.shape==='square'?'□':s.shape==='model'?'– –':'●○',x,y);c.fillStyle=sc>1?'#222':ink;c.fillText(s.short,x+(s.id==='ame'?23:16)*sc,y);});
-    c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(12+16*Math.ceil(visibleSeries.length/columns)+i*16)*sc));
+    c.textAlign='left';c.font=10.5*sc+'px system-ui';
+    const legendLines=seriesLegendLines(Wd/sc);
+    legendLines.forEach((line,i)=>{const y=(12+i*16)*sc;if(line.first){c.fillStyle=line.style.color;c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
+    c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(12+16*(legendLines.length+i))*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
       c.fillStyle=ink;c.textAlign='left';c.font='12px system-ui';
@@ -642,9 +688,9 @@
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
-      const ps=residualPts.filter(p=>p.series===s.id&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:[]);
+      const ps=residualPts.filter(p=>inSeries(p,s)&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:s.id==='hybrid'?[2,3]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
-      ps.forEach(p=>{const x=px(p.x),y=py(p.y);c.beginPath();if(s.shape==='square')c.rect(x-2.5,y-2.5,5,5);else if(s.shape==='diamond'){c.moveTo(x,y-3.5);c.lineTo(x+3.5,y);c.lineTo(x,y+3.5);c.lineTo(x-3.5,y);c.closePath();}else c.arc(x,y,2.5,0,6.283);c.fillStyle=p.est?(exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff'):s.color;if(s.id==='hybrid')c.stroke();else{c.fill();if(p.est)c.stroke();}if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
+      ps.forEach(p=>{const x=px(p.x),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
     c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
@@ -746,8 +792,8 @@
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
-    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1'],
-      points.map(p=>[p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'']),'chain-'+pq.value);
+    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color'],
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s)];}),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */

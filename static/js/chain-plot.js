@@ -52,7 +52,33 @@
     const s=Math.min(width/(maxN+3),height/(maxZ+3));
     return {s,x:(width-(maxN+1)*s)/2,y:(height-(maxZ+1)*s)/2};
   }
-  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit };
+  // Count only surviving algebraic primitives; cancelled inputs are not sources.
+  function composition(value) {
+    const ids=Object.entries(value?.terms||{}).filter(([,t])=>finite(t.c)&&Math.abs(t.c)>=1e-14).map(([id])=>id);
+    const experimental=ids.filter(id=>id.startsWith('loaded:'));
+    // Fixed n, 1H and alpha reference masses do not make an otherwise fully
+    // new nuclide stencil mixed. They remain present in values/uncertainties.
+    const references=new Set(['AME2020:1','AME2020:1000','AME2020:2002']);
+    const ame=ids.filter(id=>id.startsWith('AME2020:')&&!references.has(id));
+    return {experimental,ame,mixed:experimental.length>0&&ame.length>0};
+  }
+  const markers=Object.freeze({circle:['●','○'],diamond:['◆','◇'],square:['■','□'],triangle:['▲','△'],down:['▼','▽'],hexagon:['⬢','⬡'],star:['★','☆']});
+  function markerPath(c,shape,x,y,r){
+    c.beginPath();
+    if(shape==='circle'||shape==='model'){c.arc(x,y,r,0,Math.PI*2);return;}
+    if(shape==='square'){c.rect(x-r,y-r,2*r,2*r);return;}
+    const count=shape==='diamond'?4:shape==='hexagon'?6:shape==='star'?10:3;
+    const angle=shape==='down'?Math.PI/2:-Math.PI/2;
+    for(let i=0;i<count;i++){
+      const radius=shape==='star'&&i%2?r*.45:r*1.25,a=angle+i*2*Math.PI/count;
+      const xx=x+radius*Math.cos(a),yy=y+radius*Math.sin(a);
+      if(i)c.lineTo(xx,yy);else c.moveTo(xx,yy);
+    }c.closePath();
+  }
+  function paintMarker(c,shape,x,y,r,color,open=false,background='#fff'){
+    markerPath(c,shape,x,y,r);c.fillStyle=open?background:color;c.strokeStyle=color;c.fill();c.stroke();
+  }
+  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit, composition, markers, markerPath, paintMarker };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -87,9 +87,10 @@
     <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p class="zg-small">{{ $t.loaded_select_hint }}</p></details>
     <div class="nc-series-choices">
       <div class="nc-series-option"><label><input type="checkbox" data-series="ame" aria-describedby="nc-ame-hint" checked><span>● ○# AME2020</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-ame-hint">{{ $t.loaded_ame_hint }}</p></details></div>
-      <div class="nc-series-option"><label><input type="checkbox" data-series="loaded" aria-describedby="nc-new-hint"><span>◆ {{ $t.loaded_only }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-new-hint">{{ $t.loaded_new_hint }}</p></details></div>
-      <div class="nc-series-option"><label><input type="checkbox" data-series="hybrid" aria-describedby="nc-hybrid-hint"><span>□ {{ $t.loaded_hybrid }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-hybrid-hint">{{ $t.loaded_hybrid_hint }}</p></details></div>
+      <div class="nc-series-option"><label><input type="checkbox" data-series="loaded" aria-describedby="nc-new-hint"><span>{{ $t.loaded_only }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-new-hint">{{ $t.loaded_new_hint }}</p></details></div>
+      <div class="nc-series-option"><label><input type="checkbox" data-series="hybrid" aria-describedby="nc-hybrid-hint"><span>{{ $t.loaded_hybrid }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-hybrid-hint">{{ $t.loaded_hybrid_hint }}</p></details></div>
     </div>
+    <details class="nc-marker-settings"><summary>{{ $t.marker_title }}</summary><p class="zg-small">{{ $t.marker_hint }}</p><div class="nc-marker-rows"></div><p class="nc-marker-status zg-small" role="status"></p></details>
     <details><summary>{{ $t.loaded_models }}</summary><p class="zg-small">{{ $t.loaded_models_hint }}</p><div class="nc-bar"><button type="button" class="zg-btn zg-btn-ghost" data-model-all>{{ $t.loaded_all }}</button><button type="button" class="zg-btn zg-btn-ghost" data-model-none>{{ $t.loaded_none }}</button></div><div class="nc-model-series"></div><p class="nc-model-error zg-small" role="status"></p></details>
     <p><strong>{{ $t.loaded_overlay_title }}</strong></p>
     <div class="nc-series-choices">
@@ -126,8 +127,8 @@
 </section>
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}?v=state-links-2"></script>
-<script defer src="{{ "js/chain-plot.js" | relURL }}"></script>
+<script defer src="{{ "js/chain-plot.js" | relURL }}?v={{ readFile "static/js/chain-plot.js" | sha256 }}"></script>
 <script defer src="{{ "js/mass-surface.js" | relURL }}"></script>
-<script defer src="{{ "js/measured-masses.js" | relURL }}"></script>
+<script defer src="{{ "js/measured-masses.js" | relURL }}?v={{ readFile "static/js/measured-masses.js" | sha256 }}"></script>
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>

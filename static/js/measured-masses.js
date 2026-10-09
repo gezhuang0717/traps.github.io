@@ -64,6 +64,15 @@
   }
   function getter(table,base){return (z,n)=>table.active.get(`${z}-${n}-0`)?.value||base(z,n);}
   const affected=(v,id)=>!!v&&Object.keys(v.terms||{}).some(k=>k.startsWith(id?'loaded:'+id+':':'loaded:'));
+  function labels(value,table){
+    const names=[];
+    for(const [id,t] of Object.entries(value?.terms||{})){
+      if(!id.startsWith('loaded:')||!Number.isFinite(t.c)||Math.abs(t.c)<1e-14)continue;
+      const active=table?.active.get(id.split(':')[1]);
+      for(const row of active?.rows||[])names.push(String(table.raw[row-1].label||'').trim()||'New');
+    }
+    return [...new Set(names)].sort((a,b)=>a.localeCompare(b));
+  }
   function provenance(value,table){
     return Object.entries(value?.terms||{}).map(([id,t])=>{
       const loaded=id.startsWith('loaded:')?table.active.get(id.split(':')[1]):null;
@@ -100,6 +109,6 @@
     const quote=x=>'"'+String(x??'').replace(/"/g,'""')+'"';
     return [fields,...raw.map(r=>fields.map(f=>f==='uncertainty'?(r.uncertainty??r.sigma??''):(r[f]??'')))].map(r=>r.map(quote).join(',')).join('\n');
   }
-  const api={MAX_ROWS,MAX_TEXT,fields,stateFor,normalize,build,getter,affected,provenance,parse,csv};
+  const api={MAX_ROWS,MAX_TEXT,fields,stateFor,normalize,build,getter,affected,labels,provenance,parse,csv};
   host.ZGMeasuredMasses=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

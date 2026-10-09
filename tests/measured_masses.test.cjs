@@ -1,5 +1,6 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
 const P=require('../static/js/physics.js'),MM=require('../static/js/measured-masses.js'),S=require('../static/js/mass-surface.js');
+const CP=require('../static/js/chain-plot.js');
 const data=JSON.parse(fs.readFileSync('static/data/nuclear-states.json')),ame=JSON.parse(fs.readFileSync('static/data/ame2020.json'));
 const catalog=P.catalogue(data,ame),rows=JSON.parse(fs.readFileSync('static/data/nubase2020.json')).rows;
 const map=new Map(rows.map(r=>[r[0]*1000+r[1],r]));
@@ -36,6 +37,38 @@ test('10-keV replacement propagates through neighbours with hand-computed signs'
  assert.deepEqual(b(70,'s2n'),a(70,'s2n'));assert.equal(MM.affected(b(68,'s2n')),true);assert.equal(MM.affected(b(70,'s2n')),false);
  const residual=P.combine([1,b(68,'s2n')],[-1,a(68,'s2n')]);near(residual.e,Math.hypot(1,base(50,66).e));
  assert.ok(MM.provenance(b(68,'s2n'),table).some(x=>x.rows[0]===1));
+});
+
+test('mixed chain points require surviving new and AME nuclide masses',()=>{
+ const single=MM.build([row('116Sn',base(50,66).v+10)],catalog),s=surface(single);
+ assert.equal(CP.composition(s.derive(50,66,'hybrid').me).mixed,false);
+ assert.equal(CP.composition(s.derive(50,66,'hybrid').BE).mixed,false);
+ assert.equal(CP.composition(s.derive(50,66,'hybrid').s2n).mixed,true);
+ assert.equal(CP.composition(s.derive(50,68,'hybrid').s2n).mixed,true);
+ assert.equal(CP.composition(s.derive(50,70,'hybrid').s2n).mixed,false);
+ const both=MM.build([row('114Sn',base(50,64).v+5),row('116Sn',base(50,66).v+10)],catalog),b=surface(both);
+ assert.equal(CP.composition(b.derive(50,66,'hybrid').s2n).mixed,false,'fixed neutron mass must not invent an AME neighbour');
+ const cancelled=P.combine([1,single.active.get('50-66-0').value],[-1,single.active.get('50-66-0').value],[1,base(50,66)]);
+ assert.equal(CP.composition(cancelled).mixed,false);
+});
+
+test('legend labels follow active duplicate policy and all surviving inputs',()=>{
+ const raw=[row('114Sn',base(50,64).v+5,1,{label:'JYFLTRAP'}),row('116Sn',base(50,66).v+10,1,{label:'RIKEN MR-TOF'}),row('116Sn',base(50,66).v+12,1,{label:'JYFLTRAP'})];
+ const last=MM.build(raw,catalog),w=MM.build(raw,catalog,'weighted');
+ assert.deepEqual(MM.labels(last.active.get('50-66-0').value,last),['JYFLTRAP']);
+ assert.deepEqual(MM.labels(w.active.get('50-66-0').value,w),['JYFLTRAP','RIKEN MR-TOF']);
+ assert.deepEqual(MM.labels(surface(w).derive(50,66,'hybrid').s2n,w),['JYFLTRAP','RIKEN MR-TOF']);
+ assert.deepEqual(MM.labels(MM.build([row('116Sn',1,1,{label:'  '})],catalog).active.get('50-66-0').value,MM.build([row('116Sn',1,1,{label:'  '})],catalog)),['New']);
+});
+
+test('every selectable marker has an opaque open centre and coloured outline for # points',()=>{
+ for(const shape of Object.keys(CP.markers)){
+  const fills=[],strokes=[];
+  const context={beginPath(){},arc(){},rect(){},moveTo(){},lineTo(){},closePath(){},fill(){fills.push(this.fillStyle);},stroke(){strokes.push(this.strokeStyle);}};
+  CP.paintMarker(context,shape,10,20,4,'#008080',true,'#ffffff');
+  assert.deepEqual(fills,['#ffffff'],shape);assert.deepEqual(strokes,['#008080'],shape);
+  CP.paintMarker(context,shape,10,20,4,'#008080',false,'#ffffff');assert.equal(fills.at(-1),'#008080',shape);
+ }
 });
 test('isomer changes excitation only; every ground-state output stays identical',()=>{
  const table=MM.build([row('116mSn',base(50,66).v+1000)],catalog),s=surface(table);
