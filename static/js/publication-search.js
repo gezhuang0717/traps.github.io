@@ -12,9 +12,11 @@
     const root = doc.querySelector('[data-pub-search]');
     if (!root) return;
     const controls = Object.fromEntries(['query', 'year', 'role', 'topic'].map(key => [key, root.querySelector(`[name=pub-${key}]`)]));
+    const topicLabels = Object.fromEntries([...controls.topic.options].map(option => [option.value, option.textContent]));
     const papers = [...doc.querySelectorAll('.zg-paper')];
     const records = papers.map(e => ({e, text: normalize(e.textContent + ' ' + (e.dataset.authors || '')
-      + ' ' + [...e.querySelectorAll('a')].map(a => a.href).join(' ') + ' ' + e.dataset.themes)}));
+      + ' ' + [...e.querySelectorAll('a')].map(a => a.href).join(' ') + ' ' + e.dataset.themes
+      + ' ' + (e.dataset.themes || '').split(/\s+/).filter(Boolean).map(topic => topicLabels[topic] || '').join(' '))}));
     const sections = [...doc.querySelectorAll('[data-pub-section]')];
     function render() {
       const filter = {words: normalize(controls.query.value).trim().split(/\s+/).filter(Boolean),

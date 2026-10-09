@@ -13,6 +13,7 @@ test('filter and reset update descending numbers, section counts, empty headings
   const element=(dataset={})=>({dataset,hidden:false,attrs:{},listeners:{},setAttribute(k,v){this.attrs[k]=v;},addEventListener(k,v){this.listeners[k]=v;}});
   const papers=Array.from({length:24},(_,i)=>({...element({year:i<2?'2026':'2025',role:'first',position:'1',corresponding:'true',themes:'neutrino'}),textContent:'Ge test '+i,querySelectorAll:()=>[]}));
   const controls=Object.fromEntries(['query','year','role','topic'].map(k=>[k,{value:'',focus(){this.focused=true;}}]));
+  controls.topic.options=[{value:'',textContent:'All topics'},{value:'neutrino',textContent:'中微子'}];
   const count=element(),empty=element(),reset=element(),heading={tagName:'H2'},sectionCount={dataset:{total:'24'}},year={nextElementSibling:{querySelectorAll:()=>papers}};
   const list={...element(),querySelectorAll:()=>papers};
   const section={...element(),previousElementSibling:heading,querySelector:()=>sectionCount,querySelectorAll:()=>papers};
@@ -20,6 +21,7 @@ test('filter and reset update descending numbers, section counts, empty headings
   const doc={querySelector:()=>root,querySelectorAll:s=>({'.zg-paper':papers,'[data-pub-section]':[section],'ol.zg-papers':[list],'.zg-year':[year]})[s]};
   mount(doc);
   assert.equal(list.attrs.start,'24');assert.equal(papers[0].attrs.value,'24');assert.equal(papers[23].attrs.value,'1');
+  controls.query.value='中微子';root.listeners.input();assert.equal(count.textContent,'24 / 24 records');controls.query.value='';
   controls.year.value='2026';root.listeners.change();
   assert.equal(count.textContent,'2 / 24 records');assert.equal(sectionCount.textContent,'2 / 24 records');assert.equal(papers[0].attrs.value,'2');assert.equal(papers[1].attrs.value,'1');
   controls.query.value='no-such-paper';root.listeners.input();
