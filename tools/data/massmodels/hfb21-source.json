@@ -1,0 +1,32 @@
+{
+  "name": "HFB-21 (BSk21)",
+  "url": "https://doi.org/10.1103/PhysRevC.82.035804",
+  "table_url": "https://www.astro.ulb.ac.be/bruslib/nucdata/hfb21-dat",
+  "ref": "S. Goriely, N. Chamel, J.M. Pearson, Phys. Rev. C 82, 035804 (2010)",
+  "doi": "10.1103/PhysRevC.82.035804",
+  "raw_sha256": "9060800adddf2133b0331f959f0fb8de243bf1bb361dcd78470ba98534447361",
+  "normalized_sha256": "01ccef655fb4be23b393961ddc77783aec35e51343bb40ad6c9fe580616266a6",
+  "rows": 8387,
+  "first": [
+    8,
+    16,
+    -2.62,
+    0.0
+  ],
+  "last": [
+    110,
+    360,
+    562.38,
+    0.07
+  ],
+  "mass_precision_keV": 10,
+  "beta2_precision": 0.01,
+  "uncertainty": null,
+  "validation": {
+    "neutron_separation_checks": 8283,
+    "maximum_difference_MeV": 0.011318100000033748,
+    "tolerance_MeV": 0.016
+  },
+  "reuse": "attributed numerical facts from public author-hosted table; raw table and webpage not redistributed",
+  "note": "Mcal is atomic mass excess, not full atomic mass. Err/Mexp-Mcal is an experimental residual, never model sigma. BSkG3 web page count/range is older than this hashed table; actual parsed coverage retained."
+}

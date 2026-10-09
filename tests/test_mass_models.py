@@ -6,14 +6,16 @@ ROOT=Path(__file__).resolve().parents[1]
 def test_model_index_and_payload_identity():
     all_data=json.loads((ROOT/'static/data/massmodels.json').read_text())
     index=json.loads((ROOT/'static/data/massmodels-index.json').read_text())
-    assert len(index['models'])==7
+    assert set(index['models'])=={'frdm1995','frdm2012','hfb17','hfbd1m','hfb14','hfb24','bskg3','hfb21','hfb25','hfb26','hfb27'}
     for key,meta in index['models'].items():
-        model=json.loads((ROOT/'static/data'/meta['data_url']).read_text())
+        payload=(ROOT/'static/data'/meta['data_url']).read_bytes()
+        assert hashlib.sha256(payload).hexdigest()==meta['payload_sha256']
+        model=json.loads(payload)
         assert model==all_data['models'][key]
         assert len(model['rows'])==meta['row_count']
         assert model['uncertainty'] is None
         assert len({tuple(row[:2]) for row in model['rows']})==len(model['rows'])
-    for key,count in [('hfb14',8388),('hfb24',8392),('bskg3',8485)]:
+    for key,count in [('hfb14',8388),('hfb24',8392),('bskg3',8485),('hfb21',8387),('hfb25',9484),('hfb26',9511),('hfb27',8386)]:
         meta=index['models'][key]['source']
         data=ROOT/f'tools/data/massmodels/{key}.txt'
         assert hashlib.sha256(data.read_bytes()).hexdigest()==meta['normalized_sha256']

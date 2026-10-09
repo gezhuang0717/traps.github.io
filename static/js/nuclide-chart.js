@@ -210,7 +210,11 @@
     indexLoading=fetch(root.dataset.models).then(r=>{if(!r.ok)throw new Error('Model index');return r.json();}).then(d=>{
       modelIndex=d.models;PATHS=d.paths;
       msel.innerHTML='<option value="ame">AME2020</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
-      root.querySelector('.nc-model-series').innerHTML=Object.entries(modelIndex).map(([k,m])=>'<label><input type="checkbox" data-model-series="'+escape(k)+'"> '+escape(m.name)+' <a href="'+escape(m.url)+'" target="_blank" rel="noopener">↗</a></label>').join('');
+      root.querySelector('.nc-model-series').innerHTML=Object.entries(modelIndex).map(([k,m])=>{
+        const table=m.source?.table_url||m.source?.url||new URL(m.data_url,new URL(root.dataset.models,location.href)).href;
+        const paper=m.source?.doi?'https://doi.org/'+m.source.doi:m.url;
+        return '<div class="nc-model-item"><label><input type="checkbox" data-model-series="'+escape(k)+'"> '+escape(m.name)+'</label><small><a href="'+escape(table)+'" target="_blank" rel="noopener">'+escape(T.loaded_data_link)+'</a> · <a href="'+escape(paper)+'" target="_blank" rel="noopener">'+escape(T.loaded_paper_link)+'</a></small></div>';
+      }).join('');
       root.querySelector('[name=nc-impact-model]').innerHTML='<option value="selected">'+escape(T.loaded_selected_models)+'</option><option value="all">'+escape(T.loaded_all)+'</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
       return d;
     }).catch(e=>{indexLoading=null;throw e;});
@@ -222,7 +226,8 @@
       if(MOD[k])return MOD[k];
       if(modelLoads.has(k))return modelLoads.get(k);
       const m=modelIndex[k];if(!m)throw new Error('Unknown model');
-      const promise=fetch(new URL(m.data_url,new URL(root.dataset.models,location.href))).then(r=>{if(!r.ok)throw new Error('Model data');return r.json();}).then(d=>{
+      const dataURL=new URL(m.data_url,new URL(root.dataset.models,location.href));if(m.payload_sha256)dataURL.searchParams.set('v',m.payload_sha256);
+      const promise=fetch(dataURL).then(r=>{if(!r.ok)throw new Error('Model data');return r.json();}).then(d=>{
         const map=new Map();d.rows.forEach(([z,n,me,b])=>map.set(key(z,n),[me,b]));
         MOD[k]={...m,map};modelErrors.delete(k);memo.clear();dripCache.clear();return MOD[k];
       }).catch(e=>{modelLoads.delete(k);modelErrors.add(k);throw e;});
@@ -339,13 +344,13 @@
     const hintId = "nc-state-" + r[2] + (r[0] + r[1]);
     panel.innerHTML = `
       <h4>${T.state_heading}</h4>
-      <p class="nc-state-help">${T.state_intro}</p>
+      <details class="nc-explanation"><summary>${T.loaded_hint_toggle}</summary><p class="nc-state-help">${T.state_intro}</p></details>
       <label>${T.state_search}<input type="search" class="nc-state-search" aria-describedby="${hintId}-search"></label>
-      <small class="nc-state-help" id="${hintId}-search">${T.state_search_hint}</small>
+      <details class="nc-explanation"><summary>${T.loaded_hint_toggle} · ${T.state_search}</summary><p class="nc-state-help" id="${hintId}-search">${T.state_search_hint}</p></details>
       <label>${T.state_class}<select class="nc-state-kind" aria-describedby="${hintId}-class">
         <option value="isomer">${T.state_isomers}</option><option value="all">${T.state_all}</option><option value="unclassified">${T.state_pending}</option>
       </select></label>
-      <small class="nc-state-help" id="${hintId}-class">${T.state_class_hint}</small>
+      <details class="nc-explanation"><summary>${T.loaded_hint_toggle} · ${T.state_class}</summary><p class="nc-state-help" id="${hintId}-class">${T.state_class_hint}</p></details>
       <details class="zg-control-help"><summary>${T.state_help_title}</summary><p>${T.state_definitions}</p><p>${T.state_values_hint}</p></details>
       <button type="button" class="zg-btn zg-btn-ghost nc-state-reset">${T.state_reset}</button>
       <p class="nc-state-status" role="status"></p><div class="nc-state-buttons"></div><div class="nc-state-data" aria-live="polite"></div>`;
@@ -377,7 +382,7 @@
 
   /* ---------- chain plot with error bars ---------- */
   const PQ = {
-    me: [T.m_me, d => d.me, "MeV"], bea: [T.m_bea, d => d.BEA, "MeV"], sn: ["Sₙ", d => d.sn, "MeV"], s2n: ["S₂ₙ", d => d.s2n, "MeV"],
+    me: [T.m_me, d => d.me, "MeV"], bea: [T.m_bea, d => d.BEA, "MeV/nucleon"], sn: ["Sₙ", d => d.sn, "MeV"], s2n: ["S₂ₙ", d => d.s2n, "MeV"],
     sp: ["Sₚ", d => d.sp, "MeV"], s2p: ["S₂ₚ", d => d.s2p, "MeV"], qbm: ["Q(β⁻)", d => d.qbm, "MeV"], qec: ["Q(EC)", d => d.qec, "MeV"],
     qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, (d, r) => d.me?.e == null ? null : { v: d.me.e * 1000, e: 0, est: d.me.est }, "keV"],
     hl: ["log₁₀(T½ / s)", (d, r) => r[6] > -90 && r[6] !== 99 ? { v: r[6] * 1000, e: 0, est: false } : null, ""],
@@ -389,7 +394,7 @@
   };
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
-  const palette=['#167d45','#b94e00','#a62888','#287daa','#7352bd','#96610b','#0d807b','#c54646','#525d76'];
+  const palette=['#167d45','#b94e00','#0095a8','#7352bd','#96610b','#0d807b','#c54646','#525d76','#668100','#874d70','#566bba'];
   const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'New',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'New + AME2020',color:'#b41c81',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
   let inputLegend=[];
   function inputLegendLines(w){
@@ -417,7 +422,7 @@
   function pointTable(){
     const d=root.querySelector('.nc-point-table');if(!d.open||!plotDomain)return;
     const ps=plotPts.concat(modPts).filter(p=>p.x>=plotDomain.x0&&p.x<=plotDomain.x1).slice(0,300);
-    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>Source / inputs</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
+    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>Source / inputs</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
   }
   root.querySelector('.nc-point-table').addEventListener('toggle',pointTable);
   const impact=root.querySelector('.nc-impact'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
@@ -474,6 +479,12 @@
     const belongs=(z,n)=>group(z,n)>=first&&group(z,n)<first+shown;
     const inX=(z,n)=>(xlo==null||xv(z,n)>=xlo)&&(xhi==null||xv(z,n)<=xhi);
     const advanced=shown<=6,filter=chainInput('exp-filter').value,maxSigma=axisNumber('max-sigma');
+    const hasNewGround=!!inputTable&&[...inputTable.active.values()].some(r=>!r.state.source_state_index);
+    for(const s of ['loaded','hybrid']){
+      const control=root.querySelector('[data-series='+s+']');
+      control.disabled=!hasNewGround;
+      control.parentElement.title=hasNewGround?'':T.loaded_requires_ground;
+    }
     const passPoint=(r,v,source)=>{
       const [z,n]=r,ame=get(z,n),mass=source==='loaded'||source==='hybrid'?getter('hybrid')(z,n):ame;
       if(filter==='measured'&&(!ame||ame.est))return false;
@@ -490,7 +501,7 @@
     const centres=new Map(rows.filter(r=>belongs(r[0],r[1])).map(r=>[key(r[0],r[1]),r]));
     for(const r of inputTable?.active.values()||[])if(!r.state.source_state_index&&belongs(r.state.Z,r.state.N)&&!centres.has(key(r.state.Z,r.state.N)))centres.set(key(r.state.Z,r.state.N),[r.state.Z,r.state.N,r.state.element,null,null,0,-97,'—','',null,'',[]]);
     for(const s of ['ame','loaded','hybrid']){
-      if(!root.querySelector('[data-series='+s+']').checked||s!=='ame'&&!advanced)continue;
+      if(!root.querySelector('[data-series='+s+']').checked||s!=='ame'&&(!advanced||!hasNewGround))continue;
       if(s!=='ame'&&['hl','beta2','dmod'].includes(pq.value))continue;
       for(const r of centres.values()){
         if(!inX(r[0],r[1])||s==='loaded'&&!inputTable?.active.has(r[0]+'-'+r[1]+'-0'))continue;
@@ -522,7 +533,7 @@
       for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
-        residualPts.push({...p,y:d.v,e:model?a.e:d.e,valueObj:d,unit:'keV',panel:'residual',source:p.source+' − AME2020'});
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
@@ -559,7 +570,9 @@
       bands.forEach(b=>c.fillRect(px(b.x)-2*sc,py(b.hi),4*sc,Math.max(sc,py(b.lo)-py(b.hi))));
       for(let i=1;i<bands.length;i++){const a=bands[i-1],b=bands[i];if(a.g!==b.g||b.x-a.x!==1)continue;c.beginPath();c.moveTo(px(a.x),py(a.lo));c.lineTo(px(a.x),py(a.hi));c.lineTo(px(b.x),py(b.hi));c.lineTo(px(b.x),py(b.lo));c.closePath();c.fill();}
     }
-    for(const s of visibleSeries)for(const group of groups){
+    // Draw recalculation first: coincident unchanged AME lines retain their blue colour.
+    const paintOrder=visibleSeries.slice().sort((a,b)=>(a.id==='loaded'?2:a.id==='ame'?1:0)-(b.id==='loaded'?2:b.id==='ame'?1:0));
+    for(const s of paintOrder)for(const group of groups){
       const ps=plotPts.concat(modPts).filter(p=>p.series===s.id&&p.g===group);if(!ps.length)continue;
       const col=s.id==='ame'&&multi?gcol(group):s.color;
       c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lineWidth()*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
@@ -573,14 +586,16 @@
         if(s.shape==='diamond'){c.moveTo(xx,yy-radius-1*sc);c.lineTo(xx+radius+1*sc,yy);c.lineTo(xx,yy+radius+1*sc);c.lineTo(xx-radius-1*sc,yy);c.closePath();}
         else if(s.shape==='square')c.rect(xx-radius,yy-radius,radius*2,radius*2);
         else c.arc(xx,yy,radius,0,6.283);
-        if(p.est){c.fillStyle=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';c.fill();c.stroke();}else c.fill();
+        // Recalculated squares outline the reference rather than painting over it.
+        if(s.id==='hybrid')c.stroke();
+        else if(p.est){c.fillStyle=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';c.fill();c.stroke();}else c.fill();
         if(chainInput('reference-ring').checked&&chain&&p.r[0]===chain[0]&&p.r[1]===chain[1]){c.strokeStyle='#e5484d';c.lineWidth=1.5*sc;c.beginPath();c.arc(xx,yy,7*sc,0,6.283);c.stroke();}
       }
     }
     c.restore();
     if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=10*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
     const columns=Math.max(1,Math.floor((Wd/sc-80)/140));c.textAlign='left';c.font=10.5*sc+'px system-ui';
-    visibleSeries.forEach((s,i)=>{const x=L+(i%columns)*140*sc,y=12*sc+Math.floor(i/columns)*16*sc;c.fillStyle=s.color;c.fillText(s.shape==='diamond'?'◆':s.shape==='square'?'□':s.shape==='model'?'– –':'●',x,y);c.fillStyle=sc>1?'#222':ink;c.fillText(s.short,x+16*sc,y);});
+    visibleSeries.forEach((s,i)=>{const x=L+(i%columns)*140*sc,y=12*sc+Math.floor(i/columns)*16*sc;c.fillStyle=s.color;c.fillText(s.shape==='diamond'?'◆':s.shape==='square'?'□':s.shape==='model'?'– –':'●○',x,y);c.fillStyle=sc>1?'#222':ink;c.fillText(s.short,x+(s.id==='ame'?23:16)*sc,y);});
     c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(12+16*Math.ceil(visibleSeries.length/columns)+i*16)*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
@@ -594,18 +609,30 @@
   function drawResidual(c=rg,width=pc._cw,height=Math.max(230,Math.min(320,width*.45)),exporting=false){
     if(!plotDomain||root.querySelector('.nc-residual-panel').hidden)return;
     if(c===rg){sizeCanvas(rc,width,height);c.setTransform(rc.width/width,0,0,rc.height/height,0,0);}c.clearRect(0,0,width,height);if(exporting){c.fillStyle='#fff';c.fillRect(0,0,width,height);}
-    const domain={...CP.chainExtent(residualPts,[],{errors:true}),x0:plotDomain.x0,x1:plotDomain.x1};
+    if(!residualPts.length){
+      residualDomain=null;c.fillStyle=exporting?'#222':ink;c.font='12px system-ui';c.textAlign='left';
+      const words=T.loaded_residual_empty.split(/\s+/);let line='',y=28;
+      for(const word of words){
+        const next=line?line+' '+word:word;
+        if(line&&c.measureText(next).width>width-40){c.fillText(line,20,y);y+=18;line='';}
+        if(c.measureText(word).width>width-40){for(const char of word){if(line&&c.measureText(line+char).width>width-40){c.fillText(line,20,y);y+=18;line='';}line+=char;}}
+        else line=line?line+' '+word:word;
+      }if(line)c.fillText(line,20,y);
+      if(c===rg)rc.setAttribute('aria-label',T.loaded_residual_empty);return;
+    }
+    const domain={...CP.chainExtent(residualPts,[],{errors:chainInput('axis-errors').checked}),x0:plotDomain.x0,x1:plotDomain.x1};
     domain.y0=Math.min(domain.y0,0);domain.y1=Math.max(domain.y1,0);residualDomain=domain;
     const geom=CP.geometry(domain,width,height,(plotPts.groups||[]).length>1),{L,R,T:top,B,px,py}=geom;
-    c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font='11px system-ui';
+    c.lineWidth=lineWidth();c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font='11px system-ui';
     c.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>c.fillText(fmtTick(y),L-5,py(y)+3));c.textAlign='center';
     niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>c.fillText(x,px(x),height-B+15));
-    c.fillText('Δ (keV) = series − AME2020',(L+width-R)/2,12);c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
+    c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,12);c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
+    const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
       const ps=residualPts.filter(p=>p.series===s.id&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:[]);
-      c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();c.setLineDash([]);
-      ps.forEach(p=>{const x=px(p.x),y=py(p.y);c.beginPath();if(s.shape==='square')c.rect(x-2.5,y-2.5,5,5);else if(s.shape==='diamond'){c.moveTo(x,y-3.5);c.lineTo(x+3.5,y);c.lineTo(x,y+3.5);c.lineTo(x-3.5,y);c.closePath();}else c.arc(x,y,2.5,0,6.283);c.fillStyle=p.est?(exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff'):s.color;c.fill();if(p.est)c.stroke();if(p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
+      if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
+      ps.forEach(p=>{const x=px(p.x),y=py(p.y);c.beginPath();if(s.shape==='square')c.rect(x-2.5,y-2.5,5,5);else if(s.shape==='diamond'){c.moveTo(x,y-3.5);c.lineTo(x+3.5,y);c.lineTo(x,y+3.5);c.lineTo(x-3.5,y);c.closePath();}else c.arc(x,y,2.5,0,6.283);c.fillStyle=p.est?(exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff'):s.color;if(s.id==='hybrid')c.stroke();else{c.fill();if(p.est)c.stroke();}if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
     c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
@@ -686,7 +713,7 @@
     const m = src !== "ame" && MOD[src] ? MOD[src].map.get(key(r[0], r[1])) : null;
     return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m ? m[1] / 1000 : ""] : [])]; };
   const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
-  root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); };
+  root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); drawResidual(); };
   root.querySelector("[data-nc=png]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = W() * sc; o.height = H() * sc; draw(o.getContext("2d"), o.width, o.height, sc); return o; }, "chart-of-nuclides", 6);
   root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), rows.filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
   root.querySelector("[data-nc=video]").onclick = e => {
@@ -706,7 +733,7 @@
   },"chain-"+pq.value,6);
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain)return;
-    const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts.map(p=>({...p,panel:'residual',unit:'keV'})));
+    const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1'],
       points.map(p=>[p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'']),'chain-'+pq.value);
   };

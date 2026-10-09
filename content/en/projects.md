@@ -27,3 +27,9 @@ Timing and position-sensitive MCP detectors for the Rare-RI Ring (RIKEN) and con
 
 ## Research software
 Penning-trap particle simulation, MR-TOF calibration and 2D MCP position calibration tools in Python.
+
+## Explore the research tools
+
+- **Mass measurements and low-Q decays:** [Open the nuclear chart and chain plots](../lab/?nuclide=116Sn). Compare AME2020 with eleven mass models; enter ME, total binding energy or atomic mass, inspect affected neighbours and compare residuals. Start with the clearly labelled synthetic example; entered values are not automatically certified experimental results.
+- **MR-TOF and double-trap methods:** [Try the measurement games](../games/). Original, Advanced and Fancier tabs connect motion, calibration and simulated detector observations. These are teaching tools; their results do not validate laboratory hardware.
+- **Follow up a calculation:** [Browse data sources](../databases/), [related publications](../publications/) and [facility information](../facilities/). Each selected mass model links its source data and paper directly from the Lab controls.

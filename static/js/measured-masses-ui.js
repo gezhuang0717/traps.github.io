@@ -49,7 +49,7 @@
       }
     }
     function update(){
-      clearTimeout(timer);table=MM.build(raw,catalog,policy.value);hash='';rowStatus();error.textContent='';
+      clearTimeout(timer);timer=null;table=MM.build(raw,catalog,policy.value);hash='';rowStatus();error.textContent='';
       if(table.active.size&&previousActive===0){root.querySelector('[data-series=loaded]').checked=true;root.querySelector('[data-series=hybrid]').checked=true;}previousActive=table.active.size;
       onchange(table);
       const seq=++revision;
@@ -63,17 +63,18 @@
       r[f]=input.type==='checkbox'?input.checked:input.value;
       if(f==='nuclide'){delete r.Z;delete r.N;delete r.state;}
       if(f==='mixture'&&input.checked){r.use=false;body.querySelector(`[data-row="${input.dataset.row}"][data-field=use]`).checked=false;}
-      clearTimeout(timer);timer=setTimeout(update,120);
+      clearTimeout(timer);if(e.type==='change')update();else timer=setTimeout(update,120);
     }
     body.addEventListener('input',input);body.addEventListener('change',input);
     body.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(b){raw.splice(+b.dataset.remove,1);update();render();}});
     pager.addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){page+=+b.dataset.page;render();}});
     policy.addEventListener('change',update);
     panel.querySelector('[name=nc-mass-markers]').addEventListener('change',()=>onchange(table));
-    panel.querySelector('[name=nc-mass-file]').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>MM.MAX_TEXT)throw new Error('limit');replace(MM.parse(await f.text()));}catch(e){error.textContent=message(e);}});
+    panel.querySelector('[name=nc-mass-file]').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>MM.MAX_TEXT)throw new Error('limit');replace(MM.parse(await f.text()));}catch(e){error.textContent=message(e);}finally{e.target.value='';}});
     panel.addEventListener('click',e=>{
       const b=e.target.closest('[data-mass]');if(!b)return;
       try{
+        if(timer)update(); // Finish pending edits before saving, exporting or replacing the table.
         switch(b.dataset.mass){
           case 'import':replace(MM.parse(paste.value));break;
           case 'example':paste.value=exampleText.value;paste.focus();paste.select();break;

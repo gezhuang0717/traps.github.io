@@ -11,7 +11,7 @@ Inputs (all in tools/data/):
 Add another model (e.g. FRDM2012, WS4): put <key>.txt in the same format into massmodels/ and add an entry to MODELS.
 Run:  python3 tools/make_mass_models.py
 """
-import json, pathlib
+import json, pathlib, hashlib
 from import_bruslib import META as BRUSLIB
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 D = ROOT / "tools/data"
@@ -63,5 +63,5 @@ index={'models':{},'paths':out['paths']}
 for key,m in out['models'].items():
     payload=json.dumps(m,separators=(',',':'),ensure_ascii=False);(parts/f'{key}.json').write_text(payload)
     index['models'][key]={k:v for k,v in m.items() if k!='rows'}
-    index['models'][key].update(data_url=f'massmodels/{key}.json',row_count=len(m['rows']))
+    index['models'][key].update(data_url=f'massmodels/{key}.json',row_count=len(m['rows']),payload_sha256=hashlib.sha256(payload.encode()).hexdigest())
 (ROOT/'static/data/massmodels-index.json').write_text(json.dumps(index,separators=(',',':'),ensure_ascii=False))

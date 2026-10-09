@@ -27,3 +27,9 @@ Ajoitus- ja paikkaherkät MCP-ilmaisimet Rare-RI Ringille (RIKEN) ja HIAF-konsep
 
 ## Tutkimusohjelmistot
 Penning-loukun hiukkassimulointi, MR-TOF-kalibrointi ja 2D-MCP-paikkakalibrointi Pythonilla.
+
+## Tutki tutkimustyökaluja
+
+- **Massamittaukset ja pienet Q-arvot:** [Avaa nuklidikartta ja ketjukuvat](../lab/?nuclide=116Sn). Vertaa AME2020:tä yhteentoista massamalliin. Syötä massaylijäämä, kokonaisidosenergia tai atomimassa ja tarkista muuttuvat naapurisuureet sekä erot. Aloita synteettisestä esimerkistä; syöte ei ole automaattisesti varmennettu mittaus.
+- **MR-TOF ja kaksoisloukku:** [Kokeile mittauspelejä](../games/). Original-, Advanced- ja Fancier-välilehdet näyttävät liikkeen, kalibroinnin ja simuloidun ilmaisimen. Ne ovat opetustyökaluja eivätkä laitteiston validointia.
+- **Tarkista tausta:** [Tietolähteet](../databases/), [julkaisut](../publications/) ja [tutkimuslaitokset](../facilities/). Lab-sivun mallivalinnoissa on suorat data- ja artikkelilinkit.
