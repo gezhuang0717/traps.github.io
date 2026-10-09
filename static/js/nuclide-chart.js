@@ -362,7 +362,9 @@
       const format=q=>`${escape(q.raw||"—")} ${q.raw_uncertainty?"± "+escape(q.raw_uncertainty):"("+unknown+")"}`;
       const life=state.half_life;
       panel.querySelector(".nc-state-data").innerHTML=`<p><b>${state.A}${escape(state.element)} [${state.label}]</b> · ${escape(T.state_kinds[state.kind])}${state.existence==="withdrawn"?" — "+T.state_withdrawn:state.existence==="questioned"?" — "+T.state_questioned:""}</p><p>ME (NUBASE2020): ${format(state.mass_excess)} keV<br>Eₓ: ${format(state.excitation)} keV<br>T½: ${format(life)} ${escape(life.unit)}<br>Jπ: ${escape(state.spin_parity)}</p><p>${state.ordering_uncertain?"* "+T.state_order_uncertain+". ":""}${state.ordering_inverted?"& "+T.state_order_inverted+". ":""}${escape(T.state_bases[state.classification_basis])}.</p><p>${T.state_model_note}</p>`;
-      const a=document.createElement("a");a.href=location.pathname+"?nuclide="+state.A+state.element+"&state="+state.source_state_index;a.textContent=T.state_link;a.onclick=e=>{e.preventDefault();history.pushState(null,'',a.href);a.textContent=T.state_link_ready;};panel.querySelector(".nc-state-data").appendChild(a);
+      const stateURL=new URL(location.href);stateURL.searchParams.set('nuclide',state.A+state.element);stateURL.searchParams.set('state',state.source_state_index);
+      const a=document.createElement("a");a.href=stateURL.href;a.textContent=T.state_link;a.onclick=e=>{e.preventDefault();history.pushState(null,'',a.href);a.textContent=T.state_link_ready;};panel.querySelector(".nc-state-data").appendChild(a);
+      if(window.parent!==window)window.parent.postMessage({type:'zg-panel-state',nuclide:state.A+state.element,state:state.source_state_index},location.origin);
     }
     function populate() {
       const q=panel.querySelector("input").value.trim().toLowerCase(), kind=panel.querySelector("select").value;
@@ -460,7 +462,7 @@
     const box=root.querySelector('.nc-point-detail');
     if(!p){box.textContent='';return;}
     const inputs=humanInputs(p);
-    box.textContent=p.r[0]+p.r[1]+p.r[2]+' · '+p.source+' · '+p.y+' ± '+(p.e??'—')+' '+(p.unit||PQ[pq.value][2])+' · '+inputs;
+    box.textContent=p.r[0]+p.r[1]+p.r[2]+' · '+p.source+' · '+p.y+' ± '+(p.e??'—')+' '+(p.unit||PQ[pq.value][2])+' · '+inputs+(p.referenceEstimated?' · '+T.model_reference_extrapolated:'');
   }
   function pointTable(){
     const d=root.querySelector('.nc-point-table');if(!d.open||!plotDomain)return;
@@ -586,15 +588,14 @@
     inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys(p.valueObj.terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
     root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>x.text).join(' · ');
     if(chainInput('band').checked){
-      const b=new Map();for(const p of modPts){const k=p.g+':'+p.x;if(!b.has(k))b.set(k,[]);b.get(k).push(p);}
-      bands=[...b.values()].filter(ps=>ps.length>=2).map(ps=>({g:ps[0].g,x:ps[0].x,lo:Math.min(...ps.map(p=>p.y)),hi:Math.max(...ps.map(p=>p.y)),count:ps.length})).sort((a,b)=>a.g-b.g||a.x-b.x);
+      bands=CP.experimentalBands(plotPts);
     }
     if(chainInput('residual').checked&&!['hl','dme','dmod','beta2'].includes(pq.value)){
       for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
         if(filter==='measured'&&d.est)continue;
-        residualPts.push({...p,y:d.v,e:model?a.e:d.e,est:!!d.est,valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,...CP.residualStyle(d,a,model),valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
@@ -607,6 +608,21 @@
     root.querySelector('.nc-manual-x').hidden=chainInput('xscale').value!=='manual';root.querySelector('.nc-manual-y').hidden=chainInput('yscale').value!=='manual';
     pc.setAttribute('aria-label',label+'; '+q[0]+'; x '+plotDomain.x0+'–'+plotDomain.x1+'; '+(plotPts.length+modPts.length)+' '+T.points);
     pointTable();resize();drawPlot();drawResidual();
+  }
+  function drawBands(c,points,px,py,sc=1){
+    if(!chainInput('band').checked)return;
+    const grouped=new Map();for(const p of CP.experimentalBands(points)){
+      const k=p.styleKey+':'+p.g;if(!grouped.has(k))grouped.set(k,[]);grouped.get(k).push(p);
+    }
+    c.save();c.globalAlpha=.16;
+    for(const ps of grouped.values()){
+      ps.sort((a,b)=>a.x-b.x);c.fillStyle=pointColor(ps[0],seriesMeta(ps[0].series,ps[0].labels));
+      for(const p of ps)c.fillRect(px(p.x)-2*sc,py(p.hi),4*sc,Math.max(.5*sc,py(p.lo)-py(p.hi)));
+      if(chainInput('lines').checked)for(let i=1;i<ps.length;i++){
+        const a=ps[i-1],b=ps[i];if(!CP.connects(a,b))continue;
+        c.beginPath();c.moveTo(px(a.x),py(a.lo));c.lineTo(px(a.x),py(a.hi));c.lineTo(px(b.x),py(b.hi));c.lineTo(px(b.x),py(b.lo));c.closePath();c.fill();
+      }
+    }c.restore();
   }
   function drawPlot(c = pg, Wd = pc._cw, Hd = pc._ch, sc = 1) {
     if (c === pg) pg.setTransform(pc.width / pc._cw, 0, 0, pc.height / pc._ch, 0, 0);
@@ -627,11 +643,7 @@
     const groups=plotPts.groups||[],multi=groups.length>1;
     const gcol=chainColor;
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
-    if(bands.length){
-      c.fillStyle='rgba(30,135,95,.17)';
-      bands.forEach(b=>c.fillRect(px(b.x)-2*sc,py(b.hi),4*sc,Math.max(sc,py(b.lo)-py(b.hi))));
-      for(let i=1;i<bands.length;i++){const a=bands[i-1],b=bands[i];if(a.g!==b.g||b.x-a.x!==1)continue;c.beginPath();c.moveTo(px(a.x),py(a.lo));c.lineTo(px(a.x),py(a.hi));c.lineTo(px(b.x),py(b.hi));c.lineTo(px(b.x),py(b.lo));c.closePath();c.fill();}
-    }
+    drawBands(c,plotPts,px,py,sc);
     // Mixed calculations first, then the reference and new input centres.
     const paintOrder=visibleSeries.slice().sort((a,b)=>(a.id==='loaded'?2:a.id==='ame'?1:0)-(b.id==='loaded'?2:b.id==='ame'?1:0));
     for(const s of paintOrder)for(const group of groups){
@@ -688,6 +700,7 @@
     c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,12);c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
+    drawBands(c,residualPts,px,py);
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
       const ps=residualPts.filter(p=>inSeries(p,s)&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:s.id==='hybrid'?[2,3]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
@@ -793,8 +806,8 @@
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
-    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s)];}),'chain-'+pq.value);
+    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper'],
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:''];}),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */

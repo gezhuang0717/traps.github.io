@@ -72,6 +72,13 @@
     if(maxSigma!=null&&(!finite(maxSigma)||maxSigma<0||!mass||!finite(mass.e)||mass.e>maxSigma))return false;
     return true;
   }
+  function experimentalBands(points){
+    return points.filter(p=>['ame','loaded','hybrid'].includes(p.series)&&!p.est&&finite(p.y)&&finite(p.e)&&p.e>0)
+      .map(p=>({...p,lo:p.y-p.e,hi:p.y+p.e}));
+  }
+  function residualStyle(value,reference,isModel=false){
+    return {est:!isModel&&!!value.est,referenceEstimated:!!reference.est};
+  }
   function markerPath(c,shape,x,y,r){
     c.beginPath();
     if(shape==='circle'||shape==='model'){c.arc(x,y,r,0,Math.PI*2);return;}
@@ -87,7 +94,7 @@
   function paintMarker(c,shape,x,y,r,color,open=false,background='#fff'){
     markerPath(c,shape,x,y,r);c.fillStyle=open?background:color;c.strokeStyle=color;c.fill();c.stroke();
   }
-  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, markers, markerPath, paintMarker };
+  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, experimentalBands, residualStyle, markers, markerPath, paintMarker };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -38,6 +38,7 @@
 {{- $t = merge $t (index hugo.Data.chart_state_labels $k) -}}
 {{- $t = merge $t (index hugo.Data.chain_labels $k) -}}
 {{- $t = merge $t (index hugo.Data.measured_labels $k) -}}
+{{- if not .Page.Params.independentPanel }}{{ partial "zg/independent-panels.html" .Page }}{{ end -}}
 <section class="zg-card nc" data-nuclide-chart data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}" data-src="{{ "data/nubase2020.json" | relURL }}" data-models="{{ "data/massmodels-index.json" | relURL }}?v={{ readFile "static/data/massmodels-index.json" | sha256 }}" data-labels="{{ $t | jsonify }}">
   <h2>{{ $t.title }}</h2>
   <p class="zg-muted">{{ $t.note }} <span class="nc-count"></span></p>
@@ -131,5 +132,6 @@
 <script defer src="{{ "js/chain-plot.js" | relURL }}?v={{ readFile "static/js/chain-plot.js" | sha256 }}"></script>
 <script defer src="{{ "js/mass-surface.js" | relURL }}"></script>
 <script defer src="{{ "js/measured-masses.js" | relURL }}?v={{ readFile "static/js/measured-masses.js" | sha256 }}"></script>
+{{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>

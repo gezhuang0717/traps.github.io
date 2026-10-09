@@ -1,0 +1,13 @@
+{{- $lang := replace .Language.Lang "zh-hans" "zh" -}}
+{{- $t := index hugo.Data.panel_labels $lang | default hugo.Data.panel_labels.en -}}
+<section class="nc-panel-comparison" data-independent-panels data-labels="{{ $t | jsonify }}" data-child="{{ "lab-panel/" | relLangURL }}" data-lab="{{ "lab/" | relLangURL }}">
+  <button type="button" class="zg-btn" data-panel-start>{{ $t.start }}</button>
+  <details class="nc-explanation"><summary>{{ $t.help }}</summary><p>{{ $t.hint }}</p></details>
+  <div class="nc-panel-workspace" hidden>
+    <div class="nc-bar"><label>{{ $t.nuclide }} <input name="panel-nuclide" value="118Sn" placeholder="118Sn"></label><button type="button" class="zg-btn" data-panel-add>{{ $t.add }}</button>
+    <label>{{ $t.layout }} <select name="panel-layout"><option value="two">{{ $t.two }}</option><option value="one">{{ $t.one }}</option></select></label>
+    <button type="button" class="zg-btn zg-btn-ghost" data-panel-share>{{ $t.share }}</button><input name="panel-link" readonly hidden aria-label="{{ $t.share }}"></div>
+    <p role="status" class="zg-small"></p><div class="nc-panel-grid" data-layout="two"></div>
+  </div>
+</section>
+<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>

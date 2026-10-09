@@ -40,7 +40,7 @@
     "loaded_models": "Mass models (ground states)",
     "loaded_all": "All models",
     "loaded_none": "No models",
-    "loaded_band": "Selected-model min–max band (≥2 models per point)",
+    "loaded_band": "Experimental uncertainty band (±1σ; no # masses)",
     "loaded_residual": "Residual subplot: series − AME2020 (keV)",
     "loaded_plotfilter": "Experimental mass filter for plots",
     "loaded_filter_all": "All centres",
@@ -71,7 +71,7 @@
     },
     "loaded_no_points": "No points pass the selected series, quantity and filters.",
     "loaded_model_loading": "Model loading…",
-    "loaded_band_points": "band points",
+    "loaded_band_points": "experimental band points",
     "loaded_forgot": "Saved table forgotten; working table retained.",
     "loaded_be": "Total binding energy BE",
     "loaded_reference_ring": "Show reference-point circle",
@@ -118,10 +118,10 @@
     "loaded_ame_hint": "Original AME2020 values for the whole selected chain. Blue filled circles are measured; blue hollow circles are extrapolated (#). New inputs do not change this reference.",
     "loaded_new_hint": "Show results at active input nuclides when the formula uses a new mass. Missing neighbours use AME2020. Each input label has its own colour and marker; a formula using several labels lists all of them.",
     "loaded_hybrid_hint": "Show only formulas containing at least one active new mass and at least one AME2020 mass. Pure AME and entirely new formulas are excluded from this series. New input centres can also appear in the New series, with a different marker. Fixed n, ¹H and ⁴He reference masses do not by themselves make a mixed chain point.",
-    "loaded_models_hint": "Each checked model adds its independent ground-state prediction. Select at least two models to obtain a spread band. Models do not absorb your inputs; their uncertainties are unavailable. WS4 and WS4+RBF are distinct fixed 2014 variants. RBF corrections are already in the table; entering new masses does not retrain the model. Their spread is not an independent uncertainty.",
+    "loaded_models_hint": "Each checked model adds its ground-state prediction as a dashed curve, without # symbols or shaded uncertainty. Model uncertainties are unavailable. WS4 and WS4+RBF are distinct fixed 2014 variants; new inputs do not retrain RBF. The experimental band option below uses measured AME/New/combined ±1σ only.",
     "loaded_overlay_title": "Optional visual aids",
     "loaded_ring_hint": "Draw a red ring around the nuclide selected in the reference card, wherever it appears in the chain. It is a selection marker, not an uncertainty or calibrant measurement.",
-    "loaded_band_hint": "Shade the minimum-to-maximum prediction of the checked models at each point, only where at least two have data. This spread is not a confidence interval and does not include AME or New.",
+    "loaded_band_hint": "Only AME/New/combined experimental points with known σ and no extrapolated mass input receive shading, in their series colour. Model curves have no uncertainty band and never receive # symbols. A theory-minus-AME residual can use an extrapolated AME reference; its details and CSV identify that reference separately. Unknown model uncertainty remains unknown.",
     "loaded_data_link": "Source data",
     "loaded_paper_link": "Paper",
     "loaded_hint_toggle": "How to use",
@@ -157,7 +157,8 @@
       "Steel blue"
     ],
     "marker_key": "Filled: measured mass inputs · Hollow: at least one extrapolated (#) mass input",
-    "loaded_no_mixed": "New + AME2020 has no mixed formulas in this selection; pure AME and entirely new formulas are omitted."
+    "loaded_no_mixed": "New + AME2020 has no mixed formulas in this selection; pure AME and entirely new formulas are omitted.",
+    "model_reference_extrapolated": "AME reference uses extrapolated masses; the model is theoretical"
   },
   "zh": {
     "loaded_title": "实测质量——实时比较",
@@ -200,7 +201,7 @@
     "loaded_models": "质量模型（基态）",
     "loaded_all": "全部模型",
     "loaded_none": "不选模型",
-    "loaded_band": "选中模型的最小–最大带（每点≥2模型）",
+    "loaded_band": "实验不确定度阴影带（±1σ；不含 # 质量）",
     "loaded_residual": "残差子图：系列−AME2020（keV）",
     "loaded_plotfilter": "链图的实验质量筛选",
     "loaded_filter_all": "全部中心核素",
@@ -231,7 +232,7 @@
     },
     "loaded_no_points": "当前数据系列、物理量与筛选下无数据点。",
     "loaded_model_loading": "模型加载中…",
-    "loaded_band_points": "模型带数据点",
+    "loaded_band_points": "实验阴影带数据点",
     "loaded_forgot": "已清除浏览器保存；工作表保留。",
     "loaded_be": "总结合能 BE",
     "loaded_reference_ring": "显示参考点圆圈",
@@ -278,10 +279,10 @@
     "loaded_ame_hint": "显示所选整条链的原始AME2020值。蓝色实心圆为实测，蓝色空心圆为外推（#）；新输入不会改变此参考系列。",
     "loaded_new_hint": "在有效输入核素处显示确实使用新质量的计算结果。未输入的邻核采用AME2020。每个图例标签使用自己的颜色和符号；公式涉及多个标签时同时列出。",
     "loaded_hybrid_hint": "仅显示公式同时使用至少一个有效新质量和至少一个AME2020质量的点。纯AME或全部采用新质量的计算不属于此系列。输入中心核的结果也可出现在“新值”系列中，使用不同符号。 固定的中子、¹H和⁴He参考质量本身不使一个点成为混合质量点。",
-    "loaded_models_hint": "每个勾选的模型添加其独立基态预测。至少选两个模型才有离散带。模型不吸收您的新输入；模型不确定度未知。 WS4 与 WS4+RBF 是不同的 2014 年固定版本。RBF 修正已包含在表中；输入新质量不会重新训练模型。两者之差不是独立的不确定度。",
+    "loaded_models_hint": "勾选模型后添加其基态预测虚线，不标 #，不画理论不确定度阴影。模型不确定度未知。WS4 和 WS4+RBF 是不同的 2014 年固定版本，新输入不会重新训练 RBF。下方实验阴影带只表示实测 AME／New／组合的 ±1σ。",
     "loaded_overlay_title": "可选的视觉辅助",
     "loaded_ring_hint": "在参考卡当前选中的核素对应链图点周围画红圈。它只是选择标记，不是误差范围，也不是校准测量。",
-    "loaded_band_hint": "在每个位置用阴影表示已选模型预测的最小值到最大值，仅在至少两个模型有数据时显示；不是置信区间，也不包含AME或新值。",
+    "loaded_band_hint": "仅对已知 σ、没有外推质量输入的 AME／New／组合实验点，按各系列颜色绘制阴影。理论模型不画不确定度带，也不标 #。理论减 AME 的残差可能使用外推 AME 参考，详情和 CSV 单独注明参考来源；不把模型标成外推。模型不确定度仍为未知。",
     "loaded_data_link": "源数据",
     "loaded_paper_link": "论文",
     "loaded_hint_toggle": "使用说明",
@@ -317,7 +318,8 @@
       "钢蓝"
     ],
     "marker_key": "实心：质量输入均为实测 · 空心：至少一个质量输入为外推（#）",
-    "loaded_no_mixed": "此选择中没有同时使用新质量与AME质量的公式；新值 + AME2020不显示纯AME或全部为新质量的计算。"
+    "loaded_no_mixed": "此选择中没有同时使用新质量与AME质量的公式；新值 + AME2020不显示纯AME或全部为新质量的计算。",
+    "model_reference_extrapolated": "AME 参考使用外推质量；模型仍是理论预测"
   },
   "fi": {
     "loaded_title": "Mitatut massat — reaaliaikainen vertailu",
@@ -360,7 +362,7 @@
     "loaded_models": "Massamallit (perustilat)",
     "loaded_all": "Kaikki mallit",
     "loaded_none": "Ei malleja",
-    "loaded_band": "Mallien min–max-kaista (≥2 mallia/piste)",
+    "loaded_band": "Kokeellinen epävarmuuskaista (±1σ; ei #-massoja)",
     "loaded_residual": "Erotusalikuva: sarja − AME2020 (keV)",
     "loaded_plotfilter": "Kuvaajien kokeellinen massasuodatin",
     "loaded_filter_all": "Kaikki keskukset",
@@ -391,7 +393,7 @@
     },
     "loaded_no_points": "Valituilla sarjoilla, suureella ja suodattimilla ei ole pisteitä.",
     "loaded_model_loading": "Mallia ladataan…",
-    "loaded_band_points": "kaistapistettä",
+    "loaded_band_points": "kokeellisen kaistan pistettä",
     "loaded_forgot": "Tallennettu taulukko poistettu; työtaulukko säilyy.",
     "loaded_be": "Kokonaissidosenergia BE",
     "loaded_reference_ring": "Näytä vertailupisteen ympyrä",
@@ -438,10 +440,10 @@
     "loaded_ame_hint": "Koko valitun ketjun alkuperäinen AME2020. Sininen täysi ympyrä: mitattu; avoin: ekstrapoloitu (#). Uudet syötteet eivät muuta vertailua.",
     "loaded_new_hint": "Näytä tulos syötenuklidin kohdalla, kun kaava käyttää uutta massaa. Puuttuvat naapurit saadaan AME2020:stä. Jokaisella selitetunnisteella on oma väri ja symboli; yhteiset kaavat näyttävät kaikki tunnisteet.",
     "loaded_hybrid_hint": "Näytä vain kaavat, joissa on vähintään yksi aktiivinen uusi massa ja yksi AME2020-massa. Pelkät AME- tai uudet massat eivät kuulu tähän sarjaan. Syötekeskus voi näkyä myös New-sarjassa eri symbolilla. Kiinteät n-, ¹H- ja ⁴He-viitemassat eivät yksin tee ketjupisteestä sekapistettä.",
-    "loaded_models_hint": "Jokainen valittu malli lisää riippumattoman perustilaennusteen. Kaista tarvitsee vähintään kaksi mallia. Syötteet eivät muuta malleja; malliepävarmuus on tuntematon. WS4 ja WS4+RBF ovat erilliset vuoden 2014 taulukot. Uudet massat eivät opeta RBF-mallia uudelleen. Vaihteluväli ei ole riippumaton epävarmuus.",
+    "loaded_models_hint": "Valittu malli piirtyy katkoviivana ilman #-merkkejä tai epävarmuusvarjostusta. Mallin epävarmuus on tuntematon. WS4 ja WS4+RBF ovat erillisiä kiinteitä 2014 versioita; syötteet eivät kouluta RBF:ää. Kokeellinen kaista käyttää vain mitattujen AME/uusi/yhdistelmäarvojen ±1σ.",
     "loaded_overlay_title": "Valinnaiset kuva-apuvälineet",
     "loaded_ring_hint": "Punainen rengas kortissa valitun nuklidin ympärillä ketjukuvassa. Valintamerkki, ei epävarmuus eikä kalibrointimittaus.",
-    "loaded_band_hint": "Valittujen mallien pienimmän ja suurimman ennusteen väli; vähintään kaksi arvoa per piste. Ei luottamusväli; ei AME- tai New-sarjoja.",
+    "loaded_band_hint": "Varjostus vain AME/uusi/yhdistelmäpisteille, joilla on tunnettu σ eikä ekstrapoloituja massasyötteitä. Väri seuraa sarjaa. Malleilla ei ole epävarmuuskaistaa eikä #-merkkejä. Malli−AME-residuaalin ekstrapoloitu AME-viite merkitään erikseen tietoihin ja CSV:hen. Mallin epävarmuus pysyy tuntemattomana.",
     "loaded_data_link": "Lähdedata",
     "loaded_paper_link": "Artikkeli",
     "loaded_hint_toggle": "Käyttöohje",
@@ -477,7 +479,8 @@
       "Teräksensininen"
     ],
     "marker_key": "Täytetty: mitatut massat · Avoin: vähintään yksi ekstrapoloitu (#) massa",
-    "loaded_no_mixed": "New + AME2020: tässä valinnassa ei ole sekakaavoja; pelkät AME- tai uudet massat jätetään pois."
+    "loaded_no_mixed": "New + AME2020: tässä valinnassa ei ole sekakaavoja; pelkät AME- tai uudet massat jätetään pois.",
+    "model_reference_extrapolated": "AME-viite käyttää ekstrapoloituja massoja; malli on teoreettinen"
   },
   "de": {
     "loaded_title": "Gemessene Massen — Livevergleich",
@@ -520,7 +523,7 @@
     "loaded_models": "Massenmodelle (Grundzustände)",
     "loaded_all": "Alle Modelle",
     "loaded_none": "Keine Modelle",
-    "loaded_band": "Min–Max-Band (≥2 Modelle je Punkt)",
+    "loaded_band": "Experimentelles Unsicherheitsband (±1σ; ohne #-Massen)",
     "loaded_residual": "Differenzdiagramm: Reihe − AME2020 (keV)",
     "loaded_plotfilter": "Experimenteller Massenfilter für Diagramme",
     "loaded_filter_all": "Alle Zentren",
@@ -551,7 +554,7 @@
     },
     "loaded_no_points": "Keine Punkte für die gewählten Reihen, Größen und Filter.",
     "loaded_model_loading": "Modell wird geladen…",
-    "loaded_band_points": "Bandpunkte",
+    "loaded_band_points": "experimentelle Bandpunkte",
     "loaded_forgot": "Gespeicherte Tabelle entfernt; Arbeitstabelle bleibt.",
     "loaded_be": "Gesamtbindungsenergie BE",
     "loaded_reference_ring": "Referenzpunkt einkreisen",
@@ -598,10 +601,10 @@
     "loaded_ame_hint": "Originale AME2020-Werte der ganzen gewählten Kette. Blau gefüllt: gemessen; blau offen: extrapoliert (#). Neue Eingaben ändern diese Referenz nicht.",
     "loaded_new_hint": "Ergebnisse an aktiven Eingabenukliden zeigen, wenn die Formel eine neue Masse nutzt. Fehlende Nachbarn stammen aus AME2020. Jedes Legendenlabel hat eigene Farbe und Symbole; gemeinsame Formeln nennen alle Labels.",
     "loaded_hybrid_hint": "Nur Formeln mit mindestens einer aktiven neuen Masse und einer AME2020-Masse zeigen. Reine AME- oder reine neue Berechnungen sind ausgeschlossen. Eingabezentren können zugleich mit anderem Symbol in New erscheinen. Feste n-, ¹H- und ⁴He-Referenzmassen allein erzeugen keinen gemischten Kettenpunkt.",
-    "loaded_models_hint": "Jedes gewählte Modell liefert seine unabhängige Grundzustandsvorhersage. Mindestens zwei Modelle für das Band. Eingaben ändern Modelle nicht; Modellunsicherheit unbekannt. WS4 und WS4+RBF sind getrennte feste Tabellen von 2014. Neue Massen trainieren das RBF-Modell nicht neu. Ihre Streuung ist keine unabhängige Unsicherheit.",
+    "loaded_models_hint": "Gewählte Modelle erscheinen als gestrichelte Grundzustandskurven ohne #-Symbole oder Unsicherheitsband. Modellunsicherheiten sind unbekannt. WS4 und WS4+RBF sind feste getrennte Varianten von 2014; neue Eingaben trainieren RBF nicht neu. Das experimentelle Band nutzt ausschließlich gemessene AME/Neu/Kombinationswerte ±1σ.",
     "loaded_overlay_title": "Optionale Darstellungshilfen",
     "loaded_ring_hint": "Roter Ring um das Nuklid, das auf der Referenzkarte gewählt wurde. Auswahlmarkierung, keine Unsicherheit oder Kalibrationsmessung.",
-    "loaded_band_hint": "Bereich zwischen kleinster und größter Vorhersage der gewählten Modelle, wenn mindestens zwei Werte vorliegen. Kein Konfidenzintervall; ohne AME und New.",
+    "loaded_band_hint": "Schattierung nur für experimentelle AME/Neu/Kombinationspunkte mit bekanntem σ und ohne extrapolierte Masseneingaben, in der Serienfarbe. Modelle haben weder Unsicherheitsband noch #-Symbole. Eine extrapolierte AME-Referenz im Modell−AME-Residuum wird getrennt in Details und CSV ausgewiesen. Modellunsicherheit bleibt unbekannt.",
     "loaded_data_link": "Quelldaten",
     "loaded_paper_link": "Publikation",
     "loaded_hint_toggle": "Anleitung",
@@ -637,7 +640,8 @@
       "Stahlblau"
     ],
     "marker_key": "Gefüllt: gemessene Masseneingaben · Offen: mindestens eine extrapolierte (#) Masse",
-    "loaded_no_mixed": "New + AME2020 enthält hier keine gemischten Formeln; reine AME- und reine neue Berechnungen sind ausgeschlossen."
+    "loaded_no_mixed": "New + AME2020 enthält hier keine gemischten Formeln; reine AME- und reine neue Berechnungen sind ausgeschlossen.",
+    "model_reference_extrapolated": "AME-Referenz nutzt extrapolierte Massen; das Modell ist theoretisch"
   },
   "ja": {
     "loaded_title": "実測質量 — リアルタイム比較",
@@ -680,7 +684,7 @@
     "loaded_models": "質量モデル（基底状態）",
     "loaded_all": "全モデル",
     "loaded_none": "モデルなし",
-    "loaded_band": "選択モデルの最小–最大帯（各点2モデル以上）",
+    "loaded_band": "実験不確かさ帯（±1σ；# 質量を除く）",
     "loaded_residual": "残差図：系列−AME2020（keV）",
     "loaded_plotfilter": "図の実験質量フィルター",
     "loaded_filter_all": "全中心核",
@@ -711,7 +715,7 @@
     },
     "loaded_no_points": "選択した系列・物理量・フィルターに一致する点はありません。",
     "loaded_model_loading": "モデルを読込中…",
-    "loaded_band_points": "モデル帯の点",
+    "loaded_band_points": "実験帯の点",
     "loaded_forgot": "保存した表を消去しました。作業表は保持しています。",
     "loaded_be": "全結合エネルギー BE",
     "loaded_reference_ring": "基準点の円を表示",
@@ -758,10 +762,10 @@
     "loaded_ame_hint": "選択した連鎖全体の元のAME2020値です。青の実心丸は実測、青の空心丸は外挿（#）。新しい入力はこの参照系列を変更しません。",
     "loaded_new_hint": "式が新質量を使う有効入力核種の位置に結果を表示します。未入力の近隣核種にはAME2020を使います。入力ラベルごとに色と記号を割り当て、複数ラベルを使う式では併記します。",
     "loaded_hybrid_hint": "有効な新質量とAME2020質量を少なくとも一つずつ使う式だけを表示します。AMEのみ・新質量のみの計算は除きます。入力中心核は別の記号でNew系列にも表示できます。 固定のn・¹H・⁴He参照質量だけでは混合点とは判定しません。",
-    "loaded_models_hint": "チェックした各模型の独立した基底状態予測を追加します。帯には2模型以上必要です。入力は模型を変更しません。模型不確かさは未知です。 WS4 と WS4+RBF は異なる2014年の固定表です。新しい質量を入力してもRBFモデルは再学習されません。両者の差は独立した不確かさではありません。",
+    "loaded_models_hint": "選択模型は基底状態予測の破線で、# 記号や不確かさ陰影は付きません。模型不確かさは未知です。WS4 と WS4+RBF は独立した2014年の固定版で、新入力で再学習されません。下の実験帯は実測 AME・新規・混合値の ±1σ のみです。",
     "loaded_overlay_title": "任意の表示補助",
     "loaded_ring_hint": "参照カードで選んだ核種の連鎖図上の点を赤い輪で囲みます。選択マーカーであり、不確かさや校正測定ではありません。",
-    "loaded_band_hint": "各点で選択模型の最小値と最大値の間を表示します。値が2つ以上ある点のみ。信頼区間ではなく、AMEやNewを含みません。",
+    "loaded_band_hint": "既知の σ と外挿でない質量入力を持つ AME・新規・混合実験点だけに系列色の陰影を付けます。理論模型には不確かさ帯も # 記号も付けません。模型−AME 残差の外挿 AME 参照は詳細と CSV に別記します。模型不確かさは未知のままです。",
     "loaded_data_link": "元データ",
     "loaded_paper_link": "論文",
     "loaded_hint_toggle": "使い方",
@@ -797,6 +801,7 @@
       "スチールブルー"
     ],
     "marker_key": "実心：質量入力はすべて実測 · 中空：少なくとも一つが外挿（#）",
-    "loaded_no_mixed": "この選択には新質量とAME質量を共に使う式がありません。New + AME2020はAMEのみ・新質量のみの計算を除きます。"
+    "loaded_no_mixed": "この選択には新質量とAME質量を共に使う式がありません。New + AME2020はAMEのみ・新質量のみの計算を除きます。",
+    "model_reference_extrapolated": "AME 参照に外挿質量を使用；模型は理論予測"
   }
 }

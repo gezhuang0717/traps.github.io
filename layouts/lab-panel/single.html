@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="{{ .Language.LanguageCode | default .Language.Lang }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>{{ .Title }}</title>
+{{ $style := resources.Get "css/extended/zg-rainbow.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+<style>body{margin:0;padding:.65rem;font-family:system-ui,sans-serif;background:var(--zg-soft);color:var(--zg-ink)}*{box-sizing:border-box}input,select,button{font:inherit;max-width:100%}a{color:var(--zg-blue)}.nc{margin:0;width:100%;max-width:100%}.nc-canvas{max-height:22rem}.nc-card{position:relative;max-width:100%;width:auto}.nc-ptable{display:none}h2{font-size:1.3rem}table{border-collapse:collapse}th,td{padding:.3rem;text-align:left}</style></head>
+<body><main>{{ .Content }}</main></body></html>

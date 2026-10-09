@@ -112,6 +112,18 @@ test('experimental filter modes and centre sigma limits are independent and exac
  assert.equal(CP.experimentalFilter({...context,reference,mode:'all'}),true);
  assert.equal(CP.experimentalFilter({...context,reference,mode:'measured'}),false);
 });
+test('shaded uncertainty bands include experimental data only, without extrapolated inputs',()=>{
+ const pts=['ame','loaded','hybrid','ws4','ws4rbf'].map(series=>({series,y:10,e:2,est:false,x:1}));
+ pts.push({series:'ame',y:10,e:2,est:true},{series:'loaded',y:10,e:null,est:false});
+ const band=CP.experimentalBands(pts);assert.deepEqual(band.map(p=>p.series),['ame','loaded','hybrid']);
+ for(const p of band){assert.equal(p.lo,8);assert.equal(p.hi,12);}
+});
+test('models never receive extrapolation markers; residual AME references retain their provenance',()=>{
+ const reference=P.primitive('AME2020:estimated',1,2,true),model=P.primitive('model:ws4',3,null,false),d=P.combine([1,model],[-1,reference]);
+ assert.equal(d.est,true,'numerical provenance still contains extrapolated AME');
+ assert.deepEqual(CP.residualStyle(d,reference,true),{est:false,referenceEstimated:true});
+ assert.deepEqual(CP.residualStyle(d,reference,false),{est:true,referenceEstimated:true});
+});
 test('isomer changes excitation only; every ground-state output stays identical',()=>{
  const table=MM.build([row('116mSn',base(50,66).v+1000)],catalog),s=surface(table);
  for(const n of [64,65,66,67,68])for(const k of ['me','BE','BEA','sn','s2n','qbm','vpn','wig','d3n','d5n'])assert.deepEqual(s.derive(50,n,'ame')[k],s.derive(50,n,'hybrid')[k]);

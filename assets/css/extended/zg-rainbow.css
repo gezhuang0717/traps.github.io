@@ -421,3 +421,14 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .nc-row-impact{font-size:.75rem;margin-top:.4rem;padding:.3rem .5rem}.nc-row-impact:disabled{opacity:.5}.nc-impact-help{margin-bottom:.7rem}.nc-impact-help summary{cursor:pointer;font-weight:600}.nc-impact-input-info{font-weight:600;overflow-wrap:anywhere}.nc-impact-model-info{font-size:.85rem}.nc-impact-centre{background:color-mix(in srgb,#b41c81 9%,transparent)}
 
 .nc-marker-settings{margin:.8rem 0;overflow-wrap:anywhere}.nc-marker-settings>summary{cursor:pointer;font-weight:650}.nc-marker-rows{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}.nc-marker-row{min-width:0;border:1px solid var(--zg-line);border-radius:.5rem;padding:.6rem}.nc-marker-row legend{font-weight:650;max-width:100%;overflow-wrap:anywhere}.nc-marker-row label{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;margin:.35rem 0;min-width:0}.nc-marker-row select{max-width:100%;min-width:0}.nc-series-legend span,.nc-input-legend{overflow-wrap:anywhere}.nc-series-legend b{color:var(--series-color);font-size:1.15em}
+
+/* Opt-in independent chart comparisons; no frames until requested. */
+.nc-panel-comparison{margin:1rem 0;max-width:100%}
+.nc-panel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.nc-panel-grid[data-layout=one]{grid-template-columns:minmax(0,1fr)}
+.nc-independent-panel{min-width:0;border:1px solid var(--zg-line);border-radius:12px;background:var(--zg-card);overflow:hidden}
+.nc-independent-panel header{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;padding:.6rem;border-bottom:1px solid var(--zg-line)}
+.nc-independent-panel header a{font-size:.85rem;flex:1}
+.nc-independent-panel iframe{display:block;width:100%;height:900px;border:0;background:var(--zg-card)}
+.nc-panel-workspace input[name=panel-link]{width:100%;min-width:0}
+@media(max-width:1000px){.nc-panel-grid{grid-template-columns:minmax(0,1fr)}}

@@ -5,7 +5,7 @@
     const MM=host.ZGMeasuredMasses,P=host.ZGPhysics,esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const panel=root.querySelector('.nc-measured'),body=panel.querySelector('tbody'),status=panel.querySelector('.nc-mass-status'),error=panel.querySelector('.nc-mass-error');
     const paste=panel.querySelector('[name=nc-mass-paste]'),policy=panel.querySelector('[name=nc-mass-policy]');
-    const storageKey='traps.measured-masses.v1';let raw=[],table=MM.build(raw,catalog),page=0,hash='',revision=0,timer,previousActive=0;
+    const storageKey=host.ZGIndependentPanels?.storageKey(location.search)||'traps.measured-masses.v1';let raw=[],table=MM.build(raw,catalog),page=0,hash='',revision=0,timer,previousActive=0;
     const exampleKind=panel.querySelector('[name=nc-mass-example]'),exampleText=panel.querySelector('[name=nc-mass-example-text]');
     function example(){
       const a=base(50,66).v+10,kind=exampleKind.value,unit=kind==='be'?'MeV':kind==='atomic'?'u':'keV',quantity=kind==='be'?'BE':kind==='atomic'?'mass':'ME';
@@ -34,6 +34,7 @@
     }
     function rowStatus(){
       status.textContent=raw.length?T.loaded_summary.replace('{valid}',table.valid.length).replace('{errors}',table.errors.length).replace('{active}',table.active.size).replace('{duplicates}',table.duplicates.length):T.loaded_empty;
+      if(host.parent!==host)host.parent.postMessage({type:'zg-panel-input',dirty:raw.length>0},location.origin);
       panel.querySelector('.nc-mass-inactive').hidden=!(table.valid.length>0&&table.active.size===0);
       for(const cell of body.querySelectorAll('[data-row-status]')){
         const i=+cell.dataset.rowStatus,r=table.valid.find(r=>r.row===i+1),e=table.errors.find(e=>e.row===i+1);
