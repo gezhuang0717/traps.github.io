@@ -341,7 +341,19 @@
   function showStates(r) {
     const group=catalog?.groups.get(r[2].toLowerCase()+(r[0]+r[1])); if(!group)return;
     const panel=document.createElement("div");panel.className="nc-state-list";
-    panel.innerHTML=`<h4>${T.state_heading}</h4><label>${T.state_search}<input type="search" class="nc-state-search"></label><label>${T.state_class}<select class="nc-state-kind"><option value="isomer">${T.state_isomers}</option><option value="all">${T.state_all}</option><option value="unclassified">${T.state_pending}</option></select></label><div class="nc-state-buttons"></div><div class="nc-state-data" aria-live="polite"></div>`;
+    const hintId = "nc-state-" + r[2] + (r[0] + r[1]);
+    panel.innerHTML = `
+      <h4>${T.state_heading}</h4>
+      <p class="nc-state-help">${T.state_intro}</p>
+      <label>${T.state_search}<input type="search" class="nc-state-search" aria-describedby="${hintId}-search"></label>
+      <small class="nc-state-help" id="${hintId}-search">${T.state_search_hint}</small>
+      <label>${T.state_class}<select class="nc-state-kind" aria-describedby="${hintId}-class">
+        <option value="isomer">${T.state_isomers}</option><option value="all">${T.state_all}</option><option value="unclassified">${T.state_pending}</option>
+      </select></label>
+      <small class="nc-state-help" id="${hintId}-class">${T.state_class_hint}</small>
+      <details class="zg-control-help"><summary>${T.state_help_title}</summary><p>${T.state_definitions}</p><p>${T.state_values_hint}</p></details>
+      <button type="button" class="zg-btn zg-btn-ghost nc-state-reset">${T.state_reset}</button>
+      <p class="nc-state-status" role="status"></p><div class="nc-state-buttons"></div><div class="nc-state-data" aria-live="polite"></div>`;
     card.appendChild(panel);
     const target=group.find(s=>s.id===selectedState);
     if(target && !["ground","isomer"].includes(target.kind))panel.querySelector("select").value="all";
@@ -353,11 +365,18 @@
       const a=document.createElement("a");a.href=location.pathname+"?nuclide="+state.A+state.element+"&state="+state.source_state_index;a.textContent=T.state_link;panel.querySelector(".nc-state-data").appendChild(a);
     }
     function populate() {
-      const q=panel.querySelector("input").value.toLowerCase(), kind=panel.querySelector("select").value;
-      const visible=group.filter(s=>(kind==="all"||s.kind==="ground"||s.kind===kind)&&`${s.label} ${s.kind} ${T.state_kinds[s.kind]} ${s.excitation.raw} ${s.spin_parity}`.toLowerCase().includes(q));
+      const q=panel.querySelector("input").value.trim().toLowerCase(), kind=panel.querySelector("select").value;
+      const exactLabel = group.some(s => s.label.toLowerCase() === q);
+      const visible = group.filter(s => {
+        const inClass = kind === "all" || s.kind === "ground" || s.kind === kind;
+        const text = `${s.label} ${s.kind} ${T.state_kinds[s.kind]} ${s.excitation.raw} ${s.spin_parity}`.toLowerCase();
+        return inClass && (exactLabel ? s.label.toLowerCase() === q : text.includes(q));
+      });
+      panel.querySelector(".nc-state-status").textContent = visible.length ? T.state_matches.replace("{n}", visible.length).replace("{total}", group.length) : T.state_empty;
       const box=panel.querySelector(".nc-state-buttons");box.innerHTML=visible.map(st=>`<button type="button" data-state="${st.id}" aria-pressed="${selectedState===st.id}">${escape(st.label)} · ${escape(T.state_kinds[st.kind])}${st.source_state_index?" · "+escape(st.excitation.raw)+" ± "+escape(st.excitation.raw_uncertainty||"?")+" keV":""}</button>`).join("");
       box.querySelectorAll("button").forEach(b=>b.onclick=()=>detail(catalog.states.get(b.dataset.state)));
     }
+    panel.querySelector(".nc-state-reset").onclick = () => { panel.querySelector("input").value = ""; panel.querySelector("select").value = "isomer"; populate(); panel.querySelector("input").focus(); };
     panel.querySelector("input").oninput=populate;panel.querySelector("select").onchange=populate;populate();detail(target||group[0]);
   }
 

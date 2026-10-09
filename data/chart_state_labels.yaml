@@ -9,13 +9,12 @@ en:
   state_class: State class
   state_isomers: Ground state + isomers
   state_all: All states (including levels / IAS)
-  state_pending: Classification pending
+  state_pending: Ground + classification pending
   state_withdrawn: withdrawn assignment
   state_questioned: questioned assignment
   state_order_uncertain: ordering uncertain
   state_order_inverted: ordering differs from ENSDF
-  state_model_note: 'Model masses apply only to ground states. Each # belongs to its
-    adjacent value or uncertainty.'
+  state_model_note: 'Model masses apply only to ground states. Each # belongs to its adjacent value or uncertainty.'
   state_link: Link to this state
   state_count: catalogued isomer assignments
   state_kinds:
@@ -28,17 +27,34 @@ en:
     source index 0: Source ground-state index 0
     source isomer label: Source isomer designation
     source IAS label: Source analogue-state designation
-    NUBASE2020 section 2 higher-isomer assignment: Higher-isomer assignment, NUBASE2020
-      section 2
-    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020 long-lived-state
-      convention and this record’s lifetime
-    proton-resonance example in NUBASE2020 Table I explanation: Proton resonance identified
-      in NUBASE2020 Table I explanation
-    excited state; classification not established by available fields: Excited state;
-      available fields do not establish its class
-    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Short-lived
-      p/q/r record; lifetime alone cannot distinguish a level from an isomer
+    NUBASE2020 section 2 higher-isomer assignment: Higher-isomer assignment, NUBASE2020 section 2
+    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020 long-lived-state convention and this
+      record’s lifetime
+    proton-resonance example in NUBASE2020 Table I explanation: Proton resonance identified in NUBASE2020 Table
+      I explanation
+    excited state; classification not established by available fields: Excited state; available fields do not establish
+      its class
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Short-lived p/q/r record;
+      lifetime alone cannot distinguish a level from an isomer
   state_close: Close state details
+  state_intro: These are nuclear states of the selected nuclide, not different elements. Filter the list below,
+    then click a state button to display its data.
+  state_search_hint: Search within this nuclide by exact state label (e.g. m), excitation energy (keV), spin/parity
+    (e.g. 10+) or class name. Leave blank to list every state allowed by State class.
+  state_class_hint: Ground + isomers is the usual starting list. All states includes other catalogue records. Pending
+    shows ground + records whose class is not established. Changing a filter does not change the selected detail
+    below.
+  state_help_title: What are g, m, n and these state classes?
+  state_definitions: g = ground state (lowest energy). m, n, … retain the source excited-state labels; the class
+    is shown separately. An isomer is a metastable excited nuclear state. An analogue state (IAS) corresponds to
+    an isospin-related state in a neighbouring nucleus. A resonance is an unbound state. Pending means the available
+    fields do not establish its class; a label alone is not proof of an isomer.
+  state_values_hint: 'Eₓ = energy above the ground state in keV; T½ = half-life; Jπ = spin and parity (+/−); ME
+    = mass excess. # flags an extrapolated value. ? or missing uncertainty means unknown, not zero. Source and ordering
+    notes explain how the assignment was classified.'
+  state_matches: '{n} of {total} catalogue states match. Click a button to select one.'
+  state_empty: No states match these filters. Clear the search or choose All states.
+  state_reset: Reset state filters
 zh:
   state_unknown: 不确定度未知
   fl_missing: 质量缺失
@@ -50,7 +66,7 @@ zh:
   state_class: 核态类型
   state_isomers: 基态与同核异能态
   state_all: 所有核态（含其他能级及同量异位类似态）
-  state_pending: 分类未定
+  state_pending: 基态与分类未定核态
   state_withdrawn: 已撤销的指认
   state_questioned: 存疑的指认
   state_order_uncertain: 基态与异能态次序未定
@@ -72,9 +88,17 @@ zh:
     NUBASE2020 long-lived-state convention with record lifetime: 依据 NUBASE2020 长寿命核态约定及本条记录的寿命
     proton-resonance example in NUBASE2020 Table I explanation: NUBASE2020 表 I 说明中的质子共振例子
     excited state; classification not established by available fields: 激发态；现有字段不足以确定类别
-    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': 短寿命
-      p/q/r 记录；仅凭寿命不能区分一般能级与异能态
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': 短寿命 p/q/r 记录；仅凭寿命不能区分一般能级与异能态
   state_close: 关闭核态详情
+  state_intro: 这里列出所选核素的不同核态，不是不同元素。先筛选下方列表，再点击核态按钮查看数据。
+  state_search_hint: 在本核素内按完整核态标记（如 m）、激发能（keV）、自旋/宇称（如 10+）或类别名称搜索。留空时列出“核态类型”允许的全部核态。
+  state_class_hint: 通常从“基态与同核异能态”开始；“所有核态”包括其他目录记录；“分类未定”显示基态及类别尚未确定的记录。修改筛选不会自动改变下方已选核态的详情。
+  state_help_title: g、m、n 与核态类别是什么意思？
+  state_definitions: g = 基态（最低能量态）。m、n 等保留来源的激发态标记，实际类别另行显示。同核异能态是亚稳的激发核态；同量异位类似态（IAS）对应邻近原子核中由同位旋关联的核态；共振态是非束缚态。分类未定表示现有字段不足以确认类别，不能只凭字母标记认定为异能态。
+  state_values_hint: Eₓ = 相对基态的激发能（keV）；T½ = 半衰期；Jπ = 自旋与宇称（+/−）；ME = 质量过剩。# 表示外推值；? 或缺失的不确定度表示未知，不是零。来源及次序说明解释分类依据。
+  state_matches: 共 {total} 个目录核态，其中 {n} 个符合筛选。点击按钮选择核态。
+  state_empty: 没有符合筛选的核态。请清空搜索或选择“所有核态”。
+  state_reset: 重置核态筛选
 fi:
   state_unknown: epävarmuus ei saatavilla
   fl_missing: Massa puuttuu
@@ -86,13 +110,12 @@ fi:
   state_class: Tilaluokka
   state_isomers: Perustila ja isomeerit
   state_all: Kaikki tilat (myös tasot ja analogiatilat)
-  state_pending: Luokitus avoin
+  state_pending: Perustila ja avoin luokitus
   state_withdrawn: peruttu määritys
   state_questioned: epävarma määritys
   state_order_uncertain: järjestys epävarma
   state_order_inverted: järjestys eroaa ENSDF:stä
-  state_model_note: 'Mallimassat koskevat vain perustiloja. Kukin # kuuluu viereiseen
-    arvoon tai epävarmuuteen.'
+  state_model_note: 'Mallimassat koskevat vain perustiloja. Kukin # kuuluu viereiseen arvoon tai epävarmuuteen.'
   state_link: Linkki tähän tilaan
   state_count: luettelon isomeerimääritystä
   state_kinds:
@@ -105,17 +128,32 @@ fi:
     source index 0: Lähteen perustilaindeksi 0
     source isomer label: Lähteen isomeerimerkintä
     source IAS label: Lähteen analogiatilamerkintä
-    NUBASE2020 section 2 higher-isomer assignment: Korkeamman isomeerin määritys,
-      NUBASE2020 osa 2
-    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020:n pitkäikäisen
-      tilan konventio ja tietueen elinikä
-    proton-resonance example in NUBASE2020 Table I explanation: NUBASE2020:n taulukon
-      I selityksen protoniresonanssi
-    excited state; classification not established by available fields: Viritystila;
-      käytettävissä olevat kentät eivät ratkaise luokkaa
-    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Lyhytikäinen
-      p/q/r-tietue; pelkkä elinikä ei erota tasoa isomeeristä
+    NUBASE2020 section 2 higher-isomer assignment: Korkeamman isomeerin määritys, NUBASE2020 osa 2
+    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020:n pitkäikäisen tilan konventio ja tietueen
+      elinikä
+    proton-resonance example in NUBASE2020 Table I explanation: NUBASE2020:n taulukon I selityksen protoniresonanssi
+    excited state; classification not established by available fields: Viritystila; käytettävissä olevat kentät
+      eivät ratkaise luokkaa
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Lyhytikäinen p/q/r-tietue;
+      pelkkä elinikä ei erota tasoa isomeeristä
   state_close: Sulje tilan tiedot
+  state_intro: Nämä ovat valitun nuklidin ydintiloja, eivät eri alkuaineita. Suodata luettelo ja napsauta tilapainiketta
+    nähdäksesi tiedot.
+  state_search_hint: Hae täsmällistä tilamerkintää (esim. m), viritysenergiaa (keV), spiniä/pariteettia (esim. 10+)
+    tai luokan nimeä. Tyhjä haku näyttää kaikki valitun luokan tilat.
+  state_class_hint: Perustila ja isomeerit on lähtöluettelo. Kaikki sisältää myös muut tietueet. Avoin luokitus
+    näyttää perustilan ja luokittelemattomat tietueet. Suodatin ei vaihda alla valittua tilaa.
+  state_help_title: Mitä g, m, n ja tilaluokat tarkoittavat?
+  state_definitions: g = matalaenergisin perustila. m, n, … säilyttävät lähteen viritystilamerkinnät; luokka ilmoitetaan
+    erikseen. Isomeeri on metastabiili viritystila. Analogiatila (IAS) liittyy isospinin kautta naapuriytimen tilaan.
+    Resonanssi on sitoutumaton tila. Avoin luokitus tarkoittaa, etteivät kentät riitä määritykseen. Kirjain ei yksin
+    todista isomeeria.
+  state_values_hint: 'Eₓ: viritysenergia (keV); T½: puoliintumisaika; Jπ: spin/pariteetti; ME: massaylijäämä. #
+    tarkoittaa ekstrapolaatiota. ? tai puuttuva epävarmuus ei ole nolla. Alkuperä- ja järjestystiedot selittävät
+    luokituksen.'
+  state_matches: '{n}/{total} luettelotilaa täsmää. Valitse tila painikkeella.'
+  state_empty: Ei vastaavia tiloja. Tyhjennä haku tai valitse Kaikki tilat.
+  state_reset: Nollaa tilasuodattimet
 de:
   state_unknown: Unsicherheit nicht verfügbar
   fl_missing: Masse fehlt
@@ -127,13 +165,13 @@ de:
   state_class: Zustandsklasse
   state_isomers: Grundzustand und Isomere
   state_all: Alle Zustände (auch Niveaus und Analogzustände)
-  state_pending: Klassifikation offen
+  state_pending: Grundzustand + Klassifikation offen
   state_withdrawn: zurückgezogene Zuordnung
   state_questioned: fragliche Zuordnung
   state_order_uncertain: Reihenfolge unsicher
   state_order_inverted: Reihenfolge weicht von ENSDF ab
-  state_model_note: 'Modellmassen gelten nur für Grundzustände. Jedes # gehört zum
-    benachbarten Wert oder seiner Unsicherheit.'
+  state_model_note: 'Modellmassen gelten nur für Grundzustände. Jedes # gehört zum benachbarten Wert oder seiner
+    Unsicherheit.'
   state_link: Link zu diesem Zustand
   state_count: katalogisierte Isomerzuordnungen
   state_kinds:
@@ -146,17 +184,32 @@ de:
     source index 0: Grundzustandsindex 0 der Quelle
     source isomer label: Isomerbezeichnung der Quelle
     source IAS label: Analogzustandsbezeichnung der Quelle
-    NUBASE2020 section 2 higher-isomer assignment: Zuordnung eines höheren Isomers,
-      NUBASE2020 Abschnitt 2
-    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020-Konvention
-      für langlebige Zustände und Lebensdauer dieses Eintrags
-    proton-resonance example in NUBASE2020 Table I explanation: Protonenresonanz in
-      der Erläuterung zu NUBASE2020 Tabelle I
-    excited state; classification not established by available fields: Angeregter
-      Zustand; verfügbare Felder bestimmen die Klasse nicht
-    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Kurzlebiger
-      p/q/r-Eintrag; die Lebensdauer allein unterscheidet Niveau und Isomer nicht
+    NUBASE2020 section 2 higher-isomer assignment: Zuordnung eines höheren Isomers, NUBASE2020 Abschnitt 2
+    NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020-Konvention für langlebige Zustände und
+      Lebensdauer dieses Eintrags
+    proton-resonance example in NUBASE2020 Table I explanation: Protonenresonanz in der Erläuterung zu NUBASE2020
+      Tabelle I
+    excited state; classification not established by available fields: Angeregter Zustand; verfügbare Felder bestimmen
+      die Klasse nicht
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Kurzlebiger p/q/r-Eintrag;
+      die Lebensdauer allein unterscheidet Niveau und Isomer nicht
   state_close: Zustandsdetails schließen
+  state_intro: Dies sind Kernzustände des gewählten Nuklids, keine anderen Elemente. Liste filtern und einen Zustand
+    anklicken, um seine Daten zu sehen.
+  state_search_hint: Nach genauem Zustandslabel (z. B. m), Anregungsenergie (keV), Spin/Parität (z. B. 10+) oder
+    Klassenname suchen. Leer zeigt alle Zustände der gewählten Klasse.
+  state_class_hint: Grundzustand und Isomere ist die Startliste. Alle enthält weitere Katalogeinträge. Offene Klassifikation
+    zeigt Grundzustand plus ungeklärte Einträge. Filter ändern den ausgewählten Detailzustand nicht.
+  state_help_title: Was bedeuten g, m, n und die Zustandsklassen?
+  state_definitions: 'g = Grundzustand mit niedrigster Energie. m, n, … erhalten die Quellenlabels; die Klasse steht
+    separat. Isomer: metastabiler angeregter Kernzustand. Analogzustand (IAS): über Isospin mit einem Nachbarkernzustand
+    verknüpft. Resonanz: ungebundener Zustand. Offen: verfügbare Felder reichen nicht zur Klassifikation. Ein Buchstabe
+    allein belegt kein Isomer.'
+  state_values_hint: 'Eₓ: Anregungsenergie (keV); T½: Halbwertszeit; Jπ: Spin/Parität; ME: Massenexzess. # bedeutet
+    extrapoliert. ? oder fehlende Unsicherheit ist nicht null. Quellen- und Reihenfolgenhinweise erläutern die Zuordnung.'
+  state_matches: '{n} von {total} Katalogzuständen passen. Zustand per Schaltfläche wählen.'
+  state_empty: Keine passenden Zustände. Suche leeren oder Alle Zustände wählen.
+  state_reset: Zustandsfilter zurücksetzen
 ja:
   state_unknown: 不確かさ不明
   fl_missing: 質量欠損
@@ -168,7 +221,7 @@ ja:
   state_class: 状態の分類
   state_isomers: 基底状態と異性体
   state_all: すべての状態（準位とアイソバリック類似状態を含む）
-  state_pending: 分類未確定
+  state_pending: 基底状態 + 分類未確定
   state_withdrawn: 撤回された同定
   state_questioned: 疑義のある同定
   state_order_uncertain: 基底状態と異性体の順序が未確定
@@ -190,6 +243,14 @@ ja:
     NUBASE2020 long-lived-state convention with record lifetime: NUBASE2020 の長寿命状態の規約と本記録の寿命による分類
     proton-resonance example in NUBASE2020 Table I explanation: NUBASE2020 表Iの説明にある陽子共鳴
     excited state; classification not established by available fields: 励起状態。利用可能な項目だけでは分類を確定できません
-    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': 短寿命の
-      p/q/r 記録。寿命だけでは通常の準位と異性体を区別できません
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': 短寿命の p/q/r 記録。寿命だけでは通常の準位と異性体を区別できません
   state_close: 状態の詳細を閉じる
+  state_intro: 選択した核種の異なる核状態です。別の元素ではありません。リストを絞り、状態ボタンを押してデータを表示します。
+  state_search_hint: 完全一致の状態ラベル（例 m）・励起エネルギー（keV）・スピン/パリティ（例 10+）・分類名で検索。空欄なら選択分類の全状態を表示します。
+  state_class_hint: 通常は基底状態とアイソマーから開始。全状態には追加記録、分類未確定には基底状態と未分類記録を含みます。フィルター変更だけでは下の選択状態は変わりません。
+  state_help_title: g・m・n と状態分類の意味は？
+  state_definitions: g は最低エネルギーの基底状態。m・n 等は出典の励起状態ラベルを保持し、分類は別に表示します。アイソマーは準安定励起核状態、類似状態（IAS）はアイソスピンで隣接核の状態と関連、共鳴は非束縛状態。未確定は情報不足であり、文字だけではアイソマーと断定できません。
+  state_values_hint: Eₓ：励起エネルギー（keV）、T½：半減期、Jπ：スピン/パリティ、ME：質量超過。# は外挿値、? や欠落不確かさは未知でありゼロではありません。出典と順序の注記は分類根拠を説明します。
+  state_matches: 全 {total} 状態のうち {n} 状態が該当。ボタンで選択します。
+  state_empty: 該当状態なし。検索を消すか全状態を選んでください。
+  state_reset: 状態フィルターをリセット

@@ -47,6 +47,7 @@
     <p class="g-msg" aria-live="polite"></p></section>
   <section id="g-tof" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "tof" "fancier" true) }}<div data-local-panel="classic">
   <section class="zg-card g-box" id="g-tof-hunt"><h2>🎯 {{ $t.tof }}</h2><p class="zg-muted">{{ $t.tof_n }}</p>
+    {{ partial "zg/control-help.html" "tof" }}
     <div class="g-opts-row">
       <label>{{ $t.ion }} <input type="text" name="ion" class="g-text g-short" value="133Cs" aria-label="{{ $t.ion }}"></label>
       <label>z <select name="zq"><option>1</option><option>2</option><option>3</option></select></label>
@@ -68,6 +69,7 @@
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-classic" "t" $t) }}</div><div data-local-panel="fancier" hidden>
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-fancier" "t" $t "cal" true) }}</div></section>
   <section id="g-mr" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "mr") }}<div data-local-panel="classic">  <section class="zg-card g-box" id="g-mr-classic"><h2>🪞 {{ $t.mr }}</h2><p class="zg-muted">{{ $t.mr_n }}</p>
+    {{ partial "zg/control-help.html" "mr" }}
     <div class="g-opts-row">
       <label>{{ $t.pair }} <select name="pair"></select></label>
       <button type="button" class="zg-btn zg-btn-ghost" data-act="rand">🎲 {{ $t.rand }}</button>
@@ -95,6 +97,7 @@
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.mr_h }}</p></details></section>
 </div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "mr" "id" "g-mr-workbench") }}</div></section>
   <section class="zg-card g-box" id="g-rfq"><h2>🧲 {{ $t.rfq }}</h2><p class="zg-muted">{{ $t.rfq_n }}</p>
+    {{ partial "zg/control-help.html" "rfq" }}
     <div class="g-opts-row">
       <label>{{ $t.set }} <select name="set"><option value="near">{{ $t.set_near }}</option><option value="far">{{ $t.set_far }}</option><option value="one">{{ $t.set_one }}</option></select></label>
       <label class="g-chk"><input type="checkbox" name="custom"> {{ $t.rfq_custom }}</label>

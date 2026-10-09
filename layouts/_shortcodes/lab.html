@@ -22,6 +22,7 @@
     <canvas id="zg-sim-top" width="420" height="420" aria-label="{{ (index hugo.Data.trap_labels $k).top }}"></canvas>
     <canvas id="zg-sim-side" width="140" height="420" aria-label="{{ (index hugo.Data.trap_labels $k).side }}"></canvas>
   </div>
+  {{ partial "zg/control-help.html" "motion" }}
   <div class="zg-sim-controls">
     <label>ν₊ / ν₋ <input type="range" id="zg-ratio" min="2" max="200" value="18" step="0.01"><output id="zg-ratio-o">18</output></label>
     <label>r₊ <input type="range" id="zg-rp" min="0" max="200" step="0.01" value="25"><output id="zg-rp-o">25</output></label>
@@ -43,6 +44,7 @@
 </div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion") }}</div><div data-local-panel="fancier" hidden><section class="zg-card" id="calibrated-frequencies">{{ partial "zg/calibration-panel.html" (dict "scope" "lab" "full" true "on" true) }}</section>{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion-fancier" "cal" true) }}</div></section>
 <section class="zg-card">
   <h2>{{ i18n "zg_lab_nuc" | default "Cyclotron-frequency calculator" }}</h2>
+  {{ partial "zg/control-help.html" "cyclotron" }}
   <div class="zg-form">
     <label>{{ i18n "zg_lab_preset" | default "Preset" }}
       <select id="zg-c-preset">
@@ -63,6 +65,7 @@
 
 <section class="zg-card">
   <h2>{{ i18n "zg_lab_res" | default "Can I resolve them?" }}</h2>
+  {{ partial "zg/control-help.html" "resolution" }}
   <div class="zg-form">
     <label>m₁ (u) <input type="number" id="zg-r-m1" value="99.9385" step="any"></label>
     <label>m₂ (u) <input type="number" id="zg-r-m2" value="99.9390" step="any"></label>
@@ -77,6 +80,7 @@
 
 <section class="zg-card">
   <h2>{{ i18n "zg_lab_conv" | default "Mass unit converter" }}</h2>
+  {{ partial "zg/control-help.html" "converter" }}
   <div class="zg-form">
     <label>{{ i18n "zg_lab_value" | default "Value" }} <input type="number" id="zg-u-v" value="1" step="any"></label>
     <label>{{ i18n "zg_lab_unit" | default "Unit" }}
@@ -136,7 +140,7 @@
     devices.forEach(function (d) {
       var guide=+$(d[1]).value, valid=Number.isFinite(guide)&&guide>0, ok=valid&&guide>=R,li=document.createElement("li");
       li.className = ok ? "ok" : "bad";
-      li.innerHTML = "<span>" + d[0] + "</span><span>~" + guide.toExponential(2).replace("e+", "×10^") + "</span><span>" + (!valid ? L.guide_unknown : ok ? "✔ " + L.guide_yes : L.guide_no) + "</span>";
+      li.innerHTML = "<span>" + d[0] + "</span><span>~" + guide.toExponential(2).replace(/e\+?(-?\d+)/, "×10<sup>$1</sup>") + "</span><span>" + (!valid ? L.guide_unknown : ok ? "✔ " + L.guide_yes : L.guide_no) + "</span>";
       meter.appendChild(li);
     });
   }

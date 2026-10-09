@@ -14,6 +14,7 @@
   <div class="zg-cal-pop" id="{{ $id }}" role="dialog" aria-label="{{ $L.title }}" hidden>
     <button type="button" class="zg-cal-x" data-cal="close" aria-label="{{ $L.close | default "Close" }}">×</button>
     <h3 class="zg-cal-h">⚙ {{ $L.title }}</h3>
+    {{ partial "zg/control-help.html" "calibration" }}
     <label class="g-chk"><input type="checkbox" name="cal-on"{{ if or .full .on }} checked{{ end }}> {{ $L.use }}</label>
     <div class="g-opts-row">
       <label>{{ $L.preset }} <select name="cal-preset"><option value="jyfltrap" selected>{{ $L.preset_jyfl }}</option><option value="custom">{{ $L.custom }}</option></select></label>

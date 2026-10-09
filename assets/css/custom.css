@@ -204,7 +204,21 @@ article h1, .post-title, .profile_inner h1, main h1 {
 .zg-row { display: flex; flex-wrap: wrap; gap: .5rem; }
 .zg-result { font-size: 1.05rem; color: var(--zg-ink); }
 .zg-meter { list-style: none; padding: 0; margin: .4rem 0; display: grid; gap: .35rem; }
-.zg-meter li { display: grid; grid-template-columns: 6rem 5rem 1fr; padding: .35rem .6rem; border-radius: .5rem; margin: 0; }
+/* Resolving guide rows: allow long numbers and translated verdicts to wrap. */
+.zg-meter li { display: grid; grid-template-columns: minmax(5.5rem, max-content) minmax(8rem, max-content) minmax(0, 1fr); gap: .3rem 1rem; align-items: baseline; padding: .5rem .7rem; border-radius: .5rem; margin: 0; }
+.zg-meter li > span { min-width: 0; }
+.zg-meter li > span:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.zg-meter li > span:last-child { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .zg-meter li { grid-template-columns: minmax(0, 1fr) max-content; } .zg-meter li > span:last-child { grid-column: 1 / -1; } }
+.zg-control-help { margin: .65rem 0; padding: .55rem .7rem; border: 1px solid var(--border); border-radius: .5rem; font-size: .9rem; line-height: 1.55; }
+.zg-control-help summary { cursor: pointer; font-weight: 600; }
+.zg-control-help p { margin: .5rem 0; }
+.nc-state-list label { display: block; margin-top: .6rem; }
+.nc-state-list input, .nc-state-list select { width: 100%; max-width: 100%; min-width: 0; }
+.nc-state-help { display: block; font-size: .82rem; line-height: 1.5; margin: .25rem 0 .6rem; }
+.nc-state-status { font-size: .82rem; line-height: 1.5; }
+.nc-state-reset { margin: .3rem 0; }
+
 .zg-meter li.ok { background: color-mix(in srgb, var(--zg-green) 16%, transparent); }
 .zg-meter li.bad { background: color-mix(in srgb, var(--zg-red) 14%, transparent); }
 .zg-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }

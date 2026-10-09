@@ -3,6 +3,7 @@
 {{- $t := .t -}}
   <section class="zg-card g-box" id="{{ .id }}"><h2>🌀 {{ $t.pi }}</h2><p class="zg-muted">{{ $t.pi_n }}</p>{{ if .cal }}
     {{ partial "zg/calibration-panel.html" (dict "scope" "pi-fancier" "trap" "2" "on" true) }}{{ end }}
+    {{ partial "zg/control-help.html" "pi" }}
     <div class="g-opts-row">
       <span class="pi-single"><label>{{ $t.search }} <input type="search" name="iso-search" placeholder="133Xe"></label><label class="g-chk"><input name="other-states" type="checkbox">{{ $t.other_states }}</label><label>{{ $t.iso_pick }} <select name="iso"></select></label>
       <button type="button" class="zg-btn zg-btn-ghost" data-act="rand">🎲</button></span>

@@ -1,0 +1,3 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- $h := index hugo.Data.control_help $k | default (index hugo.Data.control_help "en") -}}
+<details class="zg-control-help" data-control-help="{{ . }}"><summary>💡 {{ $h.title }}</summary>{{ range index $h.topics . }}<p>{{ . }}</p>{{ end }}</details>

@@ -1,0 +1,267 @@
+{
+  "en": {
+    "title": "What do these controls mean?",
+    "topics": {
+      "chart": [
+        "Choose a colour quantity, then search e.g. 116Sn and press Enter or click a nucleus. Show filters which boxes are visible; it does not change the data.",
+        "Masses chooses AME evaluated masses (including # extrapolations) or a theoretical ground-state model. Sₙ/S₂ₙ/Sₚ/S₂ₚ = 0 mark model separation-energy boundaries. N = Z and magic lines are reference lines; r/rp paths are illustrative. Line width changes only drawing."
+      ],
+      "chain": [
+        "Quantity sets the vertical observable. Chain keeps Z (same element), N (same neutron count), or A = Z + N (same mass number) fixed. Click a nucleus to choose its chain.",
+        "Enable Multiple chains to enter a chain-number interval and a horizontal interval. X axis: measured extent, full model extent, or manual limits. Y axis: all series, data only, or manual limits. Error bars show uncertainties; including them in autoscale expands the limits. Triangles mark clipped values."
+      ],
+      "motion": [
+        "ν₊/ν₋ sets the fast-to-slow radial frequency ratio. r₊ and r₋ set the two circle radii in drawing units. Speed changes animation playback, not the magnetic field.",
+        "The π-pulse button demonstrates conversion between radial motions; Clear trail removes old tracks. Cooling and process controls are teaching-model settings."
+      ],
+      "cyclotron": [
+        "Choose a preset or type the neutral atomic mass in u. q is the positive integer charge number (e.g. q = 2 means 2e). B is magnetic flux density in tesla.",
+        "Type ten decimals for B; arrows change 1 T while preserving the fraction. The calculator subtracts q electron masses; the displayed νc is an ideal cyclotron frequency in kHz."
+      ],
+      "resolution": [
+        "Enter two masses in u. Required R = mean mass / absolute mass difference; closer masses need higher resolving power. The three rows compare this requirement with your editable nominal device guides.",
+        "Guide sliders run logarithmically: one full exponent step multiplies R by ten. You can type R directly. A green check means guide ≥ required R; red means guide < required R. This comparison is an estimate, not a measurement of a device."
+      ],
+      "converter": [
+        "Value and Unit describe the mass you are converting. u, keV/c², MeV/c² and kg are mass units; c is the speed of light.",
+        "A is the integer mass number (protons + neutrons), not the atomic mass in u. Enter A only to also calculate mass excess, (m/u − A) × 931494.10242 keV; leave it blank for unit conversion alone."
+      ],
+      "tof": [
+        "Choose an ion, positive charge z, B and excitation time. Rectangular means one RF pulse; Ramsey means two separated pulses. More ions per shot reduces simulated counting noise.",
+        "Move νrf away from resonance and take shots to build the curve. Theory overlays the model. Points/pixels changes detector drawing only. Longer excitation narrows the ideal resonance."
+      ],
+      "mr": [
+        "Select an ion pair or enable manual input. Ratio sets their relative abundance; Counts sets simulated events. Laps sets the number of mirror round trips.",
+        "Δt₀ is the starting time width, Δt/lap the added broadening per lap, t/lap the round-trip time, and t₀ the initial flight time. Use the units shown. More laps may separate peaks but also broaden them. Sum adds the peaks; log R changes the resolving-power scale."
+      ],
+      "rfq": [
+        "Choose ions and a target; Custom accepts a comma-separated list such as 100Sn, 99In, 133Cs+2. A is mass number, V the RF voltage, U the DC voltage, r₀ the electrode radius, and Ω/2π the RF frequency.",
+        "Emittance sets the initial spread relative to r₀. Cycles sets residence in RF periods, Speed only playback. A seed repeats the same simulated initial ensemble. Stability cutoffs describe an ideal Mathieu model; transmission is a trajectory result for that ensemble."
+      ],
+      "pi": [
+        "Search an ion or enable multiple ions. Other states includes catalogue records beyond the default ground/isomer list. Mass table chooses the evaluated source; B sets the field. Accumulation time sets phase growth; longer time can also wrap the separation around 360°.",
+        "Radius is the detector-ring radius; spot width uses the displayed 0.1 mm unit. Ratio and contamination set populations. σ is the spot-width separation target, not mass uncertainty. Phase offsets move reference/ion origins; the clock rounds requested time to achievable time. Detector practice adds an angular floor and centroid counts; the seed repeats noise. Open the phase/timing guide for details. U₀ and d set the ideal trap frequencies."
+      ],
+      "workbench": [
+        "Start with ion mass, positive charge, B and trap voltage/size. ν₊, ν₋ and νz are modified-cyclotron, magnetron and axial frequencies; νc = ν₊ + ν₋ in this ideal model.",
+        "Use the existing presets first, then change one parameter at a time and compare the readouts. Radii/phases set initial motion, excitation settings set the applied pulse, and Speed sets playback. Fancier can use separate trap-1/trap-2 calibration; enable it explicitly in the calibration panel."
+      ],
+      "calibration": [
+        "Trap 1 is purification; trap 2 is precision measurement. Each calibrant row contains a known ion/charge, measured νc and ν₋, and their standard uncertainties σ in Hz. Keep the two traps separate.",
+        "Enable Use calibration, choose the source and mode, then edit the rows and check the residuals/effective field. Fixed-minus uses the fitted magnetron term; Ideal uses the ideal trap calculation. Example values are teaching inputs. TOF calibration uses known ions and flight times in μs; do not enter cyclotron frequencies there."
+      ]
+    }
+  },
+  "zh": {
+    "title": "这些参数是什么，怎么用？",
+    "topics": {
+      "chart": [
+        "先选择着色物理量，再输入如 116Sn 并按回车，或直接点击核素。“显示”仅筛选可见方格，不改变数据。",
+        "“质量”选择 AME 评估质量（含 # 外推）或理论基态模型。Sₙ/S₂ₙ/Sₚ/S₂ₚ = 0 为模型分离能边界；N = Z 与幻数线是参考线，r/rp 路径为示意。“线宽”只改变绘图。"
+      ],
+      "chain": [
+        "“物理量”决定纵轴；“链”固定 Z（同元素）、N（同中子数）或 A = Z + N（同质量数）。点击核素选择对应链。",
+        "启用多链后输入链编号范围及横轴范围。横轴可用数据范围、完整模型范围或手动上下限；纵轴可用全部曲线、仅数据或手动范围。误差棒表示不确定度，参与自动缩放时会扩大坐标范围。三角标记表示超出范围的值。"
+      ],
+      "motion": [
+        "ν₊/ν₋ 设置快、慢径向运动的频率比；r₊、r₋ 设置两圆半径，单位为绘图单位。“速度”改变动画播放速度，不改变磁场。",
+        "π 脉冲按钮演示两种径向运动之间的转换；“清除轨迹”只清除历史线条。冷却及过程参数属于教学模型。"
+      ],
+      "cyclotron": [
+        "选择预设或输入中性原子的质量（u）。q 是正整数电荷数，例如 q = 2 表示电荷 2e；B 是磁感应强度，单位 T。",
+        "B 可输入十位小数，上下箭头每次改变 1 T 并保留小数。计算会减去 q 个电子质量；显示的 νc 是理想回旋频率（kHz）。"
+      ],
+      "resolution": [
+        "输入两个质量（u）。所需 R = 平均质量 / 质量差绝对值；质量越接近，需要的分辨本领越高。三行分别把要求与可编辑的仪器名义参考值比较。",
+        "参考滑条为对数刻度，指数增加 1 时 R 增大十倍，也可直接输入 R。绿色勾号表示参考值 ≥ 所需值；红色表示参考值不足。这是估算，不是仪器性能实测。"
+      ],
+      "converter": [
+        "“数值”和“单位”表示待转换的质量。u、keV/c²、MeV/c²、kg 均为质量单位，c 为光速。",
+        "A 是整数质量数（质子数 + 中子数），不是以 u 表示的原子质量。填写 A 可额外计算质量过剩：(m/u − A) × 931494.10242 keV；只换算单位时可留空。"
+      ],
+      "tof": [
+        "选择离子、正电荷数 z、B 和激发时间。矩形激发为一个 RF 脉冲，Ramsey 为两个分开的脉冲；每次离子数越多，模拟计数噪声越小。",
+        "调节 νrf 并采集构建共振曲线。“理论”叠加模型；点/像素仅改变探测器显示。更长激发使理想共振变窄。"
+      ],
+      "mr": [
+        "选择离子对或启用手动输入。“比例”为相对丰度，“计数”为模拟事件数，“圈数”为镜间往返次数。",
+        "Δt₀ 是初始时间宽度，Δt/圈是每圈附加展宽，t/圈是往返时间，t₀ 是初始飞行时间。按旁边标注的单位输入。增加圈数既可拉开峰，也可使峰展宽；求和显示总峰，log R 改变分辨本领的刻度。"
+      ],
+      "rfq": [
+        "选择离子和目标；自定义可输入逗号分隔列表，如 100Sn, 99In, 133Cs+2。A 为质量数，V 为 RF 电压，U 为直流电压，r₀ 为电极半径，Ω/2π 为 RF 频率。",
+        "发射度设置相对 r₀ 的初始展宽；周期数是以 RF 周期计的驻留时间，速度仅改变播放。相同随机种子可重现同一初始离子群。稳定截止来自理想 Mathieu 模型；透过率对应该群离子的轨迹模拟。"
+      ],
+      "pi": [
+        "搜索单个离子或启用多离子。“其他核态”纳入默认基态/异能态列表以外的目录记录；质量表选择评估来源，B 设置磁场。积累时间决定相位增长，时间过长也会使角间隔绕回 360°。",
+        "半径是探测器环半径，斑点宽度按标注的 0.1 mm 单位输入；比例及污染比例决定粒子群。σ 是以斑点宽度表示的分离目标，不是质量不确定度。相位偏置移动参考/离子的起点；时钟把请求时间取整为可实现时间。探测器练习设置角度下限与质心计数，随机种子重现噪声。详见相位/时序提示；U₀、d 设置理想阱频率。"
+      ],
+      "workbench": [
+        "先设置离子质量、正电荷数、B、阱电压与尺寸。ν₊、ν₋、νz 分别是修正回旋、磁控管及轴向频率；本理想模型中 νc = ν₊ + ν₋。",
+        "先用预设，再每次只改一个参数并比较读数。半径/相位设置初始运动，激发参数设置脉冲，速度设置播放。Fancier 可使用独立的阱 1/阱 2 校准，需在校准面板明确启用。"
+      ],
+      "calibration": [
+        "阱 1 用于纯化，阱 2 用于精密测量。每行校准离子含已知核素/电荷数、测得的 νc、ν₋ 及标准不确定度 σ（Hz）。两阱参数应分别填写。",
+        "启用“使用校准”，选择来源与模式，再编辑各行并检查残差/有效磁场。固定 ν₋ 模式使用拟合的磁控管项，理想模式使用理想阱计算。示例值是教学输入。TOF 校准使用已知离子及飞行时间（μs），不能在该处填回旋频率。"
+      ]
+    }
+  },
+  "fi": {
+    "title": "Mitä säätimet tarkoittavat?",
+    "topics": {
+      "chart": [
+        "Valitse värisuure ja hae esimerkiksi 116Sn painamalla Enter. Näyttösuodatin rajaa ruutuja, ei muuta dataa.",
+        "Massat: AME-arvio (myös # ekstrapolaatiot) tai teoreettinen perustilamalli. S = 0 -käyrät ovat mallin separaatioenergiarajoja. N = Z ja maagiset luvut ovat viitelinjoja; r/rp-polut ovat havainnollistavia. Viivan leveys muuttaa vain piirtoa."
+      ],
+      "chain": [
+        "Suure valitsee pystyakselin. Ketju pitää vakiona Z:n, N:n tai A = Z + N:n. Valitse ketju napsauttamalla ydintä.",
+        "Useita ketjuja: anna ketju- ja vaaka-akselivälit. X-akseli: data, koko malli tai käsin. Y-akseli: kaikki, vain data tai käsin. Virhepalkit kuvaavat epävarmuutta ja voivat laajentaa automaattista skaalaa. Kolmiot osoittavat rajattuja arvoja."
+      ],
+      "motion": [
+        "ν₊/ν₋ säätää nopean ja hitaan liikkeen taajuussuhdetta. r₊ ja r₋ ovat piirtoyksiköiden säteitä. Nopeus säätää animaatiota, ei magneettikenttää.",
+        "π-pulssi havainnollistaa säteittäisten liikkeiden muunnosta. Tyhjennä jälki poistaa vanhat radat. Jäähdytysasetukset kuuluvat opetusmalliin."
+      ],
+      "cyclotron": [
+        "Valitse esiasetus tai anna neutraalin atomin massa yksikössä u. q on positiivinen kokonaislukumäärä alkeisvarauksia; B on magneettivuon tiheys tesloina.",
+        "B hyväksyy kymmenen desimaalia; nuolet muuttavat 1 T säilyttäen murto-osan. q elektronimassaa vähennetään. νc on ideaalinen syklotronitaajuus kilohertseinä."
+      ],
+      "resolution": [
+        "Anna kaksi massaa yksikössä u. Vaadittu R = keskimassa / massojen erotuksen itseisarvo. Kolme riviä vertaa vaatimusta muokattaviin laitearvioihin.",
+        "Liukusäädin on logaritminen: eksponentin lisäys yhdellä kymmenkertaistaa R:n. Vihreä: arvio ≥ vaatimus, punainen: arvio pienempi. Vertailu on arvio, ei laitemittaus."
+      ],
+      "converter": [
+        "Arvo ja yksikkö määrittävät muunnettavan massan. u, keV/c², MeV/c² ja kg ovat massayksiköitä.",
+        "A on kokonaislukumassaluku, protonien ja neutronien summa. Anna A massaeksessin laskemiseksi; jätä tyhjäksi pelkkää yksikkömuunnosta varten."
+      ],
+      "tof": [
+        "Valitse ioni, varaus z, B ja viritysaika. Suorakulmainen on yksi RF-pulssi, Ramsey kaksi erillistä pulssia.",
+        "Säädä νrf ja kerää näytteitä. Teoria näyttää mallin, pisteet/pikselit muuttaa piirtoa. Pidempi viritys kaventaa ideaalista resonanssia."
+      ],
+      "mr": [
+        "Valitse ionipari tai manuaalisyöttö. Suhde määrää runsaudet, lukumäärä tapahtumat ja kierrokset peilien väliset edestakaiset lennot.",
+        "Δt₀: alkuleveys; Δt/kierros: lisälevenemä; t/kierros: kierrosaika; t₀: alkulentoaika. Käytä ilmoitettuja yksiköitä. Kierrokset erottavat mutta myös leventävät huippuja. Summa yhdistää huiput, log R vaihtaa asteikon."
+      ],
+      "rfq": [
+        "Valitse ionit ja kohde. Mukautettu luettelo: 100Sn, 99In, 133Cs+2. A: massaluku, V: RF-jännite, U: DC-jännite, r₀: elektrodisäde, Ω/2π: RF-taajuus.",
+        "Emittanssi säätää alkuleveyttä, jaksot viipymää RF-jaksoina ja nopeus animaatiota. Sama siemen toistaa alkuryhmän. Rajat ovat ideaalisen Mathieu-mallin tuloksia; läpäisy koskee simuloitua ryhmää."
+      ],
+      "pi": [
+        "Hae ioni tai valitse useita. Muut tilat lisäävät luettelon muita tiloja. Massataulu valitsee lähteen, B kentän. Kertymäaika kasvattaa vaihetta, mutta ero voi kiertyä yli 360°.",
+        "Säde on ilmaisimen rengassäde; pisteleveys käyttää 0,1 mm yksikköä. Suhde ja epäpuhtaus säätävät määriä. σ on pisteleveyden erotustavoite. Vaiheensiirrot säätävät alkuvaiheita; kello pyöristää ajan. Harjoitus lisää kulmarajan ja sentroidin laskentamäärän; siemen toistaa kohinan. U₀ ja d säätävät ideaalisia loukkutaajuuksia."
+      ],
+      "workbench": [
+        "Aloita massasta, varauksesta, B:stä sekä loukun jännitteestä ja koosta. ν₊, ν₋ ja νz ovat muunnettu syklotroni-, magnetroni- ja aksiaalitaajuus.",
+        "Kokeile esiasetusta ja muuta yhtä arvoa kerrallaan. Säteet ja vaiheet määrittävät alkuliikkeen, viritys pulssin, nopeus animaation. Fancier käyttää erillistä loukkujen 1/2 kalibrointia, kun se otetaan käyttöön."
+      ],
+      "calibration": [
+        "Loukku 1 puhdistaa, loukku 2 mittaa tarkasti. Kalibranttirivillä ovat ioni/varaus, mitatut νc ja ν₋ sekä standardiepävarmuudet σ hertseinä.",
+        "Ota kalibrointi käyttöön, valitse lähde ja tila, muokkaa rivejä ja tarkista residuaalit/kenttä. Kiinteä miinus käyttää sovitettua magnetronitermiä; ideaali ideaalista laskentaa. Esimerkit ovat opetusarvoja. TOF käyttää lentoaikoja μs, ei taajuuksia."
+      ]
+    }
+  },
+  "de": {
+    "title": "Was bedeuten diese Einstellungen?",
+    "topics": {
+      "chart": [
+        "Farbgröße wählen, z. B. 116Sn eingeben und Enter drücken oder einen Kern anklicken. Zeigen filtert Kästchen, ohne Daten zu ändern.",
+        "Massen wählt AME-Auswertung (einschließlich # Extrapolationen) oder theoretisches Grundzustandsmodell. S = 0 zeigt modellierte Separationsenergiegrenzen. N = Z und magische Linien sind Referenzen; r/rp-Pfade sind illustrativ. Linienbreite ändert nur die Zeichnung."
+      ],
+      "chain": [
+        "Größe bestimmt die y-Achse. Die Kette hält Z, N oder A = Z + N fest. Ein Kernklick wählt die Kette.",
+        "Mehrere Ketten: Ketten- und x-Intervall eingeben. X-Achse: Daten, ganzes Modell oder manuell. Y-Achse: alle Reihen, nur Daten oder manuell. Fehlerbalken zeigen Unsicherheit und können die automatische Skala erweitern. Dreiecke markieren abgeschnittene Werte."
+      ],
+      "motion": [
+        "ν₊/ν₋ ist das Verhältnis schneller zu langsamer Radialfrequenz. r₊ und r₋ sind Radien in Zeichnungseinheiten. Geschwindigkeit steuert die Animation.",
+        "Der π-Puls demonstriert die Umwandlung radialer Bewegungen. Spur löschen entfernt alte Bahnen. Kühlungs- und Prozessparameter gehören zum Lehrmodell."
+      ],
+      "cyclotron": [
+        "Vorgabe wählen oder neutrale Atommasse in u eingeben. q ist die positive ganzzahlige Ladungszahl; B ist die magnetische Flussdichte in Tesla.",
+        "B erlaubt zehn Dezimalstellen; Pfeile ändern 1 T und erhalten den Bruchteil. q Elektronenmassen werden abgezogen. νc ist die ideale Zyklotronfrequenz in kHz."
+      ],
+      "resolution": [
+        "Zwei Massen in u eingeben. Erforderliches R = mittlere Masse / Betrag der Massendifferenz. Drei Zeilen vergleichen die Anforderung mit editierbaren nominalen Gerätewerten.",
+        "Der Regler ist logarithmisch: ein Exponentenschritt bedeutet Faktor zehn. R kann direkt eingegeben werden. Grün: Richtwert ≥ Anforderung; Rot: kleiner. Das ist eine Abschätzung, keine Gerätemessung."
+      ],
+      "converter": [
+        "Wert und Einheit bestimmen die umzurechnende Masse. u, keV/c², MeV/c² und kg sind Masseneinheiten.",
+        "A ist die ganzzahlige Massenzahl, Protonen plus Neutronen. A nur für den Massenexzess angeben; für reine Einheitenumrechnung leer lassen."
+      ],
+      "tof": [
+        "Ion, Ladung z, B und Anregungszeit wählen. Rechteck: ein RF-Puls; Ramsey: zwei getrennte Pulse.",
+        "νrf einstellen und Schüsse aufnehmen. Theorie zeigt das Modell; Punkte/Pixel ändert die Darstellung. Längere Anregung verengt die ideale Resonanz."
+      ],
+      "mr": [
+        "Ionenpaar wählen oder manuell eingeben. Verhältnis setzt Häufigkeiten, Counts Ereignisse und Umläufe die Rundflüge zwischen Spiegeln.",
+        "Δt₀: anfängliche Zeitbreite; Δt/Umlauf: zusätzliche Verbreiterung; t/Umlauf: Umlaufzeit; t₀: anfängliche Flugzeit. Angezeigte Einheiten beachten. Mehr Umläufe können Peaks trennen und verbreitern. Summe addiert Peaks, log R ändert die Skala."
+      ],
+      "rfq": [
+        "Ionen und Ziel wählen. Eigene Liste: 100Sn, 99In, 133Cs+2. A: Massenzahl; V: RF-Spannung; U: Gleichspannung; r₀: Elektrodenradius; Ω/2π: RF-Frequenz.",
+        "Emittanz setzt die Anfangsstreuung, Zyklen die Verweilzeit in RF-Perioden, Geschwindigkeit die Wiedergabe. Gleicher Seed wiederholt das Ensemble. Stabilitätsgrenzen stammen aus dem idealen Mathieu-Modell; Transmission gilt für das simulierte Ensemble."
+      ],
+      "pi": [
+        "Ion suchen oder mehrere wählen. Weitere Zustände ergänzt Katalogeinträge. Massentabelle wählt die Quelle, B das Feld. Akkumulationszeit vergrößert die Phase; der Abstand kann über 360° umlaufen.",
+        "Radius: Detektorring; Spotbreite: Einheit 0,1 mm. Verhältnis und Kontamination setzen Populationen. σ ist der Trennabstand in Spotbreiten. Phasenoffsets verschieben Ursprünge; die Uhr rundet Zeiten. Detektorübung ergänzt Winkeluntergrenze und Schwerpunktzählzahl; Seed wiederholt Rauschen. U₀ und d setzen ideale Fallenfrequenzen."
+      ],
+      "workbench": [
+        "Mit Masse, Ladung, B, Fallenspannung und Größe beginnen. ν₊, ν₋ und νz sind modifizierte Zyklotron-, Magnetron- und Axialfrequenz.",
+        "Erst Vorgaben verwenden, dann einen Parameter ändern. Radien/Phasen setzen die Anfangsbewegung, Anregung den Puls, Geschwindigkeit die Wiedergabe. Fancier nutzt separate Kalibrierungen der Fallen 1/2, wenn aktiviert."
+      ],
+      "calibration": [
+        "Falle 1 reinigt, Falle 2 misst präzise. Jede Kalibrantenzeile enthält Ion/Ladung, gemessene νc und ν₋ sowie Standardunsicherheiten σ in Hz.",
+        "Kalibrierung aktivieren, Quelle/Modus wählen, Zeilen ändern und Residuen/Feld prüfen. Festes Minus nutzt den angepassten Magnetronterm, Ideal die ideale Rechnung. Beispiele sind Lehrwerte. TOF-Kalibrierung verwendet Flugzeiten in μs statt Frequenzen."
+      ]
+    }
+  },
+  "ja": {
+    "title": "この設定の意味と使い方",
+    "topics": {
+      "chart": [
+        "色分けの量を選び、例 116Sn を入力して Enter、または核種をクリックします。表示フィルターはマスの表示だけを変えます。",
+        "質量は AME 評価値（# 外挿を含む）または理論基底状態モデルを選択。S = 0 はモデルの分離エネルギー境界、N = Z と魔法数は参照線、r/rp は模式経路です。線幅は描画だけを変えます。"
+      ],
+      "chain": [
+        "物理量は縦軸、系列は Z・N・A = Z + N のどれを固定するかを選びます。核種をクリックして系列を指定します。",
+        "複数系列では系列番号と横軸の範囲を入力。横軸はデータ・全モデル・手動、縦軸は全系列・データのみ・手動から選択。誤差棒は不確かさを示し、自動範囲に含めると軸が広がります。三角印は範囲外の値です。"
+      ],
+      "motion": [
+        "ν₊/ν₋ は速い・遅い径方向運動の周波数比、r₊・r₋ は描画単位の半径です。速度は動画の再生速度を変更します。",
+        "π パルスは径方向運動の変換を示します。軌跡消去は過去の線を消します。冷却と過程の設定は教材モデルの値です。"
+      ],
+      "cyclotron": [
+        "プリセットまたは中性原子質量（u）を入力。q は正整数の電荷数、B は磁束密度（T）です。",
+        "B は小数十桁入力でき、矢印は小数部を保って 1 T ずつ変更。電子 q 個分の質量を引いて、理想サイクロトロン周波数 νc（kHz）を計算します。"
+      ],
+      "resolution": [
+        "二つの質量（u）を入力。必要 R = 平均質量 / 質量差の絶対値です。三行は編集可能な装置の目安と必要値を比較します。",
+        "スライダーは対数目盛で、指数が 1 増えると R は十倍。直接入力も可能です。緑は目安 ≥ 必要値、赤は不足。装置の実測性能ではなく推定比較です。"
+      ],
+      "converter": [
+        "数値と単位は変換する質量を指定します。u・keV/c²・MeV/c²・kg は質量単位です。",
+        "A は陽子数と中性子数の和である整数の質量数。質量超過も求める場合に入力し、単位変換だけなら空欄にします。"
+      ],
+      "tof": [
+        "イオン・電荷数 z・B・励起時間を選択。矩形は RF パルス一つ、Ramsey は分離した二つです。",
+        "νrf を変えて測定を重ね、曲線を作ります。理論はモデルを重ね、点/ピクセルは表示を変更。長い励起ほど理想共鳴が狭くなります。"
+      ],
+      "mr": [
+        "イオン対または手動入力を選択。比率は存在比、カウントは模擬イベント数、周回数はミラー間の往復回数です。",
+        "Δt₀ は初期時間幅、Δt/周は追加広がり、t/周は周回時間、t₀ は初期飛行時間。表示単位を使ってください。周回増加は分離と広がりの両方を生みます。合計はピークを加算し、log R は目盛を変えます。"
+      ],
+      "rfq": [
+        "イオンと対象を選択。カスタム例：100Sn, 99In, 133Cs+2。A は質量数、V は RF 電圧、U は直流電圧、r₀ は電極半径、Ω/2π は RF 周波数。",
+        "エミッタンスは初期広がり、周期数は RF 周期単位の滞在時間、速度は再生速度。同じシードは同じ初期集団を再現。安定境界は理想 Mathieu モデル、透過率はその集団の軌道計算結果です。"
+      ],
+      "pi": [
+        "イオン検索または複数イオンを選択。他の状態は追加のカタログ状態を含めます。質量表は出典、B は磁場。蓄積時間で位相が増えますが、角度差は 360° で折り返します。",
+        "半径は検出リング、スポット幅の単位は 0.1 mm。比率と汚染率は集団数を指定。σ はスポット幅による分離目標。位相オフセットは始点、クロックは実現可能時間への丸めを指定。検出器練習は角度下限と重心カウント、シードは雑音再現。U₀ と d は理想トラップ周波数を設定します。"
+      ],
+      "workbench": [
+        "質量・電荷数・B・トラップ電圧と寸法から設定。ν₊・ν₋・νz は修正サイクロトロン・マグネトロン・軸方向周波数。",
+        "プリセットから始め、一度に一項目を変えて読数を比較。半径と位相は初期運動、励起はパルス、速度は再生を指定。Fancier は校正パネルで有効にするとトラップ 1/2 の独立校正を使います。"
+      ],
+      "calibration": [
+        "トラップ 1 は純化、2 は精密測定。校正行は既知イオン・電荷数、測定 νc・ν₋ と標準不確かさ σ（Hz）です。",
+        "校正を有効にし、出典とモードを選び、行を編集して残差と有効磁場を確認。固定マイナスはフィットしたマグネトロン項、理想は理想計算を使用。例は教材入力です。TOF 校正は飛行時間（μs）を使います。"
+      ]
+    }
+  }
+}

@@ -7,7 +7,8 @@
   <p class="wb-intro">{{ index $t (printf "%s_intro" $kind) }}</p>
   {{ if not (in (slice "en" "zh") $k) }}<p class="zg-muted">{{ if eq $k "de" }}Einige wissenschaftliche Erläuterungen werden auf Englisch angezeigt.{{ else if eq $k "fi" }}Osa tieteellisistä selityksistä näytetään englanniksi.{{ else }}一部の科学的な説明は英語で表示されます。{{ end }}</p>{{ end }}
   {{ if .cal }}{{ partial "zg/calibration-panel.html" (dict "scope" (printf "wb-%s" $kind) "trap" "2" "choose" (eq $kind "penning") "on" true) }}{{ end }}
-  <div class="wb-layout">
+  {{ partial "zg/control-help.html" "workbench" }}
+<div class="wb-layout">
     <aside class="wb-controls" aria-label="{{ $t.parameters }}"><p>{{ $t.loading }}</p></aside>
     <div class="wb-results">
       <p class="wb-error" role="alert" hidden></p>
