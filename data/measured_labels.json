@@ -156,7 +156,7 @@
       "Crimson",
       "Steel blue"
     ],
-    "marker_key": "Filled: measured mass inputs · Hollow: at least one extrapolated (#) mass input",
+    "marker_key": "AME / New / combined: filled = no # mass inputs; hollow = at least one # input. Models are predictions, without #.",
     "loaded_no_mixed": "New + AME2020 has no mixed formulas in this selection; pure AME and entirely new formulas are omitted.",
     "model_reference_extrapolated": "AME reference uses extrapolated masses; the model is theoretical"
   },
@@ -317,7 +317,7 @@
       "绯红",
       "钢蓝"
     ],
-    "marker_key": "实心：质量输入均为实测 · 空心：至少一个质量输入为外推（#）",
+    "marker_key": "AME／新值／组合：实心表示没有 # 质量输入；空心表示至少一个 # 输入。理论曲线是模型预测，不使用 #。",
     "loaded_no_mixed": "此选择中没有同时使用新质量与AME质量的公式；新值 + AME2020不显示纯AME或全部为新质量的计算。",
     "model_reference_extrapolated": "AME 参考使用外推质量；模型仍是理论预测"
   },
@@ -478,7 +478,7 @@
       "Karmiininpunainen",
       "Teräksensininen"
     ],
-    "marker_key": "Täytetty: mitatut massat · Avoin: vähintään yksi ekstrapoloitu (#) massa",
+    "marker_key": "AME / New / yhdistetty: täytetty = ei #-massasyötteitä; avoin = vähintään yksi #-syöte. Mallit ovat ennusteita ilman #-merkkiä.",
     "loaded_no_mixed": "New + AME2020: tässä valinnassa ei ole sekakaavoja; pelkät AME- tai uudet massat jätetään pois.",
     "model_reference_extrapolated": "AME-viite käyttää ekstrapoloituja massoja; malli on teoreettinen"
   },
@@ -639,7 +639,7 @@
       "Karminrot",
       "Stahlblau"
     ],
-    "marker_key": "Gefüllt: gemessene Masseneingaben · Offen: mindestens eine extrapolierte (#) Masse",
+    "marker_key": "AME / New / kombiniert: gefüllt = keine #-Masseneingaben; offen = mindestens eine #-Eingabe. Modelle sind Vorhersagen ohne #-Symbol.",
     "loaded_no_mixed": "New + AME2020 enthält hier keine gemischten Formeln; reine AME- und reine neue Berechnungen sind ausgeschlossen.",
     "model_reference_extrapolated": "AME-Referenz nutzt extrapolierte Massen; das Modell ist theoretisch"
   },
@@ -800,7 +800,7 @@
       "クリムゾン",
       "スチールブルー"
     ],
-    "marker_key": "実心：質量入力はすべて実測 · 中空：少なくとも一つが外挿（#）",
+    "marker_key": "AME／新値／組合せ：実心は # 質量入力なし、中空は少なくとも一つの # 入力あり。理論曲線はモデル予測で、# は使用しません。",
     "loaded_no_mixed": "この選択には新質量とAME質量を共に使う式がありません。New + AME2020はAMEのみ・新質量のみの計算を除きます。",
     "model_reference_extrapolated": "AME 参照に外挿質量を使用；模型は理論予測"
   }
