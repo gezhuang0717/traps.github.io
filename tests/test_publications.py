@@ -1,5 +1,5 @@
 """Render the actual bibliography templates; prevent implicit list-count and role regressions."""
-import importlib.util,os,shutil,subprocess,sys
+import hashlib,importlib.util,os,shutil,subprocess,sys
 from pathlib import Path
 from html.parser import HTMLParser
 import pytest,yaml
@@ -24,7 +24,7 @@ class Papers(HTMLParser):
 def test_hugo_numbering_and_independent_roles_in_all_languages(tmp_path):
     hugo=os.environ.get('HUGO_TEST_BIN') or shutil.which('hugo')
     if not hugo:pytest.skip('Pinned Hugo required; installed in CI before tests')
-    for rel in ['layouts/_shortcodes/pubs.html','layouts/_shortcodes/publication-search.html','layouts/_partials/zg/paper.html','data/publications.yaml']+[f'i18n/{l}.yaml' for l in ('en','zh','fi','de','ja')]:
+    for rel in ['layouts/_shortcodes/pubs.html','layouts/_shortcodes/publication-search.html','layouts/_partials/zg/paper.html','data/publications.yaml','static/js/publication-search.js']+[f'i18n/{l}.yaml' for l in ('en','zh','fi','de','ja')]:
         target=tmp_path/rel;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((ROOT/rel).read_bytes())
     (tmp_path/'layouts/single.html').write_text('{{ .Content }}')
     config=['baseURL="https://example.test/traps.github.io/"','defaultContentLanguage="en"','disableKinds=["taxonomy","term","RSS","sitemap","robotsTXT","404"]']
@@ -42,7 +42,9 @@ def test_hugo_numbering_and_independent_roles_in_all_languages(tmp_path):
     assert result.returncode==0,result.stderr
     for lang in ('en','zh','fi','de','ja'):
         base=tmp_path/'public'/('' if lang=='en' else lang)
-        p=Papers((base/'publications/index.html').read_text())
+        html=(base/'publications/index.html').read_text();p=Papers(html)
+        version=hashlib.sha256((ROOT/'static/js/publication-search.js').read_bytes()).hexdigest()[:12]
+        assert 'js/publication-search.js?v='+version in html
         assert len(p.papers)==102 and p.starts==['26']
         assert [int(x['value']) for x in p.papers if 'value' in x]==list(range(26,0,-1))
         corresponding=Papers((base/'roles/index.html').read_text()).papers

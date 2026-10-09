@@ -8,4 +8,5 @@
 <p data-pub-empty hidden>{{ i18n "zg_pub_empty" }}</p>
 <details class="zg-publication-help"><summary>{{ i18n "zg_pub_help_title" }}</summary><p>{{ i18n "zg_pub_help_search" }}</p><p>{{ i18n "zg_pub_help_sections" }}</p></details>
 </div>
-<script defer src="{{ "js/publication-search.js" | relURL }}"></script>
+{{- $version := substr (crypto.SHA256 (readFile "static/js/publication-search.js")) 0 12 -}}
+<script defer src="{{ printf "%s?v=%s" ("js/publication-search.js" | relURL) $version }}"></script>
