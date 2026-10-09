@@ -2,7 +2,7 @@
 """Build static/data/massmodels.json for the chart of nuclides (theory masses, drip lines, process paths).
 
 Inputs (all in tools/data/):
-  massmodels/<key>.txt   one nucleus per line: Z A ME(MeV) beta2   ('#' = comment)
+  massmodels/<key>.txt   one nucleus per line: Z A ME(MeV) beta2   ('#' = comment; '-' = unavailable beta2)
                          frdm1995, hfb17, hfbd1m were extracted from TALYS-1.95 structure/masses/{moller,hfb,hfbd1m}
                          (copy on the PSSD: /Volumes/PSSD/codex/talys/TALYS-1.95-macos-arm64-v2/).
   paths/r-process-etfsi.csv  N,Z   r-process path digitised from ApJ 815, 82 (2015), Fig. 2 (doi:10.1088/0004-637X/815/2/82)
@@ -11,8 +11,13 @@ Inputs (all in tools/data/):
 Add another model (e.g. FRDM2012, WS4): put <key>.txt in the same format into massmodels/ and add an entry to MODELS.
 Run:  python3 tools/make_mass_models.py
 """
-import json, pathlib, hashlib
-from import_bruslib import META as BRUSLIB
+import json, pathlib, hashlib, math
+if __package__:
+    from .import_bruslib import META as BRUSLIB
+    from .import_ktuy import META as KTUY
+else:
+    from import_bruslib import META as BRUSLIB
+    from import_ktuy import META as KTUY
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 D = ROOT / "tools/data"
 MODELS = {
@@ -22,6 +27,7 @@ MODELS = {
     "hfbd1m": {"name": "HFB-D1M (Gogny)", "ref": "S. Goriely, S. Hilaire, M. Girod, S. Péru, Phys. Rev. Lett. 102, 242501 (2009)", "url": "https://doi.org/10.1103/PhysRevLett.102.242501"},
 }
 MODELS.update({k:{f:v[f] for f in ('name','ref','url')} for k,v in BRUSLIB.items()})
+MODELS['ktuy05'] = {f:KTUY[f] for f in ('name','ref','url')}
 
 def read_model(path):
     rows = []
@@ -30,7 +36,13 @@ def read_model(path):
             continue
         Z, A, me, b2 = line.split()[:4]
         Z, A = int(Z), int(A)
-        rows.append([Z, A - Z, float(me) * 1000, float(b2) * 1000])   # keV, beta2 × 1000; retain source precision
+        me = float(me)
+        b2 = None if b2 == '-' else float(b2)
+        if not (0 < Z <= A and math.isfinite(me) and (b2 is None or math.isfinite(b2))):
+            raise ValueError(f'Invalid normalized row: {line}')
+        rows.append([Z, A - Z, me * 1000, None if b2 is None else b2 * 1000])   # keV, beta2 × 1000; retain source precision
+    if len({tuple(r[:2]) for r in rows}) != len(rows):
+        raise ValueError(f'Duplicate normalized identity: {path.name}')
     return rows
 
 def read_path(path, sep=None):
@@ -43,25 +55,34 @@ def read_path(path, sep=None):
         pts.append([z, n])
     return pts
 
-out = {"models": {}, "paths": {}}
-for key, meta in MODELS.items():
-    f = D / "massmodels" / f"{key}.txt"
-    if f.exists():
-        provenance = D / "massmodels" / f"{key}-source.json"
-        out["models"][key] = {**meta, "rows": read_model(f), "uncertainty": None,
-                              "source": json.loads(provenance.read_text()) if provenance.exists() else {"lineage": "legacy TALYS1.95 normalized extraction; see citation"}}
-out["paths"]["r"] = {"name": "r-process path (ETFSI masses)", "ref": "digitised from ApJ 815, 82 (2015), Fig. 2", "url": "https://doi.org/10.1088/0004-637X/815/2/82",
-                     "pts": read_path(D / "paths/r-process-etfsi.csv")}
-out["paths"]["rp"] = {"name": "rp-process path (approximate)", "ref": "approximate path, Mulberry data set", "url": "", "pts": read_path(D / "paths/rp-process.txt")}
-dst = ROOT / "static/data/massmodels.json"
-dst.write_text(json.dumps(out, separators=(",", ":"), ensure_ascii=False))
-print(f"Wrote {dst.relative_to(ROOT)}: " + ", ".join(f"{k} {len(v['rows'])}" for k, v in out["models"].items())
-      + f"; paths r {len(out['paths']['r']['pts'])}, rp {len(out['paths']['rp']['pts'])}; {dst.stat().st_size // 1024} kB")
-# Lightweight index plus independent model payloads. Browser loads selected models only.
-parts=ROOT/'static/data/massmodels';parts.mkdir(exist_ok=True)
-index={'models':{},'paths':out['paths']}
-for key,m in out['models'].items():
-    payload=json.dumps(m,separators=(',',':'),ensure_ascii=False);(parts/f'{key}.json').write_text(payload)
-    index['models'][key]={k:v for k,v in m.items() if k!='rows'}
-    index['models'][key].update(data_url=f'massmodels/{key}.json',row_count=len(m['rows']),payload_sha256=hashlib.sha256(payload.encode()).hexdigest())
-(ROOT/'static/data/massmodels-index.json').write_text(json.dumps(index,separators=(',',':'),ensure_ascii=False))
+def write_changed(path, text):
+    if not path.is_file() or path.read_text() != text:
+        path.write_text(text)
+
+def main():
+    out = {"models": {}, "paths": {}}
+    for key, meta in MODELS.items():
+        f = D / "massmodels" / f"{key}.txt"
+        if f.exists():
+            provenance = D / "massmodels" / f"{key}-source.json"
+            out["models"][key] = {**meta, "rows": read_model(f), "uncertainty": None,
+                                  "source": json.loads(provenance.read_text()) if provenance.exists() else {"lineage": "legacy TALYS1.95 normalized extraction; see citation"}}
+    out["paths"]["r"] = {"name": "r-process path (ETFSI masses)", "ref": "digitised from ApJ 815, 82 (2015), Fig. 2", "url": "https://doi.org/10.1088/0004-637X/815/2/82",
+                         "pts": read_path(D / "paths/r-process-etfsi.csv")}
+    out["paths"]["rp"] = {"name": "rp-process path (approximate)", "ref": "approximate path, Mulberry data set", "url": "", "pts": read_path(D / "paths/rp-process.txt")}
+    dst = ROOT / "static/data/massmodels.json"
+    write_changed(dst, json.dumps(out, separators=(",", ":"), ensure_ascii=False, allow_nan=False))
+    print(f"Wrote {dst.relative_to(ROOT)}: " + ", ".join(f"{k} {len(v['rows'])}" for k, v in out["models"].items())
+          + f"; paths r {len(out['paths']['r']['pts'])}, rp {len(out['paths']['rp']['pts'])}; {dst.stat().st_size // 1024} kB")
+    # Lightweight index plus independent model payloads. Browser loads selected models only.
+    parts=ROOT/'static/data/massmodels';parts.mkdir(exist_ok=True)
+    index={'models':{},'paths':out['paths']}
+    for key,m in out['models'].items():
+        payload=json.dumps(m,separators=(',',':'),ensure_ascii=False,allow_nan=False)
+        write_changed(parts/f'{key}.json',payload)
+        index['models'][key]={k:v for k,v in m.items() if k!='rows'}
+        index['models'][key].update(data_url=f'massmodels/{key}.json',row_count=len(m['rows']),payload_sha256=hashlib.sha256(payload.encode()).hexdigest())
+    write_changed(ROOT/'static/data/massmodels-index.json',json.dumps(index,separators=(',',':'),ensure_ascii=False,allow_nan=False))
+
+if __name__ == '__main__':
+    main()

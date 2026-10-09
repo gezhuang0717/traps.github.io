@@ -63,7 +63,7 @@
     return {raw,valid,errors,active,groups,policy,duplicates:[...groups].filter(([,rs])=>rs.length>1).map(([id])=>id)};
   }
   function getter(table,base){return (z,n)=>table.active.get(`${z}-${n}-0`)?.value||base(z,n);}
-  const affected=v=>!!v&&Object.keys(v.terms||{}).some(k=>k.startsWith('loaded:'));
+  const affected=(v,id)=>!!v&&Object.keys(v.terms||{}).some(k=>k.startsWith(id?'loaded:'+id+':':'loaded:'));
   function provenance(value,table){
     return Object.entries(value?.terms||{}).map(([id,t])=>{
       const loaded=id.startsWith('loaded:')?table.active.get(id.split(':')[1]):null;

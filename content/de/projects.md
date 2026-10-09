@@ -30,6 +30,6 @@ Teilchensimulation für Penning-Fallen, MR-TOF-Kalibrierung und 2D-MCP-Ortskalib
 
 ## Forschungswerkzeuge ausprobieren
 
-- **Massenmessungen und kleine Q-Werte:** [Nuklidkarte und Kettendiagramme öffnen](../lab/?nuclide=116Sn). AME2020 mit elf Massenmodellen vergleichen; Massenexzess, Gesamtbindungsenergie oder Atommasse eingeben und betroffene Nachbargrößen sowie Differenzen ansehen. Mit dem gekennzeichneten synthetischen Beispiel beginnen; Eingaben sind nicht automatisch bestätigte Messungen.
+- **Massenmessungen und kleine Q-Werte:** [Nuklidkarte und Kettendiagramme öffnen](../lab/?nuclide=116Sn). AME2020 mit den verfügbaren Massenmodellen vergleichen; Massenexzess, Gesamtbindungsenergie oder Atommasse eingeben und betroffene Nachbargrößen sowie Differenzen ansehen. Mit dem gekennzeichneten synthetischen Beispiel beginnen; Eingaben sind nicht automatisch bestätigte Messungen.
 - **MR-TOF und Doppelfalle:** [Messspiele ausprobieren](../games/). Original, Advanced und Fancier verbinden Bewegung, Kalibrierung und simulierte Detektorsignale. Dies sind Lehrmodelle, keine Hardwarevalidierung.
 - **Hintergrund prüfen:** [Datenquellen](../databases/), [Publikationen](../publications/) und [Forschungseinrichtungen](../facilities/). Jeder Massenmodell-Eintrag auf der Lab-Seite verlinkt Daten und Fachartikel.

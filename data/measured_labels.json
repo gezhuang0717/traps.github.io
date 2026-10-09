@@ -124,7 +124,13 @@
     "loaded_band_hint": "Shade the minimum-to-maximum prediction of the checked models at each point, only where at least two have data. This spread is not a confidence interval and does not include AME or New.",
     "loaded_data_link": "Source data",
     "loaded_paper_link": "Paper",
-    "loaded_hint_toggle": "How to use"
+    "loaded_hint_toggle": "How to use",
+    "loaded_impact_row": "Affected quantities",
+    "loaded_impact_input": "Input mass",
+    "loaded_all_inputs": "All active inputs",
+    "loaded_impact_help": "How this table is calculated",
+    "loaded_no_comparison": "No comparison model selected. Choose one in Compare model; the AME2020 comparison is already shown.",
+    "loaded_impact_empty": "No affected quantities for this selection. Enable a valid input row or choose another quantity."
   },
   "zh": {
     "loaded_title": "实测质量——实时比较",
@@ -251,7 +257,13 @@
     "loaded_band_hint": "在每个位置用阴影表示已选模型预测的最小值到最大值，仅在至少两个模型有数据时显示；不是置信区间，也不包含AME或新值。",
     "loaded_data_link": "源数据",
     "loaded_paper_link": "论文",
-    "loaded_hint_toggle": "使用说明"
+    "loaded_hint_toggle": "使用说明",
+    "loaded_impact_row": "查看受影响量",
+    "loaded_impact_input": "输入质量",
+    "loaded_all_inputs": "全部启用输入",
+    "loaded_impact_help": "本表如何计算",
+    "loaded_no_comparison": "尚未选择比较模型。请在“比较模型”中选择；AME2020比较已显示。",
+    "loaded_impact_empty": "当前选择没有受影响量。请启用有效输入行，或选择其他物理量。"
   },
   "fi": {
     "loaded_title": "Mitatut massat — reaaliaikainen vertailu",
@@ -378,7 +390,13 @@
     "loaded_band_hint": "Valittujen mallien pienimmän ja suurimman ennusteen väli; vähintään kaksi arvoa per piste. Ei luottamusväli; ei AME- tai New-sarjoja.",
     "loaded_data_link": "Lähdedata",
     "loaded_paper_link": "Artikkeli",
-    "loaded_hint_toggle": "Käyttöohje"
+    "loaded_hint_toggle": "Käyttöohje",
+    "loaded_impact_row": "Näytä muuttuneet suureet",
+    "loaded_impact_input": "Syötetty massa",
+    "loaded_all_inputs": "Kaikki käytössä olevat syötteet",
+    "loaded_impact_help": "Taulukon laskentatapa",
+    "loaded_no_comparison": "Vertailumallia ei ole valittu. Valitse malli; AME2020-vertailu näkyy jo.",
+    "loaded_impact_empty": "Valinnalle ei ole muuttuneita suureita. Ota kelvollinen syöterivi käyttöön tai valitse toinen suure."
   },
   "de": {
     "loaded_title": "Gemessene Massen — Livevergleich",
@@ -505,7 +523,13 @@
     "loaded_band_hint": "Bereich zwischen kleinster und größter Vorhersage der gewählten Modelle, wenn mindestens zwei Werte vorliegen. Kein Konfidenzintervall; ohne AME und New.",
     "loaded_data_link": "Quelldaten",
     "loaded_paper_link": "Publikation",
-    "loaded_hint_toggle": "Anleitung"
+    "loaded_hint_toggle": "Anleitung",
+    "loaded_impact_row": "Betroffene Größen anzeigen",
+    "loaded_impact_input": "Eingegebene Masse",
+    "loaded_all_inputs": "Alle aktiven Eingaben",
+    "loaded_impact_help": "Berechnung dieser Tabelle",
+    "loaded_no_comparison": "Kein Vergleichsmodell gewählt. Wählen Sie ein Modell; der AME2020-Vergleich ist bereits sichtbar.",
+    "loaded_impact_empty": "Keine betroffenen Größen für diese Auswahl. Aktivieren Sie eine gültige Eingabe oder wählen Sie eine andere Größe."
   },
   "ja": {
     "loaded_title": "実測質量 — リアルタイム比較",
@@ -632,6 +656,12 @@
     "loaded_band_hint": "各点で選択模型の最小値と最大値の間を表示します。値が2つ以上ある点のみ。信頼区間ではなく、AMEやNewを含みません。",
     "loaded_data_link": "元データ",
     "loaded_paper_link": "論文",
-    "loaded_hint_toggle": "使い方"
+    "loaded_hint_toggle": "使い方",
+    "loaded_impact_row": "影響する量を表示",
+    "loaded_impact_input": "入力質量",
+    "loaded_all_inputs": "有効な入力すべて",
+    "loaded_impact_help": "この表の計算方法",
+    "loaded_no_comparison": "比較モデルが未選択です。モデルを選択してください。AME2020との比較は既に表示しています。",
+    "loaded_impact_empty": "この選択では影響する量がありません。有効な入力行を使用するか、別の物理量を選んでください。"
   }
 }

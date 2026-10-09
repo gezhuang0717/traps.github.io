@@ -93,3 +93,16 @@ test('affected-quantity report includes every dependent neighbour, including Wig
  }
  assert.equal(S.changes(rows,MM.build([row('116mSn',-89000)],catalog).active,s.derive,MM.affected).length,0);
 });
+
+
+test('per-input affected scope keeps shared dependencies, excluding other inputs and cancelled terms',()=>{
+ const table=MM.build([row('116Sn',base(50,66).v+10),row('118Sn',base(50,68).v+20)],catalog),s=surface(table);
+ const v=s.derive(50,68,'hybrid').s2n;
+ assert.equal(MM.affected(v,'50-66-0'),true);assert.equal(MM.affected(v,'50-68-0'),true);
+ assert.equal(MM.affected(v,'50-66-1'),false);
+ assert.equal(MM.affected(s.derive(50,66,'hybrid').me,'50-68-0'),false);
+ assert.equal(MM.affected(P.combine([1,v],[-1,v]),'50-66-0'),false);
+ near(P.combine([1,v],[-1,s.derive(50,68,'ame').s2n]).v,-10);
+ const same=surface(MM.build([row('116Sn',base(50,66).v,2)],catalog)).derive(50,66,'hybrid').me;
+ assert.equal(MM.affected(same,'50-66-0'),true); // A changed uncertainty is still an input dependency.
+});

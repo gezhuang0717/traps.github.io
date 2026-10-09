@@ -52,7 +52,18 @@
       for(const quantity of quantities){const value=b[quantity];if(!value||!affected(value))continue;const reference=a[quantity];out.push({r,quantity,unit:quantity==='BEA'?'keV/nucleon':'keV',before:reference,after:value,delta:reference?P.combine([1,value],[-1,reference]):null});}
     }return out;
   }
-  const api={create,quantities,changes};
+  // A finite source-table edge is not evidence of a separation-energy boundary.
+  // Return the last positive sample only if its immediate neighbour brackets zero.
+  function dripBoundary(samples){
+    let last=null;
+    for(const [index,value]of samples){
+      if(Number.isInteger(index)&&Number.isFinite(value)&&value>0&&(last==null||index>last))last=index;
+    }
+    if(last==null)return null;
+    const next=samples.find(([index])=>index===last+1);
+    return next&&Number.isFinite(next[1])&&next[1]<=0?last:null;
+  }
+  const api={create,quantities,changes,dripBoundary};
   host.ZGMassSurface=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -24,9 +24,9 @@
 </details>
 <dialog class="nc-impact" aria-labelledby="nc-impact-title">
   <div class="nc-bar"><h3 id="nc-impact-title">{{ .loaded_impact }}</h3><button type="button" class="zg-btn zg-btn-ghost" data-impact="close">{{ .loaded_close }}</button></div>
-  <p>{{ .loaded_impact_hint }}</p>
-  <div class="nc-bar"><label>{{ .loaded_impact_quantity }} <select name="nc-impact-quantity"><option value="all">{{ .loaded_all_quantities }}</option></select></label><label>{{ .loaded_impact_model }} <select name="nc-impact-model"><option value="selected">{{ .loaded_selected_models }}</option></select></label><button type="button" class="zg-btn" data-impact="csv">{{ .loaded_impact_csv }}</button></div>
-  <p class="nc-impact-info" role="status"></p>
+  <details class="nc-impact-help"><summary>{{ .loaded_impact_help }}</summary><p>{{ .loaded_impact_hint }}</p></details>
+  <div class="nc-bar"><label>{{ .loaded_impact_input }} <select name="nc-impact-input"><option value="all">{{ .loaded_all_inputs }}</option></select></label><label>{{ .loaded_impact_quantity }} <select name="nc-impact-quantity"><option value="all">{{ .loaded_all_quantities }}</option></select></label><label>{{ .loaded_impact_model }} <select name="nc-impact-model"><option value="selected">{{ .loaded_selected_models }}</option></select></label><button type="button" class="zg-btn" data-impact="csv">{{ .loaded_impact_csv }}</button></div>
+  <p class="nc-impact-input-info"></p><p class="nc-impact-info" role="status"></p><p class="nc-impact-model-info" role="status"></p>
   <div class="nc-table-scroll"><table><thead><tr><th>{{ .loaded_nuclide }}</th><th>{{ .loaded_impact_quantity }}</th><th>AME2020</th><th>{{ .loaded_new }}</th><th>Δ(new − AME)</th><th>{{ .loaded_impact_model }}</th></tr></thead><tbody></tbody></table></div>
   <div class="nc-impact-pager nc-bar"></div>
 </dialog>

@@ -46,7 +46,13 @@
     }return out;
   }
   function panExtent(d,dx,dy){return {...d,x0:d.x0+dx,x1:d.x1+dx,y0:d.y0+dy,y1:d.y1+dy};}
-  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent };
+  function chartFit(rows,width,height){
+    let maxZ=0,maxN=0;
+    for(const [z,n] of rows){if(finite(z)&&finite(n)){maxZ=Math.max(maxZ,z);maxN=Math.max(maxN,n);}}
+    const s=Math.min(width/(maxN+3),height/(maxZ+3));
+    return {s,x:(width-(maxN+1)*s)/2,y:(height-(maxZ+1)*s)/2};
+  }
+  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

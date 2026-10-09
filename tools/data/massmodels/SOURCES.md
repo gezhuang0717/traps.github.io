@@ -1,32 +1,46 @@
 # Public mass-model sources
 
-Numerical facts only; raw downloads, audits and private experiment tables are excluded. Model error columns are residuals, not mass uncertainties. Ground-state theory only; each model loads independently after selection.
+Twelve models. Ground-state numerical predictions only; raw downloads, private experimental inputs and source audits are excluded. Unknown model uncertainty stays unknown. Each selected model loads independently.
 
-| Model | Rows | Primary source | Raw SHA-256 / lineage |
+| Model | Nuclei | Data | Paper |
 |---|---:|---|---|
-| FRDM1992 (published 1995) | 8755 | [P. Möller, J.R. Nix, W.D. Myers, W.J. Swiatecki, At. Data Nucl. Data Tables 59, 185 (1995)](https://doi.org/10.1006/adnd.1995.1002) | legacy TALYS1.95 normalized extraction; see citation |
-| FRDM2012 (published 2016) | 9318 | [P. Möller, A.J. Sierk, T. Ichikawa, H. Sagawa, At. Data Nucl. Data Tables 109–110, 1–204 (2016)](https://doi.org/10.1016/j.adt.2015.10.002) | 99ce7ece6830b0904f68d9a6342b9e66d0ebf0d235c2eb6c4de78716768c10e4 |
-| HFB-17 (Skyrme) | 9985 | [S. Goriely, N. Chamel, J.M. Pearson, Phys. Rev. Lett. 102, 152503 (2009)](https://doi.org/10.1103/PhysRevLett.102.152503) | legacy TALYS1.95 normalized extraction; see citation |
-| HFB-D1M (Gogny) | 8322 | [S. Goriely, S. Hilaire, M. Girod, S. Péru, Phys. Rev. Lett. 102, 242501 (2009)](https://doi.org/10.1103/PhysRevLett.102.242501) | legacy TALYS1.95 normalized extraction; see citation |
-| HFB-14 (BSk14) | 8388 | [S. Goriely et al., Phys. Rev. C 75, 064312 (2007)](https://www.astro.ulb.ac.be/pmwiki/Brusslib/Hfb14) | a08bd5362ce67581441407a77312a002ecc512bd1e12a84e8745396fa7bd1810 |
-| HFB-24 (BSk24) | 8392 | [S. Goriely, N. Chamel, J.M. Pearson, Phys. Rev. C 88, 024308 (2013)](https://doi.org/10.1103/PhysRevC.88.024308) | 23ced4dcf37a9ba7a06130dce16f9148a17e4591118857c6779e3ff06a76f63e |
-| BSkG3 (2023) | 8485 | [G. Grams et al., Eur. Phys. J. A 59, 270 (2023)](https://www.astro.ulb.ac.be/pmwiki/Brusslib/BSkG3) | 6caff2762ea1ce8deb3707ac16d286bdb084ea97fdf084d5783a157fb20543b6 |
+| FRDM1992 (published 1995) | 8755 | [Source](https://doi.org/10.1006/adnd.1995.1002) | [Paper](https://doi.org/10.1006/adnd.1995.1002) |
+| FRDM2012 (published 2016) | 9318 | [Source](https://arxiv.org/pdf/1508.06294) | [Paper](https://doi.org/10.1016/j.adt.2015.10.002) |
+| HFB-17 (Skyrme) | 9985 | [Source](https://doi.org/10.1103/PhysRevLett.102.152503) | [Paper](https://doi.org/10.1103/PhysRevLett.102.152503) |
+| HFB-D1M (Gogny) | 8322 | [Source](https://doi.org/10.1103/PhysRevLett.102.242501) | [Paper](https://doi.org/10.1103/PhysRevLett.102.242501) |
+| HFB-14 (BSk14) | 8388 | [Source](https://www.astro.ulb.ac.be/Nucdata/Masses/hfb14-plain) | [Paper](https://doi.org/10.1103/PhysRevC.75.064312) |
+| HFB-24 (BSk24) | 8392 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb24-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.024308) |
+| BSkG3 (2023) | 8485 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/bskg03-dat) | [Paper](https://doi.org/10.1140/epja/s10050-023-01158-6) |
+| HFB-21 (BSk21) | 8387 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb21-dat) | [Paper](https://doi.org/10.1103/PhysRevC.82.035804) |
+| HFB-25 (BSk25) | 9484 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb25-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.024308) |
+| HFB-26 (BSk26) | 9511 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb26-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.024308) |
+| HFB-27 (BSk27) | 8386 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb27-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.061302) |
+| KTUY05 (2005) | 9436 | [Source](https://wwwndc.jaea.go.jp/nucldata/mass/KTUY05_m246.dat) | [Paper](https://doi.org/10.1143/PTP.113.305) |
 
-New ULB inputs retain10keV mass precision and0.01 beta2 precision. HFB14 uses fixed columns because fields can be blank. First/last identities and24,933 neutron-separation differences agree within0.016MeV rounding tolerance. Raw tables have8388 HFB14,8392 HFB24,8485 BSkG3 rows; older ULB prose quotes differing counts/ranges, so the hashed table defines this snapshot. Internal consistency is not model or experimental validation.
+FRDM1992, HFB-17 and HFB-D1M retain their earlier TALYS1.95 normalized lineage; the other tables were independently recovered from public author or institutional sources. Per-model source JSON records the exact snapshot hash, column normalization, precision, coverage and checks.
 
-Public author tables:
+ULB tables retain 10 keV mass precision and 0.01 beta2 precision. HFB14 requires fixed-column parsing because columns can be blank. Separation-energy consistency checks use the source rounding tolerance; they are not an experimental validation of a model.
 
-- hfb14: [author table](https://www.astro.ulb.ac.be/Nucdata/Masses/hfb14-plain)
-- hfb24: [author table](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb24-dat)
-- bskg3: [author table](https://www.astro.ulb.ac.be/bruslib/nucdata/bskg03-dat)
+KTUY05 retains JAEA atomic mass excesses at 10 keV source precision. All 9,436 mass entries match the separately published JAEA PDF table; 36,747 Sn/S2n/Sp/S2p checks agree within 0.016 MeV using the PDF’s rounded particle-mass constants. Both numerical tables contain 9,436 rows although the explanation says 9,437. Alpha2/alpha4/alpha6 are not exported as beta2: beta2 remains unavailable, together with model sigma. KTUY05 is fitted to AME2003 and is distinct from KTUY04.
 
 ## Update procedure
 
-Save a public author-hosted table and its URL outside the checkout. Run the following, review identities, columns, precision and metadata, then test Python/Node and preview before a normal commit. Keep normalized data and generated index/payloads together. Missing values remain missing; model sigma is never invented.
+Save the public source and its URL outside the checkout. Review exact model variant, columns, units and coverage; independently compare numerical identities and separation/Q energies. Keep unknown values absent. Then run the appropriate importer and generator, test and review the interface before a normal commit. The KTUY importer pins the audited source hash; a changed source requires a new independent audit.
 
-    python tools/import_bruslib.py KEY /private/path/table --audit /private/path/audit.json
-    python tools/make_mass_models.py
+```sh
+python tools/import_bruslib.py KEY /private/path/table --audit /private/path/audit.json
+python tools/import_ktuy.py /private/path/KTUY05_m246.dat --audit /private/path/audit.json
+python tools/make_mass_models.py
+```
+
+Keep the normalized table, source JSON, complete legacy JSON, lightweight index and individual payloads together. Hashes in the index prevent stale browser caches. Full chart must fit actual AME plus selected-model coverage. Missing beta2 must display as unavailable, never spherical zero.
+
+## Coverage and exported missing values
+
+Chart CSV includes the AME/reference and selected-model-only nuclei. AME columns stay reference values; separately named model columns hold the selected model’s mass and beta2. Unknown beta2 exports as a blank field; true zero remains zero. Chain-series CSV is separate.
+
+A drip overlay requires a positive separation value immediately followed by a nonpositive one. A finite table cutoff and a missing neighbour are not a crossing. In KTUY05 the old table-edge shortcut gave49/44/10/7 unsupported Sn/S2n/Sp/S2p edges; the supported neighbouring brackets number80/85/189/192. Rounded model boundaries are predictions, not measured drip lines; no model uncertainty is supplied.
 
 ## Candidates still pending
 
-WS3/WS4(+RBF), DZ28/31, KTUY05, HFB21/22/23/25/26/27, UNEDF0/1, BSkG1/2/4 and INM are not included. Public author tables, units/precision/reuse review and tests are required. IMQMD WS4 endpoints timed out in this audit; private communication tables remain excluded. IAEA HFB14 returned403; the publicly linked author ULB table was used instead.
+WS3/WS4(+RBF), the distinct DZ variants, HFB22/23, UNEDF0/1, BSkG1/2/4, INM2012 and FRLDM still require reliable public data lineage, exact versions and normalization checks. Private communication tables remain excluded. Source-access failures are not replaced with a different model under the requested name.

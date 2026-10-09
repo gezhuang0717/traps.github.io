@@ -27,7 +27,7 @@
       body.innerHTML=raw.slice(page*50,page*50+50).map((r,j)=>{
         const i=page*50+j;
         const options=(f,values)=>{const current=r[f]||({unit:'keV',quantity:'me'}[f]);return `<select data-row="${i}" data-field="${f}" aria-label="${esc(T['loaded_'+f]||f)} ${i+1}">${values.some(([v])=>v===current)?'':`<option value="${esc(current)}" selected>${esc(current)} ⚠</option>`}${values.map(([v,label])=>`<option value="${v}" ${v===current?'selected':''}>${esc(label)}</option>`).join('')}</select>`;};
-        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['u','u'],['µu','µu']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['atomic',T.loaded_atomic]])}</td><td>${control(i,'label',r.label||'New')}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
+        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label><button type="button" class="zg-btn zg-btn-ghost nc-row-impact" data-inspect="${i}" disabled>${esc(T.loaded_impact_row)}</button></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['u','u'],['µu','µu']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['atomic',T.loaded_atomic]])}</td><td>${control(i,'label',r.label||'New')}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
       }).join('');
       pager.innerHTML=raw.length>50?`<button type="button" data-page="-1" ${page===0?'disabled':''}>←</button><span>${page*50+1}–${Math.min(raw.length,page*50+50)} / ${raw.length}</span><button type="button" data-page="1" ${page*50+50>=raw.length?'disabled':''}>→</button>`:'';
       rowStatus();
@@ -37,6 +37,10 @@
       panel.querySelector('.nc-mass-inactive').hidden=!(table.valid.length>0&&table.active.size===0);
       for(const cell of body.querySelectorAll('[data-row-status]')){
         const i=+cell.dataset.rowStatus,r=table.valid.find(r=>r.row===i+1),e=table.errors.find(e=>e.row===i+1);
+        const inspect=body.querySelector(`[data-inspect="${i}"]`),entry=r&&table.active.get(r.id);
+        inspect.disabled=!(r?.use&&entry?.rows.includes(r.row));
+        inspect.setAttribute('aria-label',T.loaded_impact_row+' · '+(r?.label||raw[i]?.nuclide||String(i+1)));
+        inspect.title=inspect.disabled?T.loaded_inactive:T.loaded_impact;
         if(e){cell.textContent=T.loaded_errors[e.code]||e.code;cell.classList.add('nc-invalid');continue;}
         cell.classList.remove('nc-invalid');if(!r){cell.textContent='';continue;}
         const a=table.active.get(r.id),gs=MM.getter(table,base)(r.state.Z,r.state.N),ame=base(r.state.Z,r.state.N);
@@ -66,7 +70,7 @@
       clearTimeout(timer);if(e.type==='change')update();else timer=setTimeout(update,120);
     }
     body.addEventListener('input',input);body.addEventListener('change',input);
-    body.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(b){raw.splice(+b.dataset.remove,1);update();render();}});
+    body.addEventListener('click',e=>{const inspect=e.target.closest('[data-inspect]');if(inspect){if(timer)update();const r=table.valid.find(r=>r.row===+inspect.dataset.inspect+1);if(r&&table.active.get(r.id)?.rows.includes(r.row))root.dispatchEvent(new CustomEvent('zg-mass-impact',{detail:{id:r.id}}));return;}const b=e.target.closest('[data-remove]');if(b){raw.splice(+b.dataset.remove,1);update();render();}});
     pager.addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){page+=+b.dataset.page;render();}});
     policy.addEventListener('change',update);
     panel.querySelector('[name=nc-mass-markers]').addEventListener('change',()=>onchange(table));
@@ -95,7 +99,7 @@
       return `<div class="nc-loaded-card"><strong>★ ${esc(T.loaded_title)}</strong>`+rs.map(r=>{const baseValue=r.state.source_state_index?MM.getter(table,base)(z,n):base(z,n),d=baseValue?P.combine([1,r.value],[-1,baseValue]):null;return `<p>${esc(r.label)}: ME ${fmt(r.me)} ± ${fmt(r.e)} keV; ${r.state.source_state_index?'Eₓ':'Δ(new − AME)'} ${d?fmt(d.v)+' ± '+fmt(d.e):'—'} keV · ${esc(r.rows.map(i=>raw[i-1].reference||'row '+i).join('; '))}</p>`;}).join('')+'</div>';
     }
     render();
-    return {table:()=>table,hash:()=>hash,legend:()=>[...table.active.values()].map(r=>({id:r.id,text:r.rows.map(i=>String(raw[i-1].label||'New')).filter((x,i,a)=>a.indexOf(x)===i).join(' / ')+' · '+r.label+': ME '+fmt(r.me)+' ± '+fmt(r.e)+' keV'})),annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
+    return {flush:()=>{if(timer)update();},table:()=>table,hash:()=>hash,legend:()=>[...table.active.values()].map(r=>({id:r.id,text:r.rows.map(i=>String(raw[i-1].label||'New')).filter((x,i,a)=>a.indexOf(x)===i).join(' / ')+' · '+r.label+': ME '+fmt(r.me)+' ± '+fmt(r.e)+' keV'})),annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
   }
   host.ZGMeasuredMassUI={attach};
 })(typeof window!=='undefined'?window:globalThis);

@@ -97,7 +97,7 @@
     d5n: { label: "Δₙ⁽⁵⁾", v: r => mv(D(r).d5n), lo: 0, hi: 2.5, u: "MeV" },
     d5p: { label: "Δₚ⁽⁵⁾", v: r => mv(D(r).d5p), lo: 0, hi: 2.5, u: "MeV" },
     d3n: { label: T.m_d3n, v: r => mv(D(r).d3n), lo: 0, hi: 2.5, u: "MeV" },
-    beta2: { label: T.m_beta2, need: true, v: r => { const v = MOD[modelKey()] && MOD[modelKey()].map.get(key(r[0], r[1])); return v ? v[1] / 1000 : null; }, lo: -0.3, hi: 0.4, div: true },
+    beta2: { label: T.m_beta2, need: true, v: r => { const v = MOD[modelKey()] && MOD[modelKey()].map.get(key(r[0], r[1])); return v && v[1] != null ? v[1] / 1000 : null; }, lo: -0.3, hi: 0.4, div: true },
     dmod: { label: T.m_dmod, need: true, v: r => mv(dmod(r)), lo: -3, hi: 3, u: "MeV", div: true },
   };
   const FILTERS = {
@@ -176,11 +176,10 @@
     const out = [];
     [...by.keys()].sort((a, b) => a - b).forEach(i => {
       const js = by.get(i).sort((a, b) => a - b), val = j => { const d = nType ? derivedZN(i, j, src) : derivedZN(j, i, src); return d[q] ? d[q].v : null; };
-      let last = null, unbound = false;
-      js.forEach(j => { const v = val(j); if (v == null) return; if (v > 0) { last = j; unbound = false; } else if (last != null) unbound = true; });
-      /* AME: only where an unbound nucleus is actually known; models: the table edge is the predicted drip line */
-      const anyUnbound = js.some(j => last != null && j > last && (val(j) ?? 1) <= 0);
-      if (last != null && (src !== "ame" || anyUnbound)) out.push([i, last]);
+      const last = window.ZGMassSurface.dripBoundary(js.map(j => [j, val(j)]));
+      /* Both AME and models require a neighbouring nonpositive value. Unknown
+         values and finite table cutoffs leave a gap in the boundary overlay. */
+      if (last != null) out.push([i, last]);
     });
     dripCache.set(ck, out); return out;
   }
@@ -263,7 +262,7 @@
   }
 
   const W = () => cv._cw, H = () => cv._ch;
-  function fit() { const s = Math.min(W() / 182, H() / 122); view = { s, x: (W() - 180 * s) / 2, y: (H() - 120 * s) / 2 }; draw(); }
+  function fit() { cancelAnimationFrame(anim); view = CP.chartFit(allRows(), W(), H()); draw(); }
   function zoomTo(r, s = 34, done) {
     const wide = cv.getBoundingClientRect().width > 640, cxp = wide ? W() * 0.3 : W() / 2;
     const target = { s, x: cxp - (r[1] + 0.5) * s, y: H() / 2 - (r[0] + 0.5) * s }, start = { ...view }, t0 = performance.now();
@@ -394,7 +393,7 @@
   };
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
-  const palette=['#167d45','#b94e00','#0095a8','#7352bd','#96610b','#0d807b','#c54646','#525d76','#668100','#874d70','#566bba'];
+  const palette=['#167d45','#b94e00','#0095a8','#7352bd','#96610b','#0d807b','#c54646','#525d76','#668100','#874d70','#566bba','#8b651f'];
   const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'New',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'New + AME2020',color:'#b41c81',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
   let inputLegend=[];
   function inputLegendLines(w){
@@ -425,22 +424,32 @@
     d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>Source / inputs</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
   }
   root.querySelector('.nc-point-table').addEventListener('toggle',pointTable);
-  const impact=root.querySelector('.nc-impact'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
+  const impact=root.querySelector('.nc-impact'),impactInput=root.querySelector('[name=nc-impact-input]'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
   let impactRows=[],impactPage=0,impactRequest=0;
   const impactNames={...Object.fromEntries(Object.entries(PQ).map(([k,v])=>[k,v[0]])),BE:T.loaded_be,BEA:T.m_bea,ex:'Eₓ from ME'};
   window.ZGMassSurface.quantities.concat('ex').forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=impactNames[k];impactQ.append(o);});
   const impactModels=()=>impactM.value==='selected'?selectedModels():impactM.value==='all'?Object.keys(modelIndex||{}):[impactM.value];
-  const impactFiltered=()=>impactRows.filter(r=>impactQ.value==='all'||r.quantity===impactQ.value);
+  const impactFiltered=()=>impactRows.filter(r=>(impactQ.value==='all'||r.quantity===impactQ.value)&&(impactInput.value==='all'||MM.affected(r.after,impactInput.value)));
+  function impactInputs(){
+    const selected=impactInput.value;impactInput.innerHTML='<option value="all">'+escape(T.loaded_all_inputs)+'</option>'+[...inputTable.active.values()].map(r=>'<option value="'+r.id+'">'+escape(r.label)+'</option>').join('');
+    if(selected==='all'||inputTable.active.has(selected))impactInput.value=selected;
+  }
   const impactFormat=v=>v?Number(v.v.toFixed(6))+(v.est?'#':'')+' ± '+(v.e==null?'?':Number(v.e.toPrecision(4))):'—';
   function impactRender(){
     if(!impact.open)return;
-    const all=impactFiltered(),models=impactModels();impactPage=Math.max(0,Math.min(impactPage,Math.ceil(all.length/50)-1));
+    const all=impactFiltered(),models=impactModels(),inputs=[...inputTable.active.values()].filter(r=>impactInput.value==='all'||r.id===impactInput.value);
+    impact.querySelector('.nc-impact-input-info').textContent=inputs.map(r=>r.label+': ME '+impactFormat(r.value)+' keV').join('; ');
+    impact.querySelector('.nc-impact-model-info').textContent=models.length?'':T.loaded_no_comparison;
+    const ownCentre=r=>inputs.some(m=>m.state.Z===r.r[0]&&m.state.N===r.r[1]&&(m.state.label===(r.state||'g')));
+    all.sort((a,b)=>Number(ownCentre(b))-Number(ownCentre(a))||a.r[0]-b.r[0]||a.r[1]-b.r[1]||a.quantity.localeCompare(b.quantity));
+    impactPage=Math.max(0,Math.min(impactPage,Math.ceil(all.length/50)-1));
     impact.querySelector('.nc-impact-info').textContent=T.loaded_impact_count.replace('{rows}',all.length).replace('{nuclei}',new Set(all.map(r=>r.r[0]+'-'+r.r[1]+'-'+(r.state||'g'))).size)+(models.some(k=>!MOD[k])?' · '+(models.some(k=>modelErrors.has(k))?T.loaded_model_error:T.loaded_model_loading):'');
-    impact.querySelector('tbody').innerHTML=all.slice(impactPage*50,impactPage*50+50).map(r=>'<tr><td>'+escape((r.r[0]+r.r[1])+r.r[2]+(r.state?'['+r.state+']':''))+'</td><td>'+escape(impactNames[r.quantity])+'<br>'+r.unit+'</td><td>'+escape(impactFormat(r.before))+'</td><td>'+escape(impactFormat(r.after))+'</td><td>'+escape(impactFormat(r.delta))+'</td><td>'+models.map(k=>{const v=r.state?null:derivedZN(r.r[0],r.r[1],k)[r.quantity];return escape(MOD[k]?.name||modelIndex?.[k]?.name||k)+': '+escape(impactFormat(v))+'<br>Δ(new − model): '+(v?Number((r.after.v-v.v).toPrecision(8)):'—');}).join('<br>')+'</td></tr>').join('');
+    impact.querySelector('tbody').innerHTML=all.length?all.slice(impactPage*50,impactPage*50+50).map(r=>'<tr'+(ownCentre(r)?' class="nc-impact-centre"':'')+'><td>'+escape((r.r[0]+r.r[1])+r.r[2]+(r.state?'['+r.state+']':''))+'</td><td>'+escape(impactNames[r.quantity])+'<br>'+r.unit+'</td><td>'+escape(impactFormat(r.before))+'</td><td>'+escape(impactFormat(r.after))+'</td><td>'+escape(impactFormat(r.delta))+'</td><td>'+models.map(k=>{const v=r.state?null:derivedZN(r.r[0],r.r[1],k)[r.quantity];return escape(MOD[k]?.name||modelIndex?.[k]?.name||k)+': '+escape(impactFormat(v))+'<br>Δ(new − model): '+(v?Number((r.after.v-v.v).toPrecision(8)):'—');}).join('<br>')+(models.length?'':'—')+'</td></tr>').join(''):'<tr><td colspan="6">'+escape(T.loaded_impact_empty)+'</td></tr>';
     impact.querySelector('.nc-impact-pager').innerHTML=all.length>50?'<button type="button" data-impact-page="-1" '+(impactPage===0?'disabled':'')+'>←</button><span>'+(impactPage*50+1)+'–'+Math.min(all.length,impactPage*50+50)+' / '+all.length+'</span><button type="button" data-impact-page="1" '+((impactPage+1)*50>=all.length?'disabled':'')+'>→</button>':'';
   }
   function impactRebuild(){
     if(!impact.open||!inputTable)return;
+    impactInputs();
     impactRows=window.ZGMassSurface.changes(rows,inputTable.active,derivedZN,MM.affected);
     for(const r of inputTable.active.values())if(r.state.source_state_index){
       const s=r.state,m=s.mass_excess,old=m.value==null?null:P.primitive('NUBASE2020:'+s.id,m.value,m.uncertainty,m.value_extrapolated),gs=get(s.Z,s.N),newgs=getter('hybrid')(s.Z,s.N),centre=[s.Z,s.N,s.element];
@@ -453,7 +462,10 @@
     await Promise.allSettled(impactModels().map(k=>loadModels(k)));
     if(seq===impactRequest&&impact.open){impactRebuild();plotChain();}
   }
-  root.querySelector('[data-mass=impact]').onclick=()=>{impactPage=0;impact.showModal();impactLoad();};
+  function openImpact(id='all'){if(!inputTable)return;measured?.flush();impactPage=0;impactQ.value='all';impactInputs();impactInput.value=inputTable.active.has(id)?id:'all';if(!impact.open)impact.showModal();impactLoad();}
+  root.querySelector('[data-mass=impact]').onclick=()=>openImpact();
+  root.addEventListener('zg-mass-impact',e=>openImpact(e.detail.id));
+  impactInput.onchange=()=>{impactPage=0;impactRender();};
   impactQ.onchange=()=>{impactPage=0;impactRender();};impactM.onchange=()=>{impactPage=0;impactLoad();};
   impact.addEventListener('click',e=>{
     const page=e.target.closest('[data-impact-page]');if(page){impactPage+=+page.dataset.impactPage;impactRender();return;}
@@ -711,11 +723,11 @@
   /* ---------- exports ---------- */
   const csvRow = r => { const d = derived(r), f = o => o ? [String(o.v / 1000), o.e == null ? "" : String(o.e / 1000), o.est ? "#" : ""] : ["", "", ""];
     const m = src !== "ame" && MOD[src] ? MOD[src].map.get(key(r[0], r[1])) : null;
-    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m ? m[1] / 1000 : ""] : [])]; };
+    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m && m[1] != null ? m[1] / 1000 : ""] : [])]; };
   const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
   root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); drawResidual(); };
   root.querySelector("[data-nc=png]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = W() * sc; o.height = H() * sc; draw(o.getContext("2d"), o.width, o.height, sc); return o; }, "chart-of-nuclides", 6);
-  root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), rows.filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
+  root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), allRows().filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
   root.querySelector("[data-nc=video]").onclick = e => {
     const b = e.currentTarget, tour = [rows.find(r => r[0] === 50 && r[1] === 50), rows.find(r => r[0] === 55 && r[1] === 78), rows.find(r => r[0] === 82 && r[1] === 126)].filter(Boolean);
     const keep = [cv._cw, cv._ch], hi = () => { cv.width = Math.round(cv._cw * 3); cv.height = Math.round(cv._ch * 3); draw(); };

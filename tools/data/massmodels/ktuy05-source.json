@@ -1,0 +1,48 @@
+{
+  "name": "KTUY05 (2005)",
+  "url": "https://doi.org/10.1143/PTP.113.305",
+  "doi": "10.1143/PTP.113.305",
+  "table_url": "https://wwwndc.jaea.go.jp/nucldata/mass/KTUY05_m246.dat",
+  "explanation_url": "https://wwwndc.jaea.go.jp/nucldata/mass/KTUY05explanation.pdf",
+  "reference_table_url": "https://wwwndc.jaea.go.jp/nucldata/mass/KTUY05_m246S12np.pdf",
+  "ref": "H. Koura, T. Tachibana, M. Uno, M. Yamada, Prog. Theor. Phys. 113, 305–325 (2005)",
+  "raw_sha256": "bf4b22407902c38ffbdbb0b0659857f1aaf3a7407e0ae852c609ac67f1d93901",
+  "normalized_sha256": "0439073770d15174524640ccb0e49a57b2541b42527d71c0d59192ab0e6e1570",
+  "rows": 9436,
+  "first": [
+    2,
+    4,
+    6.29,
+    null
+  ],
+  "last": [
+    130,
+    330,
+    315.13,
+    null
+  ],
+  "coverage": {
+    "Z": [
+      2,
+      130
+    ],
+    "N": [
+      2,
+      200
+    ]
+  },
+  "mass_precision_keV": 10,
+  "beta2_precision": null,
+  "uncertainty": null,
+  "validation": {
+    "method": "independent JAEA PDF versus text table, all 9436 mass/identity rows exact",
+    "Sn_checks": 9303,
+    "S2n_checks": 9171,
+    "Sp_checks": 9235,
+    "S2p_checks": 9038,
+    "maximum_difference_MeV": 0.01200000000008,
+    "tolerance_MeV": 0.016
+  },
+  "note": "KTUY05 fitted to AME2003; distinct from KTUY04. Both numerical tables contain 9436 rows; explanatory prose says 9437. Missing neighbours remain missing. Source alpha2/alpha4/alpha6 are not beta2; beta2 unavailable. Model sigma unavailable.",
+  "reuse": "attributed numerical facts from public JAEA table; raw table, explanation and paper not redistributed"
+}
