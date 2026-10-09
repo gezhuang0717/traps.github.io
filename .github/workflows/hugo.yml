@@ -31,7 +31,7 @@ jobs:
   daily:
     # Runs on schedule, on manual request, and on every push to main (a push refreshes Daily only if it is older than 12 h)
     # Daily feeds only on the production repositories; the test/staging site never refreshes or commits.
-    if: github.repository != 'gezhuang0717/traps.github.io' && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.fetch)
+    if: (github.repository == format('{0}/{0}.github.io', github.repository_owner) || github.repository == 'gezhuang0717/igisol.github.io') && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'push' || inputs.fetch)
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -85,7 +85,7 @@ jobs:
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   validate:
     needs: daily
-    if: always() && (needs.daily.result == 'success' || needs.daily.result == 'skipped') && (needs.daily.outputs.ran != 'no' || github.event_name != 'schedule')
+    if: always() && (github.event_name != 'schedule' || github.repository == format('{0}/{0}.github.io', github.repository_owner) || github.repository == 'gezhuang0717/igisol.github.io') && (needs.daily.result == 'success' || needs.daily.result == 'skipped') && (needs.daily.outputs.ran != 'no' || github.event_name != 'schedule')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
