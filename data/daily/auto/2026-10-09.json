@@ -89,6 +89,159 @@
       "published": "2026-10-08",
       "collected_at": "2026-10-09",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "How To Arrange Hundreds of Atoms Between Two Mirrors",
+      "summary": "Author(s): Sophia Chen A new device in which more than 600 atoms are manipulated within a single optical cavity could allow for the scaling up of neutral-atom quantum computers. [Physics 19, s126] Published Thu Oct 08, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s126",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Enzymes Strongly Affect Sequestered Biomolecules",
+      "summary": "Author(s): David Ehrenstein Regions within a cell in which biomolecules are concentrated, called condensates, form different structures when enzymes are involved, according to experiments. [Physics 19, s139] Published Thu Oct 08, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s139",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Light reads electron spins inside porous crystals, opening path to quantum chemical sensors",
+      "summary": "University of Glasgow researchers are part of an international collaboration that could lead to a new generation of quantum sensors. The team, which included researchers from the University of Tokyo, University of Glasgow, University of Sheffield and Kobe University, has for…",
+      "url": "https://phys.org/news/2026-10-electron-porous-crystals-path-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Ultrafast core-level spectroscopy reveals elusive precursors of exciton condensation in quantum materials",
+      "summary": "Many fascinating phases in quantum materials emerge when electrons, atoms and other microscopic components begin to act collectively. But these phases do not necessarily appear out of nowhere when a material crosses a transition temperature. Before long-range order develops,…",
+      "url": "https://phys.org/news/2026-08-ultrafast-core-spectroscopy-reveals-elusive.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Physics model reveals fundamental trade-off between prediction and energy efficiency in intelligent systems",
+      "summary": "Artificial intelligence is increasingly becoming part of our everyday lives, from digital assistants to robots that respond to their surroundings. Each of these capabilities is based on physical computational processes that consume energy. An international research team led by…",
+      "url": "https://phys.org/news/2026-10-physics-reveals-fundamental-energy-efficiency.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Superconducting circuit links smaller photon groups into larger entangled states",
+      "summary": "Quantum computers, computer systems that leverage the laws of quantum mechanics, store and process information using qubits (i.e., quantum bits). In many quantum computers, qubits are linked via entanglement, a quantum mechanical effect that connects particles in such a way…",
+      "url": "https://phys.org/news/2026-10-superconducting-circuit-links-smaller-photon.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Liquid-crystal-like magnetism explains puzzling properties in a rare-earth compound",
+      "summary": "In some materials, physical properties don't emerge from their individual particles, but from the collective behavior of their quantum spins. Now, researchers led by Pengcheng Dai at Rice University in the U.S. have discovered that in one compound containing the rare-earth…",
+      "url": "https://phys.org/news/2026-10-liquid-crystal-magnetism-puzzling-properties.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "paper",
+      "title": "Order from chaos with adaptive circuits on quantum hardware",
+      "summary": "Nature Physics, Published online: 09 October 2026; doi:10.1038/s41567-026-03470-6 Controlling quantum chaos requires using measurement and feedback that survive noise and decoherence. Such control is now achieved in a superconducting quantum processor and reveals a critical…",
+      "url": "https://www.nature.com/articles/s41567-026-03470-6",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "paper",
+      "title": "Topological transitions in orbital-symmetry-controlled chemical reactions",
+      "summary": "Nature Physics, Published online: 06 October 2026; doi:10.1038/s41567-026-03455-5 The application of ideas from topological band theory to reaction pathways in molecular systems with strong electronic interactions is challenging. Now, a many-body framework based on Green’s…",
+      "url": "https://www.nature.com/articles/s41567-026-03455-5",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-06",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "news",
+      "title": "Le GANIL participe au FENO",
+      "summary": "Le GANIL sera présent sur le Village de l&#8217;enseignement supérieur, de la recherche et de l&#8217;innovation du FENO, les vendredi 16, samedi 17 et dimanche 18 octobre 2026. Physiciens, ingénieurs et doctorants vous accueilleront pour vous faire vivre la physique autrement…",
+      "url": "https://www.ganil-spiral2.eu/2026/10/07/le-ganil-participe-a-la-fete-de-la-science-2/",
+      "source": "GANIL news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "published": "2026-10-07",
+      "collected_at": "2026-10-09",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "ganil-spiral2"
+      ]
     }
   ],
   "fetched": "2026-10-09T00:54:29+00:00"

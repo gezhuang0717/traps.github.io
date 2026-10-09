@@ -3,4 +3,4 @@
 <p class="daily-resource-jump"><a href="#daily-more-resources">↓ {{ (index hugo.Data.daily_links.labels $k).t }}</a></p>
 <div data-daily-hub data-lang="{{ site.Language.Lang }}" data-root="{{ strings.TrimSuffix "zg-root" ("zg-root" | relURL) }}" data-locale="{{ site.Home.RelPermalink }}"></div>
 <noscript><p><a href="{{ "data/daily.json" | relURL }}">Download Daily entries (JSON)</a></p></noscript>
-<script defer src="{{ "js/daily.js" | relURL }}"></script>
+<script defer src="{{ "js/daily.js" | relURL }}?v={{ readFile "static/js/daily.js" | sha256 }}"></script>

@@ -133,6 +133,7 @@
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}?v=state-links-2"></script>
 <script defer src="{{ "js/chain-plot.js" | relURL }}?v={{ readFile "static/js/chain-plot.js" | sha256 }}"></script>
+<script defer src="{{ "js/mass-quantity-menu.js" | relURL }}?v={{ readFile "static/js/mass-quantity-menu.js" | sha256 }}"></script>
 <script defer src="{{ "js/mass-surface.js" | relURL }}?v={{ readFile "static/js/mass-surface.js" | sha256 }}"></script>
 <script defer src="{{ "js/measured-masses.js" | relURL }}?v={{ readFile "static/js/measured-masses.js" | sha256 }}"></script>
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}

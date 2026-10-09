@@ -11,7 +11,17 @@
     "mf_neighbours": "Required (ΔZ, ΔN)",
     "mf_pn_note": "The four fixed proton–neutron operators use the displayed stencil at every centre. Their ee/oo/even–odd physical interpretation requires the appropriate parity. The existing δVpn choice automatically selects a stencil from Z,N parity.",
     "mf_convention": "Slopes are forward differences: S₂ₙ(N+1) − S₂ₙ(N), and the proton analogue. Gsym includes ½, matching the supplied R executable weights; its R description omitted that factor. These are finite differences, not derivatives divided by a step.",
-    "mf_missing": "Missing required masses leave gaps. Shared mass terms cancel before uncertainty and # provenance are calculated; other experimental inputs are treated as independent. Model uncertainty remains unknown. # inputs use hollow experimental points and no shaded band."
+    "mf_missing": "Missing required masses leave gaps. Shared mass terms cancel before uncertainty and # provenance are calculated; other experimental inputs are treated as independent. Model uncertainty remains unknown. # inputs use hollow experimental points and no shaded band.",
+    "mf_group_basic": "Mass and binding energy",
+    "mf_group_separation": "Separation energies",
+    "mf_group_q": "Decay Q values",
+    "mf_group_gap": "Shell gaps",
+    "mf_group_pairing": "Pairing indicators",
+    "mf_group_pn": "Proton–neutron differences",
+    "mf_group_higher": "Slopes and higher differences",
+    "mf_group_other": "Other chart quantities",
+    "mf_be": "Total binding energy B",
+    "mf_s2p": "Two-proton separation energy S₂ₚ"
   },
   "zh": {
     "mf_title": "更多质量滤波量——公式与所需邻核",
@@ -25,7 +35,17 @@
     "mf_neighbours": "所需 (ΔZ, ΔN)",
     "mf_pn_note": "四种固定质子–中子算符在每个中心使用显示的固定模板；解释为 ee／oo／奇偶相互作用时需满足相应奇偶条件。原有 δVpn 选项会按 Z、N 奇偶自动选择模板。",
     "mf_convention": "斜率采用前向差分 S₂ₙ(N+1) − S₂ₙ(N)，质子式类似。Gsym 包含 ½，与提供的 R 可执行权重一致；R 的文字说明漏写此因子。这些是有限差分，不是除以步长后的导数。",
-    "mf_missing": "缺少所需质量时留空。先消去共享质量项，再计算不确定度和 # 来源；其余实验输入按独立处理。模型不确定度保持未知。含 # 输入的实验点为空心且无阴影带。"
+    "mf_missing": "缺少所需质量时留空。先消去共享质量项，再计算不确定度和 # 来源；其余实验输入按独立处理。模型不确定度保持未知。含 # 输入的实验点为空心且无阴影带。",
+    "mf_group_basic": "质量与结合能",
+    "mf_group_separation": "核子分离能",
+    "mf_group_q": "衰变 Q 值",
+    "mf_group_gap": "壳隙",
+    "mf_group_pairing": "对能隙指标",
+    "mf_group_pn": "质子–中子双差",
+    "mf_group_higher": "斜率与高阶差分",
+    "mf_group_other": "其他核素图物理量",
+    "mf_be": "总结合能 B",
+    "mf_s2p": "双质子分离能 S₂ₚ"
   },
   "fi": {
     "mf_title": "Lisää massasuotimia — kaavat ja naapurit",
@@ -39,7 +59,17 @@
     "mf_neighbours": "Tarvittavat (ΔZ, ΔN)",
     "mf_pn_note": "Neljä kiinteää protoni–neutronisuodinta käyttävät samaa kaavaa kaikilla keskuksilla. ee/oo/pariteettitulkinta edellyttää oikeaa pariteettia. δVpn valitsee kaavan automaattisesti Z,N-pariteetin perusteella.",
     "mf_convention": "Erotukset ovat S₂ₙ(N+1) − S₂ₙ(N) ja protonivastine. Gsym sisältää tekijän ½ R-koodin painojen mukaisesti; R-kuvaus jätti sen pois. Nämä ovat äärellisiä erotuksia, eivät askelpituudella jaettuja derivaattoja.",
-    "mf_missing": "Puuttuva naapuri jättää aukon. Yhteiset massatermit kumotaan ennen epävarmuutta ja #-alkuperää; muut kokeelliset syötteet oletetaan riippumattomiksi. Mallin epävarmuus on tuntematon. #-syötteet näkyvät avoimina kokeellisina pisteinä ilman varjostusta."
+    "mf_missing": "Puuttuva naapuri jättää aukon. Yhteiset massatermit kumotaan ennen epävarmuutta ja #-alkuperää; muut kokeelliset syötteet oletetaan riippumattomiksi. Mallin epävarmuus on tuntematon. #-syötteet näkyvät avoimina kokeellisina pisteinä ilman varjostusta.",
+    "mf_group_basic": "Massa ja sidosenergia",
+    "mf_group_separation": "Separaatioenergiat",
+    "mf_group_q": "Hajoamisen Q-arvot",
+    "mf_group_gap": "Kuoriaukot",
+    "mf_group_pairing": "Pari-indikaattorit",
+    "mf_group_pn": "Protoni–neutronierotukset",
+    "mf_group_higher": "Kaltevuudet ja korkeammat erotukset",
+    "mf_group_other": "Muut karttasuureet",
+    "mf_be": "Kokonaissidosenergia B",
+    "mf_s2p": "Kahden protonin separaatioenergia S₂ₚ"
   },
   "de": {
     "mf_title": "Weitere Massenfilter — Formeln und Nachbarn",
@@ -53,7 +83,17 @@
     "mf_neighbours": "Benötigte (ΔZ, ΔN)",
     "mf_pn_note": "Die vier festen Proton–Neutron-Operatoren verwenden überall dasselbe Schema. Die ee/oo/Paritätsdeutung setzt die passende Parität voraus. δVpn wählt das Schema automatisch nach Z,N-Parität.",
     "mf_convention": "Vorwärtsdifferenzen: S₂ₙ(N+1) − S₂ₙ(N) und Protonenanalogon. Gsym enthält ½ wie die ausführbaren R-Gewichte; die R-Beschreibung ließ den Faktor aus. Endliche Differenzen, keine durch die Schrittweite geteilten Ableitungen.",
-    "mf_missing": "Fehlende Nachbarmassen erzeugen Lücken. Gemeinsame Massenterme werden vor Unsicherheit und #-Herkunft gekürzt; sonstige experimentelle Eingaben gelten als unabhängig. Modellunsicherheit bleibt unbekannt. #-Eingaben ergeben offene experimentelle Punkte ohne Schattierung."
+    "mf_missing": "Fehlende Nachbarmassen erzeugen Lücken. Gemeinsame Massenterme werden vor Unsicherheit und #-Herkunft gekürzt; sonstige experimentelle Eingaben gelten als unabhängig. Modellunsicherheit bleibt unbekannt. #-Eingaben ergeben offene experimentelle Punkte ohne Schattierung.",
+    "mf_group_basic": "Masse und Bindungsenergie",
+    "mf_group_separation": "Separationsenergien",
+    "mf_group_q": "Zerfalls-Q-Werte",
+    "mf_group_gap": "Schalenlücken",
+    "mf_group_pairing": "Paarungsindikatoren",
+    "mf_group_pn": "Proton–Neutron-Differenzen",
+    "mf_group_higher": "Steigungen und höhere Differenzen",
+    "mf_group_other": "Andere Kartengrößen",
+    "mf_be": "Gesamte Bindungsenergie B",
+    "mf_s2p": "Zwei-Protonen-Separationsenergie S₂ₚ"
   },
   "ja": {
     "mf_title": "追加の質量フィルター — 式と必要な隣接核",
@@ -67,6 +107,16 @@
     "mf_neighbours": "必要な (ΔZ, ΔN)",
     "mf_pn_note": "4種類の固定陽子–中性子演算子は各中心で同じ配置を使います。ee／oo／偶奇の物理的解釈には対応する偶奇が必要です。既存の δVpn は Z,N の偶奇で配置を自動選択します。",
     "mf_convention": "前進差分 S₂ₙ(N+1) − S₂ₙ(N) と陽子の対応式を使います。Gsym の ½ は R の実行重みと一致しますが、R の説明文では省略されています。刻み幅で割った微分ではなく有限差分です。",
-    "mf_missing": "必要な質量がない点は空白です。共通質量項を消去してから不確かさと # の由来を計算し、その他の実験入力は独立とします。モデルの不確かさは未知のままです。# 入力の実験点は白抜きで陰影帯を付けません。"
+    "mf_missing": "必要な質量がない点は空白です。共通質量項を消去してから不確かさと # の由来を計算し、その他の実験入力は独立とします。モデルの不確かさは未知のままです。# 入力の実験点は白抜きで陰影帯を付けません。",
+    "mf_group_basic": "質量と結合エネルギー",
+    "mf_group_separation": "分離エネルギー",
+    "mf_group_q": "崩壊 Q 値",
+    "mf_group_gap": "殻ギャップ",
+    "mf_group_pairing": "対相関指標",
+    "mf_group_pn": "陽子–中性子差分",
+    "mf_group_higher": "傾きと高階差分",
+    "mf_group_other": "その他の核図物理量",
+    "mf_be": "全結合エネルギー B",
+    "mf_s2p": "2陽子分離エネルギー S₂ₚ"
   }
 }
