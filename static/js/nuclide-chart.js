@@ -21,12 +21,18 @@
   const MAGIC = [2, 8, 20, 28, 50, 82, 126], SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
   const sup = n => String(n).replace(/\d/g, d => SUP[d]);
   let rows = [], M = new Map(), EL = [], view = { s: 4, x: 10, y: 0 }, pin = null, hover = null, mode = "decay", filt = "all", anim = null;
-  let chain = null, plotPts = [], modPts = [], plotHover = null;
+  let chain = null, plotPts = [], modPts = [], plotHover = null, plotDomain = null;
+  const CP = window.ZGChainPlot, rangeMemory = {};
+  let activeChainType = pchain.value;
+  const chainInput = name => root.querySelector(`[name=nc-${name}]`);
+  const axisNumber = name => { const v = chainInput(name).value; return v === '' ? null : Number(v); };
   /* theory masses: MOD[key] = {name, ref, url, map: Map(key → [ME keV, β2·1000])}; src = "ame" or a model key */
   let MOD = {}, PATHS = {}, src = "ame", modelsLoading = null, extraRows = [];
   const msel = root.querySelector("[name=nc-model]"), ovl = root.querySelector(".nc-ovl");
   const key = (Z, N) => Z * 1000 + N;
-  const css = getComputedStyle(document.documentElement), ink = (css.getPropertyValue("--zg-ink") || "").trim() || "#1d2433";
+  let ink = '#1d2433';
+  const updateInk = () => { ink=(getComputedStyle(document.documentElement).getPropertyValue('--zg-ink')||'').trim()||'#1d2433'; };
+  updateInk();
   const X = window.zgExport;
   const lineWidth = () => +(root.querySelector("[name=nc-line-width]")?.value || 1);
   const DPR = () => Math.min(4, Math.max(2, window.devicePixelRatio || 1));   /* render at ≥ 2× for crisp text and lines */
@@ -189,7 +195,7 @@
     c.globalAlpha = 1;
     drawOverlays(c, v, Hd, sc);
     [[hover, ink], [pin, "#e5484d"]].forEach(([r, col]) => { if (!r || sc > 1 && r === hover) return; const [x, y] = P(r[0], r[1]); c.strokeStyle = col; c.lineWidth = 2 * sc; c.strokeRect(x - sc, y - sc, s + sc, s + sc); });
-    c.fillStyle = ink; c.font = `${12 * sc}px system-ui`; c.textAlign = "left"; c.fillText("N →", Wd - 36 * sc, Hd - 8 * sc); c.fillText("Z ↑", 6 * sc, 14 * sc);
+    c.fillStyle = sc > 1 ? '#222' : ink; c.font = `${12 * sc}px system-ui`; c.textAlign = "left"; c.fillText("N →", Wd - 36 * sc, Hd - 8 * sc); c.fillText("Z ↑", 6 * sc, 14 * sc);
   }
   /* ---------- theory masses, drip lines and process paths ---------- */
   const DRIP = { sn: ["#2563eb", [6, 4]], s2n: ["#1e3a8a", []], sp: ["#ef4444", [6, 4]], s2p: ["#991b1b", []] };
@@ -372,11 +378,16 @@
   function plotChain(r) {
     chain = r || chain; if (!chain) return;
     const ch = pchain.value, [Z, N] = chain, A = Z + N;
+    if(ch !== activeChainType){
+      rangeMemory[activeChainType]=Object.fromEntries(['c0','c1','x0','x1'].map(k=>[k,chainInput(k).value]));activeChainType=ch;
+      const values=CP.rangeFor(rangeMemory,ch,ch==='Z'?Z:ch==='N'?N:A);Object.entries(values).forEach(([k,v])=>chainInput(k).value=v);
+    }
     const q = PQ[pq.value], rg = root.querySelector("[name=nc-range]"), on = rg && rg.checked, num = n => { const v = root.querySelector(`[name=${n}]`).value; return v === "" ? null : +v; };
     const own = ch === "Z" ? Z : ch === "N" ? N : A, cfrom = on && num("nc-c0") != null ? num("nc-c0") : own, cto = on && num("nc-c1") != null ? num("nc-c1") : cfrom;
     const xlo = on ? num("nc-x0") : null, xhi = on ? num("nc-x1") : null;
-    plotPts = [];
-    for (let c = Math.min(cfrom, cto); c <= Math.max(cfrom, cto) && c - Math.min(cfrom, cto) < 40; c++) {
+    plotPts = []; plotHover = null;
+    const first = Math.max(0, Math.ceil(Math.min(cfrom, cto))), last = Math.min(400, Math.floor(Math.max(cfrom, cto))), total = Math.max(0, last - first + 1), shown = Math.min(total, 40);
+    for (let c = first; c < first + shown; c++) {
       rows.filter(x => ch === "Z" ? x[0] === c : ch === "N" ? x[1] === c : x[0] + x[1] === c).forEach(x => {
         const v = q[1](derived(x), x), xv = ch === "Z" ? x[1] : x[0];
         if (v && (xlo == null || xv >= xlo) && (xhi == null || xv <= xhi)) plotPts.push({ r: x, x: xv, y: v.v / 1000, e: v.e == null ? null : v.e / 1000, est: v.est, g: c });
@@ -387,62 +398,87 @@
     /* model curve over the whole chain the model predicts (needs a model source, or β₂ which only models give) */
     const mk = src !== "ame" ? src : pq.value === "beta2" ? modelKey() : null;
     modPts = [];
-    if (mk && MOD[mk] && plotPts.groups.length <= 1 && !["dme", "hl", "dmod"].includes(pq.value)) {
-      const ks = [...MOD[mk].map.keys()].map(k => [Math.floor(k / 1000), k % 1000]).filter(([z, n]) => (ch === "Z" ? z === cfrom : ch === "N" ? n === cfrom : z + n === cfrom) && (xlo == null || (ch === "Z" ? n : z) >= xlo) && (xhi == null || (ch === "Z" ? n : z) <= xhi));
-      modPts = ks.map(([z, n]) => { const v = q[1](derivedZN(z, n, mk), [z, n]); return v && { x: ch === "Z" ? n : z, y: v.v / 1000 }; }).filter(Boolean).sort((a, b) => a.x - b.x);
+    const modelReason = mk && shown > 6 ? T.model_many : mk && ["dme", "hl", "dmod"].includes(pq.value) ? T.model_quantity : '';
+    const belongs = (z, n) => { const c = ch === 'Z' ? z : ch === 'N' ? n : z + n; return c >= first && c < first + shown; };
+    const modelNuclei = mk && MOD[mk] && !modelReason ? [...MOD[mk].map.keys()].map(k => [Math.floor(k / 1000), k % 1000]).filter(([z, n]) => belongs(z, n)) : [];
+    if (modelNuclei.length) {
+      const ks = modelNuclei.filter(([z, n]) => (xlo == null || (ch === "Z" ? n : z) >= xlo) && (xhi == null || (ch === "Z" ? n : z) <= xhi));
+      modPts = ks.map(([z, n]) => { const v = q[1](derivedZN(z, n, mk), [z, n]), r=M.get(key(z,n)) || Object.assign([z,n,(EL.find(e=>e[0]===z)||[z,"Z"+z])[1],null,null,0,-97,"—","",null,"",[]],{mo:true}); return v && { r, source:MOD[mk].name, x: ch === "Z" ? n : z, y: v.v / 1000, e:null, g: ch === 'Z' ? z : ch === 'N' ? n : z + n }; }).filter(Boolean).sort((a, b) => a.g - b.g || a.x - b.x);
       modPts.name = MOD[mk].name;
     }
     const gs = plotPts.groups, multi = gs.length > 1, nm = ch === "Z" ? "Z" : ch === "N" ? "N" : "A";
-    const lab = multi ? `${ch === "Z" ? T.p_iso : ch === "N" ? T.p_isot : T.p_isob}: ${nm} = ${gs[0]}–${gs[gs.length - 1]}` : ch === "Z" ? `${T.p_iso}: Z = ${Z} (${chain[2]})` : ch === "N" ? `${T.p_isot}: N = ${N}` : `${T.p_isob}: A = ${A}`;
-    pinfo.textContent = `${lab} · ${q[0]} · ${plotPts.length} ${T.points}`;
+    const lab = `${ch === 'Z' ? T.p_iso : ch === 'N' ? T.p_isot : T.p_isob}: ${nm} = ${first}${shown > 1 ? '–' + (first + shown - 1) : ''}`;
+    pinfo.textContent = `${lab} · ${q[0]} · ${plotPts.length} ${T.points} · ${T.chain_count.replace('{shown}',shown).replace('{total}',total)}${modelReason ? ' · ' + modelReason : ''}`;
+    const fullX = rows.filter(x => belongs(x[0],x[1])).map(x => ch === 'Z' ? x[1] : x[0]).concat(modelNuclei.map(([z,n]) => ch === 'Z' ? n : z));
+    plotDomain = CP.chainExtent(plotPts, modPts, { xMode: chainInput('xscale').value, yMode: chainInput('yscale').value, fullX, errors: chainInput('axis-errors').checked, manual: Object.fromEntries(['x0','x1','y0','y1'].map(k => [k, axisNumber('axis-'+k)])) });
+    root.querySelector('.nc-axis-note').textContent = (plotDomain.warnings.length ? T.axis_invalid + ' · ' : '') + T.axis_offscale;
+    root.querySelector('.nc-manual-x').hidden = chainInput('xscale').value !== 'manual';
+    root.querySelector('.nc-manual-y').hidden = chainInput('yscale').value !== 'manual';
+    pc.setAttribute('aria-label', `${lab}; ${q[0]}; x ${plotDomain.x0}–${plotDomain.x1}; y ${plotDomain.y0}–${plotDomain.y1}; ${plotPts.length} ${T.points}`);
     drawPlot();
   }
   function drawPlot(c = pg, Wd = pc._cw, Hd = pc._ch, sc = 1) {
     if (c === pg) pg.setTransform(pc.width / pc._cw, 0, 0, pc.height / pc._ch, 0, 0);
     c.clearRect(0, 0, Wd, Hd); c.fillStyle = sc > 1 ? "#fff" : "transparent"; if (sc > 1) c.fillRect(0, 0, Wd, Hd);
     if (!plotPts.length && !modPts.length) { c.fillStyle = "#888"; c.font = `${13 * sc}px system-ui`; c.fillText(T.p_hint, 20 * sc, 30 * sc); return; }
-    const L = 62 * sc, R = 16 * sc, Tp = 18 * sc, B = 42 * sc, xs = plotPts.map(p => p.x).concat(modPts.map(p => p.x)), ys = plotPts.flatMap(p => [p.y - (p.e || 0), p.y + (p.e || 0)]).concat(modPts.map(p => p.y));
-    let x0 = Math.min(...xs) - 1, x1 = Math.max(...xs) + 1, y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = (y1 - y0) * 0.08 || 1; y0 -= pad; y1 += pad;
-    const px = x => L + (x - x0) / (x1 - x0) * (Wd - L - R), py = y => Hd - B - (y - y0) / (y1 - y0) * (Hd - B - Tp);
+    const { x0,x1,y0,y1 } = plotDomain, geom = CP.geometry(plotDomain,Wd,Hd,(plotPts.groups || []).length > 1,sc);
+    const { L,R,T:Tp,B,px,py } = geom;
     c.strokeStyle = "rgba(127,127,160,.45)"; c.lineWidth = 0.45 * lineWidth() * sc; c.strokeRect(L, Tp, Wd - L - R, Hd - B - Tp);
     c.fillStyle = sc > 1 ? "#222" : ink; c.font = `${11 * sc}px system-ui`; c.textAlign = "center";
-    niceTicks(x0, x1, 12).filter(x => Number.isInteger(x)).forEach(x => { c.fillText(x, px(x), Hd - B + 15 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(px(x), Tp); c.lineTo(px(x), Hd - B); c.stroke(); c.restore(); });
+    const xTicks = Math.max(2, Math.min(12, Math.floor((Wd - L - R) / (45 * sc))));
+    niceTicks(x0, x1, xTicks).filter(x => Number.isInteger(x)).forEach(x => { c.fillText(x, px(x), Hd - B + 15 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(px(x), Tp); c.lineTo(px(x), Hd - B); c.stroke(); c.restore(); });
     const ch = pchain.value; c.fillText(ch === "Z" ? "N" : "Z", (L + Wd - R) / 2, Hd - 8 * sc);
     c.textAlign = "right"; niceTicks(y0, y1, 6).forEach(y => { c.fillText(fmtTick(y), L - 6 * sc, py(y) + 4 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(L, py(y)); c.lineTo(Wd - R, py(y)); c.stroke(); c.restore(); });
     c.save(); c.translate(14 * sc, (Tp + Hd - B) / 2); c.rotate(-Math.PI / 2); c.textAlign = "center"; c.fillText(`${PQ[pq.value][0]}${PQ[pq.value][2] ? " (" + PQ[pq.value][2] + ")" : ""}`, 0, 0); c.restore();
     c.strokeStyle = "rgba(229,72,77,.35)"; c.setLineDash([4 * sc, 4 * sc]);
     MAGIC.forEach(m => { if (m > x0 && m < x1) { c.beginPath(); c.moveTo(px(m), Tp); c.lineTo(px(m), Hd - B); c.stroke(); } }); c.setLineDash([]);
+    c.save(); c.beginPath(); c.rect(L,Tp,Wd-L-R,Hd-B-Tp); c.clip();
     if (modPts.length) {   /* theory curve: dashed green, gaps where the chain is interrupted */
       c.strokeStyle = "#16a34a"; c.lineWidth = lineWidth() * sc; c.setLineDash([6 * sc, 4 * sc]); c.beginPath();
-      modPts.forEach((p, i) => i && p.x - modPts[i - 1].x <= 2 ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke(); c.setLineDash([]);
-      c.fillStyle = "#16a34a"; modPts.forEach(p => { c.beginPath(); c.arc(px(p.x), py(p.y), 1.8 * sc, 0, 6.283); c.fill(); });
-      c.font = `${10.5 * sc}px system-ui`; c.textAlign = "left"; c.fillText(`– – ${modPts.name}`, L + 8 * sc, Tp + 30 * sc);
+      modPts.forEach((p, i) => i && CP.connects(modPts[i - 1],p) ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke(); c.setLineDash([]);
+      c.fillStyle = "#16a34a"; modPts.forEach(p => { const xx=px(p.x);c.beginPath();if(p.y<y0||p.y>y1){const yy=geom.clampY(p.y),sign=p.y>y1?1:-1;c.moveTo(xx,yy);c.lineTo(xx-3*sc,yy+sign*6*sc);c.lineTo(xx+3*sc,yy+sign*6*sc);c.closePath();}else c.arc(xx,py(p.y),1.8*sc,0,6.283);c.fill(); });
       c.strokeStyle = "rgba(127,127,160,.6)"; c.lineWidth = 0.45 * lineWidth() * sc; c.beginPath(); c.moveTo(L, py(0)); c.lineTo(Wd - R, py(0)); if (y0 < 0 && y1 > 0) c.stroke();
     }
     const groups = plotPts.groups || [], multi = groups.length > 1, gcol = g => multi ? `hsl(${(groups.indexOf(g) / groups.length) * 300},75%,${sc > 1 ? 40 : 48}%)` : "#3b5bdb";
     const showLine = !root.querySelector("[name=nc-lines]") || root.querySelector("[name=nc-lines]").checked, showErr = !root.querySelector("[name=nc-err]") || root.querySelector("[name=nc-err]").checked;
     if (showLine) groups.forEach(gk => { const ps = plotPts.filter(p => p.g === gk); c.strokeStyle = multi ? gcol(gk) : "rgba(139,108,255,.55)"; c.lineWidth = 1.2 * sc; c.beginPath();
-      ps.forEach((p, i) => i && p.x - ps[i - 1].x <= 2 ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke();
-      if (multi && ps.length) { const l = ps[ps.length - 1]; c.fillStyle = gcol(gk); c.font = `${10 * sc}px system-ui`; c.textAlign = "left"; c.fillText((pchain.value === "Z" ? (EL.find(e => e[0] === gk) || [0, "Z" + gk])[1] : (pchain.value === "N" ? "N=" : "A=") + gk), px(l.x) + 5 * sc, py(l.y) + 3 * sc); } });
+      ps.forEach((p, i) => i && CP.connects(ps[i - 1],p) ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke(); });
     plotPts.forEach(p => {
+      if (p.x < x0 || p.x > x1) return;
       const xx = px(p.x), col = multi ? gcol(p.g) : p.est ? "#f59e0b" : "#3b5bdb";
       c.strokeStyle = col; c.lineWidth = 1.3 * sc;
+      if (p.y < y0 || p.y > y1) { const yy = geom.clampY(p.y), sign = p.y > y1 ? 1 : -1; c.fillStyle=col;c.beginPath();c.moveTo(xx,yy);c.lineTo(xx-4*sc,yy+sign*7*sc);c.lineTo(xx+4*sc,yy+sign*7*sc);c.closePath();c.fill();return; }
       if (showErr && p.e > 0) { c.beginPath(); c.moveTo(xx, py(p.y - p.e)); c.lineTo(xx, py(p.y + p.e)); c.moveTo(xx - 3 * sc, py(p.y - p.e)); c.lineTo(xx + 3 * sc, py(p.y - p.e)); c.moveTo(xx - 3 * sc, py(p.y + p.e)); c.lineTo(xx + 3 * sc, py(p.y + p.e)); c.stroke(); }
       c.beginPath(); c.arc(xx, py(p.y), (multi ? 2.8 : 3.6) * sc, 0, 6.283);
       if (p.est) { c.fillStyle = sc > 1 ? "#fff" : "rgba(255,255,255,.9)"; c.fill(); c.stroke(); } else { c.fillStyle = col; c.fill(); }
       if (chain && p.r === chain) { c.strokeStyle = "#e5484d"; c.lineWidth = 2 * sc; c.beginPath(); c.arc(xx, py(p.y), 7 * sc, 0, 6.283); c.stroke(); }
     });
+    c.restore();
+    if (multi) groups.forEach(gk => { const ps=plotPts.filter(p=>p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const l=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=`${10*sc}px system-ui`;c.textAlign='left';c.fillText((pchain.value==='Z'?(EL.find(e=>e[0]===gk)||[0,'Z'+gk])[1]:(pchain.value==='N'?'N=':'A=')+gk),Math.min(px(l.x)+5*sc,Wd-R+4*sc),geom.clampY(l.y)+3*sc); });
     c.textAlign = "left"; c.font = `${10.5 * sc}px system-ui`; c.fillStyle = "#3b5bdb"; c.fillText(`● ${T.measured}`, L + 8 * sc, Tp + 14 * sc); c.fillStyle = "#f59e0b"; c.fillText(`○ ${T.extrap}`, L + 90 * sc, Tp + 14 * sc);
-    if (plotHover && sc === 1) { const p = plotHover; c.fillStyle = ink; c.textAlign = "left"; c.font = `${12}px system-ui`; c.fillText(`${sup(p.r[0] + p.r[1])}${p.r[2]}: ${(([a, b]) => p.e > 0 ? a + (p.est ? "#" : "") + " ± " + b : a)(fmtU(p.y, p.e))}`, Math.min(px(p.x) + 8, Wd - 220), Math.max(py(p.y) - 10, 30)); }
+    if(modPts.length){c.fillStyle='#16a34a';c.fillText(`– – ${modPts.name}`,L+8*sc,Tp+30*sc);}
+    if (plotHover && sc === 1 && plotHover.r) {
+      const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
+      c.fillStyle=ink;c.textAlign='left';c.font='12px system-ui';
+      const width=Wd-L-R-8, text=`${sup(p.r[0]+p.r[1])}${p.r[2]}: ${value}${p.source?' ('+p.source+')':''}`, lines=[];
+      let line='';for(const word of text.split(' ')){const next=line?line+' '+word:word;if(line&&c.measureText(next).width>width){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);
+      const left=Math.max(L+4,Math.min(px(p.x)+8,Wd-R-width)), top=Math.max(32,Math.min(geom.clampY(p.y)-10,Hd-B-lines.length*14));
+      lines.forEach((s,i)=>c.fillText(s,left,top+i*14));
+    }
+  }
+  function plotAt(e) {
+    if(!plotDomain)return null;const b=pc.getBoundingClientRect(),x=(e.clientX-b.left)*pc._cw/b.width,y=(e.clientY-b.top)*pc._ch/b.height,geom=CP.geometry(plotDomain,pc._cw,pc._ch,(plotPts.groups||[]).length>1);
+    if(x<geom.L||x>geom.right||y<geom.T||y>geom.bottom)return null;
+    return CP.nearest(modPts.filter(p=>p.r).concat(plotPts),x,y,geom);
   }
   pc.addEventListener("mousemove", e => {
-    if (!plotPts.length) return; const b = pc.getBoundingClientRect(), x = (e.clientX - b.left) * pc._cw / b.width;
-    const L = 62, R = 16, xs = plotPts.map(p => p.x), x0 = Math.min(...xs) - 1, x1 = Math.max(...xs) + 1, xv = x0 + (x - L) / (pc._cw - L - R) * (x1 - x0);
-    plotHover = plotPts.reduce((a, p) => Math.abs(p.x - xv) < Math.abs(a.x - xv) ? p : a, plotPts[0]); drawPlot();
+    plotHover = plotAt(e); drawPlot();
   });
-  pc.addEventListener("click", () => { if (plotHover) { pin = plotHover.r; zoomTo(pin); showCard(pin); } });
+  pc.addEventListener('mouseleave',()=>{plotHover=null;drawPlot();});
+  pc.addEventListener("click", e => { const point=plotAt(e); if (point) { pin = point.r; zoomTo(pin); showCard(pin); } });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); plotChain(); };
   root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err]").forEach(el => el.addEventListener("input", () => plotChain()));
+  root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   const rgb = root.querySelector("[name=nc-range]"); if (rgb) rgb.addEventListener("change", () => { root.querySelector(".nc-prange-in").hidden = !rgb.checked;
     if (rgb.checked && chain) { const ch = pchain.value, own = ch === "Z" ? chain[0] : ch === "N" ? chain[1] : chain[0] + chain[1], set = (n, v) => { const el = root.querySelector(`[name=${n}]`); if (el.value === "") el.value = v; };
       set("nc-c0", own); set("nc-c1", own); } plotChain(); });
@@ -484,11 +520,9 @@
   };
   root.querySelector("[data-nc=ppng]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = pc._cw * sc; o.height = pc._ch * sc; drawPlot(o.getContext("2d"), o.width, o.height, sc); return o; }, "chain-" + pq.value, 6);
   root.querySelector("[data-nc=pcsv]").onclick = () => {
-    if ((plotPts.groups || []).length > 1) return X.csv(["chain (" + pchain.value + ")", "Z", "N", "A", "El", PQ[pq.value][0] + " (" + (PQ[pq.value][2] || "-") + ")", "uncertainty", "flag"],
-      plotPts.map(p => [p.g, p.r[0], p.r[1], p.r[0] + p.r[1], p.r[2], String(p.y), p.e == null ? "" : String(p.e), p.est ? "#" : ""]), "chains-" + pq.value);
-    const mm = new Map(modPts.map(p => [p.x, p.y])), xsAll = [...new Set(plotPts.map(p => p.x).concat(modPts.map(p => p.x)))].sort((a, b) => a - b), pm = new Map(plotPts.map(p => [p.x, p]));
-    X.csv(["x (" + (pchain.value === "Z" ? "N" : "Z") + ")", "El", PQ[pq.value][0] + " AME2020 (" + (PQ[pq.value][2] || "-") + ")", "uncertainty", "flag", ...(modPts.length ? [modPts.name] : [])],
-      xsAll.map(x => { const p = pm.get(x); return [x, p ? p.r[2] : "", p ? String(p.y) : "", p ? p.e == null ? "" : String(p.e) : "", p && p.est ? "#" : "", ...(modPts.length ? [mm.has(x) ? String(mm.get(x)) : ""] : [])]; }), "chain-" + pq.value + (modPts.length ? "-" + modelKey() : ""));
+    if(!plotDomain)return;
+    X.csv(['chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','flag','source','axis_x0','axis_x1','axis_y0','axis_y1'],
+      plotPts.concat(modPts).map(p=>[pchain.value,p.g,p.x,p.r?.[0]??'',p.r?.[1]??'',p.r?p.r[0]+p.r[1]:'',p.r?.[2]??'',pq.value,PQ[pq.value][2],p.y,p.e??'',p.est?'#':'',p.source||'AME2020',plotDomain.x0,plotDomain.x1,plotDomain.y0,plotDomain.y1]),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
@@ -532,6 +566,7 @@
     if (pw && (Math.abs(pw - pc._cw) > 2 || Math.abs(ph - pc._ch) > 2 || pc.width !== Math.round(pw * DPR()))) { sizeCanvas(pc, pw, ph); drawPlot(); }
   };
   new ResizeObserver(resize).observe(cv); new ResizeObserver(resize).observe(pc); addEventListener("resize", resize);
+  new MutationObserver(()=>{updateInk();draw();drawPlot();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
 
   Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame)]).then(([d,c]) => {
     catalog=c;
