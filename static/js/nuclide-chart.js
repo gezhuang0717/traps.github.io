@@ -431,7 +431,7 @@
   });
   const markerGlyph=s=>s.shape==='model'?'– –':CP.markers[s.shape][s.open?1:0];
   const hasEstimated=s=>plotPts.concat(modPts,residualPts).some(p=>inSeries(p,s)&&p.est);
-  const legendGlyph=s=>markerGlyph(s)+(s.id==='ame'?' ○#':hasEstimated(s)?' '+(CP.markers[s.shape]?.[1]||'○')+'#':'');
+  const legendGlyph=s=>markerGlyph(s)+(hasEstimated(s)?' '+(CP.markers[s.shape]?.[1]||'○')+'#':'');
   function seriesLegendLines(w){
     const max=Math.max(12,Math.floor((w-120)/6.2)),out=[];
     for(const s of visibleSeries.slice(0,16)){
@@ -544,11 +544,10 @@
     }
     const passPoint=(r,v,source)=>{
       const [z,n]=r,ame=get(z,n),mass=source==='loaded'||source==='hybrid'?getter('hybrid')(z,n):ame;
-      if(filter==='measured'&&(!ame||ame.est))return false;
-      if(filter==='loaded'&&!inputTable?.active.has(z+'-'+n+'-0'))return false;
-      if(filter==='affected'&&!MM.affected(q[1](derivedZN(z,n,'hybrid'),r)))return false;
-      if(maxSigma!=null&&(!mass||mass.e==null||mass.e>maxSigma||maxSigma<0))return false;
-      return true;
+      const reference=['hl','beta2'].includes(pq.value)?ame:q[1](derivedZN(z,n,'ame'),r);
+      return CP.experimentalFilter({mode:filter,centre:ame,reference,value:v,
+        active:!!inputTable?.active.has(z+'-'+n+'-0'),
+        affected:MM.affected(q[1](derivedZN(z,n,'hybrid'),r)),mass,maxSigma});
     };
     const makePoint=(r,s)=>{
       const v=q[1](derivedZN(r[0],r[1],s==='loaded'?'hybrid':s),r);if(!v||!Number.isFinite(v.v)||!passPoint(r,v,s))return null;
@@ -594,6 +593,7 @@
       for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
+        if(filter==='measured'&&d.est)continue;
         residualPts.push({...p,y:d.v,e:model?a.e:d.e,est:!!d.est,valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
       }
     }

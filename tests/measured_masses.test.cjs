@@ -80,6 +80,38 @@ test('AME extrapolated neighbours mark a measured new result; residual flags fol
  const extrapolatedCentre=P.primitive('AME2020:testCentre',-91525.979,10,true);
  assert.equal(P.combine([1,measured],[-1,extrapolatedCentre]).est,true,'new measured mass minus an AME# baseline is extrapolation dependent');
 });
+test('exclude # checks real Sn derived neighbours and model comparison stencils',()=>{
+ const s=surface(MM.build([],catalog));let count=0;
+ for(const r of rows.filter(r=>r[0]===50))for(const q of ['sn','s2n','d2n','d5n']){
+  const centre=base(r[0],r[1]),reference=s.derive(r[0],r[1],'ame')[q];
+  if(!centre||centre.est||!reference?.est)continue;
+  const context={mode:'measured',centre,reference,mass:centre};count++;
+  assert.equal(CP.experimentalFilter({...context,value:reference}),false);
+  assert.equal(CP.experimentalFilter({...context,value:P.primitive('model:example',1,null,false)}),false);
+ }
+ assert.ok(count>0,'real measured Sn centres with extrapolated neighbours must be covered');
+ const centre=base(50,66),reference=s.derive(50,66,'ame').s2n;
+ assert.equal(CP.experimentalFilter({mode:'measured',centre,reference,value:reference,mass:centre}),true);
+ assert.equal(CP.experimentalFilter({mode:'measured',centre,reference:null,value:centre,mass:centre}),false);
+ const newEstimate=P.primitive('loaded:estimated',1,1,true);
+ assert.equal(CP.experimentalFilter({mode:'measured',centre,reference,value:newEstimate,mass:centre}),false);
+});
+test('experimental filter modes and centre sigma limits are independent and exact',()=>{
+ const good=P.primitive('AME2020:centre',1,2,false),context={centre:good,reference:good,value:good,mass:good};
+ assert.equal(CP.experimentalFilter({...context,mode:'all'}),true);
+ for(const active of [true,false])for(const affected of [true,false]){
+  assert.equal(CP.experimentalFilter({...context,mode:'loaded',active,affected}),active);
+  assert.equal(CP.experimentalFilter({...context,mode:'affected',active,affected}),affected);
+ }
+ for(const maxSigma of [null,2,3])assert.equal(CP.experimentalFilter({...context,maxSigma}),true);
+ for(const maxSigma of [-1,0,1,NaN,Infinity])assert.equal(CP.experimentalFilter({...context,maxSigma}),false);
+ const unknown={...good,e:null};assert.equal(CP.experimentalFilter({...context,mass:unknown}),true);
+ assert.equal(CP.experimentalFilter({...context,mass:unknown,maxSigma:2}),false);
+ assert.equal(CP.experimentalFilter({...context,mass:{...good,e:0},maxSigma:0}),true);
+ const reference=P.primitive('AME2020:estimated',1,2,true);
+ assert.equal(CP.experimentalFilter({...context,reference,mode:'all'}),true);
+ assert.equal(CP.experimentalFilter({...context,reference,mode:'measured'}),false);
+});
 test('isomer changes excitation only; every ground-state output stays identical',()=>{
  const table=MM.build([row('116mSn',base(50,66).v+1000)],catalog),s=surface(table);
  for(const n of [64,65,66,67,68])for(const k of ['me','BE','BEA','sn','s2n','qbm','vpn','wig','d3n','d5n'])assert.deepEqual(s.derive(50,n,'ame')[k],s.derive(50,n,'hybrid')[k]);
