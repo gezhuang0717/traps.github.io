@@ -55,7 +55,7 @@
       </select></label>
     <label>{{ i18n "zg_lab_mass" | default "Atomic mass (u)" }} <input type="number" id="zg-c-m" value="132.905451961" step="any"></label>
     <label>{{ i18n "zg_lab_charge" | default "Charge state q" }} <input type="number" id="zg-c-q" value="1" min="1" step="1"></label>
-    <label>B (T) <input type="number" id="zg-c-b" value="7" step="any" min="0"></label>
+    <label>B (T) <input type="number" id="zg-c-b" value="7.0000000000" step="any" min="0" data-decimal-places="10"></label>
   </div>
   <p class="zg-result" id="zg-c-out"></p>
   <p class="zg-muted zg-small">ν_c = qB / (2π m<sub>ion</sub>), m<sub>ion</sub> = m<sub>atom</sub> − q·m<sub>e</sub> {{ i18n "zg_lab_nuc_note" | default "(electron binding energies neglected). JYFLTRAP runs at about 7 T." }}</p>

@@ -1,4 +1,4 @@
-/* Physical controls: two-decimal editing, one-unit arrow increments. */
+/* Physical controls: declared decimal precision, one-unit arrow increments. */
 (() => {
   const lang=(document.documentElement.lang||'en').split('-')[0];
   const words={en:['Increase','Decrease'],zh:['增加','减少'],fi:['Suurenna','Pienennä'],de:['Erhöhen','Verringern'],ja:['増やす','減らす']}[lang]||['Increase','Decrease'];
@@ -6,8 +6,8 @@
   function decorate(n) {
     if(n.dataset.decimalControl||n.readOnly||n.disabled||n.step==='1'||['zg-c-m','zg-r-m1','zg-r-m2','zg-u-v'].includes(n.id)||n.closest('[data-full-precision]')||!n.closest(scope))return;  // measured inputs (calibrant frequencies, masses) keep full precision
     n.dataset.decimalControl='true';
-    const digits=n.dataset.decimalPlaces==='3'?3:2, factor=10**digits;
-    const display=x=>digits===3?x.toFixed(3).replace(/0$/,''):x.toFixed(2);
+    const digits=[3,10].includes(Number(n.dataset.decimalPlaces))?Number(n.dataset.decimalPlaces):2, factor=10**digits;
+    const display=x=>digits===3?x.toFixed(3).replace(/0$/,''):x.toFixed(digits);
     const label=n.getAttribute('aria-label')||n.closest('label')?.childNodes[0]?.textContent.trim()||n.name;
     n.setAttribute('aria-label',label);n.inputMode='decimal';
     // Decimal precision and increment size are independent. "any" permits

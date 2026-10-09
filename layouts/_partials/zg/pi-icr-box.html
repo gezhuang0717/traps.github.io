@@ -8,7 +8,7 @@
       <button type="button" class="zg-btn zg-btn-ghost" data-act="rand">🎲</button></span>
       <label class="g-chk"><input type="checkbox" name="multi"> {{ $t.pi_multi }}</label>
       <label>{{ $t.pi_mtab }} <select name="mtab"><option value="ame" selected>AME2020</option><option value="nubase">NUBASE2020</option></select></label>
-      <label>B <select name="B-preset">{{ range seq 0 30 }}<option value="{{ . }}"{{ if eq . 7 }} selected{{ end }}>{{ printf "%.2f" (float .) }} T</option>{{ end }}<option value="custom">{{ $t.custom_field }}</option></select></label><label>{{ $t.custom_field }} <input type="number" name="B" value="7.00" min="0" max="30" step="0.01" aria-label="B (T)"></label>
+      <label>B <select name="B-preset">{{ range seq 0 30 }}<option value="{{ . }}"{{ if eq . 7 }} selected{{ end }}>{{ printf "%.10f" (float .) }} T</option>{{ end }}<option value="custom">{{ $t.custom_field }}</option></select></label><label>{{ $t.custom_field }} <input type="number" name="B" value="7.0000000000" min="0" max="30" step="any" data-decimal-places="10" aria-label="B (T)"></label>
       <label>{{ $t.counts }} <select name="nshot"><option>20</option><option selected>100</option><option>500</option><option>2000</option></select></label>
       <label class="g-chk"><input type="checkbox" name="pix"> {{ $t.v_pix }}</label>
       <label class="g-chk"><input type="checkbox" name="ref" checked> {{ $t.pi_ref }}</label>

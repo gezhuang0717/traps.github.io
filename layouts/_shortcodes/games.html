@@ -50,7 +50,7 @@
     <div class="g-opts-row">
       <label>{{ $t.ion }} <input type="text" name="ion" class="g-text g-short" value="133Cs" aria-label="{{ $t.ion }}"></label>
       <label>z <select name="zq"><option>1</option><option>2</option><option>3</option></select></label>
-      <label>B <select name="bfield"><option value="3">3 T</option><option value="4.7">4.7 T</option><option value="7" selected>7 T</option><option value="9.4">9.4 T</option><option value="11.7">11.7 T</option></select></label>
+      <label>B (T) <input type="number" name="bfield" value="7.0000000000" min="0" max="30" step="any" data-decimal-places="10" list="tof-b-fields"><datalist id="tof-b-fields"><option value="3"><option value="4.7"><option value="7"><option value="9.4"><option value="11.7"></datalist></label>
       <span class="tof-bad g-warn"></span>
       <label>{{ $t.trf }} <select name="trf"><option value="0.025">25 ms</option><option value="0.05">50 ms</option><option value="0.1">100 ms</option><option value="0.2" selected>200 ms</option><option value="0.4">400 ms</option><option value="0.8">800 ms</option><option value="1.6">1.6 s</option></select></label>
       <label>{{ $t.scheme }} <select name="scheme"><option value="rect">{{ $t.rect }}</option><option value="ramsey">{{ $t.ramsey }}</option></select></label>

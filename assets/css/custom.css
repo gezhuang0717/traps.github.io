@@ -361,6 +361,7 @@ main section > article.mt-6::before{content:"";position:absolute;left:0;top:12px
 .pi-comparison{overflow-x:auto}.pi-tab{font-size:.9rem}.pi-energy-hint{overflow-wrap:anywhere}
 .zg-decimal-spin{display:inline-flex;align-items:stretch;max-width:100%;vertical-align:middle;flex:0 0 auto}
 .zg-decimal-spin input[type=number]{min-width:0;margin:0;appearance:textfield;-moz-appearance:textfield;border-top-right-radius:0;border-bottom-right-radius:0}
+.zg-decimal-spin input[data-decimal-places="10"]{width:15ch;max-width:100%;font-variant-numeric:tabular-nums}
 .zg-decimal-spin input::-webkit-inner-spin-button,.zg-decimal-spin input::-webkit-outer-spin-button{appearance:none;margin:0}
 .zg-decimal-arrows{display:flex;flex-direction:column;flex:0 0 1.4rem}
 .zg-decimal-arrows button{font:inherit;font-size:.85rem;line-height:1;padding:0 .18rem;min-height:1.1rem;color:inherit;background:var(--zg-card);border:1px solid var(--zg-line);cursor:pointer}

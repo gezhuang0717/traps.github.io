@@ -44,7 +44,7 @@
       if (!Number.isFinite(n) || (input.step === "1" && !Number.isInteger(n)) || n < +input.min || (input.max !== "" && n > +input.max)) throw new Error(`${input.closest("label").textContent.trim()}: invalid value`);
       return n;
     };
-    const field = (name, label, value, min = 0, max = 1e6, step = .01) => `<label>${esc(label)}<input name="${name}" type="number" value="${step === 1 ? value : Number(value).toFixed(2)}" min="${min}" max="${max}" step="${step}"></label>`;
+    const field = (name, label, value, min = 0, max = 1e6, step = .01) => `<label>${esc(label)}<input name="${name}" type="number" value="${name === 'B' ? Number(value).toFixed(10) : step === 1 ? value : Number(value).toFixed(2)}" min="${min}" max="${max}" step="${name === 'B' ? 'any' : step}"${name === 'B' ? ' data-decimal-places="10"' : ''}></label>`;
     const select = (name, label, options, selected) => `<label>${esc(label)}<select name="${name}">${options.map(([v, s]) => `<option value="${v}"${String(v) === String(selected) ? " selected" : ""}>${esc(s)}</option>`).join("")}</select></label>`;
     const check = (name, label, selected = true) => `<label class="wb-check"><input name="${name}" type="checkbox"${selected ? " checked" : ""}>${esc(label)}</label>`;
     const figure = (id, title) => `<figure class="wb-figure"><figcaption>${esc(title)}</figcaption><canvas data-plot="${id}"></canvas><div class="wb-legend" data-legend="${id}"></div><div class="wb-actions">${["png","csv","json"].map(format=>`<button class="zg-btn zg-btn-ghost" type="button" data-wb="figure-${format}" data-figure="${id}">${esc(format==="png"?T.png:format==="csv"?T.csv:T.save)}</button>`).join("")}</div></figure>`;

@@ -75,7 +75,7 @@
     function trapLine(k) {
       const c = dt.traps[k]; if (!c) return "";
       const cons = c.list.length > 1 ? ` · ${esc(L.consistency)}: ${c.list.map((x, i) => `${esc(x.label)} ${c.ppb[i] >= 0 ? "+" : ""}${fmt(c.ppb[i], 2)} ppb`).join(", ")}${c.birge != null ? ` · ${esc(L.birge)} ${fmt(c.birge, 2)}` : ""}` : "";
-      return `<span class="zg-cal-line${k === hostTrap() ? " used" : ""}">${esc(k === "1" ? L.trap1 : L.trap2)}: B = <b>${c.B.toFixed(9)} T</b>${c.sB ? ` ± ${sig(c.sB, 2)} T` : ""} · ν− = ${fmt(c.nm, 3)} Hz${cons}</span>`;
+      return `<span class="zg-cal-line${k === hostTrap() ? " used" : ""}">${esc(k === "1" ? L.trap1 : L.trap2)}: B = <b>${c.B.toFixed(10)} T</b>${c.sB ? ` ± ${sig(c.sB, 2)} T` : ""} · ν− = ${fmt(c.nm, 3)} Hz${cons}</span>`;
     }
     function paint() {
       badge.textContent = on() ? (active() ? L.on : "⚠") : L.off; badge.classList.toggle("on", !!active());
