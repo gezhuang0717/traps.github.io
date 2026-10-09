@@ -2,11 +2,13 @@
 <label>{{ i18n "zg_pub_query" }}<input type="search" name="pub-query" autocomplete="off"></label>
 <label>{{ i18n "zg_pub_year" }}<select name="pub-year"><option value="">{{ i18n "zg_pub_all_years" }}</option>{{ range sort (uniq (collections.Apply hugo.Data.publications.papers "index" "." "year")) "value" "desc" }}<option>{{ . }}</option>{{ end }}</select></label>
 <label>{{ i18n "zg_pub_role" }}<select name="pub-role"><option value="">{{ i18n "zg_all" }}</option><option value="first">{{ i18n "zg_first_author_tag" }}</option><option value="second">{{ i18n "zg_second_author" }}</option><option value="corresponding">{{ i18n "zg_corresponding_author" }}</option><option value="coauthor">{{ i18n "zg_coauthor_tag" }}</option></select></label>
-<label>{{ i18n "zg_pub_topic" }}<select name="pub-topic"><option value="">{{ i18n "zg_pub_all_topics" }}</option>{{ range slice "nz" "neutrino" "isotope-shift" "detectors" }}<option value="{{ . }}">{{ i18n (printf "zg_pub_topic_%s" (replace . "-" "_")) }}</option>{{ end }}</select></label>
+<label>{{ i18n "zg_pub_topic" }}<select name="pub-topic"><option value="">{{ i18n "zg_pub_all_topics" }}</option>{{ $lang := site.Language.Lang }}{{ if in (slice "zh-hans" "zh-cn") $lang }}{{ $lang = "zh" }}{{ end }}{{ range hugo.Data.paper_topics.groups }}{{ $group := . }}<optgroup label="{{ index .name $lang | default .name.en }}">{{ range where hugo.Data.paper_topics.topics "group" $group.id }}{{ $id := .id }}{{ $count := 0 }}{{ range hugo.Data.publications.papers }}{{ if or (in (.themes | default slice) $id) (in (.topics | default slice) $id) }}{{ $count = add $count 1 }}{{ end }}{{ end }}<option value="{{ .id }}" data-description="{{ index .description $lang | default .description.en }}">{{ index .name $lang | default .name.en }} ({{ $count }})</option>{{ end }}</optgroup>{{ end }}</select></label>
 <button type="button" data-pub-reset>{{ i18n "zg_pub_reset" }}</button>
 <p data-pub-count role="status" aria-live="polite">{{ len hugo.Data.publications.papers }} {{ i18n "zg_pub_records" }}</p>
+<p data-pub-topic-description hidden></p>
 <p data-pub-empty hidden>{{ i18n "zg_pub_empty" }}</p>
 <details class="zg-publication-help"><summary>{{ i18n "zg_pub_help_title" }}</summary><p>{{ i18n "zg_pub_help_search" }}</p><p>{{ i18n "zg_pub_help_sections" }}</p></details>
+{{ partial "zg/paper-topic-guide.html" . }}
 </div>
 {{- $version := substr (crypto.SHA256 (readFile "static/js/publication-search.js")) 0 12 -}}
 <script defer src="{{ printf "%s?v=%s" ("js/publication-search.js" | relURL) $version }}"></script>

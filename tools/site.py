@@ -424,7 +424,7 @@ def cmd_fetch(a):
 
 # ───────────────────────────── publications / talks ──────────────────────────
 PUB_ORDER = ["role", "corresponding", "position", "highlight", "year", "authors", "title", "journal", "volume", "pages",
-             "doi", "arxiv", "url", "note", "themes"]
+             "doi", "arxiv", "url", "note", "themes", "topics"]
 
 
 def clean_pub(raw: dict) -> dict:
@@ -804,6 +804,7 @@ def cmd_check(a):
             clean_entry({k: v for k, v in e.items() if not k.startswith("_")})
         except ValueError as err:
             problems.append(f"{e['_file']}: {e.get('title', '?')!r}: {err}")
+    known_topics = {t["id"] for t in json.loads((DATA / "paper_topics.json").read_text())["topics"]}
     for i, p in enumerate((load_yaml(PUBS, {}) or {}).get("papers", []), 1):
         try:
             clean_pub(p)
@@ -812,6 +813,8 @@ def cmd_check(a):
         for t in p.get("themes", []) or []:
             if t not in ("nz", "neutrino", "isotope-shift", "detectors"):
                 problems.append(f"{rel(PUBS)} paper #{i}: unknown theme {t!r}")
+        if not isinstance(p.get("topics", []), list) or any(t not in known_topics for t in p.get("topics", [])):
+            problems.append(f"{rel(PUBS)} paper #{i}: invalid topics")
     for i, t in enumerate((load_yaml(TALKS, {}) or {}).get("talks", []), 1):
         if t.get("kind") not in ("invited", "contributed") or not t.get("title"):
             problems.append(f"{rel(TALKS)} talk #{i}: needs kind invited|contributed and a title")

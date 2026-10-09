@@ -19,6 +19,8 @@
 #   note:      short extra text shown after the reference (Markdown allowed)
 #   themes:    research themes this paper appears under on the Research page:
 #              nz | neutrino | isotope-shift | detectors
+#   topics:    additional browsing tags from data/paper_topics.json; multiple are allowed.
+#              Topic counts refer to this bibliography; zero-paper learning topics are allowed.
 #   highlight: true → listed under "Highlights" on the Publications page
 # Add a paper: copy a block, edit, keep newest first (order is not required;
 # lists are sorted by year automatically).
@@ -60,6 +62,10 @@ papers:
     - Jouni Ruotsalainen
     - Marek Stryjczyk
     authors_source: https://api.crossref.org/works/10.1103/bgj9-mzcq
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2025
@@ -106,6 +112,10 @@ papers:
     - Marek Stryjczyk
     - Ville Virtanen
     authors_source: https://api.crossref.org/works/10.1103/g393-xx1w
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2024
@@ -122,6 +132,9 @@ papers:
     full_authors:
     - Zhuang Ge
     authors_source: https://api.crossref.org/works/10.3390/s24227261
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2024
@@ -165,6 +178,10 @@ papers:
     - Marek Stryjczyk
     - Ville Virtanen
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2024.139094
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2024
@@ -189,6 +206,8 @@ papers:
     - Dmitrii Nesterenko
     - Mikael Reponen
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-024-01359-7
+    topics:
+      - mass-applications
   - role: first
     corresponding: true
     year: 2024
@@ -227,6 +246,10 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-024-01317-3
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2024
@@ -280,6 +303,9 @@ papers:
     - Ville Virtanen
     - Alexandra Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.133.132503
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: first
     corresponding: true
     year: 2023
@@ -319,6 +345,10 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.108.045502
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2022
@@ -356,6 +386,10 @@ papers:
     - A. P. Weaver
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.106.015502
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2022
@@ -386,6 +420,10 @@ papers:
     - J. Suhonen
     - M. Vilén
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2022.137226
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2021
@@ -425,6 +463,10 @@ papers:
     - A. P. Weaver
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.127.272301
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2021
@@ -438,6 +480,9 @@ papers:
     full_authors:
     - Zhuang Ge
     authors_source: https://arxiv.org/abs/2106.08264
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2021
@@ -474,6 +519,10 @@ papers:
     - A. Zadvornaya
     - A. Jokinen
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.103.065502
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: first
     corresponding: true
     year: 2021
@@ -514,6 +563,9 @@ papers:
     - Giuseppe Lorusso
     - Yasushige Yano
     authors_source: https://api.crossref.org/works/10.7566/JPSCP.35.011023
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2019
@@ -553,6 +605,9 @@ papers:
     - Daiki Kamioka
     - Yasushige Yano
     authors_source: https://api.crossref.org/works/10.1007/s10751-019-1599-2
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2019
@@ -571,6 +626,9 @@ papers:
     - Meng Wang
     - Tomohiro Uesaka
     authors_source: https://inspirehep.net/literature/1957989
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2018
@@ -606,6 +664,9 @@ papers:
     - G. Lorusso
     - Y. Yano
     authors_source: https://www.nishina.riken.jp/researcher/APR/APR051/pdf/152.pdf
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2017
@@ -636,6 +697,9 @@ papers:
     - Y. Yano
     authors_source: https://www.nishina.riken.jp/researcher/APR/APR050/pdf/187.pdf
     collaboration: Rare RI Ring collaboration
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: first
     corresponding: true
     year: 2016
@@ -663,6 +727,9 @@ papers:
     - Y. Yano
     authors_source: https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf
     collaboration: Rare RI Ring collaboration
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: corresponding
     year: 2022
     authors: M. Ramalho, **Z. Ge** *et al.*
@@ -690,6 +757,10 @@ papers:
     - K. S. Tyrin
     - V. Virtanen
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.106.015501
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: corresponding
     year: 2022
     authors: T. Eronen, **Z. Ge** *et al.*
@@ -720,6 +791,10 @@ papers:
     - M. Stryjczyk
     - J. Suhonen
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2022.137135
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: corresponding
     year: 2019
     authors: J.-H. Liu, **Z. Ge** *et al.*
@@ -744,6 +819,9 @@ papers:
     - Qi Zeng
     - Bo Wu
     authors_source: https://api.crossref.org/works/10.1007/s41365-019-0676-1
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     year: 2026
     authors: M. Reiter *et al.*
@@ -777,6 +855,8 @@ papers:
     - Alexandra Zadvornaya
     - Jianwei Zhao
     authors_source: https://api.crossref.org/works/10.1038/s41467-026-77082-2
+    topics:
+      - structure-decay
   - role: coauthor
     year: 2026
     authors: C. Lehr *et al.*
@@ -882,6 +962,9 @@ papers:
     - L. Zanetti
     - J. Zenihiro
     authors_source: https://api.crossref.org/works/10.1103/vp3m-5rpp
+    topics:
+      - dipole-resonances
+      - structure-decay
   - role: coauthor
     year: 2026
     authors: S. Ayet San Andrés *et al.* (Super-FRS Experiment Collaboration)
@@ -977,6 +1060,9 @@ papers:
     - Jiajun Yu
     - for the Super-FRS Experiment Collaboration
     authors_source: https://api.crossref.org/works/10.1103/lsp5-qntn
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     year: 2026
     authors: M. Winter, **Z. Ge**, T. Eronen *et al.*
@@ -1011,6 +1097,9 @@ papers:
     - V. A. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-026-01883-8
+    topics:
+      - mass-applications
+      - structure-decay
   - role: coauthor
     year: 2026
     authors: V. A. Virtanen *et al.*
@@ -1036,6 +1125,9 @@ papers:
     - J. Sarén
     - A. Takkinen
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2026.171513
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 9
     year: 2026
@@ -1106,6 +1198,8 @@ papers:
     - J. Zhao
     - for the Super-FRS Experiment Collaboration
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-026-01914-4
+    topics:
+      - mass-applications
   - role: coauthor
     year: 2025
     authors: J. Ruotsalainen *et al.*
@@ -1125,6 +1219,10 @@ papers:
     - M. Mougeot
     - J. Suhonen
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.134.172501
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: coauthor
     year: 2025
     authors: A. Jaries *et al.*
@@ -1152,6 +1250,9 @@ papers:
     - J. Ruotsalainen
     - V. Virtanen
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.134.042501
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     year: 2025
     authors: G. Kripkó-Koncz *et al.*
@@ -1224,6 +1325,9 @@ papers:
     - Jianwei Zhao
     - for the Super-FRS Experiment Collaboration
     authors_source: https://api.crossref.org/works/10.1103/mhhn-kmgx
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     year: 2025
     authors: M. Stryjczyk *et al.*
@@ -1246,6 +1350,10 @@ papers:
     - A. Raggio
     - J. Ruotsalainen
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2025.139359
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     year: 2025
     authors: S. Cannarozzo *et al.*
@@ -1274,6 +1382,8 @@ papers:
     - Marek Stryjczyk
     - Andrea Raggio
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.111.L031601
+    topics:
+      - fission-fragments
   - role: coauthor
     year: 2025
     authors: V. A. Virtanen *et al.*
@@ -1301,6 +1411,9 @@ papers:
     - J. Ruotsalainen
     - M. Schuh
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2024.170186
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     year: 2025
     authors: Y. Abe *et al.*
@@ -1337,6 +1450,9 @@ papers:
     - T. Yamaguchi
     - Y. Yano
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2024.170083
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 16
     year: 2025
@@ -1380,6 +1496,9 @@ papers:
     - J. Saren
     - K. Solak
     authors_source: https://api.crossref.org/works/10.1103/kksz-prtb
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     position: 16
     year: 2025
@@ -1435,6 +1554,8 @@ papers:
     - I. D. Moore
     - P. Delahaye
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-025-01694-3
+    topics:
+      - beta-symmetries
   - role: coauthor
     position: 28
     year: 2025
@@ -1504,6 +1625,8 @@ papers:
     - Leonard Welde
     - Jianwei Zhao
     authors_source: https://api.crossref.org/works/10.1016/j.nuclphysa.2025.123041
+    topics:
+      - mass-applications
   - role: coauthor
     position: 13
     year: 2025
@@ -1545,6 +1668,10 @@ papers:
     - V. A. Virtanen
     - M. Winter
     authors_source: https://api.crossref.org/works/10.1103/physrevc.111.044314
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     position: 11
     year: 2025
@@ -1573,6 +1700,10 @@ papers:
     - Andrea Raggio
     - Jouni Ruotsalainen
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2025.140012
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     year: 2024
     authors: O. Beliuskina *et al.*
@@ -1611,6 +1742,9 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/PhysRevC.110.034325
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     year: 2024
     authors: M. Hukkanen *et al.*
@@ -1644,6 +1778,9 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2024.138916
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     year: 2024
     authors: J. Yu *et al.*
@@ -1670,6 +1807,10 @@ papers:
     - Christoph Scheidenberger
     - Jianwei Zhao
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2024.169371
+    topics:
+      - mass-applications
+      - mass-innovations
+      - laser-ion-sources
   - role: coauthor
     year: 2024
     authors: L. Varga *et al.*
@@ -1712,6 +1853,8 @@ papers:
     - M. Vandebrouck
     - P.J. Woods
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2024.169252
+    topics:
+      - structure-decay
   - role: coauthor
     position: 30
     year: 2024
@@ -1819,6 +1962,9 @@ papers:
     - N. Warr
     - IDS and IGISOL Collaboration
     authors_source: https://api.crossref.org/works/10.1103/physrevc.110.014328
+    topics:
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     position: 17
     year: 2024
@@ -1924,6 +2070,11 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/physrevc.110.034326
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - fission-fragments
+      - structure-decay
   - role: coauthor
     position: 9
     year: 2024
@@ -1963,6 +2114,8 @@ papers:
     - R. Wadsworth
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/physrevc.110.024314
+    topics:
+      - isospin
   - role: coauthor
     position: 12
     year: 2024
@@ -2006,6 +2159,9 @@ papers:
     - J. Uusitalo
     - G.L. Zimba
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2023.138371
+    topics:
+      - isotope-dynamics
+      - octupole
   - role: coauthor
     position: 8
     year: 2024
@@ -2034,6 +2190,10 @@ papers:
     - M. Stryjczyk
     - V. Virtanen
     authors_source: https://api.crossref.org/works/10.1103/physrevc.110.045809
+    topics:
+      - mass-applications
+      - stellar-nucleosynthesis
+      - isotope-dynamics
   - role: coauthor
     position: 5
     year: 2024
@@ -2054,6 +2214,9 @@ papers:
     - A. Raggio
     - J. Ruotsalainen
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-024-01248-z
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     position: 8
     year: 2024
@@ -2087,6 +2250,9 @@ papers:
     - Juha Uusitalo
     - George L. Zimba
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-024-01458-5
+    topics:
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     position: 8
     year: 2024
@@ -2115,6 +2281,10 @@ papers:
     - Jaden Sequeira
     - Coulter Walls
     authors_source: https://api.crossref.org/works/10.1063/5.0213443
+    topics:
+      - mass-applications
+      - mass-innovations
+      - laser-ion-sources
   - role: coauthor
     position: 22
     year: 2024
@@ -2157,6 +2327,9 @@ papers:
     - T. Uesaka
     - Y. Yano
     authors_source: https://api.crossref.org/works/10.1103/physrevc.110.014310
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     highlight: true
     year: 2023
@@ -2222,6 +2395,10 @@ papers:
     - X. F. Yang
     - D. T. Yordanov
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.131.222502
+    topics:
+      - beta-symmetries
+      - laser-ion-sources
+      - isospin
   - role: coauthor
     position: 9
     year: 2023
@@ -2260,6 +2437,9 @@ papers:
     - J. Ruotsalainen
     - V. Virtanen
     authors_source: https://api.crossref.org/works/10.1103/physrevc.108.064302
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     position: 10
     year: 2023
@@ -2301,6 +2481,10 @@ papers:
     - V. Virtanen
     - A. Zadvornaya
     authors_source: https://api.crossref.org/works/10.1103/physrevc.108.054301
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     position: 5
     year: 2023
@@ -2324,6 +2508,10 @@ papers:
     - W. Rattanasakuldilok
     - J. Ruotsalainen
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-023-01176-4
+    topics:
+      - mass-applications
+      - stellar-nucleosynthesis
+      - isotope-dynamics
   - role: coauthor
     position: 13
     year: 2023
@@ -2366,6 +2554,10 @@ papers:
     - V. Virtanen
     - A. P. Weaver
     authors_source: https://api.crossref.org/works/10.1103/physrevc.108.064315
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     position: 27
     year: 2023
@@ -2454,6 +2646,8 @@ papers:
     - A.A. Yaneva
     - J.J. Zhao
     authors_source: https://api.crossref.org/works/10.1051/epjconf/202329002006
+    topics:
+      - structure-decay
   - role: coauthor
     position: 8
     year: 2023
@@ -2495,6 +2689,8 @@ papers:
     - H. Yamaguchi
     - L. Yang
     authors_source: https://api.crossref.org/works/10.3389/fphy.2023.1163299
+    topics:
+      - astro-reactions
   - role: coauthor
     position: 15
     year: 2023
@@ -2553,6 +2749,8 @@ papers:
     - G. Zimba
     - R. Yajzey
     authors_source: https://api.crossref.org/works/10.1016/j.physletb.2023.138249
+    topics:
+      - isospin
   - role: coauthor
     position: 4
     year: 2023
@@ -2578,6 +2776,9 @@ papers:
     - Y.K. Tanaka
     - H. Weick
     authors_source: https://api.crossref.org/works/10.1016/j.nimb.2023.05.007
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 26
     year: 2023
@@ -2780,6 +2981,8 @@ papers:
     - J. Zenihiro
     - M. V. Zhukov
     authors_source: https://api.crossref.org/works/10.1038/s41586-022-04827-6
+    topics:
+      - multi-neutron
   - role: coauthor
     highlight: true
     year: 2022
@@ -2816,6 +3019,9 @@ papers:
     - J. Romero
     - F. Sommer
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.128.152501
+    topics:
+      - isotope-dynamics
+      - laser-ion-sources
   - role: coauthor
     highlight: true
     year: 2022
@@ -2900,6 +3106,9 @@ papers:
     - R. Yokoyama
     - Z. Xu
     authors_source: https://api.crossref.org/works/10.3847/1538-4357/ac80fc
+    topics:
+      - stellar-nucleosynthesis
+      - structure-decay
   - role: coauthor
     highlight: true
     year: 2022
@@ -2956,6 +3165,9 @@ papers:
     - Zs. Podolyak
     - T. Uesaka
     authors_source: https://api.crossref.org/works/10.1103/PhysRevLett.128.152701
+    topics:
+      - mass-applications
+      - stellar-nucleosynthesis
   - role: coauthor
     year: 2022
     authors: D. A. Nesterenko *et al.*
@@ -2975,6 +3187,10 @@ papers:
     - S. Rinta-Antila
     - J. Suhonen
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-022-00695-w
+    topics:
+      - mass-applications
+      - neutrino-double-beta
+      - structure-decay
   - role: coauthor
     position: 7
     year: 2022
@@ -3000,6 +3216,10 @@ papers:
     - M. Stryjczyk
     - V. Virtanen
     authors_source: https://api.crossref.org/works/10.1103/physrevc.106.024310
+    topics:
+      - mass-applications
+      - isotope-dynamics
+      - structure-decay
   - role: coauthor
     highlight: true
     year: 2021
@@ -3051,6 +3271,9 @@ papers:
     - A. Tumino
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.3847/2041-8213/ac061f
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     year: 2021
     authors: D. A. Nesterenko, T. Eronen, **Z. Ge** *et al.*
@@ -3067,6 +3290,9 @@ papers:
     - A. Kankainen
     - M. Vilen
     authors_source: https://api.crossref.org/works/10.1140/epja/s10050-021-00608-3
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 11
     year: 2021
@@ -3109,6 +3335,9 @@ papers:
     - Y. Yamaguchi
     - M. Wakasugi
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2020.164713
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 26
     year: 2021
@@ -3223,6 +3452,8 @@ papers:
     - L. Zanetti
     - J. Zenihiro
     authors_source: https://api.crossref.org/works/10.1007/s00601-021-01691-4
+    topics:
+      - multi-neutron
   - role: coauthor
     position: 2
     year: 2021
@@ -3251,6 +3482,9 @@ papers:
     - Shinji Suzuki
     - Tetsuaki Moriguchi
     authors_source: https://api.crossref.org/works/10.7566/jpscp.35.011025
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 4
     year: 2020
@@ -3270,6 +3504,8 @@ papers:
     - A. Jokinen
     - A. Kankainen
     authors_source: https://api.crossref.org/works/10.1016/j.ijms.2020.116435
+    topics:
+      - mass-applications
   - role: coauthor
     position: 6
     year: 2020
@@ -3299,6 +3535,9 @@ papers:
     - K. Wakayama
     - Y. Yamaguchi
     authors_source: https://api.crossref.org/works/10.1016/j.nimb.2019.05.029
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 7
     year: 2020
@@ -3333,6 +3572,9 @@ papers:
     - Kiyoshi Wakayama
     - Takayuki Yamaguchi
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2020.163807
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 35
     year: 2020
@@ -3385,6 +3627,9 @@ papers:
     - G. Lorusso
     - T. Uesaka
     authors_source: https://api.crossref.org/works/10.1088/1742-6596/1643/1/012058
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 13
     year: 2020
@@ -3435,6 +3680,9 @@ papers:
     - P. Vi
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.7566/jpscp.31.011036
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 26
     year: 2020
@@ -3547,6 +3795,8 @@ papers:
     - T. Elidiano
     - C. Lenain
     authors_source: https://api.crossref.org/works/10.1088/1742-6596/1643/1/012090
+    topics:
+      - multi-neutron
   - role: coauthor
     position: 25
     year: 2020
@@ -3656,6 +3906,8 @@ papers:
     - L. Zanetti
     - J. Zenihiro
     authors_source: https://api.crossref.org/works/10.1007/978-3-030-32357-8_87
+    topics:
+      - multi-neutron
   - role: coauthor
     position: 9
     year: 2020
@@ -3693,6 +3945,9 @@ papers:
     - Y. Ueno
     - L. Yang
     authors_source: https://api.crossref.org/works/10.7566/jpscp.31.011073
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 8
     year: 2019
@@ -3742,6 +3997,9 @@ papers:
     - L. Yang
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.1007/978-3-030-13876-9_6
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 19
     year: 2019
@@ -3792,6 +4050,9 @@ papers:
     - W. Zhang
     - W. L. Zhan
     authors_source: https://api.crossref.org/works/10.1103/physrevc.99.064303
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     position: 30
     year: 2018
@@ -3834,6 +4095,8 @@ papers:
     - Z. Ge
     - T.V. Nhan Hao
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2018.04.043
+    topics:
+      - mass-applications
   - role: coauthor
     position: 9
     year: 2018
@@ -3871,6 +4134,9 @@ papers:
     - Y. Ueno
     - L. Yang
     authors_source: https://api.crossref.org/works/10.1063/1.5030807
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 9
     year: 2018
@@ -3908,6 +4174,8 @@ papers:
     - Y. Ueno
     - L. Yang
     authors_source: https://api.crossref.org/works/10.1051/epjconf/201818402013
+    topics:
+      - mass-applications
   - role: coauthor
     position: 8
     year: 2018
@@ -3958,6 +4226,9 @@ papers:
     - L. Yang
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.1063/1.5030815
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 15
     year: 2018
@@ -3999,6 +4270,8 @@ papers:
     - K. Kwak
     - J. Y. Moon
     authors_source: https://api.crossref.org/works/10.3938/jkps.73.1055
+    topics:
+      - isotope-dynamics
   - role: coauthor
     position: 14
     year: 2017
@@ -4050,6 +4323,8 @@ papers:
     - T. C. Zhao
     - X. H. Zhou
     authors_source: https://api.crossref.org/works/10.1103/physrevc.95.014610
+    topics:
+      - mass-applications
   - role: coauthor
     position: 13
     year: 2017
@@ -4093,6 +4368,9 @@ papers:
     - W. Zhang
     - X. Zhou
     authors_source: https://api.crossref.org/works/10.1103/physrevc.96.031303
+    topics:
+      - mass-applications
+      - structure-decay
   - role: coauthor
     position: 9
     year: 2017
@@ -4130,6 +4408,9 @@ papers:
     - Y. Ueno
     - L. Yang
     authors_source: https://api.crossref.org/works/10.1051/epjconf/201716501030
+    topics:
+      - stellar-nucleosynthesis
+      - astro-reactions
   - role: coauthor
     position: 15
     year: 2016
@@ -4159,6 +4440,9 @@ papers:
     - Y.M. Xing
     - Q. Zeng
     authors_source: https://api.crossref.org/works/10.1016/j.nimb.2016.02.006
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 16
     year: 2015
@@ -4192,6 +4476,9 @@ papers:
     - Qi Zeng
     - Wei Zhang
     authors_source: https://api.crossref.org/works/10.1088/1674-1137/39/10/106201
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 17
     year: 2015
@@ -4237,6 +4524,9 @@ papers:
     - Wei Zhang
     - Wen-Long Zhan
     authors_source: https://api.crossref.org/works/10.1088/1674-1137/39/10/104001
+    topics:
+      - mass-applications
+      - isotope-dynamics
   - role: coauthor
     position: 15
     year: 2015
@@ -4274,6 +4564,9 @@ papers:
     - Q Zeng
     - X H Zhou
     authors_source: https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014010
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 16
     year: 2015
@@ -4306,6 +4599,9 @@ papers:
     - Q Zeng
     - W Zhang
     authors_source: https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014044
+    topics:
+      - mass-applications
+      - mass-innovations
   - role: coauthor
     position: 37
     year: 2015
@@ -4357,6 +4653,8 @@ papers:
     - H W Zhao
     - T C Zhao
     authors_source: https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014009
+    topics:
+      - mass-applications
   - role: coauthor
     position: 11
     year: 2014
@@ -4402,3 +4700,6 @@ papers:
     - T.C. Zhao
     - X.H. Zhou
     authors_source: https://api.crossref.org/works/10.1016/j.nima.2014.04.051
+    topics:
+      - mass-applications
+      - mass-innovations

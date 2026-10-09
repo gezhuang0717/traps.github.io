@@ -6,6 +6,8 @@ showDate: false
 
 {{< learning-links >}}
 
+{{< paper-topic-guide >}}
+
 我利用高精度离子阱和储存环质谱回答中微子物理、原子核结构和核天体物理中的问题。各研究方向下的论文来自统一的论文数据库，完整列表见[论文](../publications/)页面。
 
 ## 图说实验技术

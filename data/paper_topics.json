@@ -1,0 +1,601 @@
+{
+  "schema_version": 1,
+  "checked": "2026-10-10",
+  "groups": [
+    {
+      "id": "legacy",
+      "name": {
+        "en": "Existing research themes",
+        "zh": "原有研究方向"
+      }
+    },
+    {
+      "id": "methods",
+      "name": {
+        "en": "Mass methods and beams",
+        "zh": "质量测量与束流"
+      }
+    },
+    {
+      "id": "structure",
+      "name": {
+        "en": "Nuclear structure",
+        "zh": "核结构"
+      }
+    },
+    {
+      "id": "decay",
+      "name": {
+        "en": "Decay and symmetries",
+        "zh": "衰变与对称性"
+      }
+    },
+    {
+      "id": "astro",
+      "name": {
+        "en": "Nuclear astrophysics",
+        "zh": "核天体物理"
+      }
+    },
+    {
+      "id": "reactions",
+      "name": {
+        "en": "Heavy nuclei and reactions",
+        "zh": "重核与核反应"
+      }
+    },
+    {
+      "id": "detector-tech",
+      "name": {
+        "en": "Detector technologies",
+        "zh": "探测器技术"
+      }
+    }
+  ],
+  "topics": [
+    {
+      "id": "nz",
+      "group": "legacy",
+      "name": {
+        "en": "N = Z nuclei / MASSPASS",
+        "zh": "N = Z 原子核 / MASSPASS"
+      },
+      "description": {
+        "en": "Precision masses near equal neutron and proton numbers probe shell evolution and astrophysical reaction paths.",
+        "zh": "中子数与质子数接近时的精确质量用于研究壳演化和天体核反应路径。"
+      },
+      "observables": {
+        "en": "See the linked research programme and papers.",
+        "zh": "请参阅研究方向说明与论文。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "neutrino",
+      "group": "legacy",
+      "name": {
+        "en": "Q values for neutrino physics",
+        "zh": "中微子物理中的 Q 值"
+      },
+      "description": {
+        "en": "Decay-energy measurements assess candidates for direct neutrino-mass experiments.",
+        "zh": "衰变能测量用于评估直接中微子质量实验候选核素。"
+      },
+      "observables": {
+        "en": "See the linked research programme and papers.",
+        "zh": "请参阅研究方向说明与论文。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "isotope-shift",
+      "group": "legacy",
+      "name": {
+        "en": "Atomic masses and isotope shifts",
+        "zh": "原子质量与同位素位移"
+      },
+      "description": {
+        "en": "Accurate atomic masses support isotope-shift analysis and the separation of mass and nuclear-size effects.",
+        "zh": "准确原子质量支持同位素位移分析，并帮助区分质量效应与核尺寸效应。"
+      },
+      "observables": {
+        "en": "See the linked research programme and papers.",
+        "zh": "请参阅研究方向说明与论文。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "detectors",
+      "group": "legacy",
+      "name": {
+        "en": "Storage rings, MR-TOF and MCP detectors",
+        "zh": "储存环、MR-TOF 与 MCP 探测器"
+      },
+      "description": {
+        "en": "Ion manipulation, precision timing and position detection enable rare-isotope mass measurements.",
+        "zh": "离子操控、精密计时和位置探测支持稀有同位素质量测量。"
+      },
+      "observables": {
+        "en": "See the linked research programme and papers.",
+        "zh": "请参阅研究方向说明与论文。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "mass-applications",
+      "group": "methods",
+      "name": {
+        "en": "Mass spectrometry and ion-beam applications",
+        "zh": "质谱与离子束应用"
+      },
+      "description": {
+        "en": "Measures and separates ions by mass-to-charge ratio. Precision masses and clean isotope beams support decay-energy, nuclear-structure and astrophysics studies.",
+        "zh": "按质荷比测量或分离离子。精确质量和纯净同位素束可用于衰变能、核结构与核天体物理研究。"
+      },
+      "observables": {
+        "en": "Atomic masses, Q values, beam purity and emittance.",
+        "zh": "原子质量、Q 值、束流纯度与发射度。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "mass-innovations",
+      "group": "methods",
+      "name": {
+        "en": "Mass-spectrometry innovations in heavy-ion research",
+        "zh": "重离子研究中的质谱技术创新"
+      },
+      "description": {
+        "en": "Develops Penning traps, MR-TOF instruments, storage rings, timing detectors and ion optics for rare isotopes. Read resolving power, accuracy and efficiency separately: a narrow peak alone does not establish an accurate mass.",
+        "zh": "为稀有同位素发展潘宁阱、MR-TOF、储存环、计时探测器和离子光学。分辨本领、准确度与效率需分别考察；峰窄并不自动代表质量准确。"
+      },
+      "observables": {
+        "en": "Resolving power, calibration, timing, transmission and systematic uncertainty.",
+        "zh": "分辨本领、校准、计时、传输效率与系统不确定度。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "stellar-nucleosynthesis",
+      "group": "astro",
+      "name": {
+        "en": "Nucleosynthesis and the chemical evolution of stars",
+        "zh": "恒星核合成与化学演化"
+      },
+      "description": {
+        "en": "Links nuclear reaction and decay networks to the abundance of elements in stars and ejecta. Masses and lifetimes constrain pathways, while stellar evolution and mixing determine how products reach later generations of stars.",
+        "zh": "把核反应和衰变网络与恒星及抛射物的元素丰度联系起来。质量与寿命约束反应路径；恒星演化和混合决定产物如何进入后续恒星。"
+      },
+      "observables": {
+        "en": "Abundances, reaction flows, masses, half-lives and astrophysical conditions.",
+        "zh": "丰度、反应流、质量、半衰期及天体环境条件。"
+      },
+      "sources": [
+        {
+          "title": "JINA: nuclear astrophysics",
+          "url": "https://archive.jinaweb.org/docs/Nuclear_Astrophysics_I.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nova-reactions",
+      "group": "astro",
+      "name": {
+        "en": "Nuclear reactions and nucleosynthesis in novae",
+        "zh": "新星核反应与核合成"
+      },
+      "description": {
+        "en": "Classical novae are thermonuclear outbursts on accreting white dwarfs. Resonances, proton captures and beta decays determine reaction rates and the isotopes ejected; a supernova or Big-Bang study is not automatically a nova study.",
+        "zh": "经典新星是在吸积白矮星表面发生的热核爆发。共振、质子俘获与 β 衰变影响反应率和抛射同位素；超新星或大爆炸研究不应直接归入新星。"
+      },
+      "observables": {
+        "en": "Resonance energies and strengths, temperature-dependent rates and ejecta yields.",
+        "zh": "共振能与强度、随温度变化的反应率及抛射产额。"
+      },
+      "sources": [
+        {
+          "title": "JINA: nuclear astrophysics",
+          "url": "https://archive.jinaweb.org/docs/Nuclear_Astrophysics_I.pdf"
+        },
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "shape-coexistence",
+      "group": "structure",
+      "name": {
+        "en": "Shape coexistence and nuclear structure",
+        "zh": "形状共存与核结构"
+      },
+      "description": {
+        "en": "Different intrinsic nuclear shapes can produce low-lying states in the same nucleus. Energies, electromagnetic transitions and radii help distinguish coexistence from a gradual change in deformation; a mass trend alone is not proof.",
+        "zh": "同一原子核的不同内禀形状可对应相近的低激发态。能级、电磁跃迁与半径有助于区分形状共存和形变逐渐变化；质量趋势本身并不是共存证据。"
+      },
+      "observables": {
+        "en": "Low-lying 0+ states, E0/E2 strengths, charge radii and configuration mixing.",
+        "zh": "低激发 0+ 态、E0/E2 强度、电荷半径与组态混合。"
+      },
+      "sources": [
+        {
+          "title": "Shape coexistence review",
+          "url": "https://arxiv.org/abs/2308.15393"
+        }
+      ]
+    },
+    {
+      "id": "isotope-dynamics",
+      "group": "structure",
+      "name": {
+        "en": "Nuclear structure and isotope evolution",
+        "zh": "核结构与同位素演化"
+      },
+      "description": {
+        "en": "Follows how shell structure, pairing and deformation change along isotope or isotone chains. Here isotope evolution means changes with proton or neutron number, rather than motion of isotopes through a material.",
+        "zh": "研究壳结构、配对和形变如何沿同位素或同中子素链变化。此处演化指随质子数或中子数的变化，而非同位素在材料中的运动。"
+      },
+      "observables": {
+        "en": "Separation energies, shell gaps, pairing indicators, radii and isomers.",
+        "zh": "分离能、壳隙、配对指标、半径与同质异能态。"
+      },
+      "sources": [
+        {
+          "title": "FRIB nuclear theory",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/nuclear-theory"
+        },
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "beta-symmetries",
+      "group": "decay",
+      "name": {
+        "en": "Beta decay and fundamental symmetries",
+        "zh": "β 衰变与基本对称性"
+      },
+      "description": {
+        "en": "Uses decay rates, spectra and angular correlations to test the weak interaction. Searches for time-reversal violation or non-standard couplings need controlled nuclear and detector effects; an ordinary beta-decay measurement is not itself evidence of symmetry violation.",
+        "zh": "利用衰变率、能谱与角关联检验弱相互作用。寻找时间反演破坏或非标准耦合时，必须控制核结构和探测器效应；一般 β 衰变测量不等于发现对称性破坏。"
+      },
+      "observables": {
+        "en": "Correlation coefficients, Vud, spectral shapes and systematic corrections.",
+        "zh": "关联系数、Vud、能谱形状与系统修正。"
+      },
+      "sources": [
+        {
+          "title": "FRIB fundamental symmetries",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/symmetries"
+        }
+      ]
+    },
+    {
+      "id": "multi-neutron",
+      "group": "structure",
+      "name": {
+        "en": "Multi-neutron systems",
+        "zh": "多中子体系"
+      },
+      "description": {
+        "en": "Investigates correlations and possible resonances in systems made only of neutrons. A short-lived resonance-like structure must be distinguished from a bound nucleus and from final-state interaction effects.",
+        "zh": "研究仅由中子组成体系的关联与可能的共振。短寿命共振样结构需要与束缚核及末态相互作用效应区分。"
+      },
+      "observables": {
+        "en": "Missing-mass spectra, relative energies, widths and reaction-model dependence.",
+        "zh": "缺失质量谱、相对能量、宽度与反应模型依赖。"
+      },
+      "sources": [
+        {
+          "title": "Observation of a correlated free four-neutron system",
+          "url": "https://www.nature.com/articles/s41586-022-04827-6"
+        }
+      ]
+    },
+    {
+      "id": "neutrino-double-beta",
+      "group": "decay",
+      "name": {
+        "en": "Neutrino masses and double beta decay",
+        "zh": "中微子质量与双 β 衰变"
+      },
+      "description": {
+        "en": "Direct beta or electron-capture endpoints probe the neutrino mass scale through decay kinematics. Double-beta studies also need Q values and nuclear matrix elements; neutrinoless decay, if observed, would test lepton-number conservation. These methods make different assumptions.",
+        "zh": "β 衰变或电子俘获端点通过衰变运动学探测中微子质量尺度。双 β 研究还需 Q 值和核矩阵元；若观察到无中微子双 β 衰变，将检验轻子数守恒。不同方法的假设并不相同。"
+      },
+      "observables": {
+        "en": "Q values, endpoint spectra, phase-space factors, matrix elements and backgrounds.",
+        "zh": "Q 值、端点能谱、相空间因子、矩阵元与本底。"
+      },
+      "sources": [
+        {
+          "title": "DOE: neutrinoless double beta decay",
+          "url": "https://www.energy.gov/science/np/articles/unlocking-secrets-universe-through-neutrinoless-double-beta-decay"
+        }
+      ]
+    },
+    {
+      "id": "superheavy",
+      "group": "reactions",
+      "name": {
+        "en": "Superheavy-element synthesis and decay",
+        "zh": "超重元素合成与衰变"
+      },
+      "description": {
+        "en": "Creates the heaviest nuclei in fusion reactions and identifies them through decay chains. Production probabilities compete with fission, and shell effects influence survival. Transfer reactions on heavy targets do not automatically imply superheavy-element synthesis.",
+        "zh": "通过熔合反应产生最重原子核，并用衰变链鉴别。产生概率与裂变竞争，壳效应影响存活率。重靶多核子转移反应不自动等同于超重元素合成。"
+      },
+      "observables": {
+        "en": "Evaporation-residue cross sections, alpha-decay chains and fission lifetimes.",
+        "zh": "蒸发剩余核截面、α 衰变链与裂变寿命。"
+      },
+      "sources": [
+        {
+          "title": "GSI superheavy-nucleus research",
+          "url": "https://www.gsi.de/work/forschung/nustarenna/nustarenna_divisions/she_physik/research"
+        }
+      ]
+    },
+    {
+      "id": "fission-fragments",
+      "group": "reactions",
+      "name": {
+        "en": "Fission-fragment dynamics and energy distributions",
+        "zh": "裂变碎片动力学与能量分布"
+      },
+      "description": {
+        "en": "Studies how a fissioning nucleus divides mass, charge, energy and angular momentum between fragments. Fragment yields and isomer populations constrain the roles of shell structure, excitation and the scission process.",
+        "zh": "研究裂变核如何在碎片之间分配质量、电荷、能量和角动量。碎片产额与异能态布居约束壳结构、激发能和断裂过程的作用。"
+      },
+      "observables": {
+        "en": "Mass/charge yields, total kinetic energy, spin distributions and isomeric ratios.",
+        "zh": "质量与电荷产额、总动能、角动量分布及异能态产额比。"
+      },
+      "sources": [
+        {
+          "title": "GSI: shell effects in fission",
+          "url": "https://www-windows.gsi.de/charms/shellfis.htm"
+        }
+      ]
+    },
+    {
+      "id": "superconducting-calorimeters",
+      "group": "detector-tech",
+      "name": {
+        "en": "Superconducting calorimeters for precision detection",
+        "zh": "高精度探测用超导量热器"
+      },
+      "description": {
+        "en": "Measures deposited energy as a tiny temperature rise at cryogenic temperatures. Transition-edge sensors use the steep resistance change near a superconducting transition; energy resolution, response time and background must be assessed together.",
+        "zh": "在低温下通过微小温升测量沉积能量。超导转变边缘传感器利用超导转变附近电阻的剧烈变化；能量分辨率、响应时间与本底需综合考察。"
+      },
+      "observables": {
+        "en": "Energy resolution, thermal response, pile-up, calibration and noise.",
+        "zh": "能量分辨率、热响应、堆积、校准与噪声。"
+      },
+      "sources": [
+        {
+          "title": "NIST quantum calorimeters",
+          "url": "https://www.nist.gov/pml/quantum-sensors/quantum-calorimeters"
+        }
+      ]
+    },
+    {
+      "id": "astro-reactions",
+      "group": "astro",
+      "name": {
+        "en": "Astrophysical reactions and nuclear dynamics",
+        "zh": "天体核反应与核动力学"
+      },
+      "description": {
+        "en": "Connects laboratory cross sections and resonances with reaction rates in astrophysical plasmas. Reaction mechanisms, target states and uncertainties matter when translating a beam experiment into a stellar rate.",
+        "zh": "把实验室截面和共振与天体等离子体中的反应率联系起来。将束流实验转换为恒星反应率时，需考虑反应机制、靶核态与不确定度。"
+      },
+      "observables": {
+        "en": "Cross sections, resonance strengths, reaction rates and network sensitivity.",
+        "zh": "截面、共振强度、反应率与网络敏感性。"
+      },
+      "sources": [
+        {
+          "title": "JINA: nuclear astrophysics",
+          "url": "https://archive.jinaweb.org/docs/Nuclear_Astrophysics_I.pdf"
+        }
+      ]
+    },
+    {
+      "id": "dipole-resonances",
+      "group": "structure",
+      "name": {
+        "en": "Dipole resonances and strength distributions",
+        "zh": "偶极共振与强度分布"
+      },
+      "description": {
+        "en": "Examines dipole excitations and how their strength is distributed in energy. Electric dipole motion can reveal collective response and weakly bound neutron dynamics; a low-energy peak requires interpretation before being called a distinct resonance.",
+        "zh": "研究偶极激发及其强度随能量的分布。电偶极运动可揭示集体响应和弱束缚中子动力学；低能峰需经分析才可判断是否属于独立共振。"
+      },
+      "observables": {
+        "en": "E1 strength, excitation energy, decay channels and polarizability.",
+        "zh": "E1 强度、激发能、衰变道与极化率。"
+      },
+      "sources": [
+        {
+          "title": "FRIB nuclear theory",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/nuclear-theory"
+        }
+      ]
+    },
+    {
+      "id": "resistive-plate-chambers",
+      "group": "detector-tech",
+      "name": {
+        "en": "Resistive plate chambers in particle detection",
+        "zh": "粒子探测中的电阻板室"
+      },
+      "description": {
+        "en": "Gas detectors with resistive electrodes amplify ionization signals in a strong electric field. They provide fast timing and triggering in particle experiments; they are a different technology from MCP detectors.",
+        "zh": "采用电阻电极的气体探测器在强电场中放大电离信号。它们可提供快速计时与触发；其技术原理不同于 MCP 探测器。"
+      },
+      "observables": {
+        "en": "Efficiency, time resolution, rate capability, gas mixture and ageing.",
+        "zh": "效率、时间分辨率、计数率能力、气体配比与老化。"
+      },
+      "sources": [
+        {
+          "title": "CMS resistive plate chambers",
+          "url": "https://cms.cern/detector/detecting-muons/resistive-plate-chambers"
+        }
+      ]
+    },
+    {
+      "id": "structure-decay",
+      "group": "decay",
+      "name": {
+        "en": "Nuclear structure and isotope decay",
+        "zh": "同位素的核结构与衰变"
+      },
+      "description": {
+        "en": "Uses radioactive decay to identify levels, spins, transition strengths and long-lived isomers. Decay energies and branching ratios connect the mass surface to the structure of parent and daughter nuclei.",
+        "zh": "利用放射性衰变确定能级、自旋、跃迁强度与长寿命异能态。衰变能和分支比把质量面与母核、子核结构联系起来。"
+      },
+      "observables": {
+        "en": "Half-lives, Q values, branching ratios, level schemes and beta strength.",
+        "zh": "半衰期、Q 值、分支比、能级纲图与 β 强度。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        },
+        {
+          "title": "FRIB fundamental symmetries",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/symmetries"
+        }
+      ]
+    },
+    {
+      "id": "octupole",
+      "group": "structure",
+      "name": {
+        "en": "Octupole deformation and correlations",
+        "zh": "八极形变与关联"
+      },
+      "description": {
+        "en": "Reflection-asymmetric, often pear-like shapes involve octupole degrees of freedom. Static deformation and octupole vibrations are different possibilities, tested through spectra, parity partners and electric-octupole transition strengths.",
+        "zh": "反射不对称、常呈梨形的核形状涉及八极自由度。静态形变与八极振动是不同情形，可用能谱、宇称伙伴态和电八极跃迁强度检验。"
+      },
+      "observables": {
+        "en": "Parity doublets, E3 strengths, collective bands and deformation indicators.",
+        "zh": "宇称双重态、E3 强度、集体带与形变指标。"
+      },
+      "sources": [
+        {
+          "title": "Octupole collective motion review",
+          "url": "https://arxiv.org/abs/2309.09488"
+        }
+      ]
+    },
+    {
+      "id": "laser-ion-sources",
+      "group": "methods",
+      "name": {
+        "en": "Laser spectroscopy and ion sources",
+        "zh": "激光光谱与离子源"
+      },
+      "description": {
+        "en": "Laser spectroscopy uses isotope shifts and hyperfine structure to determine radii, spins and moments. Ion sources create and prepare the required beam; a laser-ablation source is not automatically a laser-spectroscopy measurement.",
+        "zh": "激光光谱利用同位素位移和超精细结构提取半径、自旋与矩。离子源产生并制备所需束流；激光烧蚀离子源本身并不等同于激光光谱测量。"
+      },
+      "observables": {
+        "en": "Isotope shifts, hyperfine constants, charge radii, beam yield and purity.",
+        "zh": "同位素位移、超精细常数、电荷半径、束流产额与纯度。"
+      },
+      "sources": [
+        {
+          "title": "IGISOL research programme",
+          "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+        }
+      ]
+    },
+    {
+      "id": "isospin",
+      "group": "structure",
+      "name": {
+        "en": "Nuclear structure and isospin symmetry",
+        "zh": "核结构与同位旋对称性"
+      },
+      "description": {
+        "en": "Compares mirror nuclei and isobaric multiplets by exchanging proton and neutron roles. Coulomb effects and other charge-dependent interactions break ideal isospin symmetry, affecting displacement energies and precision weak-decay tests.",
+        "zh": "通过交换质子与中子的角色比较镜像核和同量异位多重态。库仑效应和其他电荷依赖相互作用破坏理想同位旋对称性，影响位移能与精密弱衰变检验。"
+      },
+      "observables": {
+        "en": "Multiplet masses, Coulomb displacement energies, IMME coefficients and decay corrections.",
+        "zh": "多重态质量、库仑位移能、IMME 系数与衰变修正。"
+      },
+      "sources": [
+        {
+          "title": "FRIB fundamental symmetries",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/symmetries"
+        },
+        {
+          "title": "FRIB nuclear theory",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/nuclear-theory"
+        }
+      ]
+    },
+    {
+      "id": "neutron-skin",
+      "group": "structure",
+      "name": {
+        "en": "Neutron skins and nuclear symmetry energy",
+        "zh": "中子皮与核对称能"
+      },
+      "description": {
+        "en": "The neutron skin is the difference between neutron and proton root-mean-square radii. Its relation to the density dependence of symmetry energy is model-dependent; charge radii alone do not directly measure a neutron skin.",
+        "zh": "中子皮厚度为中子与质子均方根半径之差。它与对称能密度依赖的关系具有模型依赖性；仅有电荷半径并不能直接测量中子皮。"
+      },
+      "observables": {
+        "en": "Neutron/proton radii, parity-violating scattering, dipole polarizability and equation-of-state constraints.",
+        "zh": "中子与质子半径、宇称破坏散射、偶极极化率及状态方程约束。"
+      },
+      "sources": [
+        {
+          "title": "FRIB nuclear theory",
+          "url": "https://frib.msu.edu/research-areas-and-capabilities/research-areas/nuclear-theory"
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@ showDate: false
 
 {{< learning-links >}}
 
+{{< paper-topic-guide >}}
+
 Mit hochpräziser Ionenfallen- und Speicherring-Massenspektrometrie untersuche ich Fragen der Neutrinophysik, der Kernstruktur und der nuklearen Astrophysik. Die Publikationen zu jedem Thema stammen aus der gemeinsamen Publikationsdatenbank; die vollständige Liste steht unter [Publikationen](../publications/).
 
 ## Methoden in Bildern

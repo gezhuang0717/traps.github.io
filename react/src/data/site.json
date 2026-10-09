@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-09T21:36:28+00:00",
+  "generated": "2026-10-09T22:14:11+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -311,6 +311,11 @@
         "Marek Stryjczyk"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/bgj9-mzcq",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Precise determination of electron-capture Q value of ¹¹³Sn decay related to electron neutrino mass measurements"
     },
     {
@@ -362,6 +367,11 @@
         "Ville Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/g393-xx1w",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "High-precision direct decay energy measurements of the electron-capture decay of ⁹⁷Tc"
     },
     {
@@ -383,6 +393,10 @@
         "Zhuang Ge"
       ],
       "authors_source": "https://api.crossref.org/works/10.3390/s24227261",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Overview of high-performance timing and position-sensitive MCP detectors utilizing secondary electron emission for mass measurements of exotic nuclei at nuclear physics facilities"
     },
     {
@@ -431,6 +445,11 @@
         "Ville Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2024.139094",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "High-precision measurements of the atomic mass and electron-capture decay Q value of ⁹⁵Tc"
     },
     {
@@ -460,6 +479,9 @@
         "Mikael Reponen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-024-01359-7",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "High-precision measurement of the atomic mass of ⁸⁴Sr and implications to isotope shift studies"
     },
     {
@@ -503,6 +525,11 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-024-01317-3",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Direct high-precision measurement of the mass difference of ⁷⁷As–⁷⁷Se related to neutrino mass determination"
     },
     {
@@ -561,6 +588,10 @@
         "Alexandra Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.133.132503",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "High-precision mass measurements of neutron-deficient silver isotopes probe the robustness of the <em>N</em> = 50 shell closure"
     },
     {
@@ -605,6 +636,11 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.108.045502",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "β⁻ decay Q-value measurement of ¹³⁶Cs and its implications for neutrino studies"
     },
     {
@@ -647,6 +683,11 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.106.015502",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Direct determination of the atomic mass difference of the pairs ⁷⁶As–⁷⁶Se and ¹⁵⁵Tb–¹⁵⁵Gd rules out ⁷⁶As and ¹⁵⁵Tb as possible candidates for electron (anti)neutrino mass measurements"
     },
     {
@@ -682,6 +723,11 @@
         "M. Vilén"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2022.137226",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "High-precision electron-capture Q value measurement of ¹¹¹In for electron-neutrino mass determination"
     },
     {
@@ -726,6 +772,11 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.127.272301",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "¹⁵⁹Dy electron-capture: a new candidate for neutrino mass determination"
     },
     {
@@ -744,6 +795,10 @@
         "Zhuang Ge"
       ],
       "authors_source": "https://arxiv.org/abs/2106.08264",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Development of a large-area timing and position-sensitive foil-MCP detector for mass measurements at the Rare-RI Ring in RIKEN"
     },
     {
@@ -785,6 +840,11 @@
         "A. Jokinen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.103.065502",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Direct measurement of the mass difference of ⁷²As–⁷²Ge rules out ⁷²As as a promising β-decay candidate to determine the neutrino mass"
     },
     {
@@ -830,6 +890,10 @@
         "Yasushige Yano"
       ],
       "authors_source": "https://api.crossref.org/works/10.7566/JPSCP.35.011023",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Development of mirror-type MCP detectors for mass measurements at the Rare-RI Ring"
     },
     {
@@ -874,6 +938,10 @@
         "Yasushige Yano"
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/s10751-019-1599-2",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Scheme of high-resolution identification and selection of secondary ions for mass measurements with the Rare-RI Ring"
     },
     {
@@ -897,6 +965,10 @@
         "Tomohiro Uesaka"
       ],
       "authors_source": "https://inspirehep.net/literature/1957989",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry"
     },
     {
@@ -937,6 +1009,10 @@
         "Y. Yano"
       ],
       "authors_source": "https://www.nishina.riken.jp/researcher/APR/APR051/pdf/152.pdf",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Timing performance of a mirror-type MCP detector for mass measurements at the Rare RI Ring"
     },
     {
@@ -971,6 +1047,10 @@
       ],
       "authors_source": "https://www.nishina.riken.jp/researcher/APR/APR050/pdf/187.pdf",
       "collaboration": "Rare RI Ring collaboration",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Simulation and design of a large-area position-sensitive TOF MCP detector at the Rare RI Ring"
     },
     {
@@ -1002,6 +1082,10 @@
       ],
       "authors_source": "https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf",
       "collaboration": "Rare RI Ring collaboration",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Online results for the injection ion optics of the Rare RI Ring"
     },
     {
@@ -1034,6 +1118,11 @@
         "V. Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.106.015501",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Observation of an ultralow-Q-value electron-capture channel decaying to ⁷⁵As via a high-precision mass measurement"
     },
     {
@@ -1069,6 +1158,11 @@
         "J. Suhonen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2022.137135",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "High-precision measurement of a low Q value for allowed β⁻ decay of ¹³¹I related to neutrino mass determination"
     },
     {
@@ -1098,6 +1192,10 @@
         "Bo Wu"
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/s41365-019-0676-1",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Electrostatic-lenses position-sensitive TOF MCP detector for beam diagnostics and new scheme for mass measurements at HIAF"
     },
     {
@@ -1135,6 +1233,9 @@
         "Jianwei Zhao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1038/s41467-026-77082-2",
+      "topics": [
+        "structure-decay"
+      ],
       "title_html": "A pathway towards decentralized studies of radioactive post-lead elements and their applications in BSM physics"
     },
     {
@@ -1244,6 +1345,10 @@
         "J. Zenihiro"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/vp3m-5rpp",
+      "topics": [
+        "dipole-resonances",
+        "structure-decay"
+      ],
       "title_html": "Dipole strength distribution of ⁸He and decay characteristics"
     },
     {
@@ -1344,6 +1449,10 @@
         "for the Super-FRS Experiment Collaboration"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/lsp5-qntn",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Direct mass measurement of ⁹¹Rh and ⁸⁹Ru and mid-shell trend of the one-proton separation energies for <em>N</em> = <em>Z</em> + 1 nuclei"
     },
     {
@@ -1382,6 +1491,10 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-026-01883-8",
+      "topics": [
+        "mass-applications",
+        "structure-decay"
+      ],
       "title_html": "High-precision mass and β⁻ decay Q-value measurement of ¹²⁹Sb and its isomer"
     },
     {
@@ -1412,6 +1525,10 @@
         "A. Takkinen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2026.171513",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "High-resolution multi-reflection time-of-flight mass spectrometer for exotic nuclei at IGISOL"
     },
     {
@@ -1486,6 +1603,9 @@
         "for the Super-FRS Experiment Collaboration"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-026-01914-4",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "Identification of MNT fragments produced by an energy-degraded ²³⁸U beam on a ²⁰⁹Bi target at the FRS Ion Catcher"
     },
     {
@@ -1509,6 +1629,11 @@
         "J. Suhonen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.134.172501",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "Ultralow Q<sub>β</sub> value for the allowed decay of ¹¹⁰Ag<sup>m</sup> confirmed via mass measurements"
     },
     {
@@ -1540,6 +1665,10 @@
         "V. Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.134.042501",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Prominent bump in the two-neutron separation energies of neutron-rich lanthanum isotopes revealed by high-precision mass spectrometry"
     },
     {
@@ -1617,6 +1746,10 @@
         "for the Super-FRS Experiment Collaboration"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/mhhn-kmgx",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Direct mass measurement of ⁹³Pd and implications for the isomer structures in ⁹⁴Ag"
     },
     {
@@ -1643,6 +1776,11 @@
         "J. Ruotsalainen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2025.139359",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "Discovery of a new long-lived isomer in ¹¹⁴Rh via Penning-trap mass spectrometry"
     },
     {
@@ -1675,6 +1813,9 @@
         "Andrea Raggio"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.111.L031601",
+      "topics": [
+        "fission-fragments"
+      ],
       "title_html": "Disentangling the influence of excitation energy and compound nucleus angular momentum on fission fragment angular momentum"
     },
     {
@@ -1706,6 +1847,10 @@
         "M. Schuh"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2024.170186",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Miniaturised cooler-buncher for reduction of longitudinal emittance at IGISOL"
     },
     {
@@ -1746,6 +1891,10 @@
         "Y. Yano"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2024.170083",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Performance of a precise isochronous magnetic field over a wide momentum range in the Rare-RI Ring"
     },
     {
@@ -1793,6 +1942,10 @@
         "K. Solak"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/kksz-prtb",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Probing the quantum phase transition near <em>N</em> ≈ 60 via mass measurements of technetium isotopes"
     },
     {
@@ -1852,6 +2005,9 @@
         "P. Delahaye"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-025-01694-3",
+      "topics": [
+        "beta-symmetries"
+      ],
       "title_html": "Performance of the MORA apparatus for testing time-reversal invariance in nuclear beta decay"
     },
     {
@@ -1925,6 +2081,9 @@
         "Jianwei Zhao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nuclphysa.2025.123041",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "First observation of MNT isotope beams at the FRS Ion Catcher"
     },
     {
@@ -1970,6 +2129,11 @@
         "M. Winter"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.111.044314",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "High-precision mass measurements of the ground and isomeric states in ¹²⁴,¹²⁵Ag"
     },
     {
@@ -2002,6 +2166,11 @@
         "Jouni Ruotsalainen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2025.140012",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "Isomeric yield ratios and mass spectrometry of Y and Nb isotopes in the neutron-rich <em>N</em> = 60 region: The unusual case of ⁹⁸Y"
     },
     {
@@ -2044,6 +2213,10 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevC.110.034325",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Mass measurements in the ¹³²Sn region with the JYFLTRAP double Penning trap mass spectrometer"
     },
     {
@@ -2081,6 +2254,10 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2024.138916",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Precision mass measurements in the zirconium region pin down the mass surface across the neutron midshell at <em>N</em> = 66"
     },
     {
@@ -2111,6 +2288,11 @@
         "Jianwei Zhao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2024.169371",
+      "topics": [
+        "mass-applications",
+        "mass-innovations",
+        "laser-ion-sources"
+      ],
       "title_html": "A laser ablation carbon cluster ion source for the FRS Ion Catcher"
     },
     {
@@ -2157,6 +2339,9 @@
         "P.J. Woods"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2024.169252",
+      "topics": [
+        "structure-decay"
+      ],
       "title_html": "Novel device to study double-alpha decay at the FRS Ion Catcher"
     },
     {
@@ -2268,6 +2453,10 @@
         "IDS and IGISOL Collaboration"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.110.014328",
+      "topics": [
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "Detailed structure of ¹³¹Sn populated in the β decay of isomerically purified ¹³¹In states"
     },
     {
@@ -2381,6 +2570,12 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.110.034326",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "fission-fragments",
+        "structure-decay"
+      ],
       "title_html": "Isomeric states of fission fragments explored via Penning trap mass spectrometry at IGISOL"
     },
     {
@@ -2424,6 +2619,9 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.110.024314",
+      "topics": [
+        "isospin"
+      ],
       "title_html": "Isospin symmetry breaking in the <em>T</em> = 1, <em>A</em> = 70 triplet"
     },
     {
@@ -2471,6 +2669,10 @@
         "G.L. Zimba"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2023.138371",
+      "topics": [
+        "isotope-dynamics",
+        "octupole"
+      ],
       "title_html": "Octupole correlations in the <em>N</em> = <em>Z</em> + 2 = 56 ¹¹⁰Xe nucleus"
     },
     {
@@ -2503,6 +2705,11 @@
         "V. Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.110.045809",
+      "topics": [
+        "mass-applications",
+        "stellar-nucleosynthesis",
+        "isotope-dynamics"
+      ],
       "title_html": "Probing the <em>N</em> = 104 midshell region for the <em>r</em> process via precision mass spectrometry of neutron-rich rare-earth isotopes with the JYFLTRAP double Penning trap"
     },
     {
@@ -2527,6 +2734,10 @@
         "J. Ruotsalainen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-024-01248-z",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Reinvestigation of ⁹¹Sr and ⁹⁵Y atomic masses using the JYFLTRAP Penning trap"
     },
     {
@@ -2564,6 +2775,10 @@
         "George L. Zimba"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-024-01458-5",
+      "topics": [
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "γ-ray spectroscopy above the 9⁺ isomeric state in the <em>N</em> = <em>Z</em> nucleus ⁶⁶As"
     },
     {
@@ -2596,6 +2811,11 @@
         "Coulter Walls"
       ],
       "authors_source": "https://api.crossref.org/works/10.1063/5.0213443",
+      "topics": [
+        "mass-applications",
+        "mass-innovations",
+        "laser-ion-sources"
+      ],
       "title_html": "A compact ion source combining electron-impact and thermal ionization for multiple-reflection time-of-flight mass spectrometry"
     },
     {
@@ -2642,6 +2862,10 @@
         "Y. Yano"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.110.014310",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Isochronous mass spectrometry at the RIKEN Rare-RI Ring facility"
     },
     {
@@ -2711,6 +2935,11 @@
         "D. T. Yordanov"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.131.222502",
+      "topics": [
+        "beta-symmetries",
+        "laser-ion-sources",
+        "isospin"
+      ],
       "title_html": "Nuclear charge radius of ²⁶ᵐAl and its implication for V<sub>ud</sub> in the quark-mixing matrix"
     },
     {
@@ -2753,6 +2982,10 @@
         "V. Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.108.064302",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "High-precision Penning-trap mass measurements of Cd and In isotopes at JYFLTRAP remove the fluctuations in the two-neutron separation energies"
     },
     {
@@ -2798,6 +3031,11 @@
         "A. Zadvornaya"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.108.054301",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "High-precision measurements of low-lying isomeric states in ¹²⁰⁻¹²⁴In with the JYFLTRAP double Penning trap"
     },
     {
@@ -2825,6 +3063,11 @@
         "J. Ruotsalainen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-023-01176-4",
+      "topics": [
+        "mass-applications",
+        "stellar-nucleosynthesis",
+        "isotope-dynamics"
+      ],
       "title_html": "Precision mass measurement of ¹⁷³Hf for nuclear structure of ¹⁷³Lu and the γ process"
     },
     {
@@ -2871,6 +3114,11 @@
         "A. P. Weaver"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.108.064315",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "Binding energies of ground and isomeric states in neutron-rich ruthenium isotopes: Measurements at JYFLTRAP and comparison to theory"
     },
     {
@@ -2963,6 +3211,9 @@
         "J.J. Zhao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1051/epjconf/202329002006",
+      "topics": [
+        "structure-decay"
+      ],
       "title_html": "First full beta-strength measurement with DTAS across <em>N</em> = 126 at FAIR Phase-0"
     },
     {
@@ -3008,6 +3259,9 @@
         "L. Yang"
       ],
       "authors_source": "https://api.crossref.org/works/10.3389/fphy.2023.1163299",
+      "topics": [
+        "astro-reactions"
+      ],
       "title_html": "Investigation of ²²Mg levels via resonant scattering of ¹⁸Ne + α"
     },
     {
@@ -3070,6 +3324,9 @@
         "R. Yajzey"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.physletb.2023.138249",
+      "topics": [
+        "isospin"
+      ],
       "title_html": "Isospin symmetry in the <em>T</em> = 1, <em>A</em> = 62 triplet"
     },
     {
@@ -3099,6 +3356,10 @@
         "H. Weick"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nimb.2023.05.007",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Novel isochronous features for FRS-ESR experiments with stored exotic projectile fragments"
     },
     {
@@ -3309,6 +3570,9 @@
         "M. V. Zhukov"
       ],
       "authors_source": "https://api.crossref.org/works/10.1038/s41586-022-04827-6",
+      "topics": [
+        "multi-neutron"
+      ],
       "title_html": "Observation of a correlated free four-neutron system"
     },
     {
@@ -3349,6 +3613,10 @@
         "F. Sommer"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.128.152501",
+      "topics": [
+        "isotope-dynamics",
+        "laser-ion-sources"
+      ],
       "title_html": "Impact of nuclear deformation and pairing on the charge radii of palladium isotopes"
     },
     {
@@ -3437,6 +3705,10 @@
         "Z. Xu"
       ],
       "authors_source": "https://api.crossref.org/works/10.3847/1538-4357/ac80fc",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "structure-decay"
+      ],
       "title_html": "Measuring the β-decay properties of neutron-rich exotic Pm, Sm, Eu, and Gd isotopes to constrain the nucleosynthesis yields in the rare-earth region"
     },
     {
@@ -3497,6 +3769,10 @@
         "T. Uesaka"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/PhysRevLett.128.152701",
+      "topics": [
+        "mass-applications",
+        "stellar-nucleosynthesis"
+      ],
       "title_html": "First application of mass measurements with the Rare-RI Ring reveals the solar r-process abundance trend at A = 122 and A = 123"
     },
     {
@@ -3520,6 +3796,11 @@
         "J. Suhonen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-022-00695-w",
+      "topics": [
+        "mass-applications",
+        "neutrino-double-beta",
+        "structure-decay"
+      ],
       "title_html": "High-precision Q-value measurement and nuclear matrix element calculations for the double-β decay of ⁹⁸Mo"
     },
     {
@@ -3549,6 +3830,11 @@
         "V. Virtanen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.106.024310",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics",
+        "structure-decay"
+      ],
       "title_html": "Direct determination of the excitation energy of the quasistable isomer ¹⁸⁰ᵐTa"
     },
     {
@@ -3604,6 +3890,10 @@
         "N. T. Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.3847/2041-8213/ac061f",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Constraining the primordial lithium abundance: new cross section measurement of the ⁷Be+n reactions updates the total ⁷Be destruction rate"
     },
     {
@@ -3624,6 +3914,10 @@
         "M. Vilen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1140/epja/s10050-021-00608-3",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Study of radial motion phase advance during motion excitations in a Penning trap and accuracy of JYFLTRAP mass spectrometer"
     },
     {
@@ -3670,6 +3964,10 @@
         "M. Wakasugi"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2020.164713",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Development and operation of an electrostatic time-of-flight detector for the Rare RI storage Ring"
     },
     {
@@ -3788,6 +4086,9 @@
         "J. Zenihiro"
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/s00601-021-01691-4",
+      "topics": [
+        "multi-neutron"
+      ],
       "title_html": "Experimental study of ⁴n by directly detecting the decay neutrons"
     },
     {
@@ -3820,6 +4121,10 @@
         "Tetsuaki Moriguchi"
       ],
       "authors_source": "https://api.crossref.org/works/10.7566/jpscp.35.011025",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "MCP with delay-line anode used for position sensitive detector at Rare RI Ring"
     },
     {
@@ -3843,6 +4148,9 @@
         "A. Kankainen"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.ijms.2020.116435",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "High-precision mass measurement of ¹⁶⁸Yb for verification of nonlinear isotope shift"
     },
     {
@@ -3876,6 +4184,10 @@
         "Y. Yamaguchi"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nimb.2019.05.029",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Development of a new in-ring beam monitor in the Rare-RI Ring"
     },
     {
@@ -3914,6 +4226,10 @@
         "Takayuki Yamaguchi"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2020.163807",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Efficiency and timing performance of time-of-flight detector utilizing thin foils and crossed static electric and magnetic fields for mass measurements with Rare-RI Ring facility"
     },
     {
@@ -3970,6 +4286,10 @@
         "T. Uesaka"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/1742-6596/1643/1/012058",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Experimental challenges of the first mass measurement campaign at the Rare-RI Ring"
     },
     {
@@ -4024,6 +4344,10 @@
         "N. T. Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.7566/jpscp.31.011036",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Experimental study on the ⁷Be(<em>n</em>,<em>p</em>)⁷Li and the ⁷Be(<em>n</em>,α)⁴He reactions for cosmological lithium problem"
     },
     {
@@ -4140,6 +4464,9 @@
         "C. Lenain"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/1742-6596/1643/1/012090",
+      "topics": [
+        "multi-neutron"
+      ],
       "title_html": "Experimental study of ⁴n with ⁸He(<em>p</em>,2<em>p</em>) reaction"
     },
     {
@@ -4253,6 +4580,9 @@
         "J. Zenihiro"
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/978-3-030-32357-8_87",
+      "topics": [
+        "multi-neutron"
+      ],
       "title_html": "Study of multi-neutron systems with SAMURAI spectrometer"
     },
     {
@@ -4294,6 +4624,10 @@
         "L. Yang"
       ],
       "authors_source": "https://api.crossref.org/works/10.7566/jpscp.31.011073",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Study on ²⁶ᵐAl(<em>p</em>,γ) reaction at the SNe temperature"
     },
     {
@@ -4347,6 +4681,10 @@
         "N. T. Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/978-3-030-13876-9_6",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Cross section measurements of the ⁷Be(<em>n</em>,<em>p</em>)⁷Li and the ⁷Be(<em>n</em>,α)⁴He reactions covering the Big-Bang nucleosynthesis energy range by the Trojan Horse method at CRIB"
     },
     {
@@ -4401,6 +4739,10 @@
         "W. L. Zhan"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.99.064303",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Masses of neutron-rich ⁵²⁻⁵⁴Sc and ⁵⁴,⁵⁶Ti nuclides: The <em>N</em> = 32 subshell closure in scandium"
     },
     {
@@ -4447,6 +4789,9 @@
         "T.V. Nhan Hao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2018.04.043",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "Beam production of ¹⁸Ne with in-flight method for alpha scattering at CRIB"
     },
     {
@@ -4488,6 +4833,10 @@
         "L. Yang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1063/1.5030807",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Impact of the ²⁶ᵐAl(<em>p</em>,γ) reaction to galactic ²⁶Al yield"
     },
     {
@@ -4529,6 +4878,9 @@
         "L. Yang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1051/epjconf/201818402013",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "Isomeric ²⁶Al beam production with CRIB"
     },
     {
@@ -4583,6 +4935,10 @@
         "N. T. Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1063/1.5030815",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Measurements of the neutron-induced reactions on ⁷Be with CRIB by the Trojan Horse method"
     },
     {
@@ -4628,6 +4984,9 @@
         "J. Y. Moon"
       ],
       "authors_source": "https://api.crossref.org/works/10.3938/jkps.73.1055",
+      "topics": [
+        "isotope-dynamics"
+      ],
       "title_html": "Study of α-cluster structure in ²²Mg using a radioactive ion beam"
     },
     {
@@ -4683,6 +5042,9 @@
         "X. H. Zhou"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.95.014610",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "Application of isochronous mass spectrometry for the study of angular momentum population in projectile fragmentation reactions"
     },
     {
@@ -4730,6 +5092,10 @@
         "X. Zhou"
       ],
       "authors_source": "https://api.crossref.org/works/10.1103/physrevc.96.031303",
+      "topics": [
+        "mass-applications",
+        "structure-decay"
+      ],
       "title_html": "Half-life measurement of short-lived ⁹⁴ᵐRu using isochronous mass spectrometry"
     },
     {
@@ -4771,6 +5137,10 @@
         "L. Yang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1051/epjconf/201716501030",
+      "topics": [
+        "stellar-nucleosynthesis",
+        "astro-reactions"
+      ],
       "title_html": "Isomer beam elastic scattering: ²⁶ᵐAl(<em>p</em>,<em>p</em>) for astrophysics"
     },
     {
@@ -4804,6 +5174,10 @@
         "Q. Zeng"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nimb.2016.02.006",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "An improvement of isochronous mass spectrometry: Velocity measurements using two time-of-flight detectors"
     },
     {
@@ -4841,6 +5215,10 @@
         "Wei Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/1674-1137/39/10/106201",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "A data analysis method for isochronous mass spectrometry using two time-of-flight detectors at CSRe"
     },
     {
@@ -4890,6 +5268,10 @@
         "Wen-Long Zhan"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/1674-1137/39/10/104001",
+      "topics": [
+        "mass-applications",
+        "isotope-dynamics"
+      ],
       "title_html": "Direct mass measurements of neutron-rich ⁸⁶Kr projectile fragments and the persistence of neutron magic number <em>N</em> = 32 in Sc isotopes"
     },
     {
@@ -4931,6 +5313,10 @@
         "X H Zhou"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014010",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "First isochronous mass measurements with two time-of-flight detectors at CSRe"
     },
     {
@@ -4967,6 +5353,10 @@
         "W Zhang"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014044",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Simulations of the isochronous mass spectrometry at the HIRFL-CSR"
     },
     {
@@ -5022,6 +5412,9 @@
         "T C Zhao"
       ],
       "authors_source": "https://api.crossref.org/works/10.1088/0031-8949/2015/t166/014009",
+      "topics": [
+        "mass-applications"
+      ],
       "title_html": "Study of projectile fragmentation reaction with isochronous mass spectrometry"
     },
     {
@@ -5071,6 +5464,10 @@
         "X.H. Zhou"
       ],
       "authors_source": "https://api.crossref.org/works/10.1016/j.nima.2014.04.051",
+      "topics": [
+        "mass-applications",
+        "mass-innovations"
+      ],
       "title_html": "Time-of-flight detectors with improved timing performance for isochronous mass measurements at the CSRe"
     }
   ],
@@ -8744,7 +9141,7 @@
       },
       "research": {
         "title": "Research",
-        "markdown": "{{< learning-links >}}\n\nI use high-precision ion-trap and storage-ring mass spectrometry to answer questions in neutrino physics, nuclear structure and nuclear astrophysics. Papers under each theme come from the shared publication database; the full list is on the [Publications](../publications/) page.\n\n## Techniques in pictures\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Exotic N = Z nuclei up to ¹⁰⁰Sn — MASSPASS\n\nAcademy Fellowship project (PI). Mass measurements of exotic *N* = *Z* nuclei up to ¹⁰⁰Sn and their vicinity at IGISOL (Jyväskylä) and RIKEN (Japan), probing shell evolution towards the heaviest self-conjugate doubly magic nucleus and the nuclear physics input to the rp-process. [Project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-values for neutrino-mass determination\n\nDirect Penning-trap measurements of decay energies (Q-values) identify ultra-low-Q β⁻ and electron-capture transitions for future direct neutrino-mass experiments, and rule out candidates that do not qualify.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atomic masses for isotope-shift studies\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Storage rings, MR-TOF and MCP detectors\n\nPhD work at the RIKEN Rare-RI Ring: secondary-ion identification for isochronous mass measurements and timing / position-sensitive micro-channel-plate (MCP) detectors. Later work extends to MR-TOF spectrometers at IGISOL and the FRS Ion Catcher at GSI, and detector concepts for HIAF.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ion-optics design\n\nIon-optical design of beam lines, storage rings and trap set-ups: the injection ion optics of the RIKEN Rare-RI Ring, simulation studies of isochronous mass measurements, and today RFQ, MR-TOF and Penning-trap beam-line design with SIMION.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Nuclear physics\n\n- Shell evolution and magic numbers far from stability — *N* = *Z* nuclei towards ¹⁰⁰Sn\n- Isospin symmetry, mirror nuclei and Coulomb displacement energies\n- Separation energies, pairing and isomers from precise masses\n- Q-values of rare decays for neutrino physics\n\n## Nuclear astrophysics\n\n- Masses at rp- and νp-process waiting points near *N* = *Z*\n- Neutron-rich masses as input for r-process network calculations\n- Nuclear input for X-ray bursts and the origin of the elements",
+        "markdown": "{{< learning-links >}}\n\n{{< paper-topic-guide >}}\n\nI use high-precision ion-trap and storage-ring mass spectrometry to answer questions in neutrino physics, nuclear structure and nuclear astrophysics. Papers under each theme come from the shared publication database; the full list is on the [Publications](../publications/) page.\n\n## Techniques in pictures\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Exotic N = Z nuclei up to ¹⁰⁰Sn — MASSPASS\n\nAcademy Fellowship project (PI). Mass measurements of exotic *N* = *Z* nuclei up to ¹⁰⁰Sn and their vicinity at IGISOL (Jyväskylä) and RIKEN (Japan), probing shell evolution towards the heaviest self-conjugate doubly magic nucleus and the nuclear physics input to the rp-process. [Project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-values for neutrino-mass determination\n\nDirect Penning-trap measurements of decay energies (Q-values) identify ultra-low-Q β⁻ and electron-capture transitions for future direct neutrino-mass experiments, and rule out candidates that do not qualify.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atomic masses for isotope-shift studies\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Storage rings, MR-TOF and MCP detectors\n\nPhD work at the RIKEN Rare-RI Ring: secondary-ion identification for isochronous mass measurements and timing / position-sensitive micro-channel-plate (MCP) detectors. Later work extends to MR-TOF spectrometers at IGISOL and the FRS Ion Catcher at GSI, and detector concepts for HIAF.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ion-optics design\n\nIon-optical design of beam lines, storage rings and trap set-ups: the injection ion optics of the RIKEN Rare-RI Ring, simulation studies of isochronous mass measurements, and today RFQ, MR-TOF and Penning-trap beam-line design with SIMION.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Nuclear physics\n\n- Shell evolution and magic numbers far from stability — *N* = *Z* nuclei towards ¹⁰⁰Sn\n- Isospin symmetry, mirror nuclei and Coulomb displacement energies\n- Separation energies, pairing and isomers from precise masses\n- Q-values of rare decays for neutrino physics\n\n## Nuclear astrophysics\n\n- Masses at rp- and νp-process waiting points near *N* = *Z*\n- Neutron-rich masses as input for r-process network calculations\n- Nuclear input for X-ray bursts and the origin of the elements",
         "html": "<p>I use high-precision ion-trap and storage-ring mass spectrometry to answer questions in neutrino physics, nuclear structure and nuclear astrophysics. Papers under each theme come from the shared publication database; the full list is on the <a href=\"../publications/\">Publications</a> page.</p>\n<h2>Techniques in pictures</h2>\n<h2>Exotic N = Z nuclei up to ¹⁰⁰Sn — MASSPASS</h2>\n<p>Academy Fellowship project (PI). Mass measurements of exotic <em>N</em> = <em>Z</em> nuclei up to ¹⁰⁰Sn and their vicinity at IGISOL (Jyväskylä) and RIKEN (Japan), probing shell evolution towards the heaviest self-conjugate doubly magic nucleus and the nuclear physics input to the rp-process. <a href=\"https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear\">Project page</a></p>\n<h2>Q-values for neutrino-mass determination</h2>\n<p>Direct Penning-trap measurements of decay energies (Q-values) identify ultra-low-Q β⁻ and electron-capture transitions for future direct neutrino-mass experiments, and rule out candidates that do not qualify.</p>\n<h2>Atomic masses for isotope-shift studies</h2>\n<h2>Storage rings, MR-TOF and MCP detectors</h2>\n<p>PhD work at the RIKEN Rare-RI Ring: secondary-ion identification for isochronous mass measurements and timing / position-sensitive micro-channel-plate (MCP) detectors. Later work extends to MR-TOF spectrometers at IGISOL and the FRS Ion Catcher at GSI, and detector concepts for HIAF.</p>\n<h2>Ion-optics design</h2>\n<p>Ion-optical design of beam lines, storage rings and trap set-ups: the injection ion optics of the RIKEN Rare-RI Ring, simulation studies of isochronous mass measurements, and today RFQ, MR-TOF and Penning-trap beam-line design with SIMION.</p>\n<ul>\n<li>Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry, <a href=\"https://doi.org/10.11804/NuclPhysRev.36.03.294\">Nucl. Phys. Rev. 36, 294 (2019)</a></li>\n<li>Z. Ge <em>et al.</em>, Online results for the injection ion optics of the Rare RI Ring, <a href=\"https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf\">RIKEN Accel. Prog. Rep. 49, 180 (2016)</a></li>\n</ul>\n<h2>Nuclear physics</h2>\n<ul>\n<li>Shell evolution and magic numbers far from stability — <em>N</em> = <em>Z</em> nuclei towards ¹⁰⁰Sn</li>\n<li>Isospin symmetry, mirror nuclei and Coulomb displacement energies</li>\n<li>Separation energies, pairing and isomers from precise masses</li>\n<li>Q-values of rare decays for neutrino physics</li>\n</ul>\n<h2>Nuclear astrophysics</h2>\n<ul>\n<li>Masses at rp- and νp-process waiting points near <em>N</em> = <em>Z</em></li>\n<li>Neutron-rich masses as input for r-process network calculations</li>\n<li>Nuclear input for X-ray bursts and the origin of the elements</li>\n</ul>\n"
       },
       "talks": {
@@ -8806,7 +9203,7 @@
       },
       "research": {
         "title": "研究",
-        "markdown": "{{< learning-links >}}\n\n我利用高精度离子阱和储存环质谱回答中微子物理、原子核结构和核天体物理中的问题。各研究方向下的论文来自统一的论文数据库，完整列表见[论文](../publications/)页面。\n\n## 图说实验技术\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## 直至 ¹⁰⁰Sn 的 N = Z 奇特核——MASSPASS\n\n芬兰科学院研究员项目（负责人）。在 IGISOL（于韦斯屈莱）和 RIKEN（日本）测量直至 ¹⁰⁰Sn 的 *N* = *Z* 奇特核及其附近核素的质量，研究通向最重自共轭双幻数核的壳演化以及 rp 过程所需的核物理输入。[项目主页](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## 用于确定中微子质量的 Q 值\n\n利用彭宁阱直接测量衰变能（Q 值），寻找可用于未来直接中微子质量实验的超低 Q 值 β⁻ 衰变和电子俘获跃迁，并排除不合适的候选核。\n\n{{< pubs theme=\"neutrino\" >}}\n\n## 用于同位素移位研究的原子质量\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## 储存环、MR-TOF 与 MCP 探测器\n\n博士阶段在 RIKEN Rare-RI Ring 储存环开展等时性质量测量的次级离子鉴别，以及定时/位置灵敏微通道板（MCP）探测器研制；之后扩展到 IGISOL 和 GSI FRS Ion Catcher 的 MR-TOF 谱仪以及 HIAF 的探测器方案。\n\n{{< pubs theme=\"detectors\" >}}\n\n## 离子光学设计\n\n束流线、储存环与离子阱装置的离子光学设计：RIKEN 稀有RI储存环（Rare-RI Ring）注入离子光学、等时性质量测量的模拟研究，以及当前利用 SIMION 开展的 RFQ、MR-TOF 与彭宁阱束流线设计。\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## 核物理\n\n- 远离稳定线的壳演化与幻数——趋近 ¹⁰⁰Sn 的 *N* = *Z* 核\n- 同位旋对称性、镜像核与库仑位移能\n- 由精确质量得到的分离能、对关联与同核异能态\n- 面向中微子物理的稀有衰变 Q 值\n\n## 核天体物理\n\n- *N* = *Z* 附近 rp 与 νp 过程等待点核的质量\n- 作为 r 过程网络计算输入的丰中子核质量\n- X 射线暴与元素起源的核物理输入",
+        "markdown": "{{< learning-links >}}\n\n{{< paper-topic-guide >}}\n\n我利用高精度离子阱和储存环质谱回答中微子物理、原子核结构和核天体物理中的问题。各研究方向下的论文来自统一的论文数据库，完整列表见[论文](../publications/)页面。\n\n## 图说实验技术\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## 直至 ¹⁰⁰Sn 的 N = Z 奇特核——MASSPASS\n\n芬兰科学院研究员项目（负责人）。在 IGISOL（于韦斯屈莱）和 RIKEN（日本）测量直至 ¹⁰⁰Sn 的 *N* = *Z* 奇特核及其附近核素的质量，研究通向最重自共轭双幻数核的壳演化以及 rp 过程所需的核物理输入。[项目主页](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## 用于确定中微子质量的 Q 值\n\n利用彭宁阱直接测量衰变能（Q 值），寻找可用于未来直接中微子质量实验的超低 Q 值 β⁻ 衰变和电子俘获跃迁，并排除不合适的候选核。\n\n{{< pubs theme=\"neutrino\" >}}\n\n## 用于同位素移位研究的原子质量\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## 储存环、MR-TOF 与 MCP 探测器\n\n博士阶段在 RIKEN Rare-RI Ring 储存环开展等时性质量测量的次级离子鉴别，以及定时/位置灵敏微通道板（MCP）探测器研制；之后扩展到 IGISOL 和 GSI FRS Ion Catcher 的 MR-TOF 谱仪以及 HIAF 的探测器方案。\n\n{{< pubs theme=\"detectors\" >}}\n\n## 离子光学设计\n\n束流线、储存环与离子阱装置的离子光学设计：RIKEN 稀有RI储存环（Rare-RI Ring）注入离子光学、等时性质量测量的模拟研究，以及当前利用 SIMION 开展的 RFQ、MR-TOF 与彭宁阱束流线设计。\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## 核物理\n\n- 远离稳定线的壳演化与幻数——趋近 ¹⁰⁰Sn 的 *N* = *Z* 核\n- 同位旋对称性、镜像核与库仑位移能\n- 由精确质量得到的分离能、对关联与同核异能态\n- 面向中微子物理的稀有衰变 Q 值\n\n## 核天体物理\n\n- *N* = *Z* 附近 rp 与 νp 过程等待点核的质量\n- 作为 r 过程网络计算输入的丰中子核质量\n- X 射线暴与元素起源的核物理输入",
         "html": "<p>我利用高精度离子阱和储存环质谱回答中微子物理、原子核结构和核天体物理中的问题。各研究方向下的论文来自统一的论文数据库，完整列表见<a href=\"../publications/\">论文</a>页面。</p>\n<h2>图说实验技术</h2>\n<h2>直至 ¹⁰⁰Sn 的 N = Z 奇特核——MASSPASS</h2>\n<p>芬兰科学院研究员项目（负责人）。在 IGISOL（于韦斯屈莱）和 RIKEN（日本）测量直至 ¹⁰⁰Sn 的 <em>N</em> = <em>Z</em> 奇特核及其附近核素的质量，研究通向最重自共轭双幻数核的壳演化以及 rp 过程所需的核物理输入。<a href=\"https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear\">项目主页</a></p>\n<h2>用于确定中微子质量的 Q 值</h2>\n<p>利用彭宁阱直接测量衰变能（Q 值），寻找可用于未来直接中微子质量实验的超低 Q 值 β⁻ 衰变和电子俘获跃迁，并排除不合适的候选核。</p>\n<h2>用于同位素移位研究的原子质量</h2>\n<h2>储存环、MR-TOF 与 MCP 探测器</h2>\n<p>博士阶段在 RIKEN Rare-RI Ring 储存环开展等时性质量测量的次级离子鉴别，以及定时/位置灵敏微通道板（MCP）探测器研制；之后扩展到 IGISOL 和 GSI FRS Ion Catcher 的 MR-TOF 谱仪以及 HIAF 的探测器方案。</p>\n<h2>离子光学设计</h2>\n<p>束流线、储存环与离子阱装置的离子光学设计：RIKEN 稀有RI储存环（Rare-RI Ring）注入离子光学、等时性质量测量的模拟研究，以及当前利用 SIMION 开展的 RFQ、MR-TOF 与彭宁阱束流线设计。</p>\n<ul>\n<li>Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry, <a href=\"https://doi.org/10.11804/NuclPhysRev.36.03.294\">Nucl. Phys. Rev. 36, 294 (2019)</a></li>\n<li>Z. Ge <em>et al.</em>, Online results for the injection ion optics of the Rare RI Ring, <a href=\"https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf\">RIKEN Accel. Prog. Rep. 49, 180 (2016)</a></li>\n</ul>\n<h2>核物理</h2>\n<ul>\n<li>远离稳定线的壳演化与幻数——趋近 ¹⁰⁰Sn 的 <em>N</em> = <em>Z</em> 核</li>\n<li>同位旋对称性、镜像核与库仑位移能</li>\n<li>由精确质量得到的分离能、对关联与同核异能态</li>\n<li>面向中微子物理的稀有衰变 Q 值</li>\n</ul>\n<h2>核天体物理</h2>\n<ul>\n<li><em>N</em> = <em>Z</em> 附近 rp 与 νp 过程等待点核的质量</li>\n<li>作为 r 过程网络计算输入的丰中子核质量</li>\n<li>X 射线暴与元素起源的核物理输入</li>\n</ul>\n"
       },
       "talks": {
@@ -8868,7 +9265,7 @@
       },
       "research": {
         "title": "Tutkimus",
-        "markdown": "{{< learning-links >}}\n\nKäytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiikan, ydinrakenteen ja ydinastrofysiikan kysymyksiin. Kunkin aiheen julkaisut tulevat yhteisestä julkaisutietokannasta; koko luettelo on [Julkaisut](../publications/)-sivulla.\n\n## Menetelmät kuvina\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Eksoottiset N = Z -ytimet ¹⁰⁰Sn:ään asti — MASSPASS\n\nAkatemiatutkijan hanke (johtaja). Eksoottisten *N* = *Z* -ytimien ja niiden naapurien massamittaukset ¹⁰⁰Sn:ään asti IGISOLissa (Jyväskylä) ja RIKENissä (Japani): kuorirakenteen kehitys kohti raskainta itsekonjugoitua kaksoismaagista ydintä sekä rp-prosessin ydinfysikaalinen syöte. [Hankkeen sivu](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-arvot neutriinon massan määrittämiseen\n\nHajoamisenergioiden (Q-arvojen) suorat Penning-loukkumittaukset paljastavat erittäin pienen Q-arvon β⁻- ja elektronisieppaussiirtymiä tuleviin neutriinon massan mittauksiin ja sulkevat pois sopimattomat ehdokkaat.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atomimassat isotooppisiirtymätutkimuksiin\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Varastorenkaat, MR-TOF ja MCP-ilmaisimet\n\nVäitöstyö RIKENin Rare-RI Ringillä: sekundääri-ionien tunnistus isokronisiin massamittauksiin sekä ajoitus- ja paikkaherkät mikrokanavalevyilmaisimet (MCP). Myöhemmin MR-TOF-spektrometrit IGISOLissa ja GSI:n FRS Ion Catcherilla sekä HIAF-ilmaisinkonseptit.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ionioptiikan suunnittelu\n\nSuihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu: RIKENin Rare-RI Ringin injektio-ionioptiikka, isokronisten massamittausten simulaatiot sekä nykyisin RFQ-, MR-TOF- ja Penning-loukkulinjojen suunnittelu SIMIONilla.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Ydinfysiikka\n\n- Kuorirakenteen kehitys ja maagiset luvut kaukana stabiilisuudesta — *N* = *Z* -ytimet kohti ¹⁰⁰Sn:ää\n- Isospinsymmetria, peiliytimet ja Coulombin siirtymäenergiat\n- Separaatioenergiat, parittuminen ja isomeerit tarkoista massoista\n- Harvinaisten hajoamisten Q-arvot neutriinofysiikkaan\n\n## Ydinastrofysiikka\n\n- Massat rp- ja νp-prosessien odotuspisteissä lähellä *N* = *Z*\n- Neutronirikkaiden ytimien massat r-prosessin verkkolaskuihin\n- Ydinfysiikan syötteet röntgenpurkauksiin ja alkuaineiden syntyyn",
+        "markdown": "{{< learning-links >}}\n\n{{< paper-topic-guide >}}\n\nKäytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiikan, ydinrakenteen ja ydinastrofysiikan kysymyksiin. Kunkin aiheen julkaisut tulevat yhteisestä julkaisutietokannasta; koko luettelo on [Julkaisut](../publications/)-sivulla.\n\n## Menetelmät kuvina\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Eksoottiset N = Z -ytimet ¹⁰⁰Sn:ään asti — MASSPASS\n\nAkatemiatutkijan hanke (johtaja). Eksoottisten *N* = *Z* -ytimien ja niiden naapurien massamittaukset ¹⁰⁰Sn:ään asti IGISOLissa (Jyväskylä) ja RIKENissä (Japani): kuorirakenteen kehitys kohti raskainta itsekonjugoitua kaksoismaagista ydintä sekä rp-prosessin ydinfysikaalinen syöte. [Hankkeen sivu](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-arvot neutriinon massan määrittämiseen\n\nHajoamisenergioiden (Q-arvojen) suorat Penning-loukkumittaukset paljastavat erittäin pienen Q-arvon β⁻- ja elektronisieppaussiirtymiä tuleviin neutriinon massan mittauksiin ja sulkevat pois sopimattomat ehdokkaat.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atomimassat isotooppisiirtymätutkimuksiin\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Varastorenkaat, MR-TOF ja MCP-ilmaisimet\n\nVäitöstyö RIKENin Rare-RI Ringillä: sekundääri-ionien tunnistus isokronisiin massamittauksiin sekä ajoitus- ja paikkaherkät mikrokanavalevyilmaisimet (MCP). Myöhemmin MR-TOF-spektrometrit IGISOLissa ja GSI:n FRS Ion Catcherilla sekä HIAF-ilmaisinkonseptit.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ionioptiikan suunnittelu\n\nSuihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu: RIKENin Rare-RI Ringin injektio-ionioptiikka, isokronisten massamittausten simulaatiot sekä nykyisin RFQ-, MR-TOF- ja Penning-loukkulinjojen suunnittelu SIMIONilla.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Ydinfysiikka\n\n- Kuorirakenteen kehitys ja maagiset luvut kaukana stabiilisuudesta — *N* = *Z* -ytimet kohti ¹⁰⁰Sn:ää\n- Isospinsymmetria, peiliytimet ja Coulombin siirtymäenergiat\n- Separaatioenergiat, parittuminen ja isomeerit tarkoista massoista\n- Harvinaisten hajoamisten Q-arvot neutriinofysiikkaan\n\n## Ydinastrofysiikka\n\n- Massat rp- ja νp-prosessien odotuspisteissä lähellä *N* = *Z*\n- Neutronirikkaiden ytimien massat r-prosessin verkkolaskuihin\n- Ydinfysiikan syötteet röntgenpurkauksiin ja alkuaineiden syntyyn",
         "html": "<p>Käytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiikan, ydinrakenteen ja ydinastrofysiikan kysymyksiin. Kunkin aiheen julkaisut tulevat yhteisestä julkaisutietokannasta; koko luettelo on <a href=\"../publications/\">Julkaisut</a>-sivulla.</p>\n<h2>Menetelmät kuvina</h2>\n<h2>Eksoottiset N = Z -ytimet ¹⁰⁰Sn:ään asti — MASSPASS</h2>\n<p>Akatemiatutkijan hanke (johtaja). Eksoottisten <em>N</em> = <em>Z</em> -ytimien ja niiden naapurien massamittaukset ¹⁰⁰Sn:ään asti IGISOLissa (Jyväskylä) ja RIKENissä (Japani): kuorirakenteen kehitys kohti raskainta itsekonjugoitua kaksoismaagista ydintä sekä rp-prosessin ydinfysikaalinen syöte. <a href=\"https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear\">Hankkeen sivu</a></p>\n<h2>Q-arvot neutriinon massan määrittämiseen</h2>\n<p>Hajoamisenergioiden (Q-arvojen) suorat Penning-loukkumittaukset paljastavat erittäin pienen Q-arvon β⁻- ja elektronisieppaussiirtymiä tuleviin neutriinon massan mittauksiin ja sulkevat pois sopimattomat ehdokkaat.</p>\n<h2>Atomimassat isotooppisiirtymätutkimuksiin</h2>\n<h2>Varastorenkaat, MR-TOF ja MCP-ilmaisimet</h2>\n<p>Väitöstyö RIKENin Rare-RI Ringillä: sekundääri-ionien tunnistus isokronisiin massamittauksiin sekä ajoitus- ja paikkaherkät mikrokanavalevyilmaisimet (MCP). Myöhemmin MR-TOF-spektrometrit IGISOLissa ja GSI:n FRS Ion Catcherilla sekä HIAF-ilmaisinkonseptit.</p>\n<h2>Ionioptiikan suunnittelu</h2>\n<p>Suihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu: RIKENin Rare-RI Ringin injektio-ionioptiikka, isokronisten massamittausten simulaatiot sekä nykyisin RFQ-, MR-TOF- ja Penning-loukkulinjojen suunnittelu SIMIONilla.</p>\n<ul>\n<li>Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry, <a href=\"https://doi.org/10.11804/NuclPhysRev.36.03.294\">Nucl. Phys. Rev. 36, 294 (2019)</a></li>\n<li>Z. Ge <em>et al.</em>, Online results for the injection ion optics of the Rare RI Ring, <a href=\"https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf\">RIKEN Accel. Prog. Rep. 49, 180 (2016)</a></li>\n</ul>\n<h2>Ydinfysiikka</h2>\n<ul>\n<li>Kuorirakenteen kehitys ja maagiset luvut kaukana stabiilisuudesta — <em>N</em> = <em>Z</em> -ytimet kohti ¹⁰⁰Sn:ää</li>\n<li>Isospinsymmetria, peiliytimet ja Coulombin siirtymäenergiat</li>\n<li>Separaatioenergiat, parittuminen ja isomeerit tarkoista massoista</li>\n<li>Harvinaisten hajoamisten Q-arvot neutriinofysiikkaan</li>\n</ul>\n<h2>Ydinastrofysiikka</h2>\n<ul>\n<li>Massat rp- ja νp-prosessien odotuspisteissä lähellä <em>N</em> = <em>Z</em></li>\n<li>Neutronirikkaiden ytimien massat r-prosessin verkkolaskuihin</li>\n<li>Ydinfysiikan syötteet röntgenpurkauksiin ja alkuaineiden syntyyn</li>\n</ul>\n"
       },
       "talks": {
@@ -8930,7 +9327,7 @@
       },
       "research": {
         "title": "Forschung",
-        "markdown": "{{< learning-links >}}\n\nMit hochpräziser Ionenfallen- und Speicherring-Massenspektrometrie untersuche ich Fragen der Neutrinophysik, der Kernstruktur und der nuklearen Astrophysik. Die Publikationen zu jedem Thema stammen aus der gemeinsamen Publikationsdatenbank; die vollständige Liste steht unter [Publikationen](../publications/).\n\n## Methoden in Bildern\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Exotische N = Z-Kerne bis ¹⁰⁰Sn — MASSPASS\n\nProjekt der Academy Research Fellowship (Leitung). Massenmessungen exotischer *N* = *Z*-Kerne und ihrer Nachbarn bis ¹⁰⁰Sn an IGISOL (Jyväskylä) und RIKEN (Japan): Schalenentwicklung hin zum schwersten selbstkonjugierten doppelt magischen Kern und kernphysikalische Eingangsdaten für den rp-Prozess. [Projektseite](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-Werte zur Bestimmung der Neutrinomasse\n\nDirekte Penning-Fallen-Messungen von Zerfallsenergien (Q-Werten) identifizieren β⁻- und Elektroneneinfang-Übergänge mit extrem kleinem Q-Wert für zukünftige direkte Neutrinomassen-Experimente und schließen ungeeignete Kandidaten aus.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atommassen für Isotopieverschiebungs-Studien\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Speicherringe, MR-TOF und MCP-Detektoren\n\nPromotion am RIKEN Rare-RI Ring: Identifikation von Sekundärionen für isochrone Massenmessungen sowie zeit- und ortsauflösende Mikrokanalplatten-Detektoren (MCP). Später MR-TOF-Spektrometer an IGISOL und am FRS Ion Catcher der GSI sowie Detektorkonzepte für HIAF.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ionenoptik-Design\n\nIonenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: die Injektionsionenoptik des RIKEN Rare-RI Ring, Simulationsstudien isochroner Massenmessungen und heute RFQ-, MR-TOF- und Penning-Fallen-Strahlführungen mit SIMION.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Kernphysik\n\n- Schalenentwicklung und magische Zahlen fern der Stabilität – *N* = *Z*-Kerne bis ¹⁰⁰Sn\n- Isospinsymmetrie, Spiegelkerne und Coulomb-Verschiebungsenergien\n- Separationsenergien, Paarung und Isomere aus präzisen Massen\n- Q-Werte seltener Zerfälle für die Neutrinophysik\n\n## Nukleare Astrophysik\n\n- Massen an Wartepunkten des rp- und νp-Prozesses nahe *N* = *Z*\n- Massen neutronenreicher Kerne für r-Prozess-Netzwerkrechnungen\n- Kernphysikalische Eingaben für Röntgenbursts und den Ursprung der Elemente",
+        "markdown": "{{< learning-links >}}\n\n{{< paper-topic-guide >}}\n\nMit hochpräziser Ionenfallen- und Speicherring-Massenspektrometrie untersuche ich Fragen der Neutrinophysik, der Kernstruktur und der nuklearen Astrophysik. Die Publikationen zu jedem Thema stammen aus der gemeinsamen Publikationsdatenbank; die vollständige Liste steht unter [Publikationen](../publications/).\n\n## Methoden in Bildern\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## Exotische N = Z-Kerne bis ¹⁰⁰Sn — MASSPASS\n\nProjekt der Academy Research Fellowship (Leitung). Massenmessungen exotischer *N* = *Z*-Kerne und ihrer Nachbarn bis ¹⁰⁰Sn an IGISOL (Jyväskylä) und RIKEN (Japan): Schalenentwicklung hin zum schwersten selbstkonjugierten doppelt magischen Kern und kernphysikalische Eingangsdaten für den rp-Prozess. [Projektseite](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## Q-Werte zur Bestimmung der Neutrinomasse\n\nDirekte Penning-Fallen-Messungen von Zerfallsenergien (Q-Werten) identifizieren β⁻- und Elektroneneinfang-Übergänge mit extrem kleinem Q-Wert für zukünftige direkte Neutrinomassen-Experimente und schließen ungeeignete Kandidaten aus.\n\n{{< pubs theme=\"neutrino\" >}}\n\n## Atommassen für Isotopieverschiebungs-Studien\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## Speicherringe, MR-TOF und MCP-Detektoren\n\nPromotion am RIKEN Rare-RI Ring: Identifikation von Sekundärionen für isochrone Massenmessungen sowie zeit- und ortsauflösende Mikrokanalplatten-Detektoren (MCP). Später MR-TOF-Spektrometer an IGISOL und am FRS Ion Catcher der GSI sowie Detektorkonzepte für HIAF.\n\n{{< pubs theme=\"detectors\" >}}\n\n## Ionenoptik-Design\n\nIonenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: die Injektionsionenoptik des RIKEN Rare-RI Ring, Simulationsstudien isochroner Massenmessungen und heute RFQ-, MR-TOF- und Penning-Fallen-Strahlführungen mit SIMION.\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## Kernphysik\n\n- Schalenentwicklung und magische Zahlen fern der Stabilität – *N* = *Z*-Kerne bis ¹⁰⁰Sn\n- Isospinsymmetrie, Spiegelkerne und Coulomb-Verschiebungsenergien\n- Separationsenergien, Paarung und Isomere aus präzisen Massen\n- Q-Werte seltener Zerfälle für die Neutrinophysik\n\n## Nukleare Astrophysik\n\n- Massen an Wartepunkten des rp- und νp-Prozesses nahe *N* = *Z*\n- Massen neutronenreicher Kerne für r-Prozess-Netzwerkrechnungen\n- Kernphysikalische Eingaben für Röntgenbursts und den Ursprung der Elemente",
         "html": "<p>Mit hochpräziser Ionenfallen- und Speicherring-Massenspektrometrie untersuche ich Fragen der Neutrinophysik, der Kernstruktur und der nuklearen Astrophysik. Die Publikationen zu jedem Thema stammen aus der gemeinsamen Publikationsdatenbank; die vollständige Liste steht unter <a href=\"../publications/\">Publikationen</a>.</p>\n<h2>Methoden in Bildern</h2>\n<h2>Exotische N = Z-Kerne bis ¹⁰⁰Sn — MASSPASS</h2>\n<p>Projekt der Academy Research Fellowship (Leitung). Massenmessungen exotischer <em>N</em> = <em>Z</em>-Kerne und ihrer Nachbarn bis ¹⁰⁰Sn an IGISOL (Jyväskylä) und RIKEN (Japan): Schalenentwicklung hin zum schwersten selbstkonjugierten doppelt magischen Kern und kernphysikalische Eingangsdaten für den rp-Prozess. <a href=\"https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear\">Projektseite</a></p>\n<h2>Q-Werte zur Bestimmung der Neutrinomasse</h2>\n<p>Direkte Penning-Fallen-Messungen von Zerfallsenergien (Q-Werten) identifizieren β⁻- und Elektroneneinfang-Übergänge mit extrem kleinem Q-Wert für zukünftige direkte Neutrinomassen-Experimente und schließen ungeeignete Kandidaten aus.</p>\n<h2>Atommassen für Isotopieverschiebungs-Studien</h2>\n<h2>Speicherringe, MR-TOF und MCP-Detektoren</h2>\n<p>Promotion am RIKEN Rare-RI Ring: Identifikation von Sekundärionen für isochrone Massenmessungen sowie zeit- und ortsauflösende Mikrokanalplatten-Detektoren (MCP). Später MR-TOF-Spektrometer an IGISOL und am FRS Ion Catcher der GSI sowie Detektorkonzepte für HIAF.</p>\n<h2>Ionenoptik-Design</h2>\n<p>Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: die Injektionsionenoptik des RIKEN Rare-RI Ring, Simulationsstudien isochroner Massenmessungen und heute RFQ-, MR-TOF- und Penning-Fallen-Strahlführungen mit SIMION.</p>\n<ul>\n<li>Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry, <a href=\"https://doi.org/10.11804/NuclPhysRev.36.03.294\">Nucl. Phys. Rev. 36, 294 (2019)</a></li>\n<li>Z. Ge <em>et al.</em>, Online results for the injection ion optics of the Rare RI Ring, <a href=\"https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf\">RIKEN Accel. Prog. Rep. 49, 180 (2016)</a></li>\n</ul>\n<h2>Kernphysik</h2>\n<ul>\n<li>Schalenentwicklung und magische Zahlen fern der Stabilität – <em>N</em> = <em>Z</em>-Kerne bis ¹⁰⁰Sn</li>\n<li>Isospinsymmetrie, Spiegelkerne und Coulomb-Verschiebungsenergien</li>\n<li>Separationsenergien, Paarung und Isomere aus präzisen Massen</li>\n<li>Q-Werte seltener Zerfälle für die Neutrinophysik</li>\n</ul>\n<h2>Nukleare Astrophysik</h2>\n<ul>\n<li>Massen an Wartepunkten des rp- und νp-Prozesses nahe <em>N</em> = <em>Z</em></li>\n<li>Massen neutronenreicher Kerne für r-Prozess-Netzwerkrechnungen</li>\n<li>Kernphysikalische Eingaben für Röntgenbursts und den Ursprung der Elemente</li>\n</ul>\n"
       },
       "talks": {
@@ -8992,7 +9389,7 @@
       },
       "research": {
         "title": "研究",
-        "markdown": "{{< learning-links >}}\n\n高精度のイオントラップおよび蓄積リング質量分析により、ニュートリノ物理、原子核構造、原子核天体物理の問題に取り組んでいます。各テーマの論文は共通の論文データベースから表示され、全リストは[論文](../publications/)ページにあります。\n\n## 図で見る実験手法\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## ¹⁰⁰Sn までの N = Z エキゾチック核 — MASSPASS\n\nアカデミー研究員プロジェクト（代表）。IGISOL（ユヴァスキュラ）と RIKEN（日本）で ¹⁰⁰Sn までの *N* = *Z* エキゾチック核とその近傍核の質量を測定し、最も重い自己共役二重魔法数核へ向かう殻構造の変化と rp 過程の核物理入力を調べています。[プロジェクトページ](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## ニュートリノ質量決定のための Q 値\n\nペニングトラップで崩壊エネルギー（Q 値）を直接測定し、将来のニュートリノ質量直接測定実験に向けた超低 Q 値の β⁻ 崩壊・電子捕獲遷移を探索し、適さない候補を除外します。\n\n{{< pubs theme=\"neutrino\" >}}\n\n## 同位体シフト研究のための原子質量\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## 蓄積リング・MR-TOF・MCP 検出器\n\n博士課程では RIKEN の稀少 RI リング（Rare-RI Ring）で等時性質量測定のための二次イオン識別と、時間・位置検出型マイクロチャンネルプレート（MCP）検出器の開発を行いました。その後、IGISOL と GSI FRS Ion Catcher の MR-TOF 分光器、HIAF 向け検出器構想へと展開しています。\n\n{{< pubs theme=\"detectors\" >}}\n\n## イオン光学設計\n\nビームライン、蓄積リング、トラップ装置のイオン光学設計：理研 Rare-RI Ring の入射イオン光学、等時性質量測定のシミュレーション研究、そして現在は SIMION を用いた RFQ・MR-TOF・ペニングトラップのビームライン設計。\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## 原子核物理\n\n- 安定線から離れた殻進化と魔法数——¹⁰⁰Sn に向かう *N* = *Z* 核\n- アイソスピン対称性、鏡像核とクーロンエネルギー差\n- 精密質量から得る分離エネルギー、対相関、アイソマー\n- ニュートリノ物理のための稀崩壊の Q 値\n\n## 原子核宇宙物理\n\n- *N* = *Z* 近傍の rp・νp 過程の待機点核の質量\n- r 過程ネットワーク計算のための中性子過剰核の質量\n- X 線バーストと元素の起源のための原子核物理インプット",
+        "markdown": "{{< learning-links >}}\n\n{{< paper-topic-guide >}}\n\n高精度のイオントラップおよび蓄積リング質量分析により、ニュートリノ物理、原子核構造、原子核天体物理の問題に取り組んでいます。各テーマの論文は共通の論文データベースから表示され、全リストは[論文](../publications/)ページにあります。\n\n## 図で見る実験手法\n\n{{< gallery >}}\n\n{{< trap-zoo >}}\n\n## ¹⁰⁰Sn までの N = Z エキゾチック核 — MASSPASS\n\nアカデミー研究員プロジェクト（代表）。IGISOL（ユヴァスキュラ）と RIKEN（日本）で ¹⁰⁰Sn までの *N* = *Z* エキゾチック核とその近傍核の質量を測定し、最も重い自己共役二重魔法数核へ向かう殻構造の変化と rp 過程の核物理入力を調べています。[プロジェクトページ](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)\n\n{{< pubs theme=\"nz\" >}}\n\n## ニュートリノ質量決定のための Q 値\n\nペニングトラップで崩壊エネルギー（Q 値）を直接測定し、将来のニュートリノ質量直接測定実験に向けた超低 Q 値の β⁻ 崩壊・電子捕獲遷移を探索し、適さない候補を除外します。\n\n{{< pubs theme=\"neutrino\" >}}\n\n## 同位体シフト研究のための原子質量\n\n{{< pubs theme=\"isotope-shift\" >}}\n\n## 蓄積リング・MR-TOF・MCP 検出器\n\n博士課程では RIKEN の稀少 RI リング（Rare-RI Ring）で等時性質量測定のための二次イオン識別と、時間・位置検出型マイクロチャンネルプレート（MCP）検出器の開発を行いました。その後、IGISOL と GSI FRS Ion Catcher の MR-TOF 分光器、HIAF 向け検出器構想へと展開しています。\n\n{{< pubs theme=\"detectors\" >}}\n\n## イオン光学設計\n\nビームライン、蓄積リング、トラップ装置のイオン光学設計：理研 Rare-RI Ring の入射イオン光学、等時性質量測定のシミュレーション研究、そして現在は SIMION を用いた RFQ・MR-TOF・ペニングトラップのビームライン設計。\n\n- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)\n- Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)\n\n## 原子核物理\n\n- 安定線から離れた殻進化と魔法数——¹⁰⁰Sn に向かう *N* = *Z* 核\n- アイソスピン対称性、鏡像核とクーロンエネルギー差\n- 精密質量から得る分離エネルギー、対相関、アイソマー\n- ニュートリノ物理のための稀崩壊の Q 値\n\n## 原子核宇宙物理\n\n- *N* = *Z* 近傍の rp・νp 過程の待機点核の質量\n- r 過程ネットワーク計算のための中性子過剰核の質量\n- X 線バーストと元素の起源のための原子核物理インプット",
         "html": "<p>高精度のイオントラップおよび蓄積リング質量分析により、ニュートリノ物理、原子核構造、原子核天体物理の問題に取り組んでいます。各テーマの論文は共通の論文データベースから表示され、全リストは<a href=\"../publications/\">論文</a>ページにあります。</p>\n<h2>図で見る実験手法</h2>\n<h2>¹⁰⁰Sn までの N = Z エキゾチック核 — MASSPASS</h2>\n<p>アカデミー研究員プロジェクト（代表）。IGISOL（ユヴァスキュラ）と RIKEN（日本）で ¹⁰⁰Sn までの <em>N</em> = <em>Z</em> エキゾチック核とその近傍核の質量を測定し、最も重い自己共役二重魔法数核へ向かう殻構造の変化と rp 過程の核物理入力を調べています。<a href=\"https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear\">プロジェクトページ</a></p>\n<h2>ニュートリノ質量決定のための Q 値</h2>\n<p>ペニングトラップで崩壊エネルギー（Q 値）を直接測定し、将来のニュートリノ質量直接測定実験に向けた超低 Q 値の β⁻ 崩壊・電子捕獲遷移を探索し、適さない候補を除外します。</p>\n<h2>同位体シフト研究のための原子質量</h2>\n<h2>蓄積リング・MR-TOF・MCP 検出器</h2>\n<p>博士課程では RIKEN の稀少 RI リング（Rare-RI Ring）で等時性質量測定のための二次イオン識別と、時間・位置検出型マイクロチャンネルプレート（MCP）検出器の開発を行いました。その後、IGISOL と GSI FRS Ion Catcher の MR-TOF 分光器、HIAF 向け検出器構想へと展開しています。</p>\n<h2>イオン光学設計</h2>\n<p>ビームライン、蓄積リング、トラップ装置のイオン光学設計：理研 Rare-RI Ring の入射イオン光学、等時性質量測定のシミュレーション研究、そして現在は SIMION を用いた RFQ・MR-TOF・ペニングトラップのビームライン設計。</p>\n<ul>\n<li>Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for <em>N</em> = <em>Z</em> nuclei with isochronous mass spectrometry, <a href=\"https://doi.org/10.11804/NuclPhysRev.36.03.294\">Nucl. Phys. Rev. 36, 294 (2019)</a></li>\n<li>Z. Ge <em>et al.</em>, Online results for the injection ion optics of the Rare RI Ring, <a href=\"https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf\">RIKEN Accel. Prog. Rep. 49, 180 (2016)</a></li>\n</ul>\n<h2>原子核物理</h2>\n<ul>\n<li>安定線から離れた殻進化と魔法数——¹⁰⁰Sn に向かう <em>N</em> = <em>Z</em> 核</li>\n<li>アイソスピン対称性、鏡像核とクーロンエネルギー差</li>\n<li>精密質量から得る分離エネルギー、対相関、アイソマー</li>\n<li>ニュートリノ物理のための稀崩壊の Q 値</li>\n</ul>\n<h2>原子核宇宙物理</h2>\n<ul>\n<li><em>N</em> = <em>Z</em> 近傍の rp・νp 過程の待機点核の質量</li>\n<li>r 過程ネットワーク計算のための中性子過剰核の質量</li>\n<li>X 線バーストと元素の起源のための原子核物理インプット</li>\n</ul>\n"
       },
       "talks": {

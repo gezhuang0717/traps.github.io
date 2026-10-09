@@ -42,12 +42,23 @@
       });
       root.querySelector('[data-pub-count]').textContent = `${count} / ${papers.length} ${root.dataset.papersLabel}`;
       root.querySelector('[data-pub-empty]').hidden = count !== 0;
+      const explanation = root.querySelector('[data-pub-topic-description]');
+      if (explanation) {
+        explanation.textContent = controls.topic.selectedOptions?.[0]?.dataset.description || '';
+        explanation.hidden = !filter.topic;
+      }
     }
     root.addEventListener('input', render);
     root.addEventListener('change', render);
     root.querySelector('[data-pub-reset]').addEventListener('click', () => {
       Object.values(controls).forEach(control => {control.value = '';}); render(); controls.query.focus();
     });
+    root.querySelectorAll?.('[data-pub-topic-pick]').forEach(button => button.addEventListener('click', () => {
+      controls.topic.value = button.dataset.pubTopicPick; render(); controls.topic.focus();
+      controls.topic.scrollIntoView?.({block:'center',behavior:'smooth'});
+    }));
+    const initialTopic = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('topic') : null;
+    if (initialTopic && [...controls.topic.options].some(option => option.value === initialTopic)) controls.topic.value = initialTopic;
     render();
     return {render};
   }

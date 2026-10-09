@@ -30,8 +30,13 @@ def test_testsite_ribbon_honours_boolean_and_text_environment_values(tmp_path):
  (fixture/'layouts/home.html').write_text('{{ partial "zg/fun.html" . }}')
  (fixture/'layouts/_partials/zg/fun.html').write_bytes((ROOT/'layouts/_partials/zg/fun.html').read_bytes())
  (fixture/'layouts/_partials/zg/glossary.html').write_text('')
- for value,expected in [(False,False),('false',False),(True,True),('true',True)]:
+ # Production CI sets this override globally. Isolate config cases, then test
+ # the real environment override explicitly so CI cannot mask either path.
+ clean_env={k:v for k,v in os.environ.items() if k!='HUGO_PARAMS_TESTSITE'}
+ for value,override,expected in [(False,None,False),('false',None,False),(True,None,True),('true',None,True),(True,'false',False),(False,'true',True)]:
   (fixture/'hugo.json').write_text(json.dumps({'baseURL':'https://example.org/','params':{'testsite':value}}))
-  result=subprocess.run([hugo,'--source',str(fixture),'--destination',str(fixture/'public'),'--noBuildLock'],capture_output=True,text=True,env={**os.environ,'GOMAXPROCS':'1','GOMEMLIMIT':'96MiB'})
+  env={**clean_env,'GOMAXPROCS':'1','GOMEMLIMIT':'96MiB'}
+  if override is not None:env['HUGO_PARAMS_TESTSITE']=override
+  result=subprocess.run([hugo,'--source',str(fixture),'--destination',str(fixture/'public'),'--noBuildLock'],capture_output=True,text=True,env=env)
   assert result.returncode==0,result.stderr
   assert ('TEST SITE' in (fixture/'public/index.html').read_text())==expected

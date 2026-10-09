@@ -1,0 +1,8 @@
+{{- $lang := site.Language.Lang -}}{{- if in (slice "zh-hans" "zh-cn") $lang }}{{ $lang = "zh" }}{{ end -}}
+{{- $labels := index hugo.Data.paper_topic_labels $lang | default hugo.Data.paper_topic_labels.en -}}
+<details class="zg-paper-topic-guide"><summary>{{ index $labels 0 }}</summary><p>{{ index $labels 2 }}{{ if not (in (slice "en" "zh") $lang) }} <em>Topic explanations: English.</em>{{ end }}</p>
+{{ range hugo.Data.paper_topics.groups }}{{ $g := . }}<h3>{{ index .name $lang | default .name.en }}</h3>
+{{ range where hugo.Data.paper_topics.topics "group" $g.id }}{{ $id := .id }}{{ $n := 0 }}{{ range hugo.Data.publications.papers }}{{ if or (in (.themes | default slice) $id) (in (.topics | default slice) $id) }}{{ $n = add $n 1 }}{{ end }}{{ end }}
+<details class="zg-paper-topic" data-topic-id="{{ .id }}"><summary>{{ index .name $lang | default .name.en }} <span>({{ $n }})</span></summary><p>{{ index .description $lang | default .description.en }}</p><p><strong>{{ index $labels 3 }}:</strong> {{ index .observables $lang | default .observables.en }}</p><p>{{ range .sources }}<a href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a> · {{ end }}</p>
+{{ if $.Scratch.Get "paperTopicLinks" }}<a href="{{ "publications/" | relLangURL }}?topic={{ .id }}">{{ index $labels 4 }} ({{ $n }})</a>{{ else }}<button type="button" data-pub-topic-pick="{{ .id }}">{{ index $labels 4 }} ({{ $n }})</button>{{ end }}</details>
+{{ end }}{{ end }}</details>

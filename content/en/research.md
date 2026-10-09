@@ -6,6 +6,8 @@ showDate: false
 
 {{< learning-links >}}
 
+{{< paper-topic-guide >}}
+
 I use high-precision ion-trap and storage-ring mass spectrometry to answer questions in neutrino physics, nuclear structure and nuclear astrophysics. Papers under each theme come from the shared publication database; the full list is on the [Publications](../publications/) page.
 
 ## Techniques in pictures

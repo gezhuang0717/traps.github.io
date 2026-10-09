@@ -30,3 +30,5 @@
 .zg-reading [hidden]{display:none!important}
 
 .zg-country [hidden]{display:none!important}.zg-country-all{display:flex;align-items:center;gap:.45rem;font-size:.86rem;margin-top:.5rem}
+
+.zg-paper-topic-guide{width:100%;flex-basis:100%;min-width:0}.zg-paper-topic-guide summary{cursor:pointer;overflow-wrap:anywhere}.zg-paper-topic-guide h3{margin-top:1rem}.zg-paper-topic{padding:.55rem 0;border-bottom:1px solid #8893a844}.zg-paper-topic p{line-height:1.55;overflow-wrap:anywhere}.zg-paper-topic button{margin:.4rem 0;padding:.35rem .65rem;border:1px solid #8893a888;border-radius:6px}.zg-publication-search [name=pub-topic]{width:100%;text-overflow:ellipsis}.zg-publication-search [data-pub-topic-description]{font-size:.92em;line-height:1.5}

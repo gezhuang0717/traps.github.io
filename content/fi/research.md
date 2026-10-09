@@ -6,6 +6,8 @@ showDate: false
 
 {{< learning-links >}}
 
+{{< paper-topic-guide >}}
+
 Käytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiikan, ydinrakenteen ja ydinastrofysiikan kysymyksiin. Kunkin aiheen julkaisut tulevat yhteisestä julkaisutietokannasta; koko luettelo on [Julkaisut](../publications/)-sivulla.
 
 ## Menetelmät kuvina
