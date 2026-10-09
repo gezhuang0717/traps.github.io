@@ -61,7 +61,7 @@ test('model export retains missing deformation and every model-only chart nucleu
  const modelOnly=Object.assign([130,200,'Z130',null,null,0,0,'','','','',[]],{mo:true});
  const button={},saved=[];
  const values=new Map([[50066,[-91210,null]],[130200,[315130,null]]]);
- const context={src:'ktuy05',MOD:{ktuy05:{map:values}},key:(z,n)=>z*1000+n,
+ const context={src:'ktuy05',window:{ZGMassSurface:require('../static/js/mass-surface.js')},MOD:{ktuy05:{map:values}},key:(z,n)=>z*1000+n,
   derived:r=>r[3]==null?{}:{me:{v:r[3],e:r[4]}},rows:[reference],allRows:()=>[reference,modelOnly],pass:()=>true,filt:'all',
   root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
  vm.runInNewContext(source.slice(start,end)+'\n'+exportLine,context);
@@ -70,6 +70,7 @@ test('model export retains missing deformation and every model-only chart nucleu
  assert.equal(rows.length,2);assert.equal(rows[0][b],'');assert.equal(rows[1][b],'');
  assert.equal(rows[0][m],-91210);assert.equal(rows[1][m],315130);assert.equal(rows[1][4],'');
  assert.ok(rows.every(row=>row.length===head.length));
+ for(const k of Object.keys(context.window.ZGMassSurface.filters))assert.ok(head.includes(k+'_MeV')&&head.includes(k+'_flag'));
  values.set(50066,[-91210,0]);button.onclick();assert.equal(saved[1][1][0][b],0);
  values.set(50066,[-91210,-120]);button.onclick();assert.equal(saved[2][1][0][b],-.12);
 });

@@ -38,6 +38,7 @@
 {{- $t = merge $t (index hugo.Data.chart_state_labels $k) -}}
 {{- $t = merge $t (index hugo.Data.chain_labels $k) -}}
 {{- $t = merge $t (index hugo.Data.measured_labels $k) -}}
+{{- $t = merge $t (index hugo.Data.mass_filter_labels $k) -}}
 {{- if not .Page.Params.independentPanel }}{{ partial "zg/independent-panels.html" .Page }}{{ end -}}
 <section class="zg-card nc" data-nuclide-chart data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}" data-src="{{ "data/nubase2020.json" | relURL }}" data-models="{{ "data/massmodels-index.json" | relURL }}?v={{ readFile "static/data/massmodels-index.json" | sha256 }}" data-labels="{{ $t | jsonify }}">
   <h2>{{ $t.title }}</h2>
@@ -77,7 +78,7 @@
   {{ partial "zg/control-help.html" "chain" }}
   {{ partial "zg/measured-masses.html" $t }}
   <div class="nc-bar">
-    <label>{{ $t.pq }} <select name="nc-pq"></select></label>
+    <label>{{ $t.pq }} <select name="nc-pq" aria-describedby="nc-filter-formula"></select></label>
     <label>{{ $t.pchain }} <select name="nc-pchain"><option value="Z">{{ $t.p_iso }}</option><option value="N">{{ $t.p_isot }}</option><option value="A">{{ $t.p_isob }}</option></select></label>
     <label class="nc-chk"><input type="checkbox" name="nc-lines" checked> {{ $t.p_lines }}</label>
     <label class="nc-chk"><input type="checkbox" name="nc-err" checked> {{ $t.p_err }}</label>
@@ -85,6 +86,8 @@
     <span class="nc-prange"><label class="nc-chk"><input type="checkbox" name="nc-range"> {{ $t.p_range }}</label>
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
   </div>
+  <p id="nc-filter-formula" class="nc-filter-formula zg-small" hidden></p>
+  <details class="nc-mass-filter-help nc-explanation"><summary>{{ $t.mf_title }}</summary><p>{{ $t.mf_intro }}</p><div class="nc-table-scroll nc-filter-definitions"></div><p>{{ $t.mf_pn_note }}</p><p>{{ $t.mf_convention }}</p><p>{{ $t.mf_missing }}</p><p><a href="https://doi.org/10.1103/PhysRevC.99.064313">Ayet San Andrés et al. (2019) · S₂ₙ</a> · <a href="https://doi.org/10.1103/PhysRevC.107.029901">Erratum (2023)</a> · <a href="https://doi.org/10.1103/PhysRevLett.94.092501">Cakirli et al. (2005) · δVpn</a></p></details>
   <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>
     <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p class="zg-small">{{ $t.loaded_select_hint }}</p></details>
     <div class="nc-series-choices">
@@ -130,7 +133,7 @@
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}?v=state-links-2"></script>
 <script defer src="{{ "js/chain-plot.js" | relURL }}?v={{ readFile "static/js/chain-plot.js" | sha256 }}"></script>
-<script defer src="{{ "js/mass-surface.js" | relURL }}"></script>
+<script defer src="{{ "js/mass-surface.js" | relURL }}?v={{ readFile "static/js/mass-surface.js" | sha256 }}"></script>
 <script defer src="{{ "js/measured-masses.js" | relURL }}?v={{ readFile "static/js/measured-masses.js" | sha256 }}"></script>
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>

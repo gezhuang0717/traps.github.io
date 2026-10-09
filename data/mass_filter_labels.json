@@ -1,0 +1,72 @@
+{
+  "en": {
+    "mf_title": "More mass filters — formulas and neighbours",
+    "mf_intro": "Choose a filter in Quantity or in the reference-chart colour menu. The same formula is applied to AME2020, your input masses and each selected model. The affected-values window lists every surviving dependence on your input.",
+    "mf_gap": "one-nucleon gap",
+    "mf_slope": "separation-energy slope",
+    "mf_pn": "fixed proton–neutron difference",
+    "mf_third": "third difference",
+    "mf_fourth": "fourth difference (½ normalized)",
+    "mf_formula": "Formula",
+    "mf_neighbours": "Required (ΔZ, ΔN)",
+    "mf_pn_note": "The four fixed proton–neutron operators use the displayed stencil at every centre. Their ee/oo/even–odd physical interpretation requires the appropriate parity. The existing δVpn choice automatically selects a stencil from Z,N parity.",
+    "mf_convention": "Slopes are forward differences: S₂ₙ(N+1) − S₂ₙ(N), and the proton analogue. Gsym includes ½, matching the supplied R executable weights; its R description omitted that factor. These are finite differences, not derivatives divided by a step.",
+    "mf_missing": "Missing required masses leave gaps. Shared mass terms cancel before uncertainty and # provenance are calculated; other experimental inputs are treated as independent. Model uncertainty remains unknown. # inputs use hollow experimental points and no shaded band."
+  },
+  "zh": {
+    "mf_title": "更多质量滤波量——公式与所需邻核",
+    "mf_intro": "在“物理量”或参考核素图颜色菜单选择滤波量。AME2020、输入质量及所选模型使用同一公式。“受影响物理量”窗口列出所有仍依赖输入质量的计算。",
+    "mf_gap": "单核子壳隙",
+    "mf_slope": "分离能差分斜率",
+    "mf_pn": "固定质子–中子双差",
+    "mf_third": "三阶差分",
+    "mf_fourth": "四阶差分（½ 归一化）",
+    "mf_formula": "公式",
+    "mf_neighbours": "所需 (ΔZ, ΔN)",
+    "mf_pn_note": "四种固定质子–中子算符在每个中心使用显示的固定模板；解释为 ee／oo／奇偶相互作用时需满足相应奇偶条件。原有 δVpn 选项会按 Z、N 奇偶自动选择模板。",
+    "mf_convention": "斜率采用前向差分 S₂ₙ(N+1) − S₂ₙ(N)，质子式类似。Gsym 包含 ½，与提供的 R 可执行权重一致；R 的文字说明漏写此因子。这些是有限差分，不是除以步长后的导数。",
+    "mf_missing": "缺少所需质量时留空。先消去共享质量项，再计算不确定度和 # 来源；其余实验输入按独立处理。模型不确定度保持未知。含 # 输入的实验点为空心且无阴影带。"
+  },
+  "fi": {
+    "mf_title": "Lisää massasuotimia — kaavat ja naapurit",
+    "mf_intro": "Valitse suure ketjukuvaan tai vertailukartan värivalikkoon. AME2020, syöttömassat ja mallit käyttävät samaa kaavaa. Muuttuneiden suureiden ikkuna näyttää kaikki riippuvuudet syöttömassoista.",
+    "mf_gap": "yhden nukleonin kuoriaukko",
+    "mf_slope": "separaatioenergian erotus",
+    "mf_pn": "kiinteä protoni–neutronierotus",
+    "mf_third": "kolmas erotus",
+    "mf_fourth": "neljäs erotus (½ normalisointi)",
+    "mf_formula": "Kaava",
+    "mf_neighbours": "Tarvittavat (ΔZ, ΔN)",
+    "mf_pn_note": "Neljä kiinteää protoni–neutronisuodinta käyttävät samaa kaavaa kaikilla keskuksilla. ee/oo/pariteettitulkinta edellyttää oikeaa pariteettia. δVpn valitsee kaavan automaattisesti Z,N-pariteetin perusteella.",
+    "mf_convention": "Erotukset ovat S₂ₙ(N+1) − S₂ₙ(N) ja protonivastine. Gsym sisältää tekijän ½ R-koodin painojen mukaisesti; R-kuvaus jätti sen pois. Nämä ovat äärellisiä erotuksia, eivät askelpituudella jaettuja derivaattoja.",
+    "mf_missing": "Puuttuva naapuri jättää aukon. Yhteiset massatermit kumotaan ennen epävarmuutta ja #-alkuperää; muut kokeelliset syötteet oletetaan riippumattomiksi. Mallin epävarmuus on tuntematon. #-syötteet näkyvät avoimina kokeellisina pisteinä ilman varjostusta."
+  },
+  "de": {
+    "mf_title": "Weitere Massenfilter — Formeln und Nachbarn",
+    "mf_intro": "Größe im Kettenplot oder Farbmenü der Referenzkarte wählen. AME2020, Eingabemassen und Modelle verwenden dieselbe Formel. Das Fenster der beeinflussten Größen zeigt alle Abhängigkeiten von Eingabemassen.",
+    "mf_gap": "Ein-Nukleon-Schalenlücke",
+    "mf_slope": "Differenz der Separationsenergie",
+    "mf_pn": "feste Proton–Neutron-Differenz",
+    "mf_third": "dritte Differenz",
+    "mf_fourth": "vierte Differenz (½ normiert)",
+    "mf_formula": "Formel",
+    "mf_neighbours": "Benötigte (ΔZ, ΔN)",
+    "mf_pn_note": "Die vier festen Proton–Neutron-Operatoren verwenden überall dasselbe Schema. Die ee/oo/Paritätsdeutung setzt die passende Parität voraus. δVpn wählt das Schema automatisch nach Z,N-Parität.",
+    "mf_convention": "Vorwärtsdifferenzen: S₂ₙ(N+1) − S₂ₙ(N) und Protonenanalogon. Gsym enthält ½ wie die ausführbaren R-Gewichte; die R-Beschreibung ließ den Faktor aus. Endliche Differenzen, keine durch die Schrittweite geteilten Ableitungen.",
+    "mf_missing": "Fehlende Nachbarmassen erzeugen Lücken. Gemeinsame Massenterme werden vor Unsicherheit und #-Herkunft gekürzt; sonstige experimentelle Eingaben gelten als unabhängig. Modellunsicherheit bleibt unbekannt. #-Eingaben ergeben offene experimentelle Punkte ohne Schattierung."
+  },
+  "ja": {
+    "mf_title": "追加の質量フィルター — 式と必要な隣接核",
+    "mf_intro": "系列図の物理量または参照核図の色メニューで選択します。AME2020、入力質量、各モデルに同じ式を適用します。影響する物理量のウィンドウは入力への依存を表示します。",
+    "mf_gap": "1核子殻ギャップ",
+    "mf_slope": "分離エネルギー差分",
+    "mf_pn": "固定陽子–中性子二重差分",
+    "mf_third": "3階差分",
+    "mf_fourth": "4階差分（½ 規格化）",
+    "mf_formula": "式",
+    "mf_neighbours": "必要な (ΔZ, ΔN)",
+    "mf_pn_note": "4種類の固定陽子–中性子演算子は各中心で同じ配置を使います。ee／oo／偶奇の物理的解釈には対応する偶奇が必要です。既存の δVpn は Z,N の偶奇で配置を自動選択します。",
+    "mf_convention": "前進差分 S₂ₙ(N+1) − S₂ₙ(N) と陽子の対応式を使います。Gsym の ½ は R の実行重みと一致しますが、R の説明文では省略されています。刻み幅で割った微分ではなく有限差分です。",
+    "mf_missing": "必要な質量がない点は空白です。共通質量項を消去してから不確かさと # の由来を計算し、その他の実験入力は独立とします。モデルの不確かさは未知のままです。# 入力の実験点は白抜きで陰影帯を付けません。"
+  }
+}

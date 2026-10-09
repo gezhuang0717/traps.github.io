@@ -2,6 +2,19 @@
 (function(host){
   'use strict';
   const P=host.ZGPhysics || (typeof require==='function' ? require('./physics.js') : null);
+  // Coefficients of atomic ME(Z+dz,N+dn), in keV. Linear nucleon/electron terms cancel.
+  const filters={
+    D1nS1n:{kind:'gap',formula:'Sₙ(Z,N) − Sₙ(Z,N+1)',terms:[[0,-1,1],[0,0,-2],[0,1,1]]},
+    D1pS1p:{kind:'gap',formula:'Sₚ(Z,N) − Sₚ(Z+1,N)',terms:[[-1,0,1],[0,0,-2],[1,0,1]]},
+    D1nS2n:{kind:'slope',formula:'S₂ₙ(Z,N+1) − S₂ₙ(Z,N)',terms:[[0,-2,-1],[0,-1,1],[0,0,1],[0,1,-1]]},
+    D1pS2p:{kind:'slope',formula:'S₂ₚ(Z+1,N) − S₂ₚ(Z,N)',terms:[[-2,0,-1],[-1,0,1],[0,0,1],[1,0,-1]]},
+    D2pS2n:{kind:'pn',formula:'¼[S₂ₙ(Z,N) − S₂ₙ(Z−2,N)]',terms:[[0,0,-.25],[0,-2,.25],[-2,0,.25],[-2,-2,-.25]]},
+    D1pS1n:{kind:'pn',formula:'Sₙ(Z,N) − Sₙ(Z−1,N)',terms:[[0,0,-1],[0,-1,1],[-1,0,1],[-1,-1,-1]]},
+    D1pS2n:{kind:'pn',formula:'½[S₂ₙ(Z,N) − S₂ₙ(Z−1,N)]',terms:[[0,0,-.5],[0,-2,.5],[-1,0,.5],[-1,-2,-.5]]},
+    D2pS1n:{kind:'pn',formula:'½[Sₙ(Z,N) − Sₙ(Z−2,N)]',terms:[[0,0,-.5],[0,-1,.5],[-2,0,.5],[-2,-1,-.5]]},
+    Gplus:{kind:'third',formula:'δ₂ₙ(Z,N) − δ₂ₙ(Z,N+2)',terms:[[0,-2,1],[0,0,-3],[0,2,3],[0,4,-1]]},
+    Gsym:{kind:'fourth',formula:'½[2δ₂ₙ(Z,N) − δ₂ₙ(Z,N−2) − δ₂ₙ(Z,N+2)]',terms:[[0,-4,-.5],[0,-2,2],[0,0,-3],[0,2,2],[0,4,-.5]]},
+  };
   function create(getter, constants, beta=()=>null) {
     const comb=P.combine, memo=new Map();
   function derive(Z, N, s = "ame") {
@@ -22,6 +35,7 @@
     out.d5n = P.pairingIndicator(get, Z, N, "N", 5);
     out.d5p = P.pairingIndicator(get, Z, N, "Z", 5);
     out.d2p = comb([1, get(Z - 2, N)], [-2, m], [1, get(Z + 2, N)]);   /* δ2p = S2p(Z) − S2p(Z+2) */
+    for(const [name,{terms}] of Object.entries(filters))out[name]=comb(...terms.map(([dz,dn,c])=>[c,get(Z+dz,N+dn)]));
     /* proton–neutron interaction δVpn (Zhang et al. 1989; Cakirli & Casten 2005) from binding energies B = Z·ME(¹H) + N·ME(n) − ME */
     const B = (z, n) => comb([z, MEH], [n, MEn], [-1, get(z, n)]);
     const ze = Z % 2 === 0, ne = N % 2 === 0;
@@ -43,7 +57,7 @@
 
     return {derive, clear:()=>memo.clear()};
   }
-  const quantities=['me','BE','BEA','sn','s2n','sp','s2p','qbm','qec','qa','d2n','d2p','d3n','d3p','d5n','d5p','vpn','wig'];
+  const quantities=['me','BE','BEA','sn','s2n','sp','s2p','qbm','qec','qa','d2n','d2p','d3n','d3p','d5n','d5p','vpn','wig',...Object.keys(filters)];
   function changes(centres,active,derive,affected){
     const masses=[...active.values()].filter(x=>!x.state.source_state_index),out=[];
     // Every current stencil lies within ΔZ=±2, ΔN=±4 (including Wigner neighbours).
@@ -63,7 +77,7 @@
     const next=samples.find(([index])=>index===last+1);
     return next&&Number.isFinite(next[1])&&next[1]<=0?last:null;
   }
-  const api={create,quantities,changes,dripBoundary};
+  const api={create,quantities,changes,dripBoundary,filters};
   host.ZGMassSurface=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

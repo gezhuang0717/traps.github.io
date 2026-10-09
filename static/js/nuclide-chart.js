@@ -100,6 +100,9 @@
     beta2: { label: T.m_beta2, need: true, v: r => { const v = MOD[modelKey()] && MOD[modelKey()].map.get(key(r[0], r[1])); return v && v[1] != null ? v[1] / 1000 : null; }, lo: -0.3, hi: 0.4, div: true },
     dmod: { label: T.m_dmod, need: true, v: r => mv(dmod(r)), lo: -3, hi: 3, u: "MeV", div: true },
   };
+  const extraFilters=window.ZGMassSurface.filters;
+  const filterLabel=(name,f)=>name+' · '+T['mf_'+f.kind];
+  for(const [name,f]of Object.entries(extraFilters))MODES[name]={label:filterLabel(name,f),v:r=>mv(D(r)[name]),lo:-3,hi:3,u:'MeV',div:true};
   const FILTERS = {
     all: [T.fl_all, () => true], missing: [T.fl_missing,r=>r[3]==null], unknown_unc: [T.fl_unknown_unc,r=>r[4]==null], known_unc: [T.fl_known_unc,r=>r[3]!=null&&r[4]!=null], state_hash: [T.fl_state_hash,r=>catalog && (catalog.groups.get(r[2].toLowerCase()+(r[0]+r[1]))||[]).some(s=>s.excitation.value_extrapolated)], meas: [T.fl_meas, r => r[3] != null && !r[5]], extr: [T.fl_extr, r => !!r[5]],
     d1: ["δm < 1 keV", r => r[4] != null && !r[5] && r[4] < 1], d10: ["δm < 10 keV", r => r[4] != null && !r[5] && r[4] < 10], d100: ["δm < 100 keV", r => r[4] != null && !r[5] && r[4] < 100],
@@ -394,6 +397,13 @@
     vpn: ["δVpn", d => d.vpn, "MeV"], wig: ["W = δVpn − ½[δVpn(N±2)]", d => d.wig, "MeV"],
     beta2: ["β₂ (model)", d => d.beta2, ""],
   };
+  for(const [name,f]of Object.entries(extraFilters))PQ[name]=[filterLabel(name,f),d=>d[name],'MeV'];
+  const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
+  root.querySelector('.nc-filter-definitions').innerHTML='<table><thead><tr><th>'+escape(T.pq)+'</th><th>'+escape(T.mf_formula)+'</th><th>'+escape(T.mf_neighbours)+'</th></tr></thead><tbody>'+Object.entries(extraFilters).map(([name,f])=>'<tr><th>'+escape(filterLabel(name,f))+'</th><td>'+escape(f.formula)+'</td><td>'+escape(offsets(f))+'</td></tr>').join('')+'</tbody></table>';
+  function filterFormula(){
+    const f=extraFilters[pq.value],box=root.querySelector('.nc-filter-formula');box.hidden=!f;
+    box.textContent=f?pq.value+': '+f.formula+' · '+T.mf_neighbours+': '+offsets(f):'';
+  }
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
   const palette=['#167d45','#b94e00','#0095a8','#7352bd','#96610b','#0d807b','#c54646','#525d76','#668100','#874d70','#566bba','#8b651f'];
@@ -523,7 +533,7 @@
     }
   });
   function plotChain(r) {
-    chain = r || chain; if (!chain) return;
+    chain = r || chain; filterFormula(); if (!chain) return;
     const ch = pchain.value, [Z,N] = chain, A=Z+N;
     if(ch!==activeChainType){
       rangeMemory[activeChainType]=Object.fromEntries(['c0','c1','x0','x1'].map(k=>[k,chainInput(k).value]));activeChainType=ch;
@@ -783,8 +793,8 @@
   /* ---------- exports ---------- */
   const csvRow = r => { const d = derived(r), f = o => o ? [String(o.v / 1000), o.e == null ? "" : String(o.e / 1000), o.est ? "#" : ""] : ["", "", ""];
     const m = src !== "ame" && MOD[src] ? MOD[src].map.get(key(r[0], r[1])) : null;
-    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m && m[1] != null ? m[1] / 1000 : ""] : [])]; };
-  const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
+    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>f(d[k])), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m && m[1] != null ? m[1] / 1000 : ""] : [])]; };
+  const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>[k+"_MeV","d"+k+"_MeV",k+"_flag"]), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
   root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); drawResidual(); };
   root.querySelector("[data-nc=png]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = W() * sc; o.height = H() * sc; draw(o.getContext("2d"), o.width, o.height, sc); return o; }, "chart-of-nuclides", 6);
   root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), allRows().filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
