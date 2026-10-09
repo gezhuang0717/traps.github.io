@@ -1,0 +1,32 @@
+{
+  "name": "HFB-14 (BSk14)",
+  "url": "https://www.astro.ulb.ac.be/pmwiki/Brusslib/Hfb14",
+  "table_url": "https://www.astro.ulb.ac.be/Nucdata/Masses/hfb14-plain",
+  "ref": "S. Goriely et al., Phys. Rev. C 75, 064312 (2007)",
+  "doi": "10.1103/PhysRevC.75.064312",
+  "raw_sha256": "a08bd5362ce67581441407a77312a002ecc512bd1e12a84e8745396fa7bd1810",
+  "normalized_sha256": "5202ab1b1edd75aa3d7b9d86194676f7b04428310bf751d4a9e44c688191ca8d",
+  "rows": 8388,
+  "first": [
+    8,
+    16,
+    -4.01,
+    0.0
+  ],
+  "last": [
+    110,
+    360,
+    555.01,
+    0.43
+  ],
+  "mass_precision_keV": 10,
+  "beta2_precision": 0.01,
+  "uncertainty": null,
+  "validation": {
+    "neutron_separation_checks": 8284,
+    "maximum_difference_MeV": 0.01131810000003508,
+    "tolerance_MeV": 0.016
+  },
+  "reuse": "attributed numerical facts from public author-hosted table; raw table and webpage not redistributed",
+  "note": "Mcal is atomic mass excess, not full atomic mass. Err/Mexp-Mcal is an experimental residual, never model sigma. BSkG3 web page count/range is older than this hashed table; actual parsed coverage retained."
+}

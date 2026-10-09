@@ -21,13 +21,15 @@
   const MAGIC = [2, 8, 20, 28, 50, 82, 126], SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
   const sup = n => String(n).replace(/\d/g, d => SUP[d]);
   let rows = [], M = new Map(), EL = [], view = { s: 4, x: 10, y: 0 }, pin = null, hover = null, mode = "decay", filt = "all", anim = null;
-  let chain = null, plotPts = [], modPts = [], plotHover = null, plotDomain = null;
+  let chain = null, plotPts = [], modPts = [], plotHover = null, plotDomain = null, bands = [], residualPts = [], visibleSeries = [], residualDomain = null;
+  const rc=root.querySelector("canvas.nc-residual"),rg=rc.getContext("2d");
   const CP = window.ZGChainPlot, rangeMemory = {};
   let activeChainType = pchain.value;
   const chainInput = name => root.querySelector(`[name=nc-${name}]`);
   const axisNumber = name => { const v = chainInput(name).value; return v === '' ? null : Number(v); };
   /* theory masses: MOD[key] = {name, ref, url, map: Map(key → [ME keV, β2·1000])}; src = "ame" or a model key */
-  let MOD = {}, PATHS = {}, src = "ame", modelsLoading = null, extraRows = [];
+  let MOD = {}, PATHS = {}, src = "ame", extraRows = [], modelIndex = null, indexLoading = null, modelLoads = new Map(), modelErrors = new Set(), measured = null, inputTable = null;
+  const MM=window.ZGMeasuredMasses;
   const msel = root.querySelector("[name=nc-model]"), ovl = root.querySelector(".nc-ovl");
   const key = (Z, N) => Z * 1000 + N;
   let ink = '#1d2433';
@@ -45,46 +47,12 @@
   /* combine a·x + b·y + … ; uncertainties in quadrature (AME correlations neglected) */
   const comb=P.combine;
   const K=P.constant;
-  const memo = new Map();
+  const memo = {clear:()=>surface.clear()};
   const getM = (s, Z, N) => { const v = MOD[s] && MOD[s].map.get(key(Z, N)); return v ? P.primitive("model:"+s+":"+key(Z,N),v[0],null,false) : null; };
-  const getter = s => s === "ame" ? get : (Z, N) => getM(s, Z, N);
+  const getter = s => s === "ame" ? get : s === "hybrid" ? (z,n)=>inputTable ? MM.getter(inputTable,get)(z,n) : get(z,n) : (Z,N)=>getM(s,Z,N);
   const derived = r => derivedZN(r[0], r[1], "ame");
-  function derivedZN(Z, N, s = "ame") {
-    const k = s + ":" + key(Z, N); if (memo.has(k)) return memo.get(k);
-    const get = getter(s), A = Z + N, m = get(Z, N);
-    const BE = comb([Z, MEH], [N, MEn], [-1, m]);
-    const out = {
-      A, me: m, BE, BEA: BE && A > 0 ? comb([1/A,BE]) : null,
-      sn: comb([1, get(Z, N - 1)], [1, MEn], [-1, m]), s2n: comb([1, get(Z, N - 2)], [2, MEn], [-1, m]),
-      sp: comb([1, get(Z - 1, N)], [1, MEH], [-1, m]), s2p: comb([1, get(Z - 2, N)], [2, MEH], [-1, m]),
-      qbm: comb([1, m], [-1, get(Z + 1, N - 1)]), qec: comb([1, m], [-1, get(Z - 1, N + 1)]), qa: comb([1, m], [-1, get(Z - 2, N - 2)], [-1, MEa]),
-    };
-    /* two-neutron shell gap δ2n = S2n(Z,N) − S2n(Z,N+2) */
-    out.d2n = comb([1, get(Z, N - 2)], [-2, m], [1, get(Z, N + 2)]);   /* = ME(N−2) − 2·ME(N) + ME(N+2) */
-    /* Mass-excess odd–even indicators; no absolute-value clamp. */
-    out.d3n = P.pairingIndicator(get, Z, N, "N", 3);
-    out.d3p = P.pairingIndicator(get, Z, N, "Z", 3);
-    out.d5n = P.pairingIndicator(get, Z, N, "N", 5);
-    out.d5p = P.pairingIndicator(get, Z, N, "Z", 5);
-    out.d2p = comb([1, get(Z - 2, N)], [-2, m], [1, get(Z + 2, N)]);   /* δ2p = S2p(Z) − S2p(Z+2) */
-    /* proton–neutron interaction δVpn (Zhang et al. 1989; Cakirli & Casten 2005) from binding energies B = Z·ME(¹H) + N·ME(n) − ME */
-    const B = (z, n) => comb([z, MEH], [n, MEn], [-1, get(z, n)]);
-    const ze = Z % 2 === 0, ne = N % 2 === 0;
-    out.vpn = ze && ne ? comb([0.25, B(Z, N)], [-0.25, B(Z, N - 2)], [-0.25, B(Z - 2, N)], [0.25, B(Z - 2, N - 2)])
-      : !ze && !ne ? comb([1, B(Z, N)], [-1, B(Z, N - 1)], [-1, B(Z - 1, N)], [1, B(Z - 1, N - 1)])
-      : ze ? comb([0.5, B(Z, N)], [-0.5, B(Z, N - 1)], [-0.5, B(Z - 2, N)], [0.5, B(Z - 2, N - 1)])
-      : comb([0.5, B(Z, N)], [-0.5, B(Z, N - 2)], [-0.5, B(Z - 1, N)], [0.5, B(Z - 1, N - 2)]);
-    out.beta2 = s !== "ame" && MOD[s] && MOD[s].map.get(key(Z, N)) ? { v: MOD[s].map.get(key(Z, N))[1], e: null, est: false } : null;   /* β2 × 1000 */
-    /* Wigner-energy indicator (as in the Mulberry code): W = δVpn(N) − ½[δVpn(N+2) + δVpn(N−2)]; peaks at N = Z.
-       Lazy getter: neighbours only need their δVpn, so there is no recursion chain. */
-    let wig;
-    Object.defineProperty(out, "wig", { get() {
-      if (wig !== undefined) return wig;
-      const vp = derivedZN(Z, N + 2, s).vpn, vm = derivedZN(Z, N - 2, s).vpn;
-      return (wig = out.vpn && vp && vm ? comb([1, out.vpn], [-0.5, vp], [-0.5, vm]) : null);
-    } });
-    memo.set(k, out); return out;
-  }
+  const surface=window.ZGMassSurface.create(s=>getter(s),{get MEn(){return MEn;},get MEH(){return MEH;},get MEa(){return MEa;}},(s,z,n)=>{const b=MOD[s]?.map.get(key(z,n))?.[1];return b==null?null:{v:b,e:null,est:false};});
+  const derivedZN=(z,n,s='ame')=>surface.derive(z,n,s);
   /* ME(AME) − ME(model) for the chosen (or default FRDM) model */
   const modelKey = () => src !== "ame" ? src : MOD.frdm2012 ? "frdm2012" : MOD.frdm1995 ? "frdm1995" : Object.keys(MOD)[0];
   const dmod = r => { const mk = modelKey(), a = get(r[0], r[1]), b = mk && getM(mk, r[0], r[1]); return a && b ? { v: a.v - b.v, e: a.e, est: a.est } : null; };
@@ -184,11 +152,12 @@
       if (x < -s || y < -s || x > Wd || y > Hd) continue;
       const ok = pass(r); c.globalAlpha = ok ? (r.mo ? 0.5 : 1) : 0.1;
       c.fillStyle = r.mo && (mode === "decay" || MODES[mode].f) ? "#cbd5e1" : colour(r); c.fillRect(x, y, s - (s > 3 ? sc : 0.3), s - (s > 3 ? sc : 0.3));
+      if(ok&&s>=10*sc&&measured?.marked(r[0],r[1])){c.strokeStyle="#a71984";c.lineWidth=2*sc;c.strokeRect(x+sc,y+sc,s-3*sc,s-3*sc);}
       if (mid && ok) {
         const dark = r[6] === 99 || ["bm", "sf", "n"].includes(decayClass(r)) && mode === "decay";
         c.fillStyle = dark ? "#fff" : "#111";
         c.font = `${Math.min(14 * sc, s * 0.28)}px system-ui`;
-        c.fillText(sup(r[0] + r[1]) + r[2] + (r[5] ? "#" : "") + (r.mo ? "*" : ""), x + s / 2, y + s * (big ? 0.32 : 0.5));
+        c.fillText(sup(r[0] + r[1]) + r[2] + (r[5] ? "#" : "") + (r.mo ? "*" : "") + (measured?.marked(r[0],r[1]) ? "★" : ""), x + s / 2, y + s * (big ? 0.32 : 0.5));
         if (big && !r.mo) { c.font = `${Math.min(11 * sc, s * 0.2)}px system-ui`; c.fillText(r[7].replace("stable", "★"), x + s / 2, y + s * 0.68); }
       }
     }
@@ -236,17 +205,43 @@
       c.globalAlpha = 1;
     });
   }
-  function loadModels() {
-    if (modelsLoading) return modelsLoading;
-    modelsLoading = fetch(root.dataset.models).then(r => r.json()).then(d => {
-      Object.entries(d.models).forEach(([k, m]) => { const map = new Map(); m.rows.forEach(([Z, N, me, b2]) => map.set(key(Z, N), [me, b2])); MOD[k] = { name: m.name, ref: m.ref, url: m.url, map }; });
-      PATHS = d.paths; memo.clear(); dripCache.clear();
-    });
-    return modelsLoading;
+  function loadIndex(){
+    if(indexLoading)return indexLoading;
+    indexLoading=fetch(root.dataset.models).then(r=>{if(!r.ok)throw new Error('Model index');return r.json();}).then(d=>{
+      modelIndex=d.models;PATHS=d.paths;
+      msel.innerHTML='<option value="ame">AME2020</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
+      root.querySelector('.nc-model-series').innerHTML=Object.entries(modelIndex).map(([k,m])=>'<label><input type="checkbox" data-model-series="'+escape(k)+'"> '+escape(m.name)+' <a href="'+escape(m.url)+'" target="_blank" rel="noopener">↗</a></label>').join('');
+      root.querySelector('[name=nc-impact-model]').innerHTML='<option value="selected">'+escape(T.loaded_selected_models)+'</option><option value="all">'+escape(T.loaded_all)+'</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
+      return d;
+    }).catch(e=>{indexLoading=null;throw e;});
+    return indexLoading;
   }
+  function loadModels(k){
+    return loadIndex().then(()=>{
+      k=k||modelKey()||'frdm2012';
+      if(MOD[k])return MOD[k];
+      if(modelLoads.has(k))return modelLoads.get(k);
+      const m=modelIndex[k];if(!m)throw new Error('Unknown model');
+      const promise=fetch(new URL(m.data_url,new URL(root.dataset.models,location.href))).then(r=>{if(!r.ok)throw new Error('Model data');return r.json();}).then(d=>{
+        const map=new Map();d.rows.forEach(([z,n,me,b])=>map.set(key(z,n),[me,b]));
+        MOD[k]={...m,map};modelErrors.delete(k);memo.clear();dripCache.clear();return MOD[k];
+      }).catch(e=>{modelLoads.delete(k);modelErrors.add(k);throw e;});
+      modelLoads.set(k,promise);return promise;
+    });
+  }
+  function modelFailure(){root.querySelector('.nc-model-error').textContent=T.loaded_model_error;}
+  function selectedModels(){return [...root.querySelectorAll('[data-model-series]:checked')].map(el=>el.dataset.modelSeries);}
+  root.querySelector('.nc-model-series').addEventListener('change',e=>{
+    root.querySelector('.nc-model-error').textContent='';
+    if(e.target.checked)loadModels(e.target.dataset.modelSeries).then(()=>plotChain()).catch(()=>{modelFailure();plotChain();});
+    plotChain();
+  });
+  root.querySelector('[data-model-all]').onclick=()=>{root.querySelector('.nc-model-error').textContent='';root.querySelectorAll('[data-model-series]').forEach(el=>el.checked=true);Promise.allSettled(selectedModels().map(k=>loadModels(k))).then(results=>{if(results.some(r=>r.status==='rejected'))modelFailure();plotChain();});};
+  root.querySelector('[data-model-none]').onclick=()=>{root.querySelectorAll('[data-model-series]').forEach(el=>el.checked=false);plotChain();};
   function setSource(s) {
     const go = () => {
       src = s; memo.clear(); dripCache.clear();
+      if(s!=="ame"){const box=root.querySelector('[data-model-series="'+s+'"]');if(box)box.checked=true;}
       extraRows = s === "ame" ? [] : [...MOD[s].map.keys()].filter(k => !M.has(k)).map(k => { const Z = Math.floor(k / 1000), N = k % 1000, el = EL.find(e => e[0] === Z);
         const r = [Z, N, el ? el[1] : "Z" + Z, null, null, 0, -97, "—", "", null, "", []]; r.mo = true; return r; });
       root.querySelector(".nc-mref").innerHTML = s === "ame" ? "" : `${T.modnote} <a href="${MOD[s].url}" target="_blank" rel="noopener">${MOD[s].ref}</a>`;
@@ -255,10 +250,9 @@
     if (s === "ame") go();
     else {
       if (msel) msel.disabled = true;
-      loadModels().then(go).catch(() => {
+      loadModels(s).then(go).catch(() => {
         root.querySelector(".nc-mref").textContent = "Model data unavailable / 模型数据不可用";
         if (msel) msel.value = src;
-        modelsLoading = null;
       }).finally(() => { if (msel) msel.disabled = false; });
     }
   }
@@ -332,6 +326,7 @@
       <div class="nc-cbtn"><button type="button" class="zg-btn" data-ch="Z">${T.p_iso}</button><button type="button" class="zg-btn" data-ch="N">${T.p_isot}</button><button type="button" class="zg-btn" data-ch="A">${T.p_isob}</button></div>
       <ul class="nc-facts">${facts(r, d).map(x => "<li>" + x + "</li>").join("")}</ul>
       <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>AME2020 · NUBASE2020 (Chin. Phys. C 45, 030001–030003, 2021)</p>`;
+    card.insertAdjacentHTML("beforeend",measured?.annotation(r[0],r[1])||"");
     showStates(r);
     card.querySelector(".nc-close").onclick = () => { pin = null; showCard(null); draw(); };
     card.querySelectorAll("[data-ch]").forEach(b => b.onclick = () => { pchain.value = b.dataset.ch; plotChain(r); pc.scrollIntoView({ behavior: "smooth", block: "center" }); });
@@ -384,7 +379,7 @@
   const PQ = {
     me: [T.m_me, d => d.me, "MeV"], bea: [T.m_bea, d => d.BEA, "MeV"], sn: ["Sₙ", d => d.sn, "MeV"], s2n: ["S₂ₙ", d => d.s2n, "MeV"],
     sp: ["Sₚ", d => d.sp, "MeV"], s2p: ["S₂ₚ", d => d.s2p, "MeV"], qbm: ["Q(β⁻)", d => d.qbm, "MeV"], qec: ["Q(EC)", d => d.qec, "MeV"],
-    qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, (d, r) => r[4] == null ? null : { v: r[4] * 1000, e: 0, est: !!r[5] }, "keV"],
+    qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, (d, r) => d.me?.e == null ? null : { v: d.me.e * 1000, e: 0, est: d.me.est }, "keV"],
     hl: ["log₁₀(T½ / s)", (d, r) => r[6] > -90 && r[6] !== 99 ? { v: r[6] * 1000, e: 0, est: false } : null, ""],
     d3n: ["Δₙ⁽³⁾ (pairing)", d => d.d3n, "MeV"], d3p: ["Δₚ⁽³⁾ (pairing)", d => d.d3p, "MeV"],
     d5n: ["Δₙ⁽⁵⁾ (pairing, 5-point)", d => d.d5n, "MeV"], d5p: ["Δₚ⁽⁵⁾ (pairing, 5-point)", d => d.d5p, "MeV"], d2p: ["δ₂ₚ = S₂ₚ(Z) − S₂ₚ(Z+2)", d => d.d2p, "MeV"],
@@ -394,53 +389,147 @@
   };
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
+  const palette=['#167d45','#b94e00','#a62888','#287daa','#7352bd','#96610b','#0d807b','#c54646','#525d76'];
+  const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'Loaded',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'AME+loaded',color:'#dd6000',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
+  const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,16*Math.ceil(visibleSeries.length/Math.max(1,Math.floor((w/sc-80)/140))));
+  function humanInputs(p){
+    return MM.provenance(p.valueObj,inputTable).map(x=>{
+      const loaded=x.id.startsWith('loaded:')?inputTable.active.get(x.id.split(':')[1]):null;
+      const r=M.get(Number(x.id.split(':').pop()));
+      const name=loaded?loaded.label:r?String(r[0]+r[1])+r[2]:T.loaded_reference;
+      return x.coefficient+' × '+name+(x.references.length?' ('+x.references.filter(Boolean).join('; ')+')':'');
+    }).join('; ');
+  }
+  function pointDetail(p){
+    const box=root.querySelector('.nc-point-detail');
+    if(!p){box.textContent='';return;}
+    const inputs=humanInputs(p);
+    box.textContent=p.r[0]+p.r[1]+p.r[2]+' · '+p.source+' · '+p.y+' ± '+(p.e??'—')+' '+(p.unit||PQ[pq.value][2])+' · '+inputs;
+  }
+  function pointTable(){
+    const d=root.querySelector('.nc-point-table');if(!d.open||!plotDomain)return;
+    const ps=plotPts.concat(modPts).filter(p=>p.x>=plotDomain.x0&&p.x<=plotDomain.x1).slice(0,300);
+    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>Source / inputs</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
+  }
+  root.querySelector('.nc-point-table').addEventListener('toggle',pointTable);
+  const impact=root.querySelector('.nc-impact'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
+  let impactRows=[],impactPage=0,impactRequest=0;
+  const impactNames={...Object.fromEntries(Object.entries(PQ).map(([k,v])=>[k,v[0]])),BE:T.loaded_be,BEA:T.m_bea,ex:'Eₓ from ME'};
+  window.ZGMassSurface.quantities.concat('ex').forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=impactNames[k];impactQ.append(o);});
+  const impactModels=()=>impactM.value==='selected'?selectedModels():impactM.value==='all'?Object.keys(modelIndex||{}):[impactM.value];
+  const impactFiltered=()=>impactRows.filter(r=>impactQ.value==='all'||r.quantity===impactQ.value);
+  const impactFormat=v=>v?Number(v.v.toFixed(6))+(v.est?'#':'')+' ± '+(v.e==null?'?':Number(v.e.toPrecision(4))):'—';
+  function impactRender(){
+    if(!impact.open)return;
+    const all=impactFiltered(),models=impactModels();impactPage=Math.max(0,Math.min(impactPage,Math.ceil(all.length/50)-1));
+    impact.querySelector('.nc-impact-info').textContent=T.loaded_impact_count.replace('{rows}',all.length).replace('{nuclei}',new Set(all.map(r=>r.r[0]+'-'+r.r[1]+'-'+(r.state||'g'))).size)+(models.some(k=>!MOD[k])?' · '+(models.some(k=>modelErrors.has(k))?T.loaded_model_error:T.loaded_model_loading):'');
+    impact.querySelector('tbody').innerHTML=all.slice(impactPage*50,impactPage*50+50).map(r=>'<tr><td>'+escape((r.r[0]+r.r[1])+r.r[2]+(r.state?'['+r.state+']':''))+'</td><td>'+escape(impactNames[r.quantity])+'<br>'+r.unit+'</td><td>'+escape(impactFormat(r.before))+'</td><td>'+escape(impactFormat(r.after))+'</td><td>'+escape(impactFormat(r.delta))+'</td><td>'+models.map(k=>{const v=r.state?null:derivedZN(r.r[0],r.r[1],k)[r.quantity];return escape(MOD[k]?.name||modelIndex?.[k]?.name||k)+': '+escape(impactFormat(v))+'<br>Δ(new − model): '+(v?Number((r.after.v-v.v).toPrecision(8)):'—');}).join('<br>')+'</td></tr>').join('');
+    impact.querySelector('.nc-impact-pager').innerHTML=all.length>50?'<button type="button" data-impact-page="-1" '+(impactPage===0?'disabled':'')+'>←</button><span>'+(impactPage*50+1)+'–'+Math.min(all.length,impactPage*50+50)+' / '+all.length+'</span><button type="button" data-impact-page="1" '+((impactPage+1)*50>=all.length?'disabled':'')+'>→</button>':'';
+  }
+  function impactRebuild(){
+    if(!impact.open||!inputTable)return;
+    impactRows=window.ZGMassSurface.changes(rows,inputTable.active,derivedZN,MM.affected);
+    for(const r of inputTable.active.values())if(r.state.source_state_index){
+      const s=r.state,m=s.mass_excess,old=m.value==null?null:P.primitive('NUBASE2020:'+s.id,m.value,m.uncertainty,m.value_extrapolated),gs=get(s.Z,s.N),newgs=getter('hybrid')(s.Z,s.N),centre=[s.Z,s.N,s.element];
+      for(const [quantity,before,after]of [['me',old,r.value],['ex',old&&gs?P.combine([1,old],[-1,gs]):null,newgs?P.combine([1,r.value],[-1,newgs]):null]])if(after)impactRows.push({r:centre,state:s.label,quantity,unit:'keV',before,after,delta:before?P.combine([1,after],[-1,before]):null});
+    }
+    impactRows.sort((a,b)=>a.r[0]-b.r[0]||a.r[1]-b.r[1]||a.quantity.localeCompare(b.quantity));impactRender();
+  }
+  async function impactLoad(){
+    const seq=++impactRequest;impactRebuild();
+    await Promise.allSettled(impactModels().map(k=>loadModels(k)));
+    if(seq===impactRequest&&impact.open){impactRebuild();plotChain();}
+  }
+  root.querySelector('[data-mass=impact]').onclick=()=>{impactPage=0;impact.showModal();impactLoad();};
+  impactQ.onchange=()=>{impactPage=0;impactRender();};impactM.onchange=()=>{impactPage=0;impactLoad();};
+  impact.addEventListener('click',e=>{
+    const page=e.target.closest('[data-impact-page]');if(page){impactPage+=+page.dataset.impactPage;impactRender();return;}
+    const act=e.target.closest('[data-impact]')?.dataset.impact;if(act==='close')impact.close();
+    if(act==='csv'){
+      const models=impactModels(),out=[];
+      for(const r of impactFiltered())for(const k of (models.length?models:[''])){const v=k&&!r.state?derivedZN(r.r[0],r.r[1],k)[r.quantity]:null;out.push([r.r[0]+r.r[1]+r.r[2],r.state||'g',r.r[0],r.r[1],r.quantity,r.unit,r.before?.v??'',r.before?.e??'',r.after.v,r.after.e??'',r.delta?.v??'',r.delta?.e??'',k,MOD[k]?.name||'',v?.v??'',v?r.after.v-v.v:'','unknown model uncertainty; independent experimental inputs, shared terms cancelled',JSON.stringify(MM.provenance(r.after,inputTable)),measured.hash()]);}
+      X.csv(['nuclide','state','Z','N','quantity','unit','reference_value','reference_sigma','recalculated','recalculated_sigma','new_minus_reference','delta_sigma','model','model_name','model_value','new_minus_model','uncertainty_basis','input_provenance','input_table_sha256'],out,'affected-mass-quantities');
+    }
+  });
   function plotChain(r) {
     chain = r || chain; if (!chain) return;
-    const ch = pchain.value, [Z, N] = chain, A = Z + N;
-    if(ch !== activeChainType){
+    const ch = pchain.value, [Z,N] = chain, A=Z+N;
+    if(ch!==activeChainType){
       rangeMemory[activeChainType]=Object.fromEntries(['c0','c1','x0','x1'].map(k=>[k,chainInput(k).value]));activeChainType=ch;
-      const values=CP.rangeFor(rangeMemory,ch,ch==='Z'?Z:ch==='N'?N:A);Object.entries(values).forEach(([k,v])=>chainInput(k).value=v);
+      Object.entries(CP.rangeFor(rangeMemory,ch,ch==='Z'?Z:ch==='N'?N:A)).forEach(([k,v])=>chainInput(k).value=v);
     }
-    const q = PQ[pq.value], rg = root.querySelector("[name=nc-range]"), on = rg && rg.checked, num = n => { const v = root.querySelector(`[name=${n}]`).value; return v === "" ? null : +v; };
-    const own = ch === "Z" ? Z : ch === "N" ? N : A, cfrom = on && num("nc-c0") != null ? num("nc-c0") : own, cto = on && num("nc-c1") != null ? num("nc-c1") : cfrom;
-    const xlo = on ? num("nc-x0") : null, xhi = on ? num("nc-x1") : null;
-    plotPts = []; plotHover = null;
-    const first = Math.max(0, Math.ceil(Math.min(cfrom, cto))), last = Math.min(400, Math.floor(Math.max(cfrom, cto))), total = Math.max(0, last - first + 1), shown = Math.min(total, 40);
-    for (let c = first; c < first + shown; c++) {
-      rows.filter(x => ch === "Z" ? x[0] === c : ch === "N" ? x[1] === c : x[0] + x[1] === c).forEach(x => {
-        const v = q[1](derived(x), x), xv = ch === "Z" ? x[1] : x[0];
-        if (v && (xlo == null || xv >= xlo) && (xhi == null || xv <= xhi)) plotPts.push({ r: x, x: xv, y: v.v / 1000, e: v.e == null ? null : v.e / 1000, est: v.est, g: c });
-      });
+    const q=PQ[pq.value],on=chainInput('range').checked,own=ch==='Z'?Z:ch==='N'?N:A;
+    const cfrom=on&&axisNumber('c0')!=null?axisNumber('c0'):own,cto=on&&axisNumber('c1')!=null?axisNumber('c1'):cfrom;
+    const xlo=on?axisNumber('x0'):null,xhi=on?axisNumber('x1'):null;
+    const first=Math.max(0,Math.ceil(Math.min(cfrom,cto))),last=Math.min(400,Math.floor(Math.max(cfrom,cto))),total=Math.max(0,last-first+1),shown=Math.min(total,40);
+    const group=(z,n)=>ch==='Z'?z:ch==='N'?n:z+n, xv=(z,n)=>ch==='Z'?n:z;
+    const belongs=(z,n)=>group(z,n)>=first&&group(z,n)<first+shown;
+    const inX=(z,n)=>(xlo==null||xv(z,n)>=xlo)&&(xhi==null||xv(z,n)<=xhi);
+    const advanced=shown<=6,filter=chainInput('exp-filter').value,maxSigma=axisNumber('max-sigma');
+    const passPoint=(r,v,source)=>{
+      const [z,n]=r,ame=get(z,n),mass=source==='loaded'||source==='hybrid'?getter('hybrid')(z,n):ame;
+      if(filter==='measured'&&(!ame||ame.est))return false;
+      if(filter==='loaded'&&!inputTable?.active.has(z+'-'+n+'-0'))return false;
+      if(filter==='affected'&&!MM.affected(q[1](derivedZN(z,n,'hybrid'),r)))return false;
+      if(maxSigma!=null&&(!mass||mass.e==null||mass.e>maxSigma||maxSigma<0))return false;
+      return true;
+    };
+    const makePoint=(r,s)=>{
+      const v=q[1](derivedZN(r[0],r[1],s==='loaded'?'hybrid':s),r);if(!v||!Number.isFinite(v.v)||!passPoint(r,v,s))return null;
+      return {r,x:xv(r[0],r[1]),y:v.v/1000,e:v.e==null?null:v.e/1000,est:!!v.est,g:group(r[0],r[1]),series:s,source:seriesMeta(s).name,valueObj:v};
+    };
+    plotPts=[];modPts=[];residualPts=[];bands=[];plotHover=null;pointDetail(null);
+    const centres=new Map(rows.filter(r=>belongs(r[0],r[1])).map(r=>[key(r[0],r[1]),r]));
+    for(const r of inputTable?.active.values()||[])if(!r.state.source_state_index&&belongs(r.state.Z,r.state.N)&&!centres.has(key(r.state.Z,r.state.N)))centres.set(key(r.state.Z,r.state.N),[r.state.Z,r.state.N,r.state.element,null,null,0,-97,'—','',null,'',[]]);
+    for(const s of ['ame','loaded','hybrid']){
+      if(!root.querySelector('[data-series='+s+']').checked||s!=='ame'&&!advanced)continue;
+      if(s!=='ame'&&['hl','beta2','dmod'].includes(pq.value))continue;
+      for(const r of centres.values()){
+        if(!inX(r[0],r[1])||s==='loaded'&&!inputTable?.active.has(r[0]+'-'+r[1]+'-0'))continue;
+        const p=makePoint(r,s);if(p)plotPts.push(p);
+      }
     }
-    plotPts.sort((a, b) => a.g - b.g || a.x - b.x);
-    plotPts.groups = [...new Set(plotPts.map(p => p.g))];
-    /* model curve over the whole chain the model predicts (needs a model source, or β₂ which only models give) */
-    const mk = src !== "ame" ? src : pq.value === "beta2" ? modelKey() : null;
-    modPts = [];
-    const modelReason = mk && shown > 6 ? T.model_many : mk && ["dme", "hl", "dmod"].includes(pq.value) ? T.model_quantity : '';
-    const belongs = (z, n) => { const c = ch === 'Z' ? z : ch === 'N' ? n : z + n; return c >= first && c < first + shown; };
-    const modelNuclei = mk && MOD[mk] && !modelReason ? [...MOD[mk].map.keys()].map(k => [Math.floor(k / 1000), k % 1000]).filter(([z, n]) => belongs(z, n)) : [];
-    if (modelNuclei.length) {
-      const ks = modelNuclei.filter(([z, n]) => (xlo == null || (ch === "Z" ? n : z) >= xlo) && (xhi == null || (ch === "Z" ? n : z) <= xhi));
-      modPts = ks.map(([z, n]) => { const v = q[1](derivedZN(z, n, mk), [z, n]), r=M.get(key(z,n)) || Object.assign([z,n,(EL.find(e=>e[0]===z)||[z,"Z"+z])[1],null,null,0,-97,"—","",null,"",[]],{mo:true}); return v && { r, source:MOD[mk].name, x: ch === "Z" ? n : z, y: v.v / 1000, e:null, g: ch === 'Z' ? z : ch === 'N' ? n : z + n }; }).filter(Boolean).sort((a, b) => a.g - b.g || a.x - b.x);
-      modPts.name = MOD[mk].name;
+    const modelKeys=selectedModels();
+    const modelReason=modelKeys.length&&!advanced?T.loaded_cap:modelKeys.length&&['dme','hl','dmod'].includes(pq.value)?T.model_quantity:modelKeys.some(k=>modelErrors.has(k))?T.loaded_model_error:modelKeys.some(k=>!MOD[k])?T.loaded_model_loading:'';
+    const modelNuclei=[];
+    if(advanced&&!['dme','hl','dmod'].includes(pq.value))for(const mk of modelKeys){
+      if(!MOD[mk])continue;
+      for(const k of MOD[mk].map.keys()){
+        const z=Math.floor(k/1000),n=k%1000;if(!belongs(z,n))continue;modelNuclei.push([z,n]);if(!inX(z,n))continue;
+        const r=M.get(k)||Object.assign([z,n,(EL.find(e=>e[0]===z)||[z,'Z'+z])[1],null,null,0,-97,'—','',null,'',[]],{mo:true});
+        const p=makePoint(r,mk);if(p)modPts.push(p);
+      }
     }
-    const gs = plotPts.groups, multi = gs.length > 1, nm = ch === "Z" ? "Z" : ch === "N" ? "N" : "A";
-    const lab = `${ch === 'Z' ? T.p_iso : ch === 'N' ? T.p_isot : T.p_isob}: ${nm} = ${first}${shown > 1 ? '–' + (first + shown - 1) : ''}`;
-    pinfo.textContent = `${lab} · ${q[0]} · ${plotPts.length} ${T.points} · ${T.chain_count.replace('{shown}',shown).replace('{total}',total)}${modelReason ? ' · ' + modelReason : ''}`;
-    const fullX = rows.filter(x => belongs(x[0],x[1])).map(x => ch === 'Z' ? x[1] : x[0]).concat(modelNuclei.map(([z,n]) => ch === 'Z' ? n : z));
-    plotDomain = CP.chainExtent(plotPts, modPts, { xMode: chainInput('xscale').value, yMode: chainInput('yscale').value, fullX, errors: chainInput('axis-errors').checked, manual: Object.fromEntries(['x0','x1','y0','y1'].map(k => [k, axisNumber('axis-'+k)])) });
-    root.querySelector('.nc-axis-note').textContent = (plotDomain.warnings.length ? T.axis_invalid + ' · ' : '') + T.axis_offscale;
-    root.querySelector('.nc-manual-x').hidden = chainInput('xscale').value !== 'manual';
-    root.querySelector('.nc-manual-y').hidden = chainInput('yscale').value !== 'manual';
-    pc.setAttribute('aria-label', `${lab}; ${q[0]}; x ${plotDomain.x0}–${plotDomain.x1}; y ${plotDomain.y0}–${plotDomain.y1}; ${plotPts.length} ${T.points}`);
-    drawPlot();
+    const sort=(a,b)=>a.series.localeCompare(b.series)||a.g-b.g||a.x-b.x;plotPts.sort(sort);modPts.sort(sort);
+    plotPts.groups=[...new Set(plotPts.concat(modPts).map(p=>p.g))];
+    visibleSeries=[...new Set(plotPts.concat(modPts).map(p=>p.series))].map(seriesMeta);
+    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'">'+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>p.series===s.id).length+')</span>').join('');
+    if(chainInput('band').checked){
+      const b=new Map();for(const p of modPts){const k=p.g+':'+p.x;if(!b.has(k))b.set(k,[]);b.get(k).push(p);}
+      bands=[...b.values()].filter(ps=>ps.length>=2).map(ps=>({g:ps[0].g,x:ps[0].x,lo:Math.min(...ps.map(p=>p.y)),hi:Math.max(...ps.map(p=>p.y)),count:ps.length})).sort((a,b)=>a.g-b.g||a.x-b.x);
+    }
+    if(chainInput('residual').checked&&!['hl','dme','dmod','beta2'].includes(pq.value)){
+      for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
+        const a=q[1](derived(p.r),p.r);if(!a)continue;
+        const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,valueObj:d,unit:'keV',panel:'residual',source:p.source+' − AME2020'});
+      }
+    }
+    root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
+    const label=(ch==='Z'?T.p_iso:ch==='N'?T.p_isot:T.p_isob)+': '+ch+' = '+first+(shown>1?'–'+(first+shown-1):'');
+    pinfo.textContent=label+' · '+q[0]+' · '+(plotPts.length+modPts.length)+' '+T.points+' · '+T.chain_count.replace('{shown}',shown).replace('{total}',total)+(modelReason?' · '+modelReason:'')+(!advanced&&modelReason!==T.loaded_cap&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)?' · '+T.loaded_cap:'')+' · '+bands.length+' '+T.loaded_band_points;
+    const fullX=[...centres.values()].map(r=>xv(r[0],r[1])).concat(modelNuclei.map(([z,n])=>xv(z,n)));
+    plotDomain=CP.chainExtent(plotPts,modPts,{xMode:chainInput('xscale').value,yMode:chainInput('yscale').value,fullX,errors:chainInput('axis-errors').checked,manual:Object.fromEntries(['x0','x1','y0','y1'].map(k=>[k,axisNumber('axis-'+k)]))});
+    root.querySelector('.nc-axis-note').textContent=(plotDomain.warnings.length?T.axis_invalid+' · ':'')+T.axis_offscale;
+    root.querySelector('.nc-manual-x').hidden=chainInput('xscale').value!=='manual';root.querySelector('.nc-manual-y').hidden=chainInput('yscale').value!=='manual';
+    pc.setAttribute('aria-label',label+'; '+q[0]+'; x '+plotDomain.x0+'–'+plotDomain.x1+'; '+(plotPts.length+modPts.length)+' '+T.points);
+    pointTable();resize();drawPlot();drawResidual();
   }
   function drawPlot(c = pg, Wd = pc._cw, Hd = pc._ch, sc = 1) {
     if (c === pg) pg.setTransform(pc.width / pc._cw, 0, 0, pc.height / pc._ch, 0, 0);
     c.clearRect(0, 0, Wd, Hd); c.fillStyle = sc > 1 ? "#fff" : "transparent"; if (sc > 1) c.fillRect(0, 0, Wd, Hd);
-    if (!plotPts.length && !modPts.length) { c.fillStyle = "#888"; c.font = `${13 * sc}px system-ui`; c.fillText(T.p_hint, 20 * sc, 30 * sc); return; }
-    const { x0,x1,y0,y1 } = plotDomain, geom = CP.geometry(plotDomain,Wd,Hd,(plotPts.groups || []).length > 1,sc);
+    if (!plotPts.length && !modPts.length) { c.fillStyle = "#888"; c.font = `${13 * sc}px system-ui`; c.fillText(chain ? T.loaded_no_points : T.p_hint, 20 * sc, 30 * sc); return; }
+    const { x0,x1,y0,y1 } = plotDomain, geom = plotGeom(plotDomain,Wd,Hd,sc);
     const { L,R,T:Tp,B,px,py } = geom;
     c.strokeStyle = "rgba(127,127,160,.45)"; c.lineWidth = 0.45 * lineWidth() * sc; c.strokeRect(L, Tp, Wd - L - R, Hd - B - Tp);
     c.fillStyle = sc > 1 ? "#222" : ink; c.font = `${11 * sc}px system-ui`; c.textAlign = "center";
@@ -452,30 +541,36 @@
     c.strokeStyle = "rgba(229,72,77,.35)"; c.setLineDash([4 * sc, 4 * sc]);
     MAGIC.forEach(m => { if (m > x0 && m < x1) { c.beginPath(); c.moveTo(px(m), Tp); c.lineTo(px(m), Hd - B); c.stroke(); } }); c.setLineDash([]);
     c.save(); c.beginPath(); c.rect(L,Tp,Wd-L-R,Hd-B-Tp); c.clip();
-    if (modPts.length) {   /* theory curve: dashed green, gaps where the chain is interrupted */
-      c.strokeStyle = "#16a34a"; c.lineWidth = lineWidth() * sc; c.setLineDash([6 * sc, 4 * sc]); c.beginPath();
-      modPts.forEach((p, i) => i && CP.connects(modPts[i - 1],p) ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke(); c.setLineDash([]);
-      c.fillStyle = "#16a34a"; modPts.forEach(p => { const xx=px(p.x);c.beginPath();if(p.y<y0||p.y>y1){const yy=geom.clampY(p.y),sign=p.y>y1?1:-1;c.moveTo(xx,yy);c.lineTo(xx-3*sc,yy+sign*6*sc);c.lineTo(xx+3*sc,yy+sign*6*sc);c.closePath();}else c.arc(xx,py(p.y),1.8*sc,0,6.283);c.fill(); });
-      c.strokeStyle = "rgba(127,127,160,.6)"; c.lineWidth = 0.45 * lineWidth() * sc; c.beginPath(); c.moveTo(L, py(0)); c.lineTo(Wd - R, py(0)); if (y0 < 0 && y1 > 0) c.stroke();
+    const groups=plotPts.groups||[],multi=groups.length>1;
+    const gcol=k=>multi?'hsl('+groups.indexOf(k)/groups.length*300+',75%,45%)':'#3b5bdb';
+    const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
+    if(bands.length){
+      c.fillStyle='rgba(30,135,95,.17)';
+      bands.forEach(b=>c.fillRect(px(b.x)-2*sc,py(b.hi),4*sc,Math.max(sc,py(b.lo)-py(b.hi))));
+      for(let i=1;i<bands.length;i++){const a=bands[i-1],b=bands[i];if(a.g!==b.g||b.x-a.x!==1)continue;c.beginPath();c.moveTo(px(a.x),py(a.lo));c.lineTo(px(a.x),py(a.hi));c.lineTo(px(b.x),py(b.hi));c.lineTo(px(b.x),py(b.lo));c.closePath();c.fill();}
     }
-    const groups = plotPts.groups || [], multi = groups.length > 1, gcol = g => multi ? `hsl(${(groups.indexOf(g) / groups.length) * 300},75%,${sc > 1 ? 40 : 48}%)` : "#3b5bdb";
-    const showLine = !root.querySelector("[name=nc-lines]") || root.querySelector("[name=nc-lines]").checked, showErr = !root.querySelector("[name=nc-err]") || root.querySelector("[name=nc-err]").checked;
-    if (showLine) groups.forEach(gk => { const ps = plotPts.filter(p => p.g === gk); c.strokeStyle = multi ? gcol(gk) : "rgba(139,108,255,.55)"; c.lineWidth = 1.2 * sc; c.beginPath();
-      ps.forEach((p, i) => i && CP.connects(ps[i - 1],p) ? c.lineTo(px(p.x), py(p.y)) : c.moveTo(px(p.x), py(p.y))); c.stroke(); });
-    plotPts.forEach(p => {
-      if (p.x < x0 || p.x > x1) return;
-      const xx = px(p.x), col = multi ? gcol(p.g) : p.est ? "#f59e0b" : "#3b5bdb";
-      c.strokeStyle = col; c.lineWidth = 1.3 * sc;
-      if (p.y < y0 || p.y > y1) { const yy = geom.clampY(p.y), sign = p.y > y1 ? 1 : -1; c.fillStyle=col;c.beginPath();c.moveTo(xx,yy);c.lineTo(xx-4*sc,yy+sign*7*sc);c.lineTo(xx+4*sc,yy+sign*7*sc);c.closePath();c.fill();return; }
-      if (showErr && p.e > 0) { c.beginPath(); c.moveTo(xx, py(p.y - p.e)); c.lineTo(xx, py(p.y + p.e)); c.moveTo(xx - 3 * sc, py(p.y - p.e)); c.lineTo(xx + 3 * sc, py(p.y - p.e)); c.moveTo(xx - 3 * sc, py(p.y + p.e)); c.lineTo(xx + 3 * sc, py(p.y + p.e)); c.stroke(); }
-      c.beginPath(); c.arc(xx, py(p.y), (multi ? 2.8 : 3.6) * sc, 0, 6.283);
-      if (p.est) { c.fillStyle = sc > 1 ? "#fff" : "rgba(255,255,255,.9)"; c.fill(); c.stroke(); } else { c.fillStyle = col; c.fill(); }
-      if (chain && p.r === chain) { c.strokeStyle = "#e5484d"; c.lineWidth = 2 * sc; c.beginPath(); c.arc(xx, py(p.y), 7 * sc, 0, 6.283); c.stroke(); }
-    });
+    for(const s of visibleSeries)for(const group of groups){
+      const ps=plotPts.concat(modPts).filter(p=>p.series===s.id&&p.g===group);if(!ps.length)continue;
+      const col=s.id==='ame'&&multi?gcol(group):s.color;
+      c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lineWidth()*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
+      if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
+      for(const p of ps){
+        if(p.x<x0||p.x>x1)continue;
+        const xx=px(p.x),yy=py(p.y),color=s.id==='ame'&&p.est?'#d48b00':col;c.strokeStyle=color;c.fillStyle=color;
+        if(p.y<y0||p.y>y1){const y=geom.clampY(p.y),sign=p.y>y1?1:-1;c.beginPath();c.moveTo(xx,y);c.lineTo(xx-4*sc,y+sign*7*sc);c.lineTo(xx+4*sc,y+sign*7*sc);c.closePath();c.fill();continue;}
+        if(showErr&&p.e>0){c.beginPath();c.moveTo(xx,py(p.y-p.e));c.lineTo(xx,py(p.y+p.e));for(const ey of [p.y-p.e,p.y+p.e]){c.moveTo(xx-3*sc,py(ey));c.lineTo(xx+3*sc,py(ey));}c.stroke();}
+        const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*sc;c.beginPath();
+        if(s.shape==='diamond'){c.moveTo(xx,yy-radius-1*sc);c.lineTo(xx+radius+1*sc,yy);c.lineTo(xx,yy+radius+1*sc);c.lineTo(xx-radius-1*sc,yy);c.closePath();}
+        else if(s.shape==='square')c.rect(xx-radius,yy-radius,radius*2,radius*2);
+        else c.arc(xx,yy,radius,0,6.283);
+        if(p.est){c.fillStyle=sc>1?'#fff':'rgba(255,255,255,.9)';c.fill();c.stroke();}else c.fill();
+        if(chainInput('reference-ring').checked&&chain&&p.r[0]===chain[0]&&p.r[1]===chain[1]){c.strokeStyle='#e5484d';c.lineWidth=1.5*sc;c.beginPath();c.arc(xx,yy,7*sc,0,6.283);c.stroke();}
+      }
+    }
     c.restore();
-    if (multi) groups.forEach(gk => { const ps=plotPts.filter(p=>p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const l=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=`${10*sc}px system-ui`;c.textAlign='left';c.fillText((pchain.value==='Z'?(EL.find(e=>e[0]===gk)||[0,'Z'+gk])[1]:(pchain.value==='N'?'N=':'A=')+gk),Math.min(px(l.x)+5*sc,Wd-R+4*sc),geom.clampY(l.y)+3*sc); });
-    c.textAlign = "left"; c.font = `${10.5 * sc}px system-ui`; c.fillStyle = "#3b5bdb"; c.fillText(`● ${T.measured}`, L + 8 * sc, Tp + 14 * sc); c.fillStyle = "#f59e0b"; c.fillText(`○ ${T.extrap}`, L + 90 * sc, Tp + 14 * sc);
-    if(modPts.length){c.fillStyle='#16a34a';c.fillText(`– – ${modPts.name}`,L+8*sc,Tp+30*sc);}
+    if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=10*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
+    const columns=Math.max(1,Math.floor((Wd/sc-80)/140));c.textAlign='left';c.font=10.5*sc+'px system-ui';
+    visibleSeries.forEach((s,i)=>{c.fillStyle=s.color;c.fillText((s.shape==='diamond'?'◆ ':s.shape==='square'?'□ ':s.shape==='model'?'– – ':'● ')+s.short,L+(i%columns)*140*sc,12*sc+Math.floor(i/columns)*16*sc);});
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
       c.fillStyle=ink;c.textAlign='left';c.font='12px system-ui';
@@ -485,22 +580,42 @@
       lines.forEach((s,i)=>c.fillText(s,left,top+i*14));
     }
   }
+  function drawResidual(){
+    if(!plotDomain||root.querySelector('.nc-residual-panel').hidden)return;
+    const width=pc._cw,height=Math.max(230,Math.min(320,width*.45));sizeCanvas(rc,width,height);rg.setTransform(rc.width/width,0,0,rc.height/height,0,0);rg.clearRect(0,0,width,height);
+    const domain={...CP.chainExtent(residualPts,[],{errors:true}),x0:plotDomain.x0,x1:plotDomain.x1};
+    domain.y0=Math.min(domain.y0,0);domain.y1=Math.max(domain.y1,0);residualDomain=domain;
+    const geom=CP.geometry(domain,width,height,(plotPts.groups||[]).length>1),{L,R,T:top,B,px,py}=geom;
+    rg.strokeStyle='rgba(127,127,160,.5)';rg.strokeRect(L,top,width-L-R,height-B-top);rg.fillStyle=ink;rg.font='11px system-ui';
+    rg.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>rg.fillText(fmtTick(y),L-5,py(y)+3));rg.textAlign='center';
+    niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>rg.fillText(x,px(x),height-B+15));
+    rg.fillText('Δ (keV) = series − AME2020',(L+width-R)/2,12);rg.beginPath();rg.moveTo(L,py(0));rg.lineTo(width-R,py(0));rg.stroke();
+    rg.save();rg.beginPath();rg.rect(L,top,width-L-R,height-B-top);rg.clip();
+    for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
+      const ps=residualPts.filter(p=>p.series===s.id&&p.g===group);rg.strokeStyle=s.color;rg.fillStyle=s.color;rg.setLineDash(s.shape==='model'?[5,3]:[]);
+      rg.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?rg.lineTo(px(p.x),py(p.y)):rg.moveTo(px(p.x),py(p.y)));rg.stroke();rg.setLineDash([]);
+      ps.forEach(p=>{rg.beginPath();rg.arc(px(p.x),py(p.y),2.5,0,6.283);rg.fill();if(p.e>0){rg.beginPath();rg.moveTo(px(p.x),py(p.y-p.e));rg.lineTo(px(p.x),py(p.y+p.e));rg.stroke();}});
+    }
+    rg.restore();rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
+  }
+  rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=CP.geometry(residualDomain,rc._cw,rc._ch,(plotPts.groups||[]).length>1);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
   function plotAt(e) {
-    if(!plotDomain)return null;const b=pc.getBoundingClientRect(),x=(e.clientX-b.left)*pc._cw/b.width,y=(e.clientY-b.top)*pc._ch/b.height,geom=CP.geometry(plotDomain,pc._cw,pc._ch,(plotPts.groups||[]).length>1);
+    if(!plotDomain)return null;const b=pc.getBoundingClientRect(),x=(e.clientX-b.left)*pc._cw/b.width,y=(e.clientY-b.top)*pc._ch/b.height,geom=plotGeom(plotDomain,pc._cw,pc._ch);
     if(x<geom.L||x>geom.right||y<geom.T||y>geom.bottom)return null;
     return CP.nearest(modPts.filter(p=>p.r).concat(plotPts),x,y,geom);
   }
   pc.addEventListener("mousemove", e => {
-    plotHover = plotAt(e); drawPlot();
+    plotHover = plotAt(e); pointDetail(plotHover);drawPlot();
   });
   pc.addEventListener('mouseleave',()=>{plotHover=null;drawPlot();});
-  pc.addEventListener("click", e => { const point=plotAt(e); if (point) { pin = point.r; zoomTo(pin); showCard(pin); } });
+  pc.addEventListener("click", e => { const point=plotAt(e); if (point) { pointDetail(point);pin = point.r; zoomTo(pin); showCard(pin); } });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); plotChain(); };
   root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err]").forEach(el => el.addEventListener("input", () => plotChain()));
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   const rgb = root.querySelector("[name=nc-range]"); if (rgb) rgb.addEventListener("change", () => { root.querySelector(".nc-prange-in").hidden = !rgb.checked;
     if (rgb.checked && chain) { const ch = pchain.value, own = ch === "Z" ? chain[0] : ch === "N" ? chain[1] : chain[0] + chain[1], set = (n, v) => { const el = root.querySelector(`[name=${n}]`); if (el.value === "") el.value = v; };
       set("nc-c0", own); set("nc-c1", own); } plotChain(); });
+  root.querySelectorAll('.nc-series input,.nc-experiment-filter input,.nc-experiment-filter select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   pchain.onchange = () => plotChain();
 
   /* ---------- periodic table (mulberry) ---------- */
@@ -540,8 +655,9 @@
   root.querySelector("[data-nc=ppng]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = pc._cw * sc; o.height = pc._ch * sc; drawPlot(o.getContext("2d"), o.width, o.height, sc); return o; }, "chain-" + pq.value, 6);
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain)return;
-    X.csv(['chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','flag','source','axis_x0','axis_x1','axis_y0','axis_y1'],
-      plotPts.concat(modPts).map(p=>[pchain.value,p.g,p.x,p.r?.[0]??'',p.r?.[1]??'',p.r?p.r[0]+p.r[1]:'',p.r?.[2]??'',pq.value,PQ[pq.value][2],p.y,p.e??'',p.est?'#':'',p.source||'AME2020',plotDomain.x0,plotDomain.x1,plotDomain.y0,plotDomain.y1]),'chain-'+pq.value);
+    const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts.map(p=>({...p,panel:'residual',unit:'keV'})));
+    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1'],
+      points.map(p=>[p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:'',p.panel==='value'?plotDomain.y1:'']),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
@@ -581,17 +697,22 @@
   const resize = () => {
     const w = Math.round(cv.getBoundingClientRect().width), h = Math.round(Math.min(w * 0.62, innerHeight * 0.78, 1100));
     if (w && (Math.abs(w - cv._cw) > 2 || Math.abs(h - cv._ch) > 2 || cv.width !== Math.round(w * DPR()))) { sizeCanvas(cv, w, h); fit(); }
-    const pw = Math.round(pc.getBoundingClientRect().width), ph = Math.round(Math.max(260,Math.min(pw * 0.5, innerHeight * 0.6, 700)));
-    if (pw && (Math.abs(pw - pc._cw) > 2 || Math.abs(ph - pc._ch) > 2 || pc.width !== Math.round(pw * DPR()))) { sizeCanvas(pc, pw, ph); drawPlot(); }
+    const pw = Math.round(pc.getBoundingClientRect().width);
+    const legendHeight=16*Math.ceil(visibleSeries.length/Math.max(1,Math.floor((pw-80)/140)));
+    const ph = Math.round(Math.max(260,Math.min(pw * 0.5, innerHeight * 0.6, 700))+legendHeight);
+    if (pw && (Math.abs(pw - pc._cw) > 2 || Math.abs(ph - pc._ch) > 2 || pc.width !== Math.round(pw * DPR()))) { sizeCanvas(pc, pw, ph); drawPlot();drawResidual(); }
   };
   new ResizeObserver(resize).observe(cv); new ResizeObserver(resize).observe(pc); addEventListener("resize", resize);
-  new MutationObserver(()=>{updateInk();draw();drawPlot();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
+  new MutationObserver(()=>{updateInk();draw();drawPlot();drawResidual();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
 
   Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame)]).then(([d,c]) => {
     catalog=c;
     rows = d.rows; EL = d.elements; rows.forEach(r => M.set(key(r[0], r[1]), r));
     MEn = get(0, 1) || MEn; MEH = get(1, 0) || MEH; MEa = get(2, 2) || MEa;
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;
+    measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{inputTable=table;memo.clear();plotChain();draw();if(pin)showCard(pin);impactRebuild();});
+    inputTable=measured.table();
+    loadIndex().catch(modelFailure);
     buildPT(); drawLegend(); fit(); fsel.onchange();
     const q = new URLSearchParams(location.search).get("nuclide");
     if (q) { const state=new URLSearchParams(location.search).get("state"); search.value = q+(state?`[${state}]`:""); search.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" })); }

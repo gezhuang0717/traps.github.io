@@ -18,8 +18,8 @@
     }
     return { x0, x1, y0, y1, warnings };
   }
-  function geometry(extent, width, height, multiple = false, scale = 1) {
-    const L = 62 * scale, R = (multiple ? 78 : 18) * scale, T = 18 * scale, B = 42 * scale;
+  function geometry(extent, width, height, multiple = false, scale = 1, legendHeight = 0) {
+    const L = 62 * scale, R = (multiple ? 78 : 18) * scale, T = (18+legendHeight) * scale, B = 42 * scale;
     const px = x => L + (x - extent.x0) / (extent.x1 - extent.x0) * (width - L - R);
     const py = y => height - B - (y - extent.y0) / (extent.y1 - extent.y0) * (height - B - T);
     return { L, R, T, B, right: width - R, bottom: height - B, px, py, clampY: y => Math.max(T, Math.min(height - B, py(y))) };
@@ -33,7 +33,7 @@
     }
     return found;
   }
-  const connects = (a, b, step = 1) => a && b && a.g === b.g && b.x - a.x === step;
+  const connects = (a, b, step = 1) => a && b && a.g === b.g && a.series === b.series && b.x - a.x === step;
   function rangeFor(memory, type, own) {
     return memory[type] || { c0: String(own), c1: String(own), x0: '', x1: '' };
   }

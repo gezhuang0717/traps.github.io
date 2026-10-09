@@ -1,0 +1,32 @@
+{
+  "name": "BSkG3 (2023)",
+  "url": "https://www.astro.ulb.ac.be/pmwiki/Brusslib/BSkG3",
+  "table_url": "https://www.astro.ulb.ac.be/bruslib/nucdata/bskg03-dat",
+  "ref": "G. Grams et al., Eur. Phys. J. A 59, 270 (2023)",
+  "doi": "10.1140/epja/s10050-023-01158-6",
+  "raw_sha256": "6caff2762ea1ce8deb3707ac16d286bdb084ea97fdf084d5783a157fb20543b6",
+  "normalized_sha256": "cb47086fc2f5a82096b9110bde3edc5e0abca85ee7bdd9c4d13a9cbd1e726119",
+  "rows": 8485,
+  "first": [
+    8,
+    16,
+    -4.51,
+    0.23
+  ],
+  "last": [
+    118,
+    379,
+    603.7,
+    0.02
+  ],
+  "mass_precision_keV": 10,
+  "beta2_precision": 0.01,
+  "uncertainty": null,
+  "validation": {
+    "neutron_separation_checks": 8361,
+    "maximum_difference_MeV": 0.01131810000008504,
+    "tolerance_MeV": 0.016
+  },
+  "reuse": "attributed numerical facts from public author-hosted table; raw table and webpage not redistributed",
+  "note": "Mcal is atomic mass excess, not full atomic mass. Err/Mexp-Mcal is an experimental residual, never model sigma. BSkG3 web page count/range is older than this hashed table; actual parsed coverage retained."
+}

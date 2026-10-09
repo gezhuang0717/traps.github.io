@@ -12,23 +12,22 @@ en:
   couple: Continuous resonant coupling
   pause: Pause / resume
   reset: Reset motion
-  note: 'Teaching model: radii use one common arbitrary scale; time and drive strengths
-    are normalized. A resonant π pulse swaps both mode amplitudes. Dipole excitation
-    adds a phase-dependent amplitude. Weak viscous drag shrinks cyclotron and axial
-    motion but expands the negative-energy magnetron radius; resonant quadrupole coupling
-    allows centering. Gas collisions, diffusion, space charge and extraction are omitted.
-    Playback seconds are not experimental pulse times.'
-  recordnote: 'Choose a process, then Record: it resets the motion and starts that
-    process at the beginning of the video. Gas + coupling uses continuous sideband
-    excitation. Radius controls show the reference ion; cloud ions can differ.'
+  note: 'Teaching model: radii use one common arbitrary scale; time and drive strengths are normalized.
+    A resonant π pulse swaps both mode amplitudes. Dipole excitation adds a phase-dependent amplitude.
+    Weak viscous drag shrinks cyclotron and axial motion but expands the negative-energy magnetron radius;
+    resonant quadrupole coupling allows centering. Gas collisions, diffusion, space charge and extraction
+    are omitted. Playback seconds are not experimental pulse times.'
+  recordnote: Pause and set the radii, axial amplitude, speed, ion count and view you want. Record a selected
+    process to restart time/phase/trails from those current radii; Current motion continues without restart.
+    The initial radii and speed are written into the video. Preview the result here, then use Save recorded
+    video. Radius units are normalized; gas + coupling uses continuous sideband excitation.
   top: Top view of ion motion
   side: Axial view of ion motion
   originx: Trap centre x (mm)
   originy: Trap centre y (mm)
   originz: Trap centre z (mm)
-  originhint: Centre coordinates translate the ideal trap and plotted motion together;
-    they do not simulate electrode misalignment. ν₊ and ν₋ follow B, U₀ and d and
-    cannot be varied independently.
+  originhint: Centre coordinates translate the ideal trap and plotted motion together; they do not simulate
+    electrode misalignment. ν₊ and ν₋ follow B, U₀ and d and cannot be varied independently.
 zh:
   record: 录制所选过程
   process: 录制过程
@@ -44,7 +43,7 @@ zh:
   pause: 暂停 / 继续
   reset: 重置运动
   note: 教学模型：所有半径采用相同任意尺度，时间与驱动强度均已归一化。共振 π 脉冲交换两个模式的振幅；偶极激发按相位叠加振幅。弱黏滞阻尼使回旋与轴向运动衰减，但使负能量磁控运动半径增大；共振四极耦合可实现定心。未模拟气体碰撞、扩散、空间电荷与引出。播放秒数不是实验脉冲时间。
-  recordnote: 选择过程后点击录制：运动将重置，并从视频开始处启动该过程。气体与耦合组合采用连续边带激发。半径控件显示参考离子，离子云中其他离子可能不同。
+  recordnote: 先暂停并设置所需半径、轴向振幅、速度、离子数与视角。录制所选过程时从当前半径重新开始时间／相位／轨迹；当前运动模式不重启。视频写入初始半径与速度。录制后先在页面预览，再点击保存录制视频。半径采用归一化单位；气体＋耦合使用连续边带激励。
   top: 离子运动俯视图
   side: 离子运动轴向视图
   originx: 阱中心 x（mm）
@@ -65,23 +64,21 @@ fi:
   couple: Jatkuva resonanssikytkentä
   pause: Tauko / jatka
   reset: Palauta liike
-  note: 'Opetusmalli: säteillä on sama mielivaltainen mittakaava; aika ja ajovoimakkuudet
-    on normitettu. Resonanssin π-pulssi vaihtaa moodien amplitudit. Dipoliviritys
-    lisää vaiheesta riippuvan amplitudin. Heikko viskoosi vaimennus pienentää syklotroni-
-    ja aksiaaliliikettä mutta kasvattaa negatiivisen energian magnetronisädettä; resonanssin
-    kvadrupolikytkentä mahdollistaa keskittämisen. Kaasutörmäykset, diffuusio, avaruusvaraus
-    ja ulosveto puuttuvat. Toiston sekunnit eivät ole kokeellisia pulssiaikoja.'
-  recordnote: 'Valitse prosessi ja tallenna: liike palautetaan ja prosessi alkaa videon
-    alussa. Kaasu ja kytkentä käyttävät jatkuvaa sivukaistaviritystä. Säätimet näyttävät
-    referenssi-ionin säteet; muut ionit voivat erota.'
+  note: 'Opetusmalli: säteillä on sama mielivaltainen mittakaava; aika ja ajovoimakkuudet on normitettu.
+    Resonanssin π-pulssi vaihtaa moodien amplitudit. Dipoliviritys lisää vaiheesta riippuvan amplitudin.
+    Heikko viskoosi vaimennus pienentää syklotroni- ja aksiaaliliikettä mutta kasvattaa negatiivisen energian
+    magnetronisädettä; resonanssin kvadrupolikytkentä mahdollistaa keskittämisen. Kaasutörmäykset, diffuusio,
+    avaruusvaraus ja ulosveto puuttuvat. Toiston sekunnit eivät ole kokeellisia pulssiaikoja.'
+  recordnote: Keskeytä ja aseta säteet, aksiaalinen amplitudi, nopeus, ionimäärä ja näkymä. Valittu prosessi
+    alkaa nykyisistä säteistä ajalla nolla; nykyinen liike jatkuu. Video näyttää alkusäteet ja nopeuden.
+    Esikatsele ja tallenna videolinkistä. Säteet ovat normalisoituja.
   top: Ioniliike ylhäältä
   side: Ioniliike akselin suunnassa
   originx: Loukun keskus x (mm)
   originy: Loukun keskus y (mm)
   originz: Loukun keskus z (mm)
-  originhint: Keskus siirtää ideaaliloukkua ja sen liikettä yhdessä, eikä mallinna
-    elektrodien kohdistusvirhettä. ν₊ ja ν₋ määräytyvät arvoista B, U₀ ja d, eikä
-    niitä voi muuttaa riippumattomasti.
+  originhint: Keskus siirtää ideaaliloukkua ja sen liikettä yhdessä, eikä mallinna elektrodien kohdistusvirhettä.
+    ν₊ ja ν₋ määräytyvät arvoista B, U₀ ja d, eikä niitä voi muuttaa riippumattomasti.
 de:
   record: Gewählten Prozess aufnehmen
   process: Aufnahmeprozess
@@ -96,24 +93,21 @@ de:
   couple: Kontinuierliche Resonanzkopplung
   pause: Pause / fortsetzen
   reset: Bewegung zurücksetzen
-  note: 'Lehrmodell: Radien haben denselben beliebigen Maßstab; Zeit und Anregungsstärken
-    sind normiert. Ein resonanter π-Puls vertauscht beide Modenamplituden. Dipolanregung
-    addiert eine phasenabhängige Amplitude. Schwache viskose Dämpfung verkleinert
-    Zyklotron- und Axialbewegung, vergrößert jedoch den Magnetronradius mit negativer
-    Energie; resonante Quadrupolkopplung ermöglicht Zentrierung. Gasstöße, Diffusion,
-    Raumladung und Extraktion fehlen. Wiedergabesekunden sind keine experimentellen
-    Pulszeiten.'
-  recordnote: 'Prozess wählen und aufnehmen: Die Bewegung wird zurückgesetzt und der
-    Prozess beginnt mit dem Video. Gas mit Kopplung nutzt kontinuierliche Seitenbandanregung.
-    Radien zeigen das Referenzion; andere Ionen können abweichen.'
+  note: 'Lehrmodell: Radien haben denselben beliebigen Maßstab; Zeit und Anregungsstärken sind normiert.
+    Ein resonanter π-Puls vertauscht beide Modenamplituden. Dipolanregung addiert eine phasenabhängige
+    Amplitude. Schwache viskose Dämpfung verkleinert Zyklotron- und Axialbewegung, vergrößert jedoch den
+    Magnetronradius mit negativer Energie; resonante Quadrupolkopplung ermöglicht Zentrierung. Gasstöße,
+    Diffusion, Raumladung und Extraktion fehlen. Wiedergabesekunden sind keine experimentellen Pulszeiten.'
+  recordnote: Pausieren und Radien, axiale Amplitude, Geschwindigkeit, Ionenzahl und Ansicht einstellen.
+    Der gewählte Prozess startet bei den aktuellen Radien neu; aktuelle Bewegung läuft weiter. Anfangsradien
+    und Geschwindigkeit stehen im Video. Vorschau prüfen, dann Videolink speichern. Radien sind normiert.
   top: Ionbewegung von oben
   side: Axialansicht der Ionbewegung
   originx: Fallenzentrum x (mm)
   originy: Fallenzentrum y (mm)
   originz: Fallenzentrum z (mm)
-  originhint: Das Zentrum verschiebt ideale Falle und Bewegung gemeinsam; es simuliert
-    keine Elektrodenfehlstellung. ν₊ und ν₋ folgen B, U₀ und d und sind nicht unabhängig
-    einstellbar.
+  originhint: Das Zentrum verschiebt ideale Falle und Bewegung gemeinsam; es simuliert keine Elektrodenfehlstellung.
+    ν₊ und ν₋ folgen B, U₀ und d und sind nicht unabhängig einstellbar.
 ja:
   record: 選択した過程を録画
   process: 録画する過程
@@ -129,7 +123,7 @@ ja:
   pause: 一時停止 / 再開
   reset: 運動をリセット
   note: 教育モデル：半径は共通の任意尺度を使い、時間と駆動強度は規格化されています。共鳴 π パルスは両モードの振幅を交換します。双極励起は位相に応じた振幅を加えます。弱い粘性減衰はサイクロトロン運動と軸方向運動を減衰させますが、負のエネルギーを持つマグネトロン半径を増加させます。共鳴四重極結合により中心へ集められます。ガス衝突、拡散、空間電荷、引き出しは含みません。再生時間の秒数は実験のパルス時間ではありません。
-  recordnote: 過程を選んで録画すると、運動がリセットされ、動画の開始時に過程が始まります。ガスと結合は連続側帯励起を使います。半径の値は基準イオンを示し、他のイオンとは異なる場合があります。
+  recordnote: 一時停止して半径・軸振幅・速度・イオン数・視点を設定します。選択過程は現在の半径から時間・位相・軌跡を再開始し、現在の運動は継続します。初期半径と速度を動画に表示します。ページで確認後、保存リンクを使用します。半径は規格化単位です。
   top: イオン運動の上面図
   side: イオン運動の軸方向図
   originx: トラップ中心 x（mm）

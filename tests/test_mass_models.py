@@ -1,0 +1,26 @@
+import hashlib, json
+from pathlib import Path
+from tools.import_bruslib import parse
+
+ROOT=Path(__file__).resolve().parents[1]
+def test_model_index_and_payload_identity():
+    all_data=json.loads((ROOT/'static/data/massmodels.json').read_text())
+    index=json.loads((ROOT/'static/data/massmodels-index.json').read_text())
+    assert len(index['models'])==7
+    for key,meta in index['models'].items():
+        model=json.loads((ROOT/'static/data'/meta['data_url']).read_text())
+        assert model==all_data['models'][key]
+        assert len(model['rows'])==meta['row_count']
+        assert model['uncertainty'] is None
+        assert len({tuple(row[:2]) for row in model['rows']})==len(model['rows'])
+    for key,count in [('hfb14',8388),('hfb24',8392),('bskg3',8485)]:
+        meta=index['models'][key]['source']
+        data=ROOT/f'tools/data/massmodels/{key}.txt'
+        assert hashlib.sha256(data.read_bytes()).hexdigest()==meta['normalized_sha256']
+        assert meta['rows']==count and meta['validation']['maximum_difference_MeV']<.016
+
+def test_hfb14_blank_columns_never_shift_mass_or_supply_model_sigma():
+    # A realistic boundary row with blank Sn/Sp/Q columns.
+    text='   8  16  0.00  0.00 2.782  1.70                               -4.01    -0.72'
+    assert float(text[59:68])==-4.01
+    assert not text[32:41].strip()

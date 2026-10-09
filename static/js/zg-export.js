@@ -58,22 +58,36 @@
       if (!canvas.captureStream || !window.MediaRecorder) { const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording is not supported in this browser.',zh:'此浏览器不支持视频录制。',fi:'Selain ei tue videon tallennusta.',de:'Dieser Browser unterstützt keine Videoaufnahme.',ja:'このブラウザーは動画の録画に対応していません。'})[lang]||'Video recording is not supported in this browser.');onState&&onState(false);return; }
       const types = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
       const type = types.find(t => MediaRecorder.isTypeSupported(t)) || "";
-      const stream=canvas.captureStream(60);
-      const rec = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 25e6 }), parts = [];
+      let stream,rec,failed=false;
+      const parts=[];
+      const finish=()=>{stream?.getTracks().forEach(t=>t.stop());onState&&onState(false);};
+      const failure=()=>{failed=true;finish();const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording failed. Try a shorter duration or another browser.',zh:'视频录制失败。请尝试较短时长或其他浏览器。',fi:'Videon tallennus epäonnistui. Kokeile lyhyempää kestoa tai toista selainta.',de:'Videoaufnahme fehlgeschlagen. Kürzere Dauer oder anderen Browser versuchen.',ja:'録画に失敗しました。短い時間または別のブラウザーでお試しください。'})[lang]||'Video recording failed.');};
+      try{stream=canvas.captureStream(60);rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),videoBitsPerSecond:25e6});}catch(_){failure();return;}
       rec.ondataavailable = e => e.data.size && parts.push(e.data);
+      rec.onerror=failure;
       rec.onstop = () => {
+        if(failed){finish();return;}
+        if(!parts.length){failure();return;}
         const container=canvas.closest('[data-trap3d],[data-trap2d],[data-workbench]');
-        if(!container){save(new Blob(parts,{type:type||'video/webm'}),`${name}-${stamp()}.${type.includes('mp4')?'mp4':'webm'}`);stream.getTracks().forEach(t=>t.stop());onState&&onState(false);return;}
+        const mime=rec.mimeType||type||'video/webm';
+        if(!container){save(new Blob(parts,{type:mime}),`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`);finish();return;}
         const previous=container.querySelector('[data-recording-result]');
         if(previous){URL.revokeObjectURL(previous.dataset.url);previous.remove();}
-        const url=URL.createObjectURL(new Blob(parts,{type:type||'video/webm'})), box=document.createElement('div'),video=document.createElement('video'),link=document.createElement('a');
+        const url=URL.createObjectURL(new Blob(parts,{type:mime})), box=document.createElement('div'),video=document.createElement('video'),link=document.createElement('a');
         const lang=(document.documentElement.lang||'en').split('-')[0],label=({en:'Save recorded video',zh:'保存录制视频',fi:'Tallenna kuvattu video',de:'Aufgenommenes Video speichern',ja:'録画した動画を保存'})[lang]||'Save recorded video';
-        box.dataset.recordingResult='';box.dataset.url=url;video.src=url;video.controls=true;video.style.width='100%';video.style.maxHeight='360px';link.href=url;link.download=`${name}-${stamp()}.${type.includes('mp4')?'mp4':'webm'}`;link.textContent=label;link.className='zg-btn zg-btn-ghost';box.append(video,link);container.append(box);
-        stream.getTracks().forEach(t=>t.stop());onState && onState(false);
+        box.dataset.recordingResult='';box.dataset.url=url;video.src=url;video.controls=true;video.preload='metadata';video.style.width='100%';video.style.maxHeight='360px';link.href=url;link.download=`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`;link.textContent=label;link.className='zg-btn zg-btn-ghost';box.append(video,link);container.append(box);
+        finish();
       };
-      rec.start(); onState && onState(true);
+      try{onState&&onState(true);rec.start();}catch(_){failure();return;}
       setTimeout(() => rec.state !== "inactive" && rec.stop(), seconds * 1000);
       return rec;
+    },
+    caption(ctx,width,lines,y=18){
+      ctx.save();ctx.font='12px system-ui';
+      const wrapped=[];
+      for(const line of lines){let text='';for(const word of line.split(' ')){const next=text?text+' '+word:word;if(text&&ctx.measureText(next).width>width-24){wrapped.push(text);text=word;}else text=next;}wrapped.push(text);}
+      ctx.fillStyle='rgba(255,255,255,.93)';ctx.fillRect(5,y-14,width-10,wrapped.length*16+5);
+      ctx.fillStyle='#17202a';wrapped.forEach((line,i)=>ctx.fillText(line,10,y+i*16));ctx.restore();
     },
   };
   // Reuse each figure's own PNG renderer so PDF shows the same inputs and view.

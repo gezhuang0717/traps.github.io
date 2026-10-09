@@ -60,12 +60,12 @@ PRIVATE_PATTERNS = {  # regex → reason
     r"(?i)\bCONFIDENTIAL\b|\bDO NOT PUBLISH\b|\bINTERNAL ONLY\b": "confidential marker",
 }
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
-WEB_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".geojson", ".txt", ".svg", ".png", ".jpg", ".jpeg",
+WEB_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".geojson", ".txt", ".csv", ".tsv", ".svg", ".png", ".jpg", ".jpeg",
                 ".gif", ".webp", ".avif", ".ico", ".mp4", ".webm", ".woff", ".woff2", ".ttf", ".webmanifest",
                 ".pdf", ".map", ""}
 FORBIDDEN_NAMES = re.compile(r"(?i)(manual|handoff|changelog|audit|snapshot|\.bundle$|\.docx$|\.tex$|\.py$|\.ya?ml$|\.toml$|\.md$|\.env$|\.git/)")
 MAX_FILE_MB, MAX_SITE_MB = 50, 900
-TEXT_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".txt", ".svg", ".webmanifest"}
+TEXT_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".txt", ".csv", ".tsv", ".svg", ".webmanifest"}
 
 
 class Gate:
@@ -120,7 +120,7 @@ def check_privacy_sources(g):
         p = ROOT / base
         files = [p] if p.is_file() else [f for f in p.rglob("*") if f.is_file()]
         for f in files:
-            if f.suffix.lower() not in {".md", ".yaml", ".yml", ".json", ".html", ".js", ".css", ".toml", ".txt", ".gotmpl"}:
+            if f.suffix.lower() not in {".md", ".yaml", ".yml", ".json", ".html", ".js", ".css", ".toml", ".txt", ".csv", ".tsv", ".gotmpl"}:
                 continue
             if f.stat().st_size > 8_000_000:
                 continue

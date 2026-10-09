@@ -1,4 +1,10 @@
 en:
+  centre_sigma: "Centre spot width σx,y (mm)"
+  floor_help: "A shared angular offset per species/dataset; 1 mrad = 0.0573°. It does not decrease when more events are counted."
+  counts_help: "Assumed events used for each centroid estimate: statistical angular σ scales as 1/√N. This does not set the number of simulated hits per shot."
+  seed_help: "Reproducible random detector hits. Use the same seed and settings, then New/Clear, to repeat a simulated sample. It is not a physical parameter."
+  practice_help: "This limits only the dice/random isomer picker to half-lives of at least 50 ms. Manual search and ion entry stay available."
+  spots_help: "Outer-spot σ controls event blur and phase resolution. Centre-spot σ controls only the central detector cloud; increasing it does not broaden the orbiting species."
   search: Search
   other_states: Other levels / IAS / unresolved classification
   detector_practice: Detector and practice
@@ -97,6 +103,12 @@ en:
     actual time. The common origin rotates all spots without changing separations.
   phase_timing_source: PI-ICR phase and overlap method
 zh:
+  centre_sigma: "中心斑点宽度 σx,y（mm）"
+  floor_help: "每个物种／数据组共享的角偏移；1 mrad=0.0573°。增加计数不会减小它。"
+  counts_help: "每个质心估计所假定的事件数，统计角σ按1/√N缩小；它不设置每次发射模拟的点数。"
+  seed_help: "控制可复现的随机探测点。同一随机种子和参数下点击新建／清空可重复样本，不是物理参数。"
+  practice_help: "只限制骰子／随机异能态选择器，要求半衰期至少50 ms；手动搜索及离子输入仍可使用。"
+  spots_help: "外侧斑点σ控制事件模糊及相位分辨；中心斑点σ只改变中心探测云，不展宽绕行物种。"
   search: 搜索
   other_states: 其他能级 / 同位旋模拟态 / 分类未定
   detector_practice: 探测器与练习
@@ -172,6 +184,12 @@ zh:
     + (δ₊ − δ₋)/360° 为整数的下一个解。默认时钟按 PyMassScanner 的约定将理想时间舍入到 4 ns，并显示剩余残差。选择理想计时可精确重合。图、圈数、不确定度、时间比较和导出均使用实际时间。共同原点仍同时旋转所有斑点，不改变相对分离。
   phase_timing_source: PI-ICR 相位与斑点重合方法
 fi:
+  centre_sigma: "Keskipistepilven σx,y (mm)"
+  floor_help: "Lajikohtainen yhteinen kulmapoikkeama; 1 mrad = 0,0573°. Lisätapahtumat eivät pienennä sitä."
+  counts_help: "Oletettu tapahtumamäärä keskipistearviota kohti; tilastollinen kulma-σ pienenee suhteessa 1/√N. Ei muuta tapahtumia laukausta kohti."
+  seed_help: "Toistettavien satunnaisten ilmaisinosumien siemen. Samat asetukset ja siemen sekä tyhjennys toistavat otoksen; ei fysikaalinen parametri."
+  practice_help: "Rajaa vain nopan satunnaisvalintaa: puoliintumisaika vähintään 50 ms. Haku ja syöttö toimivat edelleen."
+  spots_help: "Ulompien pisteiden σ vaikuttaa tapahtumaleveyteen ja vaihe-erotuskykyyn. Keskipilven σ muuttaa vain keskipilveä."
   search: Haku
   other_states: Muut tasot / IAS / luokitus avoin
   detector_practice: Ilmaisin ja harjoittelu
@@ -270,6 +288,12 @@ fi:
     suhteellisia eroja.
   phase_timing_source: PI-ICR:n vaihe- ja päällekkäisyysmenetelmä
 de:
+  centre_sigma: "Breite des Zentrumsflecks σx,y (mm)"
+  floor_help: "Gemeinsamer Winkelversatz je Spezies/Datensatz; 1 mrad = 0,0573°. Mehr Ereignisse verkleinern ihn nicht."
+  counts_help: "Angenommene Ereignisse je Schwerpunktschätzung; statistisches Winkel-σ skaliert mit 1/√N. Ändert nicht die Trefferzahl je Schuss."
+  seed_help: "Startwert für reproduzierbare Detektortreffer. Gleicher Wert und gleiche Einstellungen nach Neu/Leeren wiederholen die Stichprobe; kein physikalischer Parameter."
+  practice_help: "Begrenzt nur die zufällige Isomerauswahl per Würfel auf Halbwertszeiten ab 50 ms. Suche und manuelle Eingabe bleiben verfügbar."
+  spots_help: "Äußeres Fleck-σ steuert Ereignisbreite und Phasenauflösung. Zentrums-σ verändert nur die zentrale Wolke."
   search: Suchen
   other_states: Andere Niveaus / IAS / ungeklärte Klasse
   detector_practice: Detektor und Übung
@@ -371,6 +395,12 @@ de:
     gemeinsame Ursprung dreht alle Flecken bei unveränderten relativen Abständen.
   phase_timing_source: PI-ICR-Phasen- und Überlagerungsverfahren
 ja:
+  centre_sigma: "中心スポット幅 σx,y（mm）"
+  floor_help: "核種・データセットごとの共通角度ずれ。1 mrad=0.0573°。計数を増やしても減りません。"
+  counts_help: "各重心推定に仮定する事象数。統計的な角度σは1/√Nで減少します。1回の模擬ヒット数とは別です。"
+  seed_help: "模擬検出点の再現用乱数シード。同じ設定とシードで新規／クリアすると同じ標本になります。物理量ではありません。"
+  practice_help: "サイコロのランダム異性体選択だけを半減期50 ms以上に制限します。検索・手入力は利用できます。"
+  spots_help: "外側スポットσは事象幅と位相分解能を設定します。中心スポットσは中央の雲だけを変更します。"
   search: 検索
   other_states: その他の準位・IAS・分類未確定
   detector_practice: 検出器と練習

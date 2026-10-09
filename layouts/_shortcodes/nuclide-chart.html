@@ -37,7 +37,8 @@
 {{- with hugo.Data.nuclide_chart_labels }}{{ $t = merge $t (index . "en") (index . $k | default dict) }}{{ end -}}
 {{- $t = merge $t (index hugo.Data.chart_state_labels $k) -}}
 {{- $t = merge $t (index hugo.Data.chain_labels $k) -}}
-<section class="zg-card nc" data-nuclide-chart data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}" data-src="{{ "data/nubase2020.json" | relURL }}" data-models="{{ "data/massmodels.json" | relURL }}" data-labels="{{ $t | jsonify }}">
+{{- $t = merge $t (index hugo.Data.measured_labels $k) -}}
+<section class="zg-card nc" data-nuclide-chart data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}" data-src="{{ "data/nubase2020.json" | relURL }}" data-models="{{ "data/massmodels-index.json" | relURL }}" data-labels="{{ $t | jsonify }}">
   <h2>{{ $t.title }}</h2>
   <p class="zg-muted">{{ $t.note }} <span class="nc-count"></span></p>
   {{ partial "zg/control-help.html" "chart" }}
@@ -51,7 +52,7 @@
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="random">🎲 {{ $t.random }}</button>
   </div>
   <div class="nc-bar nc-bar2">
-    <label>{{ $t.model }} <select name="nc-model"><option value="ame">AME2020 ({{ $t.mod_exp }})</option><option value="frdm1995">FRDM1992 (1995)</option><option value="frdm2012">FRDM2012 (2016)</option><option value="hfb17">HFB-17 (Skyrme)</option><option value="hfbd1m">HFB-D1M (Gogny)</option></select></label>
+    <label>{{ $t.model }} <select name="nc-model"><option value="ame">AME2020 ({{ $t.mod_exp }})</option></select></label>
     <span class="nc-ovl">{{ $t.ovl }}:
       <label class="nc-chk"><input type="checkbox" data-drip="sn"><i style="border-color:#2563eb;border-style:dashed"></i>Sₙ = 0</label>
       <label class="nc-chk"><input type="checkbox" data-drip="s2n" checked><i style="border-color:#1e3a8a"></i>S₂ₙ = 0</label>
@@ -73,6 +74,7 @@
   <div class="nc-export"><button type="button" class="zg-btn zg-btn-ghost" data-nc="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="csv">⤓ {{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="video">⏺ {{ $t.video }}</button></div>
   <h3>📈 {{ $t.plot }}</h3>
   {{ partial "zg/control-help.html" "chain" }}
+  {{ partial "zg/measured-masses.html" $t }}
   <div class="nc-bar">
     <label>{{ $t.pq }} <select name="nc-pq"></select></label>
     <label>{{ $t.pchain }} <select name="nc-pchain"><option value="Z">{{ $t.p_iso }}</option><option value="N">{{ $t.p_isot }}</option><option value="A">{{ $t.p_isob }}</option></select></label>
@@ -82,6 +84,17 @@
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="ppng">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="pcsv">⤓ {{ $t.csv }}</button>
   </div>
+  <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>
+    <label><input type="checkbox" data-series="ame" checked> ● AME2020</label>
+    <label><input type="checkbox" data-series="loaded"> ◆ {{ $t.loaded_only }}</label>
+    <label><input type="checkbox" data-series="hybrid"> □ {{ $t.loaded_hybrid }}</label>
+    <details><summary>{{ $t.loaded_models }}</summary><div class="nc-bar"><button type="button" class="zg-btn zg-btn-ghost" data-model-all>{{ $t.loaded_all }}</button><button type="button" class="zg-btn zg-btn-ghost" data-model-none>{{ $t.loaded_none }}</button></div><div class="nc-model-series"></div><p class="nc-model-error zg-small" role="status"></p></details>
+    <label><input type="checkbox" name="nc-reference-ring" checked> {{ $t.loaded_reference_ring }}</label>
+    <label><input type="checkbox" name="nc-band"> {{ $t.loaded_band }}</label>
+    <label><input type="checkbox" name="nc-residual"> {{ $t.loaded_residual }}</label>
+  </fieldset>
+  <div class="nc-bar nc-experiment-filter"><label>{{ $t.loaded_plotfilter }} <select name="nc-exp-filter"><option value="all">{{ $t.loaded_filter_all }}</option><option value="measured">{{ $t.loaded_filter_meas }}</option><option value="loaded">{{ $t.loaded_filter_centres }}</option><option value="affected">{{ $t.loaded_filter_affected }}</option></select></label><label>{{ $t.loaded_maxsigma }} <input type="number" name="nc-max-sigma" min="0" step="any" class="nc-num"></label></div>
+  <p class="zg-small zg-muted">{{ $t.loaded_filter_hint }}</p>
   <div class="nc-bar nc-axes">
     <label>{{ $t.axis_x }} <select name="nc-xscale"><option value="data">{{ $t.axis_data }}</option><option value="full">{{ $t.axis_full }}</option><option value="manual">{{ $t.axis_manual }}</option></select></label>
     <label>{{ $t.axis_y }} <select name="nc-yscale"><option value="all">{{ $t.axis_all }}</option><option value="data">{{ $t.axis_data_only }}</option><option value="manual">{{ $t.axis_manual }}</option></select></label>
@@ -91,7 +104,12 @@
   </div>
   <p class="nc-pinfo zg-muted" aria-live="polite"></p>
   <p class="nc-axis-note zg-small zg-muted" aria-live="polite"></p>
+  <div class="nc-series-legend zg-small" aria-live="polite"></div>
   <canvas class="nc-plot" width="960" height="480" aria-label="{{ $t.plot }}"></canvas>
+  <p class="zg-small zg-muted">{{ $t.loaded_legend }}</p>
+  <div class="nc-residual-panel" hidden><p class="zg-small">{{ $t.loaded_residual_hint }}</p><canvas class="nc-residual nc-plot" width="960" height="300" aria-label="{{ $t.loaded_residual }}"></canvas></div>
+  <p class="nc-point-detail zg-small" aria-live="polite"></p>
+  <details class="nc-point-table"><summary>{{ $t.loaded_details }}</summary><div class="nc-table-scroll"></div></details>
   <p class="zg-muted zg-small"># {{ $t.hashnote }}; {{ $t.errnote }}.</p>
   {{- $h := index hugo.Data.chart_hints $k -}}
   <details class="nc-defs"><summary>💡 {{ $h.title }}</summary><dl>{{ range $h.entries }}<dt><strong>{{ index . 0 }}</strong></dt><dd>{{ index . 1 }}</dd>{{ end }}</dl><p><a href="https://www-nds.iaea.org/amdc/ame2020/">AME2020 / NUBASE2020</a> · <a href="https://doi.org/10.1103/PhysRevLett.94.092501">δVpn</a> · <a href="https://doi.org/10.1088/1674-1137/43/4/044105">Δ⁽⁵⁾</a> · <a href="https://arxiv.org/abs/1508.06294">FRDM2012</a></p></details>
@@ -101,4 +119,7 @@
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}"></script>
 <script defer src="{{ "js/chain-plot.js" | relURL }}"></script>
+<script defer src="{{ "js/mass-surface.js" | relURL }}"></script>
+<script defer src="{{ "js/measured-masses.js" | relURL }}"></script>
+<script defer src="{{ "js/measured-masses-ui.js" | relURL }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}"></script>

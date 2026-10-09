@@ -12,6 +12,7 @@ Add another model (e.g. FRDM2012, WS4): put <key>.txt in the same format into ma
 Run:  python3 tools/make_mass_models.py
 """
 import json, pathlib
+from import_bruslib import META as BRUSLIB
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 D = ROOT / "tools/data"
 MODELS = {
@@ -20,6 +21,7 @@ MODELS = {
     "hfb17": {"name": "HFB-17 (Skyrme)", "ref": "S. Goriely, N. Chamel, J.M. Pearson, Phys. Rev. Lett. 102, 152503 (2009)", "url": "https://doi.org/10.1103/PhysRevLett.102.152503"},
     "hfbd1m": {"name": "HFB-D1M (Gogny)", "ref": "S. Goriely, S. Hilaire, M. Girod, S. Péru, Phys. Rev. Lett. 102, 242501 (2009)", "url": "https://doi.org/10.1103/PhysRevLett.102.242501"},
 }
+MODELS.update({k:{f:v[f] for f in ('name','ref','url')} for k,v in BRUSLIB.items()})
 
 def read_model(path):
     rows = []
@@ -55,3 +57,11 @@ dst = ROOT / "static/data/massmodels.json"
 dst.write_text(json.dumps(out, separators=(",", ":"), ensure_ascii=False))
 print(f"Wrote {dst.relative_to(ROOT)}: " + ", ".join(f"{k} {len(v['rows'])}" for k, v in out["models"].items())
       + f"; paths r {len(out['paths']['r']['pts'])}, rp {len(out['paths']['rp']['pts'])}; {dst.stat().st_size // 1024} kB")
+# Lightweight index plus independent model payloads. Browser loads selected models only.
+parts=ROOT/'static/data/massmodels';parts.mkdir(exist_ok=True)
+index={'models':{},'paths':out['paths']}
+for key,m in out['models'].items():
+    payload=json.dumps(m,separators=(',',':'),ensure_ascii=False);(parts/f'{key}.json').write_text(payload)
+    index['models'][key]={k:v for k,v in m.items() if k!='rows'}
+    index['models'][key].update(data_url=f'massmodels/{key}.json',row_count=len(m['rows']))
+(ROOT/'static/data/massmodels-index.json').write_text(json.dumps(index,separators=(',',':'),ensure_ascii=False))

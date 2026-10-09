@@ -1,0 +1,32 @@
+<details class="nc-measured">
+  <summary>{{ .loaded_title }}</summary>
+  <p>{{ .loaded_intro }}</p>
+  <ol class="nc-mass-steps">{{ range .loaded_steps }}<li>{{ . }}</li>{{ end }}</ol>
+  <p class="nc-mass-expected">{{ .loaded_expected }}</p>
+  <details class="nc-mass-examples"><summary>{{ .loaded_examples }}</summary>
+    <p>{{ .loaded_example_note }}</p>
+    <label>{{ .loaded_example_kind }} <select name="nc-mass-example"><option value="me">ME · keV · CSV</option><option value="be">BE · MeV · CSV</option><option value="atomic">mass · u · CSV</option><option value="tsv">ME · keV · TSV / TXT</option><option value="json">ME · keV · JSON</option></select></label>
+    <label>{{ .loaded_copy_example }}<textarea name="nc-mass-example-text" rows="4" readonly></textarea></label>
+    <button type="button" class="zg-btn zg-btn-ghost" data-mass="example">{{ .loaded_example_paste }}</button>
+    <p>{{ .loaded_example_files }} <a href="{{ "data/examples/measured-masses/116Sn_ME.csv" | relURL }}">ME CSV</a> · <a href="{{ "data/examples/measured-masses/116Sn_BE.csv" | relURL }}">BE CSV</a> · <a href="{{ "data/examples/measured-masses/116Sn_mass.csv" | relURL }}">mass CSV</a> · <a href="{{ "data/examples/measured-masses/116Sn_ME.tsv" | relURL }}">TSV</a> · <a href="{{ "data/examples/measured-masses/116Sn_ME.txt" | relURL }}">TXT</a> · <a href="{{ "data/examples/measured-masses/116Sn_ME.json" | relURL }}">JSON</a></p>
+  </details>
+  <details><summary>{{ .loaded_input_guide }}</summary><p>{{ .loaded_guide }}</p><p>{{ .loaded_field_guide }}</p></details>
+  <p class="zg-small">{{ .loaded_private }}</p>
+  <label>{{ .loaded_paste }}<textarea name="nc-mass-paste" rows="4" placeholder="nuclide,value,uncertainty,unit,quantity,reference&#10;116Sn,-91500,1,keV,me,DOI or label"></textarea></label>
+  <div class="nc-bar"><button type="button" class="zg-btn" data-mass="import">{{ .loaded_import }}</button><label>{{ .loaded_file }} <input type="file" name="nc-mass-file" accept=".csv,.tsv,.txt,.json,text/plain,text/csv,text/tab-separated-values,application/json"></label><button type="button" class="zg-btn zg-btn-ghost" data-mass="add">{{ .loaded_add }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="demo">{{ .loaded_demo }}</button></div>
+  <div class="nc-bar"><label>{{ .loaded_policy }} <select name="nc-mass-policy"><option value="last">{{ .loaded_last }}</option><option value="weighted">{{ .loaded_weighted }}</option></select></label><label><input type="checkbox" name="nc-mass-markers"> {{ .loaded_markers }}</label></div>
+  <p class="zg-small">{{ .loaded_weight_note }}</p>
+  <p class="nc-mass-status" role="status"></p><p class="nc-mass-error" role="alert"></p>
+  <p class="nc-mass-inactive" role="status" hidden>{{ .loaded_inactive }}</p>
+  <div class="nc-table-scroll"><table class="nc-mass-table"><thead><tr><th>{{ .loaded_use }}</th><th>{{ .loaded_nuclide }}</th><th>{{ .loaded_value }}</th><th>{{ .loaded_sigma }}</th><th>{{ .loaded_unit }}</th><th>{{ .loaded_quantity }}</th><th>{{ .loaded_reference }}<br>{{ .loaded_facility }}</th><th>{{ .loaded_status }}</th><th></th></tr></thead><tbody></tbody></table></div>
+  <div class="nc-bar"><button type="button" class="zg-btn" data-mass="impact">{{ .loaded_impact }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="csv">{{ .loaded_save_csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="save">{{ .loaded_save }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="restore">{{ .loaded_restore }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="forget">{{ .loaded_forget }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="json">{{ .loaded_json }}</button><button type="button" class="zg-btn zg-btn-ghost" data-mass="clear">{{ .loaded_clear }}</button></div>
+  <label class="nc-portable" hidden>JSON<textarea name="nc-mass-json" rows="5" readonly></textarea></label>
+</details>
+<dialog class="nc-impact" aria-labelledby="nc-impact-title">
+  <div class="nc-bar"><h3 id="nc-impact-title">{{ .loaded_impact }}</h3><button type="button" class="zg-btn zg-btn-ghost" data-impact="close">{{ .loaded_close }}</button></div>
+  <p>{{ .loaded_impact_hint }}</p>
+  <div class="nc-bar"><label>{{ .loaded_impact_quantity }} <select name="nc-impact-quantity"><option value="all">{{ .loaded_all_quantities }}</option></select></label><label>{{ .loaded_impact_model }} <select name="nc-impact-model"><option value="selected">{{ .loaded_selected_models }}</option></select></label><button type="button" class="zg-btn" data-impact="csv">{{ .loaded_impact_csv }}</button></div>
+  <p class="nc-impact-info" role="status"></p>
+  <div class="nc-table-scroll"><table><thead><tr><th>{{ .loaded_nuclide }}</th><th>{{ .loaded_impact_quantity }}</th><th>AME2020</th><th>{{ .loaded_new }}</th><th>Δ(new − AME)</th><th>{{ .loaded_impact_model }}</th></tr></thead><tbody></tbody></table></div>
+  <div class="nc-impact-pager nc-bar"></div>
+</dialog>

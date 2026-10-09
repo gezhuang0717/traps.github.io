@@ -11,7 +11,7 @@
   const q = n => root.querySelector(`[name="${n}"]`);
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ink = (getComputedStyle(document.documentElement).getPropertyValue("--zg-ink") || "").trim() || "#1d2433";
-  let yaw = 0.6, pitch = 0.35, zoom = 1, drag = null, t = 0, ions = [], pulse = null, dip = 0, paused=reduce, last=0, recording=false;
+  let yaw = 0.6, pitch = 0.35, zoom = 1, drag = null, t = 0, ions = [], pulse = null, dip = 0, paused=reduce, last=0, recording=false,recordText=[];
 
   function makeIons() {
     const n=+q("ions").value,spread=+q("spread").value/100;
@@ -77,9 +77,10 @@
       const e = o.trail[o.trail.length - 1]; if (e) { const s = P(...e); g.fillStyle = hue == null ? "#e5484d" : `hsl(${hue},85%,45%)`; g.beginPath(); g.arc(s[0], s[1], 4.5, 0, 6.283); g.fill(); }
     });
   }
+  function recordingCaption(){if(recording){window.zgExport.caption(g,LW(),recordText);g.globalCompositeOperation='destination-over';g.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';g.fillRect(0,0,LW(),LH());g.globalCompositeOperation='source-over';}}
   function loop(now){const rect=root.getBoundingClientRect(),visible=rect.bottom>0&&rect.top<innerHeight;const elapsed=last?Math.min(.05,(now-last)/1000):0;last=now;
     if(!paused&&!root.closest('[hidden]')&&(visible||recording)){const dt=elapsed*(+q("speed").value),n=Math.max(1,Math.ceil(M.modes(+q("ratio").value).wp*dt/.2));for(let k=0;k<n;k++)step(dt/n);if(q("auto").checked&&!drag)yaw+=elapsed*.24;}
-    if(visible||recording)draw();requestAnimationFrame(loop);
+    if(visible||recording){draw();recordingCaption();}requestAnimationFrame(loop);
   }
 
   cv.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY, yaw, pitch]; cv.setPointerCapture(e.pointerId); });
@@ -100,9 +101,10 @@
       zgExport.png(cv, "penning-trap-3d"); cv.width = w; cv.height = h; draw();
     }
     if(a==='video'&&window.zgExport){const b=e.target.closest('[data-act]'),w=cv.width,h=cv.height,was=paused,seconds=+control('[data-seconds]').value,process=control('[data-process]').value;
-      if(process!=='current'){q('rp').value=25;q('rm').value=65;q('az').value=45;makeIons();liveRadii();q('cool').checked=process==='gas'||process==='sideband';control('[data-sideband]').checked=process==='sideband';}
+      recordText=['r+0='+Number(q('rp').value).toFixed(2)+'; r−0='+Number(q('rm').value).toFixed(2)+'; z0='+Number(q('az').value).toFixed(2)+' (% of display scale)', 'ratio='+q('ratio').value+'; speed='+q('speed').value+'; ions='+q('ions').value+'; '+process];
+      if(process!=='current'){makeIons();liveRadii();q('cool').checked=process==='gas'||process==='sideband';control('[data-sideband]').checked=process==='sideband';}
       cv.width=LW()*3;cv.height=LH()*3;draw();
-      zgExport.record(cv,seconds,'penning-3d-'+process,r=>{recording=r;b.disabled=r;b.classList.toggle('is-rec',r);if(r){paused=false;if(process==='pulse')begin('pulse',seconds*(+q('speed').value)*.75);if(process==='kick')begin('dipole');}else{paused=was;cv.width=w;cv.height=h;draw();}});
+      zgExport.record(cv,seconds,'penning-3d-'+process,r=>{recording=r;b.disabled=r;b.classList.toggle('is-rec',r);if(r){paused=false;if(process==='pulse')begin('pulse',seconds*(+q('speed').value)*.75);if(process==='kick')begin('dipole');draw();recordingCaption();}else{paused=was;cv.width=w;cv.height=h;draw();}});
     }
   });
   control('[data-motion-action="pause"]').onclick=()=>{paused=!paused;control('[data-motion-action="pause"]').setAttribute('aria-pressed',String(paused));};
