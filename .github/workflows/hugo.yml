@@ -139,6 +139,8 @@ jobs:
           theme=$(python -c "import yaml;print(yaml.safe_load(open('site.yaml'))['live_theme'])")
           rm -rf public && mv "builds/$theme" public
           cp -R builds/react public/react
+      - name: Final internal HTML, CSS and image links
+        run: python tools/publish.py links --base-url "$SITE_BASE_URL"
       - uses: actions/upload-artifact@v4
         with:
           name: validated-website
