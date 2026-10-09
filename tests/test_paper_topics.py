@@ -17,3 +17,5 @@ def test_topic_registry_and_classification_preserve_old_publications():
  rpc=[p for p in papers if 'resistive-plate-chambers' in p.get('topics',[])]
  assert not rpc # MCP papers must not be relabelled RPC.
  assert all('nova-reactions' not in p.get('topics',[]) for p in papers if 'Big-Bang' in p['title'] or 'SNe temperature' in p['title'])
+
+ assert all('stellar-nucleosynthesis' not in p.get('topics',[]) for p in papers if any(k in p['title'] for k in ['primordial lithium','cosmological lithium','Big-Bang','neutron-induced reactions on ⁷Be']))

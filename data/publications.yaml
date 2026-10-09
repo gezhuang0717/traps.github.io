@@ -3272,7 +3272,6 @@ papers:
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.3847/2041-8213/ac061f
     topics:
-      - stellar-nucleosynthesis
       - astro-reactions
   - role: coauthor
     year: 2021
@@ -3681,7 +3680,6 @@ papers:
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.7566/jpscp.31.011036
     topics:
-      - stellar-nucleosynthesis
       - astro-reactions
   - role: coauthor
     position: 26
@@ -3998,7 +3996,6 @@ papers:
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.1007/978-3-030-13876-9_6
     topics:
-      - stellar-nucleosynthesis
       - astro-reactions
   - role: coauthor
     position: 19
@@ -4227,7 +4224,6 @@ papers:
     - N. T. Zhang
     authors_source: https://api.crossref.org/works/10.1063/1.5030815
     topics:
-      - stellar-nucleosynthesis
       - astro-reactions
   - role: coauthor
     position: 15

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-09T22:14:11+00:00",
+  "generated": "2026-10-09T22:19:56+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -3891,7 +3891,6 @@
       ],
       "authors_source": "https://api.crossref.org/works/10.3847/2041-8213/ac061f",
       "topics": [
-        "stellar-nucleosynthesis",
         "astro-reactions"
       ],
       "title_html": "Constraining the primordial lithium abundance: new cross section measurement of the ⁷Be+n reactions updates the total ⁷Be destruction rate"
@@ -4345,7 +4344,6 @@
       ],
       "authors_source": "https://api.crossref.org/works/10.7566/jpscp.31.011036",
       "topics": [
-        "stellar-nucleosynthesis",
         "astro-reactions"
       ],
       "title_html": "Experimental study on the ⁷Be(<em>n</em>,<em>p</em>)⁷Li and the ⁷Be(<em>n</em>,α)⁴He reactions for cosmological lithium problem"
@@ -4682,7 +4680,6 @@
       ],
       "authors_source": "https://api.crossref.org/works/10.1007/978-3-030-13876-9_6",
       "topics": [
-        "stellar-nucleosynthesis",
         "astro-reactions"
       ],
       "title_html": "Cross section measurements of the ⁷Be(<em>n</em>,<em>p</em>)⁷Li and the ⁷Be(<em>n</em>,α)⁴He reactions covering the Big-Bang nucleosynthesis energy range by the Trojan Horse method at CRIB"
@@ -4936,7 +4933,6 @@
       ],
       "authors_source": "https://api.crossref.org/works/10.1063/1.5030815",
       "topics": [
-        "stellar-nucleosynthesis",
         "astro-reactions"
       ],
       "title_html": "Measurements of the neutron-induced reactions on ⁷Be with CRIB by the Trojan Horse method"
