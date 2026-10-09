@@ -1,15 +1,18 @@
 {{ $id := .Page.Params.facility_id }}
 {{ $lang := site.Language.Lang }}{{ if strings.HasPrefix $lang "zh" }}{{ $lang = "zh" }}{{ end }}
 {{ with .Page.Params.facility_record }}
-<p>{{ .city }} · {{ .country }} · <strong>{{ .status }}</strong></p>
+<p>{{ .city }} · {{ .country }}</p>
 {{ if and (ne $lang "en") (ne $lang "zh") }}<p><small>English fallback: facility descriptions await translation.</small></p>{{ end }}
 <p>{{ or (index .description $lang) .description.en }}</p>
+{{ with .host }}<p><strong>{{ if eq $lang "zh" }}所属机构{{ else }}Host institution{{ end }}:</strong> {{ or (index . $lang) .en }}</p>{{ end }}
+{{ with .research_units }}<h2>{{ if eq $lang "zh" }}实验与仪器{{ else }}Experiments and instruments{{ end }}</h2><ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a> — {{ or (index .purpose $lang) .purpose.en }}</li>{{ end }}</ul>{{ end }}
 <p><strong>{{ if eq $lang "zh" }}位置证据{{ else }}Location evidence{{ end }}:</strong> {{ .coordinate_precision }} · {{ .verification_status }}
 {{ if eq .coordinate_precision "city_approx" }}<br><strong>{{ if eq $lang "zh" }}城市近似位置，非设施精确坐标{{ else }}City approximation; not an exact facility coordinate{{ end }}</strong>{{ end }}
 {{ if not .coordinate_verified }}<br>{{ if eq $lang "zh" }}坐标未核实，不显示地图标记。{{ else }}Coordinates are unresolved; no map pin is shown.{{ end }}{{ end }}</p>
 <p>{{ if eq $lang "zh" }}类别与用途{{ else }}Categories and capabilities{{ end }}: {{ delimit .categories ", " }}{{ with .capabilities }} · {{ delimit . "; " }}{{ end }}</p>
 <h2>{{ if eq $lang "zh" }}设备与仪器{{ else }}Machines and instruments{{ end }}</h2>
-<ul>{{ range .machines }}<li>{{ or .model .reactor_type .name .id }}{{ with .manufacturer }} · {{ . }}{{ end }}{{ with .proton_energy_mev }} · {{ . }} MeV{{ end }}{{ with .thermal_power_kw }} · {{ . }} kW thermal (source reported){{ end }}</li>{{ end }}</ul>
+{{ if not (or .machines .instruments) }}<p>{{ if eq $lang "zh" }}尚未收录详细设备清单，请查阅官方来源。{{ else }}No detailed equipment inventory recorded; see the official source.{{ end }}</p>{{ end }}
+<ul>{{ range .machines }}<li>{{ or .model .reactor_type .name .id }}{{ with .manufacturer }} · {{ . }}{{ end }}{{ with .proton_energy_mev }} · {{ . }} MeV{{ end }}{{ with .thermal_power_kw }} · {{ . }} kW thermal (source reported){{ end }}</li>{{ end }}{{ range .instruments }}<li>{{ or .name .model .id }}</li>{{ end }}</ul>
 <h2>{{ if eq $lang "zh" }}来源{{ else }}Sources{{ end }}</h2>
 <p>{{ if eq $lang "zh" }}来源检查日期{{ else }}Source checked{{ end }}: {{ .source_checked }} · {{ delimit .source_records ", " }}</p>
 <ul>{{ range .source_urls }}<li><a href="{{ . }}" rel="noopener">{{ . }}</a></li>{{ end }}</ul>

@@ -112,10 +112,10 @@ jobs:
           owner=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]'); repo="${GITHUB_REPOSITORY#*/}"
           base="https://${owner}.github.io/"; [ "$(echo "$repo" | tr '[:upper:]' '[:lower:]')" = "${owner}.github.io" ] || base="${base}${repo}/"
           echo "SITE_BASE_URL=$base" >> "$GITHUB_ENV"
-          # Test/staging site: TEST SITE ribbon and noindex (Hugo reads HUGO_PARAMS_* as site params).
+          # Owner-approved final traps site (2026-10-10); preserve explicit preview overrides elsewhere.
           if [ "$GITHUB_REPOSITORY" = "gezhuang0717/traps.github.io" ]; then
-            echo "HUGO_PARAMS_TESTSITE=true" >> "$GITHUB_ENV"
-            echo "HUGO_PARAMS_ROBOTS=noindex, nofollow" >> "$GITHUB_ENV"
+            echo "HUGO_PARAMS_TESTSITE=false" >> "$GITHUB_ENV"
+            echo "HUGO_PARAMS_ROBOTS=index, follow" >> "$GITHUB_ENV"
           fi
       - name: Data and recovery tests
         run: |

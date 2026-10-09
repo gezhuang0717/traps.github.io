@@ -25,16 +25,16 @@ I lead a research group at IGISOL/JYFLTRAP, funded by my Research Council of Fin
 
 ## Nuclear-physics groups and facilities
 
-Groups and laboratories I work with or whose work is closest to ours:
+Selected groups, host facilities and experiments relevant to our research. These links distinguish the host laboratory from the individual instrument; they do not imply membership in every collaboration.
 
-- [IGISOL / JYFLTRAP — University of Jyväskylä](https://www.jyu.fi/en/science/accelerator-laboratory/facilities-and-instruments/nuclear-physics-facilities)
+- [IGISOL / JYFLTRAP — University of Jyväskylä](https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol)
 - [ISOLTRAP — CERN ISOLDE](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions/research/isoltrap-cern)
 - [ISOLDE — CERN](https://isolde.cern/)
 - [TITAN — TRIUMF](https://titan.triumf.ca/)
 - [LEBIT — FRIB](https://frib.msu.edu/user-facilities/frib/instruments/lebit)
 - [FRS Ion Catcher — GSI/FAIR](https://www-windows.gsi.de/frs-ion-catcher/)
 - [FAIR — Facility for Antiproton and Ion Research](https://fair-center.eu/)
-- [Stored and Cooled Ions (PENTATRAP) — MPIK Heidelberg](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions)
+- [PENTATRAP and ion-trap research — MPIK Heidelberg](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions)
 - [RI Beam Factory — RIKEN Nishina Center](https://www.nishina.riken.jp/ribf/)
 - [Rare-RI Ring — RIKEN](https://www.nishina.riken.jp/ribf/R3/overview.html)
 - [HIAF — Institute of Modern Physics, CAS](https://english.imp.cas.cn/research/facilities/HIAF/)
@@ -52,3 +52,5 @@ Networks and laboratories for the origin of the elements, close to our rp-, νp-
 - [DRAGON — recoil separator, TRIUMF](https://dragon.triumf.ca/)
 - [ISNAP — Institute for Structure and Nuclear Astrophysics, Notre Dame](https://isnap.nd.edu/)
 - [ELI-NP — Extreme Light Infrastructure – Nuclear Physics, Romania](https://www.eli-np.ro/)
+
+{{< facility-research-guide >}}

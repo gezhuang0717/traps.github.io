@@ -27,14 +27,14 @@ Ich leite eine Forschungsgruppe an IGISOL/JYFLTRAP, finanziert durch mein Academ
 
 Gruppen und Labore, mit denen ich zusammenarbeite oder deren Arbeit unserer am nächsten ist:
 
-- [IGISOL / JYFLTRAP — University of Jyväskylä](https://www.jyu.fi/en/science/accelerator-laboratory/facilities-and-instruments/nuclear-physics-facilities)
+- [IGISOL / JYFLTRAP — University of Jyväskylä](https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol)
 - [ISOLTRAP — CERN ISOLDE](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions/research/isoltrap-cern)
 - [ISOLDE — CERN](https://isolde.cern/)
 - [TITAN — TRIUMF](https://titan.triumf.ca/)
 - [LEBIT — FRIB](https://frib.msu.edu/user-facilities/frib/instruments/lebit)
 - [FRS Ion Catcher — GSI/FAIR](https://www-windows.gsi.de/frs-ion-catcher/)
 - [FAIR — Facility for Antiproton and Ion Research](https://fair-center.eu/)
-- [Stored and Cooled Ions (PENTATRAP) — MPIK Heidelberg](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions)
+- [PENTATRAP and ion-trap research — MPIK Heidelberg](https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions)
 - [RI Beam Factory — RIKEN Nishina Center](https://www.nishina.riken.jp/ribf/)
 - [Rare-RI Ring — RIKEN](https://www.nishina.riken.jp/ribf/R3/overview.html)
 - [HIAF — Institute of Modern Physics, CAS](https://english.imp.cas.cn/research/facilities/HIAF/)
@@ -52,3 +52,5 @@ Netzwerke und Labore zum Ursprung der Elemente, nah an unseren Massenmessungen f
 - [DRAGON — recoil separator, TRIUMF](https://dragon.triumf.ca/)
 - [ISNAP — Institute for Structure and Nuclear Astrophysics, Notre Dame](https://isnap.nd.edu/)
 - [ELI-NP — Extreme Light Infrastructure – Nuclear Physics, Romania](https://www.eli-np.ro/)
+
+{{< facility-research-guide >}}

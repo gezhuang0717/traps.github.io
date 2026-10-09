@@ -74,7 +74,7 @@
     "loaded_band_points": "experimental band points",
     "loaded_forgot": "Saved table forgotten; working table retained.",
     "loaded_be": "Total binding energy BE",
-    "loaded_reference_ring": "Show reference-point circle",
+    "loaded_reference_ring": "Red circle at selected nuclide",
     "loaded_intro": "Compare your entered atomic masses with AME2020 and theory. First try this two-minute synthetic example.",
     "loaded_steps": [
       "Search 116Sn on the chart, or click that nucleus. Start with Quantity = S₂ₙ and Chain = Isotopic chain.",
@@ -235,7 +235,7 @@
     "loaded_band_points": "实验阴影带数据点",
     "loaded_forgot": "已清除浏览器保存；工作表保留。",
     "loaded_be": "总结合能 BE",
-    "loaded_reference_ring": "显示参考点圆圈",
+    "loaded_reference_ring": "所选核素的红色圆圈",
     "loaded_intro": "将自己输入的原子质量与AME2020和理论比较。先试下面两分钟的合成例子。",
     "loaded_steps": [
       "在核素图搜索或点击116Sn。先选择物理量S₂ₙ、同位素链。",
@@ -396,7 +396,7 @@
     "loaded_band_points": "kokeellisen kaistan pistettä",
     "loaded_forgot": "Tallennettu taulukko poistettu; työtaulukko säilyy.",
     "loaded_be": "Kokonaissidosenergia BE",
-    "loaded_reference_ring": "Näytä vertailupisteen ympyrä",
+    "loaded_reference_ring": "Valitun nuklidin punainen ympyrä",
     "loaded_intro": "Vertaa syötettyjä atomimassoja AME2020:een ja teoriaan. Aloita tästä kahden minuutin synteettisestä esimerkistä.",
     "loaded_steps": [
       "Hae tai valitse kartasta 116Sn. Valitse suure S₂ₙ ja isotooppiketju.",
@@ -557,7 +557,7 @@
     "loaded_band_points": "experimentelle Bandpunkte",
     "loaded_forgot": "Gespeicherte Tabelle entfernt; Arbeitstabelle bleibt.",
     "loaded_be": "Gesamtbindungsenergie BE",
-    "loaded_reference_ring": "Referenzpunkt einkreisen",
+    "loaded_reference_ring": "Roter Kreis am gewählten Nuklid",
     "loaded_intro": "Eingegebene Atommassen mit AME2020 und Theorie vergleichen. Beginnen Sie mit diesem kurzen synthetischen Beispiel.",
     "loaded_steps": [
       "116Sn auf der Karte suchen oder anklicken. Zunächst Größe S₂ₙ und Isotopenkette wählen.",
@@ -718,7 +718,7 @@
     "loaded_band_points": "実験帯の点",
     "loaded_forgot": "保存した表を消去しました。作業表は保持しています。",
     "loaded_be": "全結合エネルギー BE",
-    "loaded_reference_ring": "基準点の円を表示",
+    "loaded_reference_ring": "選択核種の赤い円",
     "loaded_intro": "入力した原子質量をAME2020や理論と比較します。まず短い合成例を試してください。",
     "loaded_steps": [
       "核図表で116Snを検索または選択します。物理量はS₂ₙ、同位体系列から始めます。",

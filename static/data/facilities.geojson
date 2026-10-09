@@ -13,7 +13,7 @@
       "properties": {
         "id": "cern-isolde",
         "name": {
-          "en": "CERN ISOLDE (ISOLTRAP, MR-TOF)",
+          "en": "CERN ISOLDE (ISOLTRAP)",
           "zh": "CERN ISOLDE (ISOLTRAP, MR-TOF)"
         },
         "country": "Switzerland",
@@ -38,7 +38,8 @@
           "official:cern-isolde"
         ],
         "source_urls": [
-          "https://isolde.cern/"
+          "https://isolde.cern/",
+          "https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions/research/isoltrap-cern"
         ],
         "source_checked": "2026-10-04",
         "coordinate_precision": "campus_exact",
@@ -49,8 +50,8 @@
         "machines": [],
         "instruments": [],
         "description": {
-          "en": "Nuclear-physics facility (penning-trap, mr-tof, isol). Map point: campus exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（penning-trap, mr-tof, isol）。地图位置：园区级位置（来源见下）。"
+          "en": "ISOLDE is the radioactive-ion beam facility at CERN. ISOLTRAP is a mass-measurement experiment there, using ion cooling and preparation, an MR-TOF mass spectrometer/separator and Penning traps.",
+          "zh": "ISOLDE 是 CERN 的放射性离子束设施。ISOLTRAP 是其中的质量测量实验，使用离子冷却与制备装置、MR-TOF 质谱仪/分离器及彭宁阱。"
         },
         "daily_aliases": [
           "ISOLDE",
@@ -61,7 +62,22 @@
         ],
         "last_coordinate_check": "2026-10-04",
         "continent": "Europe",
-        "coordinate_method": "wikipedia_infobox"
+        "coordinate_method": "wikipedia_infobox",
+        "host": {
+          "en": "CERN · ISOLDE",
+          "zh": "CERN · ISOLDE"
+        },
+        "research_units": [
+          {
+            "name": "ISOLTRAP",
+            "purpose": {
+              "en": "MR-TOF and Penning-trap mass spectrometry",
+              "zh": "MR-TOF 与彭宁阱质谱"
+            },
+            "url": "https://www.mpi-hd.mpg.de/mpi/en/research/scientific-divisions-and-groups/stored-and-cooled-ions/research/isoltrap-cern"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -100,7 +116,8 @@
         ],
         "source_urls": [
           "https://frib.msu.edu/",
-          "https://frib.msu.edu/about/visit-frib"
+          "https://frib.msu.edu/about/visit-frib",
+          "https://frib.msu.edu/user-facilities/frib/instruments/lebit"
         ],
         "source_checked": "2026-10-04",
         "coordinate_precision": "facility_exact",
@@ -111,8 +128,8 @@
         "machines": [],
         "instruments": [],
         "description": {
-          "en": "Nuclear-physics facility (penning-trap, fragmentation). Map point: facility exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（penning-trap, fragmentation）。地图位置：设施级位置（来源见下）。"
+          "en": "FRIB produces rare-isotope beams. The LEBIT instrument receives cooled low-energy ions for Penning-trap mass measurements, including studies of nuclear structure, astrophysics and fundamental interactions.",
+          "zh": "FRIB 提供稀有同位素束。LEBIT 接收经过冷却的低能离子，开展彭宁阱质量测量，研究核结构、核天体物理与基本相互作用。"
         },
         "daily_aliases": [
           "FRIB",
@@ -123,7 +140,22 @@
         ],
         "last_coordinate_check": "2026-10-04",
         "continent": "North America",
-        "coordinate_method": "wikipedia_infobox"
+        "coordinate_method": "wikipedia_infobox",
+        "host": {
+          "en": "Michigan State University",
+          "zh": "密歇根州立大学"
+        },
+        "research_units": [
+          {
+            "name": "LEBIT",
+            "purpose": {
+              "en": "Penning-trap mass spectrometry",
+              "zh": "彭宁阱质谱"
+            },
+            "url": "https://frib.msu.edu/user-facilities/frib/instruments/lebit"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -106007,8 +106039,8 @@
         "machines": [],
         "instruments": [],
         "description": {
-          "en": "Public nuclear-physics facility. City-level location is shown for orientation; follow official visitor information for the campus address.",
-          "zh": "公开核物理设施。地图仅以城市级位置帮助了解地理分布；园区地址请查阅官方访客信息。"
+          "en": "IGISOL produces low-energy ion beams for nuclear and atomic studies. JYFLTRAP is its double Penning-trap mass spectrometer; a separate MR-TOF spectrometer supports fast mass measurements and beam purification.",
+          "zh": "IGISOL 为核物理与原子物理研究提供低能离子束。JYFLTRAP 是其双彭宁阱质谱仪；独立的 MR-TOF 质谱仪用于快速质量测量与束流纯化。"
         },
         "daily_aliases": [
           "IGISOL",
@@ -106019,7 +106051,30 @@
           "https://www.geonames.org/655194/"
         ],
         "last_coordinate_check": "2026-10-03",
-        "continent": "Europe"
+        "continent": "Europe",
+        "host": {
+          "en": "University of Jyväskylä · Accelerator Laboratory",
+          "zh": "于韦斯屈莱大学 · 加速器实验室"
+        },
+        "research_units": [
+          {
+            "name": "JYFLTRAP",
+            "purpose": {
+              "en": "Double Penning-trap mass spectrometry",
+              "zh": "双彭宁阱质谱"
+            },
+            "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+          },
+          {
+            "name": "IGISOL MR-TOF",
+            "purpose": {
+              "en": "Multi-reflection time-of-flight mass spectrometry",
+              "zh": "多次反射飞行时间质谱"
+            },
+            "url": "https://www.jyu.fi/en/research-groups/exotic-nuclei-and-beams-igisol"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -107482,8 +107537,8 @@
       "properties": {
         "id": "riken-ribf",
         "name": {
-          "en": "RIKEN RI Beam Factory (Rare-RI Ring, ZD MRTOF, KISS)",
-          "zh": "RIKEN RI Beam Factory (Rare-RI Ring, ZD MRTOF, KISS)"
+          "en": "RIKEN RI Beam Factory",
+          "zh": "RIKEN RI Beam Factory"
         },
         "country": "Japan",
         "country_code": "JP",
@@ -107509,7 +107564,9 @@
         ],
         "source_urls": [
           "https://www.nishina.riken.jp/ribf/",
-          "https://www.riken.jp/en/access/wako-map/index.html"
+          "https://www.riken.jp/en/access/wako-map/index.html",
+          "https://www.nishina.riken.jp/ribf/R3/overview.html",
+          "https://arxiv.org/abs/2110.11507"
         ],
         "source_checked": "2026-10-04",
         "coordinate_precision": "facility_exact",
@@ -107520,8 +107577,8 @@
         "machines": [],
         "instruments": [],
         "description": {
-          "en": "Nuclear-physics facility (storage-ring, mr-tof, fragmentation). Map point: facility exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（storage-ring, mr-tof, fragmentation）。地图位置：设施级位置（来源见下）。"
+          "en": "RIBF is a rare-isotope beam facility. Rare-RI Ring is a storage-ring mass experiment. The BigRIPS/ZeroDegree MRTOF setup measures masses of slowed ions; it is distinct from the ring.",
+          "zh": "RIBF 是稀有同位素束设施。Rare-RI Ring 是储存环质量测量实验。BigRIPS/ZeroDegree MRTOF 装置测量减速离子的质量，与储存环是不同装置。"
         },
         "daily_aliases": [
           "RIBF",
@@ -107534,7 +107591,30 @@
         ],
         "last_coordinate_check": "2026-10-04",
         "continent": "Asia",
-        "coordinate_method": "wikipedia_infobox"
+        "coordinate_method": "wikipedia_infobox",
+        "host": {
+          "en": "RIKEN Nishina Center",
+          "zh": "理化学研究所仁科加速器研究中心"
+        },
+        "research_units": [
+          {
+            "name": "Rare-RI Ring",
+            "purpose": {
+              "en": "Storage-ring mass measurements",
+              "zh": "储存环质量测量"
+            },
+            "url": "https://www.nishina.riken.jp/ribf/R3/overview.html"
+          },
+          {
+            "name": "BigRIPS/ZeroDegree MRTOF",
+            "purpose": {
+              "en": "Multi-reflection time-of-flight mass measurements",
+              "zh": "多次反射飞行时间质量测量"
+            },
+            "url": "https://www.nishina.riken.jp/ribf/R3/overview.html"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -107576,7 +107656,8 @@
         ],
         "source_urls": [
           "https://www.triumf.ca/",
-          "https://triumf.ca/contact-triumf/"
+          "https://triumf.ca/contact-triumf/",
+          "https://triumf.ca/facilities-experiments/titan/"
         ],
         "source_checked": "2026-10-04",
         "coordinate_precision": "facility_exact",
@@ -107587,8 +107668,8 @@
         "machines": [],
         "instruments": [],
         "description": {
-          "en": "Nuclear-physics facility (penning-trap, mr-tof, isol). Map point: facility exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（penning-trap, mr-tof, isol）。地图位置：设施级位置（来源见下）。"
+          "en": "ISAC supplies radioactive-ion beams at TRIUMF. TITAN is an experiment using ion cooling, charge breeding and trapping for precision masses. DRAGON is a separate recoil-separator experiment.",
+          "zh": "ISAC 在 TRIUMF 提供放射性离子束。TITAN 使用离子冷却、电荷繁殖与囚禁进行精密质量测量。DRAGON 是另一个反冲分离器实验。"
         },
         "daily_aliases": [
           "TRIUMF",
@@ -107601,7 +107682,22 @@
         ],
         "last_coordinate_check": "2026-10-04",
         "continent": "North America",
-        "coordinate_method": "wikipedia_infobox"
+        "coordinate_method": "wikipedia_infobox",
+        "host": {
+          "en": "TRIUMF · ISAC",
+          "zh": "TRIUMF · ISAC"
+        },
+        "research_units": [
+          {
+            "name": "TITAN",
+            "purpose": {
+              "en": "Ion-trap precision mass measurements",
+              "zh": "离子阱精密质量测量"
+            },
+            "url": "https://triumf.ca/facilities-experiments/titan/"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -107743,7 +107839,7 @@
         "site_id": "gsi-fair-campus",
         "site_mapping_status": "confirmed",
         "name": {
-          "en": "GSI / FAIR (ESR, CRYRING, SHIPTRAP, FRS Ion Catcher)",
+          "en": "GSI / FAIR",
           "zh": "GSI / FAIR (ESR, CRYRING, SHIPTRAP, FRS Ion Catcher)"
         },
         "country": "Germany",
@@ -107773,7 +107869,8 @@
         ],
         "source_checked": "2026-10-04",
         "source_urls": [
-          "https://www.gsi.de/"
+          "https://www.gsi.de/",
+          "https://www-windows.gsi.de/frs-ion-catcher/setup/"
         ],
         "latitude": 49.93139,
         "longitude": 8.67917,
@@ -107786,9 +107883,24 @@
         "coordinate_method": "wikipedia_infobox",
         "last_coordinate_check": "2026-10-04",
         "description": {
-          "en": "Nuclear-physics facility (storage-ring, penning-trap, mr-tof, fragmentation). Map point: campus exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（storage-ring, penning-trap, mr-tof, fragmentation）。地图位置：园区级位置（来源见下）。"
-        }
+          "en": "GSI hosts several distinct precision experiments. The FRS Ion Catcher combines the FRS separator, a cryogenic stopping cell, an RFQ beamline and an MR-TOF mass spectrometer. Super-FRS developments at FAIR are a separate extension.",
+          "zh": "GSI 承载多个不同的精密实验。FRS Ion Catcher 将 FRS 分离器、低温阻止室、RFQ 束线与 MR-TOF 质谱仪组合使用。FAIR 的 Super-FRS 发展属于另外的扩展。"
+        },
+        "host": {
+          "en": "GSI Helmholtzzentrum · FAIR",
+          "zh": "GSI 亥姆霍兹重离子研究中心 · FAIR"
+        },
+        "research_units": [
+          {
+            "name": "FRS Ion Catcher",
+            "purpose": {
+              "en": "Cryogenic stopping cell and MR-TOF",
+              "zh": "低温阻止室与 MR-TOF"
+            },
+            "url": "https://www-windows.gsi.de/frs-ion-catcher/setup/"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {
@@ -107875,7 +107987,7 @@
         "site_id": "mpik-heidelberg-campus",
         "site_mapping_status": "confirmed",
         "name": {
-          "en": "Max Planck Institute for Nuclear Physics (PENTATRAP, ALPHATRAP)",
+          "en": "Max Planck Institute for Nuclear Physics",
           "zh": "Max Planck Institute for Nuclear Physics (PENTATRAP, ALPHATRAP)"
         },
         "country": "Germany",
@@ -107896,7 +108008,8 @@
         ],
         "source_checked": "2026-10-04",
         "source_urls": [
-          "https://www.mpi-hd.mpg.de/"
+          "https://www.mpi-hd.mpg.de/",
+          "https://www1.mpi-hd.mpg.de/mpi/de/forschung/abteilungen-und-gruppen/gespeicherte-und-gekuehlte-ionen/forschung/pentatrap"
         ],
         "latitude": 49.38778,
         "longitude": 8.70917,
@@ -107909,9 +108022,24 @@
         "coordinate_method": "wikipedia_infobox",
         "last_coordinate_check": "2026-10-04",
         "description": {
-          "en": "Nuclear-physics facility (penning-trap). Map point: facility exact — site of the laboratory or host campus.",
-          "zh": "核物理设施（penning-trap）。地图位置：设施级位置（来源见下）。"
-        }
+          "en": "MPIK hosts several ion-trap experiments. PENTATRAP uses five Penning traps to compare highly charged ions with very high mass precision. PENTATRAP and ALPHATRAP are different experiments.",
+          "zh": "MPIK 承载多个离子阱实验。PENTATRAP 使用五个彭宁阱对高电荷态离子进行高精度质量比较。PENTATRAP 与 ALPHATRAP 是不同实验。"
+        },
+        "host": {
+          "en": "MPIK Heidelberg",
+          "zh": "海德堡马普核物理研究所"
+        },
+        "research_units": [
+          {
+            "name": "PENTATRAP",
+            "purpose": {
+              "en": "Five Penning traps for highly charged ions",
+              "zh": "高电荷态离子的五彭宁阱装置"
+            },
+            "url": "https://www1.mpi-hd.mpg.de/mpi/de/forschung/abteilungen-und-gruppen/gespeicherte-und-gekuehlte-ionen/forschung/pentatrap"
+          }
+        ],
+        "content_checked": "2026-10-10"
       }
     },
     {

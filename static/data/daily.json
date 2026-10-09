@@ -3413,7 +3413,7 @@
     {
       "id": "cern-isolde",
       "name": {
-        "en": "CERN ISOLDE (ISOLTRAP, MR-TOF)",
+        "en": "CERN ISOLDE (ISOLTRAP)",
         "zh": "CERN ISOLDE (ISOLTRAP, MR-TOF)"
       }
     },
@@ -3434,8 +3434,8 @@
     {
       "id": "riken-ribf",
       "name": {
-        "en": "RIKEN RI Beam Factory (Rare-RI Ring, ZD MRTOF, KISS)",
-        "zh": "RIKEN RI Beam Factory (Rare-RI Ring, ZD MRTOF, KISS)"
+        "en": "RIKEN RI Beam Factory",
+        "zh": "RIKEN RI Beam Factory"
       }
     },
     {
@@ -3462,7 +3462,7 @@
     {
       "id": "gsi-fair",
       "name": {
-        "en": "GSI / FAIR (ESR, CRYRING, SHIPTRAP, FRS Ion Catcher)",
+        "en": "GSI / FAIR",
         "zh": "GSI / FAIR (ESR, CRYRING, SHIPTRAP, FRS Ion Catcher)"
       }
     },
@@ -3476,7 +3476,7 @@
     {
       "id": "mpik-heidelberg",
       "name": {
-        "en": "Max Planck Institute for Nuclear Physics (PENTATRAP, ALPHATRAP)",
+        "en": "Max Planck Institute for Nuclear Physics",
         "zh": "Max Planck Institute for Nuclear Physics (PENTATRAP, ALPHATRAP)"
       }
     },

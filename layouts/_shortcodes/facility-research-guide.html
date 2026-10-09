@@ -1,0 +1,10 @@
+{{ $lang := site.Language.Lang }}{{ if strings.HasPrefix $lang "zh" }}{{ $lang = "zh" }}{{ end }}
+{{ $zh := eq $lang "zh" }}
+<details class="zg-facility-guide"><summary>{{ if $zh }}设施、机构与质量测量装置的关系{{ else }}How facilities and mass measurement experiments fit together{{ end }}</summary>
+<p>{{ if $zh }}机构承载束流设施；设施为不同实验提供离子束；实验使用一台或多台仪器。下表说明这些关系，不是人员名册，也不表示与所有实验都有合作关系。{{ else }}A host institution operates a facility; a facility supplies beams to distinct experiments; an experiment uses one or more instruments. This guide describes those relationships, rather than a staff roster or a list of collaborations.{{ end }}</p>
+{{ if and (ne $lang "en") (not $zh) }}<p><small>English reference guide. Translated facility names remain available in the atlas.</small></p>{{ end }}
+<div style="overflow-x:auto"><table><thead><tr><th>{{ if $zh }}设施与机构{{ else }}Facility and host{{ end }}</th><th>{{ if $zh }}实验与用途{{ else }}Experiments and purpose{{ end }}</th></tr></thead><tbody>
+{{ range hugo.Data.facilities.facilities.facilities }}{{ with .research_units }}{{ else }}{{ continue }}{{ end }}
+<tr><td><a href="{{ site.Home.RelPermalink }}facilities/{{ .id }}/">{{ or (index .name $lang) .name.en }}</a><br>{{ or (index .host $lang) .host.en }}</td><td><ul>{{ range .research_units }}<li><a href="{{ .url }}">{{ .name }}</a> — {{ or (index .purpose $lang) .purpose.en }}</li>{{ end }}</ul></td></tr>
+{{ end }}</tbody></table></div>
+<p>{{ if $zh }}说明核对日期：2026 年 10 月 10 日。各实验的运行情况、人员与访客要求请以所链接的官方页面为准。{{ else }}Descriptions reviewed 10 October 2026. Follow the linked official pages for current operation, people and visitor requirements.{{ end }}</p></details>

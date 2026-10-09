@@ -764,7 +764,7 @@
     else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
   });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); plotChain(); };
-  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err]").forEach(el => el.addEventListener("input", () => plotChain()));
+  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring]").forEach(el => el.addEventListener("input", () => plotChain()));
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   const rgb = root.querySelector("[name=nc-range]"); if (rgb) rgb.addEventListener("change", () => { root.querySelector(".nc-prange-in").hidden = !rgb.checked;
     if (rgb.checked && chain) { const ch = pchain.value, own = ch === "Z" ? chain[0] : ch === "N" ? chain[1] : chain[0] + chain[1], set = (n, v) => { const el = root.querySelector(`[name=${n}]`); if (el.value === "") el.value = v; };

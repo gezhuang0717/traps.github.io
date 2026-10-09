@@ -87,7 +87,7 @@ def main():
                 rec.update({"latitude": None, "longitude": None, "coordinate_precision": "unknown", "verification_status": "unmapped",
                             "coordinate_verified": False})
         p = rec["coordinate_precision"]
-        rec["description"] = {
+        rec["description"] = rec.get("description") or {
             "en": f"Nuclear-physics facility ({', '.join(tech)}). Map point: {p.replace('_', ' ')}" + (" — site of the laboratory or host campus." if p != "city_approx" else " — city centre, not the exact site."),
             "zh": f"核物理设施（{', '.join(tech)}）。地图位置：{ZH.get(p, '未定位')}。"}
         maintenance.validate_facility(rec)

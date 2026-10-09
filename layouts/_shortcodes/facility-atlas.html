@@ -6,4 +6,4 @@
 <noscript><p>JavaScript is needed for interactive filters. <a href="{{ "data/facilities.json" | relURL }}">Download the complete directory (JSON)</a>.</p></noscript>
 <script defer src="{{ "vendor/leaflet/leaflet.js" | relURL }}"></script>
 <script defer src="{{ "vendor/leaflet/markercluster.js" | relURL }}"></script>
-<script defer src="{{ "js/atlas.js" | relURL }}"></script>
+<script defer src="{{ "js/atlas.js" | relURL }}?v={{ readFile "static/js/atlas.js" | sha256 }}"></script>
