@@ -212,7 +212,8 @@
       root.querySelector('.nc-model-series').innerHTML=Object.entries(modelIndex).map(([k,m])=>{
         const table=m.source?.table_url||m.source?.url||new URL(m.data_url,new URL(root.dataset.models,location.href)).href;
         const paper=m.source?.doi?'https://doi.org/'+m.source.doi:m.url;
-        return '<div class="nc-model-item"><label><input type="checkbox" data-model-series="'+escape(k)+'"> '+escape(m.name)+'</label><small><a href="'+escape(table)+'" target="_blank" rel="noopener">'+escape(T.loaded_data_link)+'</a> · <a href="'+escape(paper)+'" target="_blank" rel="noopener">'+escape(T.loaded_paper_link)+'</a></small></div>';
+        const related=(m.source?.related_papers||[]).filter(p=>p.doi!==m.source?.doi).map(p=>' · <a href="https://doi.org/'+escape(p.doi)+'" target="_blank" rel="noopener">'+escape(p.name)+'</a>').join('');
+        return '<div class="nc-model-item"><label><input type="checkbox" data-model-series="'+escape(k)+'"> '+escape(m.name)+'</label><small><a href="'+escape(table)+'" target="_blank" rel="noopener">'+escape(T.loaded_data_link)+'</a> · <a href="'+escape(paper)+'" target="_blank" rel="noopener">'+escape(T.loaded_paper_link)+'</a>'+related+'</small></div>';
       }).join('');
       root.querySelector('[name=nc-impact-model]').innerHTML='<option value="selected">'+escape(T.loaded_selected_models)+'</option><option value="all">'+escape(T.loaded_all)+'</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
       return d;
@@ -405,7 +406,7 @@
   const seriesMeta=(k,labels)=>{
     if(['loaded','hybrid'].includes(k)){
       const style=labelStyle(labels),name=style.labels.join(' / ')+(k==='hybrid'?' + AME2020':'');
-      return {id:k,key:k+':'+style.key,labelKey:style.key,name,short:name,color:style.color,shape:style[k],open:k==='hybrid'};
+      return {id:k,key:k+':'+style.key,labelKey:style.key,name,short:name,color:style.color,shape:style[k],open:false};
     }
     return k==='ame'?{id:k,key:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:{id:k,key:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
   };
@@ -419,7 +420,7 @@
     for(const s of visibleSeries)if(s.labelKey)current.add(s.labelKey);
     if(!current.size)current.add(labelStyle().key);
     const entries=[...labelStyles].filter(([key])=>current.has(key)),signature=JSON.stringify(entries.map(([key])=>key));if(signature===markerSignature)return;markerSignature=signature;
-    root.querySelector('.nc-marker-rows').innerHTML=entries.map(([key,s])=>'<fieldset class="nc-marker-row" data-marker-key="'+escape(key)+'"><legend>'+escape(s.labels.join(' / '))+'</legend>'+['loaded','hybrid'].map(k=>'<label>'+escape(k==='loaded'?T.marker_new:T.marker_hybrid)+' <select data-marker-kind="'+k+'" aria-label="'+escape(s.labels.join(' / ')+' — '+(k==='loaded'?T.marker_new:T.marker_hybrid))+'">'+Object.keys(CP.markers).map(shape=>'<option value="'+shape+'"'+(s[k]===shape?' selected':'')+'>'+CP.markers[shape][k==='hybrid'?1:0]+' '+escape(T.marker_names[shape])+'</option>').join('')+'</select></label>').join('')+'<label>'+escape(T.marker_color)+' <select data-marker-kind="color" aria-label="'+escape(s.labels.join(' / ')+' — '+T.marker_color)+'">'+labelColors.map((color,i)=>'<option value="'+color+'"'+(s.color===color?' selected':'')+'>'+escape(T.marker_colors[i])+'</option>').join('')+'</select></label></fieldset>').join('');
+    root.querySelector('.nc-marker-rows').innerHTML=entries.map(([key,s])=>'<fieldset class="nc-marker-row" data-marker-key="'+escape(key)+'"><legend>'+escape(s.labels.join(' / '))+'</legend>'+['loaded','hybrid'].map(k=>'<label>'+escape(k==='loaded'?T.marker_new:T.marker_hybrid)+' <select data-marker-kind="'+k+'" aria-label="'+escape(s.labels.join(' / ')+' — '+(k==='loaded'?T.marker_new:T.marker_hybrid))+'">'+Object.keys(CP.markers).map(shape=>'<option value="'+shape+'"'+(s[k]===shape?' selected':'')+'>'+CP.markers[shape][0]+' / '+CP.markers[shape][1]+'# '+escape(T.marker_names[shape])+'</option>').join('')+'</select></label>').join('')+'<label>'+escape(T.marker_color)+' <select data-marker-kind="color" aria-label="'+escape(s.labels.join(' / ')+' — '+T.marker_color)+'">'+labelColors.map((color,i)=>'<option value="'+color+'"'+(s.color===color?' selected':'')+'>'+escape(T.marker_colors[i])+'</option>').join('')+'</select></label></fieldset>').join('');
   }
   root.querySelector('.nc-marker-rows').addEventListener('change',e=>{
     const control=e.target.closest('[data-marker-kind]');if(!control)return;
@@ -429,8 +430,8 @@
     root.querySelector('.nc-marker-status').textContent=collision?T.marker_swap:'';plotChain();
   });
   const markerGlyph=s=>s.shape==='model'?'– –':CP.markers[s.shape][s.open?1:0];
-  const hasEstimated=s=>plotPts.concat(modPts).some(p=>inSeries(p,s)&&p.est);
-  const legendGlyph=s=>markerGlyph(s)+(s.id==='ame'?' ○#':s.id==='loaded'&&hasEstimated(s)?' '+CP.markers[s.shape][1]+'#':s.id==='hybrid'&&hasEstimated(s)?'#':'');
+  const hasEstimated=s=>plotPts.concat(modPts,residualPts).some(p=>inSeries(p,s)&&p.est);
+  const legendGlyph=s=>markerGlyph(s)+(s.id==='ame'?' ○#':hasEstimated(s)?' '+(CP.markers[s.shape]?.[1]||'○')+'#':'');
   function seriesLegendLines(w){
     const max=Math.max(12,Math.floor((w-120)/6.2)),out=[];
     for(const s of visibleSeries.slice(0,16)){
@@ -583,7 +584,6 @@
     const seriesRank=s=>s.id==='ame'?0:s.id==='loaded'?1:s.id==='hybrid'?2:3;
     visibleSeries=[...new Map(plotPts.concat(modPts).map(p=>[p.styleKey,seriesMeta(p.series,p.labels)])).values()].sort((a,b)=>seriesRank(a)-seriesRank(b)||a.name.localeCompare(b.name));
     markerControls();
-    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
     inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys(p.valueObj.terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
     root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>x.text).join(' · ');
     if(chainInput('band').checked){
@@ -594,12 +594,13 @@
       for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
-        residualPts.push({...p,y:d.v,e:model?a.e:d.e,valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,est:!!d.est,valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
+    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
     const label=(ch==='Z'?T.p_iso:ch==='N'?T.p_isot:T.p_isob)+': '+ch+' = '+first+(shown>1?'–'+(first+shown-1):'');
-    pinfo.textContent=label+' · '+q[0]+' · '+(plotPts.length+modPts.length)+' '+T.points+' · '+T.chain_count.replace('{shown}',shown).replace('{total}',total)+(modelReason?' · '+modelReason:'')+(!advanced&&modelReason!==T.loaded_cap&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)?' · '+T.loaded_cap:'')+' · '+bands.length+' '+T.loaded_band_points;
+    pinfo.textContent=label+' · '+q[0]+' · '+(plotPts.length+modPts.length)+' '+T.points+' · '+T.chain_count.replace('{shown}',shown).replace('{total}',total)+(modelReason?' · '+modelReason:'')+(!advanced&&modelReason!==T.loaded_cap&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)?' · '+T.loaded_cap:'')+' · '+bands.length+' '+T.loaded_band_points+(hasNewGround&&root.querySelector('[data-series=hybrid]').checked&&!plotPts.some(p=>p.series==='hybrid')?' · '+T.loaded_no_mixed:'');
     const fullX=[...centres.values()].map(r=>xv(r[0],r[1])).concat(modelNuclei.map(([z,n])=>xv(z,n)));
     plotDomain=CP.chainExtent(plotPts,modPts,{xMode:chainInput('xscale').value,yMode:chainInput('yscale').value,fullX,errors:chainInput('axis-errors').checked,manual:Object.fromEntries(['x0','x1','y0','y1'].map(k=>[k,axisNumber('axis-'+k)]))});
     root.querySelector('.nc-axis-note').textContent=(plotDomain.warnings.length?T.axis_invalid+' · ':'')+T.axis_offscale;

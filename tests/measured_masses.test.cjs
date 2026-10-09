@@ -70,6 +70,16 @@ test('every selectable marker has an opaque open centre and coloured outline for
   CP.paintMarker(context,shape,10,20,4,'#008080',false,'#ffffff');assert.equal(fills.at(-1),'#008080',shape);
  }
 });
+test('AME extrapolated neighbours mark a measured new result; residual flags follow surviving terms',()=>{
+ const measured=P.primitive('loaded:test',-91515.979,1,false),ameCentre=P.primitive('AME2020:50066',-91525.979,.1,false),ameNeighbour=P.primitive('AME2020:50064',-90559.735,10,true);
+ const mixed=P.combine([1,ameNeighbour],[-1,measured],[2,constants.MEn]);
+ const reference=P.combine([1,ameNeighbour],[-1,ameCentre],[2,constants.MEn]);
+ assert.equal(CP.composition(mixed).mixed,true);assert.equal(mixed.est,true);
+ const residual=P.combine([1,mixed],[-1,reference]);assert.equal(residual.est,false,'shared extrapolated neighbour cancels');
+ near(residual.v,-10);near(residual.e,Math.hypot(1,.1));
+ const extrapolatedCentre=P.primitive('AME2020:testCentre',-91525.979,10,true);
+ assert.equal(P.combine([1,measured],[-1,extrapolatedCentre]).est,true,'new measured mass minus an AME# baseline is extrapolation dependent');
+});
 test('isomer changes excitation only; every ground-state output stays identical',()=>{
  const table=MM.build([row('116mSn',base(50,66).v+1000)],catalog),s=surface(table);
  for(const n of [64,65,66,67,68])for(const k of ['me','BE','BEA','sn','s2n','qbm','vpn','wig','d3n','d5n'])assert.deepEqual(s.derive(50,n,'ame')[k],s.derive(50,n,'hybrid')[k]);

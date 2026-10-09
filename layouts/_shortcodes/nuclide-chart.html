@@ -80,6 +80,7 @@
     <label>{{ $t.pchain }} <select name="nc-pchain"><option value="Z">{{ $t.p_iso }}</option><option value="N">{{ $t.p_isot }}</option><option value="A">{{ $t.p_isob }}</option></select></label>
     <label class="nc-chk"><input type="checkbox" name="nc-lines" checked> {{ $t.p_lines }}</label>
     <label class="nc-chk"><input type="checkbox" name="nc-err" checked> {{ $t.p_err }}</label>
+    <label class="nc-chk"><input type="checkbox" name="nc-reference-ring" aria-describedby="nc-ring-hint" checked> {{ $t.loaded_reference_ring }}</label>
     <span class="nc-prange"><label class="nc-chk"><input type="checkbox" name="nc-range"> {{ $t.p_range }}</label>
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
   </div>
@@ -94,12 +95,12 @@
     <details><summary>{{ $t.loaded_models }}</summary><p class="zg-small">{{ $t.loaded_models_hint }}</p><div class="nc-bar"><button type="button" class="zg-btn zg-btn-ghost" data-model-all>{{ $t.loaded_all }}</button><button type="button" class="zg-btn zg-btn-ghost" data-model-none>{{ $t.loaded_none }}</button></div><div class="nc-model-series"></div><p class="nc-model-error zg-small" role="status"></p></details>
     <p><strong>{{ $t.loaded_overlay_title }}</strong></p>
     <div class="nc-series-choices">
-      <div class="nc-series-option"><label><input type="checkbox" name="nc-reference-ring" aria-describedby="nc-ring-hint" checked><span>{{ $t.loaded_reference_ring }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-ring-hint">{{ $t.loaded_ring_hint }}</p></details></div>
       <div class="nc-series-option"><label><input type="checkbox" name="nc-band" aria-describedby="nc-band-hint"><span>{{ $t.loaded_band }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-band-hint">{{ $t.loaded_band_hint }}</p></details></div>
       <div class="nc-series-option"><label><input type="checkbox" name="nc-residual" aria-describedby="nc-residual-hint"><span>{{ $t.loaded_residual }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-residual-hint">{{ $t.loaded_residual_hint }}</p></details></div>
     </div>
   </fieldset>
-  <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · ● ○# ◆ □</summary><p class="zg-small nc-series-key">{{ $t.loaded_style_key }} {{ $t.loaded_requires_ground }}</p></details>
+  <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.loaded_reference_ring }}</summary><p id="nc-ring-hint">{{ $t.loaded_ring_hint }}</p></details>
+  <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · ● ○# ◆ ◇# ■ □#</summary><p class="zg-small nc-series-key">{{ $t.loaded_style_key }} {{ $t.loaded_requires_ground }}</p></details>
   <div class="nc-bar nc-experiment-filter"><label>{{ $t.loaded_plotfilter }} <select name="nc-exp-filter"><option value="all">{{ $t.loaded_filter_all }}</option><option value="measured">{{ $t.loaded_filter_meas }}</option><option value="loaded">{{ $t.loaded_filter_centres }}</option><option value="affected">{{ $t.loaded_filter_affected }}</option></select></label><label>{{ $t.loaded_maxsigma }} <input type="number" name="nc-max-sigma" min="0" step="any" class="nc-num"></label></div>
   <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.loaded_plotfilter }}</summary><p class="zg-small zg-muted">{{ $t.loaded_filter_hint }}</p></details>
   <div class="nc-bar nc-axes">
@@ -111,7 +112,7 @@
   </div>
   <p class="nc-pinfo zg-muted" aria-live="polite"></p>
   <p class="nc-axis-note zg-small zg-muted" aria-live="polite"></p>
-  <div class="nc-series-legend zg-small" aria-live="polite"></div>
+  <div class="nc-series-legend zg-small" aria-live="polite"></div><p class="zg-small">{{ $t.marker_key }}</p>
   <div class="nc-input-legend zg-small" aria-live="polite"></div>
   <div class="nc-bar nc-plot-toolbar" role="group" aria-label="{{ $t.plot_tools }}"><strong>{{ $t.plot_tools }}</strong><button type="button" class="zg-btn" data-nc="ppng">⤓ {{ $t.png }}</button><button type="button" class="zg-btn" data-nc="pcsv">⤓ {{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="in">＋</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="out">−</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="fit">{{ $t.plot_fit }}</button></div>
   <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · ＋ / − / ↔</summary><p class="zg-small">{{ $t.plot_navigation }}</p></details>

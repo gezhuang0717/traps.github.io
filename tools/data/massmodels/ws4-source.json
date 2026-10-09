@@ -1,0 +1,27 @@
+{
+  "name": "WS4 (2014)",
+  "ref": "N. Wang, M. Liu, X. Wu, J. Meng, Phys. Lett. B 734, 215–219 (2014)",
+  "url": "https://doi.org/10.1016/j.physletb.2014.05.049",
+  "doi": "10.1016/j.physletb.2014.05.049",
+  "table_url": "http://www.imqmd.com/mass/",
+  "table_date": "2014-June-3",
+  "column": "WS4",
+  "raw_sha256": "1dab8913daf314c05978fa644d524a4624e5c7abb04aa37ffb3b656046ceded6",
+  "normalized_sha256": "66b96d4263f4d7cfe5bbf31540e22d2efadd2bc1346ca590e2d52c191ff46847",
+  "rows": 10237,
+  "mass_precision_keV": 0.1,
+  "beta2_precision": null,
+  "uncertainty": null,
+  "related_papers": [
+    {
+      "name": "WS4",
+      "doi": "10.1016/j.physletb.2014.05.049"
+    },
+    {
+      "name": "RBF method",
+      "doi": "10.1103/PhysRevC.84.051303"
+    }
+  ],
+  "reuse": "attributed numerical mass predictions only; raw table and proprietary R package not redistributed",
+  "note": "Author-labelled 2014 table supplied for verification. Live author-host download unavailable at review; papers verified. WS4 and WS4+RBF are related variants, not independent error estimates. No RBF re-fit to AME2020 or new input masses."
+}

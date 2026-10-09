@@ -1,6 +1,6 @@
 # Public mass-model sources
 
-Twelve models. Ground-state numerical predictions only; raw downloads, private experimental inputs and source audits are excluded. Unknown model uncertainty stays unknown. Each selected model loads independently.
+Fourteen models. Ground-state numerical predictions only; raw downloads, private experimental inputs and source audits are excluded. Unknown model uncertainty stays unknown. Each selected model loads independently.
 
 | Model | Nuclei | Data | Paper |
 |---|---:|---|---|
@@ -16,6 +16,9 @@ Twelve models. Ground-state numerical predictions only; raw downloads, private e
 | HFB-26 (BSk26) | 9511 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb26-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.024308) |
 | HFB-27 (BSk27) | 8386 | [Source](https://www.astro.ulb.ac.be/bruslib/nucdata/hfb27-dat) | [Paper](https://doi.org/10.1103/PhysRevC.88.061302) |
 | KTUY05 (2005) | 9436 | [Source](https://wwwndc.jaea.go.jp/nucldata/mass/KTUY05_m246.dat) | [Paper](https://doi.org/10.1143/PTP.113.305) |
+
+| WS4 (2014) | 10237 | [Author data page](http://www.imqmd.com/mass/) | [WS4 paper](https://doi.org/10.1016/j.physletb.2014.05.049) |
+| WS4+RBF (2014) | 10237 | [Author data page](http://www.imqmd.com/mass/) | [WS4 paper](https://doi.org/10.1016/j.physletb.2014.05.049), [RBF method](https://doi.org/10.1103/PhysRevC.84.051303) |
 
 FRDM1992, HFB-17 and HFB-D1M retain their earlier TALYS1.95 normalized lineage; the other tables were independently recovered from public author or institutional sources. Per-model source JSON records the exact snapshot hash, column normalization, precision, coverage and checks.
 
@@ -43,4 +46,13 @@ A drip overlay requires a positive separation value immediately followed by a no
 
 ## Candidates still pending
 
-WS3/WS4(+RBF), the distinct DZ variants, HFB22/23, UNEDF0/1, BSkG1/2/4, INM2012 and FRLDM still require reliable public data lineage, exact versions and normalization checks. Private communication tables remain excluded. Source-access failures are not replaced with a different model under the requested name.
+WS3, the distinct DZ variants, HFB22/23, UNEDF0/1, BSkG1/2/4, INM2012 and FRLDM still require reliable public data lineage, exact versions and normalization checks. Private communication tables remain excluded. Source-access failures are not replaced with a different model under the requested name.
+
+## WS4 variants
+
+The author-labelled table dated 2014-June-3 contains A, Z, WS4 and WS4+RBF in MeV. The two predictions stay separate; the R comparison importer selects the fourth column, WS4+RBF. Both normalized tables retain 0.1 keV rounding. Neither model sigma nor beta2 is supplied. The supplied snapshot was checked against the original R importer for every identity and ME; the live author-host download was unavailable at review, while both papers were verified. This is a fixed table, not an RBF fit updated with the browser’s new masses. WS4 and WS4+RBF are related variants; their spread is not a confidence interval.
+
+```sh
+python tools/import_ws4.py /private/path/WS4_RBF.txt --audit /private/path/ws4-audit.json
+python tools/make_mass_models.py
+```

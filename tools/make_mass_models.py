@@ -15,9 +15,11 @@ import json, pathlib, hashlib, math
 if __package__:
     from .import_bruslib import META as BRUSLIB
     from .import_ktuy import META as KTUY
+    from .import_ws4 import META as WS4
 else:
     from import_bruslib import META as BRUSLIB
     from import_ktuy import META as KTUY
+    from import_ws4 import META as WS4
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 D = ROOT / "tools/data"
 MODELS = {
@@ -28,6 +30,7 @@ MODELS = {
 }
 MODELS.update({k:{f:v[f] for f in ('name','ref','url')} for k,v in BRUSLIB.items()})
 MODELS['ktuy05'] = {f:KTUY[f] for f in ('name','ref','url')}
+MODELS.update(WS4)
 
 def read_model(path):
     rows = []

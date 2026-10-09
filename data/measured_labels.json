@@ -111,14 +111,14 @@
     "plot_fit": "Rescale to whole",
     "plot_navigation": "Wheel or ＋/−: zoom. Drag: pan. Touch: pinch to zoom. Focus the plot: arrows pan, +/− zoom, Home rescales the whole selected chain range. PNG/PDF save the current view; CSV includes all plotted-series data.",
     "state_link_ready": "State link ready — copy the address bar",
-    "loaded_style_key": "New and New + AME2020 share each input label's colour. Choose their different symbols under Markers and colours. Every # point is open; combined points are also open. Lines and error bars apply to both panels.",
+    "loaded_style_key": "New and New + AME2020 share each input label’s colour but use different shapes. Filled means all surviving mass inputs are measured; hollow means at least one new or AME mass is extrapolated (#). Residuals apply the same rule after shared terms cancel. Choose shapes and colours below. Lines and error bars apply to both panels.",
     "loaded_requires_ground": "New series require at least one active ground-state input. Without one, only AME and selected models are drawn.",
     "loaded_residual_empty": "No residual points: enable a New/model series and choose a mass quantity with an AME reference.",
     "loaded_select_hint": "Choose any combination. Each checked series appears together; unchecking hides it without deleting data.",
     "loaded_ame_hint": "Original AME2020 values for the whole selected chain. Blue filled circles are measured; blue hollow circles are extrapolated (#). New inputs do not change this reference.",
     "loaded_new_hint": "Show results at active input nuclides when the formula uses a new mass. Missing neighbours use AME2020. Each input label has its own colour and marker; a formula using several labels lists all of them.",
     "loaded_hybrid_hint": "Show only formulas containing at least one active new mass and at least one AME2020 mass. Pure AME and entirely new formulas are excluded from this series. New input centres can also appear in the New series, with a different marker. Fixed n, ¹H and ⁴He reference masses do not by themselves make a mixed chain point.",
-    "loaded_models_hint": "Each checked model adds its independent ground-state prediction. Select at least two models to obtain a spread band. Models do not absorb your inputs; their uncertainties are unavailable.",
+    "loaded_models_hint": "Each checked model adds its independent ground-state prediction. Select at least two models to obtain a spread band. Models do not absorb your inputs; their uncertainties are unavailable. WS4 and WS4+RBF are distinct fixed 2014 variants. RBF corrections are already in the table; entering new masses does not retrain the model. Their spread is not an independent uncertainty.",
     "loaded_overlay_title": "Optional visual aids",
     "loaded_ring_hint": "Draw a red ring around the nuclide selected in the reference card, wherever it appears in the chain. It is a selection marker, not an uncertainty or calibrant measurement.",
     "loaded_band_hint": "Shade the minimum-to-maximum prediction of the checked models at each point, only where at least two have data. This spread is not a confidence interval and does not include AME or New.",
@@ -155,7 +155,9 @@
       "Forest green",
       "Crimson",
       "Steel blue"
-    ]
+    ],
+    "marker_key": "Filled: measured mass inputs · Hollow: at least one extrapolated (#) mass input",
+    "loaded_no_mixed": "New + AME2020 has no mixed formulas in this selection; pure AME and entirely new formulas are omitted."
   },
   "zh": {
     "loaded_title": "实测质量——实时比较",
@@ -269,14 +271,14 @@
     "plot_fit": "恢复完整范围",
     "plot_navigation": "滚轮或＋/−缩放，拖动平移，触屏双指缩放。聚焦图像后方向键平移、＋/−缩放、Home恢复所选核素链的完整范围。PNG/PDF保存当前视图；CSV包含全部绘制系列数据。",
     "state_link_ready": "核态链接已就绪——可复制地址栏",
-    "loaded_style_key": "每个输入标签的新值与新值 + AME2020同色。可在“按输入标签设置符号与颜色”中选择不同符号。所有#点为空心；混合点也为空心。连线与误差棒开关同时作用于主图和残差图。",
+    "loaded_style_key": "每个输入标签的新值与新值 + AME2020同色、不同形状。实心表示所有未抵消的质量输入均为实测；任一新质量或AME质量为外推（#）时用空心。残差在共享项抵消后按同样规则判断。下方可选形状与颜色；连线和误差棒同时作用于两幅图。",
     "loaded_requires_ground": "新值系列需要至少一个有效的基态输入；没有此输入时，仅绘制AME和已选模型。",
     "loaded_residual_empty": "没有残差点：请启用新值或模型系列，并选择有AME参考值的质量量。",
     "loaded_select_hint": "可同时勾选任意多个系列；取消勾选只隐藏曲线，不删除数据。",
     "loaded_ame_hint": "显示所选整条链的原始AME2020值。蓝色实心圆为实测，蓝色空心圆为外推（#）；新输入不会改变此参考系列。",
     "loaded_new_hint": "在有效输入核素处显示确实使用新质量的计算结果。未输入的邻核采用AME2020。每个图例标签使用自己的颜色和符号；公式涉及多个标签时同时列出。",
     "loaded_hybrid_hint": "仅显示公式同时使用至少一个有效新质量和至少一个AME2020质量的点。纯AME或全部采用新质量的计算不属于此系列。输入中心核的结果也可出现在“新值”系列中，使用不同符号。 固定的中子、¹H和⁴He参考质量本身不使一个点成为混合质量点。",
-    "loaded_models_hint": "每个勾选的模型添加其独立基态预测。至少选两个模型才有离散带。模型不吸收您的新输入；模型不确定度未知。",
+    "loaded_models_hint": "每个勾选的模型添加其独立基态预测。至少选两个模型才有离散带。模型不吸收您的新输入；模型不确定度未知。 WS4 与 WS4+RBF 是不同的 2014 年固定版本。RBF 修正已包含在表中；输入新质量不会重新训练模型。两者之差不是独立的不确定度。",
     "loaded_overlay_title": "可选的视觉辅助",
     "loaded_ring_hint": "在参考卡当前选中的核素对应链图点周围画红圈。它只是选择标记，不是误差范围，也不是校准测量。",
     "loaded_band_hint": "在每个位置用阴影表示已选模型预测的最小值到最大值，仅在至少两个模型有数据时显示；不是置信区间，也不包含AME或新值。",
@@ -313,7 +315,9 @@
       "森林绿",
       "绯红",
       "钢蓝"
-    ]
+    ],
+    "marker_key": "实心：质量输入均为实测 · 空心：至少一个质量输入为外推（#）",
+    "loaded_no_mixed": "此选择中没有同时使用新质量与AME质量的公式；新值 + AME2020不显示纯AME或全部为新质量的计算。"
   },
   "fi": {
     "loaded_title": "Mitatut massat — reaaliaikainen vertailu",
@@ -427,14 +431,14 @@
     "plot_fit": "Sovita koko alue",
     "plot_navigation": "Rulla tai ＋/−: zoomaa. Vedä: siirrä. Kosketus: nipistä. Kohdista kuva: nuolet siirtävät, +/− zoomaa, Home palauttaa valitun ketjualueen. PNG/PDF tallentavat näkymän; CSV sisältää kaikki sarjapisteet.",
     "state_link_ready": "Tilalinkki valmis — kopioi osoiterivi",
-    "loaded_style_key": "New ja New + AME2020 ovat samanvärisiä kullekin syötetunnisteelle. Valitse eri symbolit asetuksista. # ja yhdistetyt pisteet ovat avoimia. Viivat ja virhepalkit koskevat molempia kuvia.",
+    "loaded_style_key": "New ja New + AME2020 käyttävät saman syötelabelin väriä mutta eri muotoja. Täytetty: kaikki jäljelle jäävät massat on mitattu. Avoin: ainakin yksi uusi tai AME-massa on ekstrapoloitu (#). Residuaali käyttää samaa sääntöä yhteisten termien kumouduttua. Valitse muodot ja värit alta. Viivat ja virhepalkit koskevat molempia kuvia.",
     "loaded_requires_ground": "New-sarjat tarvitsevat vähintään yhden aktiivisen perustilan syötteen. Ilman sitä piirretään vain AME ja valitut mallit.",
     "loaded_residual_empty": "Ei erotuspisteitä: valitse New- tai mallisarja ja massasuure, jolla on AME-vertailuarvo.",
     "loaded_select_hint": "Valitse yksi tai useita sarjoja. Valinnan poisto piilottaa sarjan, mutta ei poista tietoja.",
     "loaded_ame_hint": "Koko valitun ketjun alkuperäinen AME2020. Sininen täysi ympyrä: mitattu; avoin: ekstrapoloitu (#). Uudet syötteet eivät muuta vertailua.",
     "loaded_new_hint": "Näytä tulos syötenuklidin kohdalla, kun kaava käyttää uutta massaa. Puuttuvat naapurit saadaan AME2020:stä. Jokaisella selitetunnisteella on oma väri ja symboli; yhteiset kaavat näyttävät kaikki tunnisteet.",
     "loaded_hybrid_hint": "Näytä vain kaavat, joissa on vähintään yksi aktiivinen uusi massa ja yksi AME2020-massa. Pelkät AME- tai uudet massat eivät kuulu tähän sarjaan. Syötekeskus voi näkyä myös New-sarjassa eri symbolilla. Kiinteät n-, ¹H- ja ⁴He-viitemassat eivät yksin tee ketjupisteestä sekapistettä.",
-    "loaded_models_hint": "Jokainen valittu malli lisää riippumattoman perustilaennusteen. Kaista tarvitsee vähintään kaksi mallia. Syötteet eivät muuta malleja; malliepävarmuus on tuntematon.",
+    "loaded_models_hint": "Jokainen valittu malli lisää riippumattoman perustilaennusteen. Kaista tarvitsee vähintään kaksi mallia. Syötteet eivät muuta malleja; malliepävarmuus on tuntematon. WS4 ja WS4+RBF ovat erilliset vuoden 2014 taulukot. Uudet massat eivät opeta RBF-mallia uudelleen. Vaihteluväli ei ole riippumaton epävarmuus.",
     "loaded_overlay_title": "Valinnaiset kuva-apuvälineet",
     "loaded_ring_hint": "Punainen rengas kortissa valitun nuklidin ympärillä ketjukuvassa. Valintamerkki, ei epävarmuus eikä kalibrointimittaus.",
     "loaded_band_hint": "Valittujen mallien pienimmän ja suurimman ennusteen väli; vähintään kaksi arvoa per piste. Ei luottamusväli; ei AME- tai New-sarjoja.",
@@ -471,7 +475,9 @@
       "Metsänvihreä",
       "Karmiininpunainen",
       "Teräksensininen"
-    ]
+    ],
+    "marker_key": "Täytetty: mitatut massat · Avoin: vähintään yksi ekstrapoloitu (#) massa",
+    "loaded_no_mixed": "New + AME2020: tässä valinnassa ei ole sekakaavoja; pelkät AME- tai uudet massat jätetään pois."
   },
   "de": {
     "loaded_title": "Gemessene Massen — Livevergleich",
@@ -585,14 +591,14 @@
     "plot_fit": "Gesamten Bereich zeigen",
     "plot_navigation": "Mausrad oder ＋/−: zoomen. Ziehen: verschieben. Touch: Pinch-Zoom. Bild fokussieren: Pfeile verschieben, +/− zoomen, Home zeigt den gesamten gewählten Kettenbereich. PNG/PDF speichern die Ansicht; CSV enthält alle Reihenpunkte.",
     "state_link_ready": "Zustandslink bereit — Adresszeile kopieren",
-    "loaded_style_key": "New und New + AME2020 teilen je Eingabelabel eine Farbe. Verschiedene Symbole sind einstellbar. Alle # und gemischten Punkte sind offen. Linien und Fehlerbalken gelten für beide Diagramme.",
+    "loaded_style_key": "New und New + AME2020 haben je Eingabelabel dieselbe Farbe, aber verschiedene Formen. Gefüllt: alle verbleibenden Masseneingaben sind gemessen. Offen: mindestens eine neue oder AME-Masse ist extrapoliert (#). Residuen folgen derselben Regel nach Kürzung gemeinsamer Terme. Formen und Farben sind unten wählbar; Linien und Fehlerbalken gelten für beide Diagramme.",
     "loaded_requires_ground": "New-Reihen benötigen mindestens eine aktive Grundzustandseingabe. Ohne diese werden nur AME und gewählte Modelle gezeichnet.",
     "loaded_residual_empty": "Keine Differenzpunkte: New-/Modellreihe und eine Massengröße mit AME-Referenz wählen.",
     "loaded_select_hint": "Beliebige Reihen gemeinsam wählen. Abwählen blendet nur die Reihe aus und löscht keine Daten.",
     "loaded_ame_hint": "Originale AME2020-Werte der ganzen gewählten Kette. Blau gefüllt: gemessen; blau offen: extrapoliert (#). Neue Eingaben ändern diese Referenz nicht.",
     "loaded_new_hint": "Ergebnisse an aktiven Eingabenukliden zeigen, wenn die Formel eine neue Masse nutzt. Fehlende Nachbarn stammen aus AME2020. Jedes Legendenlabel hat eigene Farbe und Symbole; gemeinsame Formeln nennen alle Labels.",
     "loaded_hybrid_hint": "Nur Formeln mit mindestens einer aktiven neuen Masse und einer AME2020-Masse zeigen. Reine AME- oder reine neue Berechnungen sind ausgeschlossen. Eingabezentren können zugleich mit anderem Symbol in New erscheinen. Feste n-, ¹H- und ⁴He-Referenzmassen allein erzeugen keinen gemischten Kettenpunkt.",
-    "loaded_models_hint": "Jedes gewählte Modell liefert seine unabhängige Grundzustandsvorhersage. Mindestens zwei Modelle für das Band. Eingaben ändern Modelle nicht; Modellunsicherheit unbekannt.",
+    "loaded_models_hint": "Jedes gewählte Modell liefert seine unabhängige Grundzustandsvorhersage. Mindestens zwei Modelle für das Band. Eingaben ändern Modelle nicht; Modellunsicherheit unbekannt. WS4 und WS4+RBF sind getrennte feste Tabellen von 2014. Neue Massen trainieren das RBF-Modell nicht neu. Ihre Streuung ist keine unabhängige Unsicherheit.",
     "loaded_overlay_title": "Optionale Darstellungshilfen",
     "loaded_ring_hint": "Roter Ring um das Nuklid, das auf der Referenzkarte gewählt wurde. Auswahlmarkierung, keine Unsicherheit oder Kalibrationsmessung.",
     "loaded_band_hint": "Bereich zwischen kleinster und größter Vorhersage der gewählten Modelle, wenn mindestens zwei Werte vorliegen. Kein Konfidenzintervall; ohne AME und New.",
@@ -629,7 +635,9 @@
       "Waldgrün",
       "Karminrot",
       "Stahlblau"
-    ]
+    ],
+    "marker_key": "Gefüllt: gemessene Masseneingaben · Offen: mindestens eine extrapolierte (#) Masse",
+    "loaded_no_mixed": "New + AME2020 enthält hier keine gemischten Formeln; reine AME- und reine neue Berechnungen sind ausgeschlossen."
   },
   "ja": {
     "loaded_title": "実測質量 — リアルタイム比較",
@@ -743,14 +751,14 @@
     "plot_fit": "全範囲に戻す",
     "plot_navigation": "ホイールまたは＋/−で拡大縮小、ドラッグで移動、タッチはピンチ。図にフォーカスすると矢印で移動、＋/−で拡大縮小、Homeで選択鎖の全範囲に戻ります。PNG/PDFは現在の表示、CSVは全系列点を保存します。",
     "state_link_ready": "核状態リンク準備完了 — アドレスバーをコピー",
-    "loaded_style_key": "入力ラベルごとのNewとNew + AME2020は同色です。記号設定で異なる形を選べます。すべての#点と混合点は中空です。線と誤差棒の設定は両方の図に適用します。",
+    "loaded_style_key": "同じ入力ラベルのNewとNew + AME2020は同色で異なる形です。残る質量入力がすべて実測なら実心、新質量またはAME質量に外挿（#）があれば中空です。残差は共通項を相殺した後に同じ規則で判断します。下で形と色を選べます。線と誤差棒は両図に適用します。",
     "loaded_requires_ground": "New系列には有効な基底状態入力が1つ以上必要です。入力がない場合はAMEと選択した模型のみを描きます。",
     "loaded_residual_empty": "残差点なし：Newまたは模型の系列と、AME参照値がある質量量を選択してください。",
     "loaded_select_hint": "複数の系列を同時に選べます。チェック解除は非表示にするだけで、データを削除しません。",
     "loaded_ame_hint": "選択した連鎖全体の元のAME2020値です。青の実心丸は実測、青の空心丸は外挿（#）。新しい入力はこの参照系列を変更しません。",
     "loaded_new_hint": "式が新質量を使う有効入力核種の位置に結果を表示します。未入力の近隣核種にはAME2020を使います。入力ラベルごとに色と記号を割り当て、複数ラベルを使う式では併記します。",
     "loaded_hybrid_hint": "有効な新質量とAME2020質量を少なくとも一つずつ使う式だけを表示します。AMEのみ・新質量のみの計算は除きます。入力中心核は別の記号でNew系列にも表示できます。 固定のn・¹H・⁴He参照質量だけでは混合点とは判定しません。",
-    "loaded_models_hint": "チェックした各模型の独立した基底状態予測を追加します。帯には2模型以上必要です。入力は模型を変更しません。模型不確かさは未知です。",
+    "loaded_models_hint": "チェックした各模型の独立した基底状態予測を追加します。帯には2模型以上必要です。入力は模型を変更しません。模型不確かさは未知です。 WS4 と WS4+RBF は異なる2014年の固定表です。新しい質量を入力してもRBFモデルは再学習されません。両者の差は独立した不確かさではありません。",
     "loaded_overlay_title": "任意の表示補助",
     "loaded_ring_hint": "参照カードで選んだ核種の連鎖図上の点を赤い輪で囲みます。選択マーカーであり、不確かさや校正測定ではありません。",
     "loaded_band_hint": "各点で選択模型の最小値と最大値の間を表示します。値が2つ以上ある点のみ。信頼区間ではなく、AMEやNewを含みません。",
@@ -787,6 +795,8 @@
       "森林緑",
       "クリムゾン",
       "スチールブルー"
-    ]
+    ],
+    "marker_key": "実心：質量入力はすべて実測 · 中空：少なくとも一つが外挿（#）",
+    "loaded_no_mixed": "この選択には新質量とAME質量を共に使う式がありません。New + AME2020はAMEのみ・新質量のみの計算を除きます。"
   }
 }

@@ -4,12 +4,13 @@ import pytest
 from tools.import_bruslib import parse
 from tools.import_ktuy import parse as parse_ktuy, parse_record, HEADER
 from tools.make_mass_models import read_model
+from tools.import_ws4 import parse as parse_ws4, parse_record as parse_ws4_record
 
 ROOT=Path(__file__).resolve().parents[1]
 def test_model_index_and_payload_identity():
     all_data=json.loads((ROOT/'static/data/massmodels.json').read_text())
     index=json.loads((ROOT/'static/data/massmodels-index.json').read_text())
-    assert set(index['models'])=={'frdm1995','frdm2012','hfb17','hfbd1m','hfb14','hfb24','bskg3','hfb21','hfb25','hfb26','hfb27','ktuy05'}
+    assert set(index['models'])=={'frdm1995','frdm2012','hfb17','hfbd1m','hfb14','hfb24','bskg3','hfb21','hfb25','hfb26','hfb27','ktuy05','ws4','ws4rbf'}
     for key,meta in index['models'].items():
         payload=(ROOT/'static/data'/meta['data_url']).read_bytes()
         assert hashlib.sha256(payload).hexdigest()==meta['payload_sha256']
@@ -56,3 +57,25 @@ def test_ktuy_rejects_shifted_header_duplicate_and_truncated_snapshot():
                         (header+row,'9436')]:
         with pytest.raises(ValueError,match=reason):
             parse_ktuy(text)
+
+def test_ws4_rbf_columns_units_and_unknown_model_uncertainty():
+    assert parse_ws4_record('116 50 -91.2776 -91.3981')==(50,116,-91.2776,-91.3981)
+    for key,me in [('ws4',-91277.6),('ws4rbf',-91398.1)]:
+        m=json.loads((ROOT/f'static/data/massmodels/{key}.json').read_text())
+        assert len(m['rows'])==10237 and m['uncertainty'] is None
+        assert all(r[3] is None for r in m['rows'])
+        row=next(r for r in m['rows'] if r[:2]==[50,66])
+        assert row[2]==pytest.approx(me)
+        meta=m['source'];assert meta['mass_precision_keV']==0.1
+        assert hashlib.sha256((ROOT/f'tools/data/massmodels/{key}.txt').read_bytes()).hexdigest()==meta['normalized_sha256']
+        assert meta['column']==('WS4' if key=='ws4' else 'WS4+RBF')
+
+@pytest.mark.parametrize('line',['116 50 nan -91.3','116 50 -91.2 inf','116 133 1 2','116 50 1','116 50 1 2 extra'])
+def test_ws4_rejects_malformed_records(line):
+    with pytest.raises(ValueError):parse_ws4_record(line)
+
+def test_ws4_rejects_wrong_header_duplicate_or_truncated_snapshot():
+    header='\n'.join(['']*10+['2014-June-3','','---','A Z WS4 WS4+RBF','---'])+'\n'
+    row='16 8 -4.3661 -4.3108\n'
+    for text in ['wrong header\n'+row,header+row+row,header+row]:
+        with pytest.raises(ValueError):parse_ws4(text)
