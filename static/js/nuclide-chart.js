@@ -357,7 +357,7 @@
       const format=q=>`${escape(q.raw||"—")} ${q.raw_uncertainty?"± "+escape(q.raw_uncertainty):"("+unknown+")"}`;
       const life=state.half_life;
       panel.querySelector(".nc-state-data").innerHTML=`<p><b>${state.A}${escape(state.element)} [${state.label}]</b> · ${escape(T.state_kinds[state.kind])}${state.existence==="withdrawn"?" — "+T.state_withdrawn:state.existence==="questioned"?" — "+T.state_questioned:""}</p><p>ME (NUBASE2020): ${format(state.mass_excess)} keV<br>Eₓ: ${format(state.excitation)} keV<br>T½: ${format(life)} ${escape(life.unit)}<br>Jπ: ${escape(state.spin_parity)}</p><p>${state.ordering_uncertain?"* "+T.state_order_uncertain+". ":""}${state.ordering_inverted?"& "+T.state_order_inverted+". ":""}${escape(T.state_bases[state.classification_basis])}.</p><p>${T.state_model_note}</p>`;
-      const a=document.createElement("a");a.href=location.pathname+"?nuclide="+state.A+state.element+"&state="+state.source_state_index;a.textContent=T.state_link;panel.querySelector(".nc-state-data").appendChild(a);
+      const a=document.createElement("a");a.href=location.pathname+"?nuclide="+state.A+state.element+"&state="+state.source_state_index;a.textContent=T.state_link;a.onclick=e=>{e.preventDefault();history.pushState(null,'',a.href);a.textContent=T.state_link_ready;};panel.querySelector(".nc-state-data").appendChild(a);
     }
     function populate() {
       const q=panel.querySelector("input").value.trim().toLowerCase(), kind=panel.querySelector("select").value;
@@ -390,8 +390,16 @@
   pq.innerHTML = Object.entries(PQ).map(([k, v]) => `<option value="${k}">${v[0]}</option>`).join("");
   pq.value = "s2n";
   const palette=['#167d45','#b94e00','#a62888','#287daa','#7352bd','#96610b','#0d807b','#c54646','#525d76'];
-  const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'Loaded',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'AME+loaded',color:'#dd6000',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
-  const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,16*Math.ceil(visibleSeries.length/Math.max(1,Math.floor((w/sc-80)/140))));
+  const seriesMeta=k=>k==='ame'?{id:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:k==='loaded'?{id:k,name:T.loaded_only,short:'New',color:'#b41c81',shape:'diamond'}:k==='hybrid'?{id:k,name:T.loaded_hybrid,short:'New + AME2020',color:'#b41c81',shape:'square'}:{id:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
+  let inputLegend=[];
+  function inputLegendLines(w){
+    const max=Math.max(15,Math.floor((w-80)/6.2)),lines=[];
+    for(const entry of inputLegend.slice(0,8)){
+      const words=entry.text.slice(0,400).split(/\s+/);let line='';for(const word of words){if(line&&(line+' '+word).length>max){lines.push(line);line='';}if(word.length>max){if(line){lines.push(line);line='';}for(let i=0;i<word.length;i+=max)lines.push(word.slice(i,i+max));}else line=line?line+' '+word:word;}if(line)lines.push(line);
+    }if(inputLegend.length>8)lines.push('+ '+(inputLegend.length-8)+' · '+T.loaded_details);return lines;
+  }
+  const legendHeight=w=>16*(Math.ceil(visibleSeries.length/Math.max(1,Math.floor((w-80)/140)))+inputLegendLines(w).length);
+  const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc));
   function humanInputs(p){
     return MM.provenance(p.valueObj,inputTable).map(x=>{
       const loaded=x.id.startsWith('loaded:')?inputTable.active.get(x.id.split(':')[1]):null;
@@ -504,6 +512,8 @@
     plotPts.groups=[...new Set(plotPts.concat(modPts).map(p=>p.g))];
     visibleSeries=[...new Set(plotPts.concat(modPts).map(p=>p.series))].map(seriesMeta);
     root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'">'+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>p.series===s.id).length+')</span>').join('');
+    inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys(p.valueObj.terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
+    root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>'◆ '+x.text).join(' · ');
     if(chainInput('band').checked){
       const b=new Map();for(const p of modPts){const k=p.g+':'+p.x;if(!b.has(k))b.set(k,[]);b.get(k).push(p);}
       bands=[...b.values()].filter(ps=>ps.length>=2).map(ps=>({g:ps[0].g,x:ps[0].x,lo:Math.min(...ps.map(p=>p.y)),hi:Math.max(...ps.map(p=>p.y)),count:ps.length})).sort((a,b)=>a.g-b.g||a.x-b.x);
@@ -556,27 +566,28 @@
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       for(const p of ps){
         if(p.x<x0||p.x>x1)continue;
-        const xx=px(p.x),yy=py(p.y),color=s.id==='ame'&&p.est?'#d48b00':col;c.strokeStyle=color;c.fillStyle=color;
+        const xx=px(p.x),yy=py(p.y),color=col;c.strokeStyle=color;c.fillStyle=color;
         if(p.y<y0||p.y>y1){const y=geom.clampY(p.y),sign=p.y>y1?1:-1;c.beginPath();c.moveTo(xx,y);c.lineTo(xx-4*sc,y+sign*7*sc);c.lineTo(xx+4*sc,y+sign*7*sc);c.closePath();c.fill();continue;}
         if(showErr&&p.e>0){c.beginPath();c.moveTo(xx,py(p.y-p.e));c.lineTo(xx,py(p.y+p.e));for(const ey of [p.y-p.e,p.y+p.e]){c.moveTo(xx-3*sc,py(ey));c.lineTo(xx+3*sc,py(ey));}c.stroke();}
         const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*sc;c.beginPath();
         if(s.shape==='diamond'){c.moveTo(xx,yy-radius-1*sc);c.lineTo(xx+radius+1*sc,yy);c.lineTo(xx,yy+radius+1*sc);c.lineTo(xx-radius-1*sc,yy);c.closePath();}
         else if(s.shape==='square')c.rect(xx-radius,yy-radius,radius*2,radius*2);
         else c.arc(xx,yy,radius,0,6.283);
-        if(p.est){c.fillStyle=sc>1?'#fff':'rgba(255,255,255,.9)';c.fill();c.stroke();}else c.fill();
+        if(p.est){c.fillStyle=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';c.fill();c.stroke();}else c.fill();
         if(chainInput('reference-ring').checked&&chain&&p.r[0]===chain[0]&&p.r[1]===chain[1]){c.strokeStyle='#e5484d';c.lineWidth=1.5*sc;c.beginPath();c.arc(xx,yy,7*sc,0,6.283);c.stroke();}
       }
     }
     c.restore();
     if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=10*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
     const columns=Math.max(1,Math.floor((Wd/sc-80)/140));c.textAlign='left';c.font=10.5*sc+'px system-ui';
-    visibleSeries.forEach((s,i)=>{c.fillStyle=s.color;c.fillText((s.shape==='diamond'?'◆ ':s.shape==='square'?'□ ':s.shape==='model'?'– – ':'● ')+s.short,L+(i%columns)*140*sc,12*sc+Math.floor(i/columns)*16*sc);});
+    visibleSeries.forEach((s,i)=>{const x=L+(i%columns)*140*sc,y=12*sc+Math.floor(i/columns)*16*sc;c.fillStyle=s.color;c.fillText(s.shape==='diamond'?'◆':s.shape==='square'?'□':s.shape==='model'?'– –':'●',x,y);c.fillStyle=sc>1?'#222':ink;c.fillText(s.short,x+16*sc,y);});
+    c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(12+16*Math.ceil(visibleSeries.length/columns)+i*16)*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
       c.fillStyle=ink;c.textAlign='left';c.font='12px system-ui';
       const width=Wd-L-R-8, text=`${sup(p.r[0]+p.r[1])}${p.r[2]}: ${value}${p.source?' ('+p.source+')':''}`, lines=[];
       let line='';for(const word of text.split(' ')){const next=line?line+' '+word:word;if(line&&c.measureText(next).width>width){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);
-      const left=Math.max(L+4,Math.min(px(p.x)+8,Wd-R-width)), top=Math.max(32,Math.min(geom.clampY(p.y)-10,Hd-B-lines.length*14));
+      const left=Math.max(L+4,Math.min(px(p.x)+8,Wd-R-width)), top=Math.max(Tp+16,Math.min(geom.clampY(p.y)-10,Hd-B-lines.length*14));
       lines.forEach((s,i)=>c.fillText(s,left,top+i*14));
     }
   }
@@ -608,7 +619,40 @@
     plotHover = plotAt(e); pointDetail(plotHover);drawPlot();
   });
   pc.addEventListener('mouseleave',()=>{plotHover=null;drawPlot();});
-  pc.addEventListener("click", e => { const point=plotAt(e); if (point) { pointDetail(point);pin = point.r; zoomTo(pin); showCard(pin); } });
+  pc.addEventListener("click", e => { if(plotMoved)return;const point=plotAt(e); if (point) { pointDetail(point);pin = point.r; zoomTo(pin); showCard(pin); } });
+  function applyPlotView(d){
+    if(!d||!['x0','x1','y0','y1'].every(k=>Number.isFinite(d[k]))||d.x1-d.x0<1e-7||d.y1-d.y0<1e-12)return;
+    for(const axis of ['x','y']){chainInput(axis+'scale').value='manual';for(const end of [0,1])chainInput('axis-'+axis+end).value=Number(d[axis+end].toPrecision(14));}plotChain();
+  }
+  function zoomPlot(f,x=.5,y=.5){if(plotDomain)applyPlotView(CP.zoomExtent(plotDomain,f,x,y));}
+  function fitPlot(){chainInput('xscale').value='full';chainInput('yscale').value='all';plotChain();}
+  root.querySelector('[data-plot=in]').onclick=()=>zoomPlot(1/1.5);
+  root.querySelector('[data-plot=out]').onclick=()=>zoomPlot(1.5);
+  root.querySelector('[data-plot=fit]').onclick=fitPlot;
+  const plotPointers=new Map();let plotDrag=null,plotMoved=false,plotPinch=null;
+  const plotPos=e=>{const b=pc.getBoundingClientRect(),g=plotGeom(plotDomain,pc._cw,pc._ch);return {x:(e.clientX-b.left)*pc._cw/b.width,y:(e.clientY-b.top)*pc._ch/b.height,g};};
+  pc.addEventListener('wheel',e=>{if(!plotDomain)return;e.preventDefault();const {x,y,g}=plotPos(e);zoomPlot(Math.exp(Math.max(-.5,Math.min(.5,e.deltaY*.002))),(x-g.L)/(g.right-g.L),1-(y-g.T)/(g.bottom-g.T));},{passive:false});
+  pc.addEventListener('pointerdown',e=>{
+    if(!plotDomain||e.button>0)return;pc.setPointerCapture(e.pointerId);pc.focus({preventScroll:true});plotPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});plotMoved=false;
+    plotDrag={x:e.clientX,y:e.clientY,d:{...plotDomain}};
+    if(plotPointers.size===2){const [a,b]=[...plotPointers.values()];plotPinch={distance:Math.hypot(a.x-b.x,a.y-b.y),d:{...plotDomain}};plotMoved=true;}
+  });
+  pc.addEventListener('pointermove',e=>{
+    if(!plotPointers.has(e.pointerId)||!plotDrag)return;plotPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(plotPointers.size===2&&plotPinch){const [a,b]=[...plotPointers.values()],distance=Math.hypot(a.x-b.x,a.y-b.y);if(distance>1)applyPlotView(CP.zoomExtent(plotPinch.d,plotPinch.distance/distance));plotMoved=true;return;}
+    const dx=e.clientX-plotDrag.x,dy=e.clientY-plotDrag.y;if(Math.abs(dx)+Math.abs(dy)<4&&!plotMoved)return;plotMoved=true;
+    const box=pc.getBoundingClientRect(),g=plotGeom(plotDrag.d,pc._cw,pc._ch);
+    applyPlotView(CP.panExtent(plotDrag.d,-dx*pc._cw/box.width/(g.right-g.L)*(plotDrag.d.x1-plotDrag.d.x0),dy*pc._ch/box.height/(g.bottom-g.T)*(plotDrag.d.y1-plotDrag.d.y0)));
+  });
+  function endPlotPointer(e){plotPointers.delete(e.pointerId);plotPinch=null;plotDrag=null;}
+  pc.addEventListener('pointerup',endPlotPointer);pc.addEventListener('pointercancel',endPlotPointer);
+  pc.addEventListener('dblclick',e=>{e.preventDefault();fitPlot();});
+  pc.addEventListener('keydown',e=>{
+    if(!plotDomain)return;const dx=(plotDomain.x1-plotDomain.x0)*.1,dy=(plotDomain.y1-plotDomain.y0)*.1;
+    if(['+','=','-','Home','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))e.preventDefault();
+    if(e.key==='+'||e.key==='=')zoomPlot(1/1.5);else if(e.key==='-')zoomPlot(1.5);else if(e.key==='Home')fitPlot();
+    else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
+  });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); plotChain(); };
   root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err]").forEach(el => el.addEventListener("input", () => plotChain()));
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
@@ -698,8 +742,7 @@
     const w = Math.round(cv.getBoundingClientRect().width), h = Math.round(Math.min(w * 0.62, innerHeight * 0.78, 1100));
     if (w && (Math.abs(w - cv._cw) > 2 || Math.abs(h - cv._ch) > 2 || cv.width !== Math.round(w * DPR()))) { sizeCanvas(cv, w, h); fit(); }
     const pw = Math.round(pc.getBoundingClientRect().width);
-    const legendHeight=16*Math.ceil(visibleSeries.length/Math.max(1,Math.floor((pw-80)/140)));
-    const ph = Math.round(Math.max(260,Math.min(pw * 0.5, innerHeight * 0.6, 700))+legendHeight);
+    const ph = Math.round(Math.max(260,Math.min(pw * 0.5, innerHeight * 0.6, 700))+legendHeight(pw));
     if (pw && (Math.abs(pw - pc._cw) > 2 || Math.abs(ph - pc._ch) > 2 || pc.width !== Math.round(pw * DPR()))) { sizeCanvas(pc, pw, ph); drawPlot();drawResidual(); }
   };
   new ResizeObserver(resize).observe(cv); new ResizeObserver(resize).observe(pc); addEventListener("resize", resize);
@@ -714,8 +757,13 @@
     inputTable=measured.table();
     loadIndex().catch(modelFailure);
     buildPT(); drawLegend(); fit(); fsel.onchange();
-    const q = new URLSearchParams(location.search).get("nuclide");
-    if (q) { const state=new URLSearchParams(location.search).get("state"); search.value = q+(state?`[${state}]`:""); search.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" })); }
-    else { const sn = rows.find(r => r[0] === 50 && r[1] === 50); pchain.value = "Z"; plotChain(sn); }
-  }).catch(() => { card.hidden = false; card.textContent = "Chart data could not load."; });
+    function openBookmark(){
+      const params=new URLSearchParams(location.search),name=params.get('nuclide');if(!name)return false;
+      const state=catalog.lookupState(name,params.get('state')||0),r=state&&M.get(key(state.Z,state.N));
+      if(!r){card.hidden=false;card.textContent=T.notfound;return true;}
+      search.value=name+(state.source_state_index?'['+state.label+']':'');selectedState=state.id;pin=r;zoomTo(r);showCard(r);plotChain(r);return true;
+    }
+    addEventListener('popstate',openBookmark);
+    if(!openBookmark()){const sn=rows.find(r=>r[0]===50&&r[1]===50);pchain.value='Z';plotChain(sn);}
+  }).catch(error => { console.error('Nuclear chart initialization failed',error);card.hidden = false; card.textContent = "Chart data could not load."; });
 })();

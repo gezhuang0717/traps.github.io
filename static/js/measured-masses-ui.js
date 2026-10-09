@@ -27,7 +27,7 @@
       body.innerHTML=raw.slice(page*50,page*50+50).map((r,j)=>{
         const i=page*50+j;
         const options=(f,values)=>{const current=r[f]||({unit:'keV',quantity:'me'}[f]);return `<select data-row="${i}" data-field="${f}" aria-label="${esc(T['loaded_'+f]||f)} ${i+1}">${values.some(([v])=>v===current)?'':`<option value="${esc(current)}" selected>${esc(current)} ⚠</option>`}${values.map(([v,label])=>`<option value="${v}" ${v===current?'selected':''}>${esc(label)}</option>`).join('')}</select>`;};
-        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['u','u'],['µu','µu']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['atomic',T.loaded_atomic]])}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
+        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['u','u'],['µu','µu']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['atomic',T.loaded_atomic]])}</td><td>${control(i,'label',r.label||'New')}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
       }).join('');
       pager.innerHTML=raw.length>50?`<button type="button" data-page="-1" ${page===0?'disabled':''}>←</button><span>${page*50+1}–${Math.min(raw.length,page*50+50)} / ${raw.length}</span><button type="button" data-page="1" ${page*50+50>=raw.length?'disabled':''}>→</button>`:'';
       rowStatus();
@@ -53,7 +53,7 @@
       if(table.active.size&&previousActive===0){root.querySelector('[data-series=loaded]').checked=true;root.querySelector('[data-series=hybrid]').checked=true;}previousActive=table.active.size;
       onchange(table);
       const seq=++revision;
-      const canonical=raw.map((r,i)=>{const v=table.valid.find(v=>v.row===i+1);return v?{id:v.id,ME_keV:v.me,sigma_keV:v.e,use:v.use,mixture:v.mixture,estimated:v.est,reference:r.reference||'',facility:r.facility||'',method:r.method||'',year:String(r.year||''),note:r.note||''}:r;});
+      const canonical=raw.map((r,i)=>{const v=table.valid.find(v=>v.row===i+1);return v?{id:v.id,ME_keV:v.me,sigma_keV:v.e,use:v.use,mixture:v.mixture,estimated:v.est,reference:r.reference||'',label:r.label||'New',facility:r.facility||'',method:r.method||'',year:String(r.year||''),note:r.note||''}:r;});
       if(host.crypto?.subtle)host.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({rows:canonical,policy:policy.value}))).then(b=>{if(seq!==revision)return;hash=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');rowStatus();}).catch(()=>{});
     }
     function replace(rows){raw=rows.map(r=>{r={...r};try{const st=MM.stateFor(r,catalog);r.nuclide=st.A+st.element+'['+st.label+']';delete r.Z;delete r.N;delete r.state;}catch(_){}r.unit=({kev:'keV',mev:'MeV',u:'u','µu':'µu','μu':'µu'}[String(r.unit||'keV').toLowerCase()]||r.unit);r.quantity=/^(?:atomic(?:[ _-]?mass)?|mass)$/i.test(r.quantity||'')?'atomic':/^(?:be|binding[ _-]?energy)$/i.test(r.quantity||'')?'be':/^(?:me|mass[ _-]?excess)$/i.test(r.quantity||'')?'me':r.quantity||'me';return r;});page=0;update();render();}
@@ -78,7 +78,7 @@
           case 'import':replace(MM.parse(paste.value));break;
           case 'example':paste.value=exampleText.value;paste.focus();paste.select();break;
           case 'csv':host.zgExport.save(new Blob(['\uFEFF'+MM.csv(raw)],{type:'text/csv;charset=utf-8'}),'measured-mass-inputs-'+host.zgExport.stamp()+'.csv');break;
-          case 'add':if(raw.length>=MM.MAX_ROWS)throw new Error('limit');raw.push({nuclide:'',value:'',uncertainty:'',unit:'keV',quantity:'me',use:true});page=Math.floor((raw.length-1)/50);update();render();break;
+          case 'add':if(raw.length>=MM.MAX_ROWS)throw new Error('limit');raw.push({nuclide:'',value:'',uncertainty:'',unit:'keV',quantity:'me',label:'New',use:true});page=Math.floor((raw.length-1)/50);update();render();break;
           case 'demo':{if(raw.length>=MM.MAX_ROWS)throw new Error('limit');const a=base(50,66);if(!a)throw new Error('identity');raw.push({nuclide:'116Sn[g]',value:String(a.v+10),uncertainty:'1',unit:'keV',quantity:'me',reference:'SYNTHETIC +10 keV test; not a measurement',use:true});page=Math.floor((raw.length-1)/50);root.querySelector('[data-series=loaded]').checked=true;root.querySelector('[data-series=hybrid]').checked=true;update();render();break;}
           case 'clear':replace([]);break;
           case 'save':localStorage.setItem(storageKey,JSON.stringify({schema:1,rows:raw,policy:policy.value}));error.textContent=T.loaded_saved;break;
@@ -94,7 +94,7 @@
       return `<div class="nc-loaded-card"><strong>★ ${esc(T.loaded_title)}</strong>`+rs.map(r=>{const baseValue=r.state.source_state_index?MM.getter(table,base)(z,n):base(z,n),d=baseValue?P.combine([1,r.value],[-1,baseValue]):null;return `<p>${esc(r.label)}: ME ${fmt(r.me)} ± ${fmt(r.e)} keV; ${r.state.source_state_index?'Eₓ':'Δ(new − AME)'} ${d?fmt(d.v)+' ± '+fmt(d.e):'—'} keV · ${esc(r.rows.map(i=>raw[i-1].reference||'row '+i).join('; '))}</p>`;}).join('')+'</div>';
     }
     render();
-    return {table:()=>table,hash:()=>hash,annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
+    return {table:()=>table,hash:()=>hash,legend:()=>[...table.active.values()].map(r=>({id:r.id,text:r.rows.map(i=>String(raw[i-1].label||'New')).filter((x,i,a)=>a.indexOf(x)===i).join(' / ')+' · '+r.label+': ME '+fmt(r.me)+' ± '+fmt(r.e)+' keV'})),annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
   }
   host.ZGMeasuredMassUI={attach};
 })(typeof window!=='undefined'?window:globalThis);

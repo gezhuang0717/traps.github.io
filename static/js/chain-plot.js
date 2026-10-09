@@ -37,7 +37,16 @@
   function rangeFor(memory, type, own) {
     return memory[type] || { c0: String(own), c1: String(own), x0: '', x1: '' };
   }
-  const api = { chainExtent, geometry, nearest, connects, rangeFor };
+  function zoomExtent(d,factor,ax=.5,ay=.5){
+    if(!(factor>0&&finite(factor)))return {...d};
+    const f=Math.max(.1,Math.min(10,factor)),out={...d};
+    for(const [lo,hi,a]of [['x0','x1',ax],['y0','y1',ay]]){
+      const anchor=d[lo]+Math.max(0,Math.min(1,a))*(d[hi]-d[lo]);
+      out[lo]=anchor+(d[lo]-anchor)*f;out[hi]=anchor+(d[hi]-anchor)*f;
+    }return out;
+  }
+  function panExtent(d,dx,dy){return {...d,x0:d.x0+dx,x1:d.x1+dx,y0:d.y0+dy,y1:d.y1+dy};}
+  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

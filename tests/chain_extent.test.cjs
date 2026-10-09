@@ -28,3 +28,10 @@ test('isotope ranges never become isotone or isobar ranges',()=>{
  assert.deepEqual(C.rangeFor(memory,'N',50),{c0:'50',c1:'50',x0:'',x1:''});
  assert.equal(C.rangeFor(memory,'A',100).c0,'100');
 });
+test('plot navigation preserves the cursor anchor and translates both axes reversibly',()=>{
+ const d={x0:10,x1:30,y0:-20,y1:80},z=C.zoomExtent(d,.5,.25,.75);
+ assert.deepEqual([z.x0,z.x1,z.y0,z.y1],[12.5,22.5,17.5,67.5]);
+ assert.deepEqual(C.panExtent(C.panExtent(d,4,-7),-4,7),d);
+ assert.deepEqual(C.zoomExtent(z,2,.25,.75),d);
+ assert.deepEqual(C.zoomExtent(d,NaN),d);
+});

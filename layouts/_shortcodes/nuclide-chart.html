@@ -82,7 +82,6 @@
     <label class="nc-chk"><input type="checkbox" name="nc-err" checked> {{ $t.p_err }}</label>
     <span class="nc-prange"><label class="nc-chk"><input type="checkbox" name="nc-range"> {{ $t.p_range }}</label>
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
-    <button type="button" class="zg-btn zg-btn-ghost" data-nc="ppng">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="pcsv">⤓ {{ $t.csv }}</button>
   </div>
   <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>
     <label><input type="checkbox" data-series="ame" checked> ● AME2020</label>
@@ -105,7 +104,10 @@
   <p class="nc-pinfo zg-muted" aria-live="polite"></p>
   <p class="nc-axis-note zg-small zg-muted" aria-live="polite"></p>
   <div class="nc-series-legend zg-small" aria-live="polite"></div>
-  <canvas class="nc-plot" width="960" height="480" aria-label="{{ $t.plot }}"></canvas>
+  <div class="nc-input-legend zg-small" aria-live="polite"></div>
+  <div class="nc-bar nc-plot-toolbar" role="group" aria-label="{{ $t.plot_tools }}"><strong>{{ $t.plot_tools }}</strong><button type="button" class="zg-btn" data-nc="ppng">⤓ {{ $t.png }}</button><button type="button" class="zg-btn" data-nc="pcsv">⤓ {{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="in">＋</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="out">−</button><button type="button" class="zg-btn zg-btn-ghost" data-plot="fit">{{ $t.plot_fit }}</button></div>
+  <p class="zg-small">{{ $t.plot_navigation }}</p>
+  <canvas class="nc-plot" width="960" height="480" tabindex="0" aria-label="{{ $t.plot }}" style="touch-action:none;cursor:grab"></canvas>
   <p class="zg-small zg-muted">{{ $t.loaded_legend }}</p>
   <div class="nc-residual-panel" hidden><p class="zg-small">{{ $t.loaded_residual_hint }}</p><canvas class="nc-residual nc-plot" width="960" height="300" aria-label="{{ $t.loaded_residual }}"></canvas></div>
   <p class="nc-point-detail zg-small" aria-live="polite"></p>
@@ -117,7 +119,7 @@
   <div class="nc-ptable"></div>
 </section>
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
-<script defer src="{{ "js/physics.js" | relURL }}"></script>
+<script defer src="{{ "js/physics.js" | relURL }}?v=state-links-2"></script>
 <script defer src="{{ "js/chain-plot.js" | relURL }}"></script>
 <script defer src="{{ "js/mass-surface.js" | relURL }}"></script>
 <script defer src="{{ "js/measured-masses.js" | relURL }}"></script>

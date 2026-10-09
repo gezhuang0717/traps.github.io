@@ -81,7 +81,13 @@
         source: [...new Set(atoms.map(a => a.source))].join("; "), txt: text,
         mass_convention: "atomic mass minus q electron masses; ionization and molecular binding energies omitted" };
     }
-    return { states, groups, ground, resolve, atom, metadata: {...data.source,ground_mass_source:ameData.metadata || {description:ameData.source}} };
+    // Display/bookmark lookup must not require a calculable ion mass or excitation.
+    function lookupState(text,index=0){
+      const m=String(text).trim().match(/^(\d+)([A-Za-z]{1,2})$/);
+      const gs=m&&ground.get(m[2].toLowerCase()+Number(m[1]));
+      return gs&&/^\d+$/.test(String(index))?states.get(`${gs.Z}-${gs.N}-${Number(index)}`)||null:null;
+    }
+    return { states, groups, ground, resolve, atom, lookupState, metadata: {...data.source,ground_mass_source:ameData.metadata || {description:ameData.source}} };
   }
   const loads = new Map();
   function load(catalogueUrl, ameUrl) {

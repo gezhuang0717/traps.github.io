@@ -1,6 +1,12 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const P=require('../static/js/physics.js'), read=n=>JSON.parse(fs.readFileSync(path.join(__dirname,'../static/data',n))), cat=P.catalogue(read('nuclear-states.json'),read('ame2020.json'));
 const near=(a,b,t=1e-9)=>assert.ok(Math.abs(a-b)<=t,`${a} != ${b}`),ion=(s,q=1,w=1)=>cat.resolve(s,{q,w}),p={laps:1000,referenceUs:10,lapUs:8,widthNs:20,broadeningNs:.02,delayUs:0};
+test('state bookmarks display records even when ion mass or excitation is unavailable',()=>{
+ const limited=[...cat.states.values()].find(s=>s.source_state_index&&(s.excitation.value===null||s.excitation.qualifier));
+ assert.ok(limited);assert.equal(cat.lookupState(limited.A+limited.element,limited.source_state_index),limited);
+ assert.equal(cat.lookupState('116Sn',0).id,'50-66-0');
+ assert.equal(cat.lookupState('116Sn','bad'),null);assert.equal(cat.lookupState('116Sn',999),null);
+});
 test('known isotope, sixth isomer, molecules, charge and unavailable state',()=>{near(ion('12C').M,12);assert.equal(ion('98Ym6').atoms[0].state.id,'39-59-6');near(ion('12C11').M,132);near(ion('12C16O2').M,ion('12C').M+2*ion('16O').M);assert.equal(ion('133Cs+2').q,2);assert.throws(()=>ion('133Xe[m9]'));assert.throws(()=>ion('133Xe[9]'));assert.throws(()=>ion('12C',7));assert.throws(()=>ion('133Xe',1,-1));});
 test('source precision, uncertainty cancellation and unknown uncertainty',()=>{const g=ion('133Xe'),m=ion('133mXe'),d=P.combine([1,m.value],[-1,g.value]);near(d.v*P.C.uKeV,233.221,1e-10);near(d.e*P.C.uKeV,.015,1e-12);const a=P.primitive('separate-flags',1,.1,false,true);assert.equal(P.combine([1,a]).sigmaEst,true);assert.equal(P.combine([1,a]).est,false);assert.equal(P.combine([1,a],[-1,a]).sigmaEst,false);const x=P.primitive('unknown',1,null,true);assert.equal(P.combine([1,x]).e,null);assert.equal(P.combine([1,x],[-1,x]).e,0);assert.equal(P.combine([1,x],[-1,x]).est,false);});
 test('exact flight scaling, charges, electronic delay and zero separation',()=>{const a=ion('133Xe'),b=ion('133Xe',2);const m=P.mrtof([a,b],p);near(m.species[1].flight/m.species[0].flight,Math.sqrt(b.ionMassU/(2*a.ionMassU)));const late=P.mrtof([a,b],{...p,delayUs:100});near(late.pairs[0].dt,m.pairs[0].dt,1e-8);near(late.species[0].survival,m.species[0].survival);near(P.mrtof([a,a],p).pairs[0].dt,0);near(m.species.reduce((s,x)=>s+x.w,0),1);assert.throws(()=>P.mrtof([a],{...p,laps:.5}));});

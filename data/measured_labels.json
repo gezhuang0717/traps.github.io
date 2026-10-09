@@ -35,8 +35,8 @@
     "loaded_saved": "Table saved in this browser only. No project file was created.",
     "loaded_unavailable": "Browser storage unavailable, empty or invalid.",
     "loaded_series": "Visible chain series",
-    "loaded_only": "Loaded centres (loaded/AME neighbours)",
-    "loaded_hybrid": "AME2020 + loaded (recalculated)",
+    "loaded_only": "New (input centres; AME neighbours)",
+    "loaded_hybrid": "New + AME2020 (recalculated)",
     "loaded_models": "Mass models (ground states)",
     "loaded_all": "All models",
     "loaded_none": "No models",
@@ -50,7 +50,7 @@
     "loaded_maxsigma": "Maximum input-mass σ (keV; empty = any)",
     "loaded_filter_hint": "Filters apply to all plotted series using experimental centre identities. The σ limit uses AME for the AME/model series and the active input for loaded/recalculated series. Unknown σ fails a specified limit. “Affected” includes neighbours whose stencil uses a loaded mass. Reference-chart filters are separate.",
     "loaded_cap": "Loaded/model comparisons require ≤6 chains; narrow the range.",
-    "loaded_legend": "● AME measured; ○ AME #; ◆ loaded centre; □ recalculated; dashed models. Model spread is not an uncertainty.",
+    "loaded_legend": "● AME measured; ○ AME #; ◆ New; □ New + AME2020; hollow symbols mean an extrapolated # input. Dashed models; model spread is not uncertainty.",
     "loaded_residual_hint": "Δ = plotted series − AME2020, shared x axis. Shared AME inputs cancel; independent primitive errors combine in quadrature, other correlations omitted. Model residual error bars show AME uncertainty only; model uncertainty is unavailable.",
     "loaded_markers": "Mark loaded nuclides on reference chart/card",
     "loaded_details": "Visible points and their mass inputs (first 300)",
@@ -80,7 +80,7 @@
       "Search 116Sn on the chart, or click that nucleus. Start with Quantity = S₂ₙ and Chain = Isotopic chain.",
       "Click “+10 keV synthetic example” below. It adds an enabled 116Sn row and turns on the two loaded series. Your existing rows are retained.",
       "For your own table, copy an example below into the paste box, edit it, then click Import (replace table). Check Use next to every row you want calculated.",
-      "Keep AME2020 and AME2020 + loaded checked. Start with Experimental mass filter = All centres and leave the σ limit empty. Then try Outputs affected by loaded inputs to isolate the change."
+      "Keep AME2020 and New + AME2020 checked. Start with Experimental mass filter = All centres and leave the σ limit empty. Then try Outputs affected by loaded inputs to isolate the change."
     ],
     "loaded_expected": "Expected: 116Sn ME = −91515.979 ± 1 keV, exactly +10 keV from AME. For S₂ₙ, the recalculated point at N=66 falls 10 keV and N=68 rises 10 keV. These are artificial practice values.",
     "loaded_examples": "Copy-ready examples and sample files",
@@ -105,7 +105,12 @@
     "loaded_selected_models": "Selected chain models",
     "loaded_impact_csv": "Save changes CSV",
     "loaded_new": "Recalculated",
-    "loaded_impact_count": "{rows} affected quantities across {nuclei} states; 50 rows per page."
+    "loaded_impact_count": "{rows} affected quantities across {nuclei} states; 50 rows per page.",
+    "loaded_label": "Legend label",
+    "plot_tools": "Figure & data",
+    "plot_fit": "Rescale to whole",
+    "plot_navigation": "Wheel or ＋/−: zoom. Drag: pan. Touch: pinch to zoom. Focus the plot: arrows pan, +/− zoom, Home rescales the whole selected chain range. PNG/PDF save the current view; CSV includes all plotted-series data.",
+    "state_link_ready": "State link ready — copy the address bar"
   },
   "zh": {
     "loaded_title": "实测质量——实时比较",
@@ -143,8 +148,8 @@
     "loaded_saved": "已保存在本浏览器；没有创建项目文件。",
     "loaded_unavailable": "浏览器存储不可用、为空或无效。",
     "loaded_series": "链图显示的数据系列",
-    "loaded_only": "已加载中心核（使用已加载／AME邻核）",
-    "loaded_hybrid": "AME2020＋载入质量（重算）",
+    "loaded_only": "新值（输入中心核；相邻核用AME）",
+    "loaded_hybrid": "新值 + AME2020（重算）",
     "loaded_models": "质量模型（基态）",
     "loaded_all": "全部模型",
     "loaded_none": "不选模型",
@@ -158,7 +163,7 @@
     "loaded_maxsigma": "输入质量σ上限（keV；空白不限）",
     "loaded_filter_hint": "筛选按实验中心核素身份应用于所有链图系列。σ上限对AME/模型系列使用AME，对载入/重算系列使用当前输入；未知σ不通过指定上限。“受影响”包括公式使用载入质量的邻核。参考核素图筛选独立。",
     "loaded_cap": "载入质量与模型比较要求≤6条链；请缩小范围。",
-    "loaded_legend": "● AME实测；○ AME外推#；◆ 载入中心；□ 重算；虚线为模型。模型离散并非不确定度。",
+    "loaded_legend": "● AME实测；○ AME外推#；◆ 新值；□ 新值＋AME2020；空心符号表示含外推#输入。虚线为模型；模型离散不是不确定度。",
     "loaded_residual_hint": "Δ＝图中系列−AME2020，共用x轴。共同AME输入相消；独立原始输入误差按平方和合成，忽略其他相关性。模型残差误差棒仅含AME不确定度，模型不确定度未知。",
     "loaded_markers": "在参考核素图／信息卡标记载入核素",
     "loaded_details": "可见点及其质量输入（前300点）",
@@ -213,7 +218,12 @@
     "loaded_selected_models": "已选择的链图模型",
     "loaded_impact_csv": "保存变化CSV",
     "loaded_new": "重算值",
-    "loaded_impact_count": "{nuclei}个核态中有{rows}项受影响物理量；每页50行。"
+    "loaded_impact_count": "{nuclei}个核态中有{rows}项受影响物理量；每页50行。",
+    "loaded_label": "图例标签",
+    "plot_tools": "图像与数据保存",
+    "plot_fit": "恢复完整范围",
+    "plot_navigation": "滚轮或＋/−缩放，拖动平移，触屏双指缩放。聚焦图像后方向键平移、＋/−缩放、Home恢复所选核素链的完整范围。PNG/PDF保存当前视图；CSV包含全部绘制系列数据。",
+    "state_link_ready": "核态链接已就绪——可复制地址栏"
   },
   "fi": {
     "loaded_title": "Mitatut massat — reaaliaikainen vertailu",
@@ -251,8 +261,8 @@
     "loaded_saved": "Tallennettu vain selaimeen. Projektitiedostoa ei luotu.",
     "loaded_unavailable": "Selainmuisti ei käytettävissä, tyhjä tai virheellinen.",
     "loaded_series": "Näkyvät ketjusarjat",
-    "loaded_only": "Ladatut ytimet (ladatut/AME-naapurit)",
-    "loaded_hybrid": "AME2020 + ladatut (uudelleenlaskettu)",
+    "loaded_only": "New (syötekeskukset; AME-naapurit)",
+    "loaded_hybrid": "New + AME2020 (uudelleenlaskettu)",
     "loaded_models": "Massamallit (perustilat)",
     "loaded_all": "Kaikki mallit",
     "loaded_none": "Ei malleja",
@@ -266,7 +276,7 @@
     "loaded_maxsigma": "Syöttömassan suurin σ (keV; tyhjä = kaikki)",
     "loaded_filter_hint": "Suodatus käyttää kokeellisten keskusten tunnuksia. σ-raja: AME/malli käyttää AME:a, ladattu/uudelleenlaskettu aktiivista syötettä. Tuntematon σ ei läpäise rajaa. Muuttuvat tulokset sisältävät naapureita. Kartan suodatin on erillinen.",
     "loaded_cap": "Ladattujen/mallien vertailu enintään 6 ketjulle; rajaa aluetta.",
-    "loaded_legend": "● AME mitattu; ○ AME #; ◆ ladattu; □ uudelleenlaskettu; katkoviivat mallit. Mallihajonta ei ole epävarmuus.",
+    "loaded_legend": "● AME mitattu; ○ AME #; ◆ New; □ New + AME2020; ontto symboli tarkoittaa ekstrapoloitua # syötettä. Katkoviivat mallit; mallihajonta ei ole epävarmuus.",
     "loaded_residual_hint": "Δ = sarja − AME2020, yhteinen x-akseli. Yhteiset AME-syötteet kumoutuvat; muut virheet riippumattomina, muut korrelaatiot puuttuvat. Mallierojen virhepalkki vain AME.",
     "loaded_markers": "Merkitse ladatut nuklidit karttaan/korttiin",
     "loaded_details": "Näkyvät pisteet ja massasyötteet (ensimmäiset 300)",
@@ -296,7 +306,7 @@
       "Hae tai valitse kartasta 116Sn. Valitse suure S₂ₙ ja isotooppiketju.",
       "Paina +10 keV:n synteettistä esimerkkiä. Se lisää aktiivisen 116Sn-rivin ja kytkee molemmat ladatut sarjat; aiemmat rivit säilyvät.",
       "Kopioi omaa taulukkoa varten koko esimerkki syöttökenttään, muokkaa ja paina Tuo (korvaa taulukko). Valitse Käytä laskettaville riveille.",
-      "Pidä AME2020 ja AME2020 + ladatut valittuina. Aloita suodattimella Kaikki keskukset ja tyhjällä σ-rajalla. Kokeile sitten ladattujen massojen muuttamia tuloksia."
+      "Pidä AME2020 ja New + AME2020 valittuina. Aloita suodattimella Kaikki keskukset ja tyhjällä σ-rajalla. Kokeile sitten ladattujen massojen muuttamia tuloksia."
     ],
     "loaded_expected": "Odotettu: 116Sn ME = −91515.979 ± 1 keV, +10 keV AME:sta. Uusi S₂ₙ laskee 10 keV kohdassa N=66 ja nousee 10 keV kohdassa N=68. Arvot ovat keinotekoisia.",
     "loaded_examples": "Kopioitavat esimerkit ja tiedostot",
@@ -321,7 +331,12 @@
     "loaded_selected_models": "Valitut ketjumallit",
     "loaded_impact_csv": "Tallenna muutokset CSV",
     "loaded_new": "Uudelleenlaskettu",
-    "loaded_impact_count": "{rows} muuttunutta suuretta, {nuclei} tilaa; 50 riviä sivulla."
+    "loaded_impact_count": "{rows} muuttunutta suuretta, {nuclei} tilaa; 50 riviä sivulla.",
+    "loaded_label": "Selitteen nimi",
+    "plot_tools": "Kuva ja data",
+    "plot_fit": "Sovita koko alue",
+    "plot_navigation": "Rulla tai ＋/−: zoomaa. Vedä: siirrä. Kosketus: nipistä. Kohdista kuva: nuolet siirtävät, +/− zoomaa, Home palauttaa valitun ketjualueen. PNG/PDF tallentavat näkymän; CSV sisältää kaikki sarjapisteet.",
+    "state_link_ready": "Tilalinkki valmis — kopioi osoiterivi"
   },
   "de": {
     "loaded_title": "Gemessene Massen — Livevergleich",
@@ -359,8 +374,8 @@
     "loaded_saved": "Nur in diesem Browser gespeichert. Keine Projektdatei erstellt.",
     "loaded_unavailable": "Browserspeicher nicht verfügbar, leer oder ungültig.",
     "loaded_series": "Sichtbare Kettenreihen",
-    "loaded_only": "Geladene Zentren (geladene/AME-Nachbarn)",
-    "loaded_hybrid": "AME2020 + geladen (neu berechnet)",
+    "loaded_only": "New (Eingabezentren; AME-Nachbarn)",
+    "loaded_hybrid": "New + AME2020 (neu berechnet)",
     "loaded_models": "Massenmodelle (Grundzustände)",
     "loaded_all": "Alle Modelle",
     "loaded_none": "Keine Modelle",
@@ -374,7 +389,7 @@
     "loaded_maxsigma": "Maximales Eingabemassen-σ (keV; leer = alle)",
     "loaded_filter_hint": "Filter gelten über experimentelle Zentren für alle Reihen. σ-Grenze: AME für AME/Modelle, aktive Eingabe für geladene/neu berechnete Reihen. Unbekanntes σ erfüllt keine Grenze. Beeinflusste Ergebnisse umfassen Nachbarn. Kartenfilter sind separat.",
     "loaded_cap": "Vergleiche für höchstens 6 Ketten; Bereich verkleinern.",
-    "loaded_legend": "● AME gemessen; ○ AME #; ◆ geladen; □ neu berechnet; gestrichelt Modelle. Modellstreuung ist keine Unsicherheit.",
+    "loaded_legend": "● AME gemessen; ○ AME #; ◆ New; □ New + AME2020; hohle Symbole zeigen extrapolierte # Eingaben. Gestrichelt: Modelle; Modellstreuung ist keine Unsicherheit.",
     "loaded_residual_hint": "Δ = Reihe − AME2020 mit gemeinsamer x-Achse. Gemeinsame AME-Eingaben heben sich auf; sonst unabhängige Fehler, weitere Korrelationen fehlen. Modellfehlerbalken zeigen nur AME-Unsicherheit.",
     "loaded_markers": "Geladene Nuklide auf Karte/Karteikarte markieren",
     "loaded_details": "Sichtbare Punkte und Masseneingaben (erste 300)",
@@ -404,7 +419,7 @@
       "116Sn auf der Karte suchen oder anklicken. Zunächst Größe S₂ₙ und Isotopenkette wählen.",
       "Das synthetische +10-keV-Beispiel anklicken. Es ergänzt eine aktive 116Sn-Zeile und aktiviert beide geladenen Reihen; bestehende Zeilen bleiben erhalten.",
       "Für eigene Daten das vollständige Beispiel ins Eingabefeld kopieren, ändern und Importieren (Tabelle ersetzen) anklicken. Verwenden für jede zu berechnende Zeile aktivieren.",
-      "AME2020 und AME2020 + geladen aktiviert lassen. Mit Alle Zentren und leerer σ-Grenze beginnen; danach die durch geladene Massen beeinflussten Ergebnisse filtern."
+      "AME2020 und New + AME2020 aktiviert lassen. Mit Alle Zentren und leerer σ-Grenze beginnen; danach die durch geladene Massen beeinflussten Ergebnisse filtern."
     ],
     "loaded_expected": "Erwartet: 116Sn ME = −91515.979 ± 1 keV, genau +10 keV gegenüber AME. S₂ₙ sinkt bei N=66 um 10 keV und steigt bei N=68 um 10 keV. Künstliche Übungswerte.",
     "loaded_examples": "Kopierbare Beispiele und Beispieldateien",
@@ -429,7 +444,12 @@
     "loaded_selected_models": "Gewählte Kettenmodelle",
     "loaded_impact_csv": "Änderungen als CSV speichern",
     "loaded_new": "Neu berechnet",
-    "loaded_impact_count": "{rows} betroffene Größen für {nuclei} Zustände; 50 Zeilen pro Seite."
+    "loaded_impact_count": "{rows} betroffene Größen für {nuclei} Zustände; 50 Zeilen pro Seite.",
+    "loaded_label": "Legendenname",
+    "plot_tools": "Abbildung und Daten",
+    "plot_fit": "Gesamten Bereich zeigen",
+    "plot_navigation": "Mausrad oder ＋/−: zoomen. Ziehen: verschieben. Touch: Pinch-Zoom. Bild fokussieren: Pfeile verschieben, +/− zoomen, Home zeigt den gesamten gewählten Kettenbereich. PNG/PDF speichern die Ansicht; CSV enthält alle Reihenpunkte.",
+    "state_link_ready": "Zustandslink bereit — Adresszeile kopieren"
   },
   "ja": {
     "loaded_title": "実測質量 — リアルタイム比較",
@@ -467,8 +487,8 @@
     "loaded_saved": "このブラウザーのみに保存しました。プロジェクトファイルは作成していません。",
     "loaded_unavailable": "ブラウザー保存領域が利用不可、空または無効です。",
     "loaded_series": "表示する系列",
-    "loaded_only": "読み込み中心核（読み込み／AME近傍核）",
-    "loaded_hybrid": "AME2020＋入力質量（再計算）",
+    "loaded_only": "New（入力中心核・近傍はAME）",
+    "loaded_hybrid": "New + AME2020（再計算）",
     "loaded_models": "質量モデル（基底状態）",
     "loaded_all": "全モデル",
     "loaded_none": "モデルなし",
@@ -482,7 +502,7 @@
     "loaded_maxsigma": "入力質量σの上限（keV；空欄は無制限）",
     "loaded_filter_hint": "実験中心核の識別により全系列をフィルター。σ上限はAME/モデル系列ではAME、入力/再計算系列では有効入力を使用。不明なσは指定上限を通過しません。「影響あり」は入力質量を使う隣接核も含みます。核図表のフィルターとは独立です。",
     "loaded_cap": "入力質量・モデル比較は最大6系列です。範囲を狭めてください。",
-    "loaded_legend": "● AME実測；○ AME外挿#；◆ 入力中心；□ 再計算；破線はモデル。モデル幅は不確かさではありません。",
+    "loaded_legend": "● AME実測；○ AME #；◆ New；□ New + AME2020；中空記号は外挿#入力。破線はモデル。モデル幅は不確かさではありません。",
     "loaded_residual_hint": "Δ＝系列−AME2020、共通x軸。共通AME入力は相殺。独立入力誤差を二乗和で合成し、他の相関は無視。モデル残差の誤差棒はAMEのみです。",
     "loaded_markers": "参照核図表・情報カードに入力核を表示",
     "loaded_details": "表示点と質量入力（最初の300点）",
@@ -537,6 +557,11 @@
     "loaded_selected_models": "選択中の系列モデル",
     "loaded_impact_csv": "変化をCSV保存",
     "loaded_new": "再計算値",
-    "loaded_impact_count": "{nuclei}状態の{rows}物理量に影響。1ページ50行。"
+    "loaded_impact_count": "{nuclei}状態の{rows}物理量に影響。1ページ50行。",
+    "loaded_label": "凡例ラベル",
+    "plot_tools": "図とデータの保存",
+    "plot_fit": "全範囲に戻す",
+    "plot_navigation": "ホイールまたは＋/−で拡大縮小、ドラッグで移動、タッチはピンチ。図にフォーカスすると矢印で移動、＋/−で拡大縮小、Homeで選択鎖の全範囲に戻ります。PNG/PDFは現在の表示、CSVは全系列点を保存します。",
+    "state_link_ready": "核状態リンク準備完了 — アドレスバーをコピー"
   }
 }

@@ -4,7 +4,7 @@
   const P=host.ZGPhysics || (typeof require==='function'?require('./physics.js'):null);
   const MAX_ROWS=2000, MAX_TEXT=2*1024*1024;
   const fail=code=>{throw new Error(code);};
-  const fields=['use','nuclide','Z','N','state','value','uncertainty','unit','quantity','facility','method','year','reference','note','mixture'];
+  const fields=['use','nuclide','Z','N','state','value','uncertainty','unit','quantity','label','facility','method','year','reference','note','mixture'];
   const flag=x=>x===true||x===1||/^(true|yes|1)$/i.test(String(x));
   function stateFor(row,catalog){
     let text=String(row.nuclide||'').trim().replace(/\s/g,'');
@@ -68,7 +68,7 @@
     return Object.entries(value?.terms||{}).map(([id,t])=>{
       const loaded=id.startsWith('loaded:')?table.active.get(id.split(':')[1]):null;
       return {id,coefficient:t.c,value_keV:t.v,uncertainty_keV:t.e,source:loaded?'loaded':'AME/model',rows:loaded?.rows||[],
-        references:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].reference||'')))]:[]};
+        references:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].reference||'')))]:[],labels:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].label||'New')))]:[]};
     });
   }
   function parseDelimited(text,sep){
