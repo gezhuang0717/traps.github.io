@@ -438,3 +438,7 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .zg-nobel-filters{display:flex;flex-wrap:wrap;gap:.7rem}.zg-nobel-filters label{display:flex;flex-direction:column;flex:1 1 170px;min-width:0}
 .zg-nobel-directory-list{padding-inline-start:1.7rem}.zg-nobel-directory-list li{margin:.7rem 0;overflow-wrap:anywhere}.zg-nobel-directory-list span{display:block;font-size:.85rem;color:var(--zg-muted)}
 .zg-nobel-recipients{padding-inline-start:1.3rem}.zg-nobel-recipients li{margin:.25rem 0;overflow-wrap:anywhere}
+
+/* laser-cooling game */
+.g-laser-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:.8rem;margin:.6rem 0}.g-laser figure{margin:0}.g-laser figcaption{font-size:.85rem;opacity:.8;margin-bottom:.2rem}.g-laser-out{display:grid;grid-template-columns:max-content 1fr;gap:.2rem .8rem;font-variant-numeric:tabular-nums}.g-laser-out dt{font-weight:600}.g-laser-out dd{margin:0;overflow-wrap:anywhere}.g-laser output{min-width:6.5em;text-align:right;font-variant-numeric:tabular-nums}.g-laser-src{font-size:.82rem}
+@media (max-width:520px){.g-laser-out{grid-template-columns:1fr}.g-laser .g-slider{flex-wrap:wrap}}

@@ -320,6 +320,60 @@
       periodsUs: t2 && t2.nz > 0 && t2.np > 0 && t2.nm > 0 ? { axial: 1e6 / t2.nz, cyclotron: 1e6 / t2.np, magnetron: 1e6 / t2.nm } : null,
       keVperHz: t2 ? t2.keVperHz : t1 ? t1.keVperHz : null };
   }
-  const api = { C, FWHM, numeric, primitive, combine, constant, pairingIndicator, catalogue, load, frequency, penning, mrtof, calibration, conversion, tof, tofMean, tofShape, mixture, rng, gaussian, acquire, fitSingle, wrapPhase, phaseResolution, mathieuA0: MA0, mathieuB1: MB1, mathieuStable, mathieuParameters, rfqCutoffs, shortestPhaseTime, phaseTiming, phaseEnergyStep, trapCalibration, calibratedPenning, tofScale, doubleTrapCalibration, doubleTrapFrequencies };
+  /* ---------- laser (Doppler) cooling — two-level scattering model ----------
+     One beam: R = (Γ/2) s/(1 + s + (2Δ/Γ)²), Δ = δ − k·v (Γ, δ in rad/s; δ < 0 = red). Two counter-propagating beams are
+     added, each with its own saturation s0 (Metcalf & van der Straten, JOSA B 20, 887 (2003)). Low-velocity damping
+     β = −8ħk²δ s0 /(Γ(1+s0+(2δ/Γ)²)²) (F = −βv); diffusion D0 = ħ²k² R_tot (1+η)/2 with η = ⟨cos²⟩ of the emission recoil
+     (1 along the axis, 1/3 isotropic); k_B T = D0/β = ħΓ(1+η)(1+s0+(2δ/Γ)²)/(16|δ|/Γ) → ħΓ/(2k_B) for η = 1, s0 → 0, δ = −Γ/2.
+     Penning trap (Hendricks et al., arXiv:0709.3817, re-deriving Itano & Wineland, PRA 25, 35 (1982)): a beam along x with
+     an intensity gradient at the trap centre gives dA₊/dt = (F_y − β_r ω₊)A₊/(2mΔω), dA₋/dt = (β_r ω₋ − F_y)A₋/(2mΔω),
+     dA_z/dt = −β_z A_z/(2m); both radial modes cool only when β_r ω₋ < F_y < β_r ω₊. */
+  const HBAR = 1.054571817e-34, KB = 1.380649e-23;
+  function laserScatter(s, detuning, gamma) {
+    if (!(gamma > 0) || !(s >= 0)) throw new Error("Positive linewidth and nonnegative saturation required.");
+    return gamma / 2 * s / (1 + s + (2 * detuning / gamma) ** 2);
+  }
+  function molassesTheory(p) {            /* p: { gamma, delta (rad/s), s0, lambda (m), massKg, eta } */
+    const k = 2 * Math.PI / p.lambda, X = 2 * p.delta / p.gamma, D = 1 + p.s0 + X * X, eta = p.eta ?? 1;
+    const beta = -8 * HBAR * k * k * p.delta * p.s0 / (p.gamma * D * D);
+    const Rtot = 2 * laserScatter(p.s0, p.delta, p.gamma), D0 = HBAR * HBAR * k * k * Rtot * (1 + eta) / 2;
+    return { k, beta, D0, Rtot, T: p.delta < 0 ? D0 / beta / KB : Infinity, TDoppler: HBAR * p.gamma / (2 * KB),
+      Trecoil: HBAR * HBAR * k * k / (p.massKg * KB), vr: HBAR * k / p.massKg, vCapture: p.gamma / (2 * k) * Math.sqrt(1 + p.s0),
+      dampingTime: p.delta < 0 ? p.massKg / beta : Infinity, optimalDelta: -p.gamma / 2 * Math.sqrt(1 + p.s0) };
+  }
+  function poisson(mean, random) {
+    if (!(mean > 0)) return 0;
+    if (mean > 30) return Math.max(0, Math.round(mean + Math.sqrt(mean) * gaussian(random)));
+    const L = Math.exp(-mean); let k = 0, q = 1; do { k++; q *= random(); } while (q > L); return k - 1;
+  }
+  function molassesStep(v, p, dt, random) {     /* per-photon Poisson scheme; returns photons scattered */
+    const k = 2 * Math.PI / p.lambda, vr = HBAR * k / p.massKg, iso = (p.eta ?? 1) < 1; let photons = 0;
+    for (let i = 0; i < v.length; i++) {
+      const np = poisson(laserScatter(p.s0, p.delta - k * v[i], p.gamma) * dt, random), nm = poisson(laserScatter(p.s0, p.delta + k * v[i], p.gamma) * dt, random), n = np + nm;
+      let kick = 0; for (let j = 0; j < n; j++) kick += iso ? 2 * random() - 1 : (random() < 0.5 ? -1 : 1);
+      v[i] += vr * (np - nm + kick); photons += n;
+    }
+    return photons;
+  }
+  function penningLaser(p) {   /* p: { ion, B, U0, d, lambda, gamma, delta, s0, w, yb, theta, eta } */
+    const m = p.ion.ionMassU * C.uKg, f = penning(p.ion, p.B, p.U0, p.d);
+    if (!f.stable) return { stable: false, freq: f };
+    const wp = 2 * Math.PI * f.np, wm = 2 * Math.PI * f.nm, wz = 2 * Math.PI * f.nz, dW = wp - wm, k = 2 * Math.PI / p.lambda;
+    const sAt = y => p.s0 * Math.exp(-2 * (y - p.yb) ** 2 / (p.w * p.w)), F0 = y => HBAR * k * laserScatter(sAt(y), p.delta, p.gamma);
+    const s = sAt(0), D = 1 + s + (2 * p.delta / p.gamma) ** 2, beta = -8 * HBAR * k * k * s * p.delta / (p.gamma * D * D) / 2;
+    const h = Math.max(p.w * 1e-4, 1e-9), c = Math.cos(p.theta), sn = Math.sin(p.theta), Fy = (F0(h) - F0(-h)) / (2 * h) * c;
+    const br = beta * c * c, bz = beta * sn * sn;
+    const gp = (Fy - br * wp) / (2 * m * dW), gm = (br * wm - Fy) / (2 * m * dW), gz = -bz / (2 * m);
+    const R = laserScatter(s, p.delta, p.gamma), vr = HBAR * k / m, eta = p.eta ?? 1 / 3;
+    const Dr = R * vr * vr * (c * c + (1 - eta)) / (dW * dW), Dz = R * vr * vr * (sn * sn + eta) / (wz * wz);
+    const eq = (g, Dd) => g < 0 ? Math.sqrt(Dd / (-2 * g)) : Infinity;
+    return { stable: true, freq: f, m, beta, F0: F0(0), Fy, window: [br * wm, br * wp], gp, gm, gz, R, Dr, Dz,
+      eqPlus: eq(gp, Dr), eqMinus: eq(gm, Dr), eqZ: eq(gz, Dz), allCooled: gp < 0 && gm < 0 && gz < 0 };
+  }
+  function amplitudeAt(A0, g, Dd, t) {
+    if (g === 0) return Math.sqrt(A0 * A0 + Dd * t);
+    const e = Math.exp(2 * g * t); return Math.sqrt(Math.max(0, A0 * A0 * e + Dd * (e - 1) / (2 * g)));
+  }
+  const api = { C, FWHM, numeric, primitive, combine, constant, pairingIndicator, catalogue, load, frequency, penning, mrtof, calibration, conversion, tof, tofMean, tofShape, mixture, rng, gaussian, acquire, fitSingle, wrapPhase, phaseResolution, mathieuA0: MA0, mathieuB1: MB1, mathieuStable, mathieuParameters, rfqCutoffs, shortestPhaseTime, phaseTiming, phaseEnergyStep, trapCalibration, calibratedPenning, tofScale, doubleTrapCalibration, doubleTrapFrequencies, HBAR, KB, laserScatter, molassesTheory, molassesStep, penningLaser, amplitudeAt, poisson };
   host.ZGPhysics = api; if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : window);

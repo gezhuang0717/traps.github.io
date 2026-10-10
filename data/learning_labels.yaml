@@ -1,4 +1,6 @@
 en:
+  rfq: RFQ / Paul trap
+  laser: Laser cooling
   label: Research, papers and tools
   research: Research questions
   papers: Find publications
@@ -15,6 +17,8 @@ en:
     a full turn. Peak separation, statistical precision and model bias describe different
     limitations.'
 zh:
+  rfq: RFQ / 保罗阱
+  laser: 激光冷却
   label: 研究、论文与工具
   research: 研究问题
   papers: 检索论文
@@ -24,6 +28,8 @@ zh:
   text: 先在核素图查看 ¹³³Xe 的基态和同核异能态，确认激发能及其不确定度。同核异能态是寿命相对较长的原子核激发态。在 MR-TOF 中，离子在静电反射镜之间往返：改变圈数、峰宽和各离子占比。在
     TOF-ICR 中，射频激发扫描回旋共振：比较混合信号、单离子种类拟合和残差（观测值减去拟合值）。在 PI-ICR 中，探测器成像反映离子运动相位：改变累积时间，观察角度绕满一圈后回到起点。峰分离、统计精度和模型偏差是不同的限制。
 fi:
+  rfq: RFQ / Paul-loukku
+  laser: Laserjäähdytys
   label: Tutkimus, julkaisut ja työkalut
   research: Tutkimuskysymykset
   papers: Hae julkaisuja
@@ -39,6 +45,8 @@ fi:
     ja tarkastele täyden kierroksen yli kiertyviä kulmia. Piikkien erottuminen, tilastollinen
     tarkkuus ja malliharha ovat eri rajoituksia.'
 de:
+  rfq: RFQ / Paul-Falle
+  laser: Laserkühlung
   label: Forschung, Veröffentlichungen und Werkzeuge
   research: Forschungsfragen
   papers: Veröffentlichungen finden
@@ -55,6 +63,8 @@ de:
     Peaktrennung, statistische Präzision und Modellverzerrung sind unterschiedliche
     Grenzen.'
 ja:
+  rfq: RFQ / ポールトラップ
+  laser: レーザー冷却
   label: 研究・論文・ツール
   research: 研究課題
   papers: 論文を検索

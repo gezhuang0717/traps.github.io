@@ -122,6 +122,7 @@
     <div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-act="cool">{{ $t.cool }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="tip">{{ $t.tip }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="edge">q = 0.90</button><button type="button" class="zg-btn zg-btn-ghost" data-act="pause">⏯ {{ $t.pause }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (a–q)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="video">⏺ {{ $t.video }}</button></div>
     <section class="rfq-cutoffs" data-rfq-labels="{{ $rt | jsonify }}" aria-live="polite"><h3>{{ $rt.results }}</h3><dl data-rfq-cutoff-values></dl><p>{{ $rt.limits }}</p></section><div class="rfq-out"></div><p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.rfq_h }}</p></details></section>
+  {{ partial "zg/laser-cooling.html" . }}
   <section class="zg-card g-box" id="g-quiz"><h2>🧩 {{ $t.quiz }}</h2><p class="zg-muted">{{ $t.quiz_n }}</p>
     <p class="g-q"></p><div class="g-opts zg-row"></div><p class="g-msg" aria-live="polite"></p></section>
   <section class="zg-card"><h2>🦓 {{ $t.gal }}</h2><p class="zg-muted">{{ $t.gal_n }}</p>
@@ -132,5 +133,6 @@
 <script defer src="{{ "js/calibration.js" | relURL }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}"></script>
 <script defer src="{{ "js/games.js" | relURL }}"></script>
+<script defer src="{{ "js/laser-cooling.js" | relURL }}"></script>
 <script defer src="{{ "js/topic-navigation.js" | relURL }}"></script>
 <script defer src="{{ "js/decimal-controls.js" | relURL }}"></script>

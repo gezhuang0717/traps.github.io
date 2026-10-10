@@ -1,0 +1,60 @@
+{{- /* Laser-cooling game (Games → Laser cooling). Original tab: 1D optical molasses; Advanced tab: one ion in a Penning trap
+       (Itano & Wineland 1982; Hendricks et al. arXiv:0709.3817). Data/labels: data/laser_cooling.yaml. Code: static/js/laser-cooling.js, physics in physics.js. */ -}}
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- $D := hugo.Data.laser_cooling -}}
+{{- $t := index $D.labels $k | default (index $D.labels "en") -}}
+<section id="g-laser" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "laser") }}
+<div data-local-panel="classic">
+<section class="zg-card g-box g-laser" id="g-laser-m" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
+  <h2>❄️ {{ $t.title }} — {{ $t.m_title }}</h2><p class="zg-muted">{{ $t.intro }}</p><p class="zg-muted">{{ $t.m_intro }}</p>
+  <div class="g-opts-row">
+    <label>{{ $t.species }} <select name="species"></select></label>
+    <label>{{ $t.emission }} <select name="eta"><option value="1">{{ $t.em_axis }}</option><option value="0.3333333333">{{ $t.em_iso }}</option></select></label>
+    <span class="g-laser-src zg-muted"></span>
+  </div>
+  <div class="g-sliders">
+    <label class="g-slider">{{ $t.detuning }} <input type="range" name="delta" min="-5" max="2" step="0.01" value="-0.5"><output data-o="delta"></output></label>
+    <label class="g-slider">{{ $t.sat }} <input type="range" name="s0" min="0.02" max="10" step="0.01" value="0.3"><output data-o="s0"></output></label>
+    <label class="g-slider">{{ $t.t0 }} <input type="range" name="t0" min="2" max="300" step="1" value="80"><output data-o="t0"></output></label>
+    <label class="g-slider">{{ $t.atoms }} <input type="range" name="n" min="50" max="800" step="10" value="300"><output data-o="n"></output></label>
+    <label class="g-slider">{{ $t.speed }} <input type="range" name="speed" min="1" max="20" step="1" value="4"><output data-o="speed"></output></label>
+  </div>
+  <div class="zg-row"><button type="button" class="zg-btn" data-act="run">{{ $t.start }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="reset">{{ $t.reset }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="best">{{ $t.best }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">{{ $t.csv }}</button></div>
+  <p class="zg-muted">{{ $t.goal }}</p>
+  <div class="g-laser-grid">
+    <figure><figcaption>{{ $t.view }}</figcaption><canvas width="520" height="200" data-cv="cloud"></canvas></figure>
+    <figure><figcaption>{{ $t.hist }}</figcaption><canvas width="520" height="240" data-cv="hist"></canvas></figure>
+    <figure><figcaption>{{ $t.tplot }}</figcaption><canvas width="520" height="240" data-cv="temp"></canvas></figure>
+  </div>
+  <dl class="g-laser-out" data-out></dl><p class="g-msg" aria-live="polite"></p>
+  <details class="g-hints" open><summary>📐 {{ $t.princ }}</summary>{{ range $t.princ_m }}<p>{{ . }}</p>{{ end }}</details>
+  <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.hint1 }}</p><p>{{ $t.hint2 }}</p><p>{{ $t.hint4 }}</p></details>
+  <details class="g-hints"><summary>📚 {{ $t.refs }}</summary><ul>{{ range $D.refs }}<li><a href="{{ .u }}">{{ .t }}</a></li>{{ end }}</ul></details>
+</section></div>
+<div data-local-panel="advanced" hidden>
+<section class="zg-card g-box g-laser" id="g-laser-p" data-laser="penning" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
+  <h2>🌀 {{ $t.title }} — {{ $t.p_title }}</h2><p class="zg-muted">{{ $t.p_intro }}</p>
+  <div class="g-opts-row"><label>{{ $t.ion }} <select name="species"></select></label><label>{{ $t.emission }} <select name="eta"><option value="0.3333333333">{{ $t.em_iso }}</option><option value="1">{{ $t.em_axis }}</option></select></label><span class="g-laser-src zg-muted"></span></div>
+  <div class="g-sliders">
+    <label class="g-slider">{{ $t.B }} <input type="range" name="B" min="1" max="10" step="0.01" value="7"><output data-o="B"></output></label>
+    <label class="g-slider">{{ $t.U0 }} <input type="range" name="U0" min="5" max="300" step="1" value="100"><output data-o="U0"></output></label>
+    <label class="g-slider">{{ $t.d }} <input type="range" name="d" min="5" max="40" step="0.05" value="26.05"><output data-o="d"></output></label>
+    <label class="g-slider">{{ $t.detuning }} <input type="range" name="delta" min="-5" max="1" step="0.01" value="-0.5"><output data-o="delta"></output></label>
+    <label class="g-slider">{{ $t.sat }} <input type="range" name="s0" min="0.02" max="10" step="0.01" value="1"><output data-o="s0"></output></label>
+    <label class="g-slider">{{ $t.waist }} <input type="range" name="w" min="20" max="500" step="1" value="100"><output data-o="w"></output></label>
+    <label class="g-slider">{{ $t.offset }} <input type="range" name="yb" min="-150" max="150" step="0.5" value="0"><output data-o="yb"></output></label>
+    <label class="g-slider">{{ $t.angle }} <input type="range" name="theta" min="0" max="45" step="0.5" value="11.5"><output data-o="theta"></output></label>
+    <label class="g-slider">{{ $t.a0 }} <input type="range" name="a0" min="10" max="1000" step="5" value="200"><output data-o="a0"></output></label>
+  </div>
+  <div class="zg-row"><button type="button" class="zg-btn" data-act="run">{{ $t.run }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="auto">{{ $t.auto }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">{{ $t.csv }}</button></div>
+  <p class="zg-muted">{{ $t.goal_p }}</p>
+  <figure><figcaption>{{ $t.window }}</figcaption><canvas width="520" height="90" data-cv="win"></canvas></figure>
+  <div class="g-laser-grid">
+    <figure><figcaption>{{ $t.orbit }}</figcaption><canvas width="420" height="420" data-cv="orbit"></canvas></figure>
+    <figure><figcaption>{{ $t.amp }}</figcaption><canvas width="520" height="420" data-cv="amp"></canvas></figure>
+  </div>
+  <dl class="g-laser-out" data-out></dl><p class="g-msg" aria-live="polite"></p><p class="zg-muted">{{ $t.scaled }}</p>
+  <details class="g-hints" open><summary>📐 {{ $t.princ }}</summary>{{ range $t.princ_p }}<p>{{ . }}</p>{{ end }}</details>
+  <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.hint3 }}</p><p>{{ $t.hint4 }}</p></details>
+</section></div>
+</section>
