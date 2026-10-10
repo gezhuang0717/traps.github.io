@@ -28,17 +28,74 @@
   function sliders(box, fmts, onInput) {
     box.querySelectorAll(".g-slider input[type=range]").forEach(inp => { const o = box.querySelector(`output[data-o="${inp.name}"]`), show = () => { if (o) o.textContent = fmts[inp.name] ? fmts[inp.name](+(inp._number?.value??inp.value)) : inp.value; }; const num=document.createElement("input");num.type="number";num.className="g-num";num.min=inp.min;num.max=inp.max;num.step=inp.name==="B"?"any":inp.step;num.value=inp.name==="B"?(+inp.value).toFixed(10):inp.value;num.dataset.numeric=inp.name;inp._number=num;num.setAttribute("aria-label",inp.closest("label").childNodes[0].textContent.trim());inp.after(num);show();inp.addEventListener("input",()=>{num.value=inp.name==="B"?(+inp.value).toFixed(10):inp.value;show();onInput(inp.name);});num.addEventListener("change",()=>{if(!num.checkValidity())return;inp.value=num.value;show();onInput(inp.name);}); });
   }
+
+  /* ---------- hand-typed ion/atom: derived quantities and explanation (shared with the Fancier tab) ---------- */
+  const ZGCustomIon = {
+    derive(v, B) { /* v: {mass_u, q, lambda_nm, gamma_MHz} → SI derived quantities used by the simulations */
+      const H = 6.62607015e-34, HB = 1.054571817e-34, KB = 1.380649e-23, C = 299792458, E = 1.602176634e-19, U = 1.66053906660e-27;
+      const m = v.mass_u * U, g = 2 * Math.PI * v.gamma_MHz * 1e6, lam = v.lambda_nm * 1e-9, k = 2 * Math.PI / lam;
+      const out = { m, g, k, TD: HB * g / (2 * KB), Tr: (HB * k) ** 2 / (m * KB), vr: HB * k / m, vc: g / (2 * k), Isat: Math.PI * H * C * g / (3 * lam ** 3) / 10, amax: HB * k * g / (2 * m) };
+      if (B > 0 && v.q > 0) out.nuc = v.q * E * B / (2 * Math.PI * m);
+      return out;
+    },
+    text(d, zh) {
+      const f = (x, u) => (Math.abs(x) >= 1e4 || Math.abs(x) < 1e-2 ? x.toExponential(4) : x.toPrecision(5)) + " " + u;
+      const p = [[zh ? "质量" : "m", f(d.m, "kg")], ["Γ", f(d.g, "rad/s")], ["k = 2π/λ", f(d.k, "m⁻¹")], ["T_D = ħΓ/2k_B", f(d.TD * 1e3, "mK")], ["T_r = ħ²k²/(m k_B)", f(d.Tr * 1e6, "µK")],
+        ["v_rec = ħk/m", f(d.vr * 1e3, "mm/s")], ["v_cap ≈ Γ/2k", f(d.vc, "m/s")], ["I_sat = πhcΓ/3λ³", f(d.Isat, "mW/cm²")], [zh ? "最大减速 ħkΓ/2m" : "max decel. ħkΓ/2m", f(d.amax, "m/s²")]];
+      if (d.nuc) p.push(["ν_c = qB/2πm", f(d.nuc / 1e3, "kHz")]);
+      return p.map(([a, b]) => a + " = " + b).join(" · ");
+    },
+    help(zh) {
+      const d = document.createElement("details"), s = document.createElement("summary"), q = document.createElement("div");
+      s.textContent = zh ? "手动输入如何进入计算？（点击展开）" : "How are the hand-typed values used? (click)";
+      const P = zh ? [
+        "① 质量 m（u）：输入离子质量（AME 原子质量减去 q·mₑ）。m = 质量 × 1.66053906660×10⁻²⁷ kg。它决定反冲速度 v_rec = ħk/m、反冲温度 T_r、阱频率 ν_c = qB/2πm、ν_z ∝ √(qU₀/m d²)、保罗阱 q = 2QV/(m r₀²Ω²) 以及库仑相互作用下的加速度。",
+        "② 电荷 q（e）：Q = q·e，进入所有阱频率、马蒂厄参数与离子间库仑力 Q²/4πε₀r²。",
+        "③ 波长 λ（nm，真空）：k = 2π/λ，每个光子的动量 ħk；多普勒频移 k·v 决定冷却力 F(v) = ħk[R(δ−kv) − R(δ+kv)]；饱和光强 I_sat = πhcΓ/3λ³。",
+        "④ 线宽 Γ/2π（MHz）：Γ = 2π × 输入值 × 10⁶ s⁻¹。散射率 R = (Γ/2)s/(1 + s + (2Δ/Γ)²)，失谐以 Γ 为单位（δ/Γ），多普勒极限 T_D = ħΓ/2k_B，俘获速度 ≈ Γ/2k。",
+        "⑤ 计算步骤：输入 → 换算为 SI（m、Q、k、Γ）→ 每个时间步对每个离子计算局部 s 与 Δ = δ − k·v → 泊松抽样光子数 → 动量反冲 ħk 与随机发射反冲 → 更新速度 → 统计温度。下方一行显示由您的输入直接得到的各量，请先核对它们是否合理（例如 T_D 应为 µK–mK 量级）。",
+        "⑥ 注意：模型为二能级跃迁（无超精细、暗态或回泵细节）；若 T_r ≳ T_D（窄线），半经典结果不可靠。"] : [
+        "① Mass m (u): type the ion mass (AME atomic mass minus q·mₑ). m = value × 1.66053906660×10⁻²⁷ kg. It sets the recoil velocity v_rec = ħk/m, the recoil temperature T_r, the trap frequencies ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), the Paul q = 2QV/(m r₀²Ω²) and the Coulomb accelerations.",
+        "② Charge q (e): Q = q·e enters every trap frequency, the Mathieu parameters and the ion–ion force Q²/4πε₀r².",
+        "③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.",
+        "④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.",
+        "⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).",
+        "⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable."];
+      for (const t of P) { const e = document.createElement("p"); e.textContent = t; q.append(e); }
+      d.append(s, q); return d;
+    },
+    button(sel, zh) {
+      const b = document.createElement("button"); b.type = "button"; b.className = "zg-btn zg-btn-ghost"; b.textContent = zh ? "✎ 手动输入离子" : "✎ Type ion by hand";
+      b.title = zh ? "选择“自定义”，在下方输入质量、电荷、波长和线宽" : "Switch to the custom entry and type mass, charge, wavelength and linewidth below";
+      b.addEventListener("click", () => { sel.value = "custom"; sel.dispatchEvent(new Event("change", { bubbles: true })); });
+      sel.insertAdjacentElement("afterend", b); return b;
+    }
+  };
+  window.ZGCustomIon = ZGCustomIon;
+
   function fillSpecies(box, list, L) {
     const sel = box.querySelector("select[name=species]");
     /* "custom" entry: mass (u), charge, λ (nm) and Γ/2π (MHz) typed by hand; values read live from the inputs */
-    const zh = (document.documentElement.lang || "").startsWith("zh"), row = document.createElement("div"); row.className = "g-opts-row"; row.dataset.customIon = ""; row.hidden = true;
-    const fld = (n, lab, v, step) => { const l = document.createElement("label"), i = document.createElement("input"); i.type = "number"; i.name = n; i.dataset.fullPrecision = ""; i.step = step || "any"; i.value = v; l.append(lab + " ", i); row.append(l); return i; };
-    const base = list.find(x => x.ion) || list[0], f = { m: fld("cMass", zh ? "质量 (u)" : "mass (u)", base.mass_u || +String(base.nuclide).match(/^\d+/)[0]), q: fld("cCharge", zh ? "电荷 (e)" : "charge (e)", base.q, "1"), l: fld("cLambda", "λ (nm)", base.lambda_nm), g: fld("cGamma", "Γ/2π (MHz)", base.gamma_MHz) };
+    const zh = (document.documentElement.lang || "").startsWith("zh"), row = document.createElement("div"); row.className = "g-opts-row g-custom-ion"; row.dataset.customIon = ""; row.hidden = true;
+    const head = document.createElement("strong"); head.textContent = zh ? "手动输入（自定义离子/原子）：" : "Typed by hand (custom ion/atom):"; row.append(head);
+    const fld = (n, lab, v, step, tip) => { const l = document.createElement("label"), i = document.createElement("input"); i.type = "number"; i.name = n; i.dataset.fullPrecision = ""; i.step = step || "any"; i.value = v; i.title = tip; l.title = tip; l.append(lab + " ", i); row.append(l); return i; };
+    const base = list.find(x => x.ion) || list[0], f = {
+      m: fld("cMass", zh ? "离子质量 m (u)" : "ion mass m (u)", base.mass_u || +String(base.nuclide).match(/^\d+/)[0], "any", zh ? "离子质量（原子质量单位 u）；AME 原子质量减 q·mₑ" : "ion mass in u (AME atomic mass minus q·mₑ)"),
+      q: fld("cCharge", zh ? "电荷 q (e)" : "charge q (e)", base.q, "1", zh ? "电荷态（中性原子填 0）" : "charge state (0 for a neutral atom)"),
+      l: fld("cLambda", zh ? "冷却波长 λ (nm)" : "cooling wavelength λ (nm)", base.lambda_nm, "any", zh ? "冷却跃迁的真空波长" : "vacuum wavelength of the cooling transition"),
+      g: fld("cGamma", zh ? "自然线宽 Γ/2π (MHz)" : "natural linewidth Γ/2π (MHz)", base.gamma_MHz, "any", zh ? "跃迁自然线宽 Γ/2π = 1/(2πτ)" : "natural linewidth Γ/2π = 1/(2πτ) of the transition") };
+    const derived = document.createElement("div"); derived.className = "g-custom-derived";
+    const upd = () => { const B = +(box.querySelector('[name=B]')?.value || 0); derived.textContent = (zh ? "由输入得到：" : "Derived from your input: ") + ZGCustomIon.text(ZGCustomIon.derive({ mass_u: +f.m.value, q: +f.q.value, lambda_nm: +f.l.value, gamma_MHz: +f.g.value }, B), zh); };
+    row.append(derived, ZGCustomIon.help(zh)); upd(); row.addEventListener("input", upd);
     const custom = { id: "custom", label: zh ? "✎ 自定义（手动输入）" : "✎ Custom (type by hand)", ion: !!box.dataset.laser && box.dataset.laser === "penning" ? true : base.ion, nuclide: "0X", repump: "—", note: zh ? "用户输入" : "user input", src: "" };
     Object.defineProperties(custom, { mass_u: { get: () => +f.m.value }, q: { get: () => +f.q.value }, lambda_nm: { get: () => +f.l.value }, gamma_MHz: { get: () => +f.g.value } });
     list.push(custom); sel.closest(".g-opts-row").after(row);
     list.forEach(s => sel.add(new Option(s.label, s.id)));
-    sel.addEventListener("change", () => { row.hidden = sel.value !== "custom"; });
+    ZGCustomIon.button(sel, zh);
+    sel.addEventListener("change", () => { row.hidden = sel.value !== "custom";
+      if (sel.value === "custom" && sel.dataset.last !== "custom") { const s0 = list.find(x => x.id === sel.dataset.last); if (s0) { f.m.value = s0.mass_u || f.m.value; f.q.value = s0.q; f.l.value = s0.lambda_nm; f.g.value = s0.gamma_MHz; upd(); } } /* pre-fill once, from the previous species */
+      sel.dataset.last = sel.value; });
+    sel.dataset.last = sel.value;
     row.addEventListener("change", () => sel.dispatchEvent(new Event("change")));
     const src = box.querySelector(".g-laser-src"); const show = () => { const s = list.find(x => x.id === sel.value); src.innerHTML = ""; const a = document.createElement("a"); a.href = s.src; a.textContent = L.source; src.append(`Γ/2π = ${s.gamma_MHz} MHz · λ = ${s.lambda_nm} nm · ${L.repump}: ${s.repump} · `, a); if(s.src2){const b=document.createElement('a');b.href=s.src2;b.textContent=L.source;src.append(' · ',b);}src.title = s.note;let detail=box.querySelector('[data-species-note]');if(!detail){detail=document.createElement('details');detail.dataset.speciesNote='';src.after(detail);}const summary=document.createElement('summary'),note=document.createElement('p');summary.textContent=document.documentElement.lang.startsWith('zh')?'谱线数据与近似':'Transition data and approximations';note.textContent=s.note;detail.replaceChildren(summary,note); }; show(); sel.addEventListener("change", show); return sel;
   }

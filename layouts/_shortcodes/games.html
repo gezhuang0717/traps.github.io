@@ -128,14 +128,14 @@
   <section class="zg-card"><h2>🦓 {{ $t.gal }}</h2><p class="zg-muted">{{ $t.gal_n }}</p>
     {{ partial "zg/trap-zoo.html" (dict "heading" false) }}</section>
 </div>
-<script defer src="{{ "js/zg-export.js" | relURL }}"></script>
-<script defer src="{{ "js/physics.js" | relURL }}"></script>
-<script defer src="{{ "js/calibration.js" | relURL }}"></script>
-<script defer src="{{ "js/workbenches.js" | relURL }}"></script>
-<script defer src="{{ "js/games.js" | relURL }}"></script>
-<script defer src="{{ "js/cooling-view.js" | relURL }}"></script>
-<script defer src="{{ "js/laser-cooling.js" | relURL }}"></script>
-<script defer src="{{ "js/paul-cooling-core.js" | relURL }}"></script>
-<script defer src="{{ "js/paul-cooling.js" | relURL }}"></script>
-<script defer src="{{ "js/topic-navigation.js" | relURL }}"></script>
-<script defer src="{{ "js/decimal-controls.js" | relURL }}"></script>
+<script defer src="{{ "js/zg-export.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/zg-export.js")) 0 10 }}"></script>
+<script defer src="{{ "js/physics.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/physics.js")) 0 10 }}"></script>
+<script defer src="{{ "js/calibration.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/calibration.js")) 0 10 }}"></script>
+<script defer src="{{ "js/workbenches.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/workbenches.js")) 0 10 }}"></script>
+<script defer src="{{ "js/games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/games.js")) 0 10 }}"></script>
+<script defer src="{{ "js/cooling-view.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/cooling-view.js")) 0 10 }}"></script>
+<script defer src="{{ "js/laser-cooling.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/laser-cooling.js")) 0 10 }}"></script>
+<script defer src="{{ "js/paul-cooling-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/paul-cooling-core.js")) 0 10 }}"></script>
+<script defer src="{{ "js/paul-cooling.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/paul-cooling.js")) 0 10 }}"></script>
+<script defer src="{{ "js/topic-navigation.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/topic-navigation.js")) 0 10 }}"></script>
+<script defer src="{{ "js/decimal-controls.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/decimal-controls.js")) 0 10 }}"></script>
