@@ -477,3 +477,6 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .g-slider input[type=range]{flex:1 1 140px;min-width:120px}
 .g-slider .g-unit,.g-slider output{flex:0 0 auto;white-space:nowrap;margin-left:.25rem}
 .zg-decimal-spin{display:inline-flex;flex:0 0 auto;align-items:center;max-width:100%}
+.zg-lab>*,.zg-tool,.zg-cal,.zg-cal-bar>*{min-width:0;max-width:100%}
+.zg-cal-bar{flex-wrap:wrap}
+.zg-tool{overflow-x:auto}
