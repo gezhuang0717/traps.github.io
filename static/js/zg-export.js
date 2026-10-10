@@ -68,7 +68,7 @@
       rec.onstop = () => {
         if(failed){finish();return;}
         if(!parts.length){failure();return;}
-        const container=canvas.closest('[data-trap3d],[data-trap2d],[data-workbench],[data-paul-cooling],[data-laser]');
+        const container=canvas.closest('[data-trap3d],[data-trap2d],[data-workbench],[data-paul-cooling],[data-laser],#g-rfq');
         const mime=rec.mimeType||type||'video/webm';
         if(!container){save(new Blob(parts,{type:mime}),`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`);finish();return;}
         const previous=container.querySelector('[data-recording-result]');

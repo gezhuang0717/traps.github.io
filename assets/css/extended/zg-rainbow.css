@@ -450,3 +450,13 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .g-laser .g-slider{display:grid;grid-template-columns:minmax(0,1fr) 145px;gap:6px 12px;align-items:center;padding:8px 0}.g-laser .g-slider input[type=range]{grid-column:1/-1;grid-row:2;width:100%;min-width:0;margin:0}.g-laser .g-slider .g-num{grid-column:2;grid-row:1;width:145px;max-width:100%;box-sizing:border-box}.g-laser .g-slider output{grid-column:1/-1;grid-row:3;text-align:right;font-size:.85rem;overflow-wrap:anywhere}.g-laser .g-sliders{gap:8px 24px;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr))}
 
 #g-laser-p .g-laser-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:700px){#g-laser-p .g-laser-grid{grid-template-columns:1fr}}
+
+/* Cooling workspace: readable multi-panel frames and an explicit export toolbar. */
+.max-w-prose:has(> .zg-games){max-width:none!important;width:100%}
+.g-laser-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g-laser figure{border:1px solid #cad7e7;border-radius:14px;box-shadow:0 4px 14px #1635590a;padding:12px;background:linear-gradient(145deg,#ffffff,#f8fbff)}
+.g-laser figcaption{opacity:1!important;letter-spacing:.01em;padding-bottom:8px;border-bottom:1px solid #e3eaf3}
+.g-export-bar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:12px;border:1px solid #ccd9eb;border-radius:12px;background:#edf4ff;margin:12px 0}
+.g-export-bar>strong{flex-basis:100%;font-size:.85rem;color:#233b66}.g-export-bar .is-rec{background:#be123c!important;color:#fff!important}
+.g-export-bar label{font-size:.85rem}.g-export-bar input{width:80px}.g-laser canvas{border-radius:6px}
+@media(max-width:700px){.g-laser-grid,#g-laser-p .g-laser-grid,[data-paul-cooling] .g-laser-grid{grid-template-columns:1fr}.g-laser figure{padding:8px}}

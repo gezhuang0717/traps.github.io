@@ -409,7 +409,7 @@
       requestAnimationFrame(loop);
     }
     const tgt = () => species[target] || { m: V("A"), z: 1 };
-    box.addEventListener("input", e => { const n = e.target.name; if (["A", "set", "ions", "rfq-seed"].includes(n)) reset(); else if (["U", "V", "r0", "f", "emit", "cycles"].includes(n)) resetStats();refresh(); last = 0; });
+    box.addEventListener("input", e => { const n = e.target.name; if (["A","set","ions","rfq-seed","U","V","r0","f","emit","cycles"].includes(n))window.ZGCoolingView?.stopRecording(box); if (["A", "set", "ions", "rfq-seed"].includes(n)) reset(); else if (["U", "V", "r0", "f", "emit", "cycles"].includes(n)) resetStats();refresh(); last = 0; });
     box.addEventListener("change", e => { const n = e.target.name; if (n === "set" || n === "custom") reset(); if (n === "target") { target = +e.target.value; reset(); } });
     box.addEventListener("click", e => {
       const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
@@ -421,7 +421,7 @@
       if (a === "pause") running = !running;
       if (a === "png") savePNG(cv, paint, "rfq-cross-section");
       if (a === "png2") savePNG(cvd, paintD, "rfq-stability-diagram");
-      if (a === "video" && window.zgExport) { const b = e.target.closest("[data-act]"); zgExport.record(cv, 8, "rfq-ions", r => { b.disabled = r; b.classList.toggle("is-rec", r); }); }
+      if (a === "video" && window.ZGCoolingView) { ZGCoolingView.recordPanel(box,[cv,cvd],'rfq-ions-and-stability',()=>({parameters:{trap:'RFQ',species:species.map(s=>s.label).join(', '),...Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)])),seed:V('rfq-seed')},view:{plots:'cross-section + a–q stability',voltage:'V zero-to-peak RF; U DC'},time_s:xi/(Math.PI*V('f')*1e6)}),()=>{running=true;});return; }
       if(a==='json'||a==='csv') {
         const cuts=currentCutoffs(),parameters=Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)]));
         const source={name:'AME2020 + NUBASE2020',url:'https://www-nds.iaea.org/amdc/ame2020/',doi:'10.1088/1674-1137/abddae'};
