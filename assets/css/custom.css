@@ -451,3 +451,5 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .g-laser .g-slider{display:grid;grid-template-columns:minmax(0,1fr) 145px;gap:6px 12px;align-items:center;padding:8px 0}.g-laser .g-slider input[type=range]{grid-column:1/-1;grid-row:2;width:100%;min-width:0;margin:0}.g-laser .g-slider .g-num{grid-column:2;grid-row:1;width:145px;max-width:100%;box-sizing:border-box}.g-laser .g-slider output{grid-column:1/-1;grid-row:3;text-align:right;font-size:.85rem;overflow-wrap:anywhere}.g-laser .g-sliders{gap:8px 24px;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr))}
 
 #g-laser-p .g-laser-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:700px){#g-laser-p .g-laser-grid{grid-template-columns:1fr}}
+
+@media(min-width:800px){[data-paul-cooling] .g-laser-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}

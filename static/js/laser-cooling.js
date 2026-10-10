@@ -2,7 +2,7 @@
    Original tab: 1D optical molasses, stochastic per-photon Poisson simulation (physics.js molassesStep) compared with the
    semiclassical theory (molassesTheory). Advanced tab: one ion in a Penning trap cooled by a radial, offset, tilted beam
    (penningLaser / amplitudeAt; Itano & Wineland PRA 25, 35 (1982); Hendricks et al. arXiv:0709.3817).
-   Masses use m ≈ A·u − q·mₑ (better than 0.1 %; only the recoil scale depends on it). */
+   Mass presets use AME2020 atomic mass minus q electron masses; ionization binding corrections are omitted. */
 (() => {
   "use strict";
   const P = window.ZGPhysics; if (!P) return;
@@ -12,13 +12,13 @@
   const fmt = (x, d = 3) => !isFinite(x) ? "∞" : Math.abs(x) >= 1e4 || (Math.abs(x) < 1e-2 && x !== 0) ? x.toExponential(d - 1) : x.toPrecision(d);
   const tUnit = T => !isFinite(T) ? "∞" : T >= 1 ? fmt(T) + " K" : T >= 1e-3 ? fmt(T * 1e3) + " mK" : T >= 1e-6 ? fmt(T * 1e6) + " µK" : fmt(T * 1e9) + " nK";
   const tmUnit = t => t >= 1 ? fmt(t) + " s" : t >= 1e-3 ? fmt(t * 1e3) + " ms" : fmt(t * 1e6) + " µs";
-  function massU(s) { const A = +String(s.nuclide).match(/^\d+/)[0]; return A - (s.q || 0) * ME; }
+  function massU(s) { const A = +String(s.nuclide).match(/^\d+/)[0]; return s.mass_u || A - (s.q || 0) * ME; }
   function crisp(cv) { const r = Math.min(devicePixelRatio || 1, 2), w = cv.width, h = cv.height; if (!cv.dataset.w) { cv.dataset.w = w; cv.dataset.h = h; } const W = Math.max(320,Math.round(cv.clientWidth||360)), H = cv.dataset.cv==="win"?180:Math.max(180,Math.round(W*(+cv.dataset.h/+cv.dataset.w))); if (cv.width !== W * r || cv.height !== H * r) { cv.width = W * r; cv.height = H * r; } const g = cv.getContext("2d"); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, W, H); g.fillStyle="#fff"; g.fillRect(0,0,W,H); return { g, W, H }; }
   function download(name, blob) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
   function pngOf(cvs, name) {
     const W = Math.max(...cvs.map(c => c.width)), H = cvs.reduce((s, c) => s + c.height, 0), out = document.createElement("canvas"); out.width = W; out.height = H;
     const g = out.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, W, H); let y = 0; cvs.forEach(c => { g.drawImage(c, 0, y); y += c.height; });
-    out.toBlob(b => b && download(name, b), "image/png");
+    if(window.zgExport)zgExport.png(out,name.replace(/\.png$/, ""));else out.toBlob(b => b && download(name, b), "image/png");
   }
   function axes(g, W, H, m, xl, yl) { g.strokeStyle = "#7b8ba2"; g.lineWidth = 1; g.beginPath(); g.moveTo(m.l, m.t); g.lineTo(m.l, H - m.b); g.lineTo(W - m.r, H - m.b); g.stroke(); g.fillStyle = "#23314a"; g.font = "12px system-ui,sans-serif"; g.textAlign = "center"; g.fillText(xl, (m.l + W - m.r) / 2, H - 4); g.save(); g.translate(12, (m.t + H - m.b) / 2); g.rotate(-Math.PI / 2); g.fillText(yl, 0, 0); g.restore(); }
   function temperaturePlot(cv,pts,th,L){const{g,W,H}=crisp(cv),m={l:62,r:16,t:65,b:38},tmax=Math.max(pts[pts.length-1][0],1e-9),vals=pts.map(x=>x[1]).filter(x=>x>0&&isFinite(x));const refs=[[th.TDoppler,"#15803d",L.t_doppler],[th.T,"#b45309",L.t_theory],[th.Trecoil,"#7c3aed",L.t_recoil]].filter(x=>x[0]>0&&isFinite(x[0]));const all=vals.concat(refs.map(x=>x[0])),lo=Math.floor(Math.log10(Math.min(...all)*1e3)),hi=Math.max(lo+1,Math.ceil(Math.log10(Math.max(...all)*1e3))),X=t=>m.l+(W-m.l-m.r)*t/tmax,Y=T=>H-m.b-(H-m.t-m.b)*(Math.log10(Math.max(T,1e-30)*1e3)-lo)/(hi-lo);g.font="11px system-ui";for(let e=lo;e<=hi;e++){const y=Y(10**e/1e3);g.strokeStyle="#dce3ed";g.beginPath();g.moveTo(m.l,y);g.lineTo(W-m.r,y);g.stroke();g.fillStyle="#23314a";g.textAlign="right";g.fillText(fmt(10**e,2),m.l-5,y+4);}for(let i=0;i<=4;i++){const t=tmax*i/4;g.textAlign="center";g.fillText(fmt(t*1e3,2),X(t),H-m.b+15);}refs.forEach(([T,c,label],i)=>{g.strokeStyle=c;g.setLineDash([5,4]);g.beginPath();g.moveTo(m.l,Y(T));g.lineTo(W-m.r,Y(T));g.stroke();g.setLineDash([]);g.fillStyle=c;g.textAlign="left";g.fillText(label+" · "+tUnit(T),m.l,14+i*15);});g.strokeStyle="#2563eb";g.lineWidth=2;g.beginPath();pts.forEach(([t,T],i)=>i?g.lineTo(X(t),Y(T)):g.moveTo(X(t),Y(T)));g.stroke();axes(g,W,H,m,L.time+" (ms)","T (mK, log)");}
@@ -30,7 +30,7 @@
   }
   function fillSpecies(box, list, L) {
     const sel = box.querySelector("select[name=species]"); list.forEach(s => sel.add(new Option(s.label, s.id)));
-    const src = box.querySelector(".g-laser-src"); const show = () => { const s = list.find(x => x.id === sel.value); src.innerHTML = ""; const a = document.createElement("a"); a.href = s.src; a.textContent = L.source; src.append(`Γ/2π = ${s.gamma_MHz} MHz · λ = ${s.lambda_nm} nm · ${L.repump}: ${s.repump} · `, a); src.title = s.note; }; show(); sel.addEventListener("change", show); return sel;
+    const src = box.querySelector(".g-laser-src"); const show = () => { const s = list.find(x => x.id === sel.value); src.innerHTML = ""; const a = document.createElement("a"); a.href = s.src; a.textContent = L.source; src.append(`Γ/2π = ${s.gamma_MHz} MHz · λ = ${s.lambda_nm} nm · ${L.repump}: ${s.repump} · `, a); if(s.src2){const b=document.createElement('a');b.href=s.src2;b.textContent=L.source;src.append(' · ',b);}src.title = s.note;let detail=box.querySelector('[data-species-note]');if(!detail){detail=document.createElement('details');detail.dataset.speciesNote='';src.after(detail);}const summary=document.createElement('summary'),note=document.createElement('p');summary.textContent=document.documentElement.lang.startsWith('zh')?'谱线数据与近似':'Transition data and approximations';note.textContent=s.note;detail.replaceChildren(summary,note); }; show(); sel.addEventListener("change", show); return sel;
   }
 
   /* ---------- Original tab: optical molasses ---------- */
@@ -43,12 +43,12 @@
       const p = params(), th = P.molassesTheory(p), T0 = +q("t0").value * th.TDoppler, sig = Math.sqrt(P.KB * T0 / p.massKg), r = rng(+q("seed").value), n = +q("n").value;
       const v = new Float64Array(n); for (let i = 0; i < n; i++) v[i] = sig * gauss(r);
       st = { v, x: Float64Array.from({ length: n }, () => r()), y: Float64Array.from({ length: n }, () => r()), r, t: 0, photons: 0, sig0: sig, hist: [[0, T0]], Ts: T0, reached: null, key: sel.value + q("eta").value };
-      msg.textContent = ""; draw();
+      st.hist=[[0,temp()]];st.Ts=st.hist[0][1];msg.textContent = ""; draw();
     }
-    const temp = () => { let a = 0, b = 0; const v = st.v; for (const x of v) { a += x; b += x * x; } a /= v.length; return params().massKg * (b / v.length - a * a) / P.KB; };
+    const temp = () => { let a = 0, b = 0; const v = st.v; for (const x of v) { a += x; b += x * x; } a /= v.length; return params().massKg * Math.max(0,b-v.length*a*a) / Math.max(1,v.length-1) / P.KB; };
     function step() {
       const p = params(), th = P.molassesTheory(p), dt = Math.min(Math.abs(p.massKg / th.beta) / 40 || 1e-6, 60 / p.gamma, 1e-3), n = +q("speed").value;
-      for (let i = 0; i < n; i++) { st.photons += P.molassesStep(st.v, p, dt, st.r); st.t += dt; }
+      for (let i = 0; i < n && st.t < +q("duration").value/1e3; i++) { const h=Math.min(dt,+q("duration").value/1e3-st.t);st.photons += P.molassesStep(st.v, p, h, st.r); st.t += h; }
       const T = temp(); st.Ts = st.Ts * 0.85 + T * 0.15; st.hist.push([st.t, T]); if (st.hist.length > 4000) st.hist.splice(1, 1);
       for (let i = 0; i < st.v.length; i++) { st.x[i] += st.v[i] / st.sig0 * 0.004; if (st.x[i] < 0 || st.x[i] > 1) st.x[i] = (st.x[i] + 1) % 1; }
       if (!st.reached && st.Ts < 1.2 * th.TDoppler && st.hist.length > 20) { st.reached = st.t; const best = record[st.key]; if (!best || st.t < best) record[st.key] = st.t; msg.textContent = `✅ ${L.reached} ${tmUnit(st.t)} (${L.record}: ${tmUnit(record[st.key])})`; }
@@ -93,7 +93,7 @@
   function penning(box) {
     const all = JSON.parse(box.dataset.species), list = all.filter(s => s.ion && !(s.gamma_MHz < 1)), L = JSON.parse(box.dataset.labels), q = n => box.querySelector(`[name=${n}]`);
     const cv = n => box.querySelector(`[data-cv=${n}]`), out = box.querySelector("[data-out]"), msg = box.querySelector(".g-msg");
-    const sel = fillSpecies(box, list, L); let res = null, simT = 0, anim = 0, phase = 0, last = 0;
+    const sel = fillSpecies(box, list, L); let res = null, simT = 0, anim = 0, phase = 0, last = 0, pitch=Math.PI/6;
     const params = () => { const s = list.find(x => x.id === sel.value), gamma = TAU * s.gamma_MHz * 1e6; return { s, ion: { q: s.q, ionMassU: massU(s) }, B: +(box.querySelector('[data-numeric="B"]')?.value??q("B").value), U0: +q("U0").value, d: +q("d").value * 1e-3, lambda: s.lambda_nm * 1e-9, gamma, delta: +q("delta").value * gamma, s0: +q("s0").value, w: +q("w").value * 1e-6, yb: +q("yb").value * 1e-6, theta: +q("theta").value * Math.PI / 180, eta: +q("eta").value }; };
     const amps = t => { const A0 = +q("a0").value * 1e-6; return [P.amplitudeAt(A0, res.gp, res.Dr, t), P.amplitudeAt(A0, res.gm, res.Dr, t), P.amplitudeAt(A0, res.gz, res.Dz, t)]; };
     function compute() { res = P.penningLaser(params()); draw(); }
@@ -129,12 +129,12 @@
     }
     function drawOrbit() {
       const p=params(),t=simT||0,[ap,am,az]=amps(t),rr=+q("radialRange").value*1e-6/+q("zoom").value,zr=+q("axialRange").value*1e-6/+q("zoom").value;
-      const point=u=>[ap*Math.cos(14*u)+am*Math.cos(u),-ap*Math.sin(14*u)-am*Math.sin(u),az*Math.cos(3.7*u)];
+      const point=u=>{const[a,b,c]=amps(u),f=res.freq;return[a*Math.cos(TAU*f.np*u)+b*Math.cos(TAU*f.nm*u),-a*Math.sin(TAU*f.np*u)-b*Math.sin(TAU*f.nm*u),c*Math.cos(TAU*f.nz*u)];};const trail=Math.min(t,6/res.freq.np);
       for(const name of ["orbit","axial","space"]){const{g,W,H}=crisp(cv(name)),m={l:48,r:18,t:32,b:48},cx=(m.l+W-m.r)/2,cy=(m.t+H-m.b)/2,sx=(W-m.l-m.r)/2,sy=(H-m.t-m.b)/2;
-        const project=v=>name==="orbit"?[v[0]/rr,v[1]/rr]:name==="axial"?[v[2]/zr,v[0]/rr]:[(v[0]*Math.cos(phase*.17+(+q("camera").value)*Math.PI/180)-v[1]*Math.sin(phase*.17+(+q("camera").value)*Math.PI/180))/rr*.72,v[2]/zr*.65+(v[0]*Math.sin(phase*.17+(+q("camera").value)*Math.PI/180)+v[1]*Math.cos(phase*.17+(+q("camera").value)*Math.PI/180))/rr*.35];
+        const project=v=>name==="orbit"?[v[0]/rr,v[1]/rr]:name==="axial"?[v[2]/zr,v[0]/rr]:ZGCoolingView.project([v[0]/rr,v[2]/zr,v[1]/rr],(+q("camera").value)*Math.PI/180,pitch).map(x=>x*.72);
         const coords=v=>{const[u,w]=project(v);return[cx+sx*u,cy-sy*w];};g.strokeStyle="#d9e2ed";g.beginPath();g.moveTo(cx,m.t);g.lineTo(cx,H-m.b);g.moveTo(m.l,cy);g.lineTo(W-m.r,cy);g.stroke();
         if(name==="orbit"){const y=cy-p.yb/rr*sy,waist=p.w/rr*sy,grad=g.createLinearGradient(0,y-waist,0,y+waist);grad.addColorStop(0,"#ffffff00");grad.addColorStop(.5,"#7c3aed44");grad.addColorStop(1,"#ffffff00");g.fillStyle=grad;g.fillRect(m.l,y-waist,W-m.l-m.r,2*waist);}
-        g.save();g.beginPath();g.rect(m.l,m.t,W-m.l-m.r,H-m.t-m.b);g.clip();g.strokeStyle="#2563eb";g.lineWidth=1.5;g.beginPath();for(let i=0;i<=360;i++){const v=point(phase-6+6*i/360),[x,y]=coords(v);if(Number.isFinite(x)&&Number.isFinite(y)){i?g.lineTo(x,y):g.moveTo(x,y);}}g.stroke();const[x,y]=coords(point(phase));if(Number.isFinite(x)&&Number.isFinite(y)){g.fillStyle="#d97706";g.beginPath();g.arc(x,y,5,0,TAU);g.fill();}g.restore();
+        g.save();g.beginPath();g.rect(m.l,m.t,W-m.l-m.r,H-m.t-m.b);g.clip();g.strokeStyle="#2563eb";g.lineWidth=1.5;g.beginPath();for(let i=0;i<=360;i++){const v=point(t-trail+trail*i/360),[x,y]=coords(v);if(Number.isFinite(x)&&Number.isFinite(y)){i?g.lineTo(x,y):g.moveTo(x,y);}}g.stroke();const[x,y]=coords(point(t));if(Number.isFinite(x)&&Number.isFinite(y)){g.fillStyle="#d97706";g.beginPath();g.arc(x,y,5,0,TAU);g.fill();}g.restore();
         g.fillStyle="#23314a";g.font="12px system-ui";g.textAlign="left";g.fillText("t = "+tmUnit(t)+" · "+(name==="space"?"x/y/z":"±"+fmt((name==="axial"?zr:rr)*1e6,4)+" µm"),m.l,18);
         if(name!=="space"){const extent=(name==="axial"?zr:rr)*1e6;[-1,0,1].forEach(v=>{g.textAlign="center";g.fillText(fmt(v*extent,3),cx+v*sx,H-m.b+15);g.textAlign="right";g.fillText(fmt(v*rr*1e6,3),m.l-5,cy-v*sy+4);});axes(g,W,H,m,name==="axial"?"z (µm)":"x (µm)",name==="axial"?"x (µm)":"y (µm)");}
         else{g.fillText("radial ±"+fmt(rr*1e6,3)+" µm · axial ±"+fmt(zr*1e6,3)+" µm",m.l,H-15);}
@@ -154,6 +154,7 @@
         const rows = Array.from({ length: 121 }, (_, i) => { const t = 1e-6 * (+q("span").value/1e-3) ** (i / 120); return [t, ...amps(t)].join(","); }); download(`laser-penning-${sel.value}.csv`, new Blob([head + "t_s,r_plus_m,r_minus_m,z_m\n" + rows.join("\n")], { type: "text/csv" })); }
     });
     sliders(box, { B: v => v.toFixed(10) + " T", U0: v => v + " V", d: v => v.toFixed(2) + " mm", delta: v => v.toFixed(2) + " Γ", s0: v => v.toFixed(2), w: v => v + " µm", yb: v => v.toFixed(1) + " µm", theta: v => v.toFixed(1) + "°", a0: v => v + " µm" }, () => {cancelAnimationFrame(anim);anim=0;simT=0;compute();});
+    ZGCoolingView.interact(cv("space"),{rotate:(dx,dy)=>{q("camera").value=(+q("camera").value+dx*.6+360)%360;pitch=Math.max(-1.5,Math.min(1.5,pitch+dy*.01));draw();},zoom:factor=>{q("zoom").value=Math.max(.1,Math.min(20,+q("zoom").value*factor));draw();}});
     q("camera").addEventListener("input",draw);for(const n of ["radialRange","axialRange"]){q(n).addEventListener("change",()=>{if(q(n).checkValidity())draw();});}q("inspectTime").addEventListener("change",()=>{if(!q("inspectTime").checkValidity())return;cancelAnimationFrame(anim);anim=0;simT=+q("inspectTime").value/1e3;phase=2.2;draw();});q("zoom").addEventListener("input",draw);q("span").addEventListener("change",draw);sel.addEventListener("change",()=>{cancelAnimationFrame(anim);anim=0;simT=0;compute();}); q("eta").addEventListener("change", compute); new MutationObserver(()=>{if(box.closest("[hidden]")){cancelAnimationFrame(anim);anim=0;}}).observe(box.parentElement,{attributes:true,attributeFilter:["hidden"]});document.addEventListener("visibilitychange",()=>{if(document.hidden){cancelAnimationFrame(anim);anim=0;}});addEventListener("resize", () => res && draw()); compute();
   }
 

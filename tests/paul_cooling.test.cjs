@@ -17,3 +17,11 @@ test('Numerical 3D Penning red cooling and blue loss remain distinct',()=>{
  const red=C.create(cfg);for(let i=0;i<10000;i++)C.step(red,cfg,dt);assert.ok(C.diagnostics(red,cfg).T<.002);
  const blueCfg={...cfg,detuning:.5},blue=C.create(blueCfg);assert.throws(()=>{for(let i=0;i<10000;i++)C.step(blue,blueCfg,dt);},/aperture/);
 });
+test('Single-ion Paul axial orbit agrees with the harmonic solution and converges',()=>{
+ const cfg={...p,n:1},w=C.frequencies(cfg).wz,T=2*Math.PI/w,errors=[];
+ for(const div of [40,80]){const dt=1/(div*cfg.rfHz),s=C.create(cfg);s.positions=[[0,0,5e-6]];s.velocities=[[0,0,0]];const n=Math.round(2.25*T/dt);for(let i=0;i<n;i++)C.step(s,cfg,dt);errors.push(Math.abs(s.positions[0][2]/5e-6-Math.cos(w*n*dt)));}assert.ok(errors[0]<.00002&&errors[1]<errors[0]*.3);
+});
+test('Penning radial eigenmode matches the analytic clockwise orbit and converges',()=>{
+ const cfg={...p,n:1,trap:'penning',B:.1,axialHz:5e3,laser:false},f=C.frequencies(cfg),wp=(f.wc+Math.sqrt(f.wc*f.wc-2*f.wz*f.wz))/2,errors=[];
+ for(const h of [.05,.025]){const dt=h/f.wc,n=Math.round(10*2*Math.PI/wp/dt),s=C.create(cfg),R=10e-6;s.positions=[[R,0,0]];s.velocities=[[0,-wp*R,0]];for(let i=0;i<n;i++)C.step(s,cfg,dt);errors.push(Math.hypot(s.positions[0][0]/R-Math.cos(wp*n*dt),s.positions[0][1]/R+Math.sin(wp*n*dt)));}assert.ok(errors[0]<.01&&errors[1]<errors[0]*.3);
+});

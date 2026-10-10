@@ -54,21 +54,21 @@
       const text = "﻿" + [header, ...rows].map(r => r.map(q).join(",")).join("\r\n");
       save(new Blob([text], { type: "text/csv;charset=utf-8" }), `${name}-${stamp()}.csv`);
     },
-    record(canvas, seconds, name, onState) {
+    record(canvas, seconds, name, onState, options = {}) {
       if (!canvas.captureStream || !window.MediaRecorder) { const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording is not supported in this browser.',zh:'此浏览器不支持视频录制。',fi:'Selain ei tue videon tallennusta.',de:'Dieser Browser unterstützt keine Videoaufnahme.',ja:'このブラウザーは動画の録画に対応していません。'})[lang]||'Video recording is not supported in this browser.');onState&&onState(false);return; }
       const types = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
       const type = types.find(t => MediaRecorder.isTypeSupported(t)) || "";
       let stream,rec,failed=false;
       const parts=[];
       const finish=()=>{stream?.getTracks().forEach(t=>t.stop());onState&&onState(false);};
-      const failure=()=>{failed=true;finish();const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording failed. Try a shorter duration or another browser.',zh:'视频录制失败。请尝试较短时长或其他浏览器。',fi:'Videon tallennus epäonnistui. Kokeile lyhyempää kestoa tai toista selainta.',de:'Videoaufnahme fehlgeschlagen. Kürzere Dauer oder anderen Browser versuchen.',ja:'録画に失敗しました。短い時間または別のブラウザーでお試しください。'})[lang]||'Video recording failed.');};
-      try{stream=canvas.captureStream(60);rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),videoBitsPerSecond:25e6});}catch(_){failure();return;}
+      const failure=error=>{console.warn("Video recording failed:",error?.message||"empty recording");failed=true;finish();const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording failed. Try a shorter duration or another browser.',zh:'视频录制失败。请尝试较短时长或其他浏览器。',fi:'Videon tallennus epäonnistui. Kokeile lyhyempää kestoa tai toista selainta.',de:'Videoaufnahme fehlgeschlagen. Kürzere Dauer oder anderen Browser versuchen.',ja:'録画に失敗しました。短い時間または別のブラウザーでお試しください。'})[lang]||'Video recording failed.');};
+      try{stream=canvas.captureStream(options.fps || 60);rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),videoBitsPerSecond:options.bitrate || 25e6});}catch(error){failure(error);return;}
       rec.ondataavailable = e => e.data.size && parts.push(e.data);
       rec.onerror=failure;
       rec.onstop = () => {
         if(failed){finish();return;}
         if(!parts.length){failure();return;}
-        const container=canvas.closest('[data-trap3d],[data-trap2d],[data-workbench]');
+        const container=canvas.closest('[data-trap3d],[data-trap2d],[data-workbench],[data-paul-cooling],[data-laser]');
         const mime=rec.mimeType||type||'video/webm';
         if(!container){save(new Blob(parts,{type:mime}),`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`);finish();return;}
         const previous=container.querySelector('[data-recording-result]');
@@ -78,7 +78,7 @@
         box.dataset.recordingResult='';box.dataset.url=url;video.src=url;video.controls=true;video.preload='metadata';video.style.width='100%';video.style.maxHeight='360px';link.href=url;link.download=`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`;link.textContent=label;link.className='zg-btn zg-btn-ghost';box.append(video,link);container.append(box);
         finish();
       };
-      try{onState&&onState(true);rec.start();}catch(_){failure();return;}
+      try{onState&&onState(true);rec.start(1000);}catch(error){failure(error);return;}
       setTimeout(() => rec.state !== "inactive" && rec.stop(), seconds * 1000);
       return rec;
     },

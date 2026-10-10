@@ -1,0 +1,4 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const context={window:{}};vm.runInNewContext(fs.readFileSync('static/js/cooling-view.js','utf8'),context);const V=context.window.ZGCoolingView;
+test('Camera rotates all three coordinates without changing simulation coordinates',()=>{const v=[2,3,5],a=V.project(v,0,0),b=V.project(v,Math.PI/2,Math.PI/2);assert.deepEqual(Array.from(a),[2,3]);assert.ok(Math.abs(b[0]+5)<1e-10);assert.ok(Math.abs(b[1]-2)<1e-10);assert.deepEqual(v,[2,3,5]);});
+test('RMS phase area includes covariance and rejects a fully correlated line',()=>{assert.equal(V.phaseArea([[-1],[1]],[[-2],[2]]),0);const r=[[-1],[-1],[1],[1]],v=[[-2],[2],[-2],[2]];assert.equal(V.phaseArea(r,v),2);assert.equal(V.phaseArea(r.map(x=>[x[0]+500]),v.map(x=>[x[0]-3])),2);});

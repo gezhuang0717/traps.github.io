@@ -66,13 +66,14 @@
   <div class="g-laser-grid">
     <figure><figcaption>{{ $t.orbit }}</figcaption><canvas width="420" height="420" data-cv="orbit"></canvas></figure>
     <figure><figcaption>{{ if eq $k "zh" }}轴向 z–x 投影（独立范围）{{ else }}Axial z–x projection (independent ranges){{ end }}</figcaption><canvas width="420" height="420" data-cv="axial"></canvas></figure>
-    <figure><figcaption>{{ if eq $k "zh" }}旋转三维投影（示意相位）{{ else }}Rotating 3D projection (illustrative phases){{ end }}</figcaption><canvas width="420" height="420" data-cv="space"></canvas></figure>
+    <figure><figcaption>{{ if eq $k "zh" }}三维投影（真实本征频率）{{ else }}3D projection (physical eigenfrequencies){{ end }}</figcaption><canvas width="420" height="420" data-cv="space"></canvas></figure>
     <figure><figcaption>{{ $t.amp }}</figcaption><canvas width="520" height="420" data-cv="amp"></canvas></figure>
   </div>
-  <dl class="g-laser-out" data-out></dl><p class="g-msg" aria-live="polite"></p><p class="zg-muted">{{ $t.scaled }}</p>
+  <dl class="g-laser-out" data-out></dl><p class="g-msg" aria-live="polite"></p>
   <details class="g-hints"><summary>📐 {{ $t.princ }}</summary>{{ range $t.princ_p }}<p>{{ . }}</p>{{ end }}</details>
   <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.hint3 }}</p><p>{{ $t.hint4 }}</p></details>
 {{ partial "zg/cooling-guide.html" (dict "kind" "penning") }}
-</section></div>
+</section>
+<p class="zg-muted">{{ if eq $k "zh" }}轨道使用真实 ν₊、ν₋、νz 与当前物理时间的相位，轨迹线仅显示最近六个回旋周期；播放采用加速的对数时钟，高频运动可能视觉混叠。拖动三维图旋转，滚轮缩放。{{ else }}Orbits use the physical ν₊, ν₋ and νz phases at the displayed time; the trail covers the last six cyclotron periods. Playback uses an accelerated logarithmic clock and fast motion can visually alias. Drag the 3D view to rotate; wheel to zoom.{{ end }}</p></div>
 <div data-local-panel="fancier" hidden>{{ partial "zg/paul-cooling.html" . }}</div>
 </section>
