@@ -1,5 +1,5 @@
 {{ $zh := hasPrefix site.Language.Lang "zh" }}
-<section class="zg-card g-box g-laser" data-paul-cooling data-species="{{ hugo.Data.laser_cooling.species | jsonify }}" data-zh="{{ $zh }}">
+<section class="zg-card g-box g-laser" data-full-precision data-paul-cooling data-species="{{ hugo.Data.laser_cooling.species | jsonify }}" data-zh="{{ $zh }}">
 <h2>❄ {{ if $zh }}更进阶：保罗 / 潘宁阱中的三维激光冷却{{ else }}Fancier simulation: 3D laser cooling in Paul / Penning traps{{ end }}</h2>
 <p>{{ if $zh }}比较真实射频与时间平均势：观察微运动、离子间排斥，以及红失谐冷却或蓝失谐加热。所有图使用同一模拟时钟。{{ else }}Compare the actual RF drive with the time-averaged potential. Watch micromotion, ion repulsion, red-detuned cooling and blue-detuned heating. All views share one simulation clock.{{ end }}</p>
 <div class="g-opts-row">
@@ -17,6 +17,25 @@
 <label data-penning-field hidden>B (T) <input name="B" data-decimals="10" type="number" min="0.01" max="10" value="0.1" step="any"></label>
 <label data-penning-field hidden>{{ if $zh }}径向光束偏移 (µm){{ else }}Radial beam offset (µm){{ end }} <input name="offset" type="number" min="-500" max="500" value="20" step="any"></label>
 <label data-penning-field hidden>{{ if $zh }}径向光束腰 (µm){{ else }}Radial beam waist (µm){{ end }} <input name="waist" type="number" min="1" max="1000" value="100" step="any"></label>
+<div class="g-opts-row g-design" data-design-block><strong>{{ if $zh }}离子阱设计{{ else }}Trap design{{ end }}</strong>
+<label>{{ if $zh }}输入方式{{ else }}Input{{ end }} <select name="design"><option value="freq">{{ if $zh }}q 与轴向频率{{ else }}q and axial frequency{{ end }}</option><option value="electrodes">{{ if $zh }}电极尺寸与电压{{ else }}electrodes and voltages{{ end }}</option></select></label>
+<label><input type="checkbox" name="exact" checked> {{ if $zh }}精确 Mathieu β（否则绝热近似）{{ else }}exact Mathieu β (else adiabatic approx.){{ end }}</label>
+<label data-design="paul">r₀ (mm) <input name="r0" data-full-precision type="number" step="any" min="0.001" max="100" value="1"></label>
+<label data-design="paul-e" hidden>z₀ (mm) <input name="z0" data-full-precision type="number" step="any" min="0.001" max="1000" value="2.5"></label>
+<label data-design="paul-e" hidden>κ <input name="kappa" data-full-precision type="number" step="any" min="0.0001" max="10" value="0.25"></label>
+<label data-design="paul-e" hidden>V_rf (V, {{ if $zh }}峰值{{ else }}amplitude{{ end }}) <input name="Vrf" data-full-precision type="number" step="any" min="0" max="100000" value="5.237"></label>
+<label data-design="paul-e" hidden>U_dc (V) <input name="Udc" data-full-precision type="number" step="any" min="-10000" max="10000" value="0"></label>
+<label data-design="paul-e" hidden>U_end (V) <input name="Uend" data-full-precision type="number" step="any" min="0" max="100000" value="0.184"></label>
+<label data-design="penning-e" hidden>U₀ (V) <input name="U0" data-full-precision type="number" step="any" min="0" max="100000" value="0.00041"></label>
+<label data-design="penning-e" hidden>d (mm) <input name="d" data-full-precision type="number" step="any" min="0.001" max="1000" value="1"></label>
+</div>
+<div class="g-opts-row" data-custom-ion hidden><strong>{{ if $zh }}自定义离子{{ else }}Custom ion{{ end }}</strong>
+<label>{{ if $zh }}离子质量 (u){{ else }}Ion mass (u){{ end }} <input name="cMass" data-full-precision type="number" step="any" min="0.0001" max="1000" value="39.96204227"></label>
+<label>{{ if $zh }}电荷 q (e){{ else }}Charge q (e){{ end }} <input name="cCharge" data-full-precision type="number" step="1" min="1" max="100" value="1"></label>
+<label>λ (nm) <input name="cLambda" data-full-precision type="number" step="any" min="1" max="100000" value="396.958979"></label>
+<label>Γ/2π (MHz) <input name="cGamma" data-full-precision type="number" step="any" min="0.000001" max="10000" value="23.05"></label>
+</div>
+<dl class="g-laser-out" data-paul-design-out></dl>
 <label>{{ if $zh }}随机种子{{ else }}Random seed{{ end }} <input type="number" name="seed" value="20261010" min="1" max="4294967295" step="1"></label>
 </div>
 <div class="g-opts-row"><label>{{ if $zh }}初始 ε 目标 (µm·m/s){{ else }}Initial ε target (µm·m/s){{ end }} <input name="emittance" type="number" min="0.01" max="10000" step="any" value="70"></label><button class="zg-btn zg-btn-ghost" data-paul-act="emittance">{{ if $zh }}由 ε 设置初温{{ else }}Set T from ε{{ end }}</button><label>{{ if $zh }}离子标记半径 (px){{ else }}Ion marker radius (px){{ end }} <input name="marker" type="number" min="1" max="12" step="0.5" value="4.5"></label></div>

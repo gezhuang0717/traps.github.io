@@ -56,7 +56,7 @@
     },
     record(canvas, seconds, name, onState, options = {}) {
       if (!canvas.captureStream || !window.MediaRecorder) { const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording is not supported in this browser.',zh:'此浏览器不支持视频录制。',fi:'Selain ei tue videon tallennusta.',de:'Dieser Browser unterstützt keine Videoaufnahme.',ja:'このブラウザーは動画の録画に対応していません。'})[lang]||'Video recording is not supported in this browser.');onState&&onState(false);return; }
-      const types = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
+      const types = (options.prefer === "webm" ? [] : ["video/mp4;codecs=avc1.42E01E", "video/mp4;codecs=avc1", "video/mp4"]).concat(["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"]); /* MP4 first (Chrome/Edge ≥ 126, Safari); WebM fallback (Firefox) */
       const type = types.find(t => MediaRecorder.isTypeSupported(t)) || "";
       let stream,rec,failed=false;
       const parts=[];
