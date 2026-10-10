@@ -1,6 +1,6 @@
 # Laser-cooling game (Games → Laser cooling): species presets and five-language labels.
 # Every number is copied from the cited primary source; [derived] marks values computed from a cited lifetime/frequency.
-# Γ is given as Γ/2π in MHz; λ is the vacuum wavelength in nm. Research notes: PSSD releases/2026-10-09.traps.1/claude/research/.
+# Γ is given as Γ/2π in MHz; λ is the vacuum wavelength in nm.
 species:
   - {id: ca40p, label: "⁴⁰Ca⁺ 397 nm", nuclide: "40Ca", q: 1, lambda_nm: 396.958979, gamma_MHz: 23.05, ion: true, repump: "866 nm (P₁/₂→D₃/₂ 6.4 %)", note: "τ = 6.904(26) ns; Γ/2π from 1/τ [derived]; λ from ν = 755 222 766.2(1.7) MHz [derived]", src: "https://arxiv.org/abs/1505.02574"}
   - {id: mg24p, label: "²⁴Mg⁺ 280 nm", nuclide: "24Mg", q: 1, lambda_nm: 279.635510, gamma_MHz: 41, ion: true, repump: "none (D2 closed)", note: "Γ_trans = 41 MHz as stated; λ from ν = 1 072 082 934.33(16) MHz [derived]", src: "https://arxiv.org/abs/0907.0368"}
