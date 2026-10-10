@@ -1,0 +1,255 @@
+[
+  {
+    "key": "species",
+    "en": {
+      "name": "Species / transition",
+      "effect": "Mass sets recoil and trap frequencies. Wavelength sets photon momentum; linewidth sets scattering and Doppler scales. The simplified beams omit repumper dynamics."
+    },
+    "zh": {
+      "name": "原子 / 跃迁",
+      "effect": "质量决定反冲和阱频率；波长决定光子动量，线宽决定散射与多普勒尺度。本模型未求解回泵动力学。"
+    }
+  },
+  {
+    "key": "detuning",
+    "en": {
+      "name": "Detuning δ/Γ",
+      "effect": "Negative detuning usually damps velocity; positive detuning heats. Start at −0.5, then compare +0.5. Γ is the angular decay rate: Γ = 2π × linewidth in MHz."
+    },
+    "zh": {
+      "name": "失谐 δ/Γ",
+      "effect": "负失谐通常抑制速度，正失谐加热。先用 −0.5，再比较 +0.5。Γ 为角频率衰减率，即 2π × MHz 线宽。"
+    }
+  },
+  {
+    "key": "saturation",
+    "en": {
+      "name": "Saturation s",
+      "effect": "Larger s increases scattering but also recoil and power broadening; it does not guarantee a colder cloud. Original/analytic panels use per-beam s; the 3D panel divides its intensity scale by six per active beam."
+    },
+    "zh": {
+      "name": "饱和参数 s",
+      "effect": "增大 s 通常提高散射率，也提高反冲和功率展宽，并不保证更低温。原始/解析页为每束光 s；三维页每束活动光束使用输入强度尺度的六分之一。"
+    }
+  },
+  {
+    "key": "temperature",
+    "en": {
+      "name": "Initial temperature",
+      "effect": "Sets the initial Gaussian velocity variance, not the final equilibrium. A small sample need not equal the requested temperature exactly. Use a fixed seed when comparing conditions."
+    },
+    "zh": {
+      "name": "初始温度",
+      "effect": "决定高斯初始速度方差，并非最终平衡温度。少量离子的实际初温会偏离设定值。对比条件时固定种子。"
+    }
+  },
+  {
+    "key": "count",
+    "en": {
+      "name": "Particle count",
+      "effect": "More particles smooth statistical noise, but Coulomb pair computation grows as N². Begin with 8–12; use a small count for the actual RF model."
+    },
+    "zh": {
+      "name": "粒子数",
+      "effect": "增大粒子数可减小统计波动，但库仑成对计算量按 N² 增长。建议先用 8–12 个；真实射频先用少量离子。"
+    }
+  },
+  {
+    "key": "recoil",
+    "en": {
+      "name": "Emission recoil / photon model",
+      "effect": "Random photon emission heats while red-detuned absorption cools. Isotropic emission spreads recoil over three axes. The desktop mean-force option removes this diffusion and cannot predict a Doppler equilibrium."
+    },
+    "zh": {
+      "name": "发射反冲 / 光子模型",
+      "effect": "随机发射加热，红失谐吸收冷却。各向同性发射将反冲分配到三个轴。桌面平均力选项取消反冲扩散，不能预测多普勒平衡。"
+    }
+  },
+  {
+    "key": "B",
+    "en": {
+      "name": "Magnetic field B (T)",
+      "effect": "Penning only. Larger B raises the cyclotron frequency and changes the magnetron frequency and cooling window. Require ωc² > 2ωz². Fine decimal entry is a numerical setting, not field accuracy."
+    },
+    "zh": {
+      "name": "磁场 B (T)",
+      "effect": "仅潘宁阱。增大 B 提高回旋频率，并改变磁控管频率和冷却窗口。要求 ωc² > 2ωz²。小数位数代表数值输入精度，并非实际磁场准确度。"
+    }
+  },
+  {
+    "key": "dc",
+    "en": {
+      "name": "U₀ and characteristic length d",
+      "effect": "Analytic Penning model: ωz² = Q U₀/(m d²), so larger U₀ or smaller d tightens axial confinement but can destroy radial stability. The 3D model takes axial frequency directly."
+    },
+    "zh": {
+      "name": "U₀ 与特征长度 d",
+      "effect": "解析潘宁模型满足 ωz² = Q U₀/(m d²)。增大 U₀ 或减小 d 加强轴向束缚，但可能破坏径向稳定性。三维模型直接输入轴向频率。"
+    }
+  },
+  {
+    "key": "axial",
+    "en": {
+      "name": "Axial frequency νz (kHz)",
+      "effect": "Confines z. In a Paul trap its DC field defocuses x/y; in a Penning trap it changes both radial modes. Recheck stability after increasing it."
+    },
+    "zh": {
+      "name": "轴向频率 νz (kHz)",
+      "effect": "束缚 z。在保罗阱中，轴向直流场同时使 x/y 散焦；在潘宁阱中，它改变两个径向模。增大后需重查稳定性。"
+    }
+  },
+  {
+    "key": "rf",
+    "en": {
+      "name": "RF frequency and Mathieu q",
+      "effect": "Paul only. The time-averaged radial frequency obeys ωr² ≈ Ω²q²/8 − ωz²/2. Increasing q tightens confinement but increases micromotion. The displayed stability check is a secular/first-band guide, not a complete Floquet map."
+    },
+    "zh": {
+      "name": "射频频率与 Mathieu q",
+      "effect": "仅保罗阱。平均径向频率满足 ωr² ≈ Ω²q²/8 − ωz²/2。增大 q 加强束缚，也增加微运动。显示的稳定性为世俗/第一稳定带近似，非完整 Floquet 图。"
+    }
+  },
+  {
+    "key": "potential",
+    "en": {
+      "name": "Time-averaged versus actual RF",
+      "effect": "The averaged potential removes fast micromotion. Actual RF integrates the oscillating quadrupole and includes micromotion in kinetic temperature. Compare at the same seed and duration. Penning has no RF quadrupole in this model."
+    },
+    "zh": {
+      "name": "平均势与真实射频",
+      "effect": "平均势去掉快速微运动。真实射频积分振荡四极场，动能温度包含微运动。比较时固定种子和时长。本模型潘宁阱没有射频四极场。"
+    }
+  },
+  {
+    "key": "offset",
+    "en": {
+      "name": "Radial beam offset yb (µm)",
+      "effect": "Penning: offset creates an intensity-gradient torque. Zero offset cools cyclotron motion but can heat magnetron motion. Suggest offset searches the analytic small-amplitude window; numerical 3D results need not have the same optimum."
+    },
+    "zh": {
+      "name": "径向光束偏移 yb (µm)",
+      "effect": "潘宁阱：偏移形成强度梯度力矩。零偏移可冷却回旋运动，却加热磁控管运动。建议偏移搜索解析小振幅窗口，数值三维模型的最佳值可能不同。"
+    }
+  },
+  {
+    "key": "waist",
+    "en": {
+      "name": "Beam waist w (µm)",
+      "effect": "Gaussian intensity is proportional to exp[−2(y−yb)²/w²]. A narrower beam strengthens gradients but covers less of the orbit. Analytic rates are local approximations; use amplitude much smaller than w."
+    },
+    "zh": {
+      "name": "束腰 w (µm)",
+      "effect": "高斯光强正比于 exp[−2(y−yb)²/w²]。更窄光束梯度更强，但覆盖轨道更少。解析变化率是局部近似，应使用远小于 w 的振幅。"
+    }
+  },
+  {
+    "key": "tilt",
+    "en": {
+      "name": "Beam tilt θ",
+      "effect": "Analytic Penning: increasing tilt supplies an axial cooling component while reducing the radial component. The fancier 3D Penning model instead has one radial +x beam and two axial ±z beams; it is a different beam geometry."
+    },
+    "zh": {
+      "name": "光束倾角 θ",
+      "effect": "解析潘宁模型：增大倾角提供轴向冷却分量，同时削弱径向分量。更进阶三维模型采用一束径向 +x 光和两束轴向 ±z 光，光束几何不同。"
+    }
+  },
+  {
+    "key": "amplitude",
+    "en": {
+      "name": "Initial r₊, r₋ and z amplitudes",
+      "effect": "Analytic Penning starts the three envelopes at this amplitude. Large values can leave the linear cooling regime. Start with 20 µm and a 100 µm waist. Inspect time shows later amplitudes; it does not change the initial value."
+    },
+    "zh": {
+      "name": "初始 r₊、r₋ 与 z 振幅",
+      "effect": "解析潘宁模型将三个包络设为相同初始振幅。过大时会超出线性冷却近似。建议先用 20 µm 与 100 µm 束腰。查看时刻显示后续振幅，不改变初值。"
+    }
+  },
+  {
+    "key": "cloud",
+    "en": {
+      "name": "Initial cloud σ / relaxation",
+      "effect": "3D: σ is the Gaussian width on each spatial axis. A random interacting cloud can release electrostatic energy and warm initially. Paul Relax initial positions prepares an approximate local configuration before the clock starts; it is not simulated cooling or a proven global minimum."
+    },
+    "zh": {
+      "name": "初始云团 σ / 位置松弛",
+      "effect": "三维：σ 是各空间轴的高斯宽度。随机库仑云团可释放静电能，初期升温。保罗阱的位置松弛在时钟开始前构造近似局部构型，不等同于冷却或全局基态。"
+    }
+  },
+  {
+    "key": "coulomb",
+    "en": {
+      "name": "Coulomb repulsion",
+      "effect": "Repulsion redistributes energy and may create ordered structures. The force is softened at 0.3 µm to avoid a singular close encounter. Shape alone is not proof of a crystal phase. Penning begins with repulsion off for a clear single-particle comparison."
+    },
+    "zh": {
+      "name": "库仑排斥",
+      "effect": "排斥重新分配能量，并可产生有序构型。0.3 µm 软化避免近距离奇点。仅凭形状不能证明晶体相。潘宁阱默认关闭排斥，便于先比较单粒子行为。"
+    }
+  },
+  {
+    "key": "duration",
+    "en": {
+      "name": "Observation duration / inspect time",
+      "effect": "Duration sets the physical end time; playback speed changes presentation. Analytic Show this time jumps to the chosen envelope time. Reset restarts at t=0. All 3D projections and temperatures share one clock."
+    },
+    "zh": {
+      "name": "观察时长 / 查看时刻",
+      "effect": "时长设定物理终点；播放速度仅控制呈现。解析页显示此时刻跳转到包络的选定时刻。重置回到 t=0。所有三维投影与温度共用时钟。"
+    }
+  },
+  {
+    "key": "range",
+    "en": {
+      "name": "Radial/axial ranges, zoom and camera",
+      "effect": "Ranges are half-widths in µm. Fixed limits reveal shrinkage; fit reveals detail. Zoom and camera never alter the physics. A clipped orbit is marked; clipping is distinct from an ion crossing the model aperture."
+    },
+    "zh": {
+      "name": "径向/轴向范围、放大与视角",
+      "effect": "范围为 µm 单位半宽。固定范围便于看收缩，自动适应便于看细节。放大和视角不改变物理。超出图框会提示；图像裁切与离子超过模型孔径是两回事。"
+    }
+  },
+  {
+    "key": "seed",
+    "en": {
+      "name": "Random seed",
+      "effect": "Same seed plus identical settings and numerical steps repeats the stochastic run. Different seeds change photon histories. Compare trends over several seeds before interpreting small differences."
+    },
+    "zh": {
+      "name": "随机种子",
+      "effect": "相同种子、参数和数值步序可复现随机轨迹。不同种子改变光子历史。解释微小差异前应比较多个种子。"
+    }
+  },
+  {
+    "key": "window",
+    "en": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr is the radial friction coefficient (N·s/m); F′ is the transverse force gradient (N/m). For βr>0, F′/(2πβr) must lie between ν₋ and ν₊. Negative amplitude rates cool; positive rates heat. The logarithmic frequency axis makes both boundaries visible."
+    },
+    "zh": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr 是径向摩擦系数 (N·s/m)，F′ 为横向力梯度 (N/m)。当 βr>0 时，F′/(2πβr) 应在 ν₋ 与 ν₊ 之间。负振幅变化率为冷却，正值为加热。对数频率轴让两个边界同时可见。"
+    }
+  },
+  {
+    "key": "outputs",
+    "en": {
+      "name": "PNG / CSV / settings",
+      "effect": "PNG saves the views; CSV saves physical traces and a parameter header. Browsers normally save to their configured download folder; choose your preferred local folder. Desktop exports include particle coordinates, inputs, structure diagnostics and PNG/PDF/SVG. No data are uploaded."
+    },
+    "zh": {
+      "name": "PNG / CSV / 参数",
+      "effect": "PNG 保存图像，CSV 保存物理曲线及参数头。浏览器通常使用其下载文件夹，请主动选择所需本地文件夹。桌面导出还含粒子坐标、输入参数、结构诊断与 PNG/PDF/SVG。数据不会上传。"
+    }
+  },
+  {
+    "key": "centre",
+    "en": {
+      "name": "Centre view on cloud",
+      "effect": "Subtracts the cloud mean position from the drawing only. Combine with Fit whole view to resolve a cold cloud that has drifted off the trap centre. Coordinates are then relative to the cloud centre; exported physics and temperature remain unchanged."
+    },
+    "zh": {
+      "name": "视图跟随云团中心",
+      "effect": "仅在绘图时减去云团平均位置。结合完整视图，可放大已偏离阱中心的冷云团。此时坐标相对云团中心，导出物理数据与温度均不变。"
+    }
+  }
+]

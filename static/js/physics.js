@@ -372,7 +372,7 @@
   }
   function amplitudeAt(A0, g, Dd, t) {
     if (g === 0) return Math.sqrt(A0 * A0 + Dd * t);
-    const e = Math.exp(2 * g * t); return Math.sqrt(Math.max(0, A0 * A0 * e + Dd * (e - 1) / (2 * g)));
+    if(2*g*t>700)return Infinity; const e = Math.exp(2 * g * t); return Math.sqrt(Math.max(0, A0 * A0 * e + Dd * Math.expm1(2*g*t) / (2*g)));
   }
   const api = { C, FWHM, numeric, primitive, combine, constant, pairingIndicator, catalogue, load, frequency, penning, mrtof, calibration, conversion, tof, tofMean, tofShape, mixture, rng, gaussian, acquire, fitSingle, wrapPhase, phaseResolution, mathieuA0: MA0, mathieuB1: MB1, mathieuStable, mathieuParameters, rfqCutoffs, shortestPhaseTime, phaseTiming, phaseEnergyStep, trapCalibration, calibratedPenning, tofScale, doubleTrapCalibration, doubleTrapFrequencies, HBAR, KB, laserScatter, molassesTheory, molassesStep, penningLaser, amplitudeAt, poisson };
   host.ZGPhysics = api; if (typeof module !== "undefined" && module.exports) module.exports = api;

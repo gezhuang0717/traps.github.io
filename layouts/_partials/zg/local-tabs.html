@@ -8,6 +8,6 @@
 <button class="zg-btn zg-btn-ghost" type="button" role="tab" id="{{ .id }}-advanced-tab" data-local-tab="advanced" aria-selected="false">{{ $t.advanced }}</button>
 {{- end }}
 {{- if .fancier }}
-<button class="zg-btn zg-btn-ghost" type="button" role="tab" id="{{ .id }}-fancier-tab" data-local-tab="fancier" aria-selected="false">{{ $t.fancier }}</button>
+<button class="zg-btn zg-btn-ghost" type="button" role="tab" id="{{ .id }}-fancier-tab" data-local-tab="fancier" aria-selected="false">{{ .fancierLabel | default $t.fancier }}</button>
 {{- end }}
 </div>

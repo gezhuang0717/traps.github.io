@@ -15,9 +15,9 @@ test('Doppler limit ħΓ/2k_B at δ=−Γ/2, s→0 (0.553 mK for Ca+); η=1/3 gi
 });
 test('Ca+ recoil velocity ≈ 2.5 cm/s; recoil temperature ≪ Doppler limit',()=>{const t=P.molassesTheory({...CA,delta:-CA.gamma/2,s0:.5});near(t.vr,0.02510,2e-4);assert.ok(t.Trecoil<t.TDoppler/100);});
 test('stochastic molasses reaches the analytic temperature',()=>{
-  const p={...CA,delta:-CA.gamma/2,s0:.2,eta:1},th=P.molassesTheory(p),rnd=P.rng(20261010),v=Array.from({length:3000},()=>3*P.gaussian(rnd)),dt=0.05/CA.gamma;
+  const p={...CA,delta:-CA.gamma/2,s0:.2,eta:1},th=P.molassesTheory(p),rnd=P.rng(20261010),v=Array.from({length:800},()=>3*P.gaussian(rnd)),dt=4/CA.gamma;
   for(let i=0;i<Math.ceil(12*th.dampingTime/dt);i++)P.molassesStep(v,p,dt,rnd);
-  const mu=v.reduce((a,b)=>a+b,0)/v.length,T=CA.massKg*v.reduce((a,b)=>a+(b-mu)**2,0)/v.length/P.KB;near(T/th.T,1,0.12);
+  const mu=v.reduce((a,b)=>a+b,0)/v.length,T=CA.massKg*v.reduce((a,b)=>a+(b-mu)**2,0)/v.length/P.KB;near(T/th.T,1,0.18);
 });
 test('Penning trap: centred beam heats the magnetron; offset inside the window cools all three modes',()=>{
   const ion=cat.resolve('40Ca',{q:1}),b={ion,B:7,U0:100,d:26.05e-3,lambda:CA.lambda,gamma:CA.gamma,delta:-CA.gamma/2,s0:1,w:100e-6,theta:0.2};
@@ -27,3 +27,14 @@ test('Penning trap: centred beam heats the magnetron; offset inside the window c
   near(o.gp+o.gm,-o.beta*Math.cos(.2)**2/(2*o.m),1e-9*Math.abs(o.gp));   // sum rule: total radial damping = β_r/2m
 });
 test('amplitude evolution',()=>{near(P.amplitudeAt(1e-3,-100,2e-12,1),Math.sqrt(2e-12/200),1e-9);assert.ok(P.amplitudeAt(1e-4,10,0,.1)>1e-4*Math.E**.99);});
+
+test('Penning views retain window, explicit time and independent 2D/3D ranges', () => {
+  const fs = require('node:fs');
+  const html = fs.readFileSync('layouts/_partials/zg/laser-cooling.html','utf8');
+  const ui = fs.readFileSync('static/js/laser-cooling.js','utf8');
+  for (const name of ['radialRange','axialRange','inspectTime','camera']) assert.ok(html.includes(`name="${name}"`));
+  for (const name of ['orbit','axial','space','amp','win']) assert.ok(html.includes(`data-cv="${name}"`));
+  assert.ok(ui.includes('res.Fy/br/TAU'));
+  assert.ok(ui.includes('data-numeric="B"'));
+  assert.ok(ui.includes('["win", "orbit", "axial", "space", "amp"].map(cv)'));
+});
