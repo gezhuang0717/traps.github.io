@@ -32,5 +32,5 @@ test('Exact Mathieu beta (continued fraction) matches Floquet values and the ele
  const d=C.design({...p,trap:'paul',Vrf:5.237,Udc:0,Uend:.184,z0:2.5e-3,kappa:.25,r0:1e-3});
  assert.ok(Math.abs(d.q-.16)<1e-3&&Math.abs(d.axialHz-30e3)<200);
  const f=C.frequencies({...p,...d});assert.ok(f.stable&&f.betaX>0&&Math.abs(f.wx-f.betaX*f.O/2)<1e-9&&f.wx>f.wxApprox);
- const pen=C.design({...p,trap:'penning',U0:4.1e-4,d:1e-3});assert.ok(Math.abs(pen.axialHz-5007.5)<1);
+ const pen=C.design({...p,trap:'penning',U0:4.1e-4,d:1e-3});assert.ok(Math.abs(pen.axialHz-5005.13)<0.05);
 });
