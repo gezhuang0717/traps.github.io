@@ -32,5 +32,6 @@
   }
   function diagnostics(s,p){const n=s.velocities.length,mean=[0,1,2].map(k=>s.velocities.reduce((v,a)=>v+a[k],0)/n),T=[0,1,2].map(k=>p.massU*U/K*s.velocities.reduce((v,a)=>v+(a[k]-mean[k])**2,0)/Math.max(n-1,1));return{t:s.t,T:T.reduce((a,b)=>a+b,0)/3,axes:T,rms:Math.sqrt(s.positions.reduce((a,v)=>a+v.reduce((b,x)=>b+x*x,0),0)/n),photons:s.photons/n,frequencies:frequencies(p)};}
   function relax(s,p){if(p.trap==='penning')return s;const cfg={...p,mode:'secular'},f=frequencies(cfg),tau=.1/Math.max(f.wr,f.wz,1);for(let j=0;j<5000;j++){const a=acceleration(s,cfg,0);for(let i=0;i<a.length;i++)for(let k=0;k<3;k++)s.positions[i][k]+=Math.max(-p.radius/20,Math.min(p.radius/20,a[i][k]*tau*tau));}return s;}
-  const api={frequencies,create,step,diagnostics,acceleration,random,normal,relax};host.ZGPaulCooling=api;if(typeof module!=='undefined')module.exports=api;
+  function design(p){const f=D.design({...p,inputMode:"voltage"});return{q:f.q,aDC:(f.ax-f.ay)/2,axialHz:f.wz/(2*Math.PI),wz2:f.wz*f.wz};}
+  const api={design,mathieuBeta:D.beta,frequencies,create,step,diagnostics,acceleration,random,normal,relax};host.ZGPaulCooling=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

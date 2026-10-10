@@ -1,5 +1,5 @@
 {{ $zh := hasPrefix site.Language.Lang "zh" }}
-<section class="zg-card g-box g-laser" data-paul-cooling data-species="{{ hugo.Data.laser_cooling.species | jsonify }}" data-zh="{{ $zh }}">
+<section class="zg-card g-box g-laser" data-full-precision data-paul-cooling data-species="{{ hugo.Data.laser_cooling.species | jsonify }}" data-zh="{{ $zh }}">
 <h2>❄ {{ if $zh }}更进阶：保罗 / 潘宁阱中的三维激光冷却{{ else }}Fancier simulation: 3D laser cooling in Paul / Penning traps{{ end }}</h2>
 <p>{{ if $zh }}比较真实射频与时间平均势：观察微运动、离子间排斥，以及红失谐冷却或蓝失谐加热。所有图使用同一模拟时钟。{{ else }}Compare the actual RF drive with the time-averaged potential. Watch micromotion, ion repulsion, red-detuned cooling and blue-detuned heating. All views share one simulation clock.{{ end }}</p>
 <div class="g-opts-row">
@@ -7,6 +7,7 @@
 <label>{{ if $zh }}离子阱{{ else }}Trap{{ end }} <select name="trap"><option value="paul">Paul</option><option value="penning">Penning</option></select></label>
 <label>{{ if $zh }}预设{{ else }}Preset{{ end }} <select name="preset"><option value="cool">{{ if $zh }}冷却{{ else }}cooling{{ end }}</option><option value="heat">{{ if $zh }}蓝失谐加热{{ else }}blue heating{{ end }}</option><option value="rf">{{ if $zh }}射频微运动{{ else }}RF micromotion{{ end }}</option></select></label>
 <label>{{ if $zh }}势模型{{ else }}Potential{{ end }} <select name="mode"><option value="secular">{{ if $zh }}时间平均势{{ else }}Time-averaged{{ end }}</option><option value="rf">{{ if $zh }}真实射频{{ else }}Actual RF{{ end }}</option></select></label>
+<label><input type="checkbox" name="exact" checked> {{ if $zh }}精确 Mathieu 频率（关闭时用绝热近似）{{ else }}Exact Mathieu frequencies (off: adiabatic approximation){{ end }}</label>
 <label><input type="checkbox" name="autorotate" checked> {{ if $zh }}自动旋转{{ else }}Auto rotate{{ end }}</label><label><input type="checkbox" name="trails" checked> {{ if $zh }}运动轨迹{{ else }}Motion trails{{ end }}</label><label><input type="checkbox" name="initial" checked> {{ if $zh }}初始云团（空心点）{{ else }}Initial cloud (hollow){{ end }}</label><label><input type="checkbox" name="center"> {{ if $zh }}视图跟随云团中心{{ else }}Centre view on cloud{{ end }}</label>
 <label><input type="checkbox" name="laser" checked> {{ if $zh }}开激光{{ else }}Laser on{{ end }}</label><label><input type="checkbox" name="relaxed" checked> {{ if $zh }}先松弛初始位置{{ else }}Relax initial positions{{ end }}</label><label><input type="checkbox" name="coulomb" checked> {{ if $zh }}库仑排斥{{ else }}Coulomb repulsion{{ end }}</label>
 </div>
@@ -28,6 +29,13 @@
 <label data-penning-field hidden>B (T) <input name="B" data-decimal-places="10" type="number" min="0.01" max="30" value="7.0000000000" step="any"></label>
 <label data-penning-field hidden>{{ if $zh }}径向光束偏移 (µm){{ else }}Radial beam offset (µm){{ end }} <input name="offset" type="number" min="-500" max="500" value="20" step="any"></label>
 <label data-penning-field hidden>{{ if $zh }}径向光束腰 (µm){{ else }}Radial beam waist (µm){{ end }} <input name="waist" type="number" min="1" max="1000" value="100" step="any"></label>
+<div class="g-opts-row" data-custom-ion hidden><strong>{{ if $zh }}自定义离子{{ else }}Custom ion{{ end }}</strong>
+<label>{{ if $zh }}离子质量 (u){{ else }}Ion mass (u){{ end }} <input name="cMass" data-full-precision type="number" step="any" min="0.0001" max="1000" value="39.96204227"></label>
+<label>{{ if $zh }}电荷 q (e){{ else }}Charge q (e){{ end }} <input name="cCharge" data-full-precision type="number" step="1" min="1" max="100" value="1"></label>
+<label>λ (nm) <input name="cLambda" data-full-precision type="number" step="any" min="1" max="100000" value="396.958979"></label>
+<label>Γ/2π (MHz) <input name="cGamma" data-full-precision type="number" step="any" min="0.000001" max="10000" value="23.05"></label>
+</div>
+
 <label>{{ if $zh }}随机种子{{ else }}Random seed{{ end }} <input type="number" name="seed" value="20261010" min="1" max="4294967295" step="1"></label>
 </div>
 <div class="g-opts-row"><label>{{ if $zh }}初始 ε 目标 (µm·m/s){{ else }}Initial ε target (µm·m/s){{ end }} <input name="emittance" type="number" min="0.01" max="10000" step="any" value="70"></label><button class="zg-btn zg-btn-ghost" data-paul-act="emittance">{{ if $zh }}由 ε 设置初温{{ else }}Set T from ε{{ end }}</button><label>{{ if $zh }}离子标记半径 (px){{ else }}Ion marker radius (px){{ end }} <input name="marker" type="number" min="1" max="12" step="0.5" value="4.5"></label></div>

@@ -1,6 +1,98 @@
 {
   "entries": [
     {
+      "date": "2026-10-10",
+      "type": "preprint",
+      "title": "Femtosecond Three-Dimensional Imaging of Single-Protein with Hard X-ray Laser",
+      "summary": "Paul Lourdu Xavier et al. — The extremely intense pulses of X-ray free-electron lasers (XFELs) have enabled imaging of radiation-sensitive samples, such as macromolecular microcrystals, beyond radiation damage limits. These sources have the potential to deliver biomolecular…",
+      "url": "https://arxiv.org/abs/2610.11892v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "arxiv": "2610.11892v1",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-10",
+      "type": "preprint",
+      "title": "Three-dimensional imaging of isolated membrane-protein complexes in vacuo with an X-ray laser",
+      "summary": "Kartik Ayyer et al. — The prospect of imaging single biomolecules, viruses and cells with intense, ultrashort X-ray pulses has driven the development of X-ray free-electron lasers (XFELs). However, the weak scattering from small particles is easily swamped by background from…",
+      "url": "https://arxiv.org/abs/2610.11729v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "arxiv": "2610.11729v1",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-10",
+      "type": "news",
+      "title": "Hybrid quantum computer observes foundational quantum effect in a new setting",
+      "summary": "Physicists in the Department of Physics at the University of Oxford have used a hybrid quantum computer, made up of qubits and quantum oscillators, to observe the Aharonov–Bohm effect in a quantum simulation. The effect is a quantum phenomenon in which a particle can acquire a…",
+      "url": "https://phys.org/news/2026-10-hybrid-quantum-foundational-effect.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-10",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-10",
+      "type": "news",
+      "title": "Three quantum-inspired cores leave opposite fingerprints on the ringing of black holes",
+      "summary": "Every black hole hides a question at its center. Einstein's theory predicts that whatever falls in is crushed into a singularity, a point of infinite density where the theory itself breaks down. Most physicists expect quantum gravity to replace that point with something finite.…",
+      "url": "https://phys.org/news/2026-10-quantum-cores-fingerprints-black-holes.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-10",
+      "type": "news",
+      "title": "Quantum chip holds multiple photons at once, opening path to scalable memory",
+      "summary": "For highly fragile quantum information systems, the ability to store quantum information is vital—but also challenging. Quantum information is transported in particles of light called photons, which often must be temporarily paused (or \"stored\") while other, slower quantum…",
+      "url": "https://phys.org/news/2026-10-quantum-chip-multiple-photons-path.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-10",
+      "type": "news",
+      "title": "Electronic stripes linked to unusual vortex states in a superconductor",
+      "summary": "Superconductors, materials that can carry electric current with an electrical resistance of zero, have proved to be promising for the development of various technologies, including medical devices, particle accelerators and quantum computers. Studying these materials could help…",
+      "url": "https://phys.org/news/2026-10-electronic-stripes-linked-unusual-vortex.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-08",
+      "collected_at": "2026-10-10",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-09",
       "type": "news",
       "title": "First Nuclear Clocks Kick Off a Precision Race",
@@ -3601,35 +3693,37 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-09T16:36:50+00:00",
+    "checked_at": "2026-10-10T10:57:19+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
-        "status": "FAILED",
-        "error": "The read operation timed out"
+        "status": "PASS",
+        "matched": 2,
+        "new": 2
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
-        "status": "FAILED",
-        "error": "The read operation timed out"
+        "status": "PASS",
+        "matched": 0,
+        "new": 0
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 9,
+        "matched": 4,
         "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 24,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 4
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -3651,9 +3745,8 @@
       },
       {
         "source": "Nature Physics",
-        "status": "PASS",
-        "matched": 8,
-        "new": 2
+        "status": "FAILED",
+        "error": "not well-formed (invalid token): line 14, column 4"
       },
       {
         "source": "TRIUMF news",
@@ -3665,7 +3758,7 @@
         "source": "GANIL news",
         "status": "PASS",
         "matched": 10,
-        "new": 1
+        "new": 0
       },
       {
         "source": "ECT* news & workshops",

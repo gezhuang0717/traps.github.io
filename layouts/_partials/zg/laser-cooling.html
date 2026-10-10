@@ -5,7 +5,7 @@
 {{- $t := index $D.labels $k | default (index $D.labels "en") -}}
 <section id="g-laser" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "laser" "fancier" true "fancierLabel" (cond (eq $k "zh") "更进阶：三维保罗 / 潘宁阱" "Fancier: 3D Paul / Penning")) }}
 <div data-local-panel="classic">
-<section class="zg-card g-box g-laser" id="g-laser-m" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
+<section class="zg-card g-box g-laser" data-full-precision id="g-laser-m" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
   <h2>❄️ {{ $t.title }} — {{ $t.m_title }}</h2><p class="zg-muted">{{ $t.intro }}</p><p class="zg-muted">{{ $t.m_intro }}</p>
   <div class="g-opts-row">
     <label>{{ $t.species }} <select name="species"></select></label>
@@ -38,19 +38,21 @@
 {{ partial "zg/cooling-guide.html" (dict "kind" "molasses") }}
 </section></div>
 <div data-local-panel="advanced" hidden>
-<section class="zg-card g-box g-laser" id="g-laser-p" data-laser="penning" data-zh="{{ eq $k "zh" }}" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
+<section class="zg-card g-box g-laser" data-full-precision id="g-laser-p" data-laser="penning" data-zh="{{ eq $k "zh" }}" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
   <h2>🌀 {{ $t.title }} — {{ $t.p_title }}</h2><p class="zg-muted">{{ $t.p_intro }}</p>
   <div class="g-opts-row"><label>{{ $t.ion }} <select name="species"></select></label><label>{{ $t.emission }} <select name="eta"><option value="0.3333333333">{{ $t.em_iso }}</option><option value="1">{{ $t.em_axis }}</option></select></label><span class="g-laser-src zg-muted"></span></div>
   <div class="g-sliders">
-    <label class="g-slider">{{ $t.B }} <input type="range" name="B" min="1" max="10" step="0.01" value="7"><output data-o="B"></output></label>
-    <label class="g-slider">{{ $t.U0 }} <input type="range" name="U0" min="5" max="300" step="1" value="100"><output data-o="U0"></output></label>
-    <label class="g-slider">{{ $t.d }} <input type="range" name="d" min="5" max="40" step="0.05" value="26.05"><output data-o="d"></output></label>
+    <label class="g-slider">{{ $t.B }} <input type="range" name="B" min="0.01" max="25" step="0.0001" value="7"><output data-o="B"></output></label>
+    <label class="g-slider">{{ $t.U0 }} <input type="range" name="U0" min="0.01" max="2000" step="0.01" value="100"><output data-o="U0"></output></label>
+    <label class="g-slider">{{ $t.d }} <input type="range" name="d" min="0.1" max="200" step="0.001" value="26.05"><output data-o="d"></output></label>
     <label class="g-slider">{{ $t.detuning }} <input type="range" name="delta" min="-5" max="1" step="0.01" value="-0.5"><output data-o="delta"></output></label>
     <label class="g-slider">{{ $t.sat }} <input type="range" name="s0" min="0.02" max="10" step="0.01" value="1"><output data-o="s0"></output></label>
     <label class="g-slider">{{ $t.waist }} <input type="range" name="w" min="20" max="500" step="1" value="100"><output data-o="w"></output></label>
     <label class="g-slider">{{ $t.offset }} <input type="range" name="yb" min="-150" max="150" step="0.5" value="0"><output data-o="yb"></output></label>
     <label class="g-slider">{{ $t.angle }} <input type="range" name="theta" min="0" max="45" step="0.5" value="11.5"><output data-o="theta"></output></label>
-    <label class="g-slider">{{ $t.a0 }} <input type="range" name="a0" min="10" max="1000" step="5" value="20"><output data-o="a0"></output></label>
+    <label class="g-slider">{{ $t.a0 }} — r₊ <input type="range" name="a0p" min="0.1" max="2000" step="0.1" value="20"><output data-o="a0p"></output></label>
+    <label class="g-slider">{{ $t.a0 }} — r₋ <input type="range" name="a0m" min="0.1" max="2000" step="0.1" value="20"><output data-o="a0m"></output></label>
+    <label class="g-slider">{{ $t.a0 }} — z <input type="range" name="a0z" min="0.1" max="2000" step="0.1" value="20"><output data-o="a0z"></output></label>
   </div>
   <div class="zg-row"><button type="button" class="zg-btn" data-act="run">{{ $t.run }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="auto">{{ $t.auto }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">{{ $t.csv }}</button></div>
 <div class="g-export-bar"><strong>{{ if eq $k "zh" }}保存动画与条件{{ else }}Save animation and conditions{{ end }}</strong><button type="button" class="zg-btn" data-act="video">⏺ {{ if eq $k "zh" }}视频 / 停止录制{{ else }}Video / stop recording{{ end }}</button><label>{{ if eq $k "zh" }}视频长度 (s){{ else }}Video length (s){{ end }} <input name="videoSeconds" type="number" value="8" min="2" max="30" step="1"></label><button type="button" class="zg-btn zg-btn-ghost" data-act="settings">JSON {{ if eq $k "zh" }}条件{{ else }}conditions{{ end }}</button><span class="zg-muted">{{ if eq $k "zh" }}录制后在预览下点击“保存录制视频”；画面包含参数与物理时间。{{ else }}After recording, use Save recorded video below its preview. Captures include parameters and physical time.{{ end }}</span></div>

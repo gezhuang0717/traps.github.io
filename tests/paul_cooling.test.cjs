@@ -25,3 +25,12 @@ test('Penning radial eigenmode matches the analytic clockwise orbit and converge
  const cfg={...p,n:1,trap:'penning',B:.1,axialHz:5e3,laser:false},f=C.frequencies(cfg),wp=(f.wc+Math.sqrt(f.wc*f.wc-2*f.wz*f.wz))/2,errors=[];
  for(const h of [.05,.025]){const dt=h/f.wc,n=Math.round(10*2*Math.PI/wp/dt),s=C.create(cfg),R=10e-6;s.positions=[[R,0,0]];s.velocities=[[0,-wp*R,0]];for(let i=0;i<n;i++)C.step(s,cfg,dt);errors.push(Math.hypot(s.positions[0][0]/R-Math.cos(wp*n*dt),s.positions[0][1]/R+Math.sin(wp*n*dt)));}assert.ok(errors[0]<.01&&errors[1]<errors[0]*.3);
 });
+test('Exact Mathieu beta (continued fraction) matches Floquet values and the electrode design',()=>{
+ /* reference β from direct Floquet integration of x''+(a-2q cos 2τ)x=0 (scipy, rtol 1e-12) */
+ for(const [a,q,b] of [[0,.1,.0708495525300335],[0,.4,.29256621148090495],[0,.7,.5630661610293969],[.1,.3,.3902215539744653],[-.05,.5,.2857969504548164]])assert.ok(Math.abs(C.mathieuBeta(a,q)-b)<1e-10);
+ assert.ok(Number.isNaN(C.mathieuBeta(0,.95)));
+ const d=C.design({...p,trap:'paul',Vrf:5.237,Udc:0,Uend:.184,z0:2.5e-3,kappa:.25,r0:1e-3});
+ assert.ok(Math.abs(d.q-.16)<1e-3&&Math.abs(d.axialHz-30e3)<200);
+ const f=C.frequencies({...p,...d});assert.ok(f.stable&&f.betaX>0&&Math.abs(f.wx-f.betaX*f.O/2)<1e-9&&f.wx>f.wxApprox);
+ const pen=C.design({...p,trap:'penning',U0:4.1e-4,d:1e-3});assert.ok(Math.abs(pen.axialHz-5005.13)<0.05);
+});

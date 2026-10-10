@@ -121,7 +121,7 @@
     </div>
     <div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-act="cool">{{ $t.cool }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="tip">{{ $t.tip }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="edge">q = 0.90</button><button type="button" class="zg-btn zg-btn-ghost" data-act="pause">⏯ {{ $t.pause }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (a–q)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="video">⏺ {{ $t.video }}</button></div>
     {{ partial "zg/rfq-design.html" . }}
-    <section class="rfq-cutoffs" data-rfq-labels="{{ $rt | jsonify }}" aria-live="polite"><h3>{{ $rt.results }}</h3><dl data-rfq-cutoff-values></dl><p>{{ $rt.limits }}</p></section><div class="rfq-out"></div><p class="g-msg" aria-live="polite"></p>
+<section class="rfq-cutoffs" data-rfq-labels="{{ $rt | jsonify }}" aria-live="polite"><h3>{{ $rt.results }}</h3><dl data-rfq-cutoff-values></dl><p>{{ $rt.limits }}</p></section><div class="rfq-out"></div><p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.rfq_h }}</p></details></section>
   {{ partial "zg/laser-cooling.html" . }}
   <section class="zg-card g-box" id="g-quiz"><h2>🧩 {{ $t.quiz }}</h2><p class="zg-muted">{{ $t.quiz_n }}</p>
@@ -129,15 +129,15 @@
   <section class="zg-card"><h2>🦓 {{ $t.gal }}</h2><p class="zg-muted">{{ $t.gal_n }}</p>
     {{ partial "zg/trap-zoo.html" (dict "heading" false) }}</section>
 </div>
-<script defer src="{{ "js/zg-export.js" | relURL }}"></script>
-<script defer src="{{ "js/trap-design.js" | relURL }}"></script>
-<script defer src="{{ "js/physics.js" | relURL }}"></script>
-<script defer src="{{ "js/calibration.js" | relURL }}"></script>
-<script defer src="{{ "js/workbenches.js" | relURL }}"></script>
-<script defer src="{{ "js/games.js" | relURL }}"></script>
-<script defer src="{{ "js/cooling-view.js" | relURL }}"></script>
-<script defer src="{{ "js/laser-cooling.js" | relURL }}"></script>
-<script defer src="{{ "js/paul-cooling-core.js" | relURL }}"></script>
-<script defer src="{{ "js/paul-cooling.js" | relURL }}"></script>
-<script defer src="{{ "js/topic-navigation.js" | relURL }}"></script>
-<script defer src="{{ "js/decimal-controls.js" | relURL }}"></script>
+<script defer src="{{ "js/zg-export.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/zg-export.js")) 0 10 }}"></script>
+<script defer src="{{ "js/trap-design.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/trap-design.js")) 0 10 }}"></script>
+<script defer src="{{ "js/physics.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/physics.js")) 0 10 }}"></script>
+<script defer src="{{ "js/calibration.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/calibration.js")) 0 10 }}"></script>
+<script defer src="{{ "js/workbenches.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/workbenches.js")) 0 10 }}"></script>
+<script defer src="{{ "js/games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/games.js")) 0 10 }}"></script>
+<script defer src="{{ "js/cooling-view.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/cooling-view.js")) 0 10 }}"></script>
+<script defer src="{{ "js/laser-cooling.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/laser-cooling.js")) 0 10 }}"></script>
+<script defer src="{{ "js/paul-cooling-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/paul-cooling-core.js")) 0 10 }}"></script>
+<script defer src="{{ "js/paul-cooling.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/paul-cooling.js")) 0 10 }}"></script>
+<script defer src="{{ "js/topic-navigation.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/topic-navigation.js")) 0 10 }}"></script>
+<script defer src="{{ "js/decimal-controls.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/decimal-controls.js")) 0 10 }}"></script>
