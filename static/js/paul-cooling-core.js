@@ -7,13 +7,14 @@
   const U=1.66053906660e-27,E=1.602176634e-19,K=1.380649e-23,H=1.054571817e-34,KE=8.9875517923e9;
   function random(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};}
   const normal=r=>Math.sqrt(-2*Math.log(Math.max(r(),1e-12)))*Math.cos(2*Math.PI*r());
-  function frequencies(p){if(p.trap==='penning'){const wc=p.charge*E*p.B/(p.massU*U),wz=2*Math.PI*p.axialHz,d=wc*wc-2*wz*wz;return{O:0,wc,wz,wr:Math.sqrt(Math.max(0,d)),wp:(wc+Math.sqrt(Math.max(0,d)))/2,wm:(wc-Math.sqrt(Math.max(0,d)))/2,stable:d>0&&wc>0,voltage:0};}const O=2*Math.PI*p.rfHz,wz=2*Math.PI*p.axialHz,w2=O*O*p.q*p.q/8-wz*wz/2;return{O,wz,wr:Math.sqrt(Math.max(0,w2)),stable:w2>0&&p.q<.85,voltage:p.q*p.massU*U*(p.r0*p.r0)*O*O/(2*E*p.charge)};}
+  const D=host.ZGTrapDesign||(typeof require==='function'?require('./trap-design.js'):null), designs=new WeakMap();
+  function frequencies(p){if(!designs.has(p))designs.set(p,D.design(p));return designs.get(p);}
   function create(p){const r=random(p.seed),s=Math.sqrt(K*p.temperature/(p.massU*U));return{r,t:0,photons:0,positions:Array.from({length:p.n},()=>[normal(r)*p.radius,normal(r)*p.radius,normal(r)*p.radius]),velocities:Array.from({length:p.n},()=>[normal(r)*s,normal(r)*s,normal(r)*s]),history:[],lost:0};}
-  function acceleration(s,p,t){const f=frequencies(p),rf=p.mode==='rf',rad=rf?f.O*f.O*p.q/2*Math.cos(f.O*t):f.wr*f.wr;
-    const a=s.positions.map(v=>p.trap==='penning'?[f.wz*f.wz/2*v[0],f.wz*f.wz/2*v[1],-f.wz*f.wz*v[2]]:rf?[-(rad-f.wz*f.wz/2)*v[0],(rad+f.wz*f.wz/2)*v[1],-f.wz*f.wz*v[2]]:[-rad*v[0],-rad*v[1],-f.wz*f.wz*v[2]]);
+  function acceleration(s,p,t){const f=frequencies(p),rf=p.mode==='rf',drive=f.O*f.O*f.q/2*Math.cos(f.O*t),dcx=f.O*f.O*f.ax/4,dcy=f.O*f.O*f.ay/4;
+    const a=s.positions.map(v=>p.trap==='penning'?[f.wz*f.wz/2*v[0],f.wz*f.wz/2*v[1],-f.wz*f.wz*v[2]]:rf?[-(dcx-drive)*v[0],-(dcy+drive)*v[1],-f.wz*f.wz*v[2]]:[-f.wx*f.wx*v[0],-f.wy*f.wy*v[1],-f.wz*f.wz*v[2]]);
     if(p.coulomb){const c=KE*(p.charge*E)**2/(p.massU*U);for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++){const d=s.positions[i].map((v,k)=>v-s.positions[j][k]),d3=(d.reduce((v,x)=>v+x*x,0)+p.softening*p.softening)**1.5;for(let k=0;k<3;k++){const g=c*d[k]/d3;a[i][k]+=g;a[j][k]-=g;}}}return a;}
   function poisson(mu,r){if(mu<=0)return 0;if(mu>30)return Math.max(0,Math.round(mu+Math.sqrt(mu)*normal(r)));let n=0,x=1,lim=Math.exp(-mu);do{n++;x*=r();}while(x>lim);return n-1;}
-  function step(s,p,dt){const f=frequencies(p);if(!(dt>0)||dt>(p.trap==='penning'?.08/Math.max(f.wc,f.wz):1/(40*p.rfHz))+1e-15)throw Error('RF timestep must resolve at least 40 points per drive period');
+  function step(s,p,dt){const f=frequencies(p);if(!(dt>0)||dt>(f.maxDt||1/(40*p.rfHz))*1.000001)throw Error('Numerical timestep too large for selected RF/motional frequencies');
     const a=acceleration(s,p,s.t);for(let i=0;i<a.length;i++){
       for(let k=0;k<3;k++)s.velocities[i][k]+=.5*dt*a[i][k];
       if(p.trap==='penning'){for(let k=0;k<3;k++)s.positions[i][k]+=dt*s.velocities[i][k]/2;const v=s.velocities[i],x=v[0],y=v[1],c=Math.cos(f.wc*dt),sn=Math.sin(f.wc*dt);v[0]=c*x+sn*y;v[1]=c*y-sn*x;for(let k=0;k<3;k++)s.positions[i][k]+=dt*v[k]/2;}
@@ -27,7 +28,7 @@
         for(let j=0;j<n;j++){const z=2*s.r()-1,phi=2*Math.PI*s.r(),r=Math.sqrt(1-z*z);v[0]+=vr*r*Math.cos(phi);v[1]+=vr*r*Math.sin(phi);v[2]+=vr*z;}
       }}
     }
-    s.t+=dt;s.lost=s.positions.filter(v=>v.some(x=>!Number.isFinite(x)||Math.abs(x)>p.r0)).length;if(s.lost)throw Error('Ion outside selected trap aperture; reduce timestep/temperature or choose stable confinement');return diagnostics(s,p);
+    s.t+=dt;s.lost=s.positions.filter(v=>v.some(x=>!Number.isFinite(x)||Math.abs(x)>(p.aperture||p.r0))).length;if(s.lost)throw Error('Ion outside selected trap aperture; reduce timestep/temperature or choose stable confinement');return diagnostics(s,p);
   }
   function diagnostics(s,p){const n=s.velocities.length,mean=[0,1,2].map(k=>s.velocities.reduce((v,a)=>v+a[k],0)/n),T=[0,1,2].map(k=>p.massU*U/K*s.velocities.reduce((v,a)=>v+(a[k]-mean[k])**2,0)/Math.max(n-1,1));return{t:s.t,T:T.reduce((a,b)=>a+b,0)/3,axes:T,rms:Math.sqrt(s.positions.reduce((a,v)=>a+v.reduce((b,x)=>b+x*x,0),0)/n),photons:s.photons/n,frequencies:frequencies(p)};}
   function relax(s,p){if(p.trap==='penning')return s;const cfg={...p,mode:'secular'},f=frequencies(cfg),tau=.1/Math.max(f.wr,f.wz,1);for(let j=0;j<5000;j++){const a=acceleration(s,cfg,0);for(let i=0;i<a.length;i++)for(let k=0;k<3;k++)s.positions[i][k]+=Math.max(-p.radius/20,Math.min(p.radius/20,a[i][k]*tau*tau));}return s;}

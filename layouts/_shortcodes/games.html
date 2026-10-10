@@ -120,6 +120,7 @@
       <label class="g-slider">{{ $t.speed }} <input type="range" name="speed" min="1" max="20" step="0.01" value="4"> <input type="number" class="g-num" data-for="speed" step="0.01"><span class="g-unit">×</span></label>
     </div>
     <div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-act="cool">{{ $t.cool }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="tip">{{ $t.tip }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="edge">q = 0.90</button><button type="button" class="zg-btn zg-btn-ghost" data-act="pause">⏯ {{ $t.pause }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (a–q)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="video">⏺ {{ $t.video }}</button></div>
+    {{ partial "zg/rfq-design.html" . }}
     <section class="rfq-cutoffs" data-rfq-labels="{{ $rt | jsonify }}" aria-live="polite"><h3>{{ $rt.results }}</h3><dl data-rfq-cutoff-values></dl><p>{{ $rt.limits }}</p></section><div class="rfq-out"></div><p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.rfq_h }}</p></details></section>
   {{ partial "zg/laser-cooling.html" . }}
@@ -129,6 +130,7 @@
     {{ partial "zg/trap-zoo.html" (dict "heading" false) }}</section>
 </div>
 <script defer src="{{ "js/zg-export.js" | relURL }}"></script>
+<script defer src="{{ "js/trap-design.js" | relURL }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}"></script>
 <script defer src="{{ "js/calibration.js" | relURL }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}"></script>

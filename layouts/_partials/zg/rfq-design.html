@@ -1,0 +1,10 @@
+{{ $zh := hasPrefix site.Language.Lang "zh" }}
+<details class="g-hints"><summary>{{ if $zh }}阱设计、反算与公式推导{{ else }}Trap design, inverse calculations and derivations{{ end }}</summary>
+<p>{{ if $zh }}此 RFQ 的杆电压为 ±(U−V cos Ωt)，V 是单组杆对地的零到峰值幅度。两组杆之间的差分幅度为 2V。冷却面板的 V_RF 是差分幅度，因此相同数值不可直接互换。{{ else }}RFQ rod potentials are ±(U−V cos Ωt). V is the zero-to-peak amplitude of one rod pair relative to ground; the differential amplitude is 2V. The cooling panel uses differential V_RF, so equal numerical voltages are not interchangeable.{{ end }}</p>
+<p>Φ=(U−V cos Ωt)(x²−y²)/r₀² → Eₓ=−2(U−V cos Ωt)x/r₀², Eᵧ=+2(U−V cos Ωt)y/r₀².<br>τ=Ωt/2 → x″+(a−2q cos 2τ)x=0, y″+(−a+2q cos 2τ)y=0.<br>a=8QU/(mr₀²Ω²), q=4QV/(mr₀²Ω²), a/q=2U/V.<br>νx,y=βx,y f_RF/2; ν≈f_RF√(a+q²/2)/2 {{ if $zh }}只在绝热近似适用时成立。{{ else }}in the adiabatic approximation only.{{ end }}</p>
+<p data-rfq-design aria-live="polite"></p>
+<label>{{ if $zh }}目标 q{{ else }}Target q{{ end }} <input type="number" name="designQ" value="0.4" min="0.001" max="0.908" step="any"></label>
+<label>{{ if $zh }}目标 a{{ else }}Target a{{ end }} <input type="number" name="designA" value="0" min="0" max="0.3" step="any"></label>
+<button type="button" class="zg-btn zg-btn-ghost" data-act="design-preview">{{ if $zh }}预览所需电压{{ else }}Preview required voltages{{ end }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-act="design-apply" disabled>{{ if $zh }}应用预览{{ else }}Apply preview{{ end }}</button><output data-rfq-inverse></output>
+<p>{{ if $zh }}反算使用当前目标离子、半径和 RF 频率。先预览再应用，任何输入变化均取消旧预览。名义势阱深度 QqV/4 在 U=0、r=r₀ 的理想绝热模型下计算；非真实杆表面的势垒。质量截止值来自无限时间第一稳定区；有限驻留透过率可能不同。{{ else }}Inverse design uses the selected target ion, radius and RF frequency. Preview before applying; any edit invalidates the previous preview. Nominal depth QqV/4 is for U=0 at r=r₀ in the ideal adiabatic model, rather than a measured rod-surface barrier. Mass cutoffs describe the infinite-time first stability region; finite-residence transmission may differ.{{ end }} <a href="https://dlmf.nist.gov/28.17">NIST DLMF</a></p></details>

@@ -1,0 +1,20 @@
+/* Ideal quadrupoles; SI inputs. Cooling V is differential RF peak, RFQ V is rod peak.
+   First-band characteristic values: Hill matrices. beta: independent RK4 Floquet monodromy.
+   Source: NIST DLMF 28.2/28.17; Brown & Gabrielse, RMP 58, 233 (1986). */
+(function(host){'use strict';
+ const E=1.602176634e-19,U=1.66053906660e-27,TAU=2*Math.PI,cache=new Map();
+ function low(diag,off){let lo=Infinity,hi=-Infinity;diag.forEach((d,i)=>{const r=Math.abs(off[i-1]||0)+Math.abs(off[i]||0);lo=Math.min(lo,d-r);hi=Math.max(hi,d+r);});for(let j=0;j<64;j++){const x=(lo+hi)/2;let count=0,p=1;for(let i=0;i<diag.length;i++){p=diag[i]-x-(i?off[i-1]**2/p:0);if(p===0)p=-1e-300;if(p<0)count++;}if(count)hi=x;else lo=x;}return(lo+hi)/2;}
+ function bounds(q){q=Math.abs(q);return[low(Array.from({length:14},(_,i)=>4*i*i),Array.from({length:13},(_,i)=>i?q:Math.SQRT2*q)),low(Array.from({length:14},(_,i)=>i?(2*i+1)**2:1-q),Array(13).fill(q))];}
+ function beta(a,q){const key=a+','+q;if(cache.has(key))return cache.get(key);const[lo,hi]=bounds(q);let b=NaN;if(a>lo&&a<hi){let y=[1,0,0,1],h=Math.PI/512;const f=(t,v)=>[v[1],-(a-2*q*Math.cos(2*t))*v[0],v[3],-(a-2*q*Math.cos(2*t))*v[2]];for(let i=0;i<512;i++){const t=i*h,k1=f(t,y),k2=f(t+h/2,y.map((v,j)=>v+h*k1[j]/2)),k3=f(t+h/2,y.map((v,j)=>v+h*k2[j]/2)),k4=f(t+h,y.map((v,j)=>v+h*k3[j]));y=y.map((v,j)=>v+h*(k1[j]+2*k2[j]+2*k3[j]+k4[j])/6);}const tr=(y[0]+y[3])/2;if(Math.abs(tr)<1)b=Math.acos(tr)/Math.PI;}
+ if(cache.size>128)cache.clear();cache.set(key,b);return b;}
+ function design(p){const m=p.massU*U,Q=p.charge*E,O=TAU*p.rfHz,voltage=p.inputMode==='voltage',geometry=voltage||p.geometryAxial;let f={O,convention:'cooling-differential-peak',stable:false,error:''};
+ if(p.trap==='molasses')return{O:0,wc:0,wz:0,wx:0,wy:0,wr:0,q:0,ax:0,ay:0,voltage:0,stable:true,maxDt:1e-6,nuHz:{},convention:'free flight'};if(!(m>0&&Q>0)){f.error='Positive ion mass and charge are required';return f;}
+ if(p.trap==='penning'){if(geometry&&!(p.d>0&&Number.isFinite(p.U0))){f.error='Penning: enter a finite voltage and positive characteristic d';return f;}const wc=Q*p.B/m,wz2=geometry?Q*p.U0/(m*p.d*p.d):(TAU*p.axialHz)**2,disc=wc*wc-2*wz2,root=Math.sqrt(Math.max(0,disc)),wp=(wc+root)/2,wm=wz2>0&&wp>0?wz2/(2*wp):0;
+ Object.assign(f,{O:0,wc,wz:Math.sqrt(Math.max(0,wz2)),wp,wm,wr:root,wx:wp,wy:wm,q:0,ax:0,ay:0,voltage:0,stable:wc>0&&wz2>0&&disc>0,maxDt:.05/Math.max(wc,Math.sqrt(Math.max(0,wz2)),1),convention:'Phi=U0*(z^2-rho^2/2)/(2*d^2)'});if(!f.stable)f.error='Penning: require U0 > 0, d > 0, B > 0 and omega_c^2 > 2 omega_z^2';
+ }else{if(!(p.r0>0&&O>0)||voltage&&!(p.z0>0&&p.kappa>0&&p.Vrf>=0)){f.error='Paul: positive geometry/frequency and nonnegative RF amplitude required';return f;}
+ const wz2=geometry?2*Q*p.kappa*p.Uend/(m*p.z0*p.z0):(TAU*p.axialHz)**2,q=voltage?2*Q*p.Vrf/(m*p.r0*p.r0*O*O):p.q,dc=geometry?4*Q*p.Udc/(m*p.r0*p.r0*O*O):0,ax=dc-2*wz2/(O*O),ay=-dc-2*wz2/(O*O),bx=beta(ax,q),by=beta(ay,q),wx=bx*O/2,wy=by*O/2;
+ Object.assign(f,{q,ax,ay,betaX:bx,betaY:by,wz:Math.sqrt(Math.max(0,wz2)),wc:0,wx,wy,wr:wx,voltage:voltage?p.Vrf:q*m*p.r0*p.r0*O*O/(2*Q),stable:wz2>0&&Number.isFinite(wx)&&Number.isFinite(wy),maxDt:Math.min(1/(40*p.rfHz),.05/Math.max(wx||0,wy||0,Math.sqrt(Math.max(0,wz2)),1)),adiabaticX:O/2*Math.sqrt(Math.max(0,ax+q*q/2)),adiabaticY:O/2*Math.sqrt(Math.max(0,ay+q*q/2))});if(!f.stable)f.error='Paul: axial confinement and BOTH transverse Mathieu points must be inside the first stability band';
+ }f.nuHz=Object.fromEntries(['wc','wp','wm','wx','wy','wz'].filter(k=>Number.isFinite(f[k])).map(k=>[k.slice(1),f[k]/TAU]));return f;}
+ function inverse(p,q,a=0,rfq=false){if(![q,a,p.massU,p.charge,p.r0,p.rfHz].every(Number.isFinite)||!(q>0&&p.massU>0&&p.charge>0&&p.r0>0&&p.rfHz>0))throw Error('Enter finite targets, positive q, mass, charge, size and frequency');const scale=p.massU*U*p.r0*p.r0*(TAU*p.rfHz)**2/(p.charge*E);return{Vrf:q*scale/(rfq?4:2),Udc:a*scale/(rfq?8:4)};}
+ const api={design,beta,bounds,inverse};host.ZGTrapDesign=api;if(typeof module!=='undefined')module.exports=api;
+})(typeof window!=='undefined'?window:globalThis);

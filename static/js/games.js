@@ -174,6 +174,7 @@
     const upd = () => (box.querySelector("output").textContent = `${(NU_REF + +sl.value).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Hz (Δ = ${(+sl.value).toFixed(2)} Hz)`);
     box.addEventListener("click", e => {
       const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
+
       if (a === "shot") { const n = shoot(+sl.value); draw(); msg(box, `${TL.shots}: ${shots} · ${TL.ions_got}: ${n}`); }
       if (a === "scan") { const n0 = 15; for (let i = 0; i < n0; i++) shoot(+(-Wd + 2 * Wd * i / (n0 - 1)).toFixed(4)); draw(); msg(box, `${TL.shots}: ${shots} · ${TL.scan_done}`); }
       if (a === "fit") { fit = doFit(); draw(); msg(box, fit ? `${TL.fit_res}: ν_c = ${fmtU(NU_REF + fit.c, fit.s)} Hz (δν/ν = ${(fit.s / NU_REF).toExponential(1)}) · χ²/ν = ${fit.chi2.toFixed(2)}` : TL.fit_need); }
@@ -386,7 +387,10 @@
     }
     let cutoffKey='',cutoff;
     function currentCutoffs(){const key=['U','V','r0','f'].map(V).join('|');if(key!==cutoffKey){cutoffKey=key;cutoff=P.rfqCutoffs(V('U'),V('V'),V('r0'),V('f'));}return cutoff;}
+    let inversePreview=null;
+    function designFor(sp){const[a,q]=aq(sp),bx=ZGTrapDesign.beta(a,q),by=ZGTrapDesign.beta(-a,q);return{label:sp.label,a,q,beta_x:bx,beta_y:by,nu_x_Hz:bx*V('f')*1e6/2,nu_y_Hz:by*V('f')*1e6/2,nominal_rf_only_depth_eV:sp.z*q*V('V')/4,dt_s:.05/(Math.PI*V('f')*1e6),rf_cycles:V('cycles'),residence_s:V('cycles')/(V('f')*1e6),convention:'RFQ rod peak; differential peak = 2V'};}
     function report() {
+      const td=designFor(species[target]),text=box.querySelector('[data-rfq-design]'),value=v=>Number.isFinite(v)?v.toPrecision(8):'—';text.textContent=td.label+' · βx='+value(td.beta_x)+' · βy='+value(td.beta_y)+' · νx='+value(td.nu_x_Hz/1000)+' kHz · νy='+value(td.nu_y_Hz/1000)+' kHz · nominal RF-only depth='+value(td.nominal_rf_only_depth_eV)+' eV · RF dt='+value(td.dt_s*1e9)+' ns · RF cycles='+td.rf_cycles+' · residence='+value(td.residence_s*1e6)+' µs';
       box.querySelector("[data-rfq-residence]").textContent = (V("cycles") / V("f")).toFixed(2) + " µs";
       const c=currentCutoffs(),fmt=x=>Number.isFinite(x)?x.toPrecision(8):'∞',out=box.querySelector('[data-rfq-cutoff-values]');
       if(c.status==='window'||c.status==='rf-only')out.innerHTML=`<dt>${RT.line}</dt><dd>a = ${fmt(c.slope)} q = (2|U|/V) q</dd><dt>${RT.low}</dt><dd>${fmt(c.lowMassU)} u/e · (q, a) = (${fmt(c.qHigh)}, ${fmt(c.aHigh)})</dd><dt>${RT.high}</dt><dd>${Number.isFinite(c.highMassU)?`${fmt(c.highMassU)} u/e · (q, a) = (${fmt(c.qLow)}, ${fmt(c.aLow)})`:RT.rfonly}</dd><dt>${RT.range}</dt><dd>${fmt(c.lowMassU)} &lt; m/z &lt; ${fmt(c.highMassU)} u/e</dd>`;
@@ -409,10 +413,12 @@
       requestAnimationFrame(loop);
     }
     const tgt = () => species[target] || { m: V("A"), z: 1 };
-    box.addEventListener("input", e => { const n = e.target.name; if (["A","set","ions","rfq-seed","U","V","r0","f","emit","cycles"].includes(n))window.ZGCoolingView?.stopRecording(box); if (["A", "set", "ions", "rfq-seed"].includes(n)) reset(); else if (["U", "V", "r0", "f", "emit", "cycles"].includes(n)) resetStats();refresh(); last = 0; });
+    box.addEventListener("input", e => { const n = e.target.name; inversePreview=null;box.querySelector('[data-act="design-apply"]').disabled=true;if (["A","set","ions","rfq-seed","U","V","r0","f","emit","cycles"].includes(n))window.ZGCoolingView?.stopRecording(box); if (["A", "set", "ions", "rfq-seed"].includes(n)) reset(); else if (["U", "V", "r0", "f", "emit", "cycles"].includes(n)) resetStats();refresh(); last = 0; });
     box.addEventListener("change", e => { const n = e.target.name; if (n === "set" || n === "custom") reset(); if (n === "target") { target = +e.target.value; reset(); } });
     box.addEventListener("click", e => {
       const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
+      if(a==='design-preview'){try{const sp=species[target];inversePreview=ZGTrapDesign.inverse({massU:sp.m,charge:sp.z,r0:V('r0')/1000,rfHz:V('f')*1e6},V('designQ'),V('designA'),true);if(inversePreview.Vrf>3000||inversePreview.Udc>500||inversePreview.Udc<0)throw Error('Required voltage is outside game input ranges');box.querySelector('[data-rfq-inverse]').textContent='V='+inversePreview.Vrf.toPrecision(9)+' V; U='+inversePreview.Udc.toPrecision(9)+' V · '+(mathieuStable(V('designA'),V('designQ'))?'stable':'unstable target');box.querySelector('[data-act="design-apply"]').disabled=false;}catch(err){inversePreview=null;box.querySelector('[data-rfq-inverse]').textContent=err.message;box.querySelector('[data-act="design-apply"]').disabled=true;}return;}
+      if(a==='design-apply'&&inversePreview){const next={...inversePreview};for(const[n,v]of [['V',next.Vrf],['U',next.Udc]]){sel(n).value=v;sel(n).dispatchEvent(new Event('input',{bubbles:true}));}box.querySelector('[data-rfq-inverse]').textContent='Applied (voltage controls use their displayed resolution)';return;}
       if(bad.textContent){msg(box,bad.textContent);return;}
       const t = tgt(), k = kfac() * t.z / t.m, setv = (n, v) => { sel(n).value = v; sel(n).dispatchEvent(new Event("input", { bubbles: true })); };
       if (a === "cool") { setv("U", 0); setv("V", (0.4 / (4 * k)).toFixed(2)); }
@@ -421,13 +427,13 @@
       if (a === "pause") running = !running;
       if (a === "png") savePNG(cv, paint, "rfq-cross-section");
       if (a === "png2") savePNG(cvd, paintD, "rfq-stability-diagram");
-      if (a === "video" && window.ZGCoolingView) { ZGCoolingView.recordPanel(box,[cv,cvd],'rfq-ions-and-stability',()=>({parameters:{trap:'RFQ',species:species.map(s=>s.label).join(', '),...Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)])),seed:V('rfq-seed')},view:{plots:'cross-section + a–q stability',voltage:'V zero-to-peak RF; U DC'},time_s:xi/(Math.PI*V('f')*1e6)}),()=>{running=true;});return; }
+      if (a === "video" && window.ZGCoolingView) { ZGCoolingView.recordPanel(box,[cv,cvd],'rfq-ions-and-stability',()=>({parameters:{trap:'RFQ',species:species.map(s=>s.label).join(', '),...Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)])),seed:V('rfq-seed')},view:{plots:'cross-section + a–q stability',voltage:'V rod zero-to-peak RF (differential=2V); U DC'},time_s:xi/(Math.PI*V('f')*1e6)}),()=>{running=true;});return; }
       if(a==='json'||a==='csv') {
         const cuts=currentCutoffs(),parameters=Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)]));
         const source={name:'AME2020 + NUBASE2020',url:'https://www-nds.iaea.org/amdc/ame2020/',doi:'10.1088/1674-1137/abddae'};
-        const results=species.map(sp=>{const [a,q]=aq(sp);return {label:sp.label,mass_u:sp.m,charge:sp.z,a,q,stable:mathieuStable(a,q),transmitted:sp.t,lost:sp.l,observed_fraction:sp.t+sp.l?sp.t/(sp.t+sp.l):null,source:sp.source||'illustrative integer mass'};});
+        const results=species.map(sp=>{const [a,q]=aq(sp);return {...designFor(sp),label:sp.label,mass_u:sp.m,charge:sp.z,a,q,stable:mathieuStable(a,q),transmitted:sp.t,lost:sp.l,observed_fraction:sp.t+sp.l?sp.t/(sp.t+sp.l):null,source:sp.source||'illustrative integer mass'};});
         const cleanCuts={...cuts,highMassU:Number.isFinite(cuts.highMassU)?cuts.highMassU:null,highMassUnbounded:cuts.highMassU===Infinity};
-        const record={model:'ideal linear RFQ / Mathieu dynamics',source,seed:V('rfq-seed'),parameters,units:{U:'V DC',V:'V zero-to-peak RF',r0:'mm',f:'MHz',emit:'percent r0',cycles:'RF cycles',lowMassU:'u/e',highMassU:'u/e'},cutoffs:cleanCuts,species:results,simulation_time_xi:xi,assumptions:[RT.limits,TL.rfq_convention]};
+        const record={model:'ideal linear RFQ / Mathieu dynamics',source,seed:V('rfq-seed'),parameters,units:{U:'V DC',V:'V rod zero-to-peak RF (differential = 2V)',r0:'mm',f:'MHz',emit:'percent r0',cycles:'RF cycles',lowMassU:'u/e',highMassU:'u/e'},cutoffs:cleanCuts,species:results,simulation_time_xi:xi,assumptions:[RT.limits,TL.rfq_convention]};
         if(a==='json')window.zgExport?.save(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}),'rfq-inputs-results.json');
         else {const rows=[];for(const [key,value]of Object.entries(parameters))rows.push(['input',key,value,record.units[key],'']);rows.push(['input','seed',record.seed,'integer','']);for(const [key,value]of Object.entries(cleanCuts))rows.push(['result',key,value,record.units[key]||'','']);for(const r of results)for(const [key,value]of Object.entries(r))rows.push(['species',key,value,key==='mass_u'?'u':'',r.label]);rows.push(['source','name',source.name,'',''],['source','url',source.url,'',''],['model','assumptions',record.assumptions.join(' '),'','']);window.zgExport?.csv(['section','quantity','value','unit','species'],rows,'rfq-inputs-results');}
         return;
