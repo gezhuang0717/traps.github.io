@@ -464,3 +464,16 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 /* hidden must win over .g-opts-row{display:flex} (custom-ion rows, trap-design fields) */
 .g-laser [hidden],[data-paul-cooling] [hidden]{display:none!important}
 .g-custom-ion{border:1px dashed #8e4ec6;border-radius:10px;padding:8px 10px;background:#faf7ff}.g-custom-ion label{white-space:nowrap}.g-custom-ion .g-custom-derived{flex-basis:100%;font-variant-numeric:tabular-nums;font-size:.82rem;color:#23314a}.g-custom-ion details{flex-basis:100%;margin:0}
+
+/* ---- layout fixes (2026-10-10): no overlapping widgets, no horizontal page scroll ---- */
+.zg-local-tabs{display:flex;flex-wrap:wrap;gap:.4rem;max-width:100%}
+.zg-local-tabs .zg-btn{white-space:normal;max-width:100%}
+.zg-cal-line,.zg-cal-badge{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+.zg-card textarea{max-width:100%;box-sizing:border-box}
+.zg-card details{min-width:0;max-width:100%}
+.zg-card details>summary{white-space:normal;overflow-wrap:anywhere}
+.nc-bar>details,.g-opts-row>details,.zg-row>details{flex:1 1 100%}
+.g-slider{flex-wrap:wrap;row-gap:.3rem}
+.g-slider input[type=range]{flex:1 1 140px;min-width:120px}
+.g-slider .g-unit,.g-slider output{flex:0 0 auto;white-space:nowrap;margin-left:.25rem}
+.zg-decimal-spin{display:inline-flex;flex:0 0 auto;align-items:center;max-width:100%}
