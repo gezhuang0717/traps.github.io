@@ -46,7 +46,52 @@
       "published": "2026-10-11",
       "collected_at": "2026-10-12",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "From nonmagnetic to magnetic: A 2D semiconductor with electrically tunable magnetism",
+      "summary": "Researchers from the National University of Singapore (NUS), in collaboration with scientists from institutions in Switzerland, the Czech Republic and Germany, have demonstrated a way to introduce magnetism into an otherwise nonmagnetic two-dimensional (2D) semiconductor and…",
+      "url": "https://phys.org/news/2026-10-nonmagnetic-magnetic-2d-semiconductor-electrically.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "One step closer to quantum computers that can correct their own mistakes",
+      "summary": "Researchers from Rutgers, IBM and collaborating institutions have shown that a quantum computer can check what is happening inside it and respond while it is running, repeatedly resetting parts of the system to bring chaotic behavior under control.",
+      "url": "https://phys.org/news/2026-10-closer-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "Hybrid quantum computers could finally get to grips with light and matter",
+      "summary": "Many of nature's most important processes depend on how particles of matter interact with light and other force-carrying particles. So far, however, it has proven difficult for conventional computers to determine how individual particles behave in these interactions.",
+      "url": "https://phys.org/news/2026-10-hybrid-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-12T07:59:14+00:00"
+  "fetched": "2026-10-12T22:35:36+00:00"
 }
