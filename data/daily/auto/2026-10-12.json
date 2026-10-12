@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-12",
+      "type": "preprint",
+      "title": "Quantum dynamics of an ion in an RF quadrupole trap with weak octupolar anharmonicity",
+      "summary": "Sukanya Jana et al. — We investigate the quantum dynamics of a single ion confined in a radio-frequency (RF) Paul trap in the presence of weak octupole-induced anharmonicity, as can occur in realistic ion-trap potential. The explicitly time-dependent quadrupole potential is…",
+      "url": "https://arxiv.org/abs/2610.13293v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "arxiv": "2610.13293v1",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "preprint",
+      "title": "Impact of ab initio E1 strength on neutron capture rates along the nickel isotopic chain",
+      "summary": "Francesca Bonaiti et al. — Nucleosynthesis simulations of the r-process require neutron capture rates for neutron-rich nuclei, many of which lie beyond experimental reach. Predicting these rates relies on theoretical calculations of the low-energy electric dipole (E1) strength…",
+      "url": "https://arxiv.org/abs/2610.13868v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "arxiv": "2610.13868v1",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "Quantum 'birthmarks' hold lasting traces of a system's past",
+      "summary": "Some classical physical systems can explore many configurations over time until their long-term behavior no longer reveals their starting conditions. The sampling of available configurations according to the appropriate statistical distribution is a property called ergodicity.",
+      "url": "https://phys.org/news/2026-10-quantum-birthmarks.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-11",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-12T07:59:14+00:00"
+}
