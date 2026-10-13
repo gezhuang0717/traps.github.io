@@ -1,5 +1,9 @@
 # Labels for the shared double-trap calibrant panel (layouts/_partials/zg/calibration-panel.html, static/js/calibration.js).
 en:
+  step_help: "Number entry and arrow steps"
+  frequency_step: "Frequency arrow step"
+  uncertainty_step: "Uncertainty arrow step"
+  step_hint: "Type any finite decimal directly. Arrow steps preserve the typed decimal tail; frequency and uncertainty increments can be chosen separately. Changing an increment does not change the calibration. TOF arrows use 1 µs. Physics uses binary64 arithmetic."
   title: Calibration of the double trap (as in PyMassScanner)
   "off": 'off'
   "on": 'on'
@@ -55,6 +59,10 @@ en:
   preset_jyfl: JYFLTRAP defaults from PyMassScanner R31
   close: Close
 zh:
+  step_help: "数值输入与箭头步长"
+  frequency_step: "频率箭头步长"
+  uncertainty_step: "不确定度箭头步长"
+  step_hint: "可直接输入有限小数。箭头步进保留已输入的小数尾数；频率和不确定度的步长可分别选择。仅改变步长不会改变标定值。TOF 箭头步长为 1 µs。物理计算采用 binary64 浮点数。"
   title: 双阱标定（按 PyMassScanner 方式）
   "off": 关
   "on": 开
@@ -110,6 +118,10 @@ zh:
   preset_jyfl: PyMassScanner R31 中的 JYFLTRAP 默认值
   close: 关闭
 fi:
+  step_help: "Numerot ja nuoliaskeleet"
+  frequency_step: "Taajuuden nuoliaskel"
+  uncertainty_step: "Epävarmuuden nuoliaskel"
+  step_hint: "Kirjoita äärellinen desimaaliluku. Nuoliaskeleet säilyttävät syötetyt desimaalit. Taajuudelle ja epävarmuudelle voi valita eri askeleen. Askeleen valinta ei muuta kalibrointia. TOF-askel on 1 µs. Laskenta käyttää binary64-lukuja."
   title: Kaksoisloukun kalibrointi (kuten PyMassScannerissa)
   "off": pois
   "on": päällä
@@ -165,6 +177,10 @@ fi:
   preset_jyfl: JYFLTRAP-oletukset PyMassScanner R31:stä
   close: Sulje
 de:
+  step_help: "Zahleneingabe und Pfeilschritte"
+  frequency_step: "Pfeilschritt der Frequenz"
+  uncertainty_step: "Pfeilschritt der Unsicherheit"
+  step_hint: "Endliche Dezimalwerte direkt eingeben. Pfeilschritte erhalten die eingegebenen Nachkommastellen. Frequenz und Unsicherheit haben getrennte Schrittweiten. Die Schrittwahl ändert keine Kalibrierwerte. TOF-Schrittweite ist 1 µs. Die Physik verwendet binary64-Arithmetik."
   title: Kalibrierung der Doppelfalle (wie in PyMassScanner)
   "off": aus
   "on": an
@@ -220,6 +236,10 @@ de:
   preset_jyfl: JYFLTRAP-Vorgaben aus PyMassScanner R31
   close: Schließen
 ja:
+  step_help: "数値入力と矢印の刻み幅"
+  frequency_step: "周波数の刻み幅"
+  uncertainty_step: "不確かさの刻み幅"
+  step_hint: "有限の小数を直接入力できます。矢印操作は入力済みの小数部分を保持します。周波数と不確かさの刻み幅を別々に選べます。刻み幅の変更だけでは較正値は変わりません。TOF の刻み幅は 1 µs です。物理計算は binary64 を使います。"
   title: ダブルトラップの較正（PyMassScanner 方式）
   "off": オフ
   "on": オン

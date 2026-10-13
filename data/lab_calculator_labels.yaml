@@ -1,0 +1,20 @@
+en:
+  invalid_cyclotron: Enter a positive mass and B, and an integer charge from 1 to 100. Ion mass after electron subtraction must be positive.
+  invalid_resolution: Enter two positive, finite masses.
+  invalid_converter: Enter a finite value, and leave A empty or enter a positive integer mass number.
+zh:
+  invalid_cyclotron: 请输入正的质量、正的磁场 B，以及 1 到 100 的整数电荷态。扣除电子质量后离子质量必须为正。
+  invalid_resolution: 请输入两个正的、有限的质量。
+  invalid_converter: 请输入有限数值；A 可留空，或输入正整数质量数。
+fi:
+  invalid_cyclotron: Anna positiivinen massa ja B sekä kokonaislukuvaraus 1–100. Elektronien vähentämisen jälkeen ionimassan on oltava positiivinen.
+  invalid_resolution: Anna kaksi positiivista ja äärellistä massaa.
+  invalid_converter: Anna äärellinen arvo. Jätä A tyhjäksi tai anna positiivinen kokonaislukumassaluku.
+de:
+  invalid_cyclotron: Positive Masse und positives B sowie eine ganzzahlige Ladung von 1 bis 100 eingeben. Die Ionenmasse nach Abzug der Elektronen muss positiv sein.
+  invalid_resolution: Zwei positive, endliche Massen eingeben.
+  invalid_converter: Einen endlichen Wert eingeben. A leer lassen oder eine positive ganzzahlige Massenzahl eingeben.
+ja:
+  invalid_cyclotron: 正の質量と磁場 B、および 1〜100 の整数の電荷数を入力してください。電子質量を引いた後のイオン質量も正である必要があります。
+  invalid_resolution: 正の有限な質量を二つ入力してください。
+  invalid_converter: 有限の値を入力してください。A は空欄にするか、正の整数の質量数を入力してください。

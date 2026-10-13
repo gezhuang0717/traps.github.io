@@ -408,6 +408,7 @@ main section > article.mt-6::before{content:"";position:absolute;left:0;top:12px
 .zg-cal-head{display:flex;flex-direction:row-reverse;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:-.8rem;z-index:2;background:inherit;padding:.6rem 0;border-bottom:1px solid var(--zg-line);margin-bottom:.6rem}
 html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .zg-cal-h{margin:.1rem 2rem .5rem 0;font-size:1.05rem}
+.zg-cal-head>div{flex:1;min-width:0}.zg-cal-dialog-error{margin:.25rem 0 0;overflow-wrap:anywhere;font-size:.85rem}.zg-cal-dialog-status{padding:.4rem .6rem;background:var(--zg-soft);border-radius:.4rem;overflow-wrap:anywhere}.zg-cal-dialog-status:empty{display:none}
 .zg-cal-x{flex:0 0 36px;min-width:36px;min-height:36px;border:1px solid var(--zg-line);border-radius:8px;background:transparent;color:inherit;font-size:1.5rem;line-height:1;cursor:pointer}
 .zg-cal-trap{margin:.6rem 0;padding:.3rem .7rem .6rem;border:1px solid var(--zg-line);border-radius:.6rem;min-width:0}.zg-cal-trap legend{font-weight:600;padding:0 .3rem}
 .zg-cal-tablewrap{overflow-x:auto;max-width:100%}

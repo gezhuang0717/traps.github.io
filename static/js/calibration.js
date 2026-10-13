@@ -28,10 +28,10 @@
       const tr = document.createElement("tr"), cell = (label, html) => `<td data-label="${esc(label)}">${html}</td>`;
       tr.innerHTML = cell(L.calibrant, `<input type="text" name="c-ion" value="${esc(c.ion)}" spellcheck="false" aria-label="${esc(L.calibrant)}">`) +
         cell("q", `<input type="number" name="c-q" min="1" max="100" step="1" value="${c.q}" aria-label="q">`) +
-        cell(L.nc, `<input type="number" name="c-nc" min="0" step="any" value="${c.nc}" aria-label="${esc(L.nc)}">`) +
-        cell(L.snc, `<input type="number" name="c-snc" min="0" step="any" value="${c.snc}" aria-label="${esc(L.snc)}">`) +
-        cell(L.nm, `<input type="number" name="c-nm" min="0" step="any" value="${c.nm}" aria-label="${esc(L.nm)}">`) +
-        cell(L.snm, `<input type="number" name="c-snm" min="0" step="any" value="${c.snm}" aria-label="${esc(L.snm)}">`) +
+        cell(L.nc, `<input type="number" name="c-nc" min="0" step="any" data-step-increment="${$("[name=cal-frequency-step]")?.value||"1"}" value="${c.nc}" aria-label="${esc(L.nc)}">`) +
+        cell(L.snc, `<input type="number" name="c-snc" min="0" step="any" data-step-increment="${$("[name=cal-uncertainty-step]")?.value||"0.001"}" value="${c.snc}" aria-label="${esc(L.snc)}">`) +
+        cell(L.nm, `<input type="number" name="c-nm" min="0" step="any" data-step-increment="${$("[name=cal-frequency-step]")?.value||"1"}" value="${c.nm}" aria-label="${esc(L.nm)}">`) +
+        cell(L.snm, `<input type="number" name="c-snm" min="0" step="any" data-step-increment="${$("[name=cal-uncertainty-step]")?.value||"0.001"}" value="${c.snm}" aria-label="${esc(L.snm)}">`) +
         `<td><button type="button" class="zg-btn zg-btn-ghost" data-cal="del" title="${esc(L.remove)}">×</button></td>`;
       body(k).appendChild(tr);
     }
@@ -51,6 +51,7 @@
         if(v('c-ion').trim()||v('c-nc'))for(const input of tr.querySelectorAll('input[type="number"]')){
           if(input.value===''||!input.checkValidity()||!Number.isFinite(Number(input.value)))throw new Error(`${k==='1'?L.trap1:L.trap2}: ${input.getAttribute('aria-label')} — ${L.invalid}`);
         }
+        if((v('c-ion').trim()||v('c-nc'))&&!(+v('c-nc')>0&&+v('c-nm')>0&&+v('c-nm')<+v('c-nc')/2))throw new Error(`${k==='1'?L.trap1:L.trap2}: νc > 0; 0 < ν− < νc/2 — ${L.invalid}`);
         return { text: v("c-ion").trim(), q: +v("c-q") || 1, nc: +v("c-nc"), snc: +v("c-snc") || 0, nm: +v("c-nm"), snm: +v("c-snm") || 0 };
       }).filter(r => r.text || r.nc);
     }
@@ -64,6 +65,7 @@
         el.querySelectorAll("[data-tof]").forEach(tr => {
           const text = tr.querySelector("[name=t-ion]").value.trim(), t = +tr.querySelector("[name=t-t]").value;
           if(text)for(const input of tr.querySelectorAll('input[type="number"]'))if(input.value===''||!input.checkValidity()||!Number.isFinite(Number(input.value)))throw new Error(`${L.tof_cal}: ${input.getAttribute('aria-label')} — ${L.invalid}`);
+          if(text&&!(t>0))throw new Error(`${L.tof_cal}: t > 0 — ${L.invalid}`);
           if (text && t > 0) spec.tof[tr.dataset.tof] = { ion: ionOf(text, +tr.querySelector("[name=t-q]").value || 1), t };
         });
         dt = P.doubleTrapCalibration(spec, $("[name=cal-mode]").value);
@@ -83,10 +85,12 @@
     }
     function paint() {
       badge.textContent = on() ? (active() ? L.on : "⚠") : L.off; badge.classList.toggle("on", !!active());
-      if (!on()) { out.textContent = ""; return; }
-      if (!dt) { out.innerHTML = `<span class="g-warn">${esc(error || L.invalid)}</span>`; return; }
-      out.innerHTML = trapLine("1") + trapLine("2") + (dt.fieldRatio ? `<span class="zg-cal-line">${esc(L.field_ratio)} = ${(dt.fieldRatio - 1).toExponential(3)} (${esc(dt.source)})</span>` : "") +
-        (error ? `<span class="g-warn">${esc(error)}</span>` : "");
+      const message=on()?(error||(!dt?(catalog?L.invalid:'…'):'')):'';
+      const summary=on()&&dt?trapLine("1")+trapLine("2")+(dt.fieldRatio?`<span class="zg-cal-line">${esc(L.field_ratio)} = ${(dt.fieldRatio-1).toExponential(3)} (${esc(dt.source)})</span>`:''):'';
+      out.innerHTML=summary+(message?`<span class="g-warn">${esc(message)}</span>`:'');
+      const status=$('.zg-cal-dialog-status'),alert=$('.zg-cal-dialog-error');
+      if(status)status.innerHTML=summary||(!on()?esc(L.off):'');
+      if(alert){alert.textContent=message;alert.hidden=!message;}
     }
     function results() {
       const host = $(".zg-cal-results"); if (!host) return;
@@ -112,8 +116,12 @@
           periods_us: f.periodsUs, keV_per_Hz: f.keVperHz, tof_rfq_t1_us: f.tofRfqT1, tof_t1_t2_us: f.tofT1T2 })) };
     }
 
-    el.addEventListener("input", e => { if (e.target.closest(".zg-cal-cals")) $("[name=cal-preset]").value = "custom"; if (e.target.name !== "cal-ions") update(); });
-    el.addEventListener("change", e => { const n = e.target.name; if (n === "cal-preset") { preset(e.target.value); update(); } else if (["cal-on", "cal-source", "cal-mode", "cal-trap"].includes(n)) update(); });
+    el.addEventListener("input", e => { if (e.target.name?.endsWith('-step'))return;if (e.target.closest(".zg-cal-cals")) $("[name=cal-preset]").value = "custom"; if (e.target.name !== "cal-ions") update(); });
+    el.addEventListener("change", e => { const n = e.target.name;
+      if(n==='cal-frequency-step'||n==='cal-uncertainty-step'){
+        el.querySelectorAll(n==='cal-frequency-step'?'[name=c-nc], [name=c-nm]':'[name=c-snc], [name=c-snm]').forEach(x=>{x.dataset.stepIncrement=e.target.value;});return;
+      }
+      if (n === "cal-preset") { preset(e.target.value); update(); } else if (["cal-on", "cal-source", "cal-mode", "cal-trap"].includes(n)) update(); });
     el.addEventListener("click", e => {
       const b = e.target.closest("[data-cal]"); if (!b) return; const a = b.dataset.cal;
       if (a === "toggle") return show(pop.hidden);
