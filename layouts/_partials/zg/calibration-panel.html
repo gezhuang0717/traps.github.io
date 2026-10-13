@@ -11,9 +11,11 @@
     <button type="button" class="zg-btn zg-btn-ghost zg-cal-toggle" data-cal="toggle" aria-expanded="false" aria-controls="{{ $id }}">⚙ {{ $L.title }} <span class="zg-cal-badge">{{ $L.off }}</span></button>
     <p class="zg-cal-out" aria-live="polite"></p>
   </div>
-  <div class="zg-cal-pop" id="{{ $id }}" role="dialog" aria-label="{{ $L.title }}" hidden>
+  <dialog class="zg-cal-pop" id="{{ $id }}" aria-label="{{ $L.title }}" hidden>
+    <header class="zg-cal-head">
     <button type="button" class="zg-cal-x" data-cal="close" aria-label="{{ $L.close | default "Close" }}">×</button>
     <h3 class="zg-cal-h">⚙ {{ $L.title }}</h3>
+    </header>
     {{ partial "zg/control-help.html" "calibration" }}
     <label class="g-chk"><input type="checkbox" name="cal-on"{{ if or .full .on }} checked{{ end }}> {{ $L.use }}</label>
     <div class="g-opts-row">
@@ -38,7 +40,7 @@
       </tbody></table></div>
     </fieldset>
     <details class="g-hints"><summary>💡 ⓘ</summary><p>{{ $L.hint }}</p></details>
-  </div>
+  </dialog>
   {{- if .full }}
     <label class="zg-cal-ions">{{ $L.ions }}<textarea name="cal-ions" rows="2" spellcheck="false">39K, 85Rb, 133Cs, 94Ag, 94mAg, 129Sn, 129mSn, 170Yb+2, 12C11</textarea></label>
     <div class="zg-row"><button type="button" class="zg-btn" data-cal="compute">{{ $L.compute }}</button><button type="button" class="zg-btn zg-btn-ghost" data-cal="csv">⤓ {{ $L.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-cal="json">⤓ {{ $L.json }}</button></div>

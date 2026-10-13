@@ -1,8 +1,8 @@
 # Labels for the shared double-trap calibrant panel (layouts/_partials/zg/calibration-panel.html, static/js/calibration.js).
 en:
   title: Calibration of the double trap (as in PyMassScanner)
-  false: 'off'
-  true: 'on'
+  "off": 'off'
+  "on": 'on'
   use: Use calibrant frequencies (replaces the ideal-trap B, U₀ and d)
   preset: Preset
   custom: custom
@@ -56,8 +56,8 @@ en:
   close: Close
 zh:
   title: 双阱标定（按 PyMassScanner 方式）
-  false: 关
-  true: 开
+  "off": 关
+  "on": 开
   use: 使用标定离子的频率（替代理想阱的 B、U₀ 和 d）
   preset: 预设
   custom: 自定义
@@ -111,8 +111,8 @@ zh:
   close: 关闭
 fi:
   title: Kaksoisloukun kalibrointi (kuten PyMassScannerissa)
-  false: pois
-  true: päällä
+  "off": pois
+  "on": päällä
   use: Käytä kalibrointi-ionin taajuuksia (korvaa ideaaliloukun B:n, U₀:n ja d:n)
   preset: Esiasetus
   custom: oma
@@ -166,8 +166,8 @@ fi:
   close: Sulje
 de:
   title: Kalibrierung der Doppelfalle (wie in PyMassScanner)
-  false: aus
-  true: an
+  "off": aus
+  "on": an
   use: Kalibrantfrequenzen verwenden (ersetzt B, U₀ und d der idealen Falle)
   preset: Vorgabe
   custom: eigene
@@ -221,8 +221,8 @@ de:
   close: Schließen
 ja:
   title: ダブルトラップの較正（PyMassScanner 方式）
-  false: オフ
-  true: オン
+  "off": オフ
+  "on": オン
   use: 較正イオンの周波数を使う（理想トラップの B・U₀・d の代わり）
   preset: プリセット
   custom: 手入力

@@ -28,10 +28,10 @@
       const tr = document.createElement("tr"), cell = (label, html) => `<td data-label="${esc(label)}">${html}</td>`;
       tr.innerHTML = cell(L.calibrant, `<input type="text" name="c-ion" value="${esc(c.ion)}" spellcheck="false" aria-label="${esc(L.calibrant)}">`) +
         cell("q", `<input type="number" name="c-q" min="1" max="100" step="1" value="${c.q}" aria-label="q">`) +
-        cell(L.nc, `<input type="number" name="c-nc" min="0" step="0.001" value="${c.nc}" aria-label="${esc(L.nc)}">`) +
-        cell(L.snc, `<input type="number" name="c-snc" min="0" step="0.001" value="${c.snc}" aria-label="${esc(L.snc)}">`) +
-        cell(L.nm, `<input type="number" name="c-nm" min="0" step="0.001" value="${c.nm}" aria-label="${esc(L.nm)}">`) +
-        cell(L.snm, `<input type="number" name="c-snm" min="0" step="0.001" value="${c.snm}" aria-label="${esc(L.snm)}">`) +
+        cell(L.nc, `<input type="number" name="c-nc" min="0" step="any" value="${c.nc}" aria-label="${esc(L.nc)}">`) +
+        cell(L.snc, `<input type="number" name="c-snc" min="0" step="any" value="${c.snc}" aria-label="${esc(L.snc)}">`) +
+        cell(L.nm, `<input type="number" name="c-nm" min="0" step="any" value="${c.nm}" aria-label="${esc(L.nm)}">`) +
+        cell(L.snm, `<input type="number" name="c-snm" min="0" step="any" value="${c.snm}" aria-label="${esc(L.snm)}">`) +
         `<td><button type="button" class="zg-btn zg-btn-ghost" data-cal="del" title="${esc(L.remove)}">×</button></td>`;
       body(k).appendChild(tr);
     }
@@ -48,6 +48,9 @@
     function rows(k) {
       return [...body(k).querySelectorAll("tr")].map(tr => {
         const v = n => tr.querySelector(`[name=${n}]`)?.value ?? "";
+        if(v('c-ion').trim()||v('c-nc'))for(const input of tr.querySelectorAll('input[type="number"]')){
+          if(input.value===''||!input.checkValidity()||!Number.isFinite(Number(input.value)))throw new Error(`${k==='1'?L.trap1:L.trap2}: ${input.getAttribute('aria-label')} — ${L.invalid}`);
+        }
         return { text: v("c-ion").trim(), q: +v("c-q") || 1, nc: +v("c-nc"), snc: +v("c-snc") || 0, nm: +v("c-nm"), snm: +v("c-snm") || 0 };
       }).filter(r => r.text || r.nc);
     }
@@ -60,6 +63,7 @@
         for (const k of ["1", "2"]) spec.traps[k] = rows(k).map(r => ({ ion: ionOf(r.text, r.q), nc: r.nc, snc: r.snc, nm: r.nm, snm: r.snm }));
         el.querySelectorAll("[data-tof]").forEach(tr => {
           const text = tr.querySelector("[name=t-ion]").value.trim(), t = +tr.querySelector("[name=t-t]").value;
+          if(text)for(const input of tr.querySelectorAll('input[type="number"]'))if(input.value===''||!input.checkValidity()||!Number.isFinite(Number(input.value)))throw new Error(`${L.tof_cal}: ${input.getAttribute('aria-label')} — ${L.invalid}`);
           if (text && t > 0) spec.tof[tr.dataset.tof] = { ion: ionOf(text, +tr.querySelector("[name=t-q]").value || 1), t };
         });
         dt = P.doubleTrapCalibration(spec, $("[name=cal-mode]").value);
@@ -123,7 +127,13 @@
     });
     /* hint-like pop-up: the toggle button opens/closes it; ×, Escape or a click outside closes it */
     const pop = $(".zg-cal-pop"), toggle = $(".zg-cal-toggle");
-    function show(open) { pop.hidden = !open; toggle.setAttribute("aria-expanded", String(open)); if (open) pop.querySelector("input,select,button:not(.zg-cal-x)")?.focus({ preventScroll: true }); }
+    function show(open) {
+      if(open){pop.hidden=false;if(typeof pop.showModal==='function'){if(!pop.open)pop.showModal();}else pop.setAttribute('open','');pop.querySelector('input,select,button:not(.zg-cal-x)')?.focus({preventScroll:true});}
+      else{if(typeof pop.close==='function'&&pop.open)pop.close();else pop.removeAttribute('open');pop.hidden=true;toggle.focus({preventScroll:true});}
+      toggle.setAttribute('aria-expanded',String(open));
+    }
+    pop.addEventListener('cancel',e=>{e.preventDefault();show(false);});
+    pop.addEventListener('click',e=>{if(e.target!==pop)return;const r=pop.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)show(false);});
     document.addEventListener("click", e => { if (!pop.hidden && !el.contains(e.target)) show(false); });
     el.addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) { show(false); toggle.focus(); } });
     el.zgCal = { get: active, double: () => (on() ? dt : null), resolve, state: () => ({ dt, error }), ready: loading, record };
