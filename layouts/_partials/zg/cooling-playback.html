@@ -6,7 +6,7 @@
 <label>{{ if $zh }}速度倍数{{ else }}Speed multiplier{{ end }} <input type="number" name="playbackSpeed" min="0.05" max="10" step="0.05" value="1" data-full-precision> ×</label>
 <button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="0.1">0.1×</button><button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="1">1×</button><button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="5">5×</button>
 <button type="button" class="zg-btn zg-btn-ghost" data-playback-step>{{ if $zh }}暂停并前进一步{{ else }}Pause and step once{{ end }}</button>
-{{ if eq . "analytic" }}<label>{{ if $zh }}单步时间 (µs){{ else }}Single-step time (µs){{ end }} <input name="stepUs" type="number" min="0.001" max="100000" step="any" value="1"></label>{{ end }}
+{{ if eq . "analytic" }}<label>{{ if $zh }}单步时间 (µs){{ else }}Single-step time (µs){{ end }} <input name="stepUs" data-step-increment="0.001" type="number" min="0.001" max="100000" step="any" value="1"></label>{{ end }}
 <label>{{ if $zh }}视频帧率{{ else }}Video frame rate{{ end }} <select name="videoFps"><option value="10">10 fps</option><option value="20" selected>20 fps</option><option value="30">30 fps</option><option value="60">60 fps</option></select></label>
 </div>
 <p class="zg-muted" data-playback-readout aria-live="off"></p>
