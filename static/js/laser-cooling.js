@@ -105,6 +105,7 @@
     const list = JSON.parse(box.dataset.species), L = JSON.parse(box.dataset.labels), q = n => box.querySelector(`[name=${n}]`);
     const cv = n => box.querySelector(`[data-cv=${n}]`), out = box.querySelector("[data-out]"), msg = box.querySelector(".g-msg");
     const sel = fillSpecies(box, list, L); let st = null, timer = 0, record = {};
+    const play=ZGCoolingView.playback(box,()=>{stop();step(undefined,1);});
     const params = () => { const s = list.find(x => x.id === sel.value), gamma = TAU * s.gamma_MHz * 1e6; return { s, gamma, delta: +q("delta").value * gamma, s0: +q("s0").value, lambda: s.lambda_nm * 1e-9, massKg: massU(s) * U, eta: +q("eta").value }; };
     function reset() {
       const p = params(), th = P.molassesTheory(p), T0 = +q("t0").value * th.TDoppler, sig = Math.sqrt(P.KB * T0 / p.massKg), r = rng(+q("seed").value), n = +q("n").value;
@@ -113,13 +114,15 @@
       st.hist=[[0,temp()]];st.Ts=st.hist[0][1];msg.textContent = ""; draw();
     }
     const temp = () => { let a = 0, b = 0; const v = st.v; for (const x of v) { a += x; b += x * x; } a /= v.length; return params().massKg * Math.max(0,b-v.length*a*a) / Math.max(1,v.length-1) / P.KB; };
-    function step() {
-      const p = params(), th = P.molassesTheory(p), dt = Math.min(Math.abs(p.massKg / th.beta) / 40 || 1e-6, 60 / p.gamma, 1e-3), n = ZGCoolingView.isRecording(box)?Math.max(1,Math.min(240,Math.ceil(+q("duration").value/1e3/dt/360))):+q("speed").value;
+    function step(ts,forced) {
+      const p = params(), th = P.molassesTheory(p), dt = Math.min(Math.abs(p.massKg / th.beta) / 40 || 1e-6, 60 / p.gamma, 1e-3), base=ZGCoolingView.isRecording(box)?Math.max(1,+q("duration").value/1e3/dt/(+q("videoSeconds").value*60)):4, n=forced??play.clock.next(ts,base,240);
+      if(!n){if(timer)timer=requestAnimationFrame(step);return;}
+      play.readout.textContent=`t = ${tmUnit(st.t)} · dt = ${tmUnit(dt)} · ${play.rate()}×`;
       for (let i = 0; i < n && st.t < +q("duration").value/1e3; i++) { const h=Math.min(dt,+q("duration").value/1e3-st.t);st.photons += P.molassesStep(st.v, p, h, st.r); st.t += h; }
       const T = temp(); st.Ts = st.Ts * 0.85 + T * 0.15; st.hist.push([st.t, T]); if (st.hist.length > 4000) st.hist.splice(1, 1);
       for (let i = 0; i < st.v.length; i++) { st.x[i] += st.v[i] / st.sig0 * 0.004; if (st.x[i] < 0 || st.x[i] > 1) st.x[i] = (st.x[i] + 1) % 1; }
       if (!st.reached && st.Ts < 1.2 * th.TDoppler && st.hist.length > 20) { st.reached = st.t; const best = record[st.key]; if (!best || st.t < best) record[st.key] = st.t; msg.textContent = `✅ ${L.reached} ${tmUnit(st.t)} (${L.record}: ${tmUnit(record[st.key])})`; }
-      draw(); if(st.t >= +q("duration").value/1e3) stop(false); if (timer) timer = requestAnimationFrame(step);
+      play.readout.textContent=`t = ${tmUnit(st.t)} · dt = ${tmUnit(dt)} · ${play.rate()}×`;draw(); if(st.t >= +q("duration").value/1e3) stop(false); if (timer) timer = requestAnimationFrame(step);
     }
     function draw() {
       const p = params(), th = P.molassesTheory(p), T = st.hist[st.hist.length - 1][1];
@@ -138,18 +141,19 @@
       temperaturePlot(cv("temp"),st.hist,th,L);
       const rows = [[L.t_now, tUnit(st.Ts)], [L.t_theory, tUnit(th.T)], [L.t_doppler, tUnit(th.TDoppler)], [L.t_recoil, tUnit(th.Trecoil)], [L.tau, isFinite(th.dampingTime) && th.dampingTime > 0 ? tmUnit(th.dampingTime) : "—"], [L.vcap, fmt(th.vCapture) + " m/s"], [L.photons, fmt(st.photons / st.v.length) + " / atom"], [L.time, tmUnit(st.t)]];
       out.replaceChildren(...rows.flatMap(([a, b]) => { const dt = document.createElement("dt"), dd = document.createElement("dd"); dt.textContent = a; dd.textContent = b; return [dt, dd]; }));
+      play.readout.textContent=`t = ${tmUnit(st.t)} · dt = ${tmUnit(Math.min(Math.abs(p.massKg/th.beta)/40||1e-6,60/p.gamma,1e-3))} · ${play.rate()}×`;
       if (!st.reached) msg.textContent = p.delta > 0 ? "🔥 " + L.blue : th.Trecoil > th.TDoppler ? "⚠️ " + L.narrow : "";
     }
-    function conditions(){const p=params();return{parameters:{species:sel.value,trap:'1D optical molasses',mass_u:p.massKg/U,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,eta:p.eta,n:st.v.length,seed:+q('seed').value,initial_T_D:+q('t0').value,observation_ms:+q('duration').value},view:{velocity_range:q('vview').value},time_s:st.t};}
+    function conditions(){const p=params();return{parameters:{species:sel.value,trap:'1D optical molasses',mass_u:p.massKg/U,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,eta:p.eta,n:st.v.length,seed:+q('seed').value,initial_T_D:+q('t0').value,observation_ms:+q('duration').value},view:{velocity_range:q('vview').value,...play.metadata()},time_s:st.t};}
     const runBtn = box.querySelector("[data-act=run]");
-    const stop = (stopVideo=true) => { cancelAnimationFrame(timer); timer = 0; runBtn.textContent = L.start;if(stopVideo)ZGCoolingView.stopRecording(box); };
+    const stop = (stopVideo=true) => { cancelAnimationFrame(timer); timer = 0;play.clock.reset(); runBtn.textContent = L.start;if(stopVideo)ZGCoolingView.stopRecording(box); };
     box.addEventListener("click", e => { const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
-      if (a === "run") { if (timer) stop(); else { runBtn.textContent = L.pause; timer = requestAnimationFrame(step); } }
+      if (a === "run") { if (timer) stop(); else { if(st.t>=+q("duration").value/1e3)reset();play.clock.reset();runBtn.textContent = L.pause; timer = requestAnimationFrame(step); } }
       if (a === "reset") { stop(); reset(); }
       if (a === "best") { q("delta").value = (-0.5 * Math.sqrt(1 + +q("s0").value)).toFixed(2); q("delta").dispatchEvent(new Event("input")); }
       if (a === "png") zgExport.png(ZGCoolingView.compose(["cloud","hist","temp"].map(cv),conditions()),`laser-molasses-${sel.value}`);
       if(a==='settings')zgExport.save(new Blob([JSON.stringify(conditions(),null,2)],{type:'application/json'}),'molasses-conditions.json');
-      if(a==='video'){if(ZGCoolingView.isRecording(box)){ZGCoolingView.stopRecording(box);return;}if(st.t>=+q('duration').value/1e3){stop();reset();}ZGCoolingView.recordPanel(box,['cloud','hist','temp'].map(cv),'laser-molasses-'+sel.value,conditions,()=>{if(!timer){runBtn.textContent=L.pause;timer=requestAnimationFrame(step);}});}
+      if(a==='video'){if(ZGCoolingView.isRecording(box)){ZGCoolingView.stopRecording(box);return;}if(st.t>=+q('duration').value/1e3){stop();reset();}ZGCoolingView.recordPanel(box,['cloud','hist','temp'].map(cv),'laser-molasses-'+sel.value,conditions,()=>{if(!timer){play.clock.reset();runBtn.textContent=L.pause;timer=requestAnimationFrame(step);}});}
       if (a === "csv") { const p = params(), th = P.molassesTheory(p); const head = `# species=${sel.value} lambda_nm=${p.lambda * 1e9} gamma_2pi_MHz=${p.gamma / TAU / 1e6} delta_over_gamma=${q("delta").value} s0=${p.s0} eta=${p.eta} T_theory_K=${th.T} T_Doppler_K=${th.TDoppler}\n`;
         download(`laser-molasses-${sel.value}.csv`, new Blob([head + "time_s,T_K\n" + st.hist.map(r => r.join(",")).join("\n") + "\n\n# final velocities (m/s)\nv\n" + Array.from(st.v).join("\n")], { type: "text/csv" })); }
     });
@@ -190,6 +194,7 @@
         if (simT > 0) { g.strokeStyle = ink(); g.globalAlpha = .5; g.beginPath(); g.moveTo(X(Math.max(simT, t0)), m.t); g.lineTo(X(Math.max(simT, t0)), H - m.b); g.stroke(); g.globalAlpha = 1; }
         axes(g, W, H, m, L.time + " (log)", "amplitude (log)"); }
       drawOrbit();
+      if(typeof play!=="undefined")play.readout.textContent=`t = ${tmUnit(simT)} · ${play.rate()}× · ${box.dataset.zh==="true"?"解析包络 / 真实轨道相位":"analytic envelopes / physical orbit phases"}`;
       const f = res.freq, A100 = amps(0.1), rate = g => fmt(g) + " s⁻¹", eqs = x => isFinite(x) ? fmt(x * 1e6) + " µm" : L.lost;
       const state = res.Fy <= res.window[0] ? L.below : res.Fy >= res.window[1] ? L.above : L.inside;
       const rows = [["ν₊ / ν₋ / ν_z", `${fmt(f.np / 1e3, 6)} kHz / ${fmt(f.nm, 5)} Hz / ${fmt(f.nz / 1e3, 5)} kHz`], [L.rates, `${L.cyc} ${rate(res.gp)} · ${L.mag} ${rate(res.gm)} · ${L.ax} ${rate(res.gz)}`], [L.window, state], [L.eq, `${eqs(res.eqPlus)} / ${eqs(res.eqMinus)} / ${eqs(res.eqZ)}`], ["A(100 ms)", A100.map(a => fmt(a * 1e6) + " µm").join(" / ")], ["γ₊ + γ₋ = −β_r/2m", `${fmt(res.gp + res.gm)} = ${fmt(-res.beta * Math.cos(p.theta) ** 2 / (2 * res.m))} s⁻¹`]];
@@ -210,11 +215,12 @@
         if(![ap,am,az].every(Number.isFinite)||ap+am>rr||az>zr){g.fillStyle='#b91c1c';g.textAlign='right';g.fillText(box.dataset.zh==='true'?'超出范围；适应当前轨道':'Outside range; Fit current orbit',W-12,32);}
       }
     }
-    function conditions(){const p=params();return{parameters:{species:sel.value,trap:'analytic Penning envelopes',B_T:p.B,U0_V:p.U0,d_m:p.d,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,waist_m:p.w,offset_m:p.yb,theta_rad:p.theta,eta:p.eta,initial_amplitudes_um:{r_plus:+q('a0p').value,r_minus:+q('a0m').value,z:+q('a0z').value},observation_ms:+q('span').value},view:{yaw_deg:+q('camera').value,pitch_rad:pitch,radial_half_um:+q('radialRange').value,axial_half_um:+q('axialRange').value,zoom:+q('zoom').value},time_s:simT};}
+    function conditions(){const p=params();return{parameters:{species:sel.value,trap:'analytic Penning envelopes',B_T:p.B,U0_V:p.U0,d_m:p.d,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,waist_m:p.w,offset_m:p.yb,theta_rad:p.theta,eta:p.eta,initial_amplitudes_um:{r_plus:+q('a0p').value,r_minus:+q('a0m').value,z:+q('a0z').value},observation_ms:+q('span').value},view:{yaw_deg:+q('camera').value,pitch_rad:pitch,radial_half_um:+q('radialRange').value,axial_half_um:+q('axialRange').value,zoom:+q('zoom').value},time_s:simT,playback:play.metadata()};}
     const runBtn = box.querySelector("[data-act=run]");
-    function frame(ts) { const dt = last ? Math.min(0.05, (ts - last) / 1000) : 0; last = ts; phase += dt * 2.2; simT = Math.max(simT, 1e-6) * 10 ** (dt * 0.8); if (simT >= +q("span").value/1e3) { simT = +q("span").value/1e3; anim = 0; runBtn.textContent = L.run; draw(); return; } draw(); anim = requestAnimationFrame(frame); }
+    const play=ZGCoolingView.playback(box,()=>{ZGCoolingView.stopRecording(box);cancelAnimationFrame(anim);anim=0;last=0;runBtn.textContent=L.run;if(q("stepUs").checkValidity()){simT=Math.min(+q("span").value/1e3,simT+(+q("stepUs").value)*1e-6);draw();}});
+    function frame(ts) { const dt = last ? Math.min(0.05, (ts - last) / 1000) : 0; last = ts; phase += dt * 2.2; simT = Math.max(simT, 1e-6) * 10 ** (dt * 0.8 * play.rate()); if (simT >= +q("span").value/1e3) { simT = +q("span").value/1e3; anim = 0; runBtn.textContent = L.run; draw(); return; } draw(); anim = requestAnimationFrame(frame); }
     box.addEventListener("click", e => { const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
-      if (a === "run") { if (anim) { cancelAnimationFrame(anim); anim = 0; runBtn.textContent = L.run; } else { simT = 1e-6; last = 0; runBtn.textContent = L.pause; anim = requestAnimationFrame(frame); } }
+      if (a === "run") { if (anim) { cancelAnimationFrame(anim); anim = 0; runBtn.textContent = L.run; } else { if(simT>=+q("span").value/1e3)simT=0;last = 0; runBtn.textContent = L.pause; anim = requestAnimationFrame(frame); } }
       if(a === "inspect"){ZGCoolingView.stopRecording(box);if(q("inspectTime").checkValidity()){cancelAnimationFrame(anim);anim=0;simT=+q("inspectTime").value/1e3;phase=2.2;draw();}}
       if(a === "fit"){const a=amps(simT);if(a.every(Number.isFinite)){q("radialRange").value=(+Math.max(.01,1.3*(a[0]+a[1])*1e6).toPrecision(5));q("axialRange").value=(+Math.max(.01,1.3*a[2]*1e6).toPrecision(5));q("zoom").value=1;}draw();}
       if(a === "reset"){ZGCoolingView.stopRecording(box);q("radialRange").value=60;q("axialRange").value=60;q("inspectTime").value=0;cancelAnimationFrame(anim);anim=0;simT=0;phase=0;q("zoom").value=1;draw();}

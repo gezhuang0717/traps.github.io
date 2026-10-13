@@ -16,11 +16,20 @@
  }
  function cage(g,map,half,yaw,pitch){const vertices=[];for(const x of [-1,1])for(const y of [-1,1])for(const z of [-1,1])vertices.push([x*half,y*half,z*half]);g.strokeStyle='#c3d2e5';g.lineWidth=1;for(let i=0;i<8;i++)for(let j=i+1;j<8;j++)if(vertices[i].filter((x,k)=>x!==vertices[j][k]).length===1){const a=project(vertices[i],yaw,pitch),b=project(vertices[j],yaw,pitch);g.beginPath();g.moveTo(map.X(a[0]),map.Y(a[1]));g.lineTo(map.X(b[0]),map.Y(b[1]));g.stroke();}}
  const recordings=new WeakMap();
+ function playbackClock(rate){let last=null,carry=0;return{reset(){last=null;carry=0;},next(ts,base,max=240){if(!Number.isFinite(ts))return 0;if(last===null){last=ts;return 0;}const elapsed=Math.max(0,Math.min(.1,(ts-last)/1000));last=ts;const work=elapsed*60*base*Math.max(.05,Math.min(10,rate()));carry+=work;const n=Math.min(max,Math.floor(carry+1e-9));carry=carry>=max?0:carry-n;return n;}};}
+ function playback(box,step){const range=box.querySelector('[name="playbackSlider"]'),number=box.querySelector('[name="playbackSpeed"]');
+  const set=value=>{const v=Number(value);if(!Number.isFinite(v)||v<.05||v>10)return false;number.value=String(v);range.value=String(v);const out=box.querySelector('[data-playback-readout]');if(out)out.textContent=out.textContent.replace(/[0-9.]+×/,v+'×');return true;};
+  range.addEventListener('input',()=>set(range.value));number.addEventListener('input',()=>set(number.value));number.addEventListener('change',()=>{if(!set(number.value)){number.value=range.value;number.reportValidity();}});
+  box.querySelectorAll('[data-playback-rate]').forEach(b=>b.addEventListener('click',()=>set(b.dataset.playbackRate)));
+  box.querySelector('[data-playback-step]').addEventListener('click',step);
+  const rate=()=>{const v=Number(number.value);return Number.isFinite(v)&&v>=.05&&v<=10?v:Number(range.value);},clock=playbackClock(rate);
+  return{rate,clock,readout:box.querySelector('[data-playback-readout]'),metadata:()=>({speed_multiplier:rate(),video_fps:Number(box.querySelector('[name="videoFps"]').value),numerical_timestep:'unchanged by playback speed',work_cap_steps_per_frame:240})};
+ }
  function stopRecording(box){const r=recordings.get(box);if(r&&r.state!=='inactive')r.stop();}
  function recordPanel(box,canvases,name,conditions,start){const current=recordings.get(box);if(current&&current.state!=='inactive'){current.stop();return current;}
-  const seconds=Math.max(2,Math.min(30,+box.querySelector('[name="videoSeconds"]')?.value||8)),out=compose(canvases,conditions());out.hidden=true;box.append(out);let timer;
-  const rec=zgExport.record(out,seconds,name,active=>{box.querySelectorAll('[data-act="video"],[data-paul-act="video"]').forEach(b=>{b.classList.toggle('is-rec',active);b.setAttribute('aria-pressed',String(active));});if(!active){clearInterval(timer);out.remove();recordings.delete(box);}},{fps:20,bitrate:5000000});
-  if(rec){recordings.set(box,rec);timer=setInterval(()=>compose(canvases,conditions(),out),50);out.getContext('2d').fillRect(0,out.height-1,1,1);start?.();}else out.remove();return rec;
+  const seconds=Math.max(2,Math.min(30,+box.querySelector('[name="videoSeconds"]')?.value||8)),fps=Math.max(10,Math.min(60,+box.querySelector('[name="videoFps"]')?.value||20)),out=compose(canvases,conditions());out.hidden=true;box.append(out);let timer;
+  const rec=zgExport.record(out,seconds,name,active=>{box.querySelectorAll('[data-act="video"],[data-paul-act="video"]').forEach(b=>{b.classList.toggle('is-rec',active);b.setAttribute('aria-pressed',String(active));});box.querySelectorAll('[name="videoFps"],[name="videoSeconds"]').forEach(e=>e.disabled=active);if(!active){clearInterval(timer);out.remove();recordings.delete(box);}},{fps,bitrate:5000000});
+  if(rec){recordings.set(box,rec);timer=setInterval(()=>compose(canvases,conditions(),out),1000/fps);out.getContext('2d').fillRect(0,out.height-1,1,1);start?.();}else out.remove();return rec;
  }
- window.ZGCoolingView={project,interact,compose,phaseArea,frame,cage,recordPanel,stopRecording,isRecording:box=>recordings.get(box)?.state==='recording'};
+ window.ZGCoolingView={project,interact,compose,phaseArea,frame,cage,playback,playbackClock,recordPanel,stopRecording,isRecording:box=>recordings.get(box)?.state==='recording'};
 })();

@@ -17,7 +17,7 @@
     <label class="g-slider">{{ $t.sat }} <input type="range" name="s0" min="0.02" max="10" step="0.01" value="0.3"><output data-o="s0"></output></label>
     <label class="g-slider">{{ $t.t0 }} <input type="range" name="t0" min="0.1" max="10000" step="0.1" value="80"><output data-o="t0"></output></label>
     <label class="g-slider">{{ $t.atoms }} <input type="range" name="n" min="50" max="800" step="10" value="300"><output data-o="n"></output></label>
-    <label class="g-slider">{{ $t.speed }} <input type="range" name="speed" min="1" max="20" step="1" value="4"><output data-o="speed"></output></label>
+
   </div>
   <div class="g-opts-row">
 <label>{{ if eq $k "zh" }}速度图范围{{ else }}Velocity view range{{ end }} <select name="vview"><option value="initial">{{ if eq $k "zh" }}初始范围（比较冷却）{{ else }}Initial range (compare cooling){{ end }}</option><option value="current">{{ if eq $k "zh" }}当前云团（细看分布）{{ else }}Current cloud (inspect distribution){{ end }}</option><option value="capture">{{ if eq $k "zh" }}激光俘获范围{{ else }}Laser capture range{{ end }}</option></select></label>
@@ -25,6 +25,7 @@
 <label>{{ if eq $k "zh" }}随机种子{{ else }}Random seed{{ end }} <input name="seed" type="number" min="1" max="4294967295" value="20261010" step="1"></label>
 </div><div class="zg-row"><button type="button" class="zg-btn" data-act="run">{{ $t.start }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="reset">{{ $t.reset }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="best">{{ $t.best }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">{{ $t.csv }}</button></div>
 <div class="g-export-bar"><strong>{{ if eq $k "zh" }}保存动画与条件{{ else }}Save animation and conditions{{ end }}</strong><button type="button" class="zg-btn" data-act="video">⏺ {{ if eq $k "zh" }}视频 / 停止录制{{ else }}Video / stop recording{{ end }}</button><label>{{ if eq $k "zh" }}视频长度 (s){{ else }}Video length (s){{ end }} <input name="videoSeconds" type="number" value="8" min="2" max="30" step="1"></label><button type="button" class="zg-btn zg-btn-ghost" data-act="settings">JSON {{ if eq $k "zh" }}条件{{ else }}conditions{{ end }}</button><span class="zg-muted">{{ if eq $k "zh" }}录制后在预览下点击“保存录制视频”；画面包含参数与物理时间。{{ else }}After recording, use Save recorded video below its preview. Captures include parameters and physical time.{{ end }}</span></div>
+  {{ partial "zg/cooling-playback.html" "numerical" }}
   <p class="zg-muted">{{ $t.goal }}</p>
   <div class="g-laser-grid">
     <figure><figcaption>{{ $t.view }}</figcaption><canvas width="520" height="200" data-cv="cloud"></canvas></figure>
@@ -66,6 +67,7 @@
     <button class="zg-btn zg-btn-ghost" data-act="fit">{{ if eq $k "zh" }}适应当前轨道{{ else }}Fit current orbit{{ end }}</button>
   </div>
   <p class="zg-muted">{{ if eq $k "zh" }}先将光束偏移设为 0，再点「建议偏移」：箭头进入绿色区间，磁控管变化率从正变负。固定范围用于比较冷却；「适应当前轨道」用于放大。查看时刻只改变观察位置，不重新拟合。{{ else }}Compare beam offset 0 with Suggest offset: the indicator enters the green window and the magnetron rate changes from positive to negative. Keep a fixed range to compare cooling; Fit current orbit magnifies the current motion. Inspect time changes the observation point without refitting.{{ end }}</p>
+  {{ partial "zg/cooling-playback.html" "analytic" }}
   <figure><figcaption>{{ $t.window }}</figcaption><canvas width="760" height="170" data-cv="win"></canvas></figure>
   <div class="g-laser-grid">
     <figure><figcaption>{{ $t.orbit }}</figcaption><canvas width="420" height="420" data-cv="orbit"></canvas></figure>
