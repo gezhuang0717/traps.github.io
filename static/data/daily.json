@@ -1,6 +1,158 @@
 {
   "entries": [
     {
+      "date": "2026-10-13",
+      "type": "news",
+      "title": "Gravity and quantum information linked through a derivation of Einstein's equations",
+      "summary": "Recent research shows that gravity and quantum information are deeply connected and that the shape of spacetime can be traced back to the way information is stored in quantum fields.",
+      "url": "https://phys.org/news/2026-10-gravity-quantum-linked-derivation-einstein.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "news",
+      "title": "Magnetic sculpting transforms single-source fields into predetermined shapes with mathematical precision",
+      "summary": "Magnetic fields are invisible yet essential components in technologies ranging from MRI scanners and particle accelerators to atomic clocks and future quantum computers. Each of these applications requires magnetic fields with specific shapes and properties. Today, creating…",
+      "url": "https://phys.org/news/2026-10-magnetic-sculpting-source-fields-predetermined.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "preprint",
+      "title": "Quantum dynamics of an ion in an RF quadrupole trap with weak octupolar anharmonicity",
+      "summary": "Sukanya Jana et al. — We investigate the quantum dynamics of a single ion confined in a radio-frequency (RF) Paul trap in the presence of weak octupole-induced anharmonicity, as can occur in realistic ion-trap potential. The explicitly time-dependent quadrupole potential is…",
+      "url": "https://arxiv.org/abs/2610.13293v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "arxiv": "2610.13293v1",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "preprint",
+      "title": "Impact of ab initio E1 strength on neutron capture rates along the nickel isotopic chain",
+      "summary": "Francesca Bonaiti et al. — Nucleosynthesis simulations of the r-process require neutron capture rates for neutron-rich nuclei, many of which lie beyond experimental reach. Predicting these rates relies on theoretical calculations of the low-energy electric dipole (E1) strength…",
+      "url": "https://arxiv.org/abs/2610.13868v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-09",
+      "arxiv": "2610.13868v1",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "Quantum 'birthmarks' hold lasting traces of a system's past",
+      "summary": "Some classical physical systems can explore many configurations over time until their long-term behavior no longer reveals their starting conditions. The sampling of available configurations according to the appropriate statistical distribution is a property called ergodicity.",
+      "url": "https://phys.org/news/2026-10-quantum-birthmarks.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-11",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "From nonmagnetic to magnetic: A 2D semiconductor with electrically tunable magnetism",
+      "summary": "Researchers from the National University of Singapore (NUS), in collaboration with scientists from institutions in Switzerland, the Czech Republic and Germany, have demonstrated a way to introduce magnetism into an otherwise nonmagnetic two-dimensional (2D) semiconductor and…",
+      "url": "https://phys.org/news/2026-10-nonmagnetic-magnetic-2d-semiconductor-electrically.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "One step closer to quantum computers that can correct their own mistakes",
+      "summary": "Researchers from Rutgers, IBM and collaborating institutions have shown that a quantum computer can check what is happening inside it and respond while it is running, repeatedly resetting parts of the system to bring chaotic behavior under control.",
+      "url": "https://phys.org/news/2026-10-closer-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "news",
+      "title": "Hybrid quantum computers could finally get to grips with light and matter",
+      "summary": "Many of nature's most important processes depend on how particles of matter interact with light and other force-carrying particles. So far, however, it has proven difficult for conventional computers to determine how individual particles behave in these interactions.",
+      "url": "https://phys.org/news/2026-10-hybrid-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-11",
+      "type": "news",
+      "title": "Ultraviolet laser pulses engineer diamond defects selectively, leaving quantum qubits intact",
+      "summary": "When we think about a diamond, we often think about a material whose value comes from its perfection. In my research, however, I am interested in something almost opposite: the tiny imperfections inside diamonds. These atomic-scale defects can give diamonds new optical and…",
+      "url": "https://phys.org/news/2026-10-ultraviolet-laser-pulses-diamond-defects.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-10",
+      "collected_at": "2026-10-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-11",
+      "type": "news",
+      "title": "New stability rules distinguish quantum phases of matter that an older method wrongly groups together",
+      "summary": "Most of us recognize basic phases of matter and their properties: solids maintain their shape, liquids flow freely with constant volume, and gases expand to fill their container. Quantum phases, on the other hand, are much harder to categorize, overturning traditional notions…",
+      "url": "https://phys.org/news/2026-10-stability-distinguish-quantum-phases-older.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-10",
+      "collected_at": "2026-10-11",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-10",
       "type": "preprint",
       "title": "Femtosecond Three-Dimensional Imaging of Single-Protein with Hard X-ray Laser",
@@ -3693,24 +3845,24 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-10T10:57:19+00:00",
+    "checked_at": "2026-10-13T12:28:28+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 2,
-        "new": 2
+        "matched": 1,
+        "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 0,
+        "matched": 1,
         "new": 0
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 4,
+        "matched": 0,
         "new": 0
       },
       {
@@ -3723,7 +3875,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 4
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
