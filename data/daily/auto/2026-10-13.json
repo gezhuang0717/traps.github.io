@@ -1,0 +1,35 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-13",
+      "type": "news",
+      "title": "Gravity and quantum information linked through a derivation of Einstein's equations",
+      "summary": "Recent research shows that gravity and quantum information are deeply connected and that the shape of spacetime can be traced back to the way information is stored in quantum fields.",
+      "url": "https://phys.org/news/2026-10-gravity-quantum-linked-derivation-einstein.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-13",
+      "type": "news",
+      "title": "Magnetic sculpting transforms single-source fields into predetermined shapes with mathematical precision",
+      "summary": "Magnetic fields are invisible yet essential components in technologies ranging from MRI scanners and particle accelerators to atomic clocks and future quantum computers. Each of these applications requires magnetic fields with specific shapes and properties. Today, creating…",
+      "url": "https://phys.org/news/2026-10-magnetic-sculpting-source-fields-predetermined.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-12",
+      "collected_at": "2026-10-13",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-13T12:28:28+00:00"
+}
