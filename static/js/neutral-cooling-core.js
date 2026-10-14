@@ -32,11 +32,14 @@
     if(Math.ceil(p.duration_ms*1e-3/dt)*p.n>20000000) throw new RangeError('Requested duration / timestep / particles exceeds the 20 million particle-step work limit.');
     return {p,derived:{...derived,dtLimit,dt}};
   }
-  function rng(seed) {let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+  function rng(seed) {let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
   function normal(random) {return Math.sqrt(-2*Math.log(Math.max(1e-15,random())))*Math.cos(2*Math.PI*random());}
   function safeDt(p,d,speed=0) {
-    // Conservative Lorentzian derivative bound, plus transit/Zeeman-change scales.
-    const saturation=6*p.s0,rateBound=p.laser?3.9*p.s0/(1+saturation)**1.5:0;
+    // Gaussian wings can retain one strong pair while the other pairs vanish.
+    // For its local intensity s <= s0, total saturation is at least 2s;
+    // s/(1+2s)^(3/2) peaks at s=1. Keep 3.9 as the conservative coefficient
+    // (the isolated-pair Lorentzian derivative coefficient is 9/(4*sqrt(3))).
+    const peakS=Math.min(p.s0,1),rateBound=p.laser?3.9*peakS/(1+2*peakS)**1.5:0;
     const damping=rateBound*C.hbar*d.k*d.k/d.mass;
     const oscillation=Math.sqrt(rateBound*d.k*p.muEff*C.muB*d.gradient/d.mass);
     const v=Math.max(speed,Math.hypot(p.driftX,p.driftY,p.driftZ)+5*Math.sqrt(C.kB*p.temperature_uK*1e-6/d.mass));

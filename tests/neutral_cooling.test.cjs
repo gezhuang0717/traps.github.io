@@ -38,6 +38,13 @@ test('One seeded recoil step has the predicted velocity variance within finite-s
 test('Same seed reproduces state and stochastic steps; different seeds change samples',()=>{
  const a=C.create({n:16}),b=C.create({n:16});for(let i=0;i<10;i++){C.step(a);C.step(b);}assert.deepEqual(a.positions,b.positions);assert.deepEqual(a.velocities,b.velocities);assert.notDeepEqual(a.initialPositions,C.create({n:16,seed:2}).initialPositions);
 });
+test('Long seeded streams retain uint32 state beyond the floating integer precision boundary',()=>{
+ const seed=20261014,random=C.rng(seed),probes=new Set([1,2,4917758,4917759,4917760,5100000]);
+ // Independent exact modular state oracle; no repeated floating-point accumulation.
+ function reference(draw){let t=Number(BigInt.asUintN(32,BigInt(seed)+BigInt(draw)*0x6D2B79F5n));t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;}
+ for(let draw=1;draw<=5100000;draw++){const value=random();if(probes.has(draw))assert.equal(value,reference(draw),`uint32 sequence at draw ${draw}`);}
+ assert.equal(reference(4917759),.23834496038034558);
+});
 test('Laser-off drift and gravity match analytic ballistic motion without invented damping',()=>{
  const s=C.create({n:16,temperature_uK:0,sigma_mm:0,driftX:1,driftY:2,driftZ:3,laser:false,gravity:true,duration_ms:.1});while(C.step(s)){};near(s.time,.0001,1e-15);for(const r of s.positions){near(r[0],s.time,1e-13);near(r[1],2*s.time,1e-13);near(r[2],3*s.time-.5*C.C.g*s.time**2,1e-13);}near(C.diagnostics(s).axes[0],0,1e-20);
 });
@@ -52,6 +59,14 @@ test('Recoil-resolved Sr red line and excessive work requests fail before alloca
 });
 test('Safe timestep decreases with fast cloud transit and is never increased by stepping',()=>{
  const {p,derived:d}=setup({dt_us:20}),base=C.safeDt(p,d),fast=C.safeDt(p,d,500);assert.ok(fast<base);const s=C.create({n:16,dt_us:20});const actual=C.step(s);assert.ok(actual<=s.d.dt);assert.ok(actual<=20e-6);
+});
+test('Safe timestep bounds local damping when Gaussian wings retain only one strong beam pair',()=>{
+ for(const s0 of [.1,1,5])for(let axis=0;axis<3;axis++){
+  const {p,derived:d}=setup({method:'molasses3d',s0,detuning:-Math.sqrt((1+2*s0)/12),n:16,temperature_uK:0,sigma_mm:0,waist_mm:10,dt_us:20,duration_ms:.1});
+  const r=[0,0,0],v=[0,0,0],h=d.gamma/d.k*1e-7;r[axis]=.04;v[axis]=h;
+  const damping=-(C.force(r,v,p,d).acc[axis]-C.force(r,v.map(x=>-x),p,d).acc[axis])/(2*h);
+  assert.ok(damping>0);assert.ok(damping*C.safeDt(p,d)<=.02*(1+1e-6),`axis ${axis}, s0 ${s0}: damping*dt=${damping*C.safeDt(p,d)}`);
+ }
 });
 test('All six non-recoil-resolved neutral species retain valid all-axis MOT responses',()=>{
  for(const [species,mass_u,lambda_nm,gamma_MHz]of [['rb87',86.90918052859357,780.241209686,6.0666],['cs133',132.90545195855648,852.34727582,5.234],['na23',22.989769281957617,589.1583264,9.7946],['sr88b',87.90561225397822,460.861952,30.3],['yb174b',173.93886754532093,398.9108443,29.13],['yb174g',173.93886754532093,555.80068663,.1824]]){
