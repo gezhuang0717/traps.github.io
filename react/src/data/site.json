@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-14T06:43:18+00:00",
+  "generated": "2026-10-14T19:41:12+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5951,6 +5951,223 @@
       "published": "2026-10-13",
       "collected_at": "2026-10-14",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Michelson Postdoctoral Prize Lectureship - Call for Nominations — Case Western Reserve University",
+      "summary": "North America · deadline 2027-01-01 · POSTDOC/JUNIOR. Nominations are invited for the 28th annual MICHELSON POSTDOCTORAL PRIZE LECTURESHIP, to be held Spring 2027, in the Dept. of Physics at Case Western Reserve University in Cleveland OH, USA. This prize will be awarded to a…",
+      "url": "https://inspirehep.net/jobs/3214851",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "deadline": "2027-01-01",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Post-doctoral position in QCD theory — NCBJ, Warsaw",
+      "summary": "Europe · deadline 2026-12-22 · POSTDOC. The Theoretical Physics Division at the National Centre for Nuclear Research (NCBJ) in Warsaw, Poland, invites applications for a postdoctoral research position in high-energy Quantum Chromodynamics (QCD). The position is for two years,…",
+      "url": "https://inspirehep.net/jobs/3214626",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "deadline": "2026-12-22",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Juan de la Cierva 2026 - Expressions of interest — ICC, Barcelona U.",
+      "summary": "Europe · deadline 2026-11-26 · POSTDOC. The Institute of Cosmos Sciences of the University of Barcelona (ICCUB) welcomes expressions of interest from researchers wishing to apply for a postdoctoral position through the Spanish government's Juan de la Cierva (JdC) 2026…",
+      "url": "https://inspirehep.net/jobs/3214624",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "deadline": "2026-11-26",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Postdoctoral Fellow in Axion Search Experiment — Stockholm U. (main)",
+      "summary": "Europe · deadline 2026-11-13 · POSTDOC. Postdoctoral Fellow in Experimental Axion Physics at Stockholm University The Department of Physics at Stockholm University invites applications for a postdoctoral position in experimental physics affiliated with the ALPHA project, an…",
+      "url": "https://inspirehep.net/jobs/3214619",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "deadline": "2026-11-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Illuminating Quantum Ferroelectrics",
+      "summary": "Author(s): Sophia Chen An ultrafast optical technique uncovers new clues to the origin of bulk polarization in quantum ferroelectric materials. [Physics 19, s132] Published Wed Oct 14, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s132",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "IBM executive warns of risk of quantum computing hacks",
+      "summary": "Organizations are unprepared for the risks posed by quantum computing, IBM's Europe and Africa vice president Alessandro Curioni told AFP Wednesday, referring to the high-speed technology that could crack security encryptions and enable large-scale cyberattacks.",
+      "url": "https://phys.org/news/2026-10-ibm-quantum-hacks.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Software advance brings complex quantum simulations to standard computers",
+      "summary": "A major software advance could aid the creation of bigger, more reliable quantum computers, a study suggests. Researchers have developed an algorithm that enables off-the-shelf computers to run quantum simulations previously only possible using the world's most powerful…",
+      "url": "https://phys.org/news/2026-10-software-advance-complex-quantum-simulations.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "A tiny magnetic whirlpool could point to a new kind of ultra-efficient memory",
+      "summary": "Every time a computer stores or erases information, it uses energy. The amount is tiny for a single operation, but those operations happen billions of times every second. For decades, scientists have wondered just how little energy a memory device could use before reaching the…",
+      "url": "https://phys.org/news/2026-10-tiny-magnetic-whirlpool-kind-ultra.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "From spin wave to superconducting circuit: A one-way street for quantum information",
+      "summary": "Quantum information systems could one day shape everyday life through faster computing, sharper sensing and more secure communication. A new result from the U.S. Department of Energy's (DOE) Argonne National Laboratory and the University of Illinois Urbana-Champaign (U. of I.)…",
+      "url": "https://phys.org/news/2026-10-superconducting-circuit-street-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Storing memory on a chip with flowing water",
+      "summary": "Like the folds in crumpled sheets or the footprints on recently trodden sand, certain materials mark their histories. Now, Yale researchers show that networks of flowing water and other fluids can store their own memories—similar to how a computer chip does—an innovation that…",
+      "url": "https://phys.org/news/2026-10-memory-chip.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "A dynamic ruler for positional memory in regeneration",
+      "summary": "Nature Physics, Published online: 14 October 2026; doi:10.1038/s41567-026-03488-w Zebrafish can determine the amount of tissue to regrow after appendage amputation. Now, a study shows that a signal gradient that scales with the amount of tissue left to regenerate ensures that…",
+      "url": "https://www.nature.com/articles/s41567-026-03488-w",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "Fusion digital twins from imperfect models",
+      "summary": "Nature Physics, Published online: 14 October 2026; doi:10.1038/s41567-026-03485-z Digital twins could transform how fusion plasmas are predicted, designed and controlled. We argue that realizing this promise requires multi-fidelity frameworks that systematically combine…",
+      "url": "https://www.nature.com/articles/s41567-026-03485-z",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "SESAME could unlock more opportunities",
+      "summary": "Nature Physics, Published online: 13 October 2026; doi:10.1038/s41567-026-03483-1 Higher education institutions in the Middle East are not yet making the most of the synchrotron light source in Jordan.",
+      "url": "https://www.nature.com/articles/s41567-026-03483-1",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Mark Hartz receives APS Fellowship",
+      "summary": "TRIUMF&#8217;s own, Mark Hartz, has been recognized as a Fellow of the American Physical Society (APS) and was selected by the Division of Particles and Fields. The APS Fellowship Program celebrates researchers who have made exceptional impact in the international physics…",
+      "url": "https://triumf.ca/2026/10/14/mark-hartz-receives-aps-fellowship/",
+      "source": "TRIUMF news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "triumf-isac"
+      ]
     },
     {
       "date": "2026-10-13",
