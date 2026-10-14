@@ -3,7 +3,7 @@
 {{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
 {{- $D := hugo.Data.laser_cooling -}}
 {{- $t := index $D.labels $k | default (index $D.labels "en") -}}
-<section id="g-laser" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "laser" "fancier" true "fancierLabel" (cond (eq $k "zh") "更进阶：三维保罗 / 潘宁阱" "Fancier: 3D Paul / Penning")) }}
+<section id="g-laser" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "laser" "fancier" true "fancierLabel" (cond (eq $k "zh") "更进阶：三维保罗 / 潘宁阱" "Fancier: 3D Paul / Penning") "extra" (slice (dict "name" "molasses3d" "label" (cond (eq $k "zh") "三维光学黏胶" "3D optical molasses")) (dict "name" "mot" "label" (cond (eq $k "zh") "磁光阱 MOT" "Magneto-optical trap · MOT")))) }}
 <div data-local-panel="classic">
 <section class="zg-card g-box g-laser" data-full-precision id="g-laser-m" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
   <h2>❄️ {{ $t.title }} — {{ $t.m_title }}</h2><p class="zg-muted">{{ $t.intro }}</p><p class="zg-muted">{{ $t.m_intro }}</p>
@@ -82,4 +82,6 @@
 </section>
 <p class="zg-muted">{{ if eq $k "zh" }}轨道使用真实 ν₊、ν₋、νz 与当前物理时间的相位，轨迹线仅显示最近六个回旋周期；播放采用加速的对数时钟，高频运动可能视觉混叠。拖动三维图旋转，滚轮缩放。{{ else }}Orbits use the physical ν₊, ν₋ and νz phases at the displayed time; the trail covers the last six cyclotron periods. Playback uses an accelerated logarithmic clock and fast motion can visually alias. Drag the 3D view to rotate; wheel to zoom.{{ end }}</p></div>
 <div data-local-panel="fancier" hidden>{{ partial "zg/paul-cooling.html" . }}</div>
+<div data-local-panel="molasses3d" hidden>{{ partial "zg/neutral-cooling.html" (dict "method" "molasses3d") }}</div>
+<div data-local-panel="mot" hidden>{{ partial "zg/neutral-cooling.html" (dict "method" "mot") }}</div>
 </section>

@@ -479,6 +479,10 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 /* ---- layout fixes (2026-10-10): no overlapping widgets, no horizontal page scroll ---- */
 .zg-local-tabs{display:flex;flex-wrap:wrap;gap:.4rem;max-width:100%}
 .zg-local-tabs .zg-btn{white-space:normal;max-width:100%}
+.g-neutral-model{padding:.75rem 1rem;border-left:4px solid #0e7490;background:#ecfeff;color:#164e63;border-radius:8px}
+.g-neutral-cooling [data-neutral-inspect]{display:block;min-height:1.8em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;text-align:left}
+.g-neutral-cooling [data-neutral-pinned]{width:100%;max-width:100%;box-sizing:border-box;resize:vertical;font-size:.85rem;font-variant-numeric:tabular-nums}
+.g-neutral-cooling .g-laser-grid figure{overflow:hidden}
 .zg-cal-line,.zg-cal-badge{white-space:normal;overflow-wrap:anywhere;max-width:100%}
 .zg-card textarea{max-width:100%;box-sizing:border-box}
 .zg-card details{min-width:0;max-width:100%}

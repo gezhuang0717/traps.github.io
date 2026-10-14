@@ -28,7 +28,7 @@
  function stopRecording(box){const r=recordings.get(box);if(r&&r.state!=='inactive')r.stop();}
  function recordPanel(box,canvases,name,conditions,start){const current=recordings.get(box);if(current&&current.state!=='inactive'){current.stop();return current;}
   const seconds=Math.max(2,Math.min(30,+box.querySelector('[name="videoSeconds"]')?.value||8)),fps=Math.max(10,Math.min(60,+box.querySelector('[name="videoFps"]')?.value||20)),out=compose(canvases,conditions());out.hidden=true;box.append(out);let timer;
-  const rec=zgExport.record(out,seconds,name,active=>{box.querySelectorAll('[data-act="video"],[data-paul-act="video"]').forEach(b=>{b.classList.toggle('is-rec',active);b.setAttribute('aria-pressed',String(active));});box.querySelectorAll('[name="videoFps"],[name="videoSeconds"]').forEach(e=>e.disabled=active);if(!active){clearInterval(timer);out.remove();recordings.delete(box);}},{fps,bitrate:5000000});
+  const rec=zgExport.record(out,seconds,name,active=>{box.querySelectorAll('[data-act="video"],[data-paul-act="video"]').forEach(b=>{b.classList.toggle('is-rec',active);b.setAttribute('aria-pressed',String(active));});box.querySelectorAll('[name="videoFps"],[name="videoSeconds"],[data-recording-lock]').forEach(e=>e.disabled=active);if(!active){clearInterval(timer);out.remove();recordings.delete(box);}},{fps,bitrate:5000000});
   if(rec){recordings.set(box,rec);timer=setInterval(()=>compose(canvases,conditions(),out),1000/fps);out.getContext('2d').fillRect(0,out.height-1,1,1);start?.();}else out.remove();return rec;
  }
  window.ZGCoolingView={project,interact,compose,phaseArea,frame,cage,playback,playbackClock,recordPanel,stopRecording,isRecording:box=>recordings.get(box)?.state==='recording'};

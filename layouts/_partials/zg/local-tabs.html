@@ -10,4 +10,7 @@
 {{- if .fancier }}
 <button class="zg-btn zg-btn-ghost" type="button" role="tab" id="{{ .id }}-fancier-tab" data-local-tab="fancier" aria-selected="false">{{ .fancierLabel | default $t.fancier }}</button>
 {{- end }}
+{{- range .extra }}
+<button class="zg-btn zg-btn-ghost" type="button" role="tab" id="{{ $.id }}-{{ .name }}-tab" data-local-tab="{{ .name }}" aria-selected="false">{{ .label }}</button>
+{{- end }}
 </div>
