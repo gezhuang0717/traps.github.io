@@ -1,6 +1,223 @@
 {
   "entries": [
     {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Postdoctoral Position in Particle Theory and Quantum Simulations — Argonne (main)",
+      "summary": "North America · deadline 2027-01-08 · POSTDOC. Postdoctoral Position in Particle Theory, Nonperturbative Physics, Real-Time Dynamics, and Quantum Simulation The Particle Theory Group at Argonne National Laboratory invites applications for a postdoctoral position in particle…",
+      "url": "https://inspirehep.net/jobs/3213976",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "deadline": "2027-01-08",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Postdoc in Particle Theory — Argonne (main)",
+      "summary": "North America · deadline 2027-01-08 · POSTDOC. The Particle Theory Group of the High Energy Physics Division at Argonne National Laboratory invites applications for one or more postdoctoral positions. The search is broad and open to all areas of theoretical particle physics,…",
+      "url": "https://inspirehep.net/jobs/3213974",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "deadline": "2027-01-08",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "job",
+      "title": "Postdoctoral Scholar — Northwestern U. (main)",
+      "summary": "North America · deadline 2027-01-08 · POSTDOC. Postdoctoral Scholar in Theoretical Physics at Northwestern University Professor Ian Low’s group at Northwestern University invites applications for one or more postdoctoral positions in theoretical physics, to begin in Fall 2027.…",
+      "url": "https://inspirehep.net/jobs/3213935",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "deadline": "2027-01-08",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Quantum Probability Requires Probability",
+      "summary": "Author(s): John B. DeBrota A new analysis reveals that all major derivations of the Born rule depend on a probabilistic assumption. [Physics 19, 133] Published Tue Oct 13, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.133",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Time Delay Probes Quantum Light",
+      "summary": "Author(s): Ryan Wilkinson Photoelectron interference can reveal otherwise hidden properties of quantum light through an apparent attosecond time shift. [Physics 19, s125] Published Tue Oct 13, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s125",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Ultrashort laser pulses offer a new way to probe electrons' quantum geometry",
+      "summary": "Researchers at Friedrich Schiller University Jena and the University of Regensburg have developed a method for determining, using light, a quantum property of electrons that has hitherto been difficult to access. The focus is on what is known as Berry curvature—a quantity that…",
+      "url": "https://phys.org/news/2026-10-ultrashort-laser-pulses-probe-electrons.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Optical skyrmions can control the motion of magnetic skyrmions",
+      "summary": "Magnetic skyrmions (MSks) are swirling patterns of magnetization that form inside certain magnetic materials. They can behave like actual particles in many ways, exhibiting a stable internal structure and distinct boundaries. Because they are extremely small and can be pushed…",
+      "url": "https://phys.org/news/2026-10-optical-skyrmions-motion-magnetic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Computational model guides lighting design to improve color discrimination in aging eyes",
+      "summary": "Researchers have developed a new computational model that accounts for the effects of aging on our eyes' ability to discriminate color. It could help guide lighting designs that make it easier for older adults to perceive colors while preserving the expected appearance for…",
+      "url": "https://phys.org/news/2026-10-discrimination-aging-eyes.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "Could meditation reveal an SU(3) symmetry shared by the observer and the universe?",
+      "summary": "You sit down to meditate. A conversation returns, then thoughts. You bring your attention back to the breath. Sometimes, after many such returns, the effort eases. Thoughts lose their urgency, while awareness remains clear. Less occupies the mind, yet the moment still feels…",
+      "url": "https://phys.org/news/2026-10-meditation-reveal-su3-symmetry-universe.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "news",
+      "title": "'Carpet' growth method yields long-sought 2D quantum material",
+      "summary": "For decades, physicists have sought a practical two-dimensional topological insulator: an ultrathin material whose interior blocks electricity but whose edges conduct it. In ordinary wires, electrons constantly bounce off imperfections, losing energy. But along the edges of a…",
+      "url": "https://phys.org/news/2026-10-carpet-growth-method-yields-sought.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "Renormalization of the shell-model neutrinoless double-$β$ decay operator starting from effective field theory",
+      "summary": "Author(s): L. Coraggio, G. De Gregorio, S. L. Lyu, and N. Itaco In this work, we approach for the first time the task of performing a shell-model calculation of the matrix element for neutrinoless double-$β$ decay, within a fully-consistent framework where the expressions of…",
+      "url": "http://link.aps.org/doi/10.1103/nqgq-2qgk",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "Ab initio study of $^{7}\\mathrm{Li}$ with coupled mass partitions",
+      "summary": "Author(s): Jakub Herko, Konstantinos Kravvaris, Sofia Quaglioni, Petr Navrátil, Guillaume Hupin, and Mark A. Caprio A new capability of describing charge-exchange and transfer reactions by coupling different mass/charge partitions of the compound nucleus was developed within a…",
+      "url": "http://link.aps.org/doi/10.1103/gyg8-q19s",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "Comparative study of Langevin and random walk models for nuclear fission in the overdamped regime",
+      "summary": "Author(s): A. Augustyn, T. Cap, M. Kowal, and K. Pomorski Fission is a highly dissipative process. Stochastic methods like Brownian shape motion and Langevin dynamics couple macroscopic-microscopic models with dynamics. This paper compares and contrasts these two approaches…",
+      "url": "http://link.aps.org/doi/10.1103/tnt4-6wbh",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "paper",
+      "title": "Astrophysical $S$ factor ${S}_{34}(0)$ using a Bayesian neural network",
+      "summary": "Author(s): R. Mitra, D. Gupta, and S. Saha The astrophysical $S$ factor for the radiative capture reaction $^{3}\\mathrm{He}(α,γ)^{7}\\mathrm{Be}$ plays a crucial role in big bang nucleosynthesis as well as stellar hydrogen burning. Its precise value is important in the context…",
+      "url": "http://link.aps.org/doi/10.1103/kcrs-nt5x",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-13",
+      "collected_at": "2026-10-14",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-13",
       "type": "news",
       "title": "Gravity and quantum information linked through a derivation of Einstein's equations",
@@ -3845,37 +4062,37 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-13T12:28:28+00:00",
+    "checked_at": "2026-10-14T01:03:00+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
-        "status": "PASS",
-        "matched": 1,
-        "new": 0
-      },
-      {
-        "source": "arXiv — nuclear masses, Q-values & astrophysics",
-        "status": "PASS",
-        "matched": 1,
-        "new": 0
-      },
-      {
-        "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 0,
         "new": 0
       },
       {
+        "source": "arXiv — nuclear masses, Q-values & astrophysics",
+        "status": "PASS",
+        "matched": 0,
+        "new": 0
+      },
+      {
+        "source": "INSPIRE-HEP Jobs — nuclear physics",
+        "status": "PASS",
+        "matched": 3,
+        "new": 3
+      },
+      {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 24,
-        "new": 0
+        "matched": 25,
+        "new": 2
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 2
+        "new": 5
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -3892,8 +4109,8 @@
       {
         "source": "Physical Review C",
         "status": "PASS",
-        "matched": 8,
-        "new": 0
+        "matched": 7,
+        "new": 4
       },
       {
         "source": "Nature Physics",
