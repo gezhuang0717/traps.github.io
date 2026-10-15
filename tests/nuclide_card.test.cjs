@@ -69,17 +69,44 @@ test('chart CSV exports the published 155Eu Qβ uncertainty and every newly avai
  const [header,rows]=saved[0];assert.equal(rows.length,1);assert.equal(rows[0].length,header.length);
  assert.equal(Number(rows[0][header.indexOf('Qbeta-_MeV')]),.2519612);
  assert.equal(Number(rows[0][header.indexOf('dQbeta-_MeV')]),.0008682);
- for(const q of S.quantities.filter(q=>q.startsWith('q')&&!['qbm','qec','qa'].includes(q)))assert.ok(header.includes(q+'_MeV')&&header.includes('d'+q+'_MeV')&&header.includes(q+'_flag'),q);
+ assert.equal(rows[0][header.indexOf('Qbeta-_source')],'AME2020 published table');
+ assert.equal(rows[0][header.indexOf('Qbeta-_uncertainty_basis')],'AME2020 evaluated table; mass correlations retained');
+ assert.match(rows[0][header.indexOf('D3n_uncertainty_basis')],/^diagonal primitive covariance/);
+ assert.equal(rows[0][header.indexOf('D3n_source')],'AME2020 marginal masses; recalculated');
+ assert.ok(header.includes('BE/A_MeV_per_nucleon')&&header.includes('dBE/A_MeV_per_nucleon'));
+ assert.ok(!header.includes('BE/A_MeV'));
+ for(const q of S.quantities.filter(q=>q.startsWith('q')&&!['qbm','qec','qa'].includes(q)))for(const suffix of ['_MeV','_flag','_value_extrapolated','_uncertainty_extrapolated','_uncertainty_basis','_source'])assert.ok(header.includes(q+suffix),q+suffix);
+});
+test('actual chart CSV keeps asymmetric # flags, absent quantities and tabulated versus recalculated basis',()=>{
+ const S=require('../static/js/mass-surface.js'),row=[50,66,'Sn',0,0,0,0,'','','','',[]],button={},saved=[];
+ const d={me:{v:-91525.979,e:.096,est:false,sigmaEst:true,source:'AME2020 published table',uncertainty_model:'AME2020 evaluated table; mass correlations retained'},
+  BEA:{v:8523.1166,e:.0009,est:true,sigmaEst:false,source:'AME2020 published table',uncertainty_model:'AME2020 evaluated table; mass correlations retained'},
+  d3n:{v:100,e:2,est:false,sigmaEst:true,uncertainty_model:'diagonal primitive covariance; repeated inputs combined'}};
+ const context={window:{ZGMassSurface:S},src:'ame',MOD:{},key:(z,n)=>z*1000+n,derived:()=>d,allRows:()=>[row],pass:()=>true,filt:'all',root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
+ const start=source.indexOf('  const csvRow ='),end=source.indexOf('  root.querySelector("[name=nc-line-width]")',start);
+ const line=source.split('\n').find(x=>x.includes('root.querySelector("[data-nc=csv]").onclick'));
+ vm.runInNewContext(source.slice(start,end)+'\n'+line,context);button.onclick();
+ const [header,rows]=saved[0],get=k=>rows[0][header.indexOf(k)];
+ assert.equal(rows[0].length,header.length);assert.equal(new Set(header).size,header.length);
+ assert.equal(get('ME_flag'),'');assert.equal(get('ME_value_extrapolated'),false);assert.equal(get('ME_uncertainty_extrapolated'),true);
+ assert.equal(get('BE/A_flag'),'#');assert.equal(get('BE/A_value_extrapolated'),true);assert.equal(get('BE/A_uncertainty_extrapolated'),false);
+ assert.equal(get('BE/A_MeV_per_nucleon'),'8.5231166');
+ assert.equal(get('D3n_flag'),'');assert.equal(get('D3n_uncertainty_extrapolated'),true);
+ assert.match(get('D3n_uncertainty_basis'),/^diagonal/);assert.equal(get('D3n_source'),'AME2020 marginal masses; recalculated');
+ for(const suffix of ['_MeV','_flag','_value_extrapolated','_uncertainty_extrapolated','_uncertainty_basis','_source'])assert.equal(get('Sn'+suffix),'');
 });
 test('chain CSV keeps evaluated and independent uncertainty provenance distinct',()=>{
- const button={},saved=[],base={r:[63,92,'Eu'],g:63,x:92,y:.2519612,e:.0008682,series:'ame',source:'AME2020',valueObj:{uncertainty_model:'AME2020 evaluated table; mass correlations retained'}};
+ const button={},saved=[],base={r:[63,92,'Eu'],g:63,x:92,y:.2519612,e:.0008682,est:false,series:'ame',source:'AME2020',valueObj:{uncertainty_model:'AME2020 evaluated table; mass correlations retained',source:'AME2020 published table',sigmaEst:true}};
  const context={root:{querySelector:()=>button},plotDomain:{x0:90,x1:94,y0:0,y1:1},plotPts:[base],modPts:[],residualPts:[],PQ:{qbm:['Q(β⁻)',null,'MeV']},pq:{value:'qbm'},pchain:{value:'Z'},MOD:{},seriesMeta:()=>({shape:'circle'}),MM:{provenance:()=>[]},inputTable:null,measured:{hash:()=>''},residualDomain:null,pointColor:()=>'blue',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)}};
  const start=source.indexOf('  root.querySelector("[data-nc=pcsv]").onclick'),end=source.indexOf('  /* ---------- events',start);
  vm.runInNewContext(source.slice(start,end),context);button.onclick();
  let [header,rows]=saved[0];assert.equal(rows[0][header.indexOf('uncertainty_basis')],base.valueObj.uncertainty_model);
  assert.equal(rows[0][header.indexOf('uncertainty')],.0008682);
- base.valueObj={uncertainty_model:'diagonal primitive covariance; repeated inputs combined'};button.onclick();
+ assert.equal(rows[0].length,header.length);assert.equal(rows[0][header.indexOf('source')],'AME2020 published table');
+ assert.equal(rows[0][header.indexOf('flag')],'');assert.equal(rows[0][header.indexOf('value_extrapolated')],false);assert.equal(rows[0][header.indexOf('uncertainty_extrapolated')],true);
+ base.est=true;base.valueObj={uncertainty_model:'diagonal primitive covariance; repeated inputs combined',sigmaEst:false};button.onclick();
  [header,rows]=saved[1];assert.match(rows[0][header.indexOf('uncertainty_basis')],/^diagonal primitive covariance/);
+ assert.equal(rows[0][header.indexOf('flag')],'#');assert.equal(rows[0][header.indexOf('value_extrapolated')],true);assert.equal(rows[0][header.indexOf('uncertainty_extrapolated')],false);
 });
 function domHarness(language,selected='50-66-1'){
  const empty=()=>({value:'',textContent:'',innerHTML:'',setAttribute(){},appendChild(){},focus(){}});

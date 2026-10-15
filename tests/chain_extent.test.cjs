@@ -70,6 +70,7 @@ test('model export retains missing deformation and every model-only chart nucleu
  assert.equal(rows.length,2);assert.equal(rows[0][b],'');assert.equal(rows[1][b],'');
  assert.equal(rows[0][m],-91210);assert.equal(rows[1][m],315130);assert.equal(rows[1][4],'');
  assert.ok(rows.every(row=>row.length===head.length));
+ for(const row of rows){assert.equal(row[head.indexOf('ME_ktuy05_value_extrapolated')],false);assert.equal(row[head.indexOf('ME_ktuy05_uncertainty_extrapolated')],false);assert.equal(row[head.indexOf('ME_ktuy05_source')],'ktuy05');assert.equal(row[head.indexOf('ME_ktuy05_uncertainty_basis')],'model uncertainty unavailable');}
  for(const k of Object.keys(context.window.ZGMassSurface.filters))assert.ok(head.includes(k+'_MeV')&&head.includes(k+'_flag'));
  for(const k of ['BE','d2n','d2p','d5n','d5p','wig'])assert.ok(head.includes(k+'_MeV')&&head.includes(k+'_flag'));
  values.set(50066,[-91210,0]);button.onclick();assert.equal(saved[1][1][0][b],0);
