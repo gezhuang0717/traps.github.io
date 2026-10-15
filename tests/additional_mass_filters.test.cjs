@@ -11,7 +11,7 @@ test('additional filters use forward slope signs and the R executable half-norma
  const sp=(z,n)=>b(z,n)-b(z-1,n),s2p=(z,n)=>b(z,n)-b(z-2,n);
  const gap=n=>s2n(z,n)-s2n(z,n+2);
  const expected={D1nS1n:sn(z,n)-sn(z,n+1),D1pS1p:sp(z,n)-sp(z+1,n),D1nS2n:s2n(z,n+1)-s2n(z,n),D1pS2p:s2p(z+1,n)-s2p(z,n),D2pS2n:(s2n(z,n)-s2n(z-2,n))/4,D1pS1n:sn(z,n)-sn(z-1,n),D1pS2n:(s2n(z,n)-s2n(z-1,n))/2,D2pS1n:(sn(z,n)-sn(z-2,n))/2,Gplus:gap(n)-gap(n+2),Gsym:(2*gap(n)-gap(n-2)-gap(n+2))/2};
- assert.equal(S.quantities.length,28);assert.deepEqual(Object.keys(expected),Object.keys(S.filters));
+ assert.equal(S.quantities.length,38);assert.deepEqual(Object.keys(expected),Object.keys(S.filters));
  for(const [k,v]of Object.entries(expected))near(d[k].v,v);
  near(surface((z,n)=>n**3).derive(z,n).Gplus.v,48);
  near(surface((z,n)=>n**4).derive(z,n).Gsym.v,192);

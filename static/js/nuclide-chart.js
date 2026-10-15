@@ -13,6 +13,7 @@
   const T = JSON.parse(root.dataset.labels || "{}");
   const P=window.ZGPhysics; let catalog=null, selectedState=null;
   const unknown=T.state_unknown;
+  const cardT=cardLabels(document.documentElement.lang);
   const escape=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const cv = root.querySelector("canvas.nc-canvas"), g = cv.getContext("2d");
   const card = root.querySelector(".nc-card"), legend = root.querySelector(".nc-legend"), ptab = root.querySelector(".nc-ptable");
@@ -29,6 +30,7 @@
   const axisNumber = name => { const v = chainInput(name).value; return v === '' ? null : Number(v); };
   /* theory masses: MOD[key] = {name, ref, url, map: Map(key → [ME keV, β2·1000])}; src = "ame" or a model key */
   let MOD = {}, PATHS = {}, src = "ame", extraRows = [], modelIndex = null, indexLoading = null, modelLoads = new Map(), modelErrors = new Set(), measured = null, inputTable = null;
+  let evaluated=null,evaluatedData=null,evaluatedWarning=false;
   const MM=window.ZGMeasuredMasses;
   const msel = root.querySelector("[name=nc-model]"), ovl = root.querySelector(".nc-ovl");
   const key = (Z, N) => Z * 1000 + N;
@@ -51,7 +53,7 @@
   const getM = (s, Z, N) => { const v = MOD[s] && MOD[s].map.get(key(Z, N)); return v ? P.primitive("model:"+s+":"+key(Z,N),v[0],null,false) : null; };
   const getter = s => s === "ame" ? get : s === "hybrid" ? (z,n)=>inputTable ? MM.getter(inputTable,get)(z,n) : get(z,n) : (Z,N)=>getM(s,Z,N);
   const derived = r => derivedZN(r[0], r[1], "ame");
-  const surface=window.ZGMassSurface.create(s=>getter(s),{get MEn(){return MEn;},get MEH(){return MEH;},get MEa(){return MEa;}},(s,z,n)=>{const b=MOD[s]?.map.get(key(z,n))?.[1];return b==null?null:{v:b,e:null,est:false};});
+  const surface=window.ZGMassSurface.create(s=>getter(s),{get MEn(){return MEn;},get MEH(){return MEH;},get MEa(){return MEa;}},(s,z,n)=>{const b=MOD[s]?.map.get(key(z,n))?.[1];return b==null?null:{v:b,e:null,est:false};},(z,n,q)=>evaluated?.get(z,n,q));
   const derivedZN=(z,n,s='ame')=>surface.derive(z,n,s);
   /* ME(AME) − ME(model) for the chosen (or default FRDM) model */
   const modelKey = () => src !== "ame" ? src : MOD.frdm2012 ? "frdm2012" : MOD.frdm1995 ? "frdm1995" : Object.keys(MOD)[0];
@@ -72,11 +74,23 @@
   const ramp = x => `hsl(${(1 - Math.max(0, Math.min(1, x))) * 270},85%,52%)`;
   const mv = (o, f = 1000) => o == null ? null : o.v / f;
   const D = r => derivedZN(r[0], r[1], src);          /* derived values from the current mass source */
+  const reactionDefinitions={
+    q2bm:{label:'Q(2β⁻)',formula:'ME(Z,N) − ME(Z+2,N−2)',terms:[[0,0,1],[2,-2,-1]]},
+    q2ec:{label:'Q(2EC)',formula:'ME(Z,N) − ME(Z−2,N+2)',terms:[[0,0,1],[-2,2,-1]]},
+    qecbp:{label:'Q(ECβ⁺)',formula:'Q(2EC) − 2mₑc²',terms:[[0,0,1],[-2,2,-1]]},
+    q2bp:{label:'Q(2β⁺)',formula:'Q(2EC) − 4mₑc²',terms:[[0,0,1],[-2,2,-1]]},
+    q4bm:{label:'Q(4β⁻)',formula:'ME(Z,N) − ME(Z+4,N−4)',terms:[[0,0,1],[4,-4,-1]]},
+    qep:{label:'Q(ECp)',formula:'ME(Z,N) − ME(Z−2,N+1) − ME(¹H)',terms:[[0,0,1],[-2,1,-1]]},
+    qbmn:{label:'Q(β⁻n)',formula:'ME(Z,N) − ME(Z+1,N−2) − ME(n)',terms:[[0,0,1],[1,-2,-1]]},
+    qda:{label:'Q(d,α)',formula:'ME(Z,N) + ME(²H) − ME(Z−1,N−1) − ME(⁴He)',terms:[[0,0,1],[-1,-1,-1]]},
+    qpa:{label:'Q(p,α)',formula:'ME(Z,N) + ME(¹H) − ME(Z−1,N−2) − ME(⁴He)',terms:[[0,0,1],[-1,-2,-1]]},
+    qna:{label:'Q(n,α)',formula:'ME(Z,N) + ME(n) − ME(Z−2,N−1) − ME(⁴He)',terms:[[0,0,1],[-2,-1,-1]]}
+  };
   const MODES = {
     decay: { label: T.m_decay, f: r => DC[decayClass(r)] },
     hl: { label: T.m_hl, f: r => r[6] === 99 ? "#111827" : r[6] <= -98 ? "#e2e8f0" : ramp((r[6] + 9) / 29), range: ["1 ns", "10²⁰ s"] },
     be: { label: T.mf_be, v: r => mv(D(r).BE), lo: 0, hi: 2100, u: "MeV" },
-    bea: { label: T.m_bea, v: r => mv(D(r).BEA), lo: 7.0, hi: 8.8, u: "MeV" },
+    bea: { label: T.m_bea, v: r => mv(D(r).BEA), lo: 7.0, hi: 8.8, u: "MeV/nucleon" },
     me: { label: T.m_me, v: r => mv(D(r).me), lo: -95, hi: 80, u: "MeV" },
     sn: { label: T.m_sn, v: r => mv(D(r).sn), lo: 0, hi: 20, u: "MeV" },
     s2n: { label: T.m_s2n, v: r => mv(D(r).s2n), lo: 0, hi: 35, u: "MeV" },
@@ -101,6 +115,7 @@
     beta2: { label: T.m_beta2, need: true, v: r => { const v = MOD[modelKey()] && MOD[modelKey()].map.get(key(r[0], r[1])); return v && v[1] != null ? v[1] / 1000 : null; }, lo: -0.3, hi: 0.4, div: true },
     dmod: { label: T.m_dmod, need: true, v: r => mv(dmod(r)), lo: -3, hi: 3, u: "MeV", div: true },
   };
+  for(const [name,q]of Object.entries(reactionDefinitions))MODES[name]={label:q.label,v:r=>mv(D(r)[name]),lo:-40,hi:40,u:'MeV',div:true};
   const extraFilters=window.ZGMassSurface.filters;
   const filterLabel=(name,f)=>name+' · '+T['mf_'+f.kind];
   for(const [name,f]of Object.entries(extraFilters))MODES[name]={label:filterLabel(name,f),v:r=>mv(D(r)[name]),lo:-3,hi:3,u:'MeV',div:true};
@@ -281,6 +296,60 @@
     return M.get(k) || (src !== "ame" && extraRows.find(r => key(r[0], r[1]) === k)) || null;
   }
 
+  /* ---------- source/state presentation (pure; no mass recalculation) ---------- */
+  function cardLabels(language='en') {
+    const labels={
+      en:{ground:'Ground state [g]',ame:'AME2020 ground-state mass excess',derived:'Ground-state derived quantities',selected:'Selected NUBASE2020 state',context:'The reference card and chain remain ground-state quantities.',stateME:'NUBASE2020 selected-state mass excess',excitation:'Excitation energy Eₓ',precision:'Sources and published precision',rounding:'AME2020 mass excess is shown at its tabulated precision in keV. NUBASE2020 state masses retain their published precision; small rounding differences are expected. Derived energies are in MeV; B/A is in MeV per nucleon.'},
+      zh:{ground:'基态 [g]',ame:'AME2020 基态质量过剩',derived:'基态导出物理量',selected:'选中的 NUBASE2020 核态',context:'参考卡片与链图仍表示基态物理量。',stateME:'NUBASE2020 所选核态质量过剩',excitation:'激发能 Eₓ',precision:'数据来源与原表精度',rounding:'AME2020 质量过剩以 keV 显示并保留原表数值精度。NUBASE2020 核态质量保留其发布精度；微小舍入差异属于正常情况。导出能量采用 MeV；B/A 的单位为 MeV/核子。'},
+      fi:{ground:'Perustila [g]',ame:'AME2020: perustilan massaylijäämä',derived:'Perustilan johdetut suureet',selected:'Valittu NUBASE2020-tila',context:'Viitekortti ja ketju kuvaavat edelleen perustilaa.',stateME:'NUBASE2020: valitun tilan massaylijäämä',excitation:'Viritysenergia Eₓ',precision:'Lähteet ja julkaistu tarkkuus',rounding:'AME2020-massaylijäämä näytetään taulukon tarkkuudella keV-yksiköissä. NUBASE2020-tilamassat säilyttävät julkaistun tarkkuutensa; pienet pyöristyserot ovat odotettuja. Johdetut energiat ovat MeV-yksiköissä; B/A on MeV nukleonia kohden.'},
+      de:{ground:'Grundzustand [g]',ame:'AME2020-Massenexzess des Grundzustands',derived:'Abgeleitete Größen des Grundzustands',selected:'Gewählter NUBASE2020-Zustand',context:'Die Referenzkarte und Kette zeigen weiterhin Größen des Grundzustands.',stateME:'NUBASE2020-Massenexzess des gewählten Zustands',excitation:'Anregungsenergie Eₓ',precision:'Quellen und veröffentlichte Genauigkeit',rounding:'Der AME2020-Massenexzess wird mit tabellierter Genauigkeit in keV angezeigt. NUBASE2020-Zustandsmassen behalten ihre veröffentlichte Genauigkeit; kleine Rundungsunterschiede sind zu erwarten. Abgeleitete Energien stehen in MeV; B/A in MeV pro Nukleon.'},
+      ja:{ground:'基底状態 [g]',ame:'AME2020 基底状態の質量超過',derived:'基底状態の導出量',selected:'選択した NUBASE2020 核状態',context:'参照カードと系列は引き続き基底状態の量を示します。',stateME:'NUBASE2020 選択状態の質量超過',excitation:'励起エネルギー Eₓ',precision:'出典と公表精度',rounding:'AME2020 の質量超過は表の精度を保ち keV で示します。NUBASE2020 の核状態質量は公表精度を保つため、小さな丸め差が生じます。導出エネルギーは MeV、B/A は核子あたりの MeV です。'}
+    };
+    const referenceLabels={
+      en:{published:'Published AME2020 masses and reactions · ground state',publishedNote:'Published AME2020 table values and evaluated uncertainties include mass correlations. New inputs and model stencils are recalculated separately; unknown model uncertainty stays unknown. Q values describe the stated channel, not an observed branching ratio or a shell-specific neutrino energy.',unavailable:'Published AME2020 reaction data could not load. Recalculated energies use independent mass uncertainties; these are not the evaluated AME reaction uncertainties.',referenceValue:'Value ± uncertainty',notTabulated:'— = not tabulated. Each # belongs to the adjacent value or uncertainty.'},
+      zh:{published:'AME2020 原表质量与反应能 · 基态',publishedNote:'AME2020 原表数值及评价不确定度包含质量关联。新输入和模型的差分组合另行重算；未知模型不确定度保留为未知。Q 值对应所注明的反应道，并不代表已观测分支比或特定电子壳层的中微子能量。',unavailable:'AME2020 原表反应数据未能载入。重算能量采用独立质量不确定度，不等同于 AME 评价反应能不确定度。',referenceValue:'数值 ± 不确定度',notTabulated:'— 表示原表未给出。每个 # 仅属于相邻的数值或不确定度。'},
+      fi:{published:'AME2020:n julkaistut massat ja reaktiot · perustila',publishedNote:'Julkaistut AME2020-arvot ja arvioidut epävarmuudet sisältävät massakorrelaatiot. Uudet syötteet ja mallisuureet lasketaan erikseen; tuntematon malliepävarmuus pysyy tuntemattomana. Q-arvo koskee ilmoitettua kanavaa, ei mitattua haarautumissuhdetta tai kuorikohtaista neutriinon energiaa.',unavailable:'Julkaistua AME2020-reaktiotaulukkoa ei voitu ladata. Uudelleen lasketut energiat käyttävät riippumattomia massaepävarmuuksia, eivät AME:n arvioituja reaktioepävarmuuksia.',referenceValue:'Arvo ± epävarmuus',notTabulated:'— = ei taulukoitu. Kukin # kuuluu viereiseen arvoon tai epävarmuuteen.'},
+      de:{published:'Veröffentlichte AME2020-Massen und Reaktionen · Grundzustand',publishedNote:'Veröffentlichte AME2020-Werte und evaluierte Unsicherheiten berücksichtigen Massenkorrelationen. Neue Eingaben und Modellgrößen werden getrennt berechnet; unbekannte Modellunsicherheiten bleiben unbekannt. Q bezieht sich auf den angegebenen Kanal, nicht auf ein beobachtetes Verzweigungsverhältnis oder eine schalenspezifische Neutrinoenergie.',unavailable:'Die veröffentlichte AME2020-Reaktionstabelle konnte nicht geladen werden. Neu berechnete Energien verwenden unabhängige Massenunsicherheiten, nicht die evaluierten AME-Reaktionsunsicherheiten.',referenceValue:'Wert ± Unsicherheit',notTabulated:'— = nicht tabelliert. Jedes # gehört zum benachbarten Wert oder seiner Unsicherheit.'},
+      ja:{published:'AME2020 公表質量と反応エネルギー · 基底状態',publishedNote:'AME2020 の公表値と評価不確かさは質量相関を含みます。新しい入力と模型の差分量は別に再計算し、未知の模型不確かさは未知のままです。Q 値は記載した反応経路に対応し、観測分岐比や電子殻固有の中微子エネルギーを表しません。',unavailable:'AME2020 公表反応表を読み込めません。再計算値は独立な質量不確かさを用い、AME の評価反応不確かさとは異なります。',referenceValue:'値 ± 不確かさ',notTabulated:'— = 公表表に値なし。各 # は隣接する値または不確かさに対応します。'}
+    };
+    const k=String(language).toLowerCase().split('-')[0];
+    return {...(labels[k]||labels.en),...(referenceLabels[k]||referenceLabels.en)};
+  }
+  function referenceMassText(value,unknown='?') {
+    if(!value||!Number.isFinite(value.v))return '—';
+    const mass=String(value.v)+(value.est?'#':'');
+    const sigma=Number.isFinite(value.e)?String(value.e)+(value.sigmaEst?'#':''):unknown;
+    return mass+' ± '+sigma;
+  }
+  function sourceQuantityText(quantity,unknown='?') {
+    if(!quantity)return '—';
+    const raw=String(quantity.raw??'').trim(),rawSigma=String(quantity.raw_uncertainty??'').trim();
+    const value=raw||(Number.isFinite(quantity.value)?String(quantity.value)+(quantity.value_extrapolated?'#':''):'');
+    if(!value)return '—';
+    if(!rawSigma&&!Number.isFinite(quantity.uncertainty)&&(!Number.isFinite(quantity.value)||quantity.qualifier))return value;
+    const sigma=rawSigma||(Number.isFinite(quantity.uncertainty)?String(quantity.uncertainty)+(quantity.uncertainty_extrapolated?'#':''):unknown);
+    return value+' ± '+sigma;
+  }
+  function isomerExcitationText(row,state,unknown='?') {
+    return sourceQuantityText(state?.excitation||{value:row[1],uncertainty:row[4],value_extrapolated:!!row[5],uncertainty_extrapolated:!!row[6]},unknown);
+  }
+  function selectedStateContext(state,labels) {
+    return labels.selected+': '+state.A+state.element+' ['+state.label+']. '+labels.context;
+  }
+  function publishedReferenceHTML(data,Z,N,labels,unknown='?') {
+    if(!data)return '<p>'+escape(labels.unavailable)+'</p>';
+    const record=data?.records?.[Z+','+N];
+    if(!record)return '<p>'+escape(labels.notTabulated)+'</p>';
+    const names={me:'ME',BEA:'B/A',BE:'B = A × (B/A)',qbm:'Q(β⁻)',sn:'Sₙ',s2n:'S₂ₙ',sp:'Sₚ',s2p:'S₂ₚ',qa:'Q(α)',...Object.fromEntries(Object.entries(reactionDefinitions).map(([k,q])=>[k,q.label]))};
+    const body=(data.quantities||Object.keys(record.values)).map(key=>{
+      const cell=record.values[key],value=cell&&Number.isFinite(cell.value)?sourceQuantityText(cell,unknown):'—';
+      const unit=data.metadata?.quantity_units?.[key]||(key==='BEA'?'keV/nucleon':'keV');
+      return '<tr><th>'+escape(names[key]||key)+'</th><td>'+escape(value)+' '+escape(unit)+'</td></tr>';
+    }).join('');
+    const links=(data.metadata?.sources||[]).map(source=>'<a href="'+escape(source.url)+'">'+escape(source.table||'AME2020')+'</a>').join(' · ');
+    return '<p>'+escape(labels.publishedNote)+'</p><table><thead><tr><th>'+escape(Z+N+' '+record.element+' [g]')+'</th><th>'+escape(labels.referenceValue)+'</th></tr></thead><tbody>'+body+'</tbody></table><p>'+escape(labels.notTabulated)+'</p><p>'+links+'</p>';
+  }
+
   /* ---------- formatting: uncertainty with 2 significant digits, value rounded to the same decimal ---------- */
   function niceTicks(a, b, n = 6) {
     const span = b - a; if (!(span > 0)) return [a]; const raw = span / n, mag = 10 ** Math.floor(Math.log10(raw)), r = raw / mag;
@@ -294,10 +363,10 @@
     const dec = Math.max(0, 1 - Math.floor(Math.log10(e)));
     return [v.toFixed(dec), e.toFixed(dec)];
   }
-  const fv = (o, d = 3, f = 1000, u = " MeV") => { if (o == null) return "—"; const h = o.est ? "#" : "";
+  const fv = (o, d = 3, f = 1000, u = " MeV") => { if (o == null) return "—"; const h = o.est ? "#" : "",sigmaHash=o.sigmaEst?'#':'';
     if (o.e == null) return `${(o.v/f).toFixed(d)}${h}${u} (${unknown})`;
     if (!(o.e > 0)) return `${(o.v / f).toFixed(d)}${h}${u}`;
-    const [a, b] = fmtU(o.v / f, o.e / f); return `${a}${h} ± ${b}${h}${u}`; };
+    const [a, b] = fmtU(o.v / f, o.e / f); return `${a}${h} ± ${b}${sigmaHash}${u}`; };
   const DM = { "B-": "β⁻", "B+": "β⁺", "EC": "EC", "A": "α", "IT": "IT", "SF": "SF", "p": "p", "2p": "2p", "n": "n", "2n": "2n", "B-n": "β⁻n", "B-2n": "β⁻2n", "B+p": "β⁺p", "e+": "e⁺", "2B-": "2β⁻", "2B+": "2β⁺", "IS": T.abund };
   const decayText = b => !b ? "—" : b.split(";").map(x => {
     const m = x.trim().match(/^([A-Za-z0-9+\-]+)(.*)$/); if (!m) return x;
@@ -323,15 +392,20 @@
     const d = derived(r), dm = src !== "ame" && MOD[src] ? derivedZN(r[0], r[1], src) : null, A = r[0] + r[1], el = EL.find(e => e[0] === r[0]), row = (k, v) => `<tr><th>${k}</th><td>${v}</td></tr>`;
     card.hidden = false;
     card.innerHTML = `<button type="button" class="nc-close" aria-label="${T.state_close}">×</button>
-      <div class="nc-head"><span class="nc-sym">${sup(A)}${r[2]}</span><span>${el ? el[2] : ""}<br><small>Z = ${r[0]} · N = ${r[1]} · A = ${A}</small></span></div>
+      <div class="nc-head"><span class="nc-sym">${sup(A)}${r[2]}</span><span>${el ? el[2] : ""}<br><small>${cardT.ground} · Z = ${r[0]} · N = ${r[1]} · A = ${A}</small></span></div>
+      <p class="nc-ground-context zg-small zg-muted" aria-live="polite">${cardT.context}</p>
+      ${evaluatedWarning?'<p class="zg-small" role="status">'+cardT.unavailable+'</p>':''}
       <table>${row(T.hl, r[7] === "stable" ? T.stable : r[7])}${row("Jπ", r[8] || "—")}${row(T.decay, decayText(r[10]))}
-      ${row(T.me, d.me ? (() => { const [a, b] = fmtU(d.me.v, d.me.e), h = d.me.est ? "#" : ""; return `${a}${h} ± ${b}${d.me.sigmaEst ? "#" : ""} keV`; })() : "—")}
-      ${row("B/A", fv(d.BEA, 4))}${row("Sₙ", fv(d.sn))}${row("S₂ₙ", fv(d.s2n))}${row("Sₚ", fv(d.sp))}${row("S₂ₚ", fv(d.s2p))}
+      ${row(cardT.ame, escape(referenceMassText(d.me,unknown))+' keV')}
+      <tr><th colspan="2">${cardT.derived}</th></tr>
+      ${row("B/A", fv(d.BEA, 4,1000," MeV/nucleon"))}${row("Sₙ", fv(d.sn))}${row("S₂ₙ", fv(d.s2n))}${row("Sₚ", fv(d.sp))}${row("S₂ₚ", fv(d.s2p))}
       ${row("Q(β⁻)", fv(d.qbm))}${row("Q(EC)", fv(d.qec))}${row("Q(α)", fv(d.qa))}${row("δ₂ₙ", fv(d.d2n))}
       ${row("Δₙ⁽³⁾ · Δₚ⁽³⁾", fv(d.d3n) + "<br>" + fv(d.d3p))}${row("δV<sub>pn</sub>", fv(d.vpn))}${row(T.wig, fv(d.wig))}
-      ${dm ? `<tr class="nc-mrow"><th colspan="2">${MOD[src].name}</th></tr>${row(T.me, dm.me ? (dm.me.v / 1000).toFixed(3) + " MeV" : "—")}${row("ME(AME) − ME(" + T.model_short + ")", d.me && dm.me ? ((d.me.v - dm.me.v) / 1000).toFixed(3) + " MeV" : "—")}${row("Sₙ · S₂ₙ", fv(dm.sn, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2n, 3).replace(/ ± 0\.000/, ""))}${row("Sₚ · S₂ₚ", fv(dm.sp, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2p, 3).replace(/ ± 0\.000/, ""))}${row("β₂", dm.beta2 ? (dm.beta2.v / 1000).toFixed(3) : "—")}` : ""}
+      ${dm ? `<tr class="nc-mrow"><th colspan="2">${MOD[src].name} · ${cardT.ground}</th></tr>${row(T.me, dm.me ? (dm.me.v / 1000).toFixed(3) + " MeV" : "—")}${row("ME(AME) − ME(" + T.model_short + ")", d.me && dm.me ? ((d.me.v - dm.me.v) / 1000).toFixed(3) + " MeV" : "—")}${row("Sₙ · S₂ₙ", fv(dm.sn, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2n, 3).replace(/ ± 0\.000/, ""))}${row("Sₚ · S₂ₚ", fv(dm.sp, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2p, 3).replace(/ ± 0\.000/, ""))}${row("β₂", dm.beta2 ? (dm.beta2.v / 1000).toFixed(3) : "—")}` : ""}
       ${row(T.disc, r[9] || "—")}
-      ${r[11].length ? row(T.isomers, r[11].map(i => `${sup(A)}${i[0]}${r[2]}: ${i[1] == null ? "?" : i[1].toLocaleString()} keV, ${i[2] || "?"}, ${i[3] || ""}`).join("<br>")) : ""}</table>
+      ${r[11].length ? row(T.isomers, r[11].map(i => `${sup(A)}${i[0]}${r[2]}: Eₓ = ${escape(isomerExcitationText(i,catalog?.states.get(i[7]),unknown))} keV, ${escape(i[2] || "?")}, ${escape(i[3] || "")}`).join("<br>")) : ""}</table>
+      <details class="nc-explanation"><summary>${cardT.precision}</summary><p>${cardT.rounding}</p></details>
+      <details class="nc-explanation nc-published-reference"><summary>${cardT.published}</summary>${publishedReferenceHTML(evaluatedData,r[0],r[1],cardT,unknown)}</details>
       <div class="nc-cbtn"><button type="button" class="zg-btn" data-ch="Z">${T.p_iso}</button><button type="button" class="zg-btn" data-ch="N">${T.p_isot}</button><button type="button" class="zg-btn" data-ch="A">${T.p_isob}</button></div>
       <ul class="nc-facts">${facts(r, d).map(x => "<li>" + x + "</li>").join("")}</ul>
       <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>AME2020 · NUBASE2020 (Chin. Phys. C 45, 030001–030003, 2021)</p>`;
@@ -363,9 +437,10 @@
     if(target && !["ground","isomer"].includes(target.kind))panel.querySelector("select").value="all";
     function detail(state) {
       selectedState=state.id;panel.querySelectorAll("[data-state]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.state===state.id?"true":"false"));
-      const format=q=>`${escape(q.raw||"—")} ${q.raw_uncertainty?"± "+escape(q.raw_uncertainty):"("+unknown+")"}`;
+      const format=q=>escape(sourceQuantityText(q,unknown));
       const life=state.half_life;
-      panel.querySelector(".nc-state-data").innerHTML=`<p><b>${state.A}${escape(state.element)} [${state.label}]</b> · ${escape(T.state_kinds[state.kind])}${state.existence==="withdrawn"?" — "+T.state_withdrawn:state.existence==="questioned"?" — "+T.state_questioned:""}</p><p>ME (NUBASE2020): ${format(state.mass_excess)} keV<br>Eₓ: ${format(state.excitation)} keV<br>T½: ${format(life)} ${escape(life.unit)}<br>Jπ: ${escape(state.spin_parity)}</p><p>${state.ordering_uncertain?"* "+T.state_order_uncertain+". ":""}${state.ordering_inverted?"& "+T.state_order_inverted+". ":""}${escape(T.state_bases[state.classification_basis])}.</p><p>${T.state_model_note}</p>`;
+      card.querySelector('.nc-ground-context').textContent=selectedStateContext(state,cardT);
+      panel.querySelector(".nc-state-data").innerHTML=`<p><b>${state.A}${escape(state.element)} [${state.label}]</b> · ${escape(T.state_kinds[state.kind])}${state.existence==="withdrawn"?" — "+T.state_withdrawn:state.existence==="questioned"?" — "+T.state_questioned:""}</p><p>${cardT.stateME}: ${format(state.mass_excess)} keV<br>${cardT.excitation}: ${format(state.excitation)} keV<br>T½: ${format(life)} ${escape(life.unit)}<br>Jπ: ${escape(state.spin_parity)}</p><p>${state.ordering_uncertain?"* "+T.state_order_uncertain+". ":""}${state.ordering_inverted?"& "+T.state_order_inverted+". ":""}${escape(T.state_bases[state.classification_basis])}.</p><p>${T.state_model_note}</p>`;
       const stateURL=new URL(location.href);stateURL.searchParams.set('nuclide',state.A+state.element);stateURL.searchParams.set('state',state.source_state_index);
       const a=document.createElement("a");a.href=stateURL.href;a.textContent=T.state_link;a.onclick=e=>{e.preventDefault();history.pushState(null,'',a.href);a.textContent=T.state_link_ready;};panel.querySelector(".nc-state-data").appendChild(a);
       if(window.parent!==window)window.parent.postMessage({type:'zg-panel-state',nuclide:state.A+state.element,state:state.source_state_index},location.origin);
@@ -398,11 +473,13 @@
     vpn: ["δVpn", d => d.vpn, "MeV"], wig: ["W = δVpn − ½[δVpn(N±2)]", d => d.wig, "MeV"],
     beta2: ["β₂ (model)", d => d.beta2, ""],
   };
+  for(const [name,q]of Object.entries(reactionDefinitions))PQ[name]=[q.label,d=>d[name],'MeV'];
   for(const [name,f]of Object.entries(extraFilters))PQ[name]=[filterLabel(name,f),d=>d[name],'MeV'];
+  const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
-  root.querySelector('.nc-filter-definitions').innerHTML='<table><thead><tr><th>'+escape(T.pq)+'</th><th>'+escape(T.mf_formula)+'</th><th>'+escape(T.mf_neighbours)+'</th></tr></thead><tbody>'+Object.entries(extraFilters).map(([name,f])=>'<tr><th>'+escape(filterLabel(name,f))+'</th><td>'+escape(f.formula)+'</td><td>'+escape(offsets(f))+'</td></tr>').join('')+'</tbody></table>';
+  root.querySelector('.nc-filter-definitions').innerHTML='<table><thead><tr><th>'+escape(T.pq)+'</th><th>'+escape(T.mf_formula)+'</th><th>'+escape(T.mf_neighbours)+'</th></tr></thead><tbody>'+Object.entries(formulaDefinitions).map(([name,f])=>'<tr><th>'+escape(f.label||filterLabel(name,f))+'</th><td>'+escape(f.formula)+'</td><td>'+escape(offsets(f))+'</td></tr>').join('')+'</tbody></table>';
   function filterFormula(){
-    const f=extraFilters[pq.value],box=root.querySelector('.nc-filter-formula');box.hidden=!f;
+    const f=formulaDefinitions[pq.value],box=root.querySelector('.nc-filter-formula');box.hidden=!f;
     box.textContent=f?pq.value+': '+f.formula+' · '+T.mf_neighbours+': '+offsets(f):'';
   }
   pq.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(PQ).map(([k,v])=>[k,v[0]])),T);
@@ -794,8 +871,8 @@
   /* ---------- exports ---------- */
   const csvRow = r => { const d = derived(r), f = o => o ? [String(o.v / 1000), o.e == null ? "" : String(o.e / 1000), o.est ? "#" : ""] : ["", "", ""];
     const m = src !== "ame" && MOD[src] ? MOD[src].map.get(key(r[0], r[1])) : null;
-    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>f(d[k])), ...['BE','d2n','d2p','d5n','d5p','wig'].flatMap(k=>f(d[k])), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m && m[1] != null ? m[1] / 1000 : ""] : [])]; };
-  const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>[k+"_MeV","d"+k+"_MeV",k+"_flag"]), ...['BE','d2n','d2p','d5n','d5p','wig'].flatMap(k=>[k+'_MeV','d'+k+'_MeV',k+'_flag']), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
+    return [r[0], r[1], r[0] + r[1], r[2], d.me ? d.me.v : "", d.me ? d.me.e : "", r[5] ? "#" : "", ...f(d.BEA), ...f(d.sn), ...f(d.s2n), ...f(d.sp), ...f(d.s2p), ...f(d.qbm), ...f(d.qec), ...f(d.qa), ...f(d.d3n), ...f(d.d3p), ...f(d.vpn), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>f(d[k])), ...window.ZGMassSurface.quantities.filter(k=>k.startsWith('q')&&!['qbm','qec','qa'].includes(k)).flatMap(k=>f(d[k])), ...['BE','d2n','d2p','d5n','d5p','wig'].flatMap(k=>f(d[k])), r[7], r[8], r[10], r[9] || "", r[11].length, ...(src !== "ame" ? [m ? m[0] : "", m && m[1] != null ? m[1] / 1000 : ""] : [])]; };
+  const csvHead = () => ["Z", "N", "A", "El", "ME_keV", "dME_keV", "ME_flag", ...["BE/A", "Sn", "S2n", "Sp", "S2p", "Qbeta-", "QEC", "Qalpha", "D3n", "D3p", "dVpn"].flatMap(k => [k + "_MeV", "d" + k + "_MeV", k + "_flag"]), ...Object.keys(window.ZGMassSurface.filters).flatMap(k=>[k+"_MeV","d"+k+"_MeV",k+"_flag"]), ...window.ZGMassSurface.quantities.filter(k=>k.startsWith('q')&&!['qbm','qec','qa'].includes(k)).flatMap(k=>[k+'_MeV','d'+k+'_MeV',k+'_flag']), ...['BE','d2n','d2p','d5n','d5p','wig'].flatMap(k=>[k+'_MeV','d'+k+'_MeV',k+'_flag']), "T1/2", "Jpi", "decay_modes", "discovery_year", "isomers", ...(src !== "ame" ? ["ME_keV_" + src, "beta2_" + src] : [])];
   root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); drawResidual(); };
   root.querySelector("[data-nc=png]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = W() * sc; o.height = H() * sc; draw(o.getContext("2d"), o.width, o.height, sc); return o; }, "chart-of-nuclides", 6);
   root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), allRows().filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
@@ -818,7 +895,7 @@
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):'independent primitives; shared terms cancelled',p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:''];}),'chain-'+pq.value);
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:''];}),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
@@ -866,8 +943,14 @@
   new ResizeObserver(resize).observe(cv); new ResizeObserver(resize).observe(pc); addEventListener("resize", resize);
   new MutationObserver(()=>{updateInk();draw();drawPlot();drawResidual();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
 
-  Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame)]).then(([d,c]) => {
-    catalog=c;
+  const evaluatedRequest=fetch(root.dataset.reactions).then(response=>{
+    if(!response.ok)throw new Error('Published AME2020 reference table unavailable');
+    return response.json();
+  }).then(data=>({data,adapter:window.ZGAMEEvaluated.fromData(data)})).catch(error=>{
+    evaluatedWarning=true;console.warn('Published AME2020 reaction values unavailable; independent-mass fallback',error);return null;
+  });
+  Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame),evaluatedRequest]).then(([d,c,reference]) => {
+    catalog=c;evaluated=reference?.adapter||null;evaluatedData=reference?.data||null;
     rows = d.rows; EL = d.elements; rows.forEach(r => M.set(key(r[0], r[1]), r));
     MEn = get(0, 1) || MEn; MEH = get(1, 0) || MEH; MEa = get(2, 2) || MEa;
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;

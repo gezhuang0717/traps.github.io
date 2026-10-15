@@ -2,6 +2,7 @@
 (function(host){
   'use strict';
   const P=host.ZGPhysics || (typeof require==='function' ? require('./physics.js') : null);
+  const evaluatedAdapter=host.ZGAMEEvaluated || (typeof require==='function' ? require('./ame-evaluated.js') : null);
   // Coefficients of atomic ME(Z+dz,N+dn), in keV. Linear nucleon/electron terms cancel.
   const filters={
     D1nS1n:{kind:'gap',formula:'Sₙ(Z,N) − Sₙ(Z,N+1)',terms:[[0,-1,1],[0,0,-2],[0,1,1]]},
@@ -15,7 +16,7 @@
     Gplus:{kind:'third',formula:'δ₂ₙ(Z,N) − δ₂ₙ(Z,N+2)',terms:[[0,-2,1],[0,0,-3],[0,2,3],[0,4,-1]]},
     Gsym:{kind:'fourth',formula:'½[2δ₂ₙ(Z,N) − δ₂ₙ(Z,N−2) − δ₂ₙ(Z,N+2)]',terms:[[0,-4,-.5],[0,-2,2],[0,0,-3],[0,2,2],[0,4,-.5]]},
   };
-  function create(getter, constants, beta=()=>null) {
+  function create(getter, constants, beta=()=>null, evaluated=null) {
     const comb=P.combine, memo=new Map();
   function derive(Z, N, s = "ame") {
     const k = s + ":" + (Z*1000+N); if (memo.has(k)) return memo.get(k);
@@ -27,6 +28,23 @@
       sp: comb([1, get(Z - 1, N)], [1, MEH], [-1, m]), s2p: comb([1, get(Z - 2, N)], [2, MEH], [-1, m]),
       qbm: comb([1, m], [-1, get(Z + 1, N - 1)]), qec: comb([1, m], [-1, get(Z - 1, N + 1)]), qa: comb([1, m], [-1, get(Z - 2, N - 2)], [-1, MEa]),
     };
+    // Neutral atomic masses: electron rest energies are required only for
+    // positron-emission thresholds. Q2EC is the total atomic energy allowance,
+    // not a shell-specific neutrino energy or a claim that a decay is observed.
+    const electron=P.constant(P.C.electronU*P.C.uKeV);
+    out.q2bm=comb([1,m],[-1,get(Z+2,N-2)]);
+    out.q2ec=comb([1,m],[-1,get(Z-2,N+2)]);
+    out.qecbp=comb([1,out.q2ec],[-2,electron]);
+    out.q2bp=comb([1,out.q2ec],[-4,electron]);
+    out.q4bm=comb([1,m],[-1,get(Z+4,N-4)]);
+    out.qep=comb([1,m],[-1,get(Z-2,N+1)],[-1,MEH]);
+    out.qbmn=comb([1,m],[-1,get(Z+1,N-2)],[-1,MEn]);
+    // Target(d,alpha), target(p,alpha), target(n,alpha); particle masses
+    // always use the experimental atomic constants, including for models.
+    const MEd=constants.MEd || getter('ame')(1,1);
+    out.qda=comb([1,m],[1,MEd],[-1,get(Z-1,N-1)],[-1,MEa]);
+    out.qpa=comb([1,m],[1,MEH],[-1,get(Z-1,N-2)],[-1,MEa]);
+    out.qna=comb([1,m],[1,MEn],[-1,get(Z-2,N-1)],[-1,MEa]);
     /* two-neutron shell gap δ2n = S2n(Z,N) − S2n(Z,N+2) */
     out.d2n = comb([1, get(Z, N - 2)], [-2, m], [1, get(Z, N + 2)]);   /* = ME(N−2) − 2·ME(N) + ME(N+2) */
     /* Mass-excess odd–even indicators; no absolute-value clamp. */
@@ -52,16 +70,26 @@
       const vp = derive(Z, N + 2, s).vpn, vm = derive(Z, N - 2, s).vpn;
       return (wig = out.vpn && vp && vm ? comb([1, out.vpn], [-0.5, vp], [-0.5, vm]) : null);
     } });
+    // Published AME energies carry evaluated uncertainties (mass correlations
+    // included). Never replace those by quadrature of rounded marginal errors.
+    // New input/model surfaces retain recalculation and its explicit diagonal
+    // approximation. Stencils above use primitive masses, not reaction errors.
+    if(s==='ame' && evaluated){
+      for(const name of quantities){
+        const tab=evaluated(Z,N,name);
+        if(tab) out[name]=evaluatedAdapter.apply(out[name],tab);
+      }
+    }
     memo.set(k, out); return out;
   }
 
     return {derive, clear:()=>memo.clear()};
   }
-  const quantities=['me','BE','BEA','sn','s2n','sp','s2p','qbm','qec','qa','d2n','d2p','d3n','d3p','d5n','d5p','vpn','wig',...Object.keys(filters)];
+  const quantities=['me','BE','BEA','sn','s2n','sp','s2p','qbm','qec','qa','q2bm','q2ec','qecbp','q2bp','q4bm','qep','qbmn','qda','qpa','qna','d2n','d2p','d3n','d3p','d5n','d5p','vpn','wig',...Object.keys(filters)];
   function changes(centres,active,derive,affected){
     const masses=[...active.values()].filter(x=>!x.state.source_state_index),out=[];
-    // Every current stencil lies within ΔZ=±2, ΔN=±4 (including Wigner neighbours).
-    for(const r of centres){const [z,n]=r;if(!masses.some(m=>Math.abs(z-m.state.Z)<=2&&Math.abs(n-m.state.N)<=4))continue;
+    // Q4beta extends to ΔZ=4; Wigner/fourth differences to ΔN=4.
+    for(const r of centres){const [z,n]=r;if(!masses.some(m=>Math.abs(z-m.state.Z)<=4&&Math.abs(n-m.state.N)<=4))continue;
       const a=derive(z,n,'ame'),b=derive(z,n,'hybrid');
       for(const quantity of quantities){const value=b[quantity];if(!value||!affected(value))continue;const reference=a[quantity];out.push({r,quantity,unit:quantity==='BEA'?'keV/nucleon':'keV',before:reference,after:value,delta:reference?P.combine([1,value],[-1,reference]):null});}
     }return out;

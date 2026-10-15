@@ -58,7 +58,7 @@
     const experimental=ids.filter(id=>id.startsWith('loaded:'));
     // Fixed n, 1H and alpha reference masses do not make an otherwise fully
     // new nuclide stencil mixed. They remain present in values/uncertainties.
-    const references=new Set(['AME2020:1','AME2020:1000','AME2020:2002']);
+    const references=new Set(['AME2020:1','AME2020:1000','AME2020:1001','AME2020:2002']);
     const ame=ids.filter(id=>id.startsWith('AME2020:')&&!references.has(id));
     return {experimental,ame,mixed:experimental.length>0&&ame.length>0};
   }

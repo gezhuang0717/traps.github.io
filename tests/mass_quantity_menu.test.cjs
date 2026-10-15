@@ -1,8 +1,8 @@
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
 const M=require('../static/js/mass-quantity-menu.js'),S=require('../static/js/mass-surface.js');
-test('all 28 physical mass quantities appear once in the shared menu contract',()=>{
- const keys=Object.values(M.groups).flat();assert.equal(new Set(keys).size,28);
+test('all 38 physical mass quantities appear once in the shared menu contract',()=>{
+ const keys=Object.values(M.groups).flat();assert.equal(new Set(keys).size,38);
  assert.deepEqual([...keys].sort(),[...S.quantities].sort());
  assert.deepEqual(M.groups.separation,['sn','s2n','sp','s2p']);
 });

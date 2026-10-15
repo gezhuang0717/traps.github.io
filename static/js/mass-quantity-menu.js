@@ -4,7 +4,7 @@
   const groups={
     basic:['me','BE','BEA'],
     separation:['sn','s2n','sp','s2p'],
-    q:['qbm','qec','qa'],
+    q:['qbm','qec','qa','q2bm','q2ec','qecbp','q2bp','q4bm','qep','qbmn','qda','qpa','qna'],
     gap:['d2n','d2p','D1nS1n','D1pS1p'],
     pairing:['d3n','d3p','d5n','d5p'],
     pn:['vpn','wig','D2pS2n','D1pS1n','D1pS2n','D2pS1n'],

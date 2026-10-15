@@ -391,9 +391,9 @@ items:
   short: {en: "The Atomic Mass Evaluation and NUBASE: recommended masses, Q values and ground/isomer properties.", zh: "原子质量评价 AME 与 NUBASE：推荐质量、Q 值以及基态/同核异能态性质。"}
   what: {en: "AME2020: atomic masses (mass excesses), binding energies, separation energies and reaction/decay Q values for ~3 500 nuclides with uncertainties and the input-data network. NUBASE2020: half-lives, spins, decay modes and excitation energies of ground and isomeric states.", zh: "AME2020：约 3500 个核素的原子质量（质量过剩）、结合能、分离能、反应/衰变 Q 值及不确定度和输入数据网络。NUBASE2020：基态与同核异能态的半衰期、自旋、衰变方式与激发能。"}
   use:
-    en: ["Download mass_1.mas20 (masses), rct1/rct2 (Q values) and nubase_4.mas20 (states) as fixed-width text.", "Read the column description at the top of each file; '#' marks values estimated from systematics.", "Use the atomic mass for frequency-ratio analyses: ion mass = M − q·mₑ + electron binding energy.", "Check the AME papers for correlations between masses (covariance file)."]
-    zh: ["下载定宽文本文件：mass_1.mas20（质量）、rct1/rct2（Q 值）和 nubase_4.mas20（核态）。", "阅读文件开头的列说明；“#” 表示系统学外推值。", "频率比分析使用原子质量：离子质量 = M − q·mₑ + 电子结合能。", "如需质量之间的相关性，请查看 AME 论文及协方差文件。"]
-  tips: {en: "This site's chart, games and the look-up box above use AME2020/NUBASE2020 directly.", zh: "本站核素图、游戏和上方查询框直接使用 AME2020/NUBASE2020。"}
+    en: ["Download mass_1.mas20.txt (ME, binding energy/A, beta Q), rct1.mas20.txt and rct2_1.mas20.txt (reactions), and nubase_4.mas20.txt (states) as fixed-width text.", "Read the column description: '#' replaces a decimal point for estimated values; '*' means unavailable. Retain separate flags for values and uncertainties.", "Use published reaction uncertainties: evaluated masses are correlated. Adding individual mass errors in quadrature does not reproduce these uncertainties.", "For quantities without a published reaction column, use the covariance file when applicable or explicitly label independent-error propagation."]
+    zh: ["下载定宽文本：mass_1.mas20.txt（ME、每核子结合能和 β Q）、rct1.mas20.txt 与 rct2_1.mas20.txt（反应），以及 nubase_4.mas20.txt（核态）。", "先阅读列说明：“#” 在外推数值中代替小数点；“*” 表示无数据。数值和不确定度的标记应分别保留。", "优先采用直接发表的反应不确定度：评价质量之间存在相关性，单个质量误差的平方和无法重现这些不确定度。", "没有直接反应列的物理量，应在适用时采用协方差文件，或明确注明独立误差传播近似。"]
+  tips: {en: "The chart's AME reference uses published energies and evaluated uncertainties where tabulated. New-mass and model calculations remain separate. Cite the original AME/NUBASE papers.", zh: "核素图的 AME 参考在有直接数据时采用已发表能量与评价不确定度；新质量和模型的计算另行区分。请引用 AME/NUBASE 原始论文。"}
   cite: "W.J. Huang et al., Chin. Phys. C 45, 030002 (2021); M. Wang et al., Chin. Phys. C 45, 030003 (2021); F.G. Kondev et al., Chin. Phys. C 45, 030001 (2021)"
 - id: amdc-imp
   name: "AMDC mirror at IMP (Lanzhou)"
@@ -407,6 +407,18 @@ items:
     en: ["Use as an alternative download site for the mass tables.", "Browse earlier evaluations (AME2016, AME2012…) to compare versions."]
     zh: ["作为质量表的备用下载站点。", "浏览早期评价（AME2016、AME2012……）进行版本比较。"]
   tips: {en: "Keep the version (AME2020) in file names and papers — values change between evaluations.", zh: "在文件名和论文中注明版本（AME2020）——不同评价之间数值会变化。"}
+- id: amdc-anl
+  name: "AMDC at Argonne — atomic mass data resources"
+  org: "Argonne National Laboratory"
+  cat: masses
+  kind: evaluated
+  url: "https://www.anl.gov/phy/atomic-mass-data-resources"
+  short: {en: "Official AMDC collaboration entry at Argonne, with atomic-mass evaluation resources.", zh: "AMDC 合作组在阿贡国家实验室的官方入口，提供原子质量评价资源。"}
+  what: {en: "One of the collaboration websites named by the IMP and IAEA AMDC pages. Use the IAEA or IMP mirrors if access is restricted.", zh: "IMP 和 IAEA 的 AMDC 主页列出的合作组站点之一；如访问受限，可使用 IAEA 或 IMP 镜像。"}
+  use:
+    en: ["Choose an evaluation edition before downloading.", "Keep the mass, reaction and covariance files from the same edition.", "Read the original papers and each file's fixed-column header."]
+    zh: ["下载前先选择评价版本。", "质量、反应与协方差文件应来自同一评价版本。", "阅读原始论文以及各文件的定宽列说明。"]
+  tips: {en: "Do not mix AME2016, AME2020 and rounded exports without labelling the edition and precision.", zh: "不要混用 AME2016、AME2020 和舍入导出文件而不注明版本与精度。"}
 - id: nubase-min
   name: "NUBASE2020 browser (IAEA)"
   org: "IAEA Nuclear Data Section"
