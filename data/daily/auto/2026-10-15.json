@@ -157,7 +157,147 @@
       "facility_ids": [
         "lngs-luna"
       ]
+    },
+    {
+      "date": "2026-10-15",
+      "type": "job",
+      "title": "Assistant / Associate Professor in Particle Physics — Imperial Coll., London",
+      "summary": "Europe · deadline 2026-11-25 · JUNIOR/SENIOR. Imperial College London invites applications from experimental particle physicists to establish an internationally leading research programme in searches for hidden-sector and feebly interacting particles at the intensity frontier.…",
+      "url": "https://inspirehep.net/jobs/3215354",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "deadline": "2026-11-25",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "job",
+      "title": "Postdoc positions in QCD and heavy-ion physics — Jyvaskyla U.",
+      "summary": "Europe · deadline 2027-01-06 · POSTDOC. The QCD theory group at the Department of Physics of the University of Jyväskylä, Finland, invites applications for two-year postdoc positions starting September/October 2027 or as agreed. Our main research interests are small-x physics,…",
+      "url": "https://inspirehep.net/jobs/3214936",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "deadline": "2027-01-06",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Laser pulses bring order to a quantum material's tiny electrical regions",
+      "summary": "Physicists at Auburn University have used flashes of laser light to bring order to tiny electrically charged \"islands\" inside a crystal. The discovery helps answer a decades-old question about how the material organizes itself and shows how light could be used to control its…",
+      "url": "https://phys.org/news/2026-10-laser-pulses-quantum-material-tiny.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Quantum calculations reveal how spin defects lose energy",
+      "summary": "When light hits a tiny defect embedded in a solid material like diamond or silicon carbide, it can kick the defect's electrons into an excited state. These spin defects have the potential to be used as stable, readable qubits for quantum technologies, for example, quantum…",
+      "url": "https://phys.org/news/2026-10-quantum-reveal-defects-energy.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Quantum sensor could measure how Earth drags spacetime",
+      "summary": "Einstein's theory of general relativity describes gravity as the bending of spacetime, a mathematical model that combines three-dimensional space and time into a single, four-dimensional continuum. The theory also predicts that a rotating object, such as Earth, slightly drags…",
+      "url": "https://phys.org/news/2026-10-quantum-sensor-earth-spacetime.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Quantum network test checks entanglement without having to trust detectors",
+      "summary": "Quantum networks are systems that connect different users or devices using principles of quantum mechanics. In the future, these networks could help improve the security of communications.",
+      "url": "https://phys.org/news/2026-10-quantum-network-entanglement-detectors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "Precision Hypernuclear Structure from Interaction Cross Sections",
+      "summary": "Author(s): Carlos A. Bertulani We establish interaction cross sections as a quantitative structural observable for hypernuclei. Using the hypertriton, $_{\\mathrm{Λ}}^{3}\\mathrm{H}$, as the most stringent benchmark, microscopic three-body wave functions are combined with a…",
+      "url": "http://link.aps.org/doi/10.1103/vzp5-ttyh",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "Direct transfer to $^{46,48}\\mathrm{K}$ as a survey of the $π({s}_{1/2})\\text{−}ν(sdpf)$ interaction",
+      "summary": "Author(s): C. J. Paxman et al. Nucleon-adding and -removing transfer reactions provide a unique experimental window into the anatomy of the shell-model picture of atomic nuclei. The authors put the neutron-removing transfer reaction 47K(d,t) and the neutron-adding counterpart…",
+      "url": "http://link.aps.org/doi/10.1103/z145-rfy7",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "Chiral effective field theory analysis of the (“hep”) reaction $S$ factor and the (“hen”) reaction cross section",
+      "summary": "Author(s): M. Viviani, A. Gnech, L. E. Marcucci, A. Kievsky, and L. Girlanda We present a new accurate analysis of the $^{3}\\mathrm{He}(p,{e}^{+}{ν}_{e})^{4}\\mathrm{He}$ (“hep”) reaction at astrophysical energies. The $S$-factor is computed using a state-of-the-art method to…",
+      "url": "http://link.aps.org/doi/10.1103/h98v-cd4t",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-15T06:27:37+00:00"
+  "fetched": "2026-10-15T19:22:26+00:00"
 }
