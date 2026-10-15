@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-14T19:41:12+00:00",
+  "generated": "2026-10-15T06:27:39+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5674,6 +5674,164 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-10-15",
+      "type": "preprint",
+      "title": "Demonstration of a mobile ion-trap quantum device",
+      "summary": "Sara Alfaro et al. — Trapped-ion devices are being investigated for transportable applications, including the transfer of exotic charged particles between laboratories and the development of portable quantum technologies. To date, ion transport has been demonstrated only in…",
+      "url": "https://arxiv.org/abs/2610.20487v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "arxiv": "2610.20487v1",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "preprint",
+      "title": "R-process nuclei in the rare-earth region above N=126 in Relativistic Hartree-Bogoliubov theory: A preponderance of shape-coexistence in nuclei",
+      "summary": "M. M. Sharma — The shell structure of nuclei beyond N=126 relevant to the third peak at A ~ 195 in r-process nuclear abundances in investigated. Within the framework of the relativistic Hartree-Bogoliubov theory in deformed space, a comparative study of the response of nuclei…",
+      "url": "https://arxiv.org/abs/2610.19555v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "arxiv": "2610.19555v1",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "New chip-scale gyroscope measures rotation with unprecedented sensitivity",
+      "summary": "Researchers have developed a chip-scale optical ring-laser gyroscope that can measure rotation as slow as 37 degrees per hour. This record sensitivity, approaching Earth's rotation rate of 15 degrees per hour, could eventually be useful for precision navigation and orientation…",
+      "url": "https://phys.org/news/2026-10-chip-scale-gyroscope-rotation-unprecedented.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "New framework links magnetic phase boundaries to string-like defects in spin ice",
+      "summary": "A research team led by Haruki Watanabe, a professor in the Department of Physics and the Jockey Club Institute for Advanced Study (IAS) at The Hong Kong University of Science and Technology (HKUST), in collaboration with professor Yukitoshi Motome and graduate student Sena…",
+      "url": "https://phys.org/news/2026-10-framework-links-magnetic-phase-boundaries.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Rare particle decays hint at deviations from Standard Model predictions",
+      "summary": "Studying rare processes is part and parcel of particle physics, providing stringent tests of the Standard Model. At the recent International Conference on High Energy Physics (ICHEP), the CMS and LHCb collaborations presented their latest research into one such process: the…",
+      "url": "https://phys.org/news/2026-10-rare-particle-decays-hint-deviations.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Robotic 'time crystal' organizes itself into a single rhythm despite random disturbances",
+      "summary": "Scientists have developed a material that can grow and coordinate its own movement until the entire structure pulses in unison, paving the way for versatile robots that behave more like living systems.",
+      "url": "https://phys.org/news/2026-10-robotic-crystal-rhythm-random-disturbances.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "news",
+      "title": "Jamming the flow to enable memory in quantum materials",
+      "summary": "Understanding and controlling phase transitions are fundamental to physics and central to many technological revolutions. There is currently strong interest in materials with coupled structural and electronic phase transitions, where controlling the transition plasticity…",
+      "url": "https://phys.org/news/2026-10-enable-memory-quantum-materials.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "Particle Correlations in Jets",
+      "summary": "Author(s): Wenbin Zhao, Volker Koch, and Feng Yuan We study particle correlations in high energy jets by comparing the measured energy-energy correlator with that constructed from two individual energy flows with respect to the jet axis. This comparison demonstrates that the…",
+      "url": "http://link.aps.org/doi/10.1103/yscq-npz8",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "Time-Dependent Wave-Packet Approach to Reactions for Quantum Computation",
+      "summary": "Author(s): Evan Rule and Ionel Stetcu We describe a method for obtaining the scattering matrix for nuclear or chemical reactions on a finite lattice. Aside from the preparation of the initial and final states as wave packets, the only other operation required is unitary time…",
+      "url": "http://link.aps.org/doi/10.1103/kwgf-jdbn",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "paper",
+      "title": "$^{16}\\mathrm{O}(\\mathrm{p},γ)^{17}\\mathrm{F}$ Reaction and the C and O Isotopic Ratios in Red Giant Branch Stars",
+      "summary": "Author(s): D. Robb et al. (LUNA Collaboration) The $^{16}\\mathrm{O}:^{17}\\mathrm{O}$ isotopic ratio is a widely used tracer of nucleosynthesis and mixing processes in red giant stars. Its value depends on the rates of the proton-capture reactions responsible for the production…",
+      "url": "http://link.aps.org/doi/10.1103/tclf-b44m",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-14",
+      "collected_at": "2026-10-15",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "lngs-luna"
+      ]
+    },
     {
       "date": "2026-10-14",
       "type": "job",
