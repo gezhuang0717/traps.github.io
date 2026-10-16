@@ -1,6 +1,81 @@
 {
   "entries": [
     {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "New spectroscopy method enables direct comparisons of nuclear sizes across heavy elements",
+      "summary": "The size of a nucleus (nuclear charge radius) is an important physical quantity that reflects the arrangement of protons and neutrons within the nucleus. Particularly in deformed nuclei, such as those of rare-earth elements, examining changes in the charge radius can deepen our…",
+      "url": "https://phys.org/news/2026-10-spectroscopy-method-enables-comparisons-nuclear.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Silicon qubits surpass 99.99% gate fidelity while operating three at once",
+      "summary": "Silicon spin qubits are a promising platform for building scalable quantum computers as they are compatible with the semiconductor manufacturing technologies used to produce today's computer chips. However, they have an important weakness: silicon spin qubits typically lose…",
+      "url": "https://phys.org/news/2026-10-silicon-qubits-surpass-gate-fidelity.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "Reaction–diffusion competition drives anomalous relaxation of vitrimers",
+      "summary": "Nature Physics, Published online: 15 October 2026; doi:10.1038/s41567-026-03468-0 Vitrimers—polymers that form covalent networks—show glassy behaviour with viscosity decoupled from structural relaxation. This decoupling is now found to originate from a competition between…",
+      "url": "https://www.nature.com/articles/s41567-026-03468-0",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "Simultaneous high-fidelity single-qubit gates in a spin qubit array",
+      "summary": "Nature Physics, Published online: 15 October 2026; doi:10.1038/s41567-026-03466-2 Quantum computers require simultaneous control of multiple qubits, which is challenging to achieve in nanoscale semiconductor devices. Now high-fidelity parallel operations have been demonstrated…",
+      "url": "https://www.nature.com/articles/s41567-026-03466-2",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "Monolayer van der Waals kagome lattice for high-temperature flat-band physics",
+      "summary": "Nature Physics, Published online: 15 October 2026; doi:10.1038/s41567-026-03492-0 The experimental realization of intrinsic 2D kagome materials with controllable flat bands has remained challenging. Now a van der Waals kagome material family is shown to host an isolated,…",
+      "url": "https://www.nature.com/articles/s41567-026-03492-0",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-15",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-15",
       "type": "preprint",
       "title": "Demonstration of a mobile ion-trap quantum device",
@@ -4638,7 +4713,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-15T19:22:26+00:00",
+    "checked_at": "2026-10-16T06:23:05+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -4656,25 +4731,25 @@
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 9,
-        "new": 2
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 25,
+        "matched": 24,
         "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 4
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
@@ -4686,12 +4761,13 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 6,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Nature Physics",
-        "status": "FAILED",
-        "error": "not well-formed (invalid token): line 14, column 4"
+        "status": "PASS",
+        "matched": 8,
+        "new": 3
       },
       {
         "source": "TRIUMF news",
@@ -4714,7 +4790,7 @@
       {
         "source": "IAEA — nuclear science news",
         "status": "PASS",
-        "matched": 2,
+        "matched": 1,
         "new": 0
       },
       {
