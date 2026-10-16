@@ -21,6 +21,7 @@ logs/
 sources/
 runtime/
 cache/
+pytest-of-*/
 snapshots/
 builds/
 
