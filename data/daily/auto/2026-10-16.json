@@ -74,7 +74,204 @@
       "published": "2026-10-15",
       "collected_at": "2026-10-16",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "job",
+      "title": "Postdoctoral Research Associate — WUSTL",
+      "summary": "North America · deadline 2026-12-05 · POSTDOC. Postdoctoral Position in the Space Sciences Washington University in St. Louis invites applicants to conduct independent research as a postdoctoral fellow of the McDonnell Center for the Space Sciences (MCSS) in the broad field of…",
+      "url": "https://inspirehep.net/jobs/3215694",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "deadline": "2026-12-05",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "job",
+      "title": "Postdoctoral Fellowship in Theoretical Physics — INFN, Genoa",
+      "summary": "Europe · deadline 2026-11-12 · POSTDOC. The INFN Genova theoretical physics group invites applications for a two-year postdoctoral fellowship on “ New Exotic states of hadrons ”, within the 2027/2028 INFN Fellowship Programme (Call No. 29216). “ The project aims at…",
+      "url": "https://inspirehep.net/jobs/3215693",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "deadline": "2026-11-12",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "job",
+      "title": "AI-Native Physicist Fellowship — FirstPrinciples Foundation",
+      "summary": "North America, Europe · deadline 2026-11-07 · SENIOR/JUNIOR/PHD/POSTDOC/VISITOR. FirstPrinciples Foundation AI-Native Physicist Fellowship FirstPrinciples Foundation · Remote · 12 months, full-time · Starts January 2027 · Apply by October 31, 2026 Frontier AI is changing how…",
+      "url": "https://inspirehep.net/jobs/3215691",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "deadline": "2026-11-07",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "job",
+      "title": "Postdoc position in QCD under Extreme Conditions — Stavanger U.",
+      "summary": "Europe · deadline 2026-11-08 · POSTDOC. The University of Stavanger (UiS), invites applications for a three-year postdoctoral position at the Department of Mathematics and Physics. The position is associated with CoreQCD, a research project funded by the Research Council of…",
+      "url": "https://inspirehep.net/jobs/3215686",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "deadline": "2026-11-08",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Maxwell's demon learns to turn concealed information into usable energy for microscopic systems",
+      "summary": "Since its introduction more than 150 years ago, the thought-provoking idea of Maxwell's demon has profoundly shaped our understanding of the relationship between information and energy. Maxwell's demon is an imagined microscopic gatekeeper that exploits information at the…",
+      "url": "https://phys.org/news/2026-10-maxwell-demon-concealed-usable-energy.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Physics-guided AI reconstructs hidden patterns inside ultrathin magnets from external fields",
+      "summary": "To build faster and more energy-efficient computers, researchers need to understand nanoscale magnetic materials. But looking inside these tiny magnets is surprisingly difficult: Modern microscopes only measure the magnetic field outside the material, not the magnetic pattern…",
+      "url": "https://phys.org/news/2026-10-physics-ai-reconstructs-hidden-patterns.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Even or odd numbers: A single molecule makes all the difference in the quantum world",
+      "summary": "The researchers in the Quantum Detection Microscopy group at CIC nanoGUNE, in collaboration with chemists at CiQUS of the University of Santiago de Compostela, have demonstrated that adding or removing a single molecule from a quantum chain can fundamentally change its…",
+      "url": "https://phys.org/news/2026-10-odd-molecule-difference-quantum-world.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Solving the gallium anomaly: New calculation may explain neutrino shortfall without invoking new particles",
+      "summary": "Glimpses of the \"gallium anomaly\" were first seen in the mid-1990s, but it was first clearly discovered and stated in 2007 by neutrino physicist Carlo Giunti of Italy. The problem is simple to state but potentially very important: about 20% fewer electron neutrinos were seen to…",
+      "url": "https://phys.org/news/2026-10-gallium-anomaly-neutrino-shortfall-invoking.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "Most Degenerate Chiral Doublet Bands in Nuclei",
+      "summary": "Author(s): W. Z. Xu (许文政) et al. A doublet-band structure consisting of two $\\mathrm{Δ}I=1$ bands connected by multiple interband transitions was identified in $^{112}\\mathrm{Sb}$, with an average energy difference of only 36 keV between the two bands. It represents the most…",
+      "url": "http://link.aps.org/doi/10.1103/4lcf-657x",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "Nonlocality in prior-form distorted-wave Born approximation",
+      "summary": "Author(s): Jin Lei and Zhongzhou Ren In the distorted wave Born approximation, the optical potentials of the entrance and exit channels are constrained by elastic scattering only on the energy shell, so their interior behavior, which a local Woods-Saxon form fixes by…",
+      "url": "http://link.aps.org/doi/10.1103/8lpg-kcff",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "paper",
+      "title": "The extraction of work from hidden degrees of freedom",
+      "summary": "Nature Physics, Published online: 16 October 2026; doi:10.1038/s41567-026-03442-w According to the laws of thermodynamics, information can be converted into energy. An information engine that harnesses environmental memory and exhibits non-Markovian dynamics has now been…",
+      "url": "https://www.nature.com/articles/s41567-026-03442-w",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "From Farm to Fork: How Nuclear Science Helps Put Food on Our Tables",
+      "url": "http://www.iaea.org/newscenter/news/from-farm-to-fork-how-nuclear-science-helps-put-food-on-our-tables",
+      "source": "IAEA — nuclear science news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-16",
+      "type": "news",
+      "title": "Burkina Faso Grows More Rice with Nuclear Science",
+      "url": "http://www.iaea.org/newscenter/news/burkina-faso-grows-more-rice-with-nuclear-science",
+      "source": "IAEA — nuclear science news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "collected_at": "2026-10-16",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-16T06:23:05+00:00"
+  "fetched": "2026-10-16T19:02:44+00:00"
 }
