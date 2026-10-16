@@ -62,6 +62,15 @@
       if(host.crypto?.subtle)host.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({rows:canonical,policy:policy.value}))).then(b=>{if(seq!==revision)return;hash=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');rowStatus();}).catch(()=>{});
     }
     function replace(rows){raw=rows.map(r=>{r={...r};try{const st=MM.stateFor(r,catalog);r.nuclide=st.A+st.element+'['+st.label+']';delete r.Z;delete r.N;delete r.state;}catch(_){}r.unit=({kev:'keV',mev:'MeV',u:'u','µu':'µu','μu':'µu'}[String(r.unit||'keV').toLowerCase()]||r.unit);r.quantity=/^(?:atomic(?:[ _-]?mass)?|mass)$/i.test(r.quantity||'')?'atomic':/^(?:be|binding[ _-]?energy)$/i.test(r.quantity||'')?'be':/^(?:me|mass[ _-]?excess)$/i.test(r.quantity||'')?'me':r.quantity||'me';return r;});page=0;update();render();}
+    function importText(text){
+      const rows=MM.parse(text),source=text.replace(/^\uFEFF/,'').trim();let nextPolicy=policy.value;
+      if(source.startsWith('{')){
+        const data=JSON.parse(source);
+        if(data.schema!==undefined&&data.schema!==1)throw new Error('json');
+        if(data.policy!==undefined){if(!['last','weighted'].includes(data.policy))throw new Error('json');nextPolicy=data.policy;}
+      }
+      policy.value=nextPolicy;replace(rows);
+    }
     function input(e){
       const input=e.target.closest('[data-field]');if(!input)return;
       const r=raw[+input.dataset.row];if(!r)return;const f=input.dataset.field==='sigma'?'uncertainty':input.dataset.field;
@@ -75,13 +84,13 @@
     pager.addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b){page+=+b.dataset.page;render();}});
     policy.addEventListener('change',update);
     panel.querySelector('[name=nc-mass-markers]').addEventListener('change',()=>onchange(table));
-    panel.querySelector('[name=nc-mass-file]').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>MM.MAX_TEXT)throw new Error('limit');replace(MM.parse(await f.text()));}catch(e){error.textContent=message(e);}finally{e.target.value='';}});
+    panel.querySelector('[name=nc-mass-file]').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>MM.MAX_TEXT)throw new Error('limit');importText(await f.text());}catch(e){error.textContent=message(e);}finally{e.target.value='';}});
     panel.addEventListener('click',e=>{
       const b=e.target.closest('[data-mass]');if(!b)return;
       try{
         if(timer)update(); // Finish pending edits before saving, exporting or replacing the table.
         switch(b.dataset.mass){
-          case 'import':replace(MM.parse(paste.value));break;
+          case 'import':importText(paste.value);break;
           case 'example':paste.value=exampleText.value;paste.focus();paste.select();break;
           case 'csv':host.zgExport.save(new Blob(['\uFEFF'+MM.csv(raw)],{type:'text/csv;charset=utf-8'}),'measured-mass-inputs-'+host.zgExport.stamp()+'.csv');break;
           case 'add':if(raw.length>=MM.MAX_ROWS)throw new Error('limit');raw.push({nuclide:'',value:'',uncertainty:'',unit:'keV',quantity:'me',label:'New',use:true});page=Math.floor((raw.length-1)/50);update();render();break;

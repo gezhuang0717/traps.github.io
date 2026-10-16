@@ -125,8 +125,8 @@
     stable: [T.fl_stable, r => r[6] === 99], hl: [T.fl_hl, r => r[6] > -90 && r[6] !== 99], iso: [T.fl_iso, r => r[11].length > 0],
     magic: [T.fl_magic, r => MAGIC.includes(r[0]) || MAGIC.includes(r[1])], nz: ["N = Z", r => r[0] === r[1]],
     nz1: ["|N − Z| = 1", r => Math.abs(r[1] - r[0]) === 1], nz2: ["|N − Z| ≤ 2", r => Math.abs(r[1] - r[0]) <= 2], prich: ["N < Z", r => r[1] < r[0]],
-    ee: ["Z even · N even", r => r[0] % 2 === 0 && r[1] % 2 === 0], eo: ["Z even · N odd", r => r[0] % 2 === 0 && r[1] % 2 === 1],
-    oe: ["Z odd · N even", r => r[0] % 2 === 1 && r[1] % 2 === 0], oo: ["Z odd · N odd", r => r[0] % 2 === 1 && r[1] % 2 === 1],
+    ee: [T.fl_ee, r => r[0] % 2 === 0 && r[1] % 2 === 0], eo: [T.fl_eo, r => r[0] % 2 === 0 && r[1] % 2 === 1],
+    oe: [T.fl_oe, r => r[0] % 2 === 1 && r[1] % 2 === 0], oo: [T.fl_oo, r => r[0] % 2 === 1 && r[1] % 2 === 1],
     oddA: [T.fl_oddA || "odd A", r => (r[0] + r[1]) % 2 === 1], evenA: [T.fl_evenA || "even A", r => (r[0] + r[1]) % 2 === 0],
     p3: [T.fl_p3 || "3-point Δ⁽³⁾ available", r => derived(r).d3n != null], p5: [T.fl_p5 || "5-point Δ⁽⁵⁾ available", r => derived(r).d5n != null],
     unb: [T.fl_unb || "particle-unbound (Sₙ or Sₚ < 0)", r => { const d = derived(r); return (d.sn && d.sn.v < 0) || (d.sp && d.sp.v < 0); }],
@@ -146,7 +146,7 @@
     if (mode === "decay") legend.innerHTML = [["stable", T.stable], ["bm", "β⁻"], ["bp", "β⁺/EC"], ["a", "α"], ["sf", "SF"], ["p", "p"], ["n", "n"], ["it", "IT"], ["punst", T.punst]].map(([k, l]) => `<span><i style="background:${DC[k]}"></i>${l}</span>`).join("");
     else if (mode === "est") legend.innerHTML = `<span><i style="background:#0ea5e9"></i>${T.measured}</span><span><i style="background:#f59e0b"></i>${T.extrap}</span>`;
     else if (mode === "iso") legend.innerHTML = [0, 1, 2, 3].map(n => `<span><i style="background:${["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][n]}"></i>${n}${n === 3 ? "+" : ""}</span>`).join("");
-    else if (mode === "eo") legend.innerHTML = [["#0ea5e9", "Z even · N even"], ["#f59e0b", "Z even · N odd"], ["#22c55e", "Z odd · N even"], ["#ef4444", "Z odd · N odd"]].map(([c, l]) => `<span><i style="background:${c}"></i>${l}</span>`).join("");
+    else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
     else { const lo = m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
   }
 
@@ -465,7 +465,7 @@
   const PQ = {
     me: [T.m_me, d => d.me, "MeV"], be: [T.mf_be, d => d.BE, "MeV"], bea: [T.m_bea, d => d.BEA, "MeV/nucleon"], sn: ["Sₙ", d => d.sn, "MeV"], s2n: ["S₂ₙ", d => d.s2n, "MeV"],
     sp: ["Sₚ", d => d.sp, "MeV"], s2p: [T.mf_s2p, d => d.s2p, "MeV"], qbm: ["Q(β⁻)", d => d.qbm, "MeV"], qec: ["Q(EC)", d => d.qec, "MeV"],
-    qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, (d, r) => d.me?.e == null ? null : { v: d.me.e * 1000, e: 0, est: d.me.est }, "keV"],
+    qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, d => d.me?.e == null ? null : { v: d.me.e * 1000, e: null, est: d.me.est || d.me.sigmaEst, sigmaEst: d.me.sigmaEst, source: d.me.source, uncertainty_model: 'mass standard uncertainty; uncertainty of the uncertainty unavailable' }, "keV"],
     hl: ["log₁₀(T½ / s)", (d, r) => r[6] > -90 && r[6] !== 99 ? { v: r[6] * 1000, e: 0, est: false } : null, ""],
     d3n: ["Δₙ⁽³⁾ (pairing)", d => d.d3n, "MeV"], d3p: ["Δₚ⁽³⁾ (pairing)", d => d.d3p, "MeV"],
     d5n: ["Δₙ⁽⁵⁾ (pairing, 5-point)", d => d.d5n, "MeV"], d5p: ["Δₚ⁽⁵⁾ (pairing, 5-point)", d => d.d5p, "MeV"], d2p: ["δ₂ₚ = S₂ₚ(Z) − S₂ₚ(Z+2)", d => d.d2p, "MeV"],
@@ -475,6 +475,9 @@
   };
   for(const [name,q]of Object.entries(reactionDefinitions))PQ[name]=[q.label,d=>d[name],'MeV'];
   for(const [name,f]of Object.entries(extraFilters))PQ[name]=[filterLabel(name,f),d=>d[name],'MeV'];
+  // A plotted standard uncertainty is not a linear mass expression. Keep its
+  // underlying mass separate for filtering, input labels and CSV provenance.
+  const dependencyValue=(quantity,derived,value)=>quantity==='dme'?derived.me:value;
   const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
   root.querySelector('.nc-filter-definitions').innerHTML='<table><thead><tr><th>'+escape(T.pq)+'</th><th>'+escape(T.mf_formula)+'</th><th>'+escape(T.mf_neighbours)+'</th></tr></thead><tbody>'+Object.entries(formulaDefinitions).map(([name,f])=>'<tr><th>'+escape(f.label||filterLabel(name,f))+'</th><td>'+escape(f.formula)+'</td><td>'+escape(offsets(f))+'</td></tr>').join('')+'</tbody></table>';
@@ -539,11 +542,12 @@
   const legendHeight=w=>16*(seriesLegendLines(w).length+inputLegendLines(w).length);
   const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc));
   function humanInputs(p){
-    return MM.provenance(p.valueObj,inputTable).map(x=>{
+    return MM.provenance(p.dependencyValue||p.valueObj,inputTable).map(x=>{
       const loaded=x.id.startsWith('loaded:')?inputTable.active.get(x.id.split(':')[1]):null;
       const r=M.get(Number(x.id.split(':').pop()));
       const name=loaded?loaded.label:r?String(r[0]+r[1])+r[2]:T.loaded_reference;
-      return x.coefficient+' × '+name+(x.references.length?' ('+x.references.filter(Boolean).join('; ')+')':'');
+      const references=x.references.filter(Boolean);
+      return x.coefficient+' × '+name+(references.length?' ('+references.join('; ')+')':'');
     }).join('; ');
   }
   function pointDetail(p){
@@ -555,7 +559,7 @@
   function pointTable(){
     const d=root.querySelector('.nc-point-table');if(!d.open||!plotDomain)return;
     const ps=plotPts.concat(modPts).filter(p=>p.x>=plotDomain.x0&&p.x<=plotDomain.x1).slice(0,300);
-    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>Source / inputs</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
+    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>'+escape(T.point_source_inputs)+'</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
   }
   root.querySelector('.nc-point-table').addEventListener('toggle',pointTable);
   const impact=root.querySelector('.nc-impact'),impactInput=root.querySelector('[name=nc-impact-input]'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
@@ -634,17 +638,18 @@
     }
     const passPoint=(r,v,source)=>{
       const [z,n]=r,ame=get(z,n),mass=source==='loaded'||source==='hybrid'?getter('hybrid')(z,n):ame;
-      const reference=['hl','beta2'].includes(pq.value)?ame:q[1](derivedZN(z,n,'ame'),r);
+      const referenceDerived=derivedZN(z,n,'ame'),hybridDerived=derivedZN(z,n,'hybrid');
+      const reference=['hl','beta2'].includes(pq.value)?ame:q[1](referenceDerived,r);
       return CP.experimentalFilter({mode:filter,centre:ame,reference,value:v,
         active:!!inputTable?.active.has(z+'-'+n+'-0'),
-        affected:MM.affected(q[1](derivedZN(z,n,'hybrid'),r)),mass,maxSigma});
+        affected:MM.affected(dependencyValue(pq.value,hybridDerived,q[1](hybridDerived,r))),mass,maxSigma});
     };
     const makePoint=(r,s)=>{
       const v=q[1](derivedZN(r[0],r[1],s==='loaded'?'hybrid':s),r);if(!v||!Number.isFinite(v.v)||!passPoint(r,v,s))return null;
-      const primitiveValue=pq.value==='dme'?derivedZN(r[0],r[1],s==='loaded'?'hybrid':s).me:v,composition=CP.composition(primitiveValue);
+      const primitiveValue=dependencyValue(pq.value,derivedZN(r[0],r[1],s==='loaded'?'hybrid':s),v),composition=CP.composition(primitiveValue);
       if(s==='hybrid'&&!composition.mixed||s==='loaded'&&!composition.experimental.length)return null;
       const labels=['loaded','hybrid'].includes(s)?MM.labels(primitiveValue,inputTable):[],style=seriesMeta(s,labels);
-      return {r,x:xv(r[0],r[1]),y:v.v/1000,e:v.e==null?null:v.e/1000,est:!!v.est,g:group(r[0],r[1]),series:s,styleKey:style.key,labels,source:style.name,valueObj:v};
+      return {r,x:xv(r[0],r[1]),y:v.v/1000,e:v.e==null?null:v.e/1000,est:!!v.est,g:group(r[0],r[1]),series:s,styleKey:style.key,labels,source:style.name,valueObj:v,dependencyValue:primitiveValue};
     };
     plotPts=[];modPts=[];residualPts=[];bands=[];plotHover=null;pointDetail(null);
     const centres=new Map(rows.filter(r=>belongs(r[0],r[1])).map(r=>[key(r[0],r[1]),r]));
@@ -673,7 +678,7 @@
     const seriesRank=s=>s.id==='ame'?0:s.id==='loaded'?1:s.id==='hybrid'?2:3;
     visibleSeries=[...new Map(plotPts.concat(modPts).map(p=>[p.styleKey,seriesMeta(p.series,p.labels)])).values()].sort((a,b)=>seriesRank(a)-seriesRank(b)||a.name.localeCompare(b.name));
     markerControls();
-    inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys(p.valueObj.terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
+    inputLegend=measured?measured.legend().filter(x=>plotPts.some(p=>['loaded','hybrid'].includes(p.series)&&Object.keys((p.dependencyValue||p.valueObj).terms||{}).some(id=>id.startsWith('loaded:'+x.id+':')))):[];
     root.querySelector('.nc-input-legend').textContent=inputLegend.map(x=>x.text).join(' · ');
     if(chainInput('band').checked){
       bands=CP.experimentalBands(plotPts);
@@ -683,7 +688,7 @@
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
         if(filter==='measured'&&d.est)continue;
-        residualPts.push({...p,y:d.v,e:model?a.e:d.e,...CP.residualStyle(d,a,model),valueObj:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,...CP.residualStyle(d,a,model),valueObj:d,dependencyValue:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
@@ -905,7 +910,7 @@
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(MM.provenance(p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst];}),'chain-'+pq.value);
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst];}),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
