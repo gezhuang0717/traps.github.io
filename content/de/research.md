@@ -57,3 +57,17 @@ Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: 
 - Massen an Wartepunkten des rp- und νp-Prozesses nahe *N* = *Z*
 - Massen neutronenreicher Kerne für r-Prozess-Netzwerkrechnungen
 - Kernphysikalische Eingaben für Röntgenbursts und den Ursprung der Elemente
+
+## Wissenschaftlicher Hintergrund
+
+**Penningfallen-Massenspektrometrie.** Ein Ion der Ladung *q* und Masse *m* in einem starken Magnetfeld *B* und einem schwachen elektrostatischen Quadrupolpotential führt drei Eigenbewegungen aus; die Summe aus reduzierter Zyklotron- und Magnetronfrequenz ist in sehr guter Näherung die freie Zyklotronfrequenz *ν*<sub>c</sub> = *qB*/(2π*m*). Der Vergleich von *ν*<sub>c</sub> des Ions mit dem eines Referenzions bekannter Masse eliminiert das Magnetfeld; die Masse folgt aus einem Frequenzverhältnis. An JYFLTRAP reinigt eine erste Falle das Ionenpaket durch Puffergaskühlung, eine zweite führt die Messung durch; für kurzlebige Kerne sind relative Unsicherheiten von 10<sup>−8</sup> und besser erreichbar. Bei der Flugzeit-Ionenzyklotronresonanz (TOF-ICR) wird die Anregungsfrequenz durchgestimmt, und die Resonanz zeigt sich als Minimum der Flugzeit zum Detektor; bei der Phasenabbildung (PI-ICR) wird die in fester Zeit akkumulierte radiale Phase auf einen ortsempfindlichen Detektor projiziert, was ein höheres Auflösungsvermögen liefert und niedrig liegende Isomere trennt.
+
+**Multireflexions-Flugzeit-Massenspektrometrie (MR-TOF).** Die Ionen werden zwischen zwei elektrostatischen Spiegeln vielfach reflektiert, wodurch sich die Flugstrecke in einem kompakten Gerät auf hunderte Meter verlängert. Das Auflösungsvermögen *R* = *m*/Δ*m* = *t*/(2Δ*t*) wächst mit der Flugzeit, sodass Isobare innerhalb von Millisekunden trennbar werden; das Gerät dient als Isobarentrenner, Massenspektrometer und Strahldiagnose. Kalibriert wird mit Referenzionen, da *m*/*q* proportional zu (*t* − *t*<sub>0</sub>)<sup>2</sup> ist.
+
+**Zerfallsenergien und Neutrinomasse.** Der *Q*-Wert eines β⁻-Zerfalls oder Elektroneneinfangs ist die Differenz der Atommassen von Mutter- und Tochterkern, *Q* = [*M*(Mutter) − *M*(Tochter)]*c*<sup>2</sup>. Direkte Neutrinomassen-Experimente analysieren den Bereich nahe dem Endpunkt des Spektrums, wo ein sehr kleiner *Q*-Wert die Empfindlichkeit erhöht. Penningfallen-Messungen von *Q* mit Unsicherheiten unter 1 keV finden solche Übergänge mit ultrakleinem *Q* und schließen ungeeignete Kandidaten aus.
+
+**Kernstruktur.** Aus Massen abgeleitete Bindungsenergien zeigen Schalenabschlüsse (Abfall der Zwei-Neutronen-Separationsenergie nach einer magischen Zahl), Paarung (Ungerade-gerade-Staffelung) und die zusätzliche Bindung von *N* = *Z*-Kernen; Spiegelkerne prüfen die Isospinsymmetrie über Coulomb-Verschiebungsenergien. ¹⁰⁰Sn ist der schwerste selbstkonjugierte Kern, der als doppelt magisch erwartet wird.
+
+**Nukleare Astrophysik.** In Röntgenausbrüchen und im νp-Prozess verläuft der Reaktionsfluss nahe der Protonen-Abbruchkante und wartet an Kernen mit kleinem Protoneneinfang-*Q*-Wert; im r-Prozess legen die Neutronen-Separationsenergien den Pfad des Neutroneneinfangs fest. Massen sind daher zentrale Kernphysik-Eingangsdaten für die Herkunft der Elemente; siehe das Panel [Periodensystem & Herkunft der Elemente](../games/#g-ptable).
+
+**Isotopieverschiebungen.** In der Laserspektroskopie von Isotopenketten benötigt die Massenverschiebung genaue Atommassen; sie verringern die Unsicherheit der aus den gemessenen Verschiebungen extrahierten Ladungsradiendifferenzen.

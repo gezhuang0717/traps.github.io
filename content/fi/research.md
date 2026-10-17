@@ -57,3 +57,17 @@ Suihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu:
 - Massat rp- ja νp-prosessien odotuspisteissä lähellä *N* = *Z*
 - Neutronirikkaiden ytimien massat r-prosessin verkkolaskuihin
 - Ydinfysiikan syötteet röntgenpurkauksiin ja alkuaineiden syntyyn
+
+## Tieteellinen tausta
+
+**Penning-loukkumassaspektrometria.** Varauksen *q* ja massan *m* ioni voimakkaassa magneettikentässä *B* ja heikossa sähköstaattisessa kvadrupolipotentiaalissa suorittaa kolme ominaisliikettä; redusoidun syklotroni- ja magnetronitaajuuden summa on erittäin hyvällä approksimaatiolla vapaa syklotronitaajuus *ν*<sub>c</sub> = *qB*/(2π*m*). Kun kiinnostavan ionin *ν*<sub>c</sub> verrataan hyvin tunnetun referenssi-ionin taajuuteen, magneettikenttä supistuu pois ja massa saadaan taajuussuhteesta. JYFLTRAPissa ensimmäinen loukku puhdistaa ionipaketin puskurikaasujäähdytyksellä ja toinen suorittaa mittauksen; lyhytikäisille ytimille voidaan saavuttaa 10<sup>−8</sup> ja parempi suhteellinen epävarmuus. Lentoaikaan perustuvassa ionisyklotroniresonanssimenetelmässä (TOF-ICR) viritystaajuutta pyyhkäistään ja resonanssi näkyy lentoajan minimina ilmaisimelle; vaihekuvauksessa (PI-ICR) kiinteässä ajassa kertynyt radiaalinen vaihe heijastetaan paikkaherkälle ilmaisimelle, mikä antaa paremman erotuskyvyn ja erottaa matalat isomeeritilat.
+
+**MR-TOF-massaspektrometria.** Ionit heijastuvat monta kertaa kahden sähköstaattisen peilin välillä, mikä pidentää lentomatkan satoihin metreihin kompaktissa laitteessa. Erotuskyky *R* = *m*/Δ*m* = *t*/(2Δ*t*) kasvaa lentoajan mukana, joten isobaarit erottuvat millisekunneissa; laite toimii isobaarierottimena, massaspektrometrina ja suihkudiagnostiikkana. Kalibrointi tehdään referenssi-ioneilla, koska *m*/*q* on verrannollinen suureeseen (*t* − *t*<sub>0</sub>)<sup>2</sup>.
+
+**Hajoamisenergiat ja neutriinon massa.** β⁻-hajoamisen tai elektronikaappauksen *Q*-arvo on emo- ja tytärytimen atomimassojen erotus, *Q* = [*M*(emo) − *M*(tytär)]*c*<sup>2</sup>. Neutriinon massaa suoraan mittaavat kokeet tarkastelevat spektrin päätepisteen aluetta, jossa hyvin pieni *Q* parantaa herkkyyttä. Penning-loukkumittaukset alle keV:n tarkkuudella löytävät tällaiset erittäin pienen *Q*-arvon siirtymät ja sulkevat pois kelpaamattomat ehdokkaat.
+
+**Ydinrakenne.** Massoista johdetut sidosenergiat paljastavat kuorisulkeumat (kahden neutronin erotusenergian pudotus maagisen luvun jälkeen), parittumisen (pariton–parillinen vaihtelu) ja *N* = *Z* -ytimien lisäsidoksen; peiliytimet testaavat isospinsymmetriaa Coulombin siirtymäenergioiden avulla. ¹⁰⁰Sn on raskain itseconjugaattinen ydin, jonka odotetaan olevan kaksoismaaginen.
+
+**Ydinastrofysiikka.** Röntgenpurkauksissa ja νp-prosessissa reaktiovirta kulkee lähellä protonivuotolinjaa ja odottaa ytimissä, joilla on pieni protonikaappauksen *Q*-arvo; r-prosessissa neutronien erotusenergiat määrittävät neutronikaappausvirran polun. Massat ovat siksi keskeinen ydinfysikaalinen lähtötieto alkuaineiden alkuperälle; katso paneeli [Jaksollinen järjestelmä ja alkuaineiden alkuperä](../games/#g-ptable).
+
+**Isotooppisiirtymät.** Isotooppiketjujen laserspektroskopiassa massasiirtymä vaatii tarkat atomimassat; ne pienentävät mitatuista siirtymistä johdettujen varaussäteiden erotusten epävarmuutta.

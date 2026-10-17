@@ -33,3 +33,17 @@ Penning-loukun hiukkassimulointi, MR-TOF-kalibrointi ja 2D-MCP-paikkakalibrointi
 - **Massamittaukset ja pienet Q-arvot:** [Avaa nuklidikartta ja ketjukuvat](../lab/?nuclide=116Sn). Vertaa AME2020:tä saatavilla oleviin massamalleihin. Syötä massaylijäämä, kokonaisidosenergia tai atomimassa ja tarkista muuttuvat naapurisuureet sekä erot. Aloita synteettisestä esimerkistä; syöte ei ole automaattisesti varmennettu mittaus.
 - **MR-TOF ja kaksoisloukku:** [Kokeile mittauspelejä](../games/). Original-, Advanced- ja Fancier-välilehdet näyttävät liikkeen, kalibroinnin ja simuloidun ilmaisimen. Ne ovat opetustyökaluja eivätkä laitteiston validointia.
 - **Tarkista tausta:** [Tietolähteet](../databases/), [julkaisut](../publications/) ja [tutkimuslaitokset](../facilities/). Lab-sivun mallivalinnoissa on suorat data- ja artikkelilinkit.
+
+## Hankkeiden tieteellinen tausta
+
+**MASSPASS.** *N* = *Z* -linjan massat antavat kahden protonin ja kahden neutronin erotusenergiat sekä sidosenergian parittumis- ja Wigner-osuudet, ja ne testaavat kuoren kehitystä kohti ¹⁰⁰Sn:ää. rp-prosessille massat antavat reaktioiden *Q*-arvot, jotka määräävät Sn–Sb–Te-syklin ulottuvuuden. Ytimet tuotetaan IGISOL-tekniikalla, massaerotetaan, jäähdytetään ja kasataan RFQ:ssa ja mitataan JYFLTRAPilla ja MR-TOF-spektrometrillä.
+
+**Pienen *Q*-arvon hajoamiset.** Tavoitteena on luettelo luotettavista ehdokkaista tuleville neutriinon massan suorille mittauksille: kunkin siirtymän hajoamisenergia mitataan muutaman sadan eV:n tai paremmalla tarkkuudella ja virittyneiden tilojen energiat tarkistetaan ydinrakennedataa vasten.
+
+**MR-TOF-spektrometria.** Työ kattaa ionioptiset simulaatiot (SIMION), lentoaikakalibroinnin referenssi-ioneilla (*m*/*q* ∝ (*t* − *t*<sub>0</sub>)<sup>2</sup>), piikin muodon sovituksen sekä taajuus- tai aikasuhteiden muuntamisen atomimassoiksi ja massaylijäämiksi.
+
+**RFQ-jäähdytin-kasaajat.** Heliumilla täytetyssä radiotaajuisessa kvadrupolissa RF-kenttä rajoittaa ioneja radiaalisesti, kun törmäykset jäähdyttävät niitä; heikko aksiaalinen tasajännitegradientti ohjaa ionit potentiaalikuoppaan, josta vapautetaan lyhyitä, pienen emittanssin kasoja loukkuun injektoitavaksi.
+
+**Ilmaisimet varastorenkaisiin.** Isokronisessa massaspektrometriassa varastoidun ionin kiertoaika riippuu massa–varaussuhteesta; siirtymäenergialla toimiva rengas kumoaa ensimmäisen kertaluvun nopeusriippuvuuden. Ohutkalvoiset aikailmaisimet mikrokanavalevyillä mittaavat kiertoajat alle nanosekunnin erotuskyvyllä.
+
+**Tutkimusohjelmistot.** Python-ohjelmat integroivat ionien liikeyhtälöt Penning-loukuissa ioni–ioni-Coulombin vuorovaikutus mukaan lukien, kalibroivat MR-TOF-spektrit referenssi-ioneilla ja korjaavat kaksiulotteisten MCP-ilmaisimien paikkavääristymät.

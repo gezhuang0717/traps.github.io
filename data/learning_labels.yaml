@@ -1,6 +1,7 @@
 en:
   rfq: RFQ / Paul trap
   laser: Laser cooling
+  ptable: Periodic table
   label: Research, papers and tools
   research: Research questions
   papers: Find publications
@@ -19,6 +20,7 @@ en:
 zh:
   rfq: RFQ / 保罗阱
   laser: 激光冷却
+  ptable: 元素周期表
   label: 研究、论文与工具
   research: 研究问题
   papers: 检索论文
@@ -30,6 +32,7 @@ zh:
 fi:
   rfq: RFQ / Paul-loukku
   laser: Laserjäähdytys
+  ptable: Jaksollinen järjestelmä
   label: Tutkimus, julkaisut ja työkalut
   research: Tutkimuskysymykset
   papers: Hae julkaisuja
@@ -47,6 +50,7 @@ fi:
 de:
   rfq: RFQ / Paul-Falle
   laser: Laserkühlung
+  ptable: Periodensystem
   label: Forschung, Veröffentlichungen und Werkzeuge
   research: Forschungsfragen
   papers: Veröffentlichungen finden
@@ -65,6 +69,7 @@ de:
 ja:
   rfq: RFQ / ポールトラップ
   laser: レーザー冷却
+  ptable: 周期表
   label: 研究・論文・ツール
   research: 研究課題
   papers: 論文を検索
