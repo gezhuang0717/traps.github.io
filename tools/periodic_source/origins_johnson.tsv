@@ -1,0 +1,105 @@
+# symbol|group|row|shade|codes   (codes: b=Big Bang fusion, j=cosmic ray fission, y=dying low-mass stars, o=merging neutron stars, g=exploding massive stars, c=exploding white dwarfs, z=human synthesis / no stable isotopes)
+# Source: Commons "Nucleosynthesis periodic table.svg" by CMG Lee, based on Jennifer Johnson (Ohio State University), http://www.astronomy.ohio-state.edu/~jaj/nucleo/ ; table copied verbatim from the data block in the SVG.
+H | 1  |1  |0  |b
+He|18  |1  |40 |ygb
+Li| 1  |2  |79 |jby
+Be| 2  |2  |0  |j
+B |13  |2  |0  |j
+C |14  |2  |65 |gy
+N |15  |2  |65 |gy
+O |16  |2  |0  |g
+F |17  |2  |0  |g
+Ne|18  |2  |0  |g
+Na| 1  |3  |0  |g
+Mg| 2  |3  |173|gc
+Al|13  |3  |177|gc
+Si|14  |3  |114|gc
+P |15  |3  |163|gc
+S |16  |3  |100|gc
+Cl|17  |3  |133|gc
+Ar|18  |3  |98 |gc
+K | 1  |4  |130|gc
+Ca| 2  |4  |93 |gc
+Sc| 3  |4  |130|gc
+Ti| 4  |4  |77 |gc
+V | 5  |4  |65 |gc
+Cr| 6  |4  |63 |gc
+Mn| 7  |4  |53 |gc
+Fe| 8  |4  |78 |gc
+Co| 9  |4  |75 |gc
+Ni|10  |4  |72 |gc
+Cu|11  |4  |85 |gc
+Zn|12  |4  |89 |gc
+Ga|13  |4  |0  |g
+Ge|14  |4  |0  |g
+As|15  |4  |0  |g
+Se|16  |4  |0  |g
+Br|17  |4  |0  |g
+Kr|18  |4  |0  |g
+Rb| 1  |5  |0  |g
+Sr| 2  |5  |47 |gy
+Y | 3  |5  |37 |gy
+Zr| 4  |5  |53 |gy
+Nb| 5  |5  |48 |oy
+Mo| 6  |5  |80 |oy
+Tc| 7  |5  |0  |z
+Ru| 8  |5  |111|oy
+Rh| 9  |5  |137|oy
+Pd|10  |5  |97 |oy
+Ag|11  |5  |128|oy
+Cd|12  |5  |91 |oy
+In|13  |5  |107|oy
+Sn|14  |5  |73 |oy
+Sb|15  |5  |119|oy
+Te|16  |5  |86 |oy
+I |17  |5  |157|oy
+Xe|18  |5  |131|oy
+Cs| 1  |6  |134|oy
+Ba| 2  |6  |56 |oy
+La| 4  |7.5|81 |oy
+Ce| 5  |7.5|64 |oy
+Pr| 6  |7.5|94 |oy
+Nd| 7  |7.5|83 |oy
+Pm| 8  |7.5|0  |z
+Sm| 9  |7.5|114|oy
+Eu|10  |7.5|155|oy
+Gd|11  |7.5|135|oy
+Tb|12  |7.5|151|oy
+Dy|13  |7.5|136|oy
+Ho|14  |7.5|150|oy
+Er|15  |7.5|132|oy
+Tm|16  |7.5|139|oy
+Yb|17  |7.5|111|oy
+Lu|18  |7.5|127|oy
+Hf| 4  |6  |88 |oy
+Ta| 5  |6  |101|oy
+W | 6  |6  |86 |oy
+Re| 7  |6  |147|oy
+Os| 8  |6  |144|oy
+Ir| 9  |6  |169|oy
+Pt|10  |6  |155|oy
+Au|11  |6  |153|oy
+Hg|12  |6  |81 |oy
+Tl|13  |6  |63 |oy
+Pb|14  |6  |95 |oy
+Bi|15  |6  |176|oy
+Po|16  |6  |0  |o
+At|17  |6  |0  |o
+Rn|18  |6  |0  |o
+Fr| 1  |7  |0  |o
+Ra| 2  |7  |0  |o
+Ac| 4  |8.5|0  |o
+Th| 5  |8.5|0  |o
+Pa| 6  |8.5|0  |o
+U | 7  |8.5|0  |o
+Np| 8  |8.5|0  |o
+Pu| 9  |8.5|0  |o
+Am|10  |8.5|0  |z
+Cm|11  |8.5|0  |z
+Bk|12  |8.5|0  |z
+Cf|13  |8.5|0  |z
+Es|14  |8.5|0  |z
+Fm|15  |8.5|0  |z
+Md|16  |8.5|0  |z
+No|17  |8.5|0  |z
+Lr|18  |8.5|0  |z

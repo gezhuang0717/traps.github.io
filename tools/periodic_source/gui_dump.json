@@ -1,0 +1,4747 @@
+{
+"definitions": {
+"en": "Proton Number: The number of protons in the nucleus, also known as the atomic number, which determines the element's identity.\n\nChemical Group Block: The category of the element based on its electron configuration (e.g., s, p, d, f blocks), indicating its chemical properties.\n\nAtomic Mass: The average mass of the element's isotopes, measured in atomic mass units (u).\n\nStandard State: The physical state of the element (solid, liquid, or gas) at standard conditions (typically 25°C and 1 atm).\n\nElectron Configuration: The arrangement of electrons in the element's atomic orbitals, showing how electrons are distributed across energy levels.\n\nOxidation States: The possible charges an element can have when it forms compounds, indicating its ability to gain or lose electrons.\n\nElectronegativity (Pauling): A measure of the element's ability to attract electrons in a chemical bond, using the Pauling scale.\n\nAtomic Radius (van der Waals, pm): The size of the atom, measured in picometers (pm), often using the van der Waals radius for non-bonded atoms.\n\nIonization Energy (kJ/mol): The energy required to remove an electron from a gaseous atom, measured in kilojoules per mole (kJ/mol).\n\nElectron Affinity (kJ/mol): The energy change when an atom gains an electron, measured in kilojoules per mole (kJ/mol).\n\nMelting Point (K): The temperature at which the element transitions from solid to liquid, measured in Kelvin (K).\n\nBoiling Point (K): The temperature at which the element transitions from liquid to gas, measured in Kelvin (K).\n\nDensity (g/cm³): The mass of the element per unit volume, measured in grams per cubic centimeter (g/cm³).\n\nYear Discovered: The year in which the element was first identified or isolated.\n\nDiscovery Country: The country where the element was discovered or first isolated.\n\nOrigin of Element: The astrophysical process responsible for the element's formation, such as Big Bang fusion, cosmic ray fission, or stellar nucleosynthesis.\n\nStable Isotopes: The isotopes of the element that are stable (do not undergo radioactive decay) in nature, along with their natural abundance as a percentage.",
+"fi": "Järjestysluku: Ytimen protonien lukumäärä, joka tunnetaan myös atomilukuna, määrittää, mikä alkuaine on kyseessä.\n\nKemiallinen ryhmälohko: Alkuaineen luokka perustuen sen elektronikonfiguraatioon (esim. s-, p-, d-, f-lohkot), joka määrittää sen kemialliset ominaisuudet.\n\nAtomimassa: Alkuaineen isotooppien keskimääräinen massa atomimassayksiköissä (u) ilmoitettuna.\n\nVakio-olomuoto: Alkuaineen fysikaalinen tila (kiinteä, nestemäinen tai kaasu) vakio-olosuhteissa (tyypillisesti 25°C lämpötilassa ja 1 atm (ilmakehän) paineessa).\n\nElektronikonfiguraatio: Elektronien järjestäytyminen alkuaineen atomin orbitaaleissa. Se kertoo, kuinka elektronit jakautuvat energiatasoille.\n\nHapetusasteet: Mahdolliset varaukset, jotka alkuaineella voi olla muodostaessaan yhdisteitä, ja se kertoo sen kyvyn vastaanottaa tai luovuttaa elektroneja.\n\nElektronegatiivisuus (Pauling): Mitta alkuaineen kyvystä vetää puoleensa elektroneja kemiallisessa sidoksessa käyttäen Paulingin asteikkoa.\n\nAtomisäde (van der Waals, pm): Atomin koko ilmoitettuna pikometreissä (pm), joka usein ilmoitetaan käyttäen van der Waalsin sädettä ei-sidotuille atomeille.\n\nIonisaatioenergia (kJ/mol): Energia, joka tarvitaan elektronin poistamiseen kaasumaisesta atomista ja ilmoitetaan kilojouleina per mooli (kJ/mol).\n\nElektroniaffiniteetti (kJ/mol): Energiamuutos, kun atomi saa elektronin, ilmoitettuna kilojouleina per mooli (kJ/mol).\n\nSulamispiste (K): Lämpötila, jossa alkuaine siirtyy kiinteästä nestemäiseen olomuotoon, ilmoitettuna kelvineissä (K).\n\nKiehumispiste (K): Lämpötila, jossa alkuaine siirtyy nestemäisestä kaasumaiseen olomuotoon, ilmoitettuna kelvineissä (K).\n\nTiheys (g/cm³): Alkuaineen massa per yksikkötilavuus. Ilmoitetaan usein grammoina per kuutiosenttimetri (g/cm³).\n\nLöytövuosi: Vuosi, jolloin alkuaine tunnistettiin tai eristettiin ensimmäisen kerran.\n\nLöytömaa: Maa, jossa alkuaine löydettiin tai eristettiin ensimmäisen kerran.\n\nAlkuaineen alkuperä: Astrofysikaalinen prosessi, jossa alkuaine pääosin muodostui, kuten alkuräjähdyksen ydinsynteesi, kosmisen säteilyn aiheuttama fissio tai tähtien nukleosynteesi.\n\nVakaat isotoopit: Alkuaineen isotoopit, jotka ovat vakaita (eivät ole radioaktiivisia eli hajoa muiksi ytimiksi) luonnossa, sekä niiden pitoisuus prosentteina.",
+"fr": "Numéro de proton: Le nombre de protons dans le noyau, également connu sous le nom de numéro atomique, qui détermine l'identité de l'élément.\n\nBloc du groupe chimique: La catégorie de l'élément basée sur sa configuration électronique (par exemple, blocs s, p, d, f), indiquant ses propriétés chimiques.\n\nMasse atomique: La masse moyenne des isotopes de l'élément, mesurée en unités de masse atomique (u).\n\nÉtat standard: L'état physique de l'élément (solide, liquide ou gaz) dans des conditions standard (généralement 25°C et 1 atm).\n\nConfiguration électronique: L'arrangement des électrons dans les orbitales atomiques de l'élément, montrant comment les électrons sont distribués sur les niveaux d'énergie.\n\nÉtats d'oxydation: Les charges possibles qu'un élément peut avoir lorsqu'il forme des composés, indiquant sa capacité à gagner ou perdre des électrons.\n\nÉlectronégativité (Pauling): Une mesure de la capacité de l'élément à attirer des électrons dans une liaison chimique, en utilisant l'échelle de Pauling.\n\nRayon atomique (van der Waals, pm): La taille de l'atome, mesurée en picomètres (pm), souvent en utilisant le rayon van der Waals pour les atomes non liés.\n\nÉnergie d'ionisation (kJ/mol): L'énergie requise pour retirer un électron d'un atome gazeux, mesurée en kilojoules par mole (kJ/mol).\n\nAffinité électronique (kJ/mol): Le changement d'énergie lorsqu'un atome gagne un électron, mesuré en kilojoules par mole (kJ/mol).\n\nPoint de fusion (K): La température à laquelle l'élément passe de l'état solide à liquide, mesurée en Kelvin (K).\n\nPoint d'ébullition (K): La température à laquelle l'élément passe de l'état liquide à gazeux, mesurée en Kelvin (K).\n\nDensité (g/cm³): La masse de l'élément par unité de volume, mesurée en grammes par centimètre cube (g/cm³).\n\nAnnée découverte: L'année au cours de laquelle l'élément a été identifié ou isolé pour la première fois.\n\nPays de découverte: Le pays où l'élément a été découvert ou isolé pour la première fois.\n\nOrigine de l'élément: Le processus astrophysique responsable de la formation de l'élément, comme la fusion du Big Bang, la fission par rayons cosmiques ou la nucléosynthèse stellaire.\n\nIsotopes stables: Les isotopes de l'élément qui sont stables (ne subissent pas de désintégration radioactive) dans la nature, avec leur abondance naturelle en pourcentage.",
+"zh-hans": "质子数：原子核中的质子数量，也称为原子序数，决定了元素的身份。\n\n化学族块：基于元素电子配置的类别（例如 s、p、d、f 块），指示其化学性质。\n\n原子质量：元素同位素的平均质量，以原子质量单位 (u) 测量。\n\n标准状态：元素在标准条件（通常为 25°C 和 1 atm）下的物理状态（固体、液体或气体）。\n\n电子配置：元素原子轨道中电子的排列，显示电子如何分布在不同能级上。\n\n氧化态：元素在形成化合物时可能具有的电荷，表明其得失电子的能力。\n\n电负性 (Pauling)：元素在化学键中吸引电子的能力，使用 Pauling 标度测量。\n\n原子半径 (van der Waals, pm)：原子的尺寸，以皮米 (pm) 为单位测量，通常使用非键合原子的 van der Waals 半径。\n\n电离能 (kJ/mol)：从气态原子中移除一个电子所需的能量，以千焦每摩尔 (kJ/mol) 测量。\n\n电子亲和能 (kJ/mol)：原子获得一个电子时的能量变化，以千焦每摩尔 (kJ/mol) 测量。\n\n熔点 (K)：元素从固态转变为液态的温度，以开尔文 (K) 测量。\n\n沸点 (K)：元素从液态转变为气态的温度，以开尔文 (K) 测量。\n\n密度 (g/cm³)：元素的单位体积质量，以克每立方厘米 (g/cm³) 测量。\n\n发现年份：元素首次被识别或分离的年份。\n\n发现国家：元素被发现或首次分离的国家。\n\n元素起源：负责元素形成的 astrophysical 过程，如大爆炸核聚变、宇宙射线裂变或恒星核合成。\n\n稳定同位素：自然界中稳定的元素同位素（不发生放射性衰变），以及它们的自然丰度百分比。"
+},
+"elements": {
+"Ac": {
+"Atomic Mass": 227.02775,
+"Atomic Radius (van der Waals, pm)": 260,
+"Boiling Point (K)": 3471,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 10.07,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 6d1",
+"Electronegativity (Pauling)": 1.1,
+"Ionization Energy (kJ/mol)": 5.17,
+"Melting Point (K)": 1324,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 89,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1899,
+"pos": [
+10,
+3
+],
+"symbol": "Ac"
+},
+"Ag": {
+"Atomic Mass": 107.868,
+"Atomic Radius (van der Waals, pm)": 172,
+"Boiling Point (K)": 2435,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 10.501,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 1.302,
+"Electron Configuration": "[Kr]5s1 4d10",
+"Electronegativity (Pauling)": 1.93,
+"Ionization Energy (kJ/mol)": 7.576,
+"Melting Point (K)": 1234.93,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+1",
+"Proton Number": 47,
+"Stable Isotopes": [
+{
+"abundance": 51.839,
+"isotope": "Ag-107"
+},
+{
+"abundance": 48.161,
+"isotope": "Ag-109"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+5,
+11
+],
+"symbol": "Ag"
+},
+"Al": {
+"Atomic Mass": 26.981538,
+"Atomic Radius (van der Waals, pm)": 184,
+"Boiling Point (K)": 2792,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 2.7,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0.441,
+"Electron Configuration": "[Ne]3s2 3p1",
+"Electronegativity (Pauling)": 1.61,
+"Ionization Energy (kJ/mol)": 5.986,
+"Melting Point (K)": 933.437,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3",
+"Proton Number": 13,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Al-27"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+3,
+13
+],
+"symbol": "Al"
+},
+"Am": {
+"Atomic Mass": 243.06138,
+"Atomic Radius (van der Waals, pm)": 244,
+"Boiling Point (K)": 2284,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 13.69,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f7",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 5.993,
+"Melting Point (K)": 1449,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +5, +4, +3",
+"Proton Number": 95,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1944,
+"pos": [
+10,
+9
+],
+"symbol": "Am"
+},
+"Ar": {
+"Atomic Mass": 39.9,
+"Atomic Radius (van der Waals, pm)": 188,
+"Boiling Point (K)": 87.3,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.0017837,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Ne]3s2 3p6",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 15.76,
+"Melting Point (K)": 83.8,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "0",
+"Proton Number": 18,
+"Stable Isotopes": [
+{
+"abundance": 0.3365,
+"isotope": "Ar-36"
+},
+{
+"abundance": 0.0632,
+"isotope": "Ar-38"
+},
+{
+"abundance": 99.6003,
+"isotope": "Ar-40"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1894,
+"pos": [
+3,
+18
+],
+"symbol": "Ar"
+},
+"As": {
+"Atomic Mass": 74.92159,
+"Atomic Radius (van der Waals, pm)": 185,
+"Boiling Point (K)": 887,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 5.776,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0.81,
+"Electron Configuration": "[Ar]4s2 3d10 4p3",
+"Electronegativity (Pauling)": 2.18,
+"Ionization Energy (kJ/mol)": 9.815,
+"Melting Point (K)": 1090,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+5, +3, -3",
+"Proton Number": 33,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "As-75"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+4,
+15
+],
+"symbol": "As"
+},
+"At": {
+"Atomic Mass": 209.98715,
+"Atomic Radius (van der Waals, pm)": 202,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": 7,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": 2.8,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p5",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 9.5,
+"Melting Point (K)": 575,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+7, +5, +3, +1, -1",
+"Proton Number": 85,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1940,
+"pos": [
+6,
+17
+],
+"symbol": "At"
+},
+"Au": {
+"Atomic Mass": 196.96657,
+"Atomic Radius (van der Waals, pm)": 166,
+"Boiling Point (K)": 3129,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 19.282,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 2.309,
+"Electron Configuration": "[Xe]6s1 4f14 5d10",
+"Electronegativity (Pauling)": 2.54,
+"Ionization Energy (kJ/mol)": 9.226,
+"Melting Point (K)": 1337.33,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +1",
+"Proton Number": 79,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Au-197"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+6,
+11
+],
+"symbol": "Au"
+},
+"B": {
+"Atomic Mass": 10.81,
+"Atomic Radius (van der Waals, pm)": 192,
+"Boiling Point (K)": 4273,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 2.37,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 0.277,
+"Electron Configuration": "[He]2s2 2p1",
+"Electronegativity (Pauling)": 2.04,
+"Ionization Energy (kJ/mol)": 8.298,
+"Melting Point (K)": 2348,
+"Origin of Element": "Cosmic Ray Fission",
+"Oxidation States": "+3",
+"Proton Number": 5,
+"Stable Isotopes": [
+{
+"abundance": 19.9,
+"isotope": "B-10"
+},
+{
+"abundance": 80.1,
+"isotope": "B-11"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1808,
+"pos": [
+2,
+13
+],
+"symbol": "B"
+},
+"Ba": {
+"Atomic Mass": 137.33,
+"Atomic Radius (van der Waals, pm)": 268,
+"Boiling Point (K)": 2170,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 3.62,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2",
+"Electronegativity (Pauling)": 0.89,
+"Ionization Energy (kJ/mol)": 5.212,
+"Melting Point (K)": 1000,
+"Origin Contributions": "Primary: Dying Low-Mass Stars (s-process); minor Merging Neutron Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+2",
+"Proton Number": 56,
+"Stable Isotopes": [
+{
+"abundance": 0.106,
+"isotope": "Ba-130"
+},
+{
+"abundance": 0.101,
+"isotope": "Ba-132"
+},
+{
+"abundance": 2.417,
+"isotope": "Ba-134"
+},
+{
+"abundance": 6.592,
+"isotope": "Ba-135"
+},
+{
+"abundance": 7.854,
+"isotope": "Ba-136"
+},
+{
+"abundance": 11.232,
+"isotope": "Ba-137"
+},
+{
+"abundance": 71.698,
+"isotope": "Ba-138"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1808,
+"pos": [
+6,
+2
+],
+"symbol": "Ba"
+},
+"Be": {
+"Atomic Mass": 9.012183,
+"Atomic Radius (van der Waals, pm)": 153,
+"Boiling Point (K)": 2744,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 1.85,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[He]2s2",
+"Electronegativity (Pauling)": 1.57,
+"Ionization Energy (kJ/mol)": 9.323,
+"Melting Point (K)": 1560,
+"Origin of Element": "Cosmic Ray Fission",
+"Oxidation States": "+2",
+"Proton Number": 4,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Be-9"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1798,
+"pos": [
+2,
+2
+],
+"symbol": "Be"
+},
+"Bh": {
+"Atomic Mass": 270.133,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d5",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+7, +5, +4, +3",
+"Proton Number": 107,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1976,
+"pos": [
+7,
+7
+],
+"symbol": "Bh"
+},
+"Bi": {
+"Atomic Mass": 208.9804,
+"Atomic Radius (van der Waals, pm)": 207,
+"Boiling Point (K)": 1837,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 9.807,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0.946,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p3",
+"Electronegativity (Pauling)": 2.02,
+"Ionization Energy (kJ/mol)": 7.289,
+"Melting Point (K)": 544.55,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +3",
+"Proton Number": 83,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Bi-209"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1753,
+"pos": [
+6,
+15
+],
+"symbol": "Bi"
+},
+"Bk": {
+"Atomic Mass": 247.07031,
+"Atomic Radius (van der Waals, pm)": 244,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 14,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f9",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.23,
+"Melting Point (K)": 1323,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +3",
+"Proton Number": 97,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1949,
+"pos": [
+10,
+11
+],
+"symbol": "Bk"
+},
+"Br": {
+"Atomic Mass": 79.9,
+"Atomic Radius (van der Waals, pm)": 183,
+"Boiling Point (K)": 331.95,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": 3.11,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 3.365,
+"Electron Configuration": "[Ar]4s2 3d10 4p5",
+"Electronegativity (Pauling)": 2.96,
+"Ionization Energy (kJ/mol)": 11.814,
+"Melting Point (K)": 265.95,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+5, +1, -1",
+"Proton Number": 35,
+"Stable Isotopes": [
+{
+"abundance": 50.69,
+"isotope": "Br-79"
+},
+{
+"abundance": 49.31,
+"isotope": "Br-81"
+}
+],
+"Standard State": "Liquid",
+"Year Discovered": 1826,
+"pos": [
+4,
+17
+],
+"symbol": "Br"
+},
+"C": {
+"Atomic Mass": 12.011,
+"Atomic Radius (van der Waals, pm)": 170,
+"Boiling Point (K)": 4098,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 2.267,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 1.263,
+"Electron Configuration": "[He]2s2 2p2",
+"Electronegativity (Pauling)": 2.55,
+"Ionization Energy (kJ/mol)": 11.26,
+"Melting Point (K)": 3823,
+"Origin Contributions": "Primary: Dying Low-Mass Stars; significant Exploding Massive Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+4, +2, -4",
+"Proton Number": 6,
+"Stable Isotopes": [
+{
+"abundance": 98.93,
+"isotope": "C-12"
+},
+{
+"abundance": 1.07,
+"isotope": "C-13"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+2,
+14
+],
+"symbol": "C"
+},
+"Ca": {
+"Atomic Mass": 40.08,
+"Atomic Radius (van der Waals, pm)": 231,
+"Boiling Point (K)": 1757,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 1.54,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Ar]4s2",
+"Electronegativity (Pauling)": 1.0,
+"Ionization Energy (kJ/mol)": 6.113,
+"Melting Point (K)": 1115,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+2",
+"Proton Number": 20,
+"Stable Isotopes": [
+{
+"abundance": 96.941,
+"isotope": "Ca-40"
+},
+{
+"abundance": 0.647,
+"isotope": "Ca-42"
+},
+{
+"abundance": 0.135,
+"isotope": "Ca-43"
+},
+{
+"abundance": 2.086,
+"isotope": "Ca-44"
+},
+{
+"abundance": 0.004,
+"isotope": "Ca-46"
+},
+{
+"abundance": 0.187,
+"isotope": "Ca-48"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+4,
+2
+],
+"symbol": "Ca"
+},
+"Cd": {
+"Atomic Mass": 112.41,
+"Atomic Radius (van der Waals, pm)": 158,
+"Boiling Point (K)": 1040,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 8.69,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Kr]5s2 4d10",
+"Electronegativity (Pauling)": 1.69,
+"Ionization Energy (kJ/mol)": 8.994,
+"Melting Point (K)": 594.22,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+2",
+"Proton Number": 48,
+"Stable Isotopes": [
+{
+"abundance": 1.25,
+"isotope": "Cd-106"
+},
+{
+"abundance": 0.89,
+"isotope": "Cd-108"
+},
+{
+"abundance": 12.49,
+"isotope": "Cd-110"
+},
+{
+"abundance": 12.8,
+"isotope": "Cd-111"
+},
+{
+"abundance": 24.13,
+"isotope": "Cd-112"
+},
+{
+"abundance": 28.73,
+"isotope": "Cd-114"
+},
+{
+"abundance": 7.49,
+"isotope": "Cd-116"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1817,
+"pos": [
+5,
+12
+],
+"symbol": "Cd"
+},
+"Ce": {
+"Atomic Mass": 140.116,
+"Atomic Radius (van der Waals, pm)": 235,
+"Boiling Point (K)": 3697,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 6.77,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.5,
+"Electron Configuration": "[Xe]6s2 4f1 5d1",
+"Electronegativity (Pauling)": 1.12,
+"Ionization Energy (kJ/mol)": 5.539,
+"Melting Point (K)": 1071,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +3",
+"Proton Number": 58,
+"Stable Isotopes": [
+{
+"abundance": 0.185,
+"isotope": "Ce-136"
+},
+{
+"abundance": 0.251,
+"isotope": "Ce-138"
+},
+{
+"abundance": 88.45,
+"isotope": "Ce-140"
+},
+{
+"abundance": 11.114,
+"isotope": "Ce-142"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1803,
+"pos": [
+9,
+4
+],
+"symbol": "Ce"
+},
+"Cf": {
+"Atomic Mass": 251.07959,
+"Atomic Radius (van der Waals, pm)": 245,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f10",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.3,
+"Melting Point (K)": 1173,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 98,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1950,
+"pos": [
+10,
+12
+],
+"symbol": "Cf"
+},
+"Cl": {
+"Atomic Mass": 35.45,
+"Atomic Radius (van der Waals, pm)": 175,
+"Boiling Point (K)": 239.11,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": 0.003214,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 3.617,
+"Electron Configuration": "[Ne]3s2 3p5",
+"Electronegativity (Pauling)": 3.16,
+"Ionization Energy (kJ/mol)": 12.968,
+"Melting Point (K)": 171.65,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+7, +5, +1, -1",
+"Proton Number": 17,
+"Stable Isotopes": [
+{
+"abundance": 75.78,
+"isotope": "Cl-35"
+},
+{
+"abundance": 24.22,
+"isotope": "Cl-37"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1774,
+"pos": [
+3,
+17
+],
+"symbol": "Cl"
+},
+"Cm": {
+"Atomic Mass": 247.07035,
+"Atomic Radius (van der Waals, pm)": 245,
+"Boiling Point (K)": 3400,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 13.51,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f7 6d1",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.02,
+"Melting Point (K)": 1618,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 96,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1944,
+"pos": [
+10,
+10
+],
+"symbol": "Cm"
+},
+"Cn": {
+"Atomic Mass": 286.179,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+2, +1, 0",
+"Proton Number": 112,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1996,
+"pos": [
+7,
+12
+],
+"symbol": "Cn"
+},
+"Co": {
+"Atomic Mass": 58.93319,
+"Atomic Radius (van der Waals, pm)": 192,
+"Boiling Point (K)": 3200,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 8.86,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.661,
+"Electron Configuration": "[Ar]4s2 3d7",
+"Electronegativity (Pauling)": 1.88,
+"Ionization Energy (kJ/mol)": 7.881,
+"Melting Point (K)": 1768,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 27,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Co-59"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1735,
+"pos": [
+4,
+9
+],
+"symbol": "Co"
+},
+"Cr": {
+"Atomic Mass": 51.996,
+"Atomic Radius (van der Waals, pm)": 189,
+"Boiling Point (K)": 2944,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 7.15,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 0.666,
+"Electron Configuration": "[Ar]3d5 4s1",
+"Electronegativity (Pauling)": 1.66,
+"Ionization Energy (kJ/mol)": 6.767,
+"Melting Point (K)": 2180,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+6, +3, +2",
+"Proton Number": 24,
+"Stable Isotopes": [
+{
+"abundance": 4.345,
+"isotope": "Cr-50"
+},
+{
+"abundance": 83.789,
+"isotope": "Cr-52"
+},
+{
+"abundance": 9.501,
+"isotope": "Cr-53"
+},
+{
+"abundance": 2.365,
+"isotope": "Cr-54"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1797,
+"pos": [
+4,
+6
+],
+"symbol": "Cr"
+},
+"Cs": {
+"Atomic Mass": 132.905452,
+"Atomic Radius (van der Waals, pm)": 343,
+"Boiling Point (K)": 944,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": 1.93,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.472,
+"Electron Configuration": "[Xe]6s1",
+"Electronegativity (Pauling)": 0.79,
+"Ionization Energy (kJ/mol)": 3.894,
+"Melting Point (K)": 301.59,
+"Origin Contributions": "Primary: Dying Low-Mass Stars (s-process); minor Merging Neutron Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+1",
+"Proton Number": 55,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Cs-133"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1860,
+"pos": [
+6,
+1
+],
+"symbol": "Cs"
+},
+"Cu": {
+"Atomic Mass": 63.55,
+"Atomic Radius (van der Waals, pm)": 140,
+"Boiling Point (K)": 2835,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 8.933,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 1.228,
+"Electron Configuration": "[Ar]4s1 3d10",
+"Electronegativity (Pauling)": 1.9,
+"Ionization Energy (kJ/mol)": 7.726,
+"Melting Point (K)": 1357.77,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Exploding Massive Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+2, +1",
+"Proton Number": 29,
+"Stable Isotopes": [
+{
+"abundance": 69.17,
+"isotope": "Cu-63"
+},
+{
+"abundance": 30.83,
+"isotope": "Cu-65"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+4,
+11
+],
+"symbol": "Cu"
+},
+"Db": {
+"Atomic Mass": 268.126,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia/United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d3",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +4, +3",
+"Proton Number": 105,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1967,
+"pos": [
+7,
+5
+],
+"symbol": "Db"
+},
+"Ds": {
+"Atomic Mass": 282.166,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d8 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+8, +6, +4, +2, 0",
+"Proton Number": 110,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1994,
+"pos": [
+7,
+10
+],
+"symbol": "Ds"
+},
+"Dy": {
+"Atomic Mass": 162.5,
+"Atomic Radius (van der Waals, pm)": 229,
+"Boiling Point (K)": 2840,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 8.55,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f10",
+"Electronegativity (Pauling)": 1.22,
+"Ionization Energy (kJ/mol)": 5.939,
+"Melting Point (K)": 1685,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 66,
+"Stable Isotopes": [
+{
+"abundance": 0.06,
+"isotope": "Dy-156"
+},
+{
+"abundance": 0.1,
+"isotope": "Dy-158"
+},
+{
+"abundance": 2.34,
+"isotope": "Dy-160"
+},
+{
+"abundance": 18.91,
+"isotope": "Dy-161"
+},
+{
+"abundance": 25.51,
+"isotope": "Dy-162"
+},
+{
+"abundance": 24.9,
+"isotope": "Dy-163"
+},
+{
+"abundance": 28.18,
+"isotope": "Dy-164"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1886,
+"pos": [
+9,
+12
+],
+"symbol": "Dy"
+},
+"Er": {
+"Atomic Mass": 167.26,
+"Atomic Radius (van der Waals, pm)": 235,
+"Boiling Point (K)": 3141,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 9.07,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f12",
+"Electronegativity (Pauling)": 1.24,
+"Ionization Energy (kJ/mol)": 6.108,
+"Melting Point (K)": 1802,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 68,
+"Stable Isotopes": [
+{
+"abundance": 0.139,
+"isotope": "Er-162"
+},
+{
+"abundance": 1.601,
+"isotope": "Er-164"
+},
+{
+"abundance": 33.503,
+"isotope": "Er-166"
+},
+{
+"abundance": 22.869,
+"isotope": "Er-167"
+},
+{
+"abundance": 26.978,
+"isotope": "Er-168"
+},
+{
+"abundance": 14.91,
+"isotope": "Er-170"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1843,
+"pos": [
+9,
+14
+],
+"symbol": "Er"
+},
+"Es": {
+"Atomic Mass": 252.083,
+"Atomic Radius (van der Waals, pm)": 245,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f11",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.42,
+"Melting Point (K)": 1133,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 99,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1952,
+"pos": [
+10,
+13
+],
+"symbol": "Es"
+},
+"Eu": {
+"Atomic Mass": 151.964,
+"Atomic Radius (van der Waals, pm)": 233,
+"Boiling Point (K)": 1802,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 5.24,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f7",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 5.67,
+"Melting Point (K)": 1095,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 63,
+"Stable Isotopes": [
+{
+"abundance": 47.81,
+"isotope": "Eu-151"
+},
+{
+"abundance": 52.19,
+"isotope": "Eu-153"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1901,
+"pos": [
+9,
+9
+],
+"symbol": "Eu"
+},
+"F": {
+"Atomic Mass": 18.99840316,
+"Atomic Radius (van der Waals, pm)": 135,
+"Boiling Point (K)": 85.03,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": 0.001696,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 3.339,
+"Electron Configuration": "[He]2s2 2p5",
+"Electronegativity (Pauling)": 3.98,
+"Ionization Energy (kJ/mol)": 17.423,
+"Melting Point (K)": 53.53,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "-1",
+"Proton Number": 9,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "F-19"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1670,
+"pos": [
+2,
+17
+],
+"symbol": "F"
+},
+"Fe": {
+"Atomic Mass": 55.84,
+"Atomic Radius (van der Waals, pm)": 194,
+"Boiling Point (K)": 3134,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 7.874,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0.163,
+"Electron Configuration": "[Ar]4s2 3d6",
+"Electronegativity (Pauling)": 1.83,
+"Ionization Energy (kJ/mol)": 7.902,
+"Melting Point (K)": 1811,
+"Origin Contributions": "Primary: Type Ia supernovae; significant Exploding Massive Stars",
+"Origin of Element": "Exploding White Dwarfs",
+"Oxidation States": "+3, +2",
+"Proton Number": 26,
+"Stable Isotopes": [
+{
+"abundance": 5.845,
+"isotope": "Fe-54"
+},
+{
+"abundance": 91.754,
+"isotope": "Fe-56"
+},
+{
+"abundance": 2.119,
+"isotope": "Fe-57"
+},
+{
+"abundance": 0.282,
+"isotope": "Fe-58"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+4,
+8
+],
+"symbol": "Fe"
+},
+"Fl": {
+"Atomic Mass": 290.192,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 7p2 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +4, +2, +1, 0",
+"Proton Number": 114,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1998,
+"pos": [
+7,
+14
+],
+"symbol": "Fl"
+},
+"Fm": {
+"Atomic Mass": 257.09511,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f12",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.5,
+"Melting Point (K)": 1800,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 100,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1952,
+"pos": [
+10,
+14
+],
+"symbol": "Fm"
+},
+"Fr": {
+"Atomic Mass": 223.01973,
+"Atomic Radius (van der Waals, pm)": 348,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 0.47,
+"Electron Configuration": "[Rn]7s1",
+"Electronegativity (Pauling)": 0.7,
+"Ionization Energy (kJ/mol)": 3.9,
+"Melting Point (K)": 300,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+1",
+"Proton Number": 87,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1939,
+"pos": [
+7,
+1
+],
+"symbol": "Fr"
+},
+"Ga": {
+"Atomic Mass": 69.723,
+"Atomic Radius (van der Waals, pm)": 187,
+"Boiling Point (K)": 2477,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 5.91,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 0.3,
+"Electron Configuration": "[Ar]4s2 3d10 4p1",
+"Electronegativity (Pauling)": 1.81,
+"Ionization Energy (kJ/mol)": 5.999,
+"Melting Point (K)": 302.91,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3",
+"Proton Number": 31,
+"Stable Isotopes": [
+{
+"abundance": 60.11,
+"isotope": "Ga-69"
+},
+{
+"abundance": 39.89,
+"isotope": "Ga-71"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1875,
+"pos": [
+4,
+13
+],
+"symbol": "Ga"
+},
+"Gd": {
+"Atomic Mass": 157.25,
+"Atomic Radius (van der Waals, pm)": 237,
+"Boiling Point (K)": 3546,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 7.9,
+"Discovery Country": "Switzerland",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f7 5d1",
+"Electronegativity (Pauling)": 1.2,
+"Ionization Energy (kJ/mol)": 6.15,
+"Melting Point (K)": 1586,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 64,
+"Stable Isotopes": [
+{
+"abundance": 0.2,
+"isotope": "Gd-152"
+},
+{
+"abundance": 2.18,
+"isotope": "Gd-154"
+},
+{
+"abundance": 14.8,
+"isotope": "Gd-155"
+},
+{
+"abundance": 20.47,
+"isotope": "Gd-156"
+},
+{
+"abundance": 15.65,
+"isotope": "Gd-157"
+},
+{
+"abundance": 24.84,
+"isotope": "Gd-158"
+},
+{
+"abundance": 21.86,
+"isotope": "Gd-160"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1880,
+"pos": [
+9,
+10
+],
+"symbol": "Gd"
+},
+"Ge": {
+"Atomic Mass": 72.63,
+"Atomic Radius (van der Waals, pm)": 211,
+"Boiling Point (K)": 3106,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 5.323,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 1.35,
+"Electron Configuration": "[Ar]4s2 3d10 4p2",
+"Electronegativity (Pauling)": 2.01,
+"Ionization Energy (kJ/mol)": 7.9,
+"Melting Point (K)": 1211.4,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+4, +2",
+"Proton Number": 32,
+"Stable Isotopes": [
+{
+"abundance": 20.52,
+"isotope": "Ge-70"
+},
+{
+"abundance": 27.45,
+"isotope": "Ge-72"
+},
+{
+"abundance": 7.76,
+"isotope": "Ge-73"
+},
+{
+"abundance": 36.52,
+"isotope": "Ge-74"
+},
+{
+"abundance": 7.75,
+"isotope": "Ge-76"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1886,
+"pos": [
+4,
+14
+],
+"symbol": "Ge"
+},
+"H": {
+"Atomic Mass": 1.008,
+"Atomic Radius (van der Waals, pm)": 120,
+"Boiling Point (K)": 20.28,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 8.988e-05,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.754,
+"Electron Configuration": "1s1",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 13.598,
+"Melting Point (K)": 13.81,
+"Origin Contributions": "Primary: Big Bang; minor stellar contributions",
+"Origin of Element": "Big Bang Fusion",
+"Oxidation States": "+1, -1",
+"Proton Number": 1,
+"Stable Isotopes": [
+{
+"abundance": 99.9885,
+"isotope": "H-1"
+},
+{
+"abundance": 0.0115,
+"isotope": "H-2"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1766,
+"pos": [
+1,
+1
+],
+"symbol": "H"
+},
+"He": {
+"Atomic Mass": 4.0026,
+"Atomic Radius (van der Waals, pm)": 140,
+"Boiling Point (K)": 4.22,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.0001785,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "1s2",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 24.587,
+"Melting Point (K)": 0.95,
+"Origin Contributions": "Primary: Big Bang; minor stellar contributions",
+"Origin of Element": "Big Bang Fusion",
+"Oxidation States": "0",
+"Proton Number": 2,
+"Stable Isotopes": [
+{
+"abundance": 0.000137,
+"isotope": "He-3"
+},
+{
+"abundance": 99.999863,
+"isotope": "He-4"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1868,
+"pos": [
+1,
+18
+],
+"symbol": "He"
+},
+"Hf": {
+"Atomic Mass": 178.49,
+"Atomic Radius (van der Waals, pm)": 212,
+"Boiling Point (K)": 4876,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 13.3,
+"Discovery Country": "Denmark",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Xe]6s2 4f14 5d2",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.825,
+"Melting Point (K)": 2506,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4",
+"Proton Number": 72,
+"Stable Isotopes": [
+{
+"abundance": 0.16,
+"isotope": "Hf-174"
+},
+{
+"abundance": 5.26,
+"isotope": "Hf-176"
+},
+{
+"abundance": 18.6,
+"isotope": "Hf-177"
+},
+{
+"abundance": 27.28,
+"isotope": "Hf-178"
+},
+{
+"abundance": 13.62,
+"isotope": "Hf-179"
+},
+{
+"abundance": 35.08,
+"isotope": "Hf-180"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1923,
+"pos": [
+6,
+4
+],
+"symbol": "Hf"
+},
+"Hg": {
+"Atomic Mass": 200.59,
+"Atomic Radius (van der Waals, pm)": 209,
+"Boiling Point (K)": 629.88,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 13.5336,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Xe]6s2 4f14 5d10",
+"Electronegativity (Pauling)": 2.0,
+"Ionization Energy (kJ/mol)": 10.438,
+"Melting Point (K)": 234.32,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+2, +1",
+"Proton Number": 80,
+"Stable Isotopes": [
+{
+"abundance": 0.15,
+"isotope": "Hg-196"
+},
+{
+"abundance": 9.97,
+"isotope": "Hg-198"
+},
+{
+"abundance": 16.87,
+"isotope": "Hg-199"
+},
+{
+"abundance": 23.1,
+"isotope": "Hg-200"
+},
+{
+"abundance": 13.18,
+"isotope": "Hg-201"
+},
+{
+"abundance": 29.86,
+"isotope": "Hg-202"
+},
+{
+"abundance": 6.87,
+"isotope": "Hg-204"
+}
+],
+"Standard State": "Liquid",
+"Year Discovered": "Ancient",
+"pos": [
+6,
+12
+],
+"symbol": "Hg"
+},
+"Ho": {
+"Atomic Mass": 164.93033,
+"Atomic Radius (van der Waals, pm)": 216,
+"Boiling Point (K)": 2973,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 8.8,
+"Discovery Country": "Switzerland",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f11",
+"Electronegativity (Pauling)": 1.23,
+"Ionization Energy (kJ/mol)": 6.022,
+"Melting Point (K)": 1747,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 67,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Ho-165"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1878,
+"pos": [
+9,
+13
+],
+"symbol": "Ho"
+},
+"Hs": {
+"Atomic Mass": 269.1336,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d6",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+8, +6, +5, +4, +3, +2",
+"Proton Number": 108,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1984,
+"pos": [
+7,
+8
+],
+"symbol": "Hs"
+},
+"I": {
+"Atomic Mass": 126.9045,
+"Atomic Radius (van der Waals, pm)": 198,
+"Boiling Point (K)": 457.55,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": 4.93,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": 3.059,
+"Electron Configuration": "[Kr]5s2 4d10 5p5",
+"Electronegativity (Pauling)": 2.66,
+"Ionization Energy (kJ/mol)": 10.451,
+"Melting Point (K)": 386.85,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+7, +5, +1, -1",
+"Proton Number": 53,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "I-127"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1811,
+"pos": [
+5,
+17
+],
+"symbol": "I"
+},
+"In": {
+"Atomic Mass": 114.818,
+"Atomic Radius (van der Waals, pm)": 193,
+"Boiling Point (K)": 2345,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 7.31,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.3,
+"Electron Configuration": "[Kr]5s2 4d10 5p1",
+"Electronegativity (Pauling)": 1.78,
+"Ionization Energy (kJ/mol)": 5.786,
+"Melting Point (K)": 429.75,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 49,
+"Stable Isotopes": [
+{
+"abundance": 4.29,
+"isotope": "In-113"
+},
+{
+"abundance": 95.71,
+"isotope": "In-115"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1863,
+"pos": [
+5,
+13
+],
+"symbol": "In"
+},
+"Ir": {
+"Atomic Mass": 192.22,
+"Atomic Radius (van der Waals, pm)": 202,
+"Boiling Point (K)": 4701,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 22.42,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 1.565,
+"Electron Configuration": "[Xe]6s2 4f14 5d7",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 9.1,
+"Melting Point (K)": 2719,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +3",
+"Proton Number": 77,
+"Stable Isotopes": [
+{
+"abundance": 37.3,
+"isotope": "Ir-191"
+},
+{
+"abundance": 62.7,
+"isotope": "Ir-193"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1803,
+"pos": [
+6,
+9
+],
+"symbol": "Ir"
+},
+"K": {
+"Atomic Mass": 39.0983,
+"Atomic Radius (van der Waals, pm)": 275,
+"Boiling Point (K)": 1032,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": 0.89,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.501,
+"Electron Configuration": "[Ar]4s1",
+"Electronegativity (Pauling)": 0.82,
+"Ionization Energy (kJ/mol)": 4.341,
+"Melting Point (K)": 336.53,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+1",
+"Proton Number": 19,
+"Stable Isotopes": [
+{
+"abundance": 93.2581,
+"isotope": "K-39"
+},
+{
+"abundance": 6.7302,
+"isotope": "K-41"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1807,
+"pos": [
+4,
+1
+],
+"symbol": "K"
+},
+"Kr": {
+"Atomic Mass": 83.8,
+"Atomic Radius (van der Waals, pm)": 202,
+"Boiling Point (K)": 119.93,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.003733,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Ar]4s2 3d10 4p6",
+"Electronegativity (Pauling)": 3.0,
+"Ionization Energy (kJ/mol)": 14.0,
+"Melting Point (K)": 115.79,
+"Origin Contributions": "Primary: Exploding Massive Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "0",
+"Proton Number": 36,
+"Stable Isotopes": [
+{
+"abundance": 0.35,
+"isotope": "Kr-78"
+},
+{
+"abundance": 2.28,
+"isotope": "Kr-80"
+},
+{
+"abundance": 11.58,
+"isotope": "Kr-82"
+},
+{
+"abundance": 11.49,
+"isotope": "Kr-83"
+},
+{
+"abundance": 57.0,
+"isotope": "Kr-84"
+},
+{
+"abundance": 17.3,
+"isotope": "Kr-86"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1898,
+"pos": [
+4,
+18
+],
+"symbol": "Kr"
+},
+"La": {
+"Atomic Mass": 138.9055,
+"Atomic Radius (van der Waals, pm)": 240,
+"Boiling Point (K)": 3737,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 6.15,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.5,
+"Electron Configuration": "[Xe]6s2 5d1",
+"Electronegativity (Pauling)": 1.1,
+"Ionization Energy (kJ/mol)": 5.577,
+"Melting Point (K)": 1191,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 57,
+"Stable Isotopes": [
+{
+"abundance": 0.09,
+"isotope": "La-138"
+},
+{
+"abundance": 99.91,
+"isotope": "La-139"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1839,
+"pos": [
+9,
+3
+],
+"symbol": "La"
+},
+"Li": {
+"Atomic Mass": 7.0,
+"Atomic Radius (van der Waals, pm)": 182,
+"Boiling Point (K)": 1615,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": 0.534,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.618,
+"Electron Configuration": "[He]2s1",
+"Electronegativity (Pauling)": 0.98,
+"Ionization Energy (kJ/mol)": 5.392,
+"Melting Point (K)": 453.65,
+"Origin Contributions": "Primary: Cosmic Ray Fission; minor Big Bang, Dying Low-Mass Stars",
+"Origin of Element": "Cosmic Ray Fission",
+"Oxidation States": "+1",
+"Proton Number": 3,
+"Stable Isotopes": [
+{
+"abundance": 7.59,
+"isotope": "Li-6"
+},
+{
+"abundance": 92.41,
+"isotope": "Li-7"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1817,
+"pos": [
+2,
+1
+],
+"symbol": "Li"
+},
+"Lr": {
+"Atomic Mass": 266.12,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d1",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": 1900,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 103,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1961,
+"pos": [
+10,
+17
+],
+"symbol": "Lr"
+},
+"Lu": {
+"Atomic Mass": 174.9667,
+"Atomic Radius (van der Waals, pm)": 221,
+"Boiling Point (K)": 3675,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 9.84,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f14 5d1",
+"Electronegativity (Pauling)": 1.27,
+"Ionization Energy (kJ/mol)": 5.426,
+"Melting Point (K)": 1936,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 71,
+"Stable Isotopes": [
+{
+"abundance": 97.41,
+"isotope": "Lu-175"
+},
+{
+"abundance": 2.59,
+"isotope": "Lu-176"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1907,
+"pos": [
+9,
+17
+],
+"symbol": "Lu"
+},
+"Lv": {
+"Atomic Mass": 293.205,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 7p4 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +2, -2",
+"Proton Number": 116,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 2000,
+"pos": [
+7,
+16
+],
+"symbol": "Lv"
+},
+"Mc": {
+"Atomic Mass": 290.196,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia/United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 7p3 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +1",
+"Proton Number": 115,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 2003,
+"pos": [
+7,
+15
+],
+"symbol": "Mc"
+},
+"Md": {
+"Atomic Mass": 258.09843,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f13",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.58,
+"Melting Point (K)": 1100,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 101,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1955,
+"pos": [
+10,
+15
+],
+"symbol": "Md"
+},
+"Mg": {
+"Atomic Mass": 24.305,
+"Atomic Radius (van der Waals, pm)": 173,
+"Boiling Point (K)": 1363,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 1.74,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Ne]3s2",
+"Electronegativity (Pauling)": 1.31,
+"Ionization Energy (kJ/mol)": 7.646,
+"Melting Point (K)": 923,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+2",
+"Proton Number": 12,
+"Stable Isotopes": [
+{
+"abundance": 78.99,
+"isotope": "Mg-24"
+},
+{
+"abundance": 10.0,
+"isotope": "Mg-25"
+},
+{
+"abundance": 11.01,
+"isotope": "Mg-26"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1808,
+"pos": [
+3,
+2
+],
+"symbol": "Mg"
+},
+"Mn": {
+"Atomic Mass": 54.93804,
+"Atomic Radius (van der Waals, pm)": 197,
+"Boiling Point (K)": 2334,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 7.3,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Ar]4s2 3d5",
+"Electronegativity (Pauling)": 1.55,
+"Ionization Energy (kJ/mol)": 7.434,
+"Melting Point (K)": 1519,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+7, +4, +3, +2",
+"Proton Number": 25,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Mn-55"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1774,
+"pos": [
+4,
+7
+],
+"symbol": "Mn"
+},
+"Mo": {
+"Atomic Mass": 95.95,
+"Atomic Radius (van der Waals, pm)": 209,
+"Boiling Point (K)": 4912,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 10.2,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.746,
+"Electron Configuration": "[Kr]5s1 4d5",
+"Electronegativity (Pauling)": 2.16,
+"Ionization Energy (kJ/mol)": 7.092,
+"Melting Point (K)": 2896,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+6",
+"Proton Number": 42,
+"Stable Isotopes": [
+{
+"abundance": 14.65,
+"isotope": "Mo-92"
+},
+{
+"abundance": 9.19,
+"isotope": "Mo-94"
+},
+{
+"abundance": 15.87,
+"isotope": "Mo-95"
+},
+{
+"abundance": 16.67,
+"isotope": "Mo-96"
+},
+{
+"abundance": 9.56,
+"isotope": "Mo-97"
+},
+{
+"abundance": 24.29,
+"isotope": "Mo-98"
+},
+{
+"abundance": 9.74,
+"isotope": "Mo-100"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1778,
+"pos": [
+5,
+6
+],
+"symbol": "Mo"
+},
+"Mt": {
+"Atomic Mass": 277.154,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d7 (calculated)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+9, +8, +6, +4, +3, +1",
+"Proton Number": 109,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1982,
+"pos": [
+7,
+9
+],
+"symbol": "Mt"
+},
+"N": {
+"Atomic Mass": 14.007,
+"Atomic Radius (van der Waals, pm)": 155,
+"Boiling Point (K)": 77.36,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 0.0012506,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[He]2s2 2p3",
+"Electronegativity (Pauling)": 3.04,
+"Ionization Energy (kJ/mol)": 14.534,
+"Melting Point (K)": 63.15,
+"Origin Contributions": "Primary: Dying Low-Mass Stars; minor Exploding Massive Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+5, +4, +3, +2, +1, -1, -2, -3",
+"Proton Number": 7,
+"Stable Isotopes": [
+{
+"abundance": 99.636,
+"isotope": "N-14"
+},
+{
+"abundance": 0.364,
+"isotope": "N-15"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1772,
+"pos": [
+2,
+15
+],
+"symbol": "N"
+},
+"Na": {
+"Atomic Mass": 22.9897693,
+"Atomic Radius (van der Waals, pm)": 227,
+"Boiling Point (K)": 1156,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": 0.97,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.548,
+"Electron Configuration": "[Ne]3s1",
+"Electronegativity (Pauling)": 0.93,
+"Ionization Energy (kJ/mol)": 5.139,
+"Melting Point (K)": 370.95,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+1",
+"Proton Number": 11,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Na-23"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1807,
+"pos": [
+3,
+1
+],
+"symbol": "Na"
+},
+"Nb": {
+"Atomic Mass": 92.90637,
+"Atomic Radius (van der Waals, pm)": 207,
+"Boiling Point (K)": 5017,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 8.57,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.893,
+"Electron Configuration": "[Kr]5s1 4d4",
+"Electronegativity (Pauling)": 1.6,
+"Ionization Energy (kJ/mol)": 6.759,
+"Melting Point (K)": 2750,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+5, +3",
+"Proton Number": 41,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Nb-93"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1801,
+"pos": [
+5,
+5
+],
+"symbol": "Nb"
+},
+"Nd": {
+"Atomic Mass": 144.24,
+"Atomic Radius (van der Waals, pm)": 229,
+"Boiling Point (K)": 3347,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 7.01,
+"Discovery Country": "Austria",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f4",
+"Electronegativity (Pauling)": 1.14,
+"Ionization Energy (kJ/mol)": 5.525,
+"Melting Point (K)": 1294,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 60,
+"Stable Isotopes": [
+{
+"abundance": 27.2,
+"isotope": "Nd-142"
+},
+{
+"abundance": 12.2,
+"isotope": "Nd-143"
+},
+{
+"abundance": 23.8,
+"isotope": "Nd-144"
+},
+{
+"abundance": 8.3,
+"isotope": "Nd-145"
+},
+{
+"abundance": 17.2,
+"isotope": "Nd-146"
+},
+{
+"abundance": 5.7,
+"isotope": "Nd-148"
+},
+{
+"abundance": 5.6,
+"isotope": "Nd-150"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1885,
+"pos": [
+9,
+6
+],
+"symbol": "Nd"
+},
+"Ne": {
+"Atomic Mass": 20.18,
+"Atomic Radius (van der Waals, pm)": 154,
+"Boiling Point (K)": 27.07,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.0008999,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[He]2s2 2p6",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 21.565,
+"Melting Point (K)": 24.56,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "0",
+"Proton Number": 10,
+"Stable Isotopes": [
+{
+"abundance": 90.48,
+"isotope": "Ne-20"
+},
+{
+"abundance": 0.27,
+"isotope": "Ne-21"
+},
+{
+"abundance": 9.25,
+"isotope": "Ne-22"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1898,
+"pos": [
+2,
+18
+],
+"symbol": "Ne"
+},
+"Nh": {
+"Atomic Mass": 286.182,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Japan",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d10 7p1 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": null,
+"Proton Number": 113,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 2004,
+"pos": [
+7,
+13
+],
+"symbol": "Nh"
+},
+"Ni": {
+"Atomic Mass": 58.693,
+"Atomic Radius (van der Waals, pm)": 163,
+"Boiling Point (K)": 3186,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 8.912,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 1.156,
+"Electron Configuration": "[Ar]4s2 3d8",
+"Electronegativity (Pauling)": 1.91,
+"Ionization Energy (kJ/mol)": 7.64,
+"Melting Point (K)": 1728,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 28,
+"Stable Isotopes": [
+{
+"abundance": 68.077,
+"isotope": "Ni-58"
+},
+{
+"abundance": 26.223,
+"isotope": "Ni-60"
+},
+{
+"abundance": 1.1399,
+"isotope": "Ni-61"
+},
+{
+"abundance": 3.6346,
+"isotope": "Ni-62"
+},
+{
+"abundance": 0.9255,
+"isotope": "Ni-64"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1751,
+"pos": [
+4,
+10
+],
+"symbol": "Ni"
+},
+"No": {
+"Atomic Mass": 259.101,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": null,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.65,
+"Melting Point (K)": 1100,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 102,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1957,
+"pos": [
+10,
+16
+],
+"symbol": "No"
+},
+"Np": {
+"Atomic Mass": 237.048172,
+"Atomic Radius (van der Waals, pm)": 221,
+"Boiling Point (K)": 4175,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 20.25,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f4 6d1",
+"Electronegativity (Pauling)": 1.36,
+"Ionization Energy (kJ/mol)": 6.266,
+"Melting Point (K)": 917,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +5, +4, +3",
+"Proton Number": 93,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1940,
+"pos": [
+10,
+7
+],
+"symbol": "Np"
+},
+"O": {
+"Atomic Mass": 15.999,
+"Atomic Radius (van der Waals, pm)": 152,
+"Boiling Point (K)": 90.2,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 0.001429,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 1.461,
+"Electron Configuration": "[He]2s2 2p4",
+"Electronegativity (Pauling)": 3.44,
+"Ionization Energy (kJ/mol)": 13.618,
+"Melting Point (K)": 54.36,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "-2",
+"Proton Number": 8,
+"Stable Isotopes": [
+{
+"abundance": 99.757,
+"isotope": "O-16"
+},
+{
+"abundance": 0.038,
+"isotope": "O-17"
+},
+{
+"abundance": 0.205,
+"isotope": "O-18"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1774,
+"pos": [
+2,
+16
+],
+"symbol": "O"
+},
+"Og": {
+"Atomic Mass": 295.216,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 7p6 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +4, +2, +1, 0, -1",
+"Proton Number": 118,
+"Stable Isotopes": [],
+"Standard State": "Gas",
+"Year Discovered": 2006,
+"pos": [
+7,
+18
+],
+"symbol": "Og"
+},
+"Os": {
+"Atomic Mass": 190.2,
+"Atomic Radius (van der Waals, pm)": 216,
+"Boiling Point (K)": 5285,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 22.57,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 1.1,
+"Electron Configuration": "[Xe]6s2 4f14 5d6",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 8.7,
+"Melting Point (K)": 3306,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +3",
+"Proton Number": 76,
+"Stable Isotopes": [
+{
+"abundance": 0.02,
+"isotope": "Os-184"
+},
+{
+"abundance": 1.59,
+"isotope": "Os-186"
+},
+{
+"abundance": 1.96,
+"isotope": "Os-187"
+},
+{
+"abundance": 13.24,
+"isotope": "Os-188"
+},
+{
+"abundance": 16.15,
+"isotope": "Os-189"
+},
+{
+"abundance": 26.36,
+"isotope": "Os-190"
+},
+{
+"abundance": 40.78,
+"isotope": "Os-192"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1803,
+"pos": [
+6,
+8
+],
+"symbol": "Os"
+},
+"P": {
+"Atomic Mass": 30.973762,
+"Atomic Radius (van der Waals, pm)": 180,
+"Boiling Point (K)": 553.65,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 1.82,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.746,
+"Electron Configuration": "[Ne]3s2 3p3",
+"Electronegativity (Pauling)": 2.19,
+"Ionization Energy (kJ/mol)": 10.487,
+"Melting Point (K)": 317.3,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+5, +3, -3",
+"Proton Number": 15,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "P-31"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1669,
+"pos": [
+3,
+15
+],
+"symbol": "P"
+},
+"Pa": {
+"Atomic Mass": 231.03588,
+"Atomic Radius (van der Waals, pm)": 243,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 15.37,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f2 6d1",
+"Electronegativity (Pauling)": 1.5,
+"Ionization Energy (kJ/mol)": 5.89,
+"Melting Point (K)": 1845,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +4",
+"Proton Number": 91,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1913,
+"pos": [
+10,
+5
+],
+"symbol": "Pa"
+},
+"Pb": {
+"Atomic Mass": 207,
+"Atomic Radius (van der Waals, pm)": 202,
+"Boiling Point (K)": 2022,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 11.342,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 0.36,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p2",
+"Electronegativity (Pauling)": 2.33,
+"Ionization Energy (kJ/mol)": 7.417,
+"Melting Point (K)": 600.61,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +2",
+"Proton Number": 82,
+"Stable Isotopes": [
+{
+"abundance": 1.4,
+"isotope": "Pb-204"
+},
+{
+"abundance": 24.1,
+"isotope": "Pb-206"
+},
+{
+"abundance": 22.1,
+"isotope": "Pb-207"
+},
+{
+"abundance": 52.4,
+"isotope": "Pb-208"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+6,
+14
+],
+"symbol": "Pb"
+},
+"Pd": {
+"Atomic Mass": 106.42,
+"Atomic Radius (van der Waals, pm)": 202,
+"Boiling Point (K)": 3236,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 12.0,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.557,
+"Electron Configuration": "[Kr]4d10",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 8.337,
+"Melting Point (K)": 1828.05,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 46,
+"Stable Isotopes": [
+{
+"abundance": 1.02,
+"isotope": "Pd-102"
+},
+{
+"abundance": 11.14,
+"isotope": "Pd-104"
+},
+{
+"abundance": 22.33,
+"isotope": "Pd-105"
+},
+{
+"abundance": 27.33,
+"isotope": "Pd-106"
+},
+{
+"abundance": 26.46,
+"isotope": "Pd-108"
+},
+{
+"abundance": 11.72,
+"isotope": "Pd-110"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1803,
+"pos": [
+5,
+10
+],
+"symbol": "Pd"
+},
+"Pm": {
+"Atomic Mass": 144.91276,
+"Atomic Radius (van der Waals, pm)": 236,
+"Boiling Point (K)": 3273,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 7.26,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f5",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 5.55,
+"Melting Point (K)": 1315,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 61,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1945,
+"pos": [
+9,
+7
+],
+"symbol": "Pm"
+},
+"Po": {
+"Atomic Mass": 208.98243,
+"Atomic Radius (van der Waals, pm)": 197,
+"Boiling Point (K)": 1235,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 9.32,
+"Discovery Country": "Poland",
+"Electron Affinity (kJ/mol)": 1.9,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p4",
+"Electronegativity (Pauling)": 2.0,
+"Ionization Energy (kJ/mol)": 8.417,
+"Melting Point (K)": 527,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +2",
+"Proton Number": 84,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1898,
+"pos": [
+6,
+16
+],
+"symbol": "Po"
+},
+"Pr": {
+"Atomic Mass": 140.90766,
+"Atomic Radius (van der Waals, pm)": 239,
+"Boiling Point (K)": 3793,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 6.77,
+"Discovery Country": "Austria",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f3",
+"Electronegativity (Pauling)": 1.13,
+"Ionization Energy (kJ/mol)": 5.464,
+"Melting Point (K)": 1204,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 59,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Pr-141"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1885,
+"pos": [
+9,
+5
+],
+"symbol": "Pr"
+},
+"Pt": {
+"Atomic Mass": 195.08,
+"Atomic Radius (van der Waals, pm)": 209,
+"Boiling Point (K)": 4098,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 21.46,
+"Discovery Country": "South America",
+"Electron Affinity (kJ/mol)": 2.128,
+"Electron Configuration": "[Xe]6s1 4f14 5d9",
+"Electronegativity (Pauling)": 2.28,
+"Ionization Energy (kJ/mol)": 9,
+"Melting Point (K)": 2041.55,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +2",
+"Proton Number": 78,
+"Stable Isotopes": [
+{
+"abundance": 0.782,
+"isotope": "Pt-192"
+},
+{
+"abundance": 32.967,
+"isotope": "Pt-194"
+},
+{
+"abundance": 33.832,
+"isotope": "Pt-195"
+},
+{
+"abundance": 25.242,
+"isotope": "Pt-196"
+},
+{
+"abundance": 7.163,
+"isotope": "Pt-198"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1735,
+"pos": [
+6,
+10
+],
+"symbol": "Pt"
+},
+"Pu": {
+"Atomic Mass": 244.0642,
+"Atomic Radius (van der Waals, pm)": 243,
+"Boiling Point (K)": 3501,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 19.84,
+"Discovery Country": "United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f6",
+"Electronegativity (Pauling)": 1.28,
+"Ionization Energy (kJ/mol)": 6.06,
+"Melting Point (K)": 913,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +5, +4, +3",
+"Proton Number": 94,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1940,
+"pos": [
+10,
+8
+],
+"symbol": "Pu"
+},
+"Ra": {
+"Atomic Mass": 226.02541,
+"Atomic Radius (van der Waals, pm)": 283,
+"Boiling Point (K)": 1413,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 5,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2",
+"Electronegativity (Pauling)": 0.9,
+"Ionization Energy (kJ/mol)": 5.279,
+"Melting Point (K)": 973,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+2",
+"Proton Number": 88,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1898,
+"pos": [
+7,
+2
+],
+"symbol": "Ra"
+},
+"Rb": {
+"Atomic Mass": 85.468,
+"Atomic Radius (van der Waals, pm)": 303,
+"Boiling Point (K)": 961,
+"Chemical Group Block": "Alkali Metal",
+"Density (g/cm³)": 1.53,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.468,
+"Electron Configuration": "[Kr]5s1",
+"Electronegativity (Pauling)": 0.82,
+"Ionization Energy (kJ/mol)": 4.177,
+"Melting Point (K)": 312.46,
+"Origin Contributions": "Primary: Dying Low-Mass Stars (s-process); minor Merging Neutron Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+1",
+"Proton Number": 37,
+"Stable Isotopes": [
+{
+"abundance": 72.17,
+"isotope": "Rb-85"
+},
+{
+"abundance": 27.83,
+"isotope": "Rb-87"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1861,
+"pos": [
+5,
+1
+],
+"symbol": "Rb"
+},
+"Re": {
+"Atomic Mass": 186.207,
+"Atomic Radius (van der Waals, pm)": 217,
+"Boiling Point (K)": 5869,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 20.8,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.15,
+"Electron Configuration": "[Xe]6s2 4f14 5d5",
+"Electronegativity (Pauling)": 1.9,
+"Ionization Energy (kJ/mol)": 7.88,
+"Melting Point (K)": 3459,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+7, +6, +4",
+"Proton Number": 75,
+"Stable Isotopes": [
+{
+"abundance": 37.4,
+"isotope": "Re-185"
+},
+{
+"abundance": 62.6,
+"isotope": "Re-187"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1925,
+"pos": [
+6,
+7
+],
+"symbol": "Re"
+},
+"Rf": {
+"Atomic Mass": 267.122,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia/United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d2",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4",
+"Proton Number": 104,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1964,
+"pos": [
+7,
+4
+],
+"symbol": "Rf"
+},
+"Rg": {
+"Atomic Mass": 282.169,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d9 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +3, +1, -1",
+"Proton Number": 111,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1994,
+"pos": [
+7,
+11
+],
+"symbol": "Rg"
+},
+"Rh": {
+"Atomic Mass": 102.9055,
+"Atomic Radius (van der Waals, pm)": 195,
+"Boiling Point (K)": 3968,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 12.4,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 1.137,
+"Electron Configuration": "[Kr]5s1 4d8",
+"Electronegativity (Pauling)": 2.28,
+"Ionization Energy (kJ/mol)": 7.459,
+"Melting Point (K)": 2237,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 45,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Rh-103"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1803,
+"pos": [
+5,
+9
+],
+"symbol": "Rh"
+},
+"Rn": {
+"Atomic Mass": 222.01758,
+"Atomic Radius (van der Waals, pm)": 220,
+"Boiling Point (K)": 211.45,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.00973,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p6",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 10.745,
+"Melting Point (K)": 202,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "0",
+"Proton Number": 86,
+"Stable Isotopes": [],
+"Standard State": "Gas",
+"Year Discovered": 1900,
+"pos": [
+6,
+18
+],
+"symbol": "Rn"
+},
+"Ru": {
+"Atomic Mass": 101.1,
+"Atomic Radius (van der Waals, pm)": 207,
+"Boiling Point (K)": 4423,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 12.1,
+"Discovery Country": "Russia",
+"Electron Affinity (kJ/mol)": 1.05,
+"Electron Configuration": "[Kr]5s1 4d7",
+"Electronegativity (Pauling)": 2.2,
+"Ionization Energy (kJ/mol)": 7.361,
+"Melting Point (K)": 2607,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 44,
+"Stable Isotopes": [
+{
+"abundance": 5.54,
+"isotope": "Ru-96"
+},
+{
+"abundance": 1.87,
+"isotope": "Ru-98"
+},
+{
+"abundance": 12.76,
+"isotope": "Ru-99"
+},
+{
+"abundance": 12.6,
+"isotope": "Ru-100"
+},
+{
+"abundance": 17.06,
+"isotope": "Ru-101"
+},
+{
+"abundance": 31.55,
+"isotope": "Ru-102"
+},
+{
+"abundance": 18.62,
+"isotope": "Ru-104"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1827,
+"pos": [
+5,
+8
+],
+"symbol": "Ru"
+},
+"S": {
+"Atomic Mass": 32.07,
+"Atomic Radius (van der Waals, pm)": 180,
+"Boiling Point (K)": 717.75,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 2.067,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 2.077,
+"Electron Configuration": "[Ne]3s2 3p4",
+"Electronegativity (Pauling)": 2.58,
+"Ionization Energy (kJ/mol)": 10.36,
+"Melting Point (K)": 388.36,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+6, +4, -2",
+"Proton Number": 16,
+"Stable Isotopes": [
+{
+"abundance": 94.99,
+"isotope": "S-32"
+},
+{
+"abundance": 0.75,
+"isotope": "S-33"
+},
+{
+"abundance": 4.25,
+"isotope": "S-34"
+},
+{
+"abundance": 0.01,
+"isotope": "S-36"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+3,
+16
+],
+"symbol": "S"
+},
+"Sb": {
+"Atomic Mass": 121.76,
+"Atomic Radius (van der Waals, pm)": 206,
+"Boiling Point (K)": 1860,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 6.685,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 1.07,
+"Electron Configuration": "[Kr]5s2 4d10 5p3",
+"Electronegativity (Pauling)": 2.05,
+"Ionization Energy (kJ/mol)": 8.64,
+"Melting Point (K)": 903.78,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +3, -3",
+"Proton Number": 51,
+"Stable Isotopes": [
+{
+"abundance": 57.21,
+"isotope": "Sb-121"
+},
+{
+"abundance": 42.79,
+"isotope": "Sb-123"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+5,
+15
+],
+"symbol": "Sb"
+},
+"Sc": {
+"Atomic Mass": 44.95591,
+"Atomic Radius (van der Waals, pm)": 211,
+"Boiling Point (K)": 3109,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 2.99,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.188,
+"Electron Configuration": "[Ar]4s2 3d1",
+"Electronegativity (Pauling)": 1.36,
+"Ionization Energy (kJ/mol)": 6.561,
+"Melting Point (K)": 1814,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3",
+"Proton Number": 21,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Sc-45"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1879,
+"pos": [
+4,
+3
+],
+"symbol": "Sc"
+},
+"Se": {
+"Atomic Mass": 78.97,
+"Atomic Radius (van der Waals, pm)": 190,
+"Boiling Point (K)": 958,
+"Chemical Group Block": "Nonmetal",
+"Density (g/cm³)": 4.809,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 2.021,
+"Electron Configuration": "[Ar]4s2 3d10 4p4",
+"Electronegativity (Pauling)": 2.55,
+"Ionization Energy (kJ/mol)": 9.752,
+"Melting Point (K)": 493.65,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+6, +4, -2",
+"Proton Number": 34,
+"Stable Isotopes": [
+{
+"abundance": 0.86,
+"isotope": "Se-74"
+},
+{
+"abundance": 9.23,
+"isotope": "Se-76"
+},
+{
+"abundance": 7.6,
+"isotope": "Se-77"
+},
+{
+"abundance": 23.77,
+"isotope": "Se-78"
+},
+{
+"abundance": 49.61,
+"isotope": "Se-80"
+},
+{
+"abundance": 8.73,
+"isotope": "Se-82"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1817,
+"pos": [
+4,
+16
+],
+"symbol": "Se"
+},
+"Sg": {
+"Atomic Mass": 269.128,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia/United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f14 6d4",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +5, +4, +3, 0",
+"Proton Number": 106,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1974,
+"pos": [
+7,
+6
+],
+"symbol": "Sg"
+},
+"Si": {
+"Atomic Mass": 28.085,
+"Atomic Radius (van der Waals, pm)": 210,
+"Boiling Point (K)": 3538,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 2.3296,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 1.385,
+"Electron Configuration": "[Ne]3s2 3p2",
+"Electronegativity (Pauling)": 1.9,
+"Ionization Energy (kJ/mol)": 8.152,
+"Melting Point (K)": 1687,
+"Origin Contributions": "Primary: Type Ia supernovae; significant Exploding Massive Stars",
+"Origin of Element": "Exploding White Dwarfs",
+"Oxidation States": "+4, +2, -4",
+"Proton Number": 14,
+"Stable Isotopes": [
+{
+"abundance": 92.23,
+"isotope": "Si-28"
+},
+{
+"abundance": 4.67,
+"isotope": "Si-29"
+},
+{
+"abundance": 3.1,
+"isotope": "Si-30"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1854,
+"pos": [
+3,
+14
+],
+"symbol": "Si"
+},
+"Sm": {
+"Atomic Mass": 150.4,
+"Atomic Radius (van der Waals, pm)": 229,
+"Boiling Point (K)": 2067,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 7.52,
+"Discovery Country": "France",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f6",
+"Electronegativity (Pauling)": 1.17,
+"Ionization Energy (kJ/mol)": 5.644,
+"Melting Point (K)": 1347,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 62,
+"Stable Isotopes": [
+{
+"abundance": 3.07,
+"isotope": "Sm-144"
+},
+{
+"abundance": 14.99,
+"isotope": "Sm-147"
+},
+{
+"abundance": 11.24,
+"isotope": "Sm-148"
+},
+{
+"abundance": 13.82,
+"isotope": "Sm-149"
+},
+{
+"abundance": 7.38,
+"isotope": "Sm-150"
+},
+{
+"abundance": 26.75,
+"isotope": "Sm-152"
+},
+{
+"abundance": 22.75,
+"isotope": "Sm-154"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1879,
+"pos": [
+9,
+8
+],
+"symbol": "Sm"
+},
+"Sn": {
+"Atomic Mass": 118.71,
+"Atomic Radius (van der Waals, pm)": 217,
+"Boiling Point (K)": 2875,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 7.287,
+"Discovery Country": "Unknown",
+"Electron Affinity (kJ/mol)": 1.2,
+"Electron Configuration": "[Kr]5s2 4d10 5p2",
+"Electronegativity (Pauling)": 1.96,
+"Ionization Energy (kJ/mol)": 7.344,
+"Melting Point (K)": 505.08,
+"Origin Contributions": "Primary: Merging Neutron Stars; minor Dying Low-Mass Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4, +2",
+"Proton Number": 50,
+"Stable Isotopes": [
+{
+"abundance": 0.97,
+"isotope": "Sn-112"
+},
+{
+"abundance": 0.66,
+"isotope": "Sn-114"
+},
+{
+"abundance": 0.34,
+"isotope": "Sn-115"
+},
+{
+"abundance": 14.54,
+"isotope": "Sn-116"
+},
+{
+"abundance": 7.68,
+"isotope": "Sn-117"
+},
+{
+"abundance": 24.22,
+"isotope": "Sn-118"
+},
+{
+"abundance": 8.59,
+"isotope": "Sn-119"
+},
+{
+"abundance": 32.58,
+"isotope": "Sn-120"
+},
+{
+"abundance": 4.63,
+"isotope": "Sn-122"
+},
+{
+"abundance": 5.79,
+"isotope": "Sn-124"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": "Ancient",
+"pos": [
+5,
+14
+],
+"symbol": "Sn"
+},
+"Sr": {
+"Atomic Mass": 87.62,
+"Atomic Radius (van der Waals, pm)": 249,
+"Boiling Point (K)": 1655,
+"Chemical Group Block": "Alkaline Earth Metal",
+"Density (g/cm³)": 2.64,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Kr]5s2",
+"Electronegativity (Pauling)": 0.95,
+"Ionization Energy (kJ/mol)": 5.695,
+"Melting Point (K)": 1050,
+"Origin Contributions": "Primary: Dying Low-Mass Stars (s-process); minor Merging Neutron Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "+2",
+"Proton Number": 38,
+"Stable Isotopes": [
+{
+"abundance": 0.56,
+"isotope": "Sr-84"
+},
+{
+"abundance": 9.86,
+"isotope": "Sr-86"
+},
+{
+"abundance": 7.0,
+"isotope": "Sr-87"
+},
+{
+"abundance": 82.58,
+"isotope": "Sr-88"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1790,
+"pos": [
+5,
+2
+],
+"symbol": "Sr"
+},
+"Ta": {
+"Atomic Mass": 180.9479,
+"Atomic Radius (van der Waals, pm)": 217,
+"Boiling Point (K)": 5731,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 16.4,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": 0.322,
+"Electron Configuration": "[Xe]6s2 4f14 5d3",
+"Electronegativity (Pauling)": 1.5,
+"Ionization Energy (kJ/mol)": 7.89,
+"Melting Point (K)": 3290,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5",
+"Proton Number": 73,
+"Stable Isotopes": [
+{
+"abundance": 0.012,
+"isotope": "Ta-180"
+},
+{
+"abundance": 99.988,
+"isotope": "Ta-181"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1802,
+"pos": [
+6,
+5
+],
+"symbol": "Ta"
+},
+"Tb": {
+"Atomic Mass": 158.92535,
+"Atomic Radius (van der Waals, pm)": 221,
+"Boiling Point (K)": 3503,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 8.23,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f9",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 5.864,
+"Melting Point (K)": 1629,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 65,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Tb-159"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1843,
+"pos": [
+9,
+11
+],
+"symbol": "Tb"
+},
+"Tc": {
+"Atomic Mass": 96.90636,
+"Atomic Radius (van der Waals, pm)": 209,
+"Boiling Point (K)": 4538,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 11,
+"Discovery Country": "Italy",
+"Electron Affinity (kJ/mol)": 0.55,
+"Electron Configuration": "[Kr]5s2 4d5",
+"Electronegativity (Pauling)": 1.9,
+"Ionization Energy (kJ/mol)": 7.28,
+"Melting Point (K)": 2430,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+7, +6, +4",
+"Proton Number": 43,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 1937,
+"pos": [
+5,
+7
+],
+"symbol": "Tc"
+},
+"Te": {
+"Atomic Mass": 127.6,
+"Atomic Radius (van der Waals, pm)": 206,
+"Boiling Point (K)": 1261,
+"Chemical Group Block": "Metalloid",
+"Density (g/cm³)": 6.232,
+"Discovery Country": "Romania",
+"Electron Affinity (kJ/mol)": 1.971,
+"Electron Configuration": "[Kr]5s2 4d10 5p4",
+"Electronegativity (Pauling)": 2.1,
+"Ionization Energy (kJ/mol)": 9.01,
+"Melting Point (K)": 722.66,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +4, -2",
+"Proton Number": 52,
+"Stable Isotopes": [
+{
+"abundance": 0.09,
+"isotope": "Te-120"
+},
+{
+"abundance": 2.55,
+"isotope": "Te-122"
+},
+{
+"abundance": 0.89,
+"isotope": "Te-123"
+},
+{
+"abundance": 4.74,
+"isotope": "Te-124"
+},
+{
+"abundance": 7.07,
+"isotope": "Te-125"
+},
+{
+"abundance": 18.84,
+"isotope": "Te-126"
+},
+{
+"abundance": 31.74,
+"isotope": "Te-128"
+},
+{
+"abundance": 34.08,
+"isotope": "Te-130"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1782,
+"pos": [
+5,
+16
+],
+"symbol": "Te"
+},
+"Th": {
+"Atomic Mass": 232.038,
+"Atomic Radius (van der Waals, pm)": 237,
+"Boiling Point (K)": 5061,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 11.72,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 6d2",
+"Electronegativity (Pauling)": 1.3,
+"Ionization Energy (kJ/mol)": 6.08,
+"Melting Point (K)": 2023,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+4",
+"Proton Number": 90,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Th-232"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1828,
+"pos": [
+10,
+4
+],
+"symbol": "Th"
+},
+"Ti": {
+"Atomic Mass": 47.867,
+"Atomic Radius (van der Waals, pm)": 187,
+"Boiling Point (K)": 3560,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 4.5,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.079,
+"Electron Configuration": "[Ar]4s2 3d2",
+"Electronegativity (Pauling)": 1.54,
+"Ionization Energy (kJ/mol)": 6.828,
+"Melting Point (K)": 1941,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+4, +3, +2",
+"Proton Number": 22,
+"Stable Isotopes": [
+{
+"abundance": 8.25,
+"isotope": "Ti-46"
+},
+{
+"abundance": 7.44,
+"isotope": "Ti-47"
+},
+{
+"abundance": 73.72,
+"isotope": "Ti-48"
+},
+{
+"abundance": 5.41,
+"isotope": "Ti-49"
+},
+{
+"abundance": 5.18,
+"isotope": "Ti-50"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1791,
+"pos": [
+4,
+4
+],
+"symbol": "Ti"
+},
+"Tl": {
+"Atomic Mass": 204.383,
+"Atomic Radius (van der Waals, pm)": 196,
+"Boiling Point (K)": 1746,
+"Chemical Group Block": "Post-transition Metal",
+"Density (g/cm³)": 11.8,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0.2,
+"Electron Configuration": "[Xe]6s2 4f14 5d10 6p1",
+"Electronegativity (Pauling)": 1.62,
+"Ionization Energy (kJ/mol)": 6.108,
+"Melting Point (K)": 577,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +1",
+"Proton Number": 81,
+"Stable Isotopes": [
+{
+"abundance": 29.52,
+"isotope": "Tl-203"
+},
+{
+"abundance": 70.48,
+"isotope": "Tl-205"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1861,
+"pos": [
+6,
+13
+],
+"symbol": "Tl"
+},
+"Tm": {
+"Atomic Mass": 168.93422,
+"Atomic Radius (van der Waals, pm)": 227,
+"Boiling Point (K)": 2223,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 9.32,
+"Discovery Country": "Sweden",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f13",
+"Electronegativity (Pauling)": 1.25,
+"Ionization Energy (kJ/mol)": 6.184,
+"Melting Point (K)": 1818,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3",
+"Proton Number": 69,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Tm-169"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1879,
+"pos": [
+9,
+15
+],
+"symbol": "Tm"
+},
+"Ts": {
+"Atomic Mass": 294.211,
+"Atomic Radius (van der Waals, pm)": null,
+"Boiling Point (K)": null,
+"Chemical Group Block": "Halogen",
+"Density (g/cm³)": null,
+"Discovery Country": "Russia/United States",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 7p5 5f14 6d10 (predicted)",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": null,
+"Melting Point (K)": null,
+"Origin Contributions": "Synthetic; assigned Merging Neutron Stars",
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+5, +3, +1, -1",
+"Proton Number": 117,
+"Stable Isotopes": [],
+"Standard State": "Solid",
+"Year Discovered": 2010,
+"pos": [
+7,
+17
+],
+"symbol": "Ts"
+},
+"U": {
+"Atomic Mass": 238.0289,
+"Atomic Radius (van der Waals, pm)": 240,
+"Boiling Point (K)": 4404,
+"Chemical Group Block": "Actinide",
+"Density (g/cm³)": 18.95,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Rn]7s2 5f3 6d1",
+"Electronegativity (Pauling)": 1.38,
+"Ionization Energy (kJ/mol)": 6.194,
+"Melting Point (K)": 1408,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6, +5, +4, +3",
+"Proton Number": 92,
+"Stable Isotopes": [
+{
+"abundance": 0.0055,
+"isotope": "U-234"
+},
+{
+"abundance": 0.72,
+"isotope": "U-235"
+},
+{
+"abundance": 99.2745,
+"isotope": "U-238"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1789,
+"pos": [
+10,
+6
+],
+"symbol": "U"
+},
+"V": {
+"Atomic Mass": 50.9415,
+"Atomic Radius (van der Waals, pm)": 179,
+"Boiling Point (K)": 3680,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 6.0,
+"Discovery Country": "Mexico",
+"Electron Affinity (kJ/mol)": 0.525,
+"Electron Configuration": "[Ar]4s2 3d3",
+"Electronegativity (Pauling)": 1.63,
+"Ionization Energy (kJ/mol)": 6.746,
+"Melting Point (K)": 2183,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+5, +4, +3, +2",
+"Proton Number": 23,
+"Stable Isotopes": [
+{
+"abundance": 0.25,
+"isotope": "V-50"
+},
+{
+"abundance": 99.75,
+"isotope": "V-51"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1801,
+"pos": [
+4,
+5
+],
+"symbol": "V"
+},
+"W": {
+"Atomic Mass": 183.84,
+"Atomic Radius (van der Waals, pm)": 210,
+"Boiling Point (K)": 5828,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 19.3,
+"Discovery Country": "Spain",
+"Electron Affinity (kJ/mol)": 0.815,
+"Electron Configuration": "[Xe]6s2 4f14 5d4",
+"Electronegativity (Pauling)": 2.36,
+"Ionization Energy (kJ/mol)": 7.98,
+"Melting Point (K)": 3695,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+6",
+"Proton Number": 74,
+"Stable Isotopes": [
+{
+"abundance": 0.12,
+"isotope": "W-180"
+},
+{
+"abundance": 26.5,
+"isotope": "W-182"
+},
+{
+"abundance": 14.31,
+"isotope": "W-183"
+},
+{
+"abundance": 30.64,
+"isotope": "W-184"
+},
+{
+"abundance": 28.43,
+"isotope": "W-186"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1783,
+"pos": [
+6,
+6
+],
+"symbol": "W"
+},
+"Xe": {
+"Atomic Mass": 131.29,
+"Atomic Radius (van der Waals, pm)": 216,
+"Boiling Point (K)": 165.03,
+"Chemical Group Block": "Noble Gas",
+"Density (g/cm³)": 0.005887,
+"Discovery Country": "United Kingdom",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Kr]5s2 4d10 5p6",
+"Electronegativity (Pauling)": 2.6,
+"Ionization Energy (kJ/mol)": 12.13,
+"Melting Point (K)": 161.36,
+"Origin Contributions": "Primary: Dying Low-Mass Stars (s-process); minor Merging Neutron Stars",
+"Origin of Element": "Dying Low-Mass Stars",
+"Oxidation States": "0",
+"Proton Number": 54,
+"Stable Isotopes": [
+{
+"abundance": 0.095,
+"isotope": "Xe-124"
+},
+{
+"abundance": 0.089,
+"isotope": "Xe-126"
+},
+{
+"abundance": 1.91,
+"isotope": "Xe-128"
+},
+{
+"abundance": 26.401,
+"isotope": "Xe-129"
+},
+{
+"abundance": 4.071,
+"isotope": "Xe-130"
+},
+{
+"abundance": 21.232,
+"isotope": "Xe-131"
+},
+{
+"abundance": 26.909,
+"isotope": "Xe-132"
+},
+{
+"abundance": 10.436,
+"isotope": "Xe-134"
+},
+{
+"abundance": 8.857,
+"isotope": "Xe-136"
+}
+],
+"Standard State": "Gas",
+"Year Discovered": 1898,
+"pos": [
+5,
+18
+],
+"symbol": "Xe"
+},
+"Y": {
+"Atomic Mass": 88.90584,
+"Atomic Radius (van der Waals, pm)": 219,
+"Boiling Point (K)": 3618,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 4.47,
+"Discovery Country": "Finland",
+"Electron Affinity (kJ/mol)": 0.307,
+"Electron Configuration": "[Kr]5s2 4d1",
+"Electronegativity (Pauling)": 1.22,
+"Ionization Energy (kJ/mol)": 6.217,
+"Melting Point (K)": 1795,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+3",
+"Proton Number": 39,
+"Stable Isotopes": [
+{
+"abundance": 100.0,
+"isotope": "Y-89"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1794,
+"pos": [
+5,
+3
+],
+"symbol": "Y"
+},
+"Yb": {
+"Atomic Mass": 173.05,
+"Atomic Radius (van der Waals, pm)": 242,
+"Boiling Point (K)": 1469,
+"Chemical Group Block": "Lanthanide",
+"Density (g/cm³)": 6.9,
+"Discovery Country": "Switzerland",
+"Electron Affinity (kJ/mol)": null,
+"Electron Configuration": "[Xe]6s2 4f14",
+"Electronegativity (Pauling)": null,
+"Ionization Energy (kJ/mol)": 6.254,
+"Melting Point (K)": 1092,
+"Origin of Element": "Merging Neutron Stars",
+"Oxidation States": "+3, +2",
+"Proton Number": 70,
+"Stable Isotopes": [
+{
+"abundance": 0.126,
+"isotope": "Yb-168"
+},
+{
+"abundance": 3.023,
+"isotope": "Yb-170"
+},
+{
+"abundance": 14.216,
+"isotope": "Yb-171"
+},
+{
+"abundance": 21.754,
+"isotope": "Yb-172"
+},
+{
+"abundance": 16.098,
+"isotope": "Yb-173"
+},
+{
+"abundance": 31.896,
+"isotope": "Yb-174"
+},
+{
+"abundance": 12.887,
+"isotope": "Yb-176"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1878,
+"pos": [
+9,
+16
+],
+"symbol": "Yb"
+},
+"Zn": {
+"Atomic Mass": 65.4,
+"Atomic Radius (van der Waals, pm)": 139,
+"Boiling Point (K)": 1180,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 7.134,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0,
+"Electron Configuration": "[Ar]4s2 3d10",
+"Electronegativity (Pauling)": 1.65,
+"Ionization Energy (kJ/mol)": 9.394,
+"Melting Point (K)": 692.68,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+2",
+"Proton Number": 30,
+"Stable Isotopes": [
+{
+"abundance": 48.63,
+"isotope": "Zn-64"
+},
+{
+"abundance": 27.9,
+"isotope": "Zn-66"
+},
+{
+"abundance": 4.1,
+"isotope": "Zn-67"
+},
+{
+"abundance": 18.75,
+"isotope": "Zn-68"
+},
+{
+"abundance": 0.62,
+"isotope": "Zn-70"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1746,
+"pos": [
+4,
+12
+],
+"symbol": "Zn"
+},
+"Zr": {
+"Atomic Mass": 91.22,
+"Atomic Radius (van der Waals, pm)": 186,
+"Boiling Point (K)": 4682,
+"Chemical Group Block": "Transition Metal",
+"Density (g/cm³)": 6.52,
+"Discovery Country": "Germany",
+"Electron Affinity (kJ/mol)": 0.426,
+"Electron Configuration": "[Kr]5s2 4d2",
+"Electronegativity (Pauling)": 1.33,
+"Ionization Energy (kJ/mol)": 6.634,
+"Melting Point (K)": 2128,
+"Origin of Element": "Exploding Massive Stars",
+"Oxidation States": "+4",
+"Proton Number": 40,
+"Stable Isotopes": [
+{
+"abundance": 51.45,
+"isotope": "Zr-90"
+},
+{
+"abundance": 11.22,
+"isotope": "Zr-91"
+},
+{
+"abundance": 17.15,
+"isotope": "Zr-92"
+},
+{
+"abundance": 17.38,
+"isotope": "Zr-94"
+},
+{
+"abundance": 2.8,
+"isotope": "Zr-96"
+}
+],
+"Standard State": "Solid",
+"Year Discovered": 1789,
+"pos": [
+5,
+4
+],
+"symbol": "Zr"
+}
+},
+"full_name": {
+"en": {
+"Ac": "Actinium",
+"Ag": "Silver",
+"Al": "Aluminum",
+"Am": "Americium",
+"Ar": "Argon",
+"As": "Arsenic",
+"At": "Astatine",
+"Au": "Gold",
+"B": "Boron",
+"Ba": "Barium",
+"Be": "Beryllium",
+"Bh": "Bohrium",
+"Bi": "Bismuth",
+"Bk": "Berkelium",
+"Br": "Bromine",
+"C": "Carbon",
+"Ca": "Calcium",
+"Cd": "Cadmium",
+"Ce": "Cerium",
+"Cf": "Californium",
+"Cl": "Chlorine",
+"Cm": "Curium",
+"Cn": "Copernicium",
+"Co": "Cobalt",
+"Cr": "Chromium",
+"Cs": "Cesium",
+"Cu": "Copper",
+"Db": "Dubnium",
+"Ds": "Darmstadtium",
+"Dy": "Dysprosium",
+"Er": "Erbium",
+"Es": "Einsteinium",
+"Eu": "Europium",
+"F": "Fluorine",
+"Fe": "Iron",
+"Fl": "Flerovium",
+"Fm": "Fermium",
+"Fr": "Francium",
+"Ga": "Gallium",
+"Gd": "Gadolinium",
+"Ge": "Germanium",
+"H": "Hydrogen",
+"He": "Helium",
+"Hf": "Hafnium",
+"Hg": "Mercury",
+"Ho": "Holmium",
+"Hs": "Hassium",
+"I": "Iodine",
+"In": "Indium",
+"Ir": "Iridium",
+"K": "Potassium",
+"Kr": "Krypton",
+"La": "Lanthanum",
+"Li": "Lithium",
+"Lr": "Lawrencium",
+"Lu": "Lutetium",
+"Lv": "Livermorium",
+"Mc": "Moscovium",
+"Md": "Mendelevium",
+"Mg": "Magnesium",
+"Mn": "Manganese",
+"Mo": "Molybdenum",
+"Mt": "Meitnerium",
+"N": "Nitrogen",
+"Na": "Sodium",
+"Nb": "Niobium",
+"Nd": "Neodymium",
+"Ne": "Neon",
+"Nh": "Nihonium",
+"Ni": "Nickel",
+"No": "Nobelium",
+"Np": "Neptunium",
+"O": "Oxygen",
+"Og": "Oganesson",
+"Os": "Osmium",
+"P": "Phosphorus",
+"Pa": "Protactinium",
+"Pb": "Lead",
+"Pd": "Palladium",
+"Pm": "Promethium",
+"Po": "Polonium",
+"Pr": "Praseodymium",
+"Pt": "Platinum",
+"Pu": "Plutonium",
+"Ra": "Radium",
+"Rb": "Rubidium",
+"Re": "Rhenium",
+"Rf": "Rutherfordium",
+"Rg": "Roentgenium",
+"Rh": "Rhodium",
+"Rn": "Radon",
+"Ru": "Ruthenium",
+"S": "Sulfur",
+"Sb": "Antimony",
+"Sc": "Scandium",
+"Se": "Selenium",
+"Sg": "Seaborgium",
+"Si": "Silicon",
+"Sm": "Samarium",
+"Sn": "Tin",
+"Sr": "Strontium",
+"Ta": "Tantalum",
+"Tb": "Terbium",
+"Tc": "Technetium",
+"Te": "Tellurium",
+"Th": "Thorium",
+"Ti": "Titanium",
+"Tl": "Thallium",
+"Tm": "Thulium",
+"Ts": "Tennessine",
+"U": "Uranium",
+"V": "Vanadium",
+"W": "Tungsten",
+"Xe": "Xenon",
+"Y": "Yttrium",
+"Yb": "Ytterbium",
+"Zn": "Zinc",
+"Zr": "Zirconium"
+},
+"fi": {
+"Ac": "Aktinium",
+"Ag": "Hopea",
+"Al": "Alumiini",
+"Am": "Amerikium",
+"Ar": "Argon",
+"As": "Arseeni",
+"At": "Astatiini",
+"Au": "Kulta",
+"B": "Boori",
+"Ba": "Barium",
+"Be": "Beryllium",
+"Bh": "Bohrium",
+"Bi": "Vismutti",
+"Bk": "Berkelium",
+"Br": "Bromi",
+"C": "Hiili",
+"Ca": "Kalsium",
+"Cd": "Kadmium",
+"Ce": "Seryymi",
+"Cf": "Kalifornium",
+"Cl": "Kloori",
+"Cm": "Kuurium",
+"Cn": "Kopernikium",
+"Co": "Koboltti",
+"Cr": "Kromi",
+"Cs": "Cesium",
+"Cu": "Kupari",
+"Db": "Dubnium",
+"Ds": "Darmstadtium",
+"Dy": "Dysprosium",
+"Er": "Erbium",
+"Es": "Einsteinium",
+"Eu": "Europium",
+"F": "Fluori",
+"Fe": "Rauta",
+"Fl": "Flerovium",
+"Fm": "Fermium",
+"Fr": "Francium",
+"Ga": "Gallium",
+"Gd": "Gadolinium",
+"Ge": "Germanium",
+"H": "Vety",
+"He": "Helium",
+"Hf": "Hafnium",
+"Hg": "Elohopea",
+"Ho": "Holmium",
+"Hs": "Hassium",
+"I": "Jodi",
+"In": "Indium",
+"Ir": "Iridium",
+"K": "Kalium",
+"Kr": "Krypton",
+"La": "Lantaani",
+"Li": "Litium",
+"Lr": "Lawrencium",
+"Lu": "Lutetium",
+"Lv": "Livermorium",
+"Mc": "Moskovi",
+"Md": "Mendelevium",
+"Mg": "Magnesium",
+"Mn": "Mangaani",
+"Mo": "Molybdeeni",
+"Mt": "Meitnerium",
+"N": "Typpi",
+"Na": "Natrium",
+"Nb": "Niobium",
+"Nd": "Neodyymi",
+"Ne": "Neon",
+"Nh": "Nihonium",
+"Ni": "Nikkeli",
+"No": "Nobelium",
+"Np": "Neptunium",
+"O": "Happi",
+"Og": "Oganesson",
+"Os": "Osmium",
+"P": "Fosfori",
+"Pa": "Protaktinium",
+"Pb": "Lyijy",
+"Pd": "Palladium",
+"Pm": "Prometium",
+"Po": "Polonium",
+"Pr": "Praseodyymi",
+"Pt": "Platina",
+"Pu": "Plutonium",
+"Ra": "Radium",
+"Rb": "Rubidium",
+"Re": "Renium",
+"Rf": "Rutherfordium",
+"Rg": "Roentgenium",
+"Rh": "Rodium",
+"Rn": "Radon",
+"Ru": "Ruteeni",
+"S": "Rikki",
+"Sb": "Antimoni",
+"Sc": "Skandium",
+"Se": "Seleeni",
+"Sg": "Seaborgium",
+"Si": "Pii",
+"Sm": "Samarium",
+"Sn": "Tina",
+"Sr": "Strontium",
+"Ta": "Tantaali",
+"Tb": "Terbium",
+"Tc": "Teknetium",
+"Te": "Telluuri",
+"Th": "Torium",
+"Ti": "Titaani",
+"Tl": "Tallium",
+"Tm": "Tulium",
+"Ts": "Tennessiini",
+"U": "Uraani",
+"V": "Vanadiini",
+"W": "Volframi",
+"Xe": "Ksenon",
+"Y": "Yttrium",
+"Yb": "Ytterbium",
+"Zn": "Sinkki",
+"Zr": "Zirkonium"
+},
+"fr": {
+"Ac": "Actinium",
+"Ag": "Argent",
+"Al": "Aluminium",
+"Am": "Américium",
+"Ar": "Argon",
+"As": "Arsenic",
+"At": "Astate",
+"Au": "Or",
+"B": "Bore",
+"Ba": "Baryum",
+"Be": "Béryllium",
+"Bh": "Bohrium",
+"Bi": "Bismuth",
+"Bk": "Berkélium",
+"Br": "Brome",
+"C": "Carbone",
+"Ca": "Calcium",
+"Cd": "Cadmium",
+"Ce": "Cérium",
+"Cf": "Californium",
+"Cl": "Chlore",
+"Cm": "Curium",
+"Cn": "Copernicium",
+"Co": "Cobalt",
+"Cr": "Chrome",
+"Cs": "Césium",
+"Cu": "Cuivre",
+"Db": "Dubnium",
+"Ds": "Darmstadtium",
+"Dy": "Dysprosium",
+"Er": "Erbium",
+"Es": "Einsteinium",
+"Eu": "Europium",
+"F": "Fluor",
+"Fe": "Fer",
+"Fl": "Flérovium",
+"Fm": "Fermium",
+"Fr": "Francium",
+"Ga": "Gallium",
+"Gd": "Gadolinium",
+"Ge": "Germanium",
+"H": "Hydrogène",
+"He": "Hélium",
+"Hf": "Hafnium",
+"Hg": "Mercure",
+"Ho": "Holmium",
+"Hs": "Hassium",
+"I": "Iode",
+"In": "Indium",
+"Ir": "Iridium",
+"K": "Potassium",
+"Kr": "Krypton",
+"La": "Lanthane",
+"Li": "Lithium",
+"Lr": "Lawrencium",
+"Lu": "Lutécium",
+"Lv": "Livermorium",
+"Mc": "Moscovium",
+"Md": "Mendélévium",
+"Mg": "Magnésium",
+"Mn": "Manganèse",
+"Mo": "Molybdène",
+"Mt": "Meitnerium",
+"N": "Azote",
+"Na": "Sodium",
+"Nb": "Niobium",
+"Nd": "Néodyme",
+"Ne": "Néon",
+"Nh": "Nihonium",
+"Ni": "Nickel",
+"No": "Nobélium",
+"Np": "Neptunium",
+"O": "Oxygène",
+"Og": "Oganesson",
+"Os": "Osmium",
+"P": "Phosphore",
+"Pa": "Protactinium",
+"Pb": "Plomb",
+"Pd": "Palladium",
+"Pm": "Prométhium",
+"Po": "Polonium",
+"Pr": "Praséodyme",
+"Pt": "Platine",
+"Pu": "Plutonium",
+"Ra": "Radium",
+"Rb": "Rubidium",
+"Re": "Rhénium",
+"Rf": "Rutherfordium",
+"Rg": "Roentgenium",
+"Rh": "Rhodium",
+"Rn": "Radon",
+"Ru": "Ruthénium",
+"S": "Soufre",
+"Sb": "Antimoine",
+"Sc": "Scandium",
+"Se": "Sélénium",
+"Sg": "Seaborgium",
+"Si": "Silicium",
+"Sm": "Samarium",
+"Sn": "Étain",
+"Sr": "Strontium",
+"Ta": "Tantale",
+"Tb": "Terbium",
+"Tc": "Technétium",
+"Te": "Tellure",
+"Th": "Thorium",
+"Ti": "Titane",
+"Tl": "Thallium",
+"Tm": "Thulium",
+"Ts": "Tennesse",
+"U": "Uranium",
+"V": "Vanadium",
+"W": "Tungstène",
+"Xe": "Xénon",
+"Y": "Yttrium",
+"Yb": "Ytterbium",
+"Zn": "Zinc",
+"Zr": "Zirconium"
+},
+"zh-hans": {
+"Ac": "锕",
+"Ag": "银",
+"Al": "铝",
+"Am": "镅",
+"Ar": "氩",
+"As": "砷",
+"At": "砹",
+"Au": "金",
+"B": "硼",
+"Ba": "钡",
+"Be": "铍",
+"Bh": "𬭛",
+"Bi": "铋",
+"Bk": "锫",
+"Br": "溴",
+"C": "碳",
+"Ca": "钙",
+"Cd": "镉",
+"Ce": "铈",
+"Cf": "锎",
+"Cl": "氯",
+"Cm": "锔",
+"Cn": "鿔",
+"Co": "钴",
+"Cr": "铬",
+"Cs": "铯",
+"Cu": "铜",
+"Db": "𬭊",
+"Ds": "𬭸",
+"Dy": "镝",
+"Er": "铒",
+"Es": "锿",
+"Eu": "铕",
+"F": "氟",
+"Fe": "铁",
+"Fl": "鈇",
+"Fm": "镄",
+"Fr": "钫",
+"Ga": "镓",
+"Gd": "钆",
+"Ge": "锗",
+"H": "氢",
+"He": "氦",
+"Hf": "铪",
+"Hg": "汞",
+"Ho": "钬",
+"Hs": "𬭶",
+"I": "碘",
+"In": "铟",
+"Ir": "铱",
+"K": "钾",
+"Kr": "氪",
+"La": "镧",
+"Li": "锂",
+"Lr": "铹",
+"Lu": "镥",
+"Lv": "鉝",
+"Mc": "镆",
+"Md": "钔",
+"Mg": "镁",
+"Mn": "锰",
+"Mo": "钼",
+"Mt": "鿏",
+"N": "氮",
+"Na": "钠",
+"Nb": "铌",
+"Nd": "钕",
+"Ne": "氖",
+"Nh": "鉨",
+"Ni": "镍",
+"No": "锘",
+"Np": "镎",
+"O": "氧",
+"Og": "鿫",
+"Os": "锇",
+"P": "磷",
+"Pa": "镤",
+"Pb": "铅",
+"Pd": "钯",
+"Pm": "钷",
+"Po": "钋",
+"Pr": "镨",
+"Pt": "铂",
+"Pu": "钚",
+"Ra": "镭",
+"Rb": "铷",
+"Re": "铼",
+"Rf": "𬬻",
+"Rg": "𬭩",
+"Rh": "铑",
+"Rn": "氡",
+"Ru": "钌",
+"S": "硫",
+"Sb": "锑",
+"Sc": "钪",
+"Se": "硒",
+"Sg": "𬭳",
+"Si": "硅",
+"Sm": "钐",
+"Sn": "锡",
+"Sr": "锶",
+"Ta": "钽",
+"Tb": "铽",
+"Tc": "锝",
+"Te": "碲",
+"Th": "钍",
+"Ti": "钛",
+"Tl": "铊",
+"Tm": "铥",
+"Ts": "鿬",
+"U": "铀",
+"V": "钒",
+"W": "钨",
+"Xe": "氙",
+"Y": "钇",
+"Yb": "镱",
+"Zn": "锌",
+"Zr": "锆"
+}
+},
+"group_block_translations": {
+"en": {
+"Actinide": "Actinide",
+"Alkali Metal": "Alkali Metal",
+"Alkaline Earth Metal": "Alkaline Earth Metal",
+"Halogen": "Halogen",
+"Lanthanide": "Lanthanide",
+"Metalloid": "Metalloid",
+"Noble Gas": "Noble Gas",
+"Nonmetal": "Nonmetal",
+"Post-transition Metal": "Post-transition Metal",
+"Transition Metal": "Transition Metal"
+},
+"fi": {
+"Actinide": "Aktinoidi",
+"Alkali Metal": "Alkalimetalli",
+"Alkaline Earth Metal": "Maa-alkalimetalli",
+"Halogen": "Halogeeni",
+"Lanthanide": "Lantanoidi",
+"Metalloid": "Puolimetalli",
+"Noble Gas": "Jalokaasu",
+"Nonmetal": "Epämetalli",
+"Post-transition Metal": "Post-siirtymämetalli",
+"Transition Metal": "Siirtymämetalli"
+},
+"fr": {
+"Actinide": "Actinide",
+"Alkali Metal": "Métal alcalin",
+"Alkaline Earth Metal": "Métal alcalino-terreux",
+"Halogen": "Halogène",
+"Lanthanide": "Lanthanide",
+"Metalloid": "Métalloïde",
+"Noble Gas": "Gaz noble",
+"Nonmetal": "Non-métal",
+"Post-transition Metal": "Métal post-transition",
+"Transition Metal": "Métal de transition"
+},
+"zh-hans": {
+"Actinide": "锕系元素",
+"Alkali Metal": "碱金属",
+"Alkaline Earth Metal": "碱土金属",
+"Halogen": "卤素",
+"Lanthanide": "镧系元素",
+"Metalloid": "类金属",
+"Noble Gas": "惰性气体",
+"Nonmetal": "非金属",
+"Post-transition Metal": "后过渡金属",
+"Transition Metal": "过渡金属"
+}
+},
+"origin_translations": {
+"en": {
+"Big Bang Fusion": "Big Bang Fusion",
+"Cosmic Ray Fission": "Cosmic Ray Fission",
+"Dying Low-Mass Stars": "Dying Low-Mass Stars",
+"Exploding Massive Stars": "Exploding Massive Stars",
+"Exploding White Dwarfs": "Exploding White Dwarfs",
+"Merging Neutron Stars": "Merging Neutron Stars"
+},
+"fi": {
+"Big Bang Fusion": "Alkuräjähdyksen ydinsynteesi",
+"Cosmic Ray Fission": "Kosmisen säteilyn aiheuttama fissio",
+"Dying Low-Mass Stars": "Pienimassaisten tähtien kuolema",
+"Exploding Massive Stars": "Massiivisten tähtien räjähdys",
+"Exploding White Dwarfs": "Valkoisten kääpiöiden räjähdys",
+"Merging Neutron Stars": "Neutronitähtien sulautuminen"
+},
+"fr": {
+"Big Bang Fusion": "Fusion du Big Bang",
+"Cosmic Ray Fission": "Fission par rayons cosmiques",
+"Dying Low-Mass Stars": "Mort d'étoiles de faible masse",
+"Exploding Massive Stars": "Explosion d'étoiles massives",
+"Exploding White Dwarfs": "Explosion de naines blanches",
+"Merging Neutron Stars": "Fusion d'étoiles à neutrons"
+},
+"zh-hans": {
+"Big Bang Fusion": "大爆炸核聚变",
+"Cosmic Ray Fission": "宇宙射线裂变",
+"Dying Low-Mass Stars": "低质量恒星死亡",
+"Exploding Massive Stars": "大质量恒星爆炸",
+"Exploding White Dwarfs": "白矮星爆炸",
+"Merging Neutron Stars": "中子星合并"
+}
+},
+"property_names": {
+"en": {
+"Atomic Mass": "Atomic Mass",
+"Atomic Radius (van der Waals, pm)": "Atomic Radius (van der Waals, pm)",
+"Boiling Point (K)": "Boiling Point (K)",
+"Chemical Group Block": "Chemical Group Block",
+"Density (g/cm³)": "Density (g/cm³)",
+"Discovery Country": "Discovery Country",
+"Electron Affinity (kJ/mol)": "Electron Affinity (kJ/mol)",
+"Electron Configuration": "Electron Configuration",
+"Electronegativity (Pauling)": "Electronegativity (Pauling)",
+"Ionization Energy (kJ/mol)": "Ionization Energy (kJ/mol)",
+"Melting Point (K)": "Melting Point (K)",
+"Name": "Name",
+"None": "None",
+"Origin of Element": "Origin of Element",
+"Oxidation States": "Oxidation States",
+"Proton Number": "Proton Number",
+"Stable Isotopes": "Stable Isotopes",
+"Standard State": "Standard State",
+"Year Discovered": "Year Discovered"
+},
+"fi": {
+"Atomic Mass": "Atomimassa",
+"Atomic Radius (van der Waals, pm)": "Atomisäde (van der Waals, pm)",
+"Boiling Point (K)": "Kiehumispiste (K)",
+"Chemical Group Block": "Kemiallinen ryhmälohko",
+"Density (g/cm³)": "Tiheys (g/cm³)",
+"Discovery Country": "Löytömaa",
+"Electron Affinity (kJ/mol)": "Elektroniffiniteetti (kJ/mol)",
+"Electron Configuration": "Elektronikonfiguraatio",
+"Electronegativity (Pauling)": "Elektronegatiivisuus (Pauling)",
+"Ionization Energy (kJ/mol)": "Ionisaatioenergia (kJ/mol)",
+"Melting Point (K)": "Sulamispiste (K)",
+"Name": "Nimi",
+"None": "Ei mitään",
+"Origin of Element": "Alkuaineen alkuperä",
+"Oxidation States": "Hapetusasteet",
+"Proton Number": "Protoniluku",
+"Stable Isotopes": "Vakaat isotoopit",
+"Standard State": "Vakio-olomuoto",
+"Year Discovered": "Löytövuosi"
+},
+"fr": {
+"Atomic Mass": "Masse atomique",
+"Atomic Radius (van der Waals, pm)": "Rayon atomique (van der Waals, pm)",
+"Boiling Point (K)": "Point d'ébullition (K)",
+"Chemical Group Block": "Bloc du groupe chimique",
+"Density (g/cm³)": "Densité (g/cm³)",
+"Discovery Country": "Pays de découverte",
+"Electron Affinity (kJ/mol)": "Affinité électronique (kJ/mol)",
+"Electron Configuration": "Configuration électronique",
+"Electronegativity (Pauling)": "Électronégativité (Pauling)",
+"Ionization Energy (kJ/mol)": "Énergie d'ionisation (kJ/mol)",
+"Melting Point (K)": "Point de fusion (K)",
+"Name": "Nom",
+"None": "Aucun",
+"Origin of Element": "Origine de l'élément",
+"Oxidation States": "États d'oxydation",
+"Proton Number": "Numéro de proton",
+"Stable Isotopes": "Isotopes stables",
+"Standard State": "État standard",
+"Year Discovered": "Année découverte"
+},
+"zh-hans": {
+"Atomic Mass": "原子质量",
+"Atomic Radius (van der Waals, pm)": "原子半径 (van der Waals, pm)",
+"Boiling Point (K)": "沸点 (K)",
+"Chemical Group Block": "化学族块",
+"Density (g/cm³)": "密度 (g/cm³)",
+"Discovery Country": "发现国家",
+"Electron Affinity (kJ/mol)": "电子亲和能 (kJ/mol)",
+"Electron Configuration": "电子配置",
+"Electronegativity (Pauling)": "电负性 (Pauling)",
+"Ionization Energy (kJ/mol)": "电离能 (kJ/mol)",
+"Melting Point (K)": "熔点 (K)",
+"Name": "名称",
+"None": "无",
+"Origin of Element": "元素起源",
+"Oxidation States": "氧化态",
+"Proton Number": "质子数",
+"Stable Isotopes": "稳定同位素",
+"Standard State": "标准状态",
+"Year Discovered": "发现年份"
+}
+}
+}
