@@ -111,6 +111,24 @@ def apply_mass_fixes(elements: dict, fixes: list[dict]) -> None:
                   "the other masses already agree with CIAAW at its printed precision; radioactive elements keep the mass of a representative isotope"})
 
 
+# Single values corrected after an audit against reference data: (symbol, key) -> (value in the dump, corrected value).
+#  ie, ea: NIST Atomic Spectra Database / electron-affinity compilation (eV); year, country: first isolation or identification
+#  (M. E. Weeks, Discovery of the Elements; Greenwood and Earnshaw, Chemistry of the Elements); state: Og is predicted to be a solid.
+VALUE_FIXES = {("As", "ie"): (9.815, 9.789), ("W", "ie"): (7.98, 7.864), ("Pt", "ie"): (9, 8.959), ("F", "ea"): (3.339, 3.401),
+               ("F", "year"): (1670, 1886), ("Al", "year"): ("Ancient", 1825), ("Al", "country"): ("Unknown", "Denmark"),
+               ("Ca", "year"): ("Ancient", 1808), ("Ca", "country"): ("Unknown", "United Kingdom"), ("Si", "year"): (1854, 1823),
+               ("Bi", "country"): ("Unknown", "France"), ("Bh", "year"): (1976, 1981), ("Og", "state"): ("Gas", "Solid")}
+
+
+def apply_value_fixes(elements: dict, fixes: list[dict]) -> None:
+    """Apply VALUE_FIXES; the assertion notices a changed dump."""
+    for (sym, key), (old, new) in VALUE_FIXES.items():
+        assert elements[sym][key] == old, f"{sym}.{key} in the dump changed; re-audit"
+        elements[sym][key] = new
+    fixes.append({"element": "As, W, Pt, F", "what": "first ionization energy of As, W, Pt and electron affinity of F corrected to the NIST values (9.789, 7.864, 8.959, 3.401 eV)"})
+    fixes.append({"element": "F, Al, Ca, Si, Bi, Bh, Og", "what": "discovery data and state: F 1886 (Moissan), Al 1825 (Oersted, Denmark), Ca 1808 (Davy, United Kingdom), Si 1823 (Berzelius), Bi country France, Bh 1981 (GSI), Og predicted solid"})
+
+
 def build() -> dict:
     gui = json.loads((SRC / "gui_dump.json").read_text(encoding="utf-8"))
     hand = json.loads((SRC / "i18n_hand.json").read_text(encoding="utf-8"))
@@ -149,6 +167,7 @@ def build() -> dict:
     by_sym = {x["sym"]: x for x in elements}
     apply_isotope_fixes(by_sym, fixes)
     apply_mass_fixes(by_sym, fixes)
+    apply_value_fixes(by_sym, fixes)
     fixes.insert(0, {"element": "all", "what": "ionization energy and electron affinity are eV (the GUI labelled them kJ/mol); kJ/mol = eV x 96.485 is computed on display"})
     fixes.append({"element": "Rf-Og", "what": "origin class 'z' (human synthesis); the Johnson table stops at Lr"})
     fixes.append({"element": "all", "what": "origin is a set of sources (Johnson/OSU) instead of one label; 74 of 118 GUI entries said 'Merging Neutron Stars'"})

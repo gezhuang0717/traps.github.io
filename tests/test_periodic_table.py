@@ -104,3 +104,11 @@ def test_atomic_masses_follow_the_ciaaw_abridged_weights():
     for sym, mass in expected.items():
         assert BY[sym]["mass"] == mass, sym
     assert {s["id"] for s in D["meta"]["sources"]} >= {"ciaaw"} and any("Li" in f["element"] and "CIAAW" in f["what"] for f in D["meta"]["fixes"])
+
+
+def test_audited_values_match_reference_data():
+    assert abs(BY["As"]["ie"] - 9.789) < 1e-9 and abs(BY["W"]["ie"] - 7.864) < 1e-9 and abs(BY["Pt"]["ie"] - 8.959) < 1e-9 and abs(BY["F"]["ea"] - 3.401) < 1e-9
+    assert (BY["F"]["year"], BY["Al"]["year"], BY["Al"]["country"]) == (1886, 1825, "Denmark")
+    assert (BY["Ca"]["year"], BY["Ca"]["country"], BY["Si"]["year"], BY["Bi"]["country"], BY["Bh"]["year"], BY["Og"]["state"]) == (1808, "United Kingdom", 1823, "France", 1981, "Solid")
+    assert not [s for s, e in BY.items() if e["year"] == "Ancient" and s not in {"C", "S", "Fe", "Cu", "As", "Ag", "Sn", "Sb", "Au", "Hg", "Pb"}]
+    assert {s["id"] for s in D["meta"]["sources"]} >= {"nist_asd", "weeks"}

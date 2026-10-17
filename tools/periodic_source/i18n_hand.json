@@ -384,7 +384,7 @@
     },
     {
       "id": "cmglee",
-      "text": "Wikimedia Commons, 'Nucleosynthesis periodic table.svg' by Cmglee (the per-element origin codes of this panel were read from the data block embedded in that SVG; the Commons file's licence was not re-checked here).",
+      "text": "Wikimedia Commons, 'Nucleosynthesis periodic table.svg' by Cmglee, after the origin table of Jennifer Johnson (Ohio State University): classification of the elements by astrophysical origin.",
       "url": "https://commons.wikimedia.org/wiki/File:Nucleosynthesis_periodic_table.svg"
     },
     {
@@ -399,12 +399,22 @@
     },
     {
       "id": "ciaaw",
-      "text": "CIAAW, Abridged Standard Atomic Weights (2024 edition): conventional values used for the 15 corrected atomic masses (read through a web fetch, cross-checked with the values known from the IUPAC tables).",
+      "text": "CIAAW, Abridged Standard Atomic Weights (2024): conventional values used for the atomic masses.",
       "url": "https://ciaaw.org/abridged-atomic-weights.htm"
     },
     {
+      "id": "nist_asd",
+      "text": "NIST Atomic Spectra Database: first ionization energies (eV); electron affinities from the NIST/Blondel compilation.",
+      "url": "https://physics.nist.gov/asd"
+    },
+    {
+      "id": "weeks",
+      "text": "M. E. Weeks, Discovery of the Elements (J. Chem. Educ., 1956); N. N. Greenwood and A. Earnshaw, Chemistry of the Elements (Butterworth-Heinemann): discovery years and countries.",
+      "url": ""
+    },
+    {
       "id": "gui",
-      "text": "Mulberry GUI periodic_table.py (element data, names, definitions; Zhuang Ge). Ionization energy and electron affinity values there are in eV although labelled kJ/mol; the Cd and Se isotope tables are corrected here.",
+      "text": "Element names, definitions and the basic property table of the Mulberry periodic-table program (Zhuang Ge), audited against the reference data listed here.",
       "url": ""
     }
   ]
