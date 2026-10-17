@@ -97,3 +97,10 @@ def test_sources_and_fixes_recorded():
     assert {s["id"] for s in meta["sources"]} >= {"johnson2019", "cmglee", "kobayashi2020", "gui"}
     assert any(f["element"] == "Cd" for f in meta["fixes"]) and any(f["element"] == "Se" for f in meta["fixes"])
     assert len(meta["inputs_sha256"]) == 4
+
+
+def test_atomic_masses_follow_the_ciaaw_abridged_weights():
+    expected = {"Li": 6.94, "Fe": 55.845, "Pb": 207.2, "Zn": 65.38, "Ar": 39.95, "Br": 79.904, "Ca": 40.078, "Cu": 63.546, "Ru": 101.07, "Sm": 150.36}
+    for sym, mass in expected.items():
+        assert BY[sym]["mass"] == mass, sym
+    assert {s["id"] for s in D["meta"]["sources"]} >= {"ciaaw"} and any("Li" in f["element"] and "CIAAW" in f["what"] for f in D["meta"]["fixes"])

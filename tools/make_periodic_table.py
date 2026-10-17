@@ -95,6 +95,22 @@ def apply_isotope_fixes(elements: dict, fixes: list[dict]) -> None:
     fixes.append({"element": "Se", "what": "74Se 0.86->0.89, 76Se 9.23->9.37, 77Se 7.60->7.63 % (sum 99.80 -> 100.00 %)"})
 
 
+# Atomic masses that the GUI stored rounded or outdated; replaced by the CIAAW abridged standard atomic weights
+# (2024 edition, conventional values, https://ciaaw.org/abridged-atomic-weights.htm): symbol -> (value in the dump, corrected value).
+MASS_FIXES = {"Li": (7.0, 6.94), "S": (32.07, 32.06), "Ar": (39.9, 39.95), "Ca": (40.08, 40.078), "Fe": (55.84, 55.845), "Cu": (63.55, 63.546),
+              "Zn": (65.4, 65.38), "Se": (78.97, 78.971), "Br": (79.9, 79.904), "Kr": (83.8, 83.798), "Zr": (91.22, 91.222), "Ru": (101.1, 101.07),
+              "Sm": (150.4, 150.36), "Os": (190.2, 190.23), "Pb": (207, 207.2)}
+
+
+def apply_mass_fixes(elements: dict, fixes: list[dict]) -> None:
+    """Replace rounded / outdated atomic masses; the assertion notices a changed dump."""
+    for sym, (old, new) in MASS_FIXES.items():
+        assert elements[sym]["mass"] == old, f"{sym} mass in the dump changed; re-audit"
+        elements[sym]["mass"] = new
+    fixes.append({"element": ", ".join(MASS_FIXES), "what": "atomic mass replaced by the CIAAW abridged standard atomic weight (e.g. Li 7 -> 6.94, Fe 55.84 -> 55.845, Pb 207 -> 207.2); "
+                  "the other masses already agree with CIAAW at its printed precision; radioactive elements keep the mass of a representative isotope"})
+
+
 def build() -> dict:
     gui = json.loads((SRC / "gui_dump.json").read_text(encoding="utf-8"))
     hand = json.loads((SRC / "i18n_hand.json").read_text(encoding="utf-8"))
@@ -132,6 +148,7 @@ def build() -> dict:
     assert [x["z"] for x in elements] == list(range(1, 119))
     by_sym = {x["sym"]: x for x in elements}
     apply_isotope_fixes(by_sym, fixes)
+    apply_mass_fixes(by_sym, fixes)
     fixes.insert(0, {"element": "all", "what": "ionization energy and electron affinity are eV (the GUI labelled them kJ/mol); kJ/mol = eV x 96.485 is computed on display"})
     fixes.append({"element": "Rf-Og", "what": "origin class 'z' (human synthesis); the Johnson table stops at Lr"})
     fixes.append({"element": "all", "what": "origin is a set of sources (Johnson/OSU) instead of one label; 74 of 118 GUI entries said 'Merging Neutron Stars'"})
