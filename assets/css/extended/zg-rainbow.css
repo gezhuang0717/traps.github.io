@@ -561,4 +561,8 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .pt-data-scroll{max-height:30rem;overflow:auto;border:1px solid var(--zg-line);border-radius:.5rem}
 .pt-data th{position:sticky;top:0;background:var(--zg-soft);z-index:1;white-space:nowrap}.pt-sortable{cursor:pointer}.pt-sortable:hover{color:var(--zg-blue)}
 .pt-data td{white-space:nowrap}.pt-data td.num{text-align:end;font-variant-numeric:tabular-nums}.pt-data tbody tr:nth-child(even){background:var(--zg-soft)}
+.pt-orbitals{max-height:15rem;overflow:auto;border:1px solid var(--zg-line);border-radius:.5rem;padding:.3rem .5rem}
+.pt-orb-row{display:flex;align-items:center;gap:.15rem;line-height:1.2}.pt-orb-label{width:2rem;font-size:.75rem;color:var(--zg-muted)}.pt-orb-n{margin-inline-start:.4rem;font-size:.7rem;color:var(--zg-muted)}
+.pt-orb{display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.3rem;border:1px solid var(--zg-ink);font-size:.85rem}
+.pt-about{margin:.8rem 0;padding:.4rem .8rem;border:1px solid var(--zg-line);border-radius:.6rem;background:var(--zg-soft)}.pt-about summary{cursor:pointer;font-weight:600}.pt-about p{margin:.5rem 0 .2rem;line-height:1.55}
 @media (prefers-reduced-motion:reduce){.pt-cell,.pt-cell.ok,.pt-cell.bad{transition:none;animation:none}}

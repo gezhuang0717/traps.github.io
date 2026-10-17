@@ -265,7 +265,31 @@
     });
   }
 
+
+  // ---- electron configuration: subshells and orbital boxes (Aufbau notation, Pauli + Hund filling) ---------
+  const L_LETTERS = ['s', 'p', 'd', 'f'];
+  // Subshells [{n, l, letter, e}] of an element from its configuration string; noble-gas cores like [Ar] are expanded recursively;
+  // remarks such as "(calculated)" are ignored; the result is ordered by n + l, then n (Madelung order).
+  function subshells(m, sym, depth = 0) {
+    const cfg = String(m.bySym[sym].config || '').replace(/\([^)]*\)/g, ''), out = [], re = /\[([A-Z][a-z]?)\]|(\d)([spdf])(\d+)/g;
+    let hit; if (depth > 6) throw new RangeError('configuration loop at ' + sym);
+    while ((hit = re.exec(cfg))) {
+      if (hit[1]) out.push(...subshells(m, hit[1], depth + 1));
+      else out.push({n: Number(hit[2]), l: L_LETTERS.indexOf(hit[3]), letter: hit[3], e: Number(hit[4])});
+    }
+    return out.sort((a, b) => a.n + a.l - (b.n + b.l) || a.n - b.n);
+  }
+  // Orbitals of one subshell with their electrons: [{up, down}], singly occupied first (Hund), then paired.
+  function orbitalFill(l, e) {
+    const k = 2 * l + 1, boxes = Array.from({length: k}, () => ({up: false, down: false}));
+    if (e > 2 * k || e < 0) throw new RangeError('too many electrons for a subshell');
+    for (let i = 0; i < Math.min(e, k); i++) boxes[i].up = true;
+    for (let i = 0; i < e - k; i++) boxes[i].down = true;
+    return boxes;
+  }
+  const electronCount = (m, sym) => subshells(m, sym).reduce((t, x) => t + x.e, 0);
+
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows};
+    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount};
 });

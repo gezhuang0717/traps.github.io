@@ -119,3 +119,11 @@ test('Data table rows sort numerically with missing values last and text by loca
  assert.equal(P.sortRows(rows,'name',true,'en')[0].name,'Actinium');assert.ok(P.sortRows(rows,'year',true,'en')[0].year<=1700);
  assert.equal(rows.length,118);assert.equal(P.dataRows(m,'de','kJ/mol').find(r=>r.sym==='H').ie.toFixed(0),'1312');
 });
+test('Electron configurations: every element has Z electrons; Hund filling; Madelung order',()=>{
+ for(const e of m.elements)assert.equal(P.electronCount(m,e.sym),e.z,`${e.sym} ${e.config}`);
+ const fe=P.subshells(m,'Fe').map(x=>`${x.n}${x.letter}${x.e}`).join(' ');assert.equal(fe,'1s2 2s2 2p6 3s2 3p6 4s2 3d6');
+ assert.equal(P.subshells(m,'Cr').map(x=>`${x.n}${x.letter}${x.e}`).slice(-2).join(' '),'4s1 3d5');
+ assert.deepEqual(P.orbitalFill(2,6).map(b=>[b.up,b.down]),[[true,true],[true,false],[true,false],[true,false],[true,false]]);
+ assert.deepEqual(P.orbitalFill(1,3).map(b=>[b.up,b.down]),[[true,false],[true,false],[true,false]]);assert.deepEqual(P.orbitalFill(0,2).map(b=>[b.up,b.down]),[[true,true]]);
+ assert.throws(()=>P.orbitalFill(0,3),RangeError);assert.equal(P.subshells(m,'Og').length,19);
+});
