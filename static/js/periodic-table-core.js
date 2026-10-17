@@ -57,7 +57,8 @@
     if (key === 'state') return stateLabel(m, lang, e.state);
     if (key === 'origin') return e.origin.map(c => originLabel(m, lang, c)).join(' + ');
     if (key === 'iso') return e.iso.length ? e.iso.map(i => `${i.a}${e.sym} ${formatNumber(i.pct, lang, 4)} %`).join(', ') : '—';
-    if (key === 'config' || key === 'ox' || key === 'country') return e[key] === null || e[key] === undefined || e[key] === '' ? '—' : String(e[key]);
+    if (key === 'country') return countryText(m, e, lang, true);
+    if (key === 'config' || key === 'ox') return e[key] === null || e[key] === undefined || e[key] === '' ? '—' : String(e[key]);
     if (key === 'year') return typeof e.year === 'number' ? String(e.year) : (e.year ? (lang === 'zh' ? '古代' : lang === 'fi' ? 'Muinaisaika' : lang === 'de' ? 'Altertum' : lang === 'ja' ? '古代' : lang === 'fr' ? 'Antiquité' : 'Ancient') : '—');
     if (key === 'z') return String(e.z);
     const v = value(m, e, key, unit), u = unitFor(m, key, unit);
@@ -99,10 +100,12 @@
     } else if (scheme === 'heat') {
       const scale = opts.scale || heatScale(m, opts.key || 'mass', opts.unit, opts.log), c = scale.color(value(m, e, opts.key || 'mass', opts.unit));
       solid = bg = c || '#e5e7eb'; fills = [bg];
+    } else if (scheme === 'country') {
+      fills = e.cc.map(c => m.i18n.countries.color[c]); bg = originGradient(e.cc, m.i18n.countries.color); solid = fills[0];
     } else { solid = bg = m.i18n.groups.color[e.block]; fills = [bg]; }
     const missing = scheme === 'heat' && bg === '#e5e7eb';
     // multi-source origin cells carry their own stripes; keep text legible with a light chip behind it
-    const striped = scheme === 'origin' && e.origin.length > 1;
+    const striped = (scheme === 'origin' && e.origin.length > 1) || (scheme === 'country' && e.cc.length > 1);
     const dim = opts.highlight ? !opts.highlight.has(e.sym) : false;
     return {background: bg, fills, color: striped ? '#111111' : textColor(solid), striped, missing, dim};
   }
@@ -199,6 +202,68 @@
   }
 
 
+
+  // ---- discovery country (flags) and extra cell contents ----------------------------------------------
+  const countryLabel = (m, lang, code) => pick(m.i18n.countries.label, lang, code);
+  // Flags (and, with withName, the localised country names) of the discovery country; "XX" = known since antiquity.
+  const countryText = (m, e, lang, withName) => { const flags = e.cc.map(c => m.i18n.countries.flag[c]).join(''); return withName ? `${flags} ${e.cc.map(c => countryLabel(m, lang, c)).join(' / ')}` : flags; };
+  const countryCounts = m => Object.fromEntries(m.i18n.countries.order.map(c => [c, m.elements.filter(e => e.cc.includes(c)).length]));
+  // Non-numeric things that can be shown inside a cell (besides every numeric property).
+  const CELL_EXTRAS = ['country', 'state', 'ox', 'config', 'group', 'period', 'iso_n', 'origin_n'];
+  const STATE_LETTER = {Solid: 's', Liquid: 'l', Gas: 'g'};
+  // Short text of any cell key for a cell: numbers with 4 digits, flags, s/l/g, main oxidation states, valence configuration, ...
+  function cellText(m, e, key, lang, unit) {
+    if (NUMERIC.includes(key)) { const v = value(m, e, key, unit); return v === null ? '–' : (key === 'z' || key === 'year') ? String(v) : formatNumber(v, lang, key === 'mass' ? 5 : 4); }
+    if (key === 'country') return countryText(m, e, lang, false);
+    if (key === 'state') return STATE_LETTER[e.state] || '';
+    if (key === 'ox') return e.ox ? e.ox.split(',').slice(0, 2).map(x => x.trim()).join(' ') : '–';
+    if (key === 'config') return e.config ? String(e.config).replace(/\([^)]*\)/g, '').replace(/^\[[A-Za-z]+\]/, '').trim() || e.config : '–';
+    if (key === 'group') return groupOf(e) === null ? '–' : String(groupOf(e));
+    if (key === 'period') return String(periodOf(e));
+    if (key === 'iso_n') return String(e.iso.length);
+    if (key === 'origin_n') return String(e.origin.length);
+    return '';
+  }
+  // Largest font (px) at most maxFactor x cell that lets the text fit into 94 % of the cell width (average glyph width 0.52 em).
+  function fitFont(text, cell, maxFactor = 0.19, minPx = 5) {
+    const n = Math.max(1, Array.from(String(text)).length);
+    return Math.max(minPx, Math.min(cell * maxFactor, cell * 0.94 / (0.52 * n)));
+  }
+
+
+  // ---- cell layout: positions and font sizes of Z, symbol, name and value so that nothing overlaps -----------------
+  // Used by the table on the page, the PNG/SVG export and (same numbers) the Mulberry GUI. Sizes are in pixels for a cell of edge c.
+  const CELL_TEXT = Object.freeze({lineHeight: 1.18, symbolEm: 0.66, nameEm: 0.58, digitEm: 0.58, valueEm: 0.56, flagEm: 1.3, inset: 0.1});
+  // The glyphs fill about 80 % of their line box (leading, side bearings): overlap tests use this inner box.
+  const visualBox = r => ({x: r.x + r.w * CELL_TEXT.inset, y: r.y + r.h * CELL_TEXT.inset, w: r.w * (1 - 2 * CELL_TEXT.inset), h: r.h * (1 - 2 * CELL_TEXT.inset)});
+  function cellLayout(c, o = {}) {
+    const s = Math.max(0.3, Math.min(3, o.textScale || 1)), K = CELL_TEXT, symLen = Math.max(1, String(o.sym || 'X').length), zLen = Math.max(1, String(o.z || 0).length);
+    const name = o.name || '', value = o.value || '', nameLen = Array.from(name).length, valLen = Array.from(value).length;
+    const valueEmWidth = o.flag ? Math.max(1, valLen / 2) * K.flagEm : valLen * K.valueEm, more = !!(name || value);
+    const base = {
+      sym: Math.min(c * (more ? 0.34 : 0.40) * s, c * 0.90 / (K.symbolEm * symLen)), z: Math.min(c * 0.20 * s, c * 0.26),
+      name: name ? Math.min(c * 0.17 * s, c * 0.94 / (K.nameEm * nameLen)) : 0, val: value ? Math.min(c * (o.flag ? 0.30 : 0.18) * s, c * 0.94 / valueEmWidth) : 0};
+    const intersect = (p, q) => { const a = visualBox(p), b = visualBox(q); return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h; };
+    function place(mode, f) { // f: common shrink factor
+      const px = {sym: base.sym * f, z: base.z * f, name: base.name * f, val: base.val * f}, h = {z: px.z * K.lineHeight, sym: px.sym * K.lineHeight, name: px.name * K.lineHeight, val: px.val * K.lineHeight};
+      const total = (mode === 'row' ? h.z : 0) + h.sym + h.name + h.val;
+      let y = (c - total) / 2;
+      const out = {mode, total, px, rects: {}, centres: {}};
+      if (mode === 'row') { out.rects.z = {x: (c - zLen * K.digitEm * px.z) / 2, y, w: zLen * K.digitEm * px.z, h: h.z}; y += h.z; } else out.rects.z = {x: 0.06 * c, y: 0.04 * c, w: zLen * K.digitEm * px.z, h: h.z};
+      out.rects.sym = {x: (c - symLen * K.symbolEm * px.sym) / 2, y, w: symLen * K.symbolEm * px.sym, h: h.sym}; y += h.sym;
+      if (name) { const w = Math.min(c * 0.94, nameLen * K.nameEm * px.name); out.rects.name = {x: (c - w) / 2, y, w, h: h.name}; y += h.name; }
+      if (value) { const w = Math.min(c * 0.94, valueEmWidth * px.val); out.rects.val = {x: (c - w) / 2, y, w, h: h.val}; }
+      return out;
+    }
+    let f = 1, lay = place('corner', 1);
+    const clash = l => ['sym', 'name', 'val'].some(k => l.rects[k] && intersect(l.rects.z, l.rects[k]));
+    if (clash(lay)) lay = place('row', 1);
+    if (lay.total > c * 0.94) { f = (c * 0.94) / lay.total; lay = place(lay.mode, f); if (lay.mode === 'corner' && clash(lay)) lay = place('row', f); }
+    const R = lay.rects, put = (key, px) => (R[key] ? {x: R[key].x, y: R[key].y, w: R[key].w, h: R[key].h, cx: R[key].x + R[key].w / 2, cy: R[key].y + R[key].h / 2, px} : null);
+    const hide = (item, px) => (item && px >= 4 ? item : null); // too small to read: not drawn
+    return {mode: lay.mode, shrink: f, z: put('z', lay.px.z), sym: put('sym', lay.px.sym), name: hide(put('name', lay.px.name), lay.px.name), val: hide(put('val', lay.px.val), lay.px.val)};
+  }
+
   // ---- discovery timeline, comparison, export geometry and CSV -----------------------------------
   // Elements known by a year; elements without a numeric year ("Ancient") are always known.
   const knownBy = (m, year) => new Set(m.elements.filter(e => typeof e.year !== 'number' || e.year <= year).map(e => e.sym));
@@ -253,7 +318,7 @@
     return m.elements.map(e => ({
       z: e.z, sym: e.sym, name: displayName(e, lang), block: groupLabel(m, lang, e.block), state: stateLabel(m, lang, e.state), mass: e.mass, chi: e.chi, radius: e.radius,
       ie: value(m, e, 'ie', unit), ea: value(m, e, 'ea', unit), mp: e.mp, bp: e.bp, density: e.density, year: typeof e.year === 'number' ? e.year : null,
-      country: e.country || '', origin: e.origin.map(c => originLabel(m, lang, c)).join(' + ')}));
+      country: countryText(m, e, lang, true), origin: e.origin.map(c => originLabel(m, lang, c)).join(' + ')}));
   }
   // Sort rows by a column; missing values (null / '') always come last, numbers numerically, text with locale rules.
   function sortRows(rows, key, ascending, lang) {
@@ -291,5 +356,5 @@
 
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount};
+    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount, countryLabel, countryText, countryCounts, CELL_EXTRAS, cellText, fitFont, CELL_TEXT, visualBox, cellLayout};
 });

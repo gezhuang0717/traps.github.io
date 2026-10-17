@@ -127,3 +127,34 @@ test('Electron configurations: every element has Z electrons; Hund filling; Made
  assert.deepEqual(P.orbitalFill(1,3).map(b=>[b.up,b.down]),[[true,false],[true,false],[true,false]]);assert.deepEqual(P.orbitalFill(0,2).map(b=>[b.up,b.down]),[[true,true]]);
  assert.throws(()=>P.orbitalFill(0,3),RangeError);assert.equal(P.subshells(m,'Og').length,19);
 });
+test('Discovery country: flags, localised names, stripes for shared discoveries, counts',()=>{
+ const data2=JSON.parse(require('node:fs').readFileSync(__dirname+'/../static/data/periodic-table.json','utf8')),m2=P.createModel(data2);
+ assert.equal(P.countryText(m2,m2.bySym.H,'en',false),'\u{1F1EC}\u{1F1E7}');assert.equal(P.countryText(m2,m2.bySym.Cs,'de',true),'\u{1F1E9}\u{1F1EA} Deutschland');
+ assert.equal(P.countryText(m2,m2.bySym.Rf,'ja',true),'\u{1F1F7}\u{1F1FA}\u{1F1FA}\u{1F1F8} ロシア / アメリカ合衆国');assert.match(P.countryText(m2,m2.bySym.Fe,'en',true),/Known since antiquity/);
+ assert.equal(P.formatValue(m2,m2.bySym.Al,'country','fr'),'\u{1F1E9}\u{1F1F0} Danemark');
+ const st=P.cellStyle(m2,m2.bySym.Rf,'country');assert.ok(st.striped&&st.fills.length===2&&st.background.startsWith('linear-gradient'));assert.equal(P.cellStyle(m2,m2.bySym.H,'country').fills[0],m2.i18n.countries.color.GB);
+ const n=P.countryCounts(m2);assert.equal(Object.values(n).reduce((a,b)=>a+b,0),118+m2.elements.filter(e=>e.cc.length>1).length);assert.ok(n.XX===11&&n.GB>8,JSON.stringify(n));
+ for(const e of m2.elements){assert.ok(e.cc.length>=1&&e.cc.every(c=>m2.i18n.countries.flag[c]&&m2.i18n.countries.label.en[c]),e.sym);}
+});
+test('Cell texts for numbers and extras; fitted font sizes never exceed the cell width',()=>{
+ const fe=m.bySym.Fe;assert.equal(P.cellText(m,fe,'mass','en'),'55.845');assert.equal(P.cellText(m,fe,'z','en'),'26');assert.equal(P.cellText(m,m.bySym.Og,'ie','en'),'–');
+ assert.equal(P.cellText(m,fe,'state','en'),'s');assert.equal(P.cellText(m,m.bySym.Hg,'state','en'),'l');assert.equal(P.cellText(m,m.bySym.He,'state','en'),'g');
+ assert.equal(P.cellText(m,fe,'ox','en'),'+3 +2');assert.equal(P.cellText(m,fe,'config','en'),'4s2 3d6');assert.equal(P.cellText(m,m.bySym.Mt,'config','en'),'7s2 5f14 6d7');
+ assert.equal(P.cellText(m,fe,'group','en'),'8');assert.equal(P.cellText(m,m.bySym.La,'group','en'),'–');assert.equal(P.cellText(m,m.bySym.La,'period','en'),'6');
+ assert.equal(P.cellText(m,m.bySym.Cd,'iso_n','en'),'8');assert.equal(P.cellText(m,m.bySym.Li,'origin_n','en'),'3');
+ for(const text of ['Fe','Praseodymium','Protactinium','[Rn]7s2 5f14 6d10']){const px=P.fitFont(text,48);assert.ok(px>=5&&px<=48*0.19+1e-9&&(px<=5||px*0.52*text.length<=48*0.94+1e-6),text);}
+ assert.ok(P.fitFont('Praseodymium',48)<P.fitFont('Iron',48));
+});
+test('Cell layout: Z, symbol, name and value never overlap and stay inside the cell (all elements, sizes, text scales)',()=>{
+ const inside=(r,c)=>r.x>=-1e-6&&r.y>=-1e-6&&r.x+r.w<=c+1e-6&&r.y+r.h<=c+1e-6,hit=(p,q)=>{const a=P.visualBox(p),b=P.visualBox(q);return a.x<b.x+b.w-1e-9&&b.x<a.x+a.w-1e-9&&a.y<b.y+b.h-1e-9&&b.y<a.y+a.h-1e-9;};
+ const m2=P.createModel(JSON.parse(require('node:fs').readFileSync(__dirname+'/../static/data/periodic-table.json','utf8')));let checked=0;
+ for(const c of [24,32,48,80,160])for(const ts of [0.5,1,1.6,2.5])for(const e of m2.elements)for(const opt of [{},{name:P.displayName(e,'de')},{value:P.cellText(m2,e,'config','en')},{name:P.displayName(e,'fi'),value:P.cellText(m2,e,'mass','en')},{value:P.cellText(m2,e,'country','en'),flag:true,name:P.displayName(e,'ja')}]){
+  const L=P.cellLayout(c,{textScale:ts,sym:e.sym,z:e.z,...opt}),parts=[L.z,L.sym,L.name,L.val].filter(Boolean);checked++;
+  for(const p of parts)assert.ok(inside(p,c),`${e.sym} c${c} ts${ts} outside ${JSON.stringify(p)}`);
+  for(let i=0;i<parts.length;i++)for(let j=i+1;j<parts.length;j++)assert.ok(!hit(parts[i],parts[j]),`${e.sym} c${c} ts${ts} ${L.mode} overlap ${i}/${j}`);
+ }
+ assert.ok(checked>10000);
+ const a=P.cellLayout(100,{sym:'Fe',z:26}),b=P.cellLayout(100,{sym:'Fe',z:26,textScale:1.5});assert.equal(a.mode,'corner');assert.ok(b.sym.px>a.sym.px&&a.z.px>0);
+ const big=P.cellLayout(48,{sym:'Fe',z:26,name:'Praseodymium',value:'140.91',textScale:2.5});assert.ok(big.shrink<1&&[big.sym,big.name,big.val].filter(Boolean).reduce((s,x)=>s+x.px*1.18,0)<=48*0.94+1e-6);
+ assert.equal(P.cellLayout(24,{sym:'Fe',z:26,name:'Praseodymium'}).name,null); // too small to read: dropped instead of overlapping
+});

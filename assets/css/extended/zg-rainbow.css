@@ -506,17 +506,16 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .pt-scroll{overflow-x:auto;padding-bottom:.4rem}
 .pt-grid{display:grid;grid-template-columns:1.4rem repeat(18,var(--pt-cell,44px));grid-template-rows:1.2rem repeat(7,var(--pt-cell,44px)) .6rem repeat(2,var(--pt-cell,44px));gap:2px;width:max-content;position:relative}
 .pt-axis{font-size:.65rem;color:var(--zg-muted);display:flex;align-items:center;justify-content:center}
-.pt-cell{position:relative;border:0;border-radius:.3rem;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;font:inherit;overflow:hidden;min-width:0;transition:transform .08s,opacity .15s}
+.pt-cell{position:relative;border:0;border-radius:.3rem;padding:0;cursor:pointer;display:block;line-height:1;font:inherit;overflow:hidden;min-width:0;transition:transform .08s,opacity .15s}
+.pt-z{position:absolute;line-height:1;white-space:nowrap}
+.pt-sym,.pt-name,.pt-val{position:absolute;transform:translate(-50%,-50%);line-height:1;white-space:nowrap}
+.pt-sym{font-weight:700}.pt-val{opacity:.92}
 .pt-cell:hover{transform:scale(1.12);z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .pt-cell:focus-visible{outline:2px solid var(--zg-blue);outline-offset:1px;z-index:3}
 .pt-cell.sel{outline:2px solid var(--zg-ink);outline-offset:-1px}
 .pt-cell.dim{opacity:.2;filter:grayscale(.7)}
 .pt-cell.ok{animation:pt-ok .5s}.pt-cell.bad{animation:pt-bad .5s}
 @keyframes pt-ok{50%{box-shadow:inset 0 0 0 4px #30a46c}}@keyframes pt-bad{50%{box-shadow:inset 0 0 0 4px #e5484d}}
-.pt-z{position:absolute;top:2px;left:3px;font-size:max(6px,calc(var(--pt-cell,44px)*.2))}
-.pt-sym{font-weight:700;font-size:calc(var(--pt-cell,44px)*.4)}
-.pt-name{font-size:max(6px,calc(var(--pt-cell,44px)*.17));max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 1px}
-.pt-val{font-size:max(6px,calc(var(--pt-cell,44px)*.18));opacity:.9}
 .pt-cell.striped .pt-sym{background:rgba(255,255,255,.82);border-radius:3px;padding:0 .18em}
 .pt-card{grid-row:2/5;grid-column:4/14;display:flex;flex-direction:column;justify-content:flex-start;gap:.25rem;padding:.3rem .6rem;border:1px solid var(--zg-line);border-radius:.8rem;background:var(--zg-card);overflow:auto;min-width:0;align-items:flex-start}
 .pt-card-narrow{display:none;margin-bottom:.6rem}
