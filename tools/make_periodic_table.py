@@ -8,8 +8,9 @@ Inputs (all in tools/periodic_source/):
   i18n_hand.json      hand-written labels, origin classes, definitions, sources
 
 Usage:
-  python tools/make_periodic_table.py          write static/data/periodic-table.json
-  python tools/make_periodic_table.py --check  rebuild in memory and compare with the committed file
+  python tools/make_periodic_table.py               write static/data/periodic-table.json (public data, no change log)
+  python tools/make_periodic_table.py --check       rebuild in memory and compare with the committed file
+  python tools/make_periodic_table.py --full PATH   write the complete data set with the change log (meta.fixes, all sources)
 
 The output is deterministic (no timestamps) so --check can prove reproducibility.
 Physical fixes applied to the GUI dump are listed in meta.fixes and guarded by assertions,
@@ -243,6 +244,14 @@ def build() -> dict:
     }
 
 
+def public_view(data: dict) -> dict:
+    """Data set for the public website: no change log and no build inputs, only the sources that apply to the data shown."""
+    meta = {k: v for k, v in data["meta"].items() if k not in ("fixes", "inputs_sha256")}
+    meta["title"] = "Periodic table data"
+    meta["sources"] = [x for x in data["meta"]["sources"] if x["id"] != "gui"]
+    return {"meta": meta, "i18n": data["i18n"], "elements": data["elements"]}
+
+
 def dumps(data: dict) -> str:
     """Stable serialisation: one top-level key per block, one element per line (small diffs)."""
     def j(x):
@@ -256,8 +265,14 @@ def dumps(data: dict) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true", help="compare a fresh build with the committed JSON")
+    ap.add_argument("--full", metavar="PATH", help="write the complete data set (with the change log) to PATH instead")
     args = ap.parse_args()
-    text = dumps(build())
+    full = build()
+    if args.full:
+        Path(args.full).write_text(dumps(full), encoding="utf-8")
+        print(f"wrote {args.full} ({len(dumps(full))} bytes, with change log)")
+        return 0
+    text = dumps(public_view(full))
     json.loads(text)  # the serialisation must stay valid JSON
     if args.check:
         if not OUT.exists() or OUT.read_text(encoding="utf-8") != text:

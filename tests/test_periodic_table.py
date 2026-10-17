@@ -92,18 +92,26 @@ def test_labels_and_definitions_complete_in_six_languages():
         assert e["block"] in g["order"] and e["state"] in ("Solid", "Liquid", "Gas")
 
 
-def test_sources_and_fixes_recorded():
+def test_public_data_has_sources_but_no_change_log():
     meta = D["meta"]
-    assert {s["id"] for s in meta["sources"]} >= {"johnson2019", "cmglee", "kobayashi2020", "gui"}
-    assert any(f["element"] == "Cd" for f in meta["fixes"]) and any(f["element"] == "Se" for f in meta["fixes"])
-    assert len(meta["inputs_sha256"]) == 4
+    assert {s["id"] for s in meta["sources"]} >= {"johnson2019", "cmglee", "kobayashi2020", "ciaaw", "nist_asd", "weeks"} and "gui" not in {s["id"] for s in meta["sources"]}
+    assert "fixes" not in meta and "inputs_sha256" not in meta and "Mulberry" not in json.dumps(meta)
+
+
+def test_full_build_records_every_correction():
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_periodic_table as builder
+    full = builder.build()
+    fixes = full["meta"]["fixes"]
+    assert any(f["element"] == "Cd" for f in fixes) and any(f["element"] == "Se" for f in fixes) and any("CIAAW" in f["what"] for f in fixes)
+    assert len(full["meta"]["inputs_sha256"]) == 4 and "gui" in {s["id"] for s in full["meta"]["sources"]}
 
 
 def test_atomic_masses_follow_the_ciaaw_abridged_weights():
     expected = {"Li": 6.94, "Fe": 55.845, "Pb": 207.2, "Zn": 65.38, "Ar": 39.95, "Br": 79.904, "Ca": 40.078, "Cu": 63.546, "Ru": 101.07, "Sm": 150.36}
     for sym, mass in expected.items():
         assert BY[sym]["mass"] == mass, sym
-    assert {s["id"] for s in D["meta"]["sources"]} >= {"ciaaw"} and any("Li" in f["element"] and "CIAAW" in f["what"] for f in D["meta"]["fixes"])
+    assert {s["id"] for s in D["meta"]["sources"]} >= {"ciaaw"}
 
 
 def test_audited_values_match_reference_data():

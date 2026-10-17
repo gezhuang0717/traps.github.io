@@ -232,7 +232,7 @@
 
 
   // ---- cell layout: positions and font sizes of Z, symbol, name and value so that nothing overlaps -----------------
-  // Used by the table on the page, the PNG/SVG export and (same numbers) the Mulberry GUI. Sizes are in pixels for a cell of edge c.
+  // Used by the table on the page, the PNG/SVG export and (same numbers) the desktop version of this table. Sizes are in pixels for a cell of edge c.
   const CELL_TEXT = Object.freeze({lineHeight: 1.18, symbolEm: 0.66, nameEm: 0.58, digitEm: 0.58, valueEm: 0.56, flagEm: 1.3, inset: 0.1});
   // The glyphs fill about 80 % of their line box (leading, side bearings): overlap tests use this inner box.
   const visualBox = r => ({x: r.x + r.w * CELL_TEXT.inset, y: r.y + r.h * CELL_TEXT.inset, w: r.w * (1 - 2 * CELL_TEXT.inset), h: r.h * (1 - 2 * CELL_TEXT.inset)});
@@ -274,7 +274,7 @@
   }
   // Rule of thumb for the bond type from the electronegativity difference (Pauling).
   const bondClass = delta => (delta === null || delta === undefined ? null : delta < 0.4 ? 'nonpolar' : delta <= 1.7 ? 'polar' : 'ionic');
-  // Painted-table geometry in units of the cell edge; identical to the Mulberry GUI (periodic_table_view.py).
+  // Painted-table geometry in units of the cell edge; identical to the desktop version of this table (periodic_table_view.py).
   const LAYOUT = Object.freeze({axisW: 0.8, axisH: 0.7, gap: 0.04, fOffset: 0.5, pitchesV: 9.5});
   const rowOffset = row => (row <= 7 ? row - 1 : 7 + LAYOUT.fOffset + (row - 9));
   function tableLayout(m, cell) {

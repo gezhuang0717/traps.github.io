@@ -181,7 +181,7 @@
     const propOptions = (withNone) => [...(withNone ? [['', t('none_prop')]] : []), ...numProps.filter(k => k !== 'z' || withNone).map(k => [k, P.label(m, S.lang, k)]), ...(withNone ? P.CELL_EXTRAS.map(k => [k, extraLabel(k)]) : [])];
     const unitSelect = prop => (prop === 'ie' || prop === 'ea') ? select(t('unit'), S.unit, [['eV', 'eV'], ['kJ/mol', 'kJ/mol']], v => { S.unit = v; refresh(); }) : null;
 
-    // ---- exports: PNG / SVG / CSV downloads (same geometry as the Mulberry GUI) --------------------
+    // ---- exports: PNG / SVG / CSV downloads (same geometry as the desktop version of this table) --------------------
     const FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', NSURI = 'http://www.w3.org/2000/svg';
     const esc = x => String(x).replace(/[&<>"]/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[ch]));
     function note(text) { S.note = text; const out = root.querySelector('[data-pt-note]'); if (out) out.textContent = text; }
