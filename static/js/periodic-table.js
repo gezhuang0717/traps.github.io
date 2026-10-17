@@ -12,7 +12,8 @@
       og_title: 'Origin highlight game', og_mode_select: 'Click them all', og_mode_which: 'Which source?', og_select: 'Click every element made (also) by', og_which: 'Which source helped make this element?', og_new: 'New round', og_found: 'Found {n} of {m}', og_done: 'All found!', og_next: 'Next', og_truth: 'Sources of {el}',
       tr_group: 'Group', tr_period: 'Period', tr_index: 'Number', tr_prop: 'Property', tr_lines: 'Lines', tr_log: 'Log y', tr_copy: 'Copy CSV', tr_copied: 'Copied', tr_x_el: 'Element', tr_x_z: 'Proton number Z', tr_gaps: 'No data for: {list}',
       iso_pick: 'Element', iso_none: 'No stable isotopes.', iso_y: 'Natural abundance (%)', iso_sum: 'Sum: {s} %',
-      src_caveat: 'Origin classes are qualitative (after Johnson, OSU) and show which processes contribute, not how much. The r-process site is still debated. Ionisation energy and electron affinity are in eV; kJ/mol = eV × 96.485.', src_fixes: 'Corrections to the Mulberry GUI data', src_list: 'Sources', prop_label: 'Property'},
+      src_caveat: 'Origin classes are qualitative (after Johnson, OSU) and show which processes contribute, not how much. The r-process site is still debated. Ionisation energy and electron affinity are in eV; kJ/mol = eV × 96.485.', src_fixes: 'Corrections to the Mulberry GUI data', src_list: 'Sources', prop_label: 'Property',
+      timeline: 'Discovery timeline', known_by: 'Known by year', play: 'Play', compare: 'Compare two elements', compare_hint: 'Pick a second element: Shift+click in the table.', difference: 'Difference', bond_hint: 'Electronegativity difference suggests the bond type: <0.4 nonpolar covalent, 0.4–1.7 polar covalent, >1.7 mostly ionic (rule of thumb).', image_scale: 'Image scale', pixels: 'pixels', downloaded: 'Download started', dl_failed: 'Could not create the file'},
     zh: {tab_table: '周期表', tab_origins: '起源', tab_game: '找元素', tab_defs: '定义', tab_iso: '同位素', tab_trend: '趋势', tab_trendz: '按质子数', tab_sources: '来源',
       language: '语言', scheme: '着色方式', sch_block: '化学族块', sch_origin: '起源', sch_state: '物态', sch_heat: '性质热图', show: '格内显示', none_prop: '— 仅符号 —', unit: '单位', fullnames: '显示全名', logscale: '对数刻度', search: '搜索符号、名称或 Z', cell: '格子大小',
       legend_hint: '点击类别以高亮', n_el: '{n} 个元素', all_props: '全部性质', close: '关闭', missing: '无数据', pick_hint: '点击一个元素', trace_el: '仅痕量', sel: '已选',
@@ -20,7 +21,8 @@
       og_title: '元素起源高亮游戏', og_mode_select: '全部点出', og_mode_which: '哪个来源？', og_select: '点出所有（也）由下列过程产生的元素：', og_which: '哪个来源参与产生了这个元素？', og_new: '新一轮', og_found: '已找到 {n} / {m}', og_done: '全部找到！', og_next: '下一个', og_truth: '{el} 的来源',
       tr_group: '族', tr_period: '周期', tr_index: '编号', tr_prop: '性质', tr_lines: '连线', tr_log: 'y 取对数', tr_copy: '复制 CSV', tr_copied: '已复制', tr_x_el: '元素', tr_x_z: '质子数 Z', tr_gaps: '无数据：{list}',
       iso_pick: '元素', iso_none: '没有稳定同位素。', iso_y: '天然丰度 (%)', iso_sum: '总和：{s} %',
-      src_caveat: '起源类别是定性的（依据 Johnson，OSU），只表示有哪些过程贡献，不表示贡献多少。r 过程的发生地点仍有争议。电离能和电子亲和能以 eV 为单位；kJ/mol = eV × 96.485。', src_fixes: '对 Mulberry GUI 数据的修正', src_list: '来源', prop_label: '性质'},
+      src_caveat: '起源类别是定性的（依据 Johnson，OSU），只表示有哪些过程贡献，不表示贡献多少。r 过程的发生地点仍有争议。电离能和电子亲和能以 eV 为单位；kJ/mol = eV × 96.485。', src_fixes: '对 Mulberry GUI 数据的修正', src_list: '来源', prop_label: '性质',
+      timeline: '发现时间线', known_by: '截至年份已知', play: '播放', compare: '比较两个元素', compare_hint: '选择第二个元素：在表中按住 Shift 点击。', difference: '差值', bond_hint: '电负性差值提示键型：<0.4 非极性共价，0.4–1.7 极性共价，>1.7 以离子键为主（经验规则）。', image_scale: '图片倍数', pixels: '像素', downloaded: '已开始下载', dl_failed: '无法生成文件'},
     fi: {tab_table: 'Taulukko', tab_origins: 'Alkuperä', tab_game: 'Etsi alkuaine', tab_defs: 'Määritelmät', tab_iso: 'Isotoopit', tab_trend: 'Trendit', tab_trendz: 'Trendit Z:n mukaan', tab_sources: 'Lähteet',
       language: 'Kieli', scheme: 'Väritys', sch_block: 'Kemiallinen lohko', sch_origin: 'Alkuperä', sch_state: 'Olomuoto', sch_heat: 'Ominaisuuden lämpökartta', show: 'Näytä ruuduissa', none_prop: '— vain symboli —', unit: 'Yksikkö', fullnames: 'Koko nimet', logscale: 'Logaritminen asteikko', search: 'Hae symbolia, nimeä tai Z:aa', cell: 'Ruudun koko',
       legend_hint: 'Napsauta luokkaa korostaaksesi', n_el: '{n} alkuainetta', all_props: 'Kaikki ominaisuudet', close: 'Sulje', missing: 'ei tietoa', pick_hint: 'Napsauta alkuainetta', trace_el: 'Vain jälkiä', sel: 'Valittu',
@@ -28,7 +30,8 @@
       og_title: 'Alkuperän korostuspeli', og_mode_select: 'Napsauta kaikki', og_mode_which: 'Mikä lähde?', og_select: 'Napsauta jokainen alkuaine, jonka (myös) tämä synnytti:', og_which: 'Mikä lähde auttoi synnyttämään tämän alkuaineen?', og_new: 'Uusi kierros', og_found: 'Löydetty {n} / {m}', og_done: 'Kaikki löytyi!', og_next: 'Seuraava', og_truth: '{el}: lähteet',
       tr_group: 'Ryhmä', tr_period: 'Jakso', tr_index: 'Numero', tr_prop: 'Ominaisuus', tr_lines: 'Viivat', tr_log: 'Log y', tr_copy: 'Kopioi CSV', tr_copied: 'Kopioitu', tr_x_el: 'Alkuaine', tr_x_z: 'Protoniluku Z', tr_gaps: 'Ei tietoa: {list}',
       iso_pick: 'Alkuaine', iso_none: 'Ei vakaita isotooppeja.', iso_y: 'Luonnollinen runsaus (%)', iso_sum: 'Summa: {s} %',
-      src_caveat: 'Alkuperäluokat ovat laadullisia (Johnsonin mukaan, OSU): ne kertovat mitkä prosessit vaikuttavat, eivät kuinka paljon. R-prosessin paikasta kiistellään yhä. Ionisaatioenergia ja elektroniaffiniteetti ovat eV:nä; kJ/mol = eV × 96,485.', src_fixes: 'Korjaukset Mulberry-GUI:n tietoihin', src_list: 'Lähteet', prop_label: 'Ominaisuus'},
+      src_caveat: 'Alkuperäluokat ovat laadullisia (Johnsonin mukaan, OSU): ne kertovat mitkä prosessit vaikuttavat, eivät kuinka paljon. R-prosessin paikasta kiistellään yhä. Ionisaatioenergia ja elektroniaffiniteetti ovat eV:nä; kJ/mol = eV × 96,485.', src_fixes: 'Korjaukset Mulberry-GUI:n tietoihin', src_list: 'Lähteet', prop_label: 'Ominaisuus',
+      timeline: 'Löytöaikajana', known_by: 'Tunnettu vuoteen mennessä', play: 'Toista', compare: 'Vertaa kahta alkuainetta', compare_hint: 'Valitse toinen alkuaine: Shift+napsautus taulukossa.', difference: 'Erotus', bond_hint: 'Elektronegatiivisuuden ero ennustaa sidostyypin: <0,4 poolittoman kovalenttinen, 0,4–1,7 polaarinen kovalenttinen, >1,7 enimmäkseen ioninen (nyrkkisääntö).', image_scale: 'Kuvan skaalaus', pixels: 'pikseliä', downloaded: 'Lataus alkoi', dl_failed: 'Tiedoston luonti epäonnistui'},
     de: {tab_table: 'Tabelle', tab_origins: 'Herkunft', tab_game: 'Element finden', tab_defs: 'Definitionen', tab_iso: 'Isotope', tab_trend: 'Trends', tab_trendz: 'Trends nach Z', tab_sources: 'Quellen',
       language: 'Sprache', scheme: 'Färben nach', sch_block: 'Chemischer Block', sch_origin: 'Herkunft', sch_state: 'Aggregatzustand', sch_heat: 'Eigenschafts-Heatmap', show: 'In Zellen zeigen', none_prop: '— nur Symbol —', unit: 'Einheit', fullnames: 'Volle Namen', logscale: 'Logarithmische Skala', search: 'Symbol, Name oder Z suchen', cell: 'Zellgröße',
       legend_hint: 'Klasse anklicken, um sie hervorzuheben', n_el: '{n} Elemente', all_props: 'Alle Eigenschaften', close: 'Schließen', missing: 'keine Daten', pick_hint: 'Element anklicken', trace_el: 'Nur Spuren', sel: 'Ausgewählt',
@@ -36,7 +39,8 @@
       og_title: 'Herkunfts-Hervorhebungsspiel', og_mode_select: 'Alle anklicken', og_mode_which: 'Welche Quelle?', og_select: 'Klicke jedes Element an, das (auch) entstand durch:', og_which: 'Welche Quelle hat dieses Element mit erzeugt?', og_new: 'Neue Runde', og_found: 'Gefunden {n} von {m}', og_done: 'Alle gefunden!', og_next: 'Weiter', og_truth: 'Quellen von {el}',
       tr_group: 'Gruppe', tr_period: 'Periode', tr_index: 'Nummer', tr_prop: 'Eigenschaft', tr_lines: 'Linien', tr_log: 'Log y', tr_copy: 'CSV kopieren', tr_copied: 'Kopiert', tr_x_el: 'Element', tr_x_z: 'Ordnungszahl Z', tr_gaps: 'Keine Daten für: {list}',
       iso_pick: 'Element', iso_none: 'Keine stabilen Isotope.', iso_y: 'Natürliche Häufigkeit (%)', iso_sum: 'Summe: {s} %',
-      src_caveat: 'Die Herkunftsklassen sind qualitativ (nach Johnson, OSU): Sie zeigen, welche Prozesse beitragen, nicht wie stark. Der Ort des r-Prozesses ist weiter umstritten. Ionisierungsenergie und Elektronenaffinität sind in eV; kJ/mol = eV × 96,485.', src_fixes: 'Korrekturen an den Daten der Mulberry-GUI', src_list: 'Quellen', prop_label: 'Eigenschaft'},
+      src_caveat: 'Die Herkunftsklassen sind qualitativ (nach Johnson, OSU): Sie zeigen, welche Prozesse beitragen, nicht wie stark. Der Ort des r-Prozesses ist weiter umstritten. Ionisierungsenergie und Elektronenaffinität sind in eV; kJ/mol = eV × 96,485.', src_fixes: 'Korrekturen an den Daten der Mulberry-GUI', src_list: 'Quellen', prop_label: 'Eigenschaft',
+      timeline: 'Entdeckungs-Zeitleiste', known_by: 'Bekannt bis Jahr', play: 'Abspielen', compare: 'Zwei Elemente vergleichen', compare_hint: 'Zweites Element wählen: Umschalt+Klick in der Tabelle.', difference: 'Differenz', bond_hint: 'Die Elektronegativitätsdifferenz deutet auf den Bindungstyp: <0,4 unpolar kovalent, 0,4–1,7 polar kovalent, >1,7 überwiegend ionisch (Faustregel).', image_scale: 'Bildmaßstab', pixels: 'Pixel', downloaded: 'Download gestartet', dl_failed: 'Datei konnte nicht erstellt werden'},
     ja: {tab_table: '周期表', tab_origins: '起源', tab_game: '元素探し', tab_defs: '用語', tab_iso: '同位体', tab_trend: '傾向', tab_trendz: '原子番号別', tab_sources: '出典',
       language: '言語', scheme: '色分け', sch_block: '化学ブロック', sch_origin: '起源', sch_state: '状態', sch_heat: '物性ヒートマップ', show: 'セルに表示', none_prop: '— 記号のみ —', unit: '単位', fullnames: '元素名を表示', logscale: '対数目盛', search: '記号・名前・Zで検索', cell: 'セルの大きさ',
       legend_hint: '分類をクリックして強調', n_el: '{n} 元素', all_props: 'すべての物性', close: '閉じる', missing: 'データなし', pick_hint: '元素をクリック', trace_el: '痕跡量のみ', sel: '選択中',
@@ -44,7 +48,8 @@
       og_title: '起源ハイライトゲーム', og_mode_select: '全部クリック', og_mode_which: 'どの起源？', og_select: '次の起源で（も）作られた元素をすべてクリック：', og_which: 'この元素の生成に関わった起源はどれ？', og_new: '新しいラウンド', og_found: '{m} 個中 {n} 個発見', og_done: '全部見つけた！', og_next: '次へ', og_truth: '{el} の起源',
       tr_group: '族', tr_period: '周期', tr_index: '番号', tr_prop: '物性', tr_lines: '線', tr_log: 'y対数', tr_copy: 'CSVをコピー', tr_copied: 'コピーしました', tr_x_el: '元素', tr_x_z: '原子番号 Z', tr_gaps: 'データなし：{list}',
       iso_pick: '元素', iso_none: '安定同位体はありません。', iso_y: '天然存在比 (%)', iso_sum: '合計：{s} %',
-      src_caveat: '起源の分類は定性的（Johnson、OSUに基づく）で、どの過程が寄与するかを示し、寄与の大きさは示しません。r過程の場所は今も議論中です。イオン化エネルギーと電子親和力は eV 単位で、kJ/mol = eV × 96.485 です。', src_fixes: 'Mulberry GUI データの修正', src_list: '出典', prop_label: '物性'},
+      src_caveat: '起源の分類は定性的（Johnson、OSUに基づく）で、どの過程が寄与するかを示し、寄与の大きさは示しません。r過程の場所は今も議論中です。イオン化エネルギーと電子親和力は eV 単位で、kJ/mol = eV × 96.485 です。', src_fixes: 'Mulberry GUI データの修正', src_list: '出典', prop_label: '物性',
+      timeline: '発見の年表', known_by: '発見済み（年まで）', play: '再生', compare: '2つの元素を比較', compare_hint: '2つ目の元素: 表で Shift+クリック。', difference: '差', bond_hint: '電気陰性度の差は結合の型の目安: <0.4 無極性共有、0.4–1.7 極性共有、>1.7 主にイオン結合（経験則）。', image_scale: '画像の倍率', pixels: 'ピクセル', downloaded: 'ダウンロードを開始しました', dl_failed: 'ファイルを作成できませんでした'},
     fr: {tab_table: 'Tableau', tab_origins: 'Origines', tab_game: 'Trouver l’élément', tab_defs: 'Définitions', tab_iso: 'Isotopes', tab_trend: 'Tendances', tab_trendz: 'Tendances selon Z', tab_sources: 'Sources',
       language: 'Langue', scheme: 'Colorier par', sch_block: 'Bloc chimique', sch_origin: 'Origine', sch_state: 'État', sch_heat: 'Carte thermique d’une propriété', show: 'Afficher dans les cases', none_prop: '— symbole seul —', unit: 'Unité', fullnames: 'Noms complets', logscale: 'Échelle log', search: 'Chercher symbole, nom ou Z', cell: 'Taille des cases',
       legend_hint: 'Cliquez sur une classe pour la mettre en évidence', n_el: '{n} éléments', all_props: 'Toutes les propriétés', close: 'Fermer', missing: 'pas de données', pick_hint: 'Cliquez sur un élément', trace_el: 'Traces seulement', sel: 'Sélectionné',
@@ -52,7 +57,8 @@
       og_title: 'Jeu de mise en évidence des origines', og_mode_select: 'Tous les cliquer', og_mode_which: 'Quelle source ?', og_select: 'Cliquez sur chaque élément formé (aussi) par :', og_which: 'Quelle source a aidé à former cet élément ?', og_new: 'Nouvelle manche', og_found: '{n} trouvés sur {m}', og_done: 'Tous trouvés !', og_next: 'Suivant', og_truth: 'Sources de {el}',
       tr_group: 'Groupe', tr_period: 'Période', tr_index: 'Numéro', tr_prop: 'Propriété', tr_lines: 'Lignes', tr_log: 'Log y', tr_copy: 'Copier le CSV', tr_copied: 'Copié', tr_x_el: 'Élément', tr_x_z: 'Numéro atomique Z', tr_gaps: 'Pas de données pour : {list}',
       iso_pick: 'Élément', iso_none: 'Aucun isotope stable.', iso_y: 'Abondance naturelle (%)', iso_sum: 'Somme : {s} %',
-      src_caveat: 'Les classes d’origine sont qualitatives (d’après Johnson, OSU) : elles disent quels processus contribuent, pas dans quelle proportion. Le site du processus r reste débattu. Énergie d’ionisation et affinité électronique sont en eV ; kJ/mol = eV × 96,485.', src_fixes: 'Corrections des données de la GUI Mulberry', src_list: 'Sources', prop_label: 'Propriété'},
+      src_caveat: 'Les classes d’origine sont qualitatives (d’après Johnson, OSU) : elles disent quels processus contribuent, pas dans quelle proportion. Le site du processus r reste débattu. Énergie d’ionisation et affinité électronique sont en eV ; kJ/mol = eV × 96,485.', src_fixes: 'Corrections des données de la GUI Mulberry', src_list: 'Sources', prop_label: 'Propriété',
+      timeline: 'Chronologie des découvertes', known_by: 'Connus jusqu’en', play: 'Lecture', compare: 'Comparer deux éléments', compare_hint: 'Choisissez un second élément : Maj+clic dans le tableau.', difference: 'Différence', bond_hint: 'La différence d’électronégativité suggère le type de liaison : <0,4 covalente apolaire, 0,4–1,7 covalente polaire, >1,7 surtout ionique (règle empirique).', image_scale: 'Échelle de l’image', pixels: 'pixels', downloaded: 'Téléchargement lancé', dl_failed: 'Impossible de créer le fichier'},
   };
   const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹', sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const NS = 'http://www.w3.org/2000/svg';
@@ -71,7 +77,7 @@
 
   function init(data) {
     const m = P.createModel(data), app = root.querySelector('[data-pt-app]');
-    const S = {lang: LANGS.some(l => l[0] === pageLang) ? pageLang : 'en', tab: 'table', scheme: 'block', prop: '', unit: 'eV', full: false, log: false, cell: 0, sel: 'Fe', filter: null, query: '',
+    const S = {lang: LANGS.some(l => l[0] === pageLang) ? pageLang : 'en', tab: 'table', scheme: 'block', prop: '', unit: 'eV', full: false, log: false, cell: 0, sel: 'Fe', mark: '', timeline: false, year: 2020, playTimer: 0, imgScale: 4, note: '', filter: null, query: '',
       trend: {kind: 'group', index: 1, prop: 'mass', lines: true, log: false}, trendz: {prop: 'mass', lines: true, log: false}, iso: 'Fe', find: null, findTimer: 0, findMsg: '', findSeconds: 60, findUseTimer: false, og: null, ogMode: 'select', ogMsg: ''};
     const t = (key, vars = {}) => (UI[S.lang][key] || UI.en[key] || key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
     const name = e => P.displayName(e, S.lang);
@@ -89,9 +95,9 @@
         const base = opts.plain && !(opts.found && opts.found.has(e.sym)) ? {background: 'var(--zg-soft)', color: 'var(--zg-ink)', striped: false, dim: false}
           : P.cellStyle(m, e, opts.plain ? 'origin' : opts.scheme, {key: opts.prop || 'mass', unit: opts.unit, scale, highlight: opts.highlight});
         const val = opts.prop && !opts.hideValue ? P.value(m, e, opts.prop, opts.unit) : null;
-        const cell = h('button', {type: 'button', class: 'pt-cell' + (base.striped ? ' striped' : '') + (base.dim ? ' dim' : '') + (opts.selected === e.sym ? ' sel' : ''), 'data-sym': e.sym,
+        const cell = h('button', {type: 'button', class: 'pt-cell' + (base.striped ? ' striped' : '') + (base.dim ? ' dim' : '') + (opts.selected === e.sym ? ' sel' : '') + (opts.marked === e.sym ? ' mark' : ''), 'data-sym': e.sym,
           style: {gridRow: e.row + 1, gridColumn: e.col + 1, background: base.background, color: base.color},
-          title: `${e.z} ${name(e)}` + (opts.hideName ? '' : ''), 'aria-label': `${e.z} ${e.sym} ${name(e)}`, onclick: () => opts.onPick(e.sym)},
+          title: `${e.z} ${name(e)}` + (opts.hideName ? '' : ''), 'aria-label': `${e.z} ${e.sym} ${name(e)}`, onclick: ev => opts.onPick(e.sym, ev.shiftKey || ev.ctrlKey || ev.metaKey)},
           h('span', {class: 'pt-z'}, e.z), h('span', {class: 'pt-sym'}, e.sym),
           opts.full && !opts.hideName ? h('span', {class: 'pt-name'}, name(e)) : null,
           opts.prop && !opts.hideValue ? h('span', {class: 'pt-val'}, val === null ? '–' : P.formatNumber(val, S.lang, 4)) : null);
@@ -140,27 +146,141 @@
     const propOptions = (withNone) => [...(withNone ? [['', t('none_prop')]] : []), ...numProps.filter(k => k !== 'z' || withNone).map(k => [k, P.label(m, S.lang, k)])];
     const unitSelect = prop => (prop === 'ie' || prop === 'ea') ? select(t('unit'), S.unit, [['eV', 'eV'], ['kJ/mol', 'kJ/mol']], v => { S.unit = v; refresh(); }) : null;
 
+    // ---- exports: PNG / SVG / CSV downloads (same geometry as the Mulberry GUI) --------------------
+    const FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', NSURI = 'http://www.w3.org/2000/svg';
+    const esc = x => String(x).replace(/[&<>"]/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[ch]));
+    function note(text) { S.note = text; const out = root.querySelector('[data-pt-note]'); if (out) out.textContent = text; }
+    function download(blob, filename) { // starts a browser download of a Blob
+      const url = URL.createObjectURL(blob), a = h('a', {href: url, download: filename});
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+      note(t('downloaded') + ': ' + filename);
+    }
+    const attempt = fn => { try { fn(); } catch (err) { note(t('dl_failed') + ': ' + err.message); } };
+    const dlBtn = (label, title, fn) => h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', title, onclick: () => attempt(fn)}, label);
+    const stamp = () => `${S.lang}`;
+    function cellData(e, snap) { // style and texts of one cell for the export
+      const st = P.cellStyle(m, e, snap.scheme, {key: snap.prop || 'mass', unit: snap.unit, scale: snap.scale, highlight: snap.hl}), showValue = snap.prop && snap.prop !== 'z' && !snap.hideValue;
+      const v = showValue ? P.value(m, e, snap.prop, snap.unit) : null;
+      return {st, name: snap.full ? name(e) : '', value: showValue ? (v === null ? '–' : P.formatNumber(v, S.lang, 4)) : ''};
+    }
+    function roundRect(ctx, x, y, w, hh, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + hh, r); ctx.arcTo(x + w, y + hh, x, y + hh, r); ctx.arcTo(x, y + hh, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+    function drawCell(ctx, r, e, snap, c) { // one element cell on a canvas (logical pixels; the context carries the pixel scale)
+      const d = cellData(e, snap), st = d.st, fills = st.fills, more = !!(d.name || d.value);
+      ctx.save(); if (st.dim) ctx.globalAlpha = 0.2;
+      roundRect(ctx, r.x, r.y, c, c, c * 0.12);
+      if (fills.length === 1) ctx.fillStyle = fills[0];
+      else { const g = ctx.createLinearGradient(r.x, r.y, r.x + c, r.y + c), n = fills.length, eps = 0.002; fills.forEach((col, i) => { g.addColorStop(i === 0 ? 0 : i / n + eps, col); g.addColorStop(i === n - 1 ? 1 : (i + 1) / n - eps, col); }); ctx.fillStyle = g; }
+      ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,.22)'; ctx.lineWidth = Math.max(0.6, c * 0.015); ctx.stroke();
+      const symPx = c * (more ? 0.34 : 0.40), symTop = r.y + c * (more ? 0.18 : 0.26), symH = symPx * 1.2;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = `700 ${symPx}px ${FONT}`;
+      if (st.striped) { const w = ctx.measureText(e.sym).width + c * 0.14; ctx.fillStyle = 'rgba(255,255,255,.84)'; roundRect(ctx, r.x + c / 2 - w / 2, symTop + symH * 0.08, w, symH * 0.86, c * 0.07); ctx.fill(); }
+      ctx.fillStyle = st.color; ctx.fillText(e.sym, r.x + c / 2, symTop + symH / 2);
+      ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.font = `${Math.max(5, c * 0.19)}px ${FONT}`; ctx.fillText(String(e.z), r.x + c * 0.07, r.y + c * 0.04);
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      if (d.name) { ctx.font = `${Math.max(5, c * 0.15)}px ${FONT}`; let txt = d.name; while (txt.length > 2 && ctx.measureText(txt).width > c * 0.94) txt = txt.slice(0, -2) + '…'; ctx.fillText(txt, r.x + c / 2, r.y + c * 0.69); }
+      if (d.value) { ctx.font = `${Math.max(5, c * 0.16)}px ${FONT}`; ctx.fillText(d.value, r.x + c / 2, r.y + c * 0.875); }
+      ctx.restore();
+      if (snap.mark === e.sym) { ctx.save(); ctx.setLineDash([c * 0.1, c * 0.06]); ctx.strokeStyle = '#e5484d'; ctx.lineWidth = Math.max(1.5, c * 0.045); roundRect(ctx, r.x + c * 0.03, r.y + c * 0.03, c * 0.94, c * 0.94, c * 0.1); ctx.stroke(); ctx.restore(); }
+      if (snap.sel === e.sym) { ctx.save(); ctx.strokeStyle = '#111111'; ctx.lineWidth = Math.max(1.5, c * 0.05); roundRect(ctx, r.x + c * 0.02, r.y + c * 0.02, c * 0.96, c * 0.96, c * 0.11); ctx.stroke(); ctx.restore(); }
+    }
+    const PERIOD_LABELS = [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'], [7, '7'], [9, '6*'], [10, '7*']];
+    function tableCanvas(snap, scale) { // the table as a canvas of (width x scale) pixels
+      const c = 48, L = P.tableLayout(m, c), W = Math.ceil((L.width + 2) * scale), H = Math.ceil((L.height + 2) * scale);
+      const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      const ctx = cv.getContext('2d'); if (!ctx) throw new Error('canvas');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H); ctx.scale(scale, scale);
+      ctx.fillStyle = '#555555'; ctx.font = `${c * 0.24}px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      for (let col = 1; col <= 18; col++) ctx.fillText(String(col), L.left + (col - 1) * L.pitch + c / 2, L.top / 2);
+      ctx.textAlign = 'right'; for (const [row, label] of PERIOD_LABELS) ctx.fillText(label, L.left * 0.85, L.top + P.rowOffset(row) * L.pitch + c / 2);
+      for (const e of m.elements) drawCell(ctx, L.rects[e.sym], e, snap, c);
+      return cv;
+    }
+    function tableSvg(snap) { // the table as scalable vector graphics
+      const c = 48, L = P.tableLayout(m, c), W = Math.ceil(L.width + 2), H = Math.ceil(L.height + 2), defs = new Map(), parts = [];
+      const gradient = fills => { const key = fills.join(''); if (!defs.has(key)) defs.set(key, `<linearGradient id="g${defs.size}" x1="0" y1="0" x2="1" y2="1">${fills.map((col, i) => `<stop offset="${i === 0 ? 0 : (i / fills.length + 0.002).toFixed(4)}" stop-color="${col}"/><stop offset="${i === fills.length - 1 ? 1 : ((i + 1) / fills.length - 0.002).toFixed(4)}" stop-color="${col}"/>`).join('')}</linearGradient>`); return `url(#g${[...defs.keys()].indexOf(key)})`; };
+      for (let col = 1; col <= 18; col++) parts.push(`<text x="${(L.left + (col - 1) * L.pitch + c / 2).toFixed(2)}" y="${(L.top / 2).toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="${c * 0.24}" fill="#555">${col}</text>`);
+      for (const [row, label] of PERIOD_LABELS) parts.push(`<text x="${(L.left * 0.85).toFixed(2)}" y="${(L.top + P.rowOffset(row) * L.pitch + c / 2).toFixed(2)}" text-anchor="end" dominant-baseline="middle" font-size="${c * 0.24}" fill="#555">${label}</text>`);
+      for (const e of m.elements) {
+        const r = L.rects[e.sym], d = cellData(e, snap), st = d.st, more = !!(d.name || d.value), symPx = c * (more ? 0.34 : 0.40), symTop = r.y + c * (more ? 0.18 : 0.26), symH = symPx * 1.2;
+        const g = [`<g${st.dim ? ' opacity="0.2"' : ''}>`, `<rect x="${r.x.toFixed(2)}" y="${r.y.toFixed(2)}" width="${c}" height="${c}" rx="${c * 0.12}" fill="${st.fills.length === 1 ? st.fills[0] : gradient(st.fills)}" stroke="rgba(0,0,0,.22)" stroke-width="${Math.max(0.6, c * 0.015)}"/>`];
+        if (st.striped) { const w = symPx * 0.62 * e.sym.length + c * 0.14; g.push(`<rect x="${(r.x + c / 2 - w / 2).toFixed(2)}" y="${(symTop + symH * 0.08).toFixed(2)}" width="${w.toFixed(2)}" height="${(symH * 0.86).toFixed(2)}" rx="${c * 0.07}" fill="rgba(255,255,255,.84)"/>`); }
+        g.push(`<text x="${(r.x + c / 2).toFixed(2)}" y="${(symTop + symH / 2).toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-weight="700" font-size="${symPx.toFixed(2)}" fill="${st.color}">${esc(e.sym)}</text>`);
+        g.push(`<text x="${(r.x + c * 0.07).toFixed(2)}" y="${(r.y + c * 0.04).toFixed(2)}" dominant-baseline="hanging" font-size="${Math.max(5, c * 0.19).toFixed(2)}" fill="${st.color}">${e.z}</text>`);
+        if (d.name) g.push(`<text x="${(r.x + c / 2).toFixed(2)}" y="${(r.y + c * 0.69).toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.max(5, c * 0.15).toFixed(2)}" fill="${st.color}">${esc(d.name)}</text>`);
+        if (d.value) g.push(`<text x="${(r.x + c / 2).toFixed(2)}" y="${(r.y + c * 0.875).toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="${Math.max(5, c * 0.16).toFixed(2)}" fill="${st.color}">${esc(d.value)}</text>`);
+        g.push('</g>');
+        if (snap.mark === e.sym) g.push(`<rect x="${(r.x + c * 0.03).toFixed(2)}" y="${(r.y + c * 0.03).toFixed(2)}" width="${c * 0.94}" height="${c * 0.94}" rx="${c * 0.1}" fill="none" stroke="#e5484d" stroke-width="${Math.max(1.5, c * 0.045)}" stroke-dasharray="${c * 0.1} ${c * 0.06}"/>`);
+        if (snap.sel === e.sym) g.push(`<rect x="${(r.x + c * 0.02).toFixed(2)}" y="${(r.y + c * 0.02).toFixed(2)}" width="${c * 0.96}" height="${c * 0.96}" rx="${c * 0.11}" fill="none" stroke="#111" stroke-width="${Math.max(1.5, c * 0.05)}"/>`);
+        parts.push(g.join(''));
+      }
+      return `<svg xmlns="${NSURI}" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family='${FONT.replace(/"/g, '&quot;')}'><rect width="${W}" height="${H}" fill="#fff"/><defs>${[...defs.values()].join('')}</defs>${parts.join('')}</svg>`;
+    }
+    function inlineSvg(svg) { // copy of a chart SVG with the computed colours and fonts written into it (CSS variables resolved)
+      const clone = svg.cloneNode(true), src = [svg, ...svg.querySelectorAll('*')], dst = [clone, ...clone.querySelectorAll('*')];
+      src.forEach((node, i) => { const cs = getComputedStyle(node); for (const prop of ['fill', 'stroke', 'stroke-width', 'stroke-dasharray', 'font-size', 'font-family', 'font-weight', 'opacity']) dst[i].style.setProperty(prop, cs.getPropertyValue(prop)); });
+      const vb = svg.viewBox.baseVal, card = svg.closest('.zg-card'), bg = document.createElementNS(NSURI, 'rect');
+      clone.setAttribute('xmlns', NSURI); clone.setAttribute('width', vb.width); clone.setAttribute('height', vb.height);
+      bg.setAttribute('width', vb.width); bg.setAttribute('height', vb.height); bg.setAttribute('fill', card ? getComputedStyle(card).backgroundColor : '#ffffff'); clone.insertBefore(bg, clone.firstChild);
+      return {text: new XMLSerializer().serializeToString(clone), w: vb.width, h: vb.height};
+    }
+    function svgPng(svg, scale, filename) { // chart -> PNG with (viewBox width x scale) pixels
+      const {text, w, h: hh} = inlineSvg(svg), img = new Image();
+      img.onload = () => { const cv = document.createElement('canvas'); cv.width = Math.round(w * scale); cv.height = Math.round(hh * scale); cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height); cv.toBlob(b => (b ? download(b, filename) : note(t('dl_failed'))), 'image/png'); };
+      img.onerror = () => note(t('dl_failed'));
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(text);
+    }
+    const scaleSelect = () => select(t('image_scale'), S.imgScale, [1, 2, 3, 4, 6, 8].map(x => [x, x + '×']), v => { S.imgScale = Number(v); });
+    const chartButtons = (svg, stem) => [scaleSelect(), dlBtn('PNG', 'PNG', () => svgPng(svg, S.imgScale, `${stem}-${stamp()}.png`)), dlBtn('SVG', 'SVG', () => download(new Blob([inlineSvg(svg).text], {type: 'image/svg+xml'}), `${stem}-${stamp()}.svg`))];
+    const csvDownload = (rows, stem) => download(new Blob(['﻿' + P.toCsv(rows)], {type: 'text/csv;charset=utf-8'}), `${stem}-${stamp()}.csv`);
+
     // ---- tabs --------------------------------------------------------------------------------
     const tabs = {};
     tabs.table = () => {
       const host = h('div'), bar = h('div', {class: 'pt-bar-row'}), body = h('div', {class: 'pt-body'}), cardEl = h('div', {class: 'pt-card'}), narrow = h('div', {class: 'pt-card pt-card-narrow'});
+      let yearIn = null, yearOut = null;
       const search = h('input', {type: 'search', class: 'pt-search', placeholder: t('search'), 'aria-label': t('search'), value: S.query, oninput: ev => { S.query = ev.target.value; draw(); }, onkeydown: ev => { if (ev.key === 'Enter') { const r = P.search(m, S.query); if (r[0]) { S.sel = r[0]; draw(); } } }});
+      const stopPlay = () => { clearInterval(S.playTimer); S.playTimer = 0; };
+      function togglePlay() {
+        if (S.playTimer) { stopPlay(); return; }
+        if (S.year >= 2020) S.year = 1650;
+        S.playTimer = setInterval(() => { S.year = Math.min(2020, S.year + 3); if (yearIn) yearIn.value = S.year; draw(); if (S.year >= 2020) stopPlay(); }, 90);
+      }
       function rebuildBar() {
+        yearIn = S.timeline ? h('input', {type: 'range', min: 1650, max: 2020, step: 1, value: S.year, 'aria-label': t('known_by'), oninput: ev => { S.year = Number(ev.target.value); draw(); }}) : null;
+        yearOut = S.timeline ? h('output', {class: 'pt-year'}) : null;
         fill(bar, select(t('scheme'), S.scheme, [['block', t('sch_block')], ['origin', t('sch_origin')], ['state', t('sch_state')], ['heat', t('sch_heat')]], v => { S.scheme = v; S.filter = null; rebuildBar(); draw(); }),
           select(t('show'), S.prop, propOptions(true), v => { S.prop = v; rebuildBar(); draw(); }), unitSelect(S.prop || (S.scheme === 'heat' ? 'mass' : '')), check(t('fullnames'), S.full, v => { S.full = v; draw(); }),
           S.scheme === 'heat' ? check(t('logscale'), S.log, v => { S.log = v; draw(); }) : null,
+          check(t('timeline'), S.timeline, v => { S.timeline = v; if (!v) stopPlay(); rebuildBar(); draw(); }), yearIn, yearOut, S.timeline ? h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: togglePlay}, '▶ ' + t('play')) : null,
           h('label', {class: 'pt-field'}, t('cell'), h('input', {type: 'range', min: 24, max: 80, step: 1, value: S.cell || autoCell(), oninput: ev => { S.cell = Number(ev.target.value); draw(); }})), search);
       }
+      function compareBox() { // second element: Shift/Ctrl/Cmd+click in the table
+        if (!S.mark) return h('p', {class: 'zg-small zg-muted'}, t('compare_hint'));
+        const A = m.bySym[S.sel], B = m.bySym[S.mark], rows = P.compareRows(m, S.sel, S.mark, S.unit), delta = A.chi !== null && B.chi !== null ? Math.abs(B.chi - A.chi) : null;
+        return h('div', {class: 'pt-compare'}, h('table', {class: 'pt-table'}, h('thead', {}, h('tr', {}, h('th', {}, t('compare')), h('th', {}, `${A.z} ${A.sym}`), h('th', {}, `${B.z} ${B.sym}`), h('th', {}, t('difference')))),
+          h('tbody', {}, rows.map(r => h('tr', {}, h('td', {}, P.label(m, S.lang, r.key)), h('td', {}, P.formatValue(m, A, r.key, S.lang, S.unit)), h('td', {}, P.formatValue(m, B, r.key, S.lang, S.unit)), h('td', {}, r.diff === null ? '' : P.formatNumber(r.diff, S.lang, 4)))))),
+          delta === null ? null : h('p', {class: 'zg-small'}, `Δχ = ${P.formatNumber(delta, S.lang, 3)} – ${t('bond_hint')}`), h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => { S.mark = ''; draw(); }}, '× ' + t('close')));
+      }
       function draw() {
-        const prop = S.prop || (S.scheme === 'heat' ? 'mass' : ''), found = S.query ? new Set(P.search(m, S.query)) : null;
+        const prop = S.prop || (S.scheme === 'heat' ? 'mass' : ''), found = S.query ? new Set(P.search(m, S.query)) : null, known = S.timeline ? P.knownBy(m, S.year) : null;
         let hl = found && found.size ? found : null;
         if (S.filter) hl = new Set(m.elements.filter(e => S.scheme === 'origin' ? e.origin.includes(S.filter) : e.block === S.filter).map(e => e.sym));
-        const g = grid({scheme: S.scheme, prop, unit: S.unit, full: S.full, highlight: hl, selected: S.sel, onPick: sym => { S.sel = sym; draw(); }, hideValue: !S.prop && S.scheme !== 'heat'});
-        const e = m.bySym[S.sel];
+        if (known) hl = hl ? new Set([...hl].filter(x => known.has(x))) : known;
+        const hideValue = !S.prop && S.scheme !== 'heat';
+        const g = grid({scheme: S.scheme, prop, unit: S.unit, full: S.full, highlight: hl, selected: S.sel, marked: S.mark, onPick: (sym, shift) => { if (shift) S.mark = S.mark === sym ? '' : sym; else S.sel = sym; draw(); }, hideValue});
+        S.snap = {scheme: S.scheme, prop, unit: S.unit, full: S.full, hl, sel: S.sel, mark: S.mark, scale: g.scale, hideValue};
+        if (yearOut) yearOut.textContent = `${t('known_by')}: ${S.year} (${known.size})`;
+        const e = m.bySym[S.sel], L = P.tableLayout(m, 48);
         fill(cardEl, ...elementCard(e, true)); fill(narrow, ...elementCard(e));
         g.el.append(cardEl);
         fill(body, narrow, h('div', {class: 'pt-scroll'}, g.el), legend(S.scheme, g.scale, prop, S.unit, c => { S.filter = S.filter === c ? null : c; draw(); }, S.filter),
-          (S.scheme === 'block' || S.scheme === 'origin') ? h('p', {class: 'zg-small zg-muted'}, S.scheme === 'origin' ? t('legend_hint') + ' · ' + t('src_caveat') : t('legend_hint')) : null, found ? h('p', {class: 'zg-small'}, t('n_el', {n: found.size})) : null);
+          (S.scheme === 'block' || S.scheme === 'origin') ? h('p', {class: 'zg-small zg-muted'}, S.scheme === 'origin' ? t('legend_hint') + ' · ' + t('src_caveat') : t('legend_hint')) : null, found ? h('p', {class: 'zg-small'}, t('n_el', {n: found.size})) : null,
+          compareBox(),
+          h('div', {class: 'pt-bar-row pt-export'}, scaleSelect(), h('span', {class: 'zg-small zg-muted'}, `→ ${Math.ceil((L.width + 2) * S.imgScale)} × ${Math.ceil((L.height + 2) * S.imgScale)} ${t('pixels')}`),
+            dlBtn('PNG', t('image_scale'), () => tableCanvas(S.snap, S.imgScale).toBlob(b => (b ? download(b, `periodic-table-${S.scheme}-${stamp()}.png`) : note(t('dl_failed'))), 'image/png')),
+            dlBtn('SVG', 'SVG', () => download(new Blob([tableSvg(S.snap)], {type: 'image/svg+xml'}), `periodic-table-${S.scheme}-${stamp()}.svg`)),
+            dlBtn('CSV', 'CSV', () => csvDownload(P.csvRows(m, S.lang), 'periodic-table-data'))),
+          h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note));
       }
       rebuildBar(); draw(); host.append(bar, body); return host;
     };
@@ -232,7 +352,7 @@
           e.iso.map((i, k) => [h('svg:rect', {x: x(k) - bw / 2, y: y(i.pct), width: bw, height: y(0) - y(i.pct), class: 'pt-iso-bar', rx: 3}, h('svg:title', {}, `${i.a}${e.sym}: ${P.formatNumber(i.pct, S.lang, 4)} %`)),
             h('svg:text', {x: x(k), y: y(i.pct) - 5, class: 'pt-tick', 'text-anchor': 'middle'}, P.formatNumber(i.pct, S.lang, 4)), h('svg:text', {x: x(k), y: H - B + 18, class: 'pt-tick big', 'text-anchor': 'middle'}, sup(i.a) + e.sym)]),
           h('svg:text', {x: 14, y: (T + H - B) / 2, class: 'pt-axis-title', 'text-anchor': 'middle', transform: `rotate(-90 14 ${(T + H - B) / 2})`}, t('iso_y')));
-        fill(out, bar, svg, h('p', {class: 'zg-small zg-muted'}, t('iso_sum', {s: P.formatNumber(e.iso.reduce((s, i) => s + i.pct, 0), S.lang, 5)})), originChips(e));
+        fill(out, bar, svg, h('p', {class: 'zg-small zg-muted'}, t('iso_sum', {s: P.formatNumber(e.iso.reduce((s, i) => s + i.pct, 0), S.lang, 5)})), originChips(e), h('div', {class: 'pt-bar-row'}, ...chartButtons(svg, `isotopes-${e.sym}`)), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note));
       }
       draw(); host.append(out); return host;
     };
@@ -271,7 +391,8 @@
         const copy = h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: ev => { const b = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(csv()) : Promise.reject()).then(() => { b.textContent = t('tr_copied'); setTimeout(() => { b.textContent = t('tr_copy'); }, 1500); }).catch(() => { b.textContent = '⚠'; }); }}, t('tr_copy'));
         const table = h('table', {class: 'pt-table'}, h('thead', {}, h('tr', {}, h('th', {}, 'Z'), h('th', {}, ''), h('th', {}, P.label(m, S.lang, cfg.prop)))),
           h('tbody', {}, pts.map(p => h('tr', {}, h('td', {}, p.z), h('td', {}, p.sym), h('td', {}, p.y === null ? '–' : P.formatNumber(p.y, S.lang, 5))))));
-        fill(out, controls, svg, readout, gaps.length ? h('p', {class: 'zg-small zg-muted'}, t('tr_gaps', {list: gaps.join(', ')})) : null, copy, h('details', {}, h('summary', {}, t('tab_trend')), table));
+        fill(out, controls, svg, readout, gaps.length ? h('p', {class: 'zg-small zg-muted'}, t('tr_gaps', {list: gaps.join(', ')})) : null,
+          h('div', {class: 'pt-bar-row'}, copy, h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => attempt(() => csvDownload([['Z', 'symbol', 'name', `${cfg.prop} [${P.unitFor(m, cfg.prop, S.unit)}]`], ...pts.map(p => [String(p.z), p.sym, m.bySym[p.sym].names.en, p.y === null ? '' : String(p.y)])], `periodic-table-${cfg.prop}`))}, 'CSV'), ...(vals.length ? chartButtons(svg, `periodic-table-${cfg.prop}`) : [])), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note), h('details', {}, h('summary', {}, t('tab_trend')), table));
       }
       draw(); host.append(out); return host;
     }
@@ -286,7 +407,7 @@
 
     // ---- shell -------------------------------------------------------------------------------
     function show() {
-      clearInterval(S.findTimer); S.findTimer = 0;
+      clearInterval(S.findTimer); S.findTimer = 0; clearInterval(S.playTimer); S.playTimer = 0;
       const head = h('div', {class: 'pt-head'}, h('div', {class: 'zg-local-tabs', role: 'tablist'}, TABS.map(k => h('button', {type: 'button', role: 'tab', class: 'zg-btn' + (S.tab === k ? '' : ' zg-btn-ghost'), 'aria-selected': String(S.tab === k), onclick: () => { S.tab = k; show(); }}, t('tab_' + k)))),
         select(t('language'), S.lang, LANGS, v => { S.lang = v; show(); }));
       fill(app, head, h('div', {class: 'pt-panel', role: 'tabpanel'}, tabs[S.tab]()));
@@ -294,6 +415,6 @@
     function refresh() { show(); }
     show();
     if (typeof ResizeObserver !== 'undefined') { let w = app.clientWidth; new ResizeObserver(() => { if (!S.cell && Math.abs(app.clientWidth - w) > 24 && ['table', 'origins'].includes(S.tab)) { w = app.clientWidth; show(); } }).observe(app); }
-    root.__pt = {state: S, model: m};
+    root.__pt = {state: S, model: m, tableCanvas, tableSvg, inlineSvg, download};
   }
 })();

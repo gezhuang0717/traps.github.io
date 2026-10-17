@@ -97,7 +97,10 @@ test('Table layout matches the GUI geometry: 18 columns, f-block below with a ga
  assert.equal(new Set(Object.values(L.rects).map(r=>r.x+','+r.y)).size,118);
 });
 test('CSV export: 119 rows, localised names, eV and kJ/mol, RFC 4180 quoting',()=>{
- const rows=P.csvRows(m,'de');assert.equal(rows.length,119);assert.equal(rows[0][2],'name_de');const fe=rows.find(r=>r[1]==='Fe');
+ const rows=P.csvRows(m,'de');assert.equal(rows.length,119);assert.deepEqual(rows[0].slice(0,4),['Z','symbol','name','name_en']);const fe=rows.find(r=>r[1]==='Fe');
  assert.equal(fe[2],'Eisen');near(Number(fe[11]),7.902,1e-9);near(Number(fe[12]),7.902*m.evToKj,1e-6);assert.ok(rows.every(r=>r.length===P.CSV_HEADER.length));
  assert.equal(P.toCsv([['a,b','c"d','e\nf','g']]),'"a,b","c""d","e\nf",g\r\n');
+});
+test('Cell styles expose the list of fills (stripes) for the canvas and SVG export',()=>{
+ const o=P.cellStyle(m,m.bySym.Li,'origin');assert.equal(o.fills.length,3);assert.deepEqual(P.cellStyle(m,m.bySym.H,'block').fills,[m.i18n.groups.color.Nonmetal]);
 });

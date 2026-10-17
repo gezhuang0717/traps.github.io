@@ -92,19 +92,19 @@
   }
   // Fill for one element cell. scheme: block | origin | state | heat.
   function cellStyle(m, e, scheme, opts = {}) {
-    let bg, solid;
+    let bg, solid, fills;
     if (scheme === 'origin') {
-      bg = originGradient(e.origin, m.i18n.origins.color); solid = m.i18n.origins.color[e.origin[0]];
-    } else if (scheme === 'state') { solid = bg = m.i18n.states.color[e.state];
+      bg = originGradient(e.origin, m.i18n.origins.color); solid = m.i18n.origins.color[e.origin[0]]; fills = e.origin.map(c => m.i18n.origins.color[c]);
+    } else if (scheme === 'state') { solid = bg = m.i18n.states.color[e.state]; fills = [bg];
     } else if (scheme === 'heat') {
       const scale = opts.scale || heatScale(m, opts.key || 'mass', opts.unit, opts.log), c = scale.color(value(m, e, opts.key || 'mass', opts.unit));
-      solid = bg = c || '#e5e7eb';
-    } else { solid = bg = m.i18n.groups.color[e.block]; }
+      solid = bg = c || '#e5e7eb'; fills = [bg];
+    } else { solid = bg = m.i18n.groups.color[e.block]; fills = [bg]; }
     const missing = scheme === 'heat' && bg === '#e5e7eb';
     // multi-source origin cells carry their own stripes; keep text legible with a light chip behind it
     const striped = scheme === 'origin' && e.origin.length > 1;
     const dim = opts.highlight ? !opts.highlight.has(e.sym) : false;
-    return {background: bg, color: striped ? '#111111' : textColor(solid), striped, missing, dim};
+    return {background: bg, fills, color: striped ? '#111111' : textColor(solid), striped, missing, dim};
   }
   const legendCounts = m => Object.fromEntries(m.i18n.origins.order.map(c => [c, m.elements.filter(e => e.origin.includes(c)).length]));
 
@@ -223,7 +223,7 @@
   // Rows of the data export (header + 118 elements): names in the chosen language, energies in eV and kJ/mol.
   function csvRows(m, lang) {
     const n = (e, key, unit) => { const v = value(m, e, key, unit); return v === null ? '' : String(v); };
-    const rows = [CSV_HEADER.map((h, i) => (i === 2 ? 'name_' + lang : h))];
+    const rows = [CSV_HEADER.slice()]; // column 'name' is in the panel language, 'name_en' always English
     for (const e of m.elements) rows.push([e.z, e.sym, displayName(e, lang), e.names.en, e.block, e.state, n(e, 'mass'), e.config || '', e.ox || '', n(e, 'chi'), n(e, 'radius'),
       n(e, 'ie', 'eV'), n(e, 'ie', 'kJ/mol'), n(e, 'ea', 'eV'), n(e, 'ea', 'kJ/mol'), n(e, 'mp'), n(e, 'bp'), n(e, 'density'), e.year, e.country || '',
       e.origin.join(''), e.origin.map(c => originLabel(m, lang, c)).join('; '), e.trace ? 'yes' : 'no', e.iso.map(i => `${i.a}${e.sym} ${i.pct}%`).join('; ')].map(String));
