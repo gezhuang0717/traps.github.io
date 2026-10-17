@@ -12,7 +12,9 @@ Työskentelen Eksoottiset ytimet ja suihkut (IGISOL) -ryhmässä JYFLTRAP-Pennin
 
 Olen väitellyt tohtoriksi Saitaman yliopistossa / RIKEN Nishina Centerissä (Japani) sekä Kiinan tiedeakatemian yliopistossa / Institute of Modern Physicsissä. Olen työskennellyt RIKENin, GSI:n ja IMP:n varastorengaslaitteistoilla sekä IGISOLissa — tutkijatohtorina JYFLTRAPilla (2019–2021) ja GSI:n FRS/Super-FRS-ryhmässä (2021–2023) — ennen paluutani Jyväskylään akatemiatutkijaksi vuonna 2023.
 
-**English fallback:** I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The website lists selected public publications and main talks; see the [Group page](group/) for members and collaborators.
+Opetan tohtorikurssia *Laserit ja loukut ydinfysiikan tutkimuksessa*. Sivustolla on valikoituja julkisia julkaisuja ja pääesitelmiä; ryhmän jäsenet ja yhteistyökumppanit löytyvät [Ryhmä-sivulta](group/).
+
+**Aihepiirit:** ydinfysiikka, ydinastrofysiikka, ioniloukku- ja varastorengasmassaspektrometria, atomimassat ja hajoamisenergiat (*Q*-arvot), neutriinon massan fysiikka, isotooppisiirtymät, ionioptiikka ja suihkufysiikka, hiukkasilmaisimet, tieteellinen laskenta ja data-analyysi.
 
 **Yhteystiedot:** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [z.ge@gsi.de](mailto:z.ge@gsi.de) · [zhuang@ribf.riken.jp](mailto:zhuang@ribf.riken.jp)
 
@@ -23,4 +25,4 @@ Olen väitellyt tohtoriksi Saitaman yliopistossa / RIKEN Nishina Centerissä (Ja
 {{< gallery home="true" >}}
 
 
-**English fallback:** MASSPASS runs from **1 September 2023 to 31 August 2027**, funded by the Research Council of Finland. Position and project information follow the [university profile](https://www.jyu.fi/en/people/zhuang-ge) and [project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), checked on 3 October 2026.
+MASSPASS kestää **1.9.2023–31.8.2027**, ja sen rahoittaa Suomen Akatemia. Aseman ja hankkeen tiedot perustuvat [yliopiston profiiliin](https://www.jyu.fi/en/people/zhuang-ge) ja [hankesivuun](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear); tarkistettu 3.10.2026.

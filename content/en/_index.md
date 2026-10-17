@@ -14,6 +14,8 @@ I received PhDs from Saitama University / RIKEN Nishina Center (Japan) and from 
 
 I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The website lists selected public publications and main talks; see the [Group page](group/) for members and collaborators.
 
+**Subjects:** nuclear physics, nuclear astrophysics, ion-trap and storage-ring mass spectrometry, atomic masses and decay energies (*Q*-values), neutrino-mass physics, isotope shifts, ion optics and beam physics, particle detectors, scientific computing and data analysis.
+
 **Contact:** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [z.ge@gsi.de](mailto:z.ge@gsi.de) · [zhuang@ribf.riken.jp](mailto:zhuang@ribf.riken.jp)
 
 **Feedback & corrections:** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [gezhuang0717@gmail.com](mailto:gezhuang0717@gmail.com) · [gezhuang2020@gmail.com](mailto:gezhuang2020@gmail.com)

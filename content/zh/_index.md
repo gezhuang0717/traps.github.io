@@ -14,6 +14,8 @@ description: "芬兰于韦斯屈莱大学芬兰科学院研究员——利用彭
 
 我讲授博士课程《核物理研究中的激光与离子阱》。公开论文与主要报告见本网站对应栏目；成员与合作者的现状见[团队页面](group/)。
 
+**研究主题：** 原子核物理、核天体物理、离子阱与储存环质谱、原子质量与衰变能（*Q* 值）、中微子质量物理、同位素移位、离子光学与束流物理、粒子探测器、科学计算与数据分析。
+
 **联系方式：** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [z.ge@gsi.de](mailto:z.ge@gsi.de) · [zhuang@ribf.riken.jp](mailto:zhuang@ribf.riken.jp)
 
 **反馈与更正:** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [gezhuang0717@gmail.com](mailto:gezhuang0717@gmail.com) · [gezhuang2020@gmail.com](mailto:gezhuang2020@gmail.com)

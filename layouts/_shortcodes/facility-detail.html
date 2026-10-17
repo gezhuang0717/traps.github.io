@@ -2,7 +2,7 @@
 {{ $lang := site.Language.Lang }}{{ if strings.HasPrefix $lang "zh" }}{{ $lang = "zh" }}{{ end }}
 {{ with .Page.Params.facility_record }}
 <p>{{ .city }} · {{ .country }}</p>
-{{ if and (ne $lang "en") (ne $lang "zh") }}<p><small>English fallback: facility descriptions await translation.</small></p>{{ end }}
+{{ if and (ne $lang "en") (ne $lang "zh") }}<p><small>{{ index (dict "fi" "Laitoskuvaukset ovat toistaiseksi vain englanniksi." "de" "Die Anlagenbeschreibungen sind vorerst nur auf Englisch verfügbar." "ja" "施設の説明は現在、英語のみです。") $lang | default "Facility descriptions are currently available in English only." }}</small></p>{{ end }}
 <p>{{ or (index .description $lang) .description.en }}</p>
 {{ with .host }}<p><strong>{{ if eq $lang "zh" }}所属机构{{ else }}Host institution{{ end }}:</strong> {{ or (index . $lang) .en }}</p>{{ end }}
 {{ with .research_units }}<h2>{{ if eq $lang "zh" }}实验与仪器{{ else }}Experiments and instruments{{ end }}</h2><ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a> — {{ or (index .purpose $lang) .purpose.en }}</li>{{ end }}</ul>{{ end }}

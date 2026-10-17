@@ -30,7 +30,7 @@ showDate: false
 
 ## 教育・指導
 
-- **English fallback:** Supervision and collaboration with early-career researchers (see [Group](../group/)).
+- 若手研究者の指導と共同研究（[グループ](../group/)を参照）。
 - FYSS3552 *Lasers and Traps in Nuclear Physics Studies* 講師
 
 ## 学術活動

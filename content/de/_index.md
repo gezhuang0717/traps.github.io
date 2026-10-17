@@ -12,7 +12,9 @@ Ich arbeite in der Gruppe Exotische Kerne und Strahlen (IGISOL) mit der Penning-
 
 Ich wurde an der Universität Saitama / RIKEN Nishina Center (Japan) sowie an der Universität der Chinesischen Akademie der Wissenschaften / Institute of Modern Physics promoviert. Ich habe an den Speicherring-Anlagen von RIKEN, GSI und IMP sowie an IGISOL gearbeitet — als Postdoc an JYFLTRAP (2019–2021) und in der FRS/Super-FRS-Gruppe der GSI (2021–2023) — bevor ich 2023 als Academy Research Fellow nach Jyväskylä zurückkehrte.
 
-**English fallback:** I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The website lists selected public publications and main talks; see the [Group page](group/) for members and collaborators.
+Ich unterrichte den Doktorandenkurs *Laser und Fallen in der kernphysikalischen Forschung*. Die Website listet ausgewählte öffentliche Publikationen und Hauptvorträge; Mitglieder und Kooperationspartner stehen auf der [Gruppenseite](group/).
+
+**Themen:** Kernphysik, nukleare Astrophysik, Ionenfallen- und Speicherring-Massenspektrometrie, Atommassen und Zerfallsenergien (*Q*-Werte), Neutrinomassen-Physik, Isotopieverschiebungen, Ionenoptik und Strahlphysik, Teilchendetektoren, wissenschaftliches Rechnen und Datenanalyse.
 
 **Kontakt:** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [z.ge@gsi.de](mailto:z.ge@gsi.de) · [zhuang@ribf.riken.jp](mailto:zhuang@ribf.riken.jp)
 
@@ -23,4 +25,4 @@ Ich wurde an der Universität Saitama / RIKEN Nishina Center (Japan) sowie an de
 {{< gallery home="true" >}}
 
 
-**English fallback:** MASSPASS runs from **1 September 2023 to 31 August 2027**, funded by the Research Council of Finland. Position and project information follow the [university profile](https://www.jyu.fi/en/people/zhuang-ge) and [project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), checked on 3 October 2026.
+MASSPASS läuft vom **1. September 2023 bis 31. August 2027** und wird vom Research Council of Finland gefördert. Position und Projektinformationen folgen dem [Universitätsprofil](https://www.jyu.fi/en/people/zhuang-ge) und der [Projektseite](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), geprüft am 3. Oktober 2026.

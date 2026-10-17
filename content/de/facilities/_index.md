@@ -1,11 +1,9 @@
 ---
-title: "Facility atlas"
+title: "Anlagenatlas"
 showDate: false
 ---
 
-English fallback: this new page awaits translation.
-
-Explore facilities, programs and machines by technique and geography. Source evidence and coordinate precision are visible for every record.
+Entdecken Sie Anlagen, Programme und Maschinen nach Verfahren und Geografie. Für jeden Eintrag sind Quellennachweise und Koordinatengenauigkeit sichtbar.
 
 {{< facility-atlas >}}
 

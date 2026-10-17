@@ -12,7 +12,9 @@ description: "ユヴァスキュラ大学 フィンランド・アカデミー�
 
 埼玉大学・理化学研究所仁科加速器科学研究センター（日本）と中国科学院大学・中国科学院近代物理研究所で博士号を取得しました。RIKEN、GSI、IMP の蓄積リング施設と IGISOL で研究を行い、JYFLTRAP（2019–2021 年）と GSI の FRS/Super-FRS グループ（2021–2023 年）での博士研究員を経て、2023 年にアカデミー研究員としてユヴァスキュラに戻りました。
 
-**English fallback:** I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The website lists selected public publications and main talks; see the [Group page](group/) for members and collaborators.
+博士課程の講義「核物理研究におけるレーザーとトラップ」を担当しています。本サイトには主な公開論文と講演を掲載しており、メンバーと共同研究者は[グループのページ](group/)をご覧ください。
+
+**研究テーマ：** 原子核物理、原子核宇宙物理、イオントラップ・蓄積リング質量分析、原子質量と崩壊エネルギー（*Q* 値）、ニュートリノ質量の物理、同位体シフト、イオン光学とビーム物理、粒子検出器、科学計算とデータ解析。
 
 **連絡先：** [zhuang.z.ge@jyu.fi](mailto:zhuang.z.ge@jyu.fi) · [z.ge@gsi.de](mailto:z.ge@gsi.de) · [zhuang@ribf.riken.jp](mailto:zhuang@ribf.riken.jp)
 
@@ -23,4 +25,4 @@ description: "ユヴァスキュラ大学 フィンランド・アカデミー�
 {{< gallery home="true" >}}
 
 
-**English fallback:** MASSPASS runs from **1 September 2023 to 31 August 2027**, funded by the Research Council of Finland. Position and project information follow the [university profile](https://www.jyu.fi/en/people/zhuang-ge) and [project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), checked on 3 October 2026.
+MASSPASS の期間は **2023 年 9 月 1 日〜2027 年 8 月 31 日**で、フィンランド研究評議会（Research Council of Finland）の資金で実施されています。職位とプロジェクトの情報は[大学のプロフィール](https://www.jyu.fi/en/people/zhuang-ge)と[プロジェクトページ](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)に基づき、2026 年 10 月 3 日に確認しました。
