@@ -91,7 +91,22 @@
       "published": "2026-10-16",
       "collected_at": "2026-10-17",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-17",
+      "type": "news",
+      "title": "Quantum magic state cleanup cuts errors 40-fold in first successful hardware test",
+      "summary": "Qubits, the quantum equivalent of digital bits, are fragile and prone to errors. That makes building reliable quantum computers extremely difficult. One fix has been to use traditional magic state distillation, which filters out flaws, but it is extremely resource-intensive.",
+      "url": "https://phys.org/news/2026-10-quantum-magic-state-cleanup-errors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-17",
+      "collected_at": "2026-10-17",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-17T06:13:53+00:00"
+  "fetched": "2026-10-17T22:50:36+00:00"
 }
