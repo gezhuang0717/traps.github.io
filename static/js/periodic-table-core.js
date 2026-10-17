@@ -232,7 +232,40 @@
   // RFC 4180 quoting; lines end with CRLF.
   const toCsv = rows => rows.map(r => r.map(c => (/[",\r\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c)).join(',')).join('\r\n') + '\r\n';
 
+
+  // ---- property-vs-property scatter, keyboard navigation, sortable data table -------------------------
+  // Points with both values present (for "x property vs y property" plots).
+  const scatter = (m, xKey, yKey, xUnit, yUnit) => m.elements.map(e => ({z: e.z, sym: e.sym, block: e.block, x: value(m, e, xKey, xUnit), y: value(m, e, yKey, yUnit)})).filter(p => p.x !== null && p.y !== null);
+  // Element reached by pressing an arrow key on the painted table (dr: +1 down, dc: +1 right); null at the edge.
+  function neighbor(m, sym, dr, dc) {
+    const e = m.bySym[sym], x0 = e.col, y0 = rowOffset(e.row);
+    const cand = m.elements.filter(o => o.sym !== sym).map(o => ({o, dx: o.col - x0, dy: rowOffset(o.row) - y0}))
+      .filter(c => (dc ? c.dx * dc > 0 : c.dy * dr > 0));
+    if (!cand.length) return null;
+    const aligned = cand.filter(c => (dc ? Math.abs(c.dy) < 0.6 : Math.abs(c.dx) < 0.6));
+    const pool = aligned.length ? aligned : cand, along = c => (dc ? Math.abs(c.dx) : Math.abs(c.dy)), across = c => (dc ? Math.abs(c.dy) : Math.abs(c.dx));
+    pool.sort((a, b) => (aligned.length ? along(a) - along(b) || across(a) - across(b) : across(a) * 3 + along(a) - (across(b) * 3 + along(b))));
+    return pool[0].o.sym;
+  }
+  // Rows of the sortable data table: one cell per column key (numbers stay numbers so that sorting is numeric).
+  const DATA_COLUMNS = ['z', 'sym', 'name', 'block', 'state', 'mass', 'chi', 'radius', 'ie', 'ea', 'mp', 'bp', 'density', 'year', 'country', 'origin'];
+  function dataRows(m, lang, unit) {
+    return m.elements.map(e => ({
+      z: e.z, sym: e.sym, name: displayName(e, lang), block: groupLabel(m, lang, e.block), state: stateLabel(m, lang, e.state), mass: e.mass, chi: e.chi, radius: e.radius,
+      ie: value(m, e, 'ie', unit), ea: value(m, e, 'ea', unit), mp: e.mp, bp: e.bp, density: e.density, year: typeof e.year === 'number' ? e.year : null,
+      country: e.country || '', origin: e.origin.map(c => originLabel(m, lang, c)).join(' + ')}));
+  }
+  // Sort rows by a column; missing values (null / '') always come last, numbers numerically, text with locale rules.
+  function sortRows(rows, key, ascending, lang) {
+    const missing = v => v === null || v === undefined || v === '', dir = ascending ? 1 : -1;
+    return rows.slice().sort((a, b) => {
+      if (missing(a[key]) || missing(b[key])) return missing(a[key]) && missing(b[key]) ? a.z - b.z : missing(a[key]) ? 1 : -1;
+      const c = typeof a[key] === 'number' && typeof b[key] === 'number' ? a[key] - b[key] : String(a[key]).localeCompare(String(b[key]), lang);
+      return c * dir || a.z - b.z;
+    });
+  }
+
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv};
+    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows};
 });

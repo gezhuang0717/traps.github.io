@@ -104,3 +104,18 @@ test('CSV export: 119 rows, localised names, eV and kJ/mol, RFC 4180 quoting',()
 test('Cell styles expose the list of fills (stripes) for the canvas and SVG export',()=>{
  const o=P.cellStyle(m,m.bySym.Li,'origin');assert.equal(o.fills.length,3);assert.deepEqual(P.cellStyle(m,m.bySym.H,'block').fills,[m.i18n.groups.color.Nonmetal]);
 });
+test('Scatter keeps only elements with both values; neighbour keys walk the painted table',()=>{
+ const pts=P.scatter(m,'chi','ie');assert.ok(pts.length>80&&pts.length<118&&pts.every(p=>p.x!==null&&p.y!==null));near(pts.find(p=>p.sym==='Cl').x,3.16);
+ const nb=(s,dr,dc)=>P.neighbor(m,s,dr,dc);
+ assert.equal(nb('H',0,1),'He');assert.equal(nb('He',0,-1),'H');assert.equal(nb('H',1,0),'Li');assert.equal(nb('Fe',1,0),'Ru');assert.equal(nb('Fe',0,1),'Co');assert.equal(nb('Be',1,0),'Mg');
+ assert.equal(nb('H',-1,0),null);assert.equal(nb('H',0,-1),null);assert.equal(nb('Og',0,1),null);
+ assert.equal(nb('Ra',1,0),'La');assert.equal(nb('La',1,0),'Ac');assert.equal(nb('Lu',-1,0),'Ts');assert.equal(nb('Fe',-1,0),'Al'); // gaps: nearest element in that direction
+ // every element can be reached from H with the four arrow keys (no isolated cells)
+ const seen=new Set(['H']),queue=['H'];while(queue.length){const s=queue.pop();for(const [dr,dc] of [[0,1],[0,-1],[1,0],[-1,0]]){const n=nb(s,dr,dc);if(n&&!seen.has(n)){seen.add(n);queue.push(n);}}}assert.equal(seen.size,118);
+});
+test('Data table rows sort numerically with missing values last and text by locale',()=>{
+ const rows=P.dataRows(m,'en','eV'),asc=P.sortRows(rows,'ie',true,'en'),desc=P.sortRows(rows,'ie',false,'en');
+ assert.equal(asc[0].sym,'Cs');assert.equal(desc[0].sym,'He');assert.equal(asc[asc.length-1].ie,null);assert.equal(desc[desc.length-1].ie,null); // gaps last both ways
+ assert.equal(P.sortRows(rows,'name',true,'en')[0].name,'Actinium');assert.ok(P.sortRows(rows,'year',true,'en')[0].year<=1700);
+ assert.equal(rows.length,118);assert.equal(P.dataRows(m,'de','kJ/mol').find(r=>r.sym==='H').ie.toFixed(0),'1312');
+});

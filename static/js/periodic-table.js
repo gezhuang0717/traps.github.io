@@ -13,7 +13,8 @@
       tr_group: 'Group', tr_period: 'Period', tr_index: 'Number', tr_prop: 'Property', tr_lines: 'Lines', tr_log: 'Log y', tr_copy: 'Copy CSV', tr_copied: 'Copied', tr_x_el: 'Element', tr_x_z: 'Proton number Z', tr_gaps: 'No data for: {list}',
       iso_pick: 'Element', iso_none: 'No stable isotopes.', iso_y: 'Natural abundance (%)', iso_sum: 'Sum: {s} %',
       src_caveat: 'Origin classes are qualitative (after Johnson, OSU) and show which processes contribute, not how much. The r-process site is still debated. Ionisation energy and electron affinity are in eV; kJ/mol = eV × 96.485.', src_fixes: 'Corrections to the Mulberry GUI data', src_list: 'Sources', prop_label: 'Property',
-      timeline: 'Discovery timeline', known_by: 'Known by year', play: 'Play', compare: 'Compare two elements', compare_hint: 'Pick a second element: Shift+click in the table.', difference: 'Difference', bond_hint: 'Electronegativity difference suggests the bond type: <0.4 nonpolar covalent, 0.4–1.7 polar covalent, >1.7 mostly ionic (rule of thumb).', image_scale: 'Image scale', pixels: 'pixels', downloaded: 'Download started', dl_failed: 'Could not create the file'},
+      timeline: 'Discovery timeline', known_by: 'Known by year', play: 'Play', compare: 'Compare two elements', compare_hint: 'Pick a second element: Shift+click in the table.', difference: 'Difference', bond_hint: 'Electronegativity difference suggests the bond type: <0.4 nonpolar covalent, 0.4–1.7 polar covalent, >1.7 mostly ionic (rule of thumb).', image_scale: 'Image scale', pixels: 'pixels', downloaded: 'Download started', dl_failed: 'Could not create the file',
+      tab_data: 'Data table', x_axis: 'X axis', sort_hint: 'Click a column header to sort', rows_n: '{n} rows', kbd_hint: 'Arrow keys move between elements; Enter selects, Shift+Enter marks a second element.', symbol: 'Symbol', name: 'Name'},
     zh: {tab_table: '周期表', tab_origins: '起源', tab_game: '找元素', tab_defs: '定义', tab_iso: '同位素', tab_trend: '趋势', tab_trendz: '按质子数', tab_sources: '来源',
       language: '语言', scheme: '着色方式', sch_block: '化学族块', sch_origin: '起源', sch_state: '物态', sch_heat: '性质热图', show: '格内显示', none_prop: '— 仅符号 —', unit: '单位', fullnames: '显示全名', logscale: '对数刻度', search: '搜索符号、名称或 Z', cell: '格子大小',
       legend_hint: '点击类别以高亮', n_el: '{n} 个元素', all_props: '全部性质', close: '关闭', missing: '无数据', pick_hint: '点击一个元素', trace_el: '仅痕量', sel: '已选',
@@ -22,7 +23,8 @@
       tr_group: '族', tr_period: '周期', tr_index: '编号', tr_prop: '性质', tr_lines: '连线', tr_log: 'y 取对数', tr_copy: '复制 CSV', tr_copied: '已复制', tr_x_el: '元素', tr_x_z: '质子数 Z', tr_gaps: '无数据：{list}',
       iso_pick: '元素', iso_none: '没有稳定同位素。', iso_y: '天然丰度 (%)', iso_sum: '总和：{s} %',
       src_caveat: '起源类别是定性的（依据 Johnson，OSU），只表示有哪些过程贡献，不表示贡献多少。r 过程的发生地点仍有争议。电离能和电子亲和能以 eV 为单位；kJ/mol = eV × 96.485。', src_fixes: '对 Mulberry GUI 数据的修正', src_list: '来源', prop_label: '性质',
-      timeline: '发现时间线', known_by: '截至年份已知', play: '播放', compare: '比较两个元素', compare_hint: '选择第二个元素：在表中按住 Shift 点击。', difference: '差值', bond_hint: '电负性差值提示键型：<0.4 非极性共价，0.4–1.7 极性共价，>1.7 以离子键为主（经验规则）。', image_scale: '图片倍数', pixels: '像素', downloaded: '已开始下载', dl_failed: '无法生成文件'},
+      timeline: '发现时间线', known_by: '截至年份已知', play: '播放', compare: '比较两个元素', compare_hint: '选择第二个元素：在表中按住 Shift 点击。', difference: '差值', bond_hint: '电负性差值提示键型：<0.4 非极性共价，0.4–1.7 极性共价，>1.7 以离子键为主（经验规则）。', image_scale: '图片倍数', pixels: '像素', downloaded: '已开始下载', dl_failed: '无法生成文件',
+      tab_data: '数据表', x_axis: 'X 轴', sort_hint: '点击列标题排序', rows_n: '{n} 行', kbd_hint: '方向键在元素间移动；回车选中，Shift+回车标记第二个元素。', symbol: '符号', name: '名称'},
     fi: {tab_table: 'Taulukko', tab_origins: 'Alkuperä', tab_game: 'Etsi alkuaine', tab_defs: 'Määritelmät', tab_iso: 'Isotoopit', tab_trend: 'Trendit', tab_trendz: 'Trendit Z:n mukaan', tab_sources: 'Lähteet',
       language: 'Kieli', scheme: 'Väritys', sch_block: 'Kemiallinen lohko', sch_origin: 'Alkuperä', sch_state: 'Olomuoto', sch_heat: 'Ominaisuuden lämpökartta', show: 'Näytä ruuduissa', none_prop: '— vain symboli —', unit: 'Yksikkö', fullnames: 'Koko nimet', logscale: 'Logaritminen asteikko', search: 'Hae symbolia, nimeä tai Z:aa', cell: 'Ruudun koko',
       legend_hint: 'Napsauta luokkaa korostaaksesi', n_el: '{n} alkuainetta', all_props: 'Kaikki ominaisuudet', close: 'Sulje', missing: 'ei tietoa', pick_hint: 'Napsauta alkuainetta', trace_el: 'Vain jälkiä', sel: 'Valittu',
@@ -31,7 +33,8 @@
       tr_group: 'Ryhmä', tr_period: 'Jakso', tr_index: 'Numero', tr_prop: 'Ominaisuus', tr_lines: 'Viivat', tr_log: 'Log y', tr_copy: 'Kopioi CSV', tr_copied: 'Kopioitu', tr_x_el: 'Alkuaine', tr_x_z: 'Protoniluku Z', tr_gaps: 'Ei tietoa: {list}',
       iso_pick: 'Alkuaine', iso_none: 'Ei vakaita isotooppeja.', iso_y: 'Luonnollinen runsaus (%)', iso_sum: 'Summa: {s} %',
       src_caveat: 'Alkuperäluokat ovat laadullisia (Johnsonin mukaan, OSU): ne kertovat mitkä prosessit vaikuttavat, eivät kuinka paljon. R-prosessin paikasta kiistellään yhä. Ionisaatioenergia ja elektroniaffiniteetti ovat eV:nä; kJ/mol = eV × 96,485.', src_fixes: 'Korjaukset Mulberry-GUI:n tietoihin', src_list: 'Lähteet', prop_label: 'Ominaisuus',
-      timeline: 'Löytöaikajana', known_by: 'Tunnettu vuoteen mennessä', play: 'Toista', compare: 'Vertaa kahta alkuainetta', compare_hint: 'Valitse toinen alkuaine: Shift+napsautus taulukossa.', difference: 'Erotus', bond_hint: 'Elektronegatiivisuuden ero ennustaa sidostyypin: <0,4 poolittoman kovalenttinen, 0,4–1,7 polaarinen kovalenttinen, >1,7 enimmäkseen ioninen (nyrkkisääntö).', image_scale: 'Kuvan skaalaus', pixels: 'pikseliä', downloaded: 'Lataus alkoi', dl_failed: 'Tiedoston luonti epäonnistui'},
+      timeline: 'Löytöaikajana', known_by: 'Tunnettu vuoteen mennessä', play: 'Toista', compare: 'Vertaa kahta alkuainetta', compare_hint: 'Valitse toinen alkuaine: Shift+napsautus taulukossa.', difference: 'Erotus', bond_hint: 'Elektronegatiivisuuden ero ennustaa sidostyypin: <0,4 poolittoman kovalenttinen, 0,4–1,7 polaarinen kovalenttinen, >1,7 enimmäkseen ioninen (nyrkkisääntö).', image_scale: 'Kuvan skaalaus', pixels: 'pikseliä', downloaded: 'Lataus alkoi', dl_failed: 'Tiedoston luonti epäonnistui',
+      tab_data: 'Datataulukko', x_axis: 'X-akseli', sort_hint: 'Napsauta sarakeotsikkoa lajitellaksesi', rows_n: '{n} riviä', kbd_hint: 'Nuolinäppäimet siirtävät elementtien välillä; Enter valitsee, Shift+Enter merkitsee toisen alkuaineen.', symbol: 'Symboli', name: 'Nimi'},
     de: {tab_table: 'Tabelle', tab_origins: 'Herkunft', tab_game: 'Element finden', tab_defs: 'Definitionen', tab_iso: 'Isotope', tab_trend: 'Trends', tab_trendz: 'Trends nach Z', tab_sources: 'Quellen',
       language: 'Sprache', scheme: 'Färben nach', sch_block: 'Chemischer Block', sch_origin: 'Herkunft', sch_state: 'Aggregatzustand', sch_heat: 'Eigenschafts-Heatmap', show: 'In Zellen zeigen', none_prop: '— nur Symbol —', unit: 'Einheit', fullnames: 'Volle Namen', logscale: 'Logarithmische Skala', search: 'Symbol, Name oder Z suchen', cell: 'Zellgröße',
       legend_hint: 'Klasse anklicken, um sie hervorzuheben', n_el: '{n} Elemente', all_props: 'Alle Eigenschaften', close: 'Schließen', missing: 'keine Daten', pick_hint: 'Element anklicken', trace_el: 'Nur Spuren', sel: 'Ausgewählt',
@@ -40,7 +43,8 @@
       tr_group: 'Gruppe', tr_period: 'Periode', tr_index: 'Nummer', tr_prop: 'Eigenschaft', tr_lines: 'Linien', tr_log: 'Log y', tr_copy: 'CSV kopieren', tr_copied: 'Kopiert', tr_x_el: 'Element', tr_x_z: 'Ordnungszahl Z', tr_gaps: 'Keine Daten für: {list}',
       iso_pick: 'Element', iso_none: 'Keine stabilen Isotope.', iso_y: 'Natürliche Häufigkeit (%)', iso_sum: 'Summe: {s} %',
       src_caveat: 'Die Herkunftsklassen sind qualitativ (nach Johnson, OSU): Sie zeigen, welche Prozesse beitragen, nicht wie stark. Der Ort des r-Prozesses ist weiter umstritten. Ionisierungsenergie und Elektronenaffinität sind in eV; kJ/mol = eV × 96,485.', src_fixes: 'Korrekturen an den Daten der Mulberry-GUI', src_list: 'Quellen', prop_label: 'Eigenschaft',
-      timeline: 'Entdeckungs-Zeitleiste', known_by: 'Bekannt bis Jahr', play: 'Abspielen', compare: 'Zwei Elemente vergleichen', compare_hint: 'Zweites Element wählen: Umschalt+Klick in der Tabelle.', difference: 'Differenz', bond_hint: 'Die Elektronegativitätsdifferenz deutet auf den Bindungstyp: <0,4 unpolar kovalent, 0,4–1,7 polar kovalent, >1,7 überwiegend ionisch (Faustregel).', image_scale: 'Bildmaßstab', pixels: 'Pixel', downloaded: 'Download gestartet', dl_failed: 'Datei konnte nicht erstellt werden'},
+      timeline: 'Entdeckungs-Zeitleiste', known_by: 'Bekannt bis Jahr', play: 'Abspielen', compare: 'Zwei Elemente vergleichen', compare_hint: 'Zweites Element wählen: Umschalt+Klick in der Tabelle.', difference: 'Differenz', bond_hint: 'Die Elektronegativitätsdifferenz deutet auf den Bindungstyp: <0,4 unpolar kovalent, 0,4–1,7 polar kovalent, >1,7 überwiegend ionisch (Faustregel).', image_scale: 'Bildmaßstab', pixels: 'Pixel', downloaded: 'Download gestartet', dl_failed: 'Datei konnte nicht erstellt werden',
+      tab_data: 'Datentabelle', x_axis: 'X-Achse', sort_hint: 'Spaltenkopf anklicken zum Sortieren', rows_n: '{n} Zeilen', kbd_hint: 'Pfeiltasten wechseln das Element; Eingabe wählt, Umschalt+Eingabe markiert ein zweites Element.', symbol: 'Symbol', name: 'Name'},
     ja: {tab_table: '周期表', tab_origins: '起源', tab_game: '元素探し', tab_defs: '用語', tab_iso: '同位体', tab_trend: '傾向', tab_trendz: '原子番号別', tab_sources: '出典',
       language: '言語', scheme: '色分け', sch_block: '化学ブロック', sch_origin: '起源', sch_state: '状態', sch_heat: '物性ヒートマップ', show: 'セルに表示', none_prop: '— 記号のみ —', unit: '単位', fullnames: '元素名を表示', logscale: '対数目盛', search: '記号・名前・Zで検索', cell: 'セルの大きさ',
       legend_hint: '分類をクリックして強調', n_el: '{n} 元素', all_props: 'すべての物性', close: '閉じる', missing: 'データなし', pick_hint: '元素をクリック', trace_el: '痕跡量のみ', sel: '選択中',
@@ -49,7 +53,8 @@
       tr_group: '族', tr_period: '周期', tr_index: '番号', tr_prop: '物性', tr_lines: '線', tr_log: 'y対数', tr_copy: 'CSVをコピー', tr_copied: 'コピーしました', tr_x_el: '元素', tr_x_z: '原子番号 Z', tr_gaps: 'データなし：{list}',
       iso_pick: '元素', iso_none: '安定同位体はありません。', iso_y: '天然存在比 (%)', iso_sum: '合計：{s} %',
       src_caveat: '起源の分類は定性的（Johnson、OSUに基づく）で、どの過程が寄与するかを示し、寄与の大きさは示しません。r過程の場所は今も議論中です。イオン化エネルギーと電子親和力は eV 単位で、kJ/mol = eV × 96.485 です。', src_fixes: 'Mulberry GUI データの修正', src_list: '出典', prop_label: '物性',
-      timeline: '発見の年表', known_by: '発見済み（年まで）', play: '再生', compare: '2つの元素を比較', compare_hint: '2つ目の元素: 表で Shift+クリック。', difference: '差', bond_hint: '電気陰性度の差は結合の型の目安: <0.4 無極性共有、0.4–1.7 極性共有、>1.7 主にイオン結合（経験則）。', image_scale: '画像の倍率', pixels: 'ピクセル', downloaded: 'ダウンロードを開始しました', dl_failed: 'ファイルを作成できませんでした'},
+      timeline: '発見の年表', known_by: '発見済み（年まで）', play: '再生', compare: '2つの元素を比較', compare_hint: '2つ目の元素: 表で Shift+クリック。', difference: '差', bond_hint: '電気陰性度の差は結合の型の目安: <0.4 無極性共有、0.4–1.7 極性共有、>1.7 主にイオン結合（経験則）。', image_scale: '画像の倍率', pixels: 'ピクセル', downloaded: 'ダウンロードを開始しました', dl_failed: 'ファイルを作成できませんでした',
+      tab_data: 'データ表', x_axis: 'X軸', sort_hint: '列見出しをクリックして並べ替え', rows_n: '{n} 行', kbd_hint: '矢印キーで元素間を移動、Enter で選択、Shift+Enter で2つ目の元素を指定。', symbol: '記号', name: '名前'},
     fr: {tab_table: 'Tableau', tab_origins: 'Origines', tab_game: 'Trouver l’élément', tab_defs: 'Définitions', tab_iso: 'Isotopes', tab_trend: 'Tendances', tab_trendz: 'Tendances selon Z', tab_sources: 'Sources',
       language: 'Langue', scheme: 'Colorier par', sch_block: 'Bloc chimique', sch_origin: 'Origine', sch_state: 'État', sch_heat: 'Carte thermique d’une propriété', show: 'Afficher dans les cases', none_prop: '— symbole seul —', unit: 'Unité', fullnames: 'Noms complets', logscale: 'Échelle log', search: 'Chercher symbole, nom ou Z', cell: 'Taille des cases',
       legend_hint: 'Cliquez sur une classe pour la mettre en évidence', n_el: '{n} éléments', all_props: 'Toutes les propriétés', close: 'Fermer', missing: 'pas de données', pick_hint: 'Cliquez sur un élément', trace_el: 'Traces seulement', sel: 'Sélectionné',
@@ -58,7 +63,8 @@
       tr_group: 'Groupe', tr_period: 'Période', tr_index: 'Numéro', tr_prop: 'Propriété', tr_lines: 'Lignes', tr_log: 'Log y', tr_copy: 'Copier le CSV', tr_copied: 'Copié', tr_x_el: 'Élément', tr_x_z: 'Numéro atomique Z', tr_gaps: 'Pas de données pour : {list}',
       iso_pick: 'Élément', iso_none: 'Aucun isotope stable.', iso_y: 'Abondance naturelle (%)', iso_sum: 'Somme : {s} %',
       src_caveat: 'Les classes d’origine sont qualitatives (d’après Johnson, OSU) : elles disent quels processus contribuent, pas dans quelle proportion. Le site du processus r reste débattu. Énergie d’ionisation et affinité électronique sont en eV ; kJ/mol = eV × 96,485.', src_fixes: 'Corrections des données de la GUI Mulberry', src_list: 'Sources', prop_label: 'Propriété',
-      timeline: 'Chronologie des découvertes', known_by: 'Connus jusqu’en', play: 'Lecture', compare: 'Comparer deux éléments', compare_hint: 'Choisissez un second élément : Maj+clic dans le tableau.', difference: 'Différence', bond_hint: 'La différence d’électronégativité suggère le type de liaison : <0,4 covalente apolaire, 0,4–1,7 covalente polaire, >1,7 surtout ionique (règle empirique).', image_scale: 'Échelle de l’image', pixels: 'pixels', downloaded: 'Téléchargement lancé', dl_failed: 'Impossible de créer le fichier'},
+      timeline: 'Chronologie des découvertes', known_by: 'Connus jusqu’en', play: 'Lecture', compare: 'Comparer deux éléments', compare_hint: 'Choisissez un second élément : Maj+clic dans le tableau.', difference: 'Différence', bond_hint: 'La différence d’électronégativité suggère le type de liaison : <0,4 covalente apolaire, 0,4–1,7 covalente polaire, >1,7 surtout ionique (règle empirique).', image_scale: 'Échelle de l’image', pixels: 'pixels', downloaded: 'Téléchargement lancé', dl_failed: 'Impossible de créer le fichier',
+      tab_data: 'Tableau de données', x_axis: 'Axe X', sort_hint: 'Cliquez sur un en-tête pour trier', rows_n: '{n} lignes', kbd_hint: 'Les flèches changent d’élément ; Entrée sélectionne, Maj+Entrée marque un second élément.', symbol: 'Symbole', name: 'Nom'},
   };
   const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹', sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const NS = 'http://www.w3.org/2000/svg';
@@ -81,7 +87,7 @@
       trend: {kind: 'group', index: 1, prop: 'mass', lines: true, log: false}, trendz: {prop: 'mass', lines: true, log: false}, iso: 'Fe', find: null, findTimer: 0, findMsg: '', findSeconds: 60, findUseTimer: false, og: null, ogMode: 'select', ogMsg: ''};
     const t = (key, vars = {}) => (UI[S.lang][key] || UI.en[key] || key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
     const name = e => P.displayName(e, S.lang);
-    const TABS = ['table', 'origins', 'game', 'defs', 'iso', 'trend', 'trendz', 'sources'];
+    const TABS = ['table', 'origins', 'game', 'defs', 'iso', 'trend', 'trendz', 'data', 'sources'];
     const numProps = P.NUMERIC;
 
     // ---- shared pieces -----------------------------------------------------------------------
@@ -95,7 +101,7 @@
         const base = opts.plain && !(opts.found && opts.found.has(e.sym)) ? {background: 'var(--zg-soft)', color: 'var(--zg-ink)', striped: false, dim: false}
           : P.cellStyle(m, e, opts.plain ? 'origin' : opts.scheme, {key: opts.prop || 'mass', unit: opts.unit, scale, highlight: opts.highlight});
         const val = opts.prop && !opts.hideValue ? P.value(m, e, opts.prop, opts.unit) : null;
-        const cell = h('button', {type: 'button', class: 'pt-cell' + (base.striped ? ' striped' : '') + (base.dim ? ' dim' : '') + (opts.selected === e.sym ? ' sel' : '') + (opts.marked === e.sym ? ' mark' : ''), 'data-sym': e.sym,
+        const cell = h('button', {type: 'button', class: 'pt-cell' + (base.striped ? ' striped' : '') + (base.dim ? ' dim' : '') + (opts.selected === e.sym ? ' sel' : '') + (opts.marked === e.sym ? ' mark' : ''), 'data-sym': e.sym, tabindex: (opts.selected || 'H') === e.sym ? 0 : -1,
           style: {gridRow: e.row + 1, gridColumn: e.col + 1, background: base.background, color: base.color},
           title: `${e.z} ${name(e)}` + (opts.hideName ? '' : ''), 'aria-label': `${e.z} ${e.sym} ${name(e)}`, onclick: ev => opts.onPick(e.sym, ev.shiftKey || ev.ctrlKey || ev.metaKey)},
           h('span', {class: 'pt-z'}, e.z), h('span', {class: 'pt-sym'}, e.sym),
@@ -103,6 +109,12 @@
           opts.prop && !opts.hideValue ? h('span', {class: 'pt-val'}, val === null ? '–' : P.formatNumber(val, S.lang, 4)) : null);
         g.append(cell);
       }
+      g.addEventListener('keydown', ev => { // arrow keys walk the table; Enter / Space (native click) selects, Shift+Enter marks
+        const dirs = {ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1]}, d = dirs[ev.key], cur = ev.target.closest && ev.target.closest('.pt-cell');
+        if (!d || !cur) return;
+        const next = P.neighbor(m, cur.dataset.sym, d[0], d[1]); if (!next) return;
+        ev.preventDefault(); cur.tabIndex = -1; const to = g.querySelector(`[data-sym="${next}"]`); to.tabIndex = 0; to.focus();
+      });
       return {el: g, scale};
     }
     function legend(scheme, scale, prop, unit, onClick, activeFilter) {
@@ -275,6 +287,7 @@
         g.el.append(cardEl);
         fill(body, narrow, h('div', {class: 'pt-scroll'}, g.el), legend(S.scheme, g.scale, prop, S.unit, c => { S.filter = S.filter === c ? null : c; draw(); }, S.filter),
           (S.scheme === 'block' || S.scheme === 'origin') ? h('p', {class: 'zg-small zg-muted'}, S.scheme === 'origin' ? t('legend_hint') + ' · ' + t('src_caveat') : t('legend_hint')) : null, found ? h('p', {class: 'zg-small'}, t('n_el', {n: found.size})) : null,
+          h('p', {class: 'zg-small zg-muted'}, t('kbd_hint')),
           compareBox(),
           h('div', {class: 'pt-bar-row pt-export'}, scaleSelect(), h('span', {class: 'zg-small zg-muted'}, `→ ${Math.ceil((L.width + 2) * S.imgScale)} × ${Math.ceil((L.height + 2) * S.imgScale)} ${t('pixels')}`),
             dlBtn('PNG', t('image_scale'), () => tableCanvas(S.snap, S.imgScale).toBlob(b => (b ? download(b, `periodic-table-${S.scheme}-${stamp()}.png`) : note(t('dl_failed'))), 'image/png')),
@@ -360,14 +373,16 @@
     function trendView(cfg, kind) { // cfg: {kind,index,prop,lines,log}; kind 'z' uses all elements
       const host = h('div'), out = h('div');
       function draw() {
-        const isZ = kind === 'z', pts = P.trend(m, isZ ? 'z' : cfg.kind, cfg.index, cfg.prop, S.unit), vals = pts.filter(p => p.y !== null).map(p => p.y);
+        const isZ = kind === 'z', xKey = isZ ? (cfg.x || 'z') : 'z', scat = isZ && xKey !== 'z';
+        const pts = scat ? P.scatter(m, xKey, cfg.prop, S.unit, S.unit).map((p, i) => ({...p, i})) : P.trend(m, isZ ? 'z' : cfg.kind, cfg.index, cfg.prop, S.unit), vals = pts.filter(p => p.y !== null).map(p => p.y);
         const useLog = cfg.log && vals.length && vals.every(v => v > 0), f = v => (useLog ? Math.log10(v) : v);
         const controls = h('div', {class: 'pt-bar-row'}, isZ ? null : select(t('tr_group') + ' / ' + t('tr_period'), cfg.kind, [['group', t('tr_group')], ['period', t('tr_period')]], v => { cfg.kind = v; cfg.index = 1; draw(); }),
           isZ ? null : select(t('tr_index'), cfg.index, Array.from({length: cfg.kind === 'group' ? 18 : 7}, (_, i) => [i + 1, i + 1]), v => { cfg.index = Number(v); draw(); }),
+          isZ ? select(t('x_axis'), xKey, numProps.map(k => [k, P.label(m, S.lang, k)]), v => { cfg.x = v; cfg.lines = v === 'z'; draw(); }) : null,
           select(t('tr_prop'), cfg.prop, numProps.filter(k => k !== 'z').map(k => [k, P.label(m, S.lang, k)]), v => { cfg.prop = v; draw(); }), unitSelect(cfg.prop),
           check(t('tr_lines'), cfg.lines, v => { cfg.lines = v; draw(); }), check(t('tr_log'), cfg.log, v => { cfg.log = v; draw(); }));
         const gaps = pts.filter(p => p.y === null).map(p => p.sym);
-        const csv = () => ['Z,symbol,' + cfg.prop + (P.unitFor(m, cfg.prop, S.unit) ? ` [${P.unitFor(m, cfg.prop, S.unit)}]` : ''), ...pts.map(p => `${p.z},${p.sym},${p.y === null ? '' : p.y}`)].join('\n');
+        const csv = () => ['Z,symbol,' + (scat ? xKey + ',' : '') + cfg.prop + (P.unitFor(m, cfg.prop, S.unit) ? ` [${P.unitFor(m, cfg.prop, S.unit)}]` : ''), ...pts.map(p => `${p.z},${p.sym},${scat ? p.x + ',' : ''}${p.y === null ? '' : p.y}`)].join('\n');
         const readout = h('p', {class: 'zg-small', 'aria-live': 'polite'}, ' ');
         let svg = h('p', {class: 'zg-muted'}, t('missing'));
         if (vals.length) {
@@ -376,28 +391,45 @@
           const pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
           const yt = useLog ? Array.from({length: Math.floor(hi) - Math.ceil(lo) + 1}, (_, i) => Math.ceil(lo) + i) : P.niceTicks(lo, hi, 6);
           const zmax = Math.max(...pts.map(p => p.z)), zmin = Math.min(...pts.map(p => p.z));
-          const x = p => isZ ? L + (p.z - 0.5) / 118 * (W - L - R) : L + (p.i + 0.5) / pts.length * (W - L - R), y = v => T + (H - T - B) * (1 - (f(v) - lo) / (hi - lo));
+          let xlo = 0.5, xhi = 118.5; if (scat) { xlo = Math.min(...pts.map(p => p.x)); xhi = Math.max(...pts.map(p => p.x)); if (xlo === xhi) { xlo -= 1; xhi += 1; } const xp = (xhi - xlo) * 0.04; xlo -= xp; xhi += xp; }
+          const x = p => isZ ? L + ((scat ? p.x : p.z) - xlo) / (xhi - xlo) * (W - L - R) : L + (p.i + 0.5) / pts.length * (W - L - R), y = v => T + (H - T - B) * (1 - (f(v) - lo) / (hi - lo));
           const segs = []; let run = []; for (const p of pts) { if (p.y === null) { if (run.length) segs.push(run); run = []; } else run.push(p); } if (run.length) segs.push(run);
           svg = h('svg:svg', {viewBox: `0 0 ${W} ${H}`, class: 'pt-svg', role: 'img', 'aria-label': P.label(m, S.lang, cfg.prop)},
             yt.map(v => [h('svg:line', {x1: L, x2: W - R, y1: T + (H - T - B) * (1 - (v - lo) / (hi - lo)), y2: T + (H - T - B) * (1 - (v - lo) / (hi - lo)), class: 'pt-gridline'}),
               h('svg:text', {x: L - 6, y: T + (H - T - B) * (1 - (v - lo) / (hi - lo)) + 4, class: 'pt-tick', 'text-anchor': 'end'}, useLog ? P.formatNumber(10 ** v, S.lang, 3) : P.formatNumber(v, S.lang, 4))]),
-            isZ ? P.niceTicks(zmin, zmax + 1, 13).filter(v => v >= 1 && v <= 118).map(v => h('svg:text', {x: x({z: v}), y: H - B + 16, class: 'pt-tick', 'text-anchor': 'middle'}, v)) : pts.map(p => h('svg:text', {x: x(p), y: H - B + 16, class: 'pt-tick big', 'text-anchor': 'middle'}, p.sym)),
+            isZ ? (scat ? P.niceTicks(xlo, xhi, 8) : P.niceTicks(zmin, zmax + 1, 13).filter(v => v >= 1 && v <= 118)).map(v => h('svg:text', {x: x({z: v, x: v}), y: H - B + 16, class: 'pt-tick', 'text-anchor': 'middle'}, P.formatNumber(v, S.lang, 4))) : pts.map(p => h('svg:text', {x: x(p), y: H - B + 16, class: 'pt-tick big', 'text-anchor': 'middle'}, p.sym)),
             cfg.lines ? segs.map(seg => h('svg:polyline', {points: seg.map(p => `${x(p)},${y(p.y)}`).join(' '), class: 'pt-line'})) : null,
             pts.filter(p => p.y !== null).map(p => h('svg:circle', {cx: x(p), cy: y(p.y), r: isZ ? 3.2 : 5, fill: m.i18n.groups.color[p.block], class: 'pt-dot', tabindex: 0,
-              onmouseenter: () => { readout.textContent = `${p.z} ${p.sym} (${name(m.bySym[p.sym])}): ${P.formatNumber(p.y, S.lang, 5)} ${P.unitFor(m, cfg.prop, S.unit)}`; }, onfocus: () => { readout.textContent = `${p.z} ${p.sym}: ${P.formatNumber(p.y, S.lang, 5)}`; }}, h('svg:title', {}, `${p.z} ${p.sym}: ${P.formatNumber(p.y, S.lang, 5)}`))),
-            h('svg:text', {x: (L + W - R) / 2, y: H - 6, class: 'pt-axis-title', 'text-anchor': 'middle'}, isZ ? t('tr_x_z') : t('tr_x_el')),
+              onmouseenter: () => { readout.textContent = `${p.z} ${p.sym} (${name(m.bySym[p.sym])}): ${scat ? P.formatNumber(p.x, S.lang, 5) + ', ' : ''}${P.formatNumber(p.y, S.lang, 5)} ${P.unitFor(m, cfg.prop, S.unit)}`; }, onfocus: () => { readout.textContent = `${p.z} ${p.sym}: ${P.formatNumber(p.y, S.lang, 5)}`; }}, h('svg:title', {}, `${p.z} ${p.sym}: ${scat ? P.formatNumber(p.x, S.lang, 5) + ', ' : ''}${P.formatNumber(p.y, S.lang, 5)}`))),
+            h('svg:text', {x: (L + W - R) / 2, y: H - 6, class: 'pt-axis-title', 'text-anchor': 'middle'}, scat ? `${P.label(m, S.lang, xKey)}${P.unitFor(m, xKey, S.unit) ? ' (' + P.unitFor(m, xKey, S.unit) + ')' : ''}` : isZ ? t('tr_x_z') : t('tr_x_el')),
             h('svg:text', {x: 14, y: (T + H - B) / 2, class: 'pt-axis-title', 'text-anchor': 'middle', transform: `rotate(-90 14 ${(T + H - B) / 2})`}, `${P.label(m, S.lang, cfg.prop)} ${P.unitFor(m, cfg.prop, S.unit) ? '(' + P.unitFor(m, cfg.prop, S.unit) + ')' : ''}`));
         }
         const copy = h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: ev => { const b = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(csv()) : Promise.reject()).then(() => { b.textContent = t('tr_copied'); setTimeout(() => { b.textContent = t('tr_copy'); }, 1500); }).catch(() => { b.textContent = '⚠'; }); }}, t('tr_copy'));
-        const table = h('table', {class: 'pt-table'}, h('thead', {}, h('tr', {}, h('th', {}, 'Z'), h('th', {}, ''), h('th', {}, P.label(m, S.lang, cfg.prop)))),
-          h('tbody', {}, pts.map(p => h('tr', {}, h('td', {}, p.z), h('td', {}, p.sym), h('td', {}, p.y === null ? '–' : P.formatNumber(p.y, S.lang, 5))))));
+        const table = h('table', {class: 'pt-table'}, h('thead', {}, h('tr', {}, h('th', {}, 'Z'), h('th', {}, ''), scat ? h('th', {}, P.label(m, S.lang, xKey)) : null, h('th', {}, P.label(m, S.lang, cfg.prop)))),
+          h('tbody', {}, pts.map(p => h('tr', {}, h('td', {}, p.z), h('td', {}, p.sym), scat ? h('td', {}, P.formatNumber(p.x, S.lang, 5)) : null, h('td', {}, p.y === null ? '–' : P.formatNumber(p.y, S.lang, 5))))));
         fill(out, controls, svg, readout, gaps.length ? h('p', {class: 'zg-small zg-muted'}, t('tr_gaps', {list: gaps.join(', ')})) : null,
-          h('div', {class: 'pt-bar-row'}, copy, h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => attempt(() => csvDownload([['Z', 'symbol', 'name', `${cfg.prop} [${P.unitFor(m, cfg.prop, S.unit)}]`], ...pts.map(p => [String(p.z), p.sym, m.bySym[p.sym].names.en, p.y === null ? '' : String(p.y)])], `periodic-table-${cfg.prop}`))}, 'CSV'), ...(vals.length ? chartButtons(svg, `periodic-table-${cfg.prop}`) : [])), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note), h('details', {}, h('summary', {}, t('tab_trend')), table));
+          h('div', {class: 'pt-bar-row'}, copy, h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => attempt(() => csvDownload([['Z', 'symbol', 'name', ...(scat ? [`${xKey} [${P.unitFor(m, xKey, S.unit)}]`] : []), `${cfg.prop} [${P.unitFor(m, cfg.prop, S.unit)}]`], ...pts.map(p => [String(p.z), p.sym, m.bySym[p.sym].names.en, ...(scat ? [String(p.x)] : []), p.y === null ? '' : String(p.y)])], `periodic-table-${scat ? xKey + '-vs-' : ''}${cfg.prop}`))}, 'CSV'), ...(vals.length ? chartButtons(svg, `periodic-table-${cfg.prop}`) : [])), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note), h('details', {}, h('summary', {}, t('tab_trend')), table));
       }
       draw(); host.append(out); return host;
     }
     tabs.trend = () => trendView(S.trend, 'ptz-group');
     tabs.trendz = () => trendView(S.trendz, 'z');
+
+    tabs.data = () => {
+      const host = h('div'), out = h('div'); let key = 'z', asc = true, filter = '';
+      const cols = P.DATA_COLUMNS, headLabel = k => (k === 'sym' ? t('symbol') : k === 'name' ? t('name') : P.label(m, S.lang, k === 'sym' ? 'z' : k)) + ((k === 'ie' || k === 'ea') ? ` (${S.unit})` : (m.i18n.properties.unit[k] && !['z', 'year'].includes(k) ? ` (${m.i18n.properties.unit[k]})` : ''));
+      const fmt = (k, v) => (v === null || v === undefined || v === '' ? '–' : typeof v === 'number' ? (k === 'z' || k === 'year' ? String(v) : P.formatNumber(v, S.lang, 5)) : String(v));
+      function draw() {
+        let rows = P.sortRows(P.dataRows(m, S.lang, S.unit), key, asc, S.lang);
+        if (filter) { const f = filter.toLowerCase(); rows = rows.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(f))); }
+        const head = h('tr', {}, cols.map(k => h('th', {scope: 'col', 'aria-sort': key === k ? (asc ? 'ascending' : 'descending') : 'none', class: 'pt-sortable', tabindex: 0, onclick: () => { if (key === k) asc = !asc; else { key = k; asc = true; } draw(); }, onkeydown: ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.target.click(); } }}, headLabel(k) + (key === k ? (asc ? ' ▲' : ' ▼') : ''))));
+        const bar = h('div', {class: 'pt-bar-row'}, h('input', {type: 'search', class: 'pt-search', placeholder: t('search'), 'aria-label': t('search'), value: filter, oninput: ev => { filter = ev.target.value; draw(); const i = out.querySelector('.pt-search'); if (i) { i.focus(); i.setSelectionRange(filter.length, filter.length); } }}), unitSelect('ie'),
+          h('span', {class: 'zg-small zg-muted'}, t('rows_n', {n: rows.length}) + ' · ' + t('sort_hint')), dlBtn('CSV', 'CSV', () => csvDownload(P.csvRows(m, S.lang), 'periodic-table-data')));
+        fill(out, bar, h('div', {class: 'pt-data-scroll'}, h('table', {class: 'pt-table pt-data'}, h('thead', {}, head), h('tbody', {}, rows.map(r => h('tr', {onclick: () => { S.sel = r.sym; }}, cols.map(k => h('td', {class: typeof r[k] === 'number' ? 'num' : ''}, fmt(k, r[k])))))))),
+          h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note));
+      }
+      draw(); host.append(out); return host;
+    };
 
     tabs.sources = () => {
       const meta = m.data.meta;

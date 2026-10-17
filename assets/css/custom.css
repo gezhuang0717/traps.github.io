@@ -559,4 +559,7 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .pt-year{font-size:.8rem;color:var(--zg-muted);align-self:center}
 .pt-compare{margin:.4rem 0;overflow-x:auto}.pt-compare .pt-table th{text-align:start}
 .pt-export{align-items:end}
+.pt-data-scroll{max-height:30rem;overflow:auto;border:1px solid var(--zg-line);border-radius:.5rem}
+.pt-data th{position:sticky;top:0;background:var(--zg-soft);z-index:1;white-space:nowrap}.pt-sortable{cursor:pointer}.pt-sortable:hover{color:var(--zg-blue)}
+.pt-data td{white-space:nowrap}.pt-data td.num{text-align:end;font-variant-numeric:tabular-nums}.pt-data tbody tr:nth-child(even){background:var(--zg-soft)}
 @media (prefers-reduced-motion:reduce){.pt-cell,.pt-cell.ok,.pt-cell.bad{transition:none;animation:none}}
