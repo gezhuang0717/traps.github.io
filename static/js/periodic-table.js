@@ -16,7 +16,11 @@
       timeline: 'Discovery timeline', known_by: 'Known by year', play: 'Play', compare: 'Compare two elements', compare_hint: 'Pick a second element: Shift+click in the table.', difference: 'Difference', bond_hint: 'Electronegativity difference suggests the bond type: <0.4 nonpolar covalent, 0.4–1.7 polar covalent, >1.7 mostly ionic (rule of thumb).', image_scale: 'Image scale', pixels: 'pixels', downloaded: 'Download started', dl_failed: 'Could not create the file',
       tab_data: 'Data table', x_axis: 'X axis', sort_hint: 'Click a column header to sort', rows_n: '{n} rows', kbd_hint: 'Arrow keys move between elements; Enter selects, Shift+Enter marks a second element.', symbol: 'Symbol', name: 'Name',
       origin_about_title: 'How the elements were made', origin_about: 'Hydrogen, helium and a little lithium formed in the first minutes after the Big Bang (Big Bang nucleosynthesis). Almost everything heavier was made in stars: fusion in massive stars builds elements up to the iron group, and the explosions of massive stars (core-collapse supernovae) and of white dwarfs (type Ia supernovae) spread them into space. Asymptotic-giant-branch stars make roughly half of the elements beyond iron by the slow neutron-capture process (s-process); the other half needs the rapid neutron-capture process (r-process), which requires extreme neutron densities. It is established for neutron-star mergers, while other possible sites are still debated. Lithium, beryllium and boron are mostly destroyed in stars and are made by cosmic-ray spallation. Many elements have several sources, so the table shows sets instead of single labels. Masses of exotic nuclei measured with ion traps (for example at IGISOL/JYFLTRAP) give the neutron-separation energies that fix the r-process path and the proton-capture waiting points of the rp-process: this is the link between nuclear physics and the origin of the elements.',
-      sch_country: 'Discovery country', cell_isocount: 'Stable isotopes (count)', cell_origincount: 'Number of origin sources', cell_text: 'Text in cells'},
+      sch_country: 'Discovery country', cell_isocount: 'Stable isotopes (count)', cell_origincount: 'Number of origin sources', cell_text: 'Text in cells', localnames: 'Names in the panel language', ex_key: 'Colour key and description in saved images', ex_csv_desc: 'Description lines (#) in the CSV', ex_csv_col: 'Colour columns in the CSV',
+      key_block: 'Each cell is coloured by the chemical family of the element.', key_origin: 'Each cell is coloured by the astrophysical or human source(s) of the element; striped cells have several sources and the number counts the elements of each class.',
+      key_country: 'Each cell is coloured by the country credited with the discovery; the number counts the elements per country.', key_state: 'Each cell is coloured by the state of matter at room temperature and normal pressure.',
+      key_heat: 'The cell colour encodes the value of the shown property from the lowest (left end of the bar) to the highest value (right end){log}; grey cells have no data.',
+      key_points: 'Each point is coloured by the chemical family of the element.'},
     zh: {tab_table: '周期表', tab_origins: '起源', tab_game: '找元素', tab_defs: '定义', tab_iso: '同位素', tab_trend: '趋势', tab_trendz: '按质子数', tab_sources: '来源',
       language: '语言', scheme: '着色方式', sch_block: '化学族块', sch_origin: '起源', sch_state: '物态', sch_heat: '性质热图', show: '格内显示', none_prop: '— 仅符号 —', unit: '单位', fullnames: '显示全名', logscale: '对数刻度', search: '搜索符号、名称或 Z', cell: '格子大小',
       legend_hint: '点击类别以高亮', n_el: '{n} 个元素', all_props: '全部性质', close: '关闭', missing: '无数据', pick_hint: '点击一个元素', trace_el: '仅痕量', sel: '已选',
@@ -28,7 +32,11 @@
       timeline: '发现时间线', known_by: '截至年份已知', play: '播放', compare: '比较两个元素', compare_hint: '选择第二个元素：在表中按住 Shift 点击。', difference: '差值', bond_hint: '电负性差值提示键型：<0.4 非极性共价，0.4–1.7 极性共价，>1.7 以离子键为主（经验规则）。', image_scale: '图片倍数', pixels: '像素', downloaded: '已开始下载', dl_failed: '无法生成文件',
       tab_data: '数据表', x_axis: 'X 轴', sort_hint: '点击列标题排序', rows_n: '{n} 行', kbd_hint: '方向键在元素间移动；回车选中，Shift+回车标记第二个元素。', symbol: '符号', name: '名称',
       origin_about_title: '元素是如何形成的', origin_about: '氢、氦和少量锂形成于大爆炸后的最初几分钟（大爆炸核合成）。比锂更重的元素几乎都形成于恒星：大质量恒星中的聚变合成直到铁族的元素，大质量恒星的爆炸（核坍缩超新星）和白矮星的爆炸（Ia 型超新星）把它们抛向星际空间。渐近巨星支恒星通过慢中子俘获过程（s 过程）贡献了铁以后大约一半的元素；另一半需要快中子俘获过程（r 过程），它要求极高的中子密度，已在中子星并合中得到证实，其他可能的发生地点仍有争议。锂、铍、硼在恒星中大多被破坏，主要来自宇宙射线散裂。许多元素有多个来源，因此周期表给出来源集合而不是单一标签。用离子阱测得的奇特核质量（例如在 IGISOL/JYFLTRAP）给出中子分离能，决定 r 过程的路径和 rp 过程的质子俘获等待点——这是核物理与元素起源之间的联系。',
-      sch_country: '发现国家', cell_isocount: '稳定同位素（个数）', cell_origincount: '起源来源数', cell_text: '格内文字大小'},
+      sch_country: '发现国家', cell_isocount: '稳定同位素（个数）', cell_origincount: '起源来源数', cell_text: '格内文字大小', localnames: '元素名称使用面板语言', ex_key: '保存的图片中包含颜色图例和说明', ex_csv_desc: 'CSV 中包含说明行（#）', ex_csv_col: 'CSV 中包含颜色列',
+      key_block: '每个格子按元素所属的化学类别着色。', key_origin: '每个格子按元素的天体物理或人工来源着色；条纹格子表示有多种来源，数字为各类别的元素个数。',
+      key_country: '每个格子按发现该元素的国家着色；数字为各国发现的元素个数。', key_state: '每个格子按室温常压下的物质状态着色。',
+      key_heat: '格子颜色表示所示性质的数值，从最低值（色条左端）到最高值（右端）{log}；灰色格子表示无数据。',
+      key_points: '每个点按元素所属的化学类别着色。'},
     fi: {tab_table: 'Taulukko', tab_origins: 'Alkuperä', tab_game: 'Etsi alkuaine', tab_defs: 'Määritelmät', tab_iso: 'Isotoopit', tab_trend: 'Trendit', tab_trendz: 'Trendit Z:n mukaan', tab_sources: 'Lähteet',
       language: 'Kieli', scheme: 'Väritys', sch_block: 'Kemiallinen lohko', sch_origin: 'Alkuperä', sch_state: 'Olomuoto', sch_heat: 'Ominaisuuden lämpökartta', show: 'Näytä ruuduissa', none_prop: '— vain symboli —', unit: 'Yksikkö', fullnames: 'Koko nimet', logscale: 'Logaritminen asteikko', search: 'Hae symbolia, nimeä tai Z:aa', cell: 'Ruudun koko',
       legend_hint: 'Napsauta luokkaa korostaaksesi', n_el: '{n} alkuainetta', all_props: 'Kaikki ominaisuudet', close: 'Sulje', missing: 'ei tietoa', pick_hint: 'Napsauta alkuainetta', trace_el: 'Vain jälkiä', sel: 'Valittu',
@@ -40,7 +48,11 @@
       timeline: 'Löytöaikajana', known_by: 'Tunnettu vuoteen mennessä', play: 'Toista', compare: 'Vertaa kahta alkuainetta', compare_hint: 'Valitse toinen alkuaine: Shift+napsautus taulukossa.', difference: 'Erotus', bond_hint: 'Elektronegatiivisuuden ero ennustaa sidostyypin: <0,4 poolittoman kovalenttinen, 0,4–1,7 polaarinen kovalenttinen, >1,7 enimmäkseen ioninen (nyrkkisääntö).', image_scale: 'Kuvan skaalaus', pixels: 'pikseliä', downloaded: 'Lataus alkoi', dl_failed: 'Tiedoston luonti epäonnistui',
       tab_data: 'Datataulukko', x_axis: 'X-akseli', sort_hint: 'Napsauta sarakeotsikkoa lajitellaksesi', rows_n: '{n} riviä', kbd_hint: 'Nuolinäppäimet siirtävät elementtien välillä; Enter valitsee, Shift+Enter merkitsee toisen alkuaineen.', symbol: 'Symboli', name: 'Nimi',
       origin_about_title: 'Miten alkuaineet syntyivät', origin_about: 'Vety, helium ja hieman litiumia syntyi ensimmäisten minuuttien aikana alkuräjähdyksen jälkeen (alkuräjähdyksen ydinsynteesi). Lähes kaikki litiumia raskaampi syntyi tähdissä: massiivisten tähtien fuusio rakentaa alkuaineita rautaryhmään asti, ja massiivisten tähtien räjähdykset (ytimen romahtamisen supernovat) sekä valkoisten kääpiöiden räjähdykset (Ia-tyypin supernovat) levittävät ne avaruuteen. AGB-tähdet tuottavat hitaalla neutronikaappauksella (s-prosessi) noin puolet rautaa raskaammista alkuaineista; toinen puoli vaatii nopean neutronikaappauksen (r-prosessi), joka tarvitsee äärimmäisen suuren neutronitiheyden. Se on vahvistettu neutronitähtien yhdistymisissä, mutta muut mahdolliset paikat ovat yhä kiistanalaisia. Litium, beryllium ja boori tuhoutuvat pääosin tähdissä ja syntyvät kosmisen säteilyn spallaatiossa. Monella alkuaineella on useita lähteitä, joten taulukko näyttää joukkoja yksittäisten luokkien sijaan. Ioniloukuilla (esim. IGISOL/JYFLTRAP) mitatut eksoottisten ytimien massat antavat neutronien erotusenergiat, jotka määräävät r-prosessin polun ja rp-prosessin protonikaappauksen odotuspisteet – tämä yhdistää ydinfysiikan alkuaineiden alkuperään.',
-      sch_country: 'Löytömaa', cell_isocount: 'Vakaat isotoopit (lukumäärä)', cell_origincount: 'Alkuperälähteiden lukumäärä', cell_text: 'Tekstin koko ruuduissa'},
+      sch_country: 'Löytömaa', cell_isocount: 'Vakaat isotoopit (lukumäärä)', cell_origincount: 'Alkuperälähteiden lukumäärä', cell_text: 'Tekstin koko ruuduissa', localnames: 'Nimet paneelin kielellä', ex_key: 'Värien selite ja kuvaus tallennettuihin kuviin', ex_csv_desc: 'Kuvausrivit (#) CSV-tiedostoon', ex_csv_col: 'Värisarakkeet CSV-tiedostoon',
+      key_block: 'Jokainen ruutu on väritetty alkuaineen kemiallisen ryhmän mukaan.', key_origin: 'Jokainen ruutu on väritetty alkuaineen astrofysikaalisen tai ihmisen tekemän alkuperän mukaan; raidalliset ruudut tarkoittavat useita lähteitä ja luku kertoo luokan alkuaineiden määrän.',
+      key_country: 'Jokainen ruutu on väritetty löytäjämaan mukaan; luku kertoo maan löytämien alkuaineiden määrän.', key_state: 'Jokainen ruutu on väritetty huoneenlämpötilan ja normaalipaineen aggregaattitilan mukaan.',
+      key_heat: 'Ruudun väri kuvaa näytettävän ominaisuuden arvoa pienimmästä (palkin vasen pää) suurimpaan (oikea pää){log}; harmaat ruudut eivät sisällä tietoa.',
+      key_points: 'Jokainen piste on väritetty alkuaineen kemiallisen ryhmän mukaan.'},
     de: {tab_table: 'Tabelle', tab_origins: 'Herkunft', tab_game: 'Element finden', tab_defs: 'Definitionen', tab_iso: 'Isotope', tab_trend: 'Trends', tab_trendz: 'Trends nach Z', tab_sources: 'Quellen',
       language: 'Sprache', scheme: 'Färben nach', sch_block: 'Chemischer Block', sch_origin: 'Herkunft', sch_state: 'Aggregatzustand', sch_heat: 'Eigenschafts-Heatmap', show: 'In Zellen zeigen', none_prop: '— nur Symbol —', unit: 'Einheit', fullnames: 'Volle Namen', logscale: 'Logarithmische Skala', search: 'Symbol, Name oder Z suchen', cell: 'Zellgröße',
       legend_hint: 'Klasse anklicken, um sie hervorzuheben', n_el: '{n} Elemente', all_props: 'Alle Eigenschaften', close: 'Schließen', missing: 'keine Daten', pick_hint: 'Element anklicken', trace_el: 'Nur Spuren', sel: 'Ausgewählt',
@@ -52,7 +64,11 @@
       timeline: 'Entdeckungs-Zeitleiste', known_by: 'Bekannt bis Jahr', play: 'Abspielen', compare: 'Zwei Elemente vergleichen', compare_hint: 'Zweites Element wählen: Umschalt+Klick in der Tabelle.', difference: 'Differenz', bond_hint: 'Die Elektronegativitätsdifferenz deutet auf den Bindungstyp: <0,4 unpolar kovalent, 0,4–1,7 polar kovalent, >1,7 überwiegend ionisch (Faustregel).', image_scale: 'Bildmaßstab', pixels: 'Pixel', downloaded: 'Download gestartet', dl_failed: 'Datei konnte nicht erstellt werden',
       tab_data: 'Datentabelle', x_axis: 'X-Achse', sort_hint: 'Spaltenkopf anklicken zum Sortieren', rows_n: '{n} Zeilen', kbd_hint: 'Pfeiltasten wechseln das Element; Eingabe wählt, Umschalt+Eingabe markiert ein zweites Element.', symbol: 'Symbol', name: 'Name',
       origin_about_title: 'Wie die Elemente entstanden', origin_about: 'Wasserstoff, Helium und etwas Lithium entstanden in den ersten Minuten nach dem Urknall (primordiale Nukleosynthese). Fast alles Schwerere entstand in Sternen: Die Fusion in massereichen Sternen baut Elemente bis zur Eisengruppe auf; Explosionen massereicher Sterne (Kernkollaps-Supernovae) und Weißer Zwerge (Typ-Ia-Supernovae) verteilen sie im Raum. AGB-Sterne liefern über den langsamen Neutroneneinfang (s-Prozess) etwa die Hälfte der Elemente jenseits von Eisen; die andere Hälfte erfordert den schnellen Neutroneneinfang (r-Prozess) mit extrem hohen Neutronendichten. Er ist für Neutronensternverschmelzungen belegt, weitere mögliche Orte sind noch umstritten. Lithium, Beryllium und Bor werden in Sternen überwiegend zerstört und entstehen durch Spallation der kosmischen Strahlung. Viele Elemente haben mehrere Quellen, deshalb zeigt die Tabelle Mengen statt einzelner Etiketten. Mit Ionenfallen gemessene Massen exotischer Kerne (z. B. bei IGISOL/JYFLTRAP) liefern die Neutronentrennenergien, die den Pfad des r-Prozesses und die Protoneneinfang-Wartepunkte des rp-Prozesses bestimmen – die Verbindung zwischen Kernphysik und der Herkunft der Elemente.',
-      sch_country: 'Entdeckungsland', cell_isocount: 'Stabile Isotope (Anzahl)', cell_origincount: 'Anzahl der Herkunftsquellen', cell_text: 'Textgröße in den Zellen'},
+      sch_country: 'Entdeckungsland', cell_isocount: 'Stabile Isotope (Anzahl)', cell_origincount: 'Anzahl der Herkunftsquellen', cell_text: 'Textgröße in den Zellen', localnames: 'Namen in der Sprache des Panels', ex_key: 'Farblegende und Beschreibung in gespeicherten Bildern', ex_csv_desc: 'Beschreibungszeilen (#) in der CSV-Datei', ex_csv_col: 'Farbspalten in der CSV-Datei',
+      key_block: 'Jede Zelle ist nach der chemischen Familie des Elements gefärbt.', key_origin: 'Jede Zelle ist nach der astrophysikalischen oder menschlichen Quelle des Elements gefärbt; gestreifte Zellen haben mehrere Quellen, die Zahl gibt die Anzahl der Elemente je Klasse an.',
+      key_country: 'Jede Zelle ist nach dem Land der Entdeckung gefärbt; die Zahl gibt die Anzahl der Elemente je Land an.', key_state: 'Jede Zelle ist nach dem Aggregatzustand bei Raumtemperatur und Normaldruck gefärbt.',
+      key_heat: 'Die Zellfarbe gibt den Wert der angezeigten Eigenschaft vom kleinsten (linkes Ende des Balkens) bis zum größten Wert (rechtes Ende) an{log}; graue Zellen haben keine Daten.',
+      key_points: 'Jeder Punkt ist nach der chemischen Familie des Elements gefärbt.'},
     ja: {tab_table: '周期表', tab_origins: '起源', tab_game: '元素探し', tab_defs: '用語', tab_iso: '同位体', tab_trend: '傾向', tab_trendz: '原子番号別', tab_sources: '出典',
       language: '言語', scheme: '色分け', sch_block: '化学ブロック', sch_origin: '起源', sch_state: '状態', sch_heat: '物性ヒートマップ', show: 'セルに表示', none_prop: '— 記号のみ —', unit: '単位', fullnames: '元素名を表示', logscale: '対数目盛', search: '記号・名前・Zで検索', cell: 'セルの大きさ',
       legend_hint: '分類をクリックして強調', n_el: '{n} 元素', all_props: 'すべての物性', close: '閉じる', missing: 'データなし', pick_hint: '元素をクリック', trace_el: '痕跡量のみ', sel: '選択中',
@@ -64,7 +80,11 @@
       timeline: '発見の年表', known_by: '発見済み（年まで）', play: '再生', compare: '2つの元素を比較', compare_hint: '2つ目の元素: 表で Shift+クリック。', difference: '差', bond_hint: '電気陰性度の差は結合の型の目安: <0.4 無極性共有、0.4–1.7 極性共有、>1.7 主にイオン結合（経験則）。', image_scale: '画像の倍率', pixels: 'ピクセル', downloaded: 'ダウンロードを開始しました', dl_failed: 'ファイルを作成できませんでした',
       tab_data: 'データ表', x_axis: 'X軸', sort_hint: '列見出しをクリックして並べ替え', rows_n: '{n} 行', kbd_hint: '矢印キーで元素間を移動、Enter で選択、Shift+Enter で2つ目の元素を指定。', symbol: '記号', name: '名前',
       origin_about_title: '元素はどのようにできたか', origin_about: '水素・ヘリウム・少量のリチウムはビッグバン後の最初の数分間に作られました（ビッグバン元素合成）。それより重い元素のほとんどは恒星で作られます。大質量星の核融合は鉄族までの元素を作り、大質量星の爆発（重力崩壊型超新星）と白色矮星の爆発（Ia型超新星）がそれらを宇宙空間に放出します。AGB星は遅い中性子捕獲（s過程）で鉄より重い元素の約半分を作り、残りの半分には極めて高い中性子密度を必要とする速い中性子捕獲（r過程）が必要です。r過程は中性子星合体で確認されていますが、他の候補天体は今も議論されています。リチウム・ベリリウム・ホウ素は恒星内でほとんど壊され、宇宙線による破砕で作られます。多くの元素が複数の起源をもつため、周期表は単一のラベルではなく起源の集合を示します。イオントラップ（例：IGISOL/JYFLTRAP）で測定した不安定核の質量は中性子分離エネルギーを与え、r過程の経路やrp過程の陽子捕獲の待機点を決めます。これが原子核物理と元素の起源をつなぐ接点です。',
-      sch_country: '発見国', cell_isocount: '安定同位体（個数）', cell_origincount: '起源の数', cell_text: 'セル内の文字サイズ'},
+      sch_country: '発見国', cell_isocount: '安定同位体（個数）', cell_origincount: '起源の数', cell_text: 'セル内の文字サイズ', localnames: '元素名をパネルの言語で表示', ex_key: '保存画像に色の凡例と説明を含める', ex_csv_desc: 'CSV に説明行（#）を含める', ex_csv_col: 'CSV に色の列を含める',
+      key_block: '各セルは元素の化学的な分類で色分けされています。', key_origin: '各セルは元素の天体物理的または人工的な起源で色分けされています。縞模様のセルは複数の起源を持ち、数字は各区分の元素数です。',
+      key_country: '各セルは発見した国で色分けされています。数字は国ごとの元素数です。', key_state: '各セルは室温・常圧での物質の状態で色分けされています。',
+      key_heat: 'セルの色は、表示している性質の値を最小（バーの左端）から最大（右端）まで表します{log}。灰色のセルはデータがありません。',
+      key_points: '各点は元素の化学的な分類で色分けされています。'},
     fr: {tab_table: 'Tableau', tab_origins: 'Origines', tab_game: 'Trouver l’élément', tab_defs: 'Définitions', tab_iso: 'Isotopes', tab_trend: 'Tendances', tab_trendz: 'Tendances selon Z', tab_sources: 'Sources',
       language: 'Langue', scheme: 'Colorier par', sch_block: 'Bloc chimique', sch_origin: 'Origine', sch_state: 'État', sch_heat: 'Carte thermique d’une propriété', show: 'Afficher dans les cases', none_prop: '— symbole seul —', unit: 'Unité', fullnames: 'Noms complets', logscale: 'Échelle log', search: 'Chercher symbole, nom ou Z', cell: 'Taille des cases',
       legend_hint: 'Cliquez sur une classe pour la mettre en évidence', n_el: '{n} éléments', all_props: 'Toutes les propriétés', close: 'Fermer', missing: 'pas de données', pick_hint: 'Cliquez sur un élément', trace_el: 'Traces seulement', sel: 'Sélectionné',
@@ -76,7 +96,11 @@
       timeline: 'Chronologie des découvertes', known_by: 'Connus jusqu’en', play: 'Lecture', compare: 'Comparer deux éléments', compare_hint: 'Choisissez un second élément : Maj+clic dans le tableau.', difference: 'Différence', bond_hint: 'La différence d’électronégativité suggère le type de liaison : <0,4 covalente apolaire, 0,4–1,7 covalente polaire, >1,7 surtout ionique (règle empirique).', image_scale: 'Échelle de l’image', pixels: 'pixels', downloaded: 'Téléchargement lancé', dl_failed: 'Impossible de créer le fichier',
       tab_data: 'Tableau de données', x_axis: 'Axe X', sort_hint: 'Cliquez sur un en-tête pour trier', rows_n: '{n} lignes', kbd_hint: 'Les flèches changent d’élément ; Entrée sélectionne, Maj+Entrée marque un second élément.', symbol: 'Symbole', name: 'Nom',
       origin_about_title: 'Comment les éléments se sont formés', origin_about: 'L’hydrogène, l’hélium et un peu de lithium se sont formés pendant les premières minutes après le Big Bang (nucléosynthèse primordiale). Presque tout le reste est né dans les étoiles : la fusion dans les étoiles massives construit les éléments jusqu’au groupe du fer ; les explosions d’étoiles massives (supernovae à effondrement de cœur) et de naines blanches (supernovae de type Ia) les dispersent. Les étoiles AGB fournissent par capture lente de neutrons (processus s) environ la moitié des éléments plus lourds que le fer ; l’autre moitié exige la capture rapide de neutrons (processus r), qui nécessite des densités neutroniques extrêmes. Elle est établie pour les fusions d’étoiles à neutrons, d’autres sites possibles restent débattus. Le lithium, le béryllium et le bore sont surtout détruits dans les étoiles et produits par spallation des rayons cosmiques. Beaucoup d’éléments ont plusieurs sources ; le tableau montre donc des ensembles et non une étiquette unique. Les masses de noyaux exotiques mesurées avec des pièges à ions (p. ex. à IGISOL/JYFLTRAP) donnent les énergies de séparation des neutrons, qui fixent le chemin du processus r et les points d’attente de capture de protons du processus rp : c’est le lien entre physique nucléaire et origine des éléments.',
-      sch_country: 'Pays de découverte', cell_isocount: 'Isotopes stables (nombre)', cell_origincount: 'Nombre de sources d’origine', cell_text: 'Taille du texte dans les cases'},
+      sch_country: 'Pays de découverte', cell_isocount: 'Isotopes stables (nombre)', cell_origincount: 'Nombre de sources d’origine', cell_text: 'Taille du texte dans les cases', localnames: 'Noms dans la langue du panneau', ex_key: 'Légende des couleurs et description dans les images enregistrées', ex_csv_desc: 'Lignes de description (#) dans le CSV', ex_csv_col: 'Colonnes de couleur dans le CSV',
+      key_block: 'Chaque case est colorée selon la famille chimique de l’élément.', key_origin: 'Chaque case est colorée selon l’origine astrophysique ou humaine de l’élément ; les cases rayées ont plusieurs origines, le nombre indique les éléments de chaque classe.',
+      key_country: 'Chaque case est colorée selon le pays de la découverte ; le nombre indique les éléments par pays.', key_state: 'Chaque case est colorée selon l’état de la matière à température ambiante et pression normale.',
+      key_heat: 'La couleur de la case code la valeur de la propriété affichée, de la plus faible (extrémité gauche de la barre) à la plus forte (extrémité droite){log} ; les cases grises n’ont pas de données.',
+      key_points: 'Chaque point est coloré selon la famille chimique de l’élément.'},
   };
   const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹', sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const NS = 'http://www.w3.org/2000/svg';
@@ -95,10 +119,12 @@
 
   function init(data) {
     const m = P.createModel(data), app = root.querySelector('[data-pt-app]');
-    const S = {lang: LANGS.some(l => l[0] === pageLang) ? pageLang : 'en', tab: 'table', scheme: 'block', prop: '', unit: 'eV', full: false, log: false, cell: 0, sel: 'Fe', mark: '', timeline: false, year: 2020, playTimer: 0, imgScale: 4, textScale: 1, note: '', filter: null, query: '',
+    const S = {lang: LANGS.some(l => l[0] === pageLang) ? pageLang : 'en', tab: 'table', scheme: 'block', prop: '', unit: 'eV', full: false, log: false, cell: 0, sel: 'Fe', mark: '', timeline: false, year: 2020, playTimer: 0, imgScale: 4, textScale: 1, localNames: true, exKey: true, exCsvDesc: false, exCsvColour: false, note: '', filter: null, query: '',
       trend: {kind: 'group', index: 1, prop: 'mass', lines: true, log: false}, trendz: {prop: 'mass', lines: true, log: false}, iso: 'Fe', find: null, findTimer: 0, findMsg: '', findSeconds: 60, findUseTimer: false, og: null, ogMode: 'select', ogMsg: ''};
     const t = (key, vars = {}) => (UI[S.lang][key] || UI.en[key] || key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
     const name = e => P.displayName(e, S.lang);
+    const nameLang = () => (S.localNames ? S.lang : 'en'); // language of the names written into the cells, tooltips, images and CSV
+    const cellName = e => P.displayName(e, nameLang());
     const TABS = ['table', 'origins', 'game', 'defs', 'iso', 'trend', 'trendz', 'data', 'sources'];
     const numProps = P.NUMERIC;
 
@@ -112,12 +138,12 @@
       for (const e of m.elements) {
         const base = opts.plain && !(opts.found && opts.found.has(e.sym)) ? {background: 'var(--zg-soft)', color: 'var(--zg-ink)', striped: false, dim: false}
           : P.cellStyle(m, e, opts.plain ? 'origin' : opts.scheme, {key: opts.heatKey || 'mass', unit: opts.unit, scale, highlight: opts.highlight});
-        const nameTxt = opts.full && !opts.hideName ? name(e) : '', valTxt = opts.prop && !opts.hideValue ? P.cellText(m, e, opts.prop, S.lang, opts.unit) : '';
+        const nameTxt = opts.full && !opts.hideName ? cellName(e) : '', valTxt = opts.prop && !opts.hideValue ? P.cellText(m, e, opts.prop, S.lang, opts.unit) : '';
         const L = P.cellLayout(size, {textScale: S.textScale, sym: e.sym, z: e.z, name: nameTxt, value: valTxt, flag: opts.prop === 'country'});
         const at = (item, extra) => ({left: item.cx + 'px', top: item.cy + 'px', fontSize: item.px + 'px', ...extra});
         const cell = h('button', {type: 'button', class: 'pt-cell' + (base.striped ? ' striped' : '') + (base.dim ? ' dim' : '') + (opts.selected === e.sym ? ' sel' : '') + (opts.marked === e.sym ? ' mark' : ''), 'data-sym': e.sym, tabindex: (opts.selected || 'H') === e.sym ? 0 : -1,
           style: {gridRow: e.row + 1, gridColumn: e.col + 1, background: base.background, color: base.color},
-          title: `${e.z} ${name(e)}` + (valTxt && !opts.hideName ? `: ${valTxt}` : ''), 'aria-label': `${e.z} ${e.sym} ${name(e)}`, onclick: ev => opts.onPick(e.sym, ev.shiftKey || ev.ctrlKey || ev.metaKey)},
+          title: `${e.z} ${cellName(e)}` + (valTxt && !opts.hideName ? `: ${valTxt}` : ''), 'aria-label': `${e.z} ${e.sym} ${name(e)}`, onclick: ev => opts.onPick(e.sym, ev.shiftKey || ev.ctrlKey || ev.metaKey)},
           h('span', {class: 'pt-z', style: {left: L.z.x + 'px', top: L.z.y + 'px', fontSize: L.z.px + 'px'}}, e.z), h('span', {class: 'pt-sym', style: at(L.sym)}, e.sym),
           L.name ? h('span', {class: 'pt-name', style: at(L.name)}, nameTxt) : null, L.val ? h('span', {class: 'pt-val', style: at(L.val)}, valTxt) : null);
         g.append(cell);
@@ -194,7 +220,7 @@
     const dlBtn = (label, title, fn) => h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', title, onclick: () => attempt(fn)}, label);
     const stamp = () => `${S.lang}`;
     function cellData(e, snap) { // style, texts and layout of one cell for the export (cell edge 48 logical px)
-      const st = P.cellStyle(m, e, snap.scheme, {key: snap.heatKey || 'mass', unit: snap.unit, scale: snap.scale, highlight: snap.hl}), nameTxt = snap.full ? name(e) : '';
+      const st = P.cellStyle(m, e, snap.scheme, {key: snap.heatKey || 'mass', unit: snap.unit, scale: snap.scale, highlight: snap.hl}), nameTxt = snap.full ? P.displayName(e, snap.nameLang || S.lang) : '';
       const valTxt = snap.prop && !snap.hideValue ? P.cellText(m, e, snap.prop, S.lang, snap.unit) : '';
       return {st, name: nameTxt, value: valTxt, L: P.cellLayout(48, {textScale: snap.textScale || 1, sym: e.sym, z: e.z, name: nameTxt, value: valTxt, flag: snap.prop === 'country'})};
     }
@@ -218,8 +244,47 @@
       if (snap.sel === e.sym) { ctx.save(); ctx.strokeStyle = '#111111'; ctx.lineWidth = Math.max(1.5, c * 0.05); roundRect(ctx, r.x + c * 0.02, r.y + c * 0.02, c * 0.96, c * 0.96, c * 0.11); ctx.stroke(); ctx.restore(); }
     }
     const PERIOD_LABELS = [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6'], [7, '7'], [9, '6*'], [10, '7*']];
-    function tableCanvas(snap, scale) { // the table as a canvas of (width x scale) pixels
-      const c = 48, L = P.tableLayout(m, c), W = Math.ceil((L.width + 2) * scale), H = Math.ceil((L.height + 2) * scale);
+    // Colour key of a saved image: title, legend chips (or the heat-map bar) and a wrapped description. It is built as drawing
+    // primitives (text / rect / grad, coordinates relative to the key origin) that the canvas and the SVG writer both use.
+    let measureCtx = null;
+    const measurer = (px, weight = '') => { measureCtx = measureCtx || document.createElement('canvas').getContext('2d'); measureCtx.font = `${weight} ${px}px ${FONT}`.trim(); return s => measureCtx.measureText(s).width; };
+    const schemeName = scheme => ({block: t('sch_block'), origin: t('sch_origin'), country: t('sch_country'), state: t('sch_state'), heat: t('sch_heat')}[scheme] || '');
+    function tableKey(snap, width, c) { // width in logical px, c = cell edge of the image; returns {h, prims}
+      const px = c * 0.3, items = P.legendItems(m, snap.scheme, S.lang, {heatKey: snap.heatKey, unit: snap.unit, scale: snap.scale}), prims = [], log = items.bar && items.bar.log ? ' (log)' : '';
+      let top = 0; // top edge of the next block
+      prims.push({k: 'text', x: 0, y: top + px * 0.7, px: px * 1.15, bold: true, txt: `${t('scheme')}: ${schemeName(snap.scheme)}${snap.scheme === 'heat' ? ' – ' + P.label(m, S.lang, snap.heatKey || 'mass') : ''}`}); top += px * 1.5;
+      if (items.bar) {
+        const b = items.bar, bw = Math.min(width * 0.6, c * 8);
+        prims.push({k: 'grad', x: 0, y: top, w: bw, h: px, stops: b.ramp}, {k: 'text', x: bw + px * 0.6, y: top + px / 2, px, txt: `${P.formatNumber(b.lo, S.lang, 4)} … ${P.formatNumber(b.hi, S.lang, 4)} ${b.unit}${log}`}); top += px * 1.6;
+      } else {
+        const lay = P.layoutChips(items.chips, width, px, measurer(px));
+        for (const it of lay.items) prims.push({k: 'rect', x: it.x, y: top + it.y + (it.h - it.dot) / 2, w: it.dot, h: it.dot, fill: it.chip.fills[0]}, {k: 'text', x: it.x + it.dot + px * 0.3, y: top + it.y + it.h / 2, px, txt: it.text});
+        top += lay.height + px * 0.3;
+      }
+      const desc = t(snap.points ? 'key_points' : 'key_' + snap.scheme, {log}) + (snap.scheme === 'origin' ? ' ' + t('src_caveat') : ''); // charts: "each point", not "each cell"
+      for (const line of P.wrapText(desc, width, measurer(px * 0.92))) { prims.push({k: 'text', x: 0, y: top + px * 0.65, px: px * 0.92, muted: true, txt: line}); top += px * 1.3; }
+      return {h: top, prims};
+    }
+    function drawKey(ctx, kb) { // canvas writer of the key primitives
+      ctx.save(); ctx.translate(kb.x, kb.y); ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      for (const p of kb.key.prims) {
+        if (p.k === 'text') { ctx.font = `${p.bold ? '700 ' : ''}${p.px}px ${FONT}`; ctx.fillStyle = p.muted ? '#555555' : '#222222'; ctx.fillText(p.txt, p.x, p.y); }
+        else if (p.k === 'rect') { roundRect(ctx, p.x, p.y, p.w, p.h, p.w * 0.2); ctx.fillStyle = p.fill; ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = 0.6; ctx.stroke(); }
+        else { const g = ctx.createLinearGradient(p.x, 0, p.x + p.w, 0); p.stops.forEach((col, i) => g.addColorStop(i / (p.stops.length - 1), col)); ctx.fillStyle = g; ctx.fillRect(p.x, p.y, p.w, p.h); ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = 0.6; ctx.strokeRect(p.x, p.y, p.w, p.h); }
+      }
+      ctx.restore();
+    }
+    function keySvg(prims, ink = '#222', muted = '#555') { // SVG writer of the key primitives (ink colours for a dark chart background)
+      return prims.map(p => (p.k === 'text' ? `<text x="${p.x.toFixed(2)}" y="${p.y.toFixed(2)}" font-size="${p.px.toFixed(2)}"${p.bold ? ' font-weight="700"' : ''} fill="${p.muted ? muted : ink}" dominant-baseline="middle">${esc(p.txt)}</text>`
+        : p.k === 'rect' ? `<rect x="${p.x.toFixed(2)}" y="${p.y.toFixed(2)}" width="${p.w.toFixed(2)}" height="${p.h.toFixed(2)}" rx="${(p.w * 0.2).toFixed(2)}" fill="${p.fill}" stroke="rgba(128,128,128,.6)" stroke-width=".6"/>`
+        : `<defs><linearGradient id="keybar">${p.stops.map((col, i) => `<stop offset="${(i / (p.stops.length - 1)).toFixed(3)}" stop-color="${col}"/>`).join('')}</linearGradient></defs><rect x="${p.x.toFixed(2)}" y="${p.y.toFixed(2)}" width="${p.w.toFixed(2)}" height="${p.h.toFixed(2)}" fill="url(#keybar)" stroke="rgba(128,128,128,.6)" stroke-width=".6"/>`)).join('');
+    }
+    function imageSize(snap, scale, withKey) { // geometry of the table image with or without the colour key below the table
+      const c = 48, L = P.tableLayout(m, c), kb = withKey ? {key: tableKey(snap, L.width - L.left, c), x: L.left, y: L.height + 2 + c * 0.35} : null;
+      return {c, L, kb, W: Math.ceil((L.width + 2) * scale), H: Math.ceil((L.height + 2 + (kb ? c * 0.35 + kb.key.h + 4 : 0)) * scale), vw: Math.ceil(L.width + 2), vh: Math.ceil(L.height + 2 + (kb ? c * 0.35 + kb.key.h + 4 : 0))};
+    }
+    function tableCanvas(snap, scale, withKey = true) { // the table (and optionally its colour key) as a canvas of (width x scale) pixels
+      const {c, L, kb, W, H} = imageSize(snap, scale, withKey);
       const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
       const ctx = cv.getContext('2d'); if (!ctx) throw new Error('canvas');
       ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H); ctx.scale(scale, scale);
@@ -227,10 +292,11 @@
       for (let col = 1; col <= 18; col++) ctx.fillText(String(col), L.left + (col - 1) * L.pitch + c / 2, L.top / 2);
       ctx.textAlign = 'right'; for (const [row, label] of PERIOD_LABELS) ctx.fillText(label, L.left * 0.85, L.top + P.rowOffset(row) * L.pitch + c / 2);
       for (const e of m.elements) drawCell(ctx, L.rects[e.sym], e, snap, c);
+      if (kb) drawKey(ctx, kb);
       return cv;
     }
-    function tableSvg(snap) { // the table as scalable vector graphics
-      const c = 48, L = P.tableLayout(m, c), W = Math.ceil(L.width + 2), H = Math.ceil(L.height + 2), defs = new Map(), parts = [];
+    function tableSvg(snap, withKey = true) { // the table (and optionally its colour key) as scalable vector graphics
+      const {c, L, kb, vw: W, vh: H} = imageSize(snap, 1, withKey), defs = new Map(), parts = [];
       const gradient = fills => { const key = fills.join(''); if (!defs.has(key)) defs.set(key, `<linearGradient id="g${defs.size}" x1="0" y1="0" x2="1" y2="1">${fills.map((col, i) => `<stop offset="${i === 0 ? 0 : (i / fills.length + 0.002).toFixed(4)}" stop-color="${col}"/><stop offset="${i === fills.length - 1 ? 1 : ((i + 1) / fills.length - 0.002).toFixed(4)}" stop-color="${col}"/>`).join('')}</linearGradient>`); return `url(#g${[...defs.keys()].indexOf(key)})`; };
       for (let col = 1; col <= 18; col++) parts.push(`<text x="${(L.left + (col - 1) * L.pitch + c / 2).toFixed(2)}" y="${(L.top / 2).toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="${c * 0.24}" fill="#555">${col}</text>`);
       for (const [row, label] of PERIOD_LABELS) parts.push(`<text x="${(L.left * 0.85).toFixed(2)}" y="${(L.top + P.rowOffset(row) * L.pitch + c / 2).toFixed(2)}" text-anchor="end" dominant-baseline="middle" font-size="${c * 0.24}" fill="#555">${label}</text>`);
@@ -246,25 +312,44 @@
         if (snap.sel === e.sym) g.push(`<rect x="${(r.x + c * 0.02).toFixed(2)}" y="${(r.y + c * 0.02).toFixed(2)}" width="${c * 0.96}" height="${c * 0.96}" rx="${c * 0.11}" fill="none" stroke="#111" stroke-width="${Math.max(1.5, c * 0.05)}"/>`);
         parts.push(g.join(''));
       }
+      if (kb) parts.push(`<g transform="translate(${kb.x.toFixed(2)} ${kb.y.toFixed(2)})">${keySvg(kb.key.prims)}</g>`);
       return `<svg xmlns="${NSURI}" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family='${FONT.replace(/"/g, '&quot;')}'><rect width="${W}" height="${H}" fill="#fff"/><defs>${[...defs.values()].join('')}</defs>${parts.join('')}</svg>`;
     }
-    function inlineSvg(svg) { // copy of a chart SVG with the computed colours and fonts written into it (CSS variables resolved)
+    function inlineSvg(svg, withKey = false) { // copy of a chart SVG with the computed colours and fonts written into it (CSS variables resolved); withKey adds the block colour key below a chart that marks it (data-key)
       const clone = svg.cloneNode(true), src = [svg, ...svg.querySelectorAll('*')], dst = [clone, ...clone.querySelectorAll('*')];
       src.forEach((node, i) => { const cs = getComputedStyle(node); for (const prop of ['fill', 'stroke', 'stroke-width', 'stroke-dasharray', 'font-size', 'font-family', 'font-weight', 'opacity']) dst[i].style.setProperty(prop, cs.getPropertyValue(prop)); });
       const vb = svg.viewBox.baseVal, card = svg.closest('.zg-card'), bg = document.createElementNS(NSURI, 'rect');
-      clone.setAttribute('xmlns', NSURI); clone.setAttribute('width', vb.width); clone.setAttribute('height', vb.height);
-      bg.setAttribute('width', vb.width); bg.setAttribute('height', vb.height); bg.setAttribute('fill', card ? getComputedStyle(card).backgroundColor : '#ffffff'); clone.insertBefore(bg, clone.firstChild);
-      return {text: new XMLSerializer().serializeToString(clone), w: vb.width, h: vb.height};
+      let extra = 0, keyG = null; // height added for the colour key
+      if (withKey && svg.getAttribute('data-key') === 'block') {
+        const kk = tableKey({scheme: 'block', points: true}, vb.width - 24, 40), tick = svg.querySelector('text'), ink = tick ? getComputedStyle(tick).fill : '#222222';
+        extra = kk.h + 14; keyG = document.createElementNS(NSURI, 'g'); keyG.setAttribute('transform', `translate(12 ${vb.height + 6})`); keyG.innerHTML = keySvg(kk.prims, ink, ink);
+      }
+      clone.setAttribute('xmlns', NSURI); clone.setAttribute('width', vb.width); clone.setAttribute('height', vb.height + extra); clone.setAttribute('viewBox', `0 0 ${vb.width} ${vb.height + extra}`);
+      clone.setAttribute('font-family', FONT);
+      bg.setAttribute('width', vb.width); bg.setAttribute('height', vb.height + extra); bg.setAttribute('fill', card ? getComputedStyle(card).backgroundColor : '#ffffff'); clone.insertBefore(bg, clone.firstChild);
+      if (keyG) clone.append(keyG);
+      return {text: new XMLSerializer().serializeToString(clone), w: vb.width, h: vb.height + extra};
     }
     function svgPng(svg, scale, filename) { // chart -> PNG with (viewBox width x scale) pixels
-      const {text, w, h: hh} = inlineSvg(svg), img = new Image();
+      const {text, w, h: hh} = inlineSvg(svg, S.exKey), img = new Image();
       img.onload = () => { const cv = document.createElement('canvas'); cv.width = Math.round(w * scale); cv.height = Math.round(hh * scale); cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height); cv.toBlob(b => (b ? download(b, filename) : note(t('dl_failed'))), 'image/png'); };
       img.onerror = () => note(t('dl_failed'));
       img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(text);
     }
-    const scaleSelect = () => select(t('image_scale'), S.imgScale, [1, 2, 3, 4, 6, 8].map(x => [x, x + '×']), v => { S.imgScale = Number(v); });
-    const chartButtons = (svg, stem) => [scaleSelect(), dlBtn('PNG', 'PNG', () => svgPng(svg, S.imgScale, `${stem}-${stamp()}.png`)), dlBtn('SVG', 'SVG', () => download(new Blob([inlineSvg(svg).text], {type: 'image/svg+xml'}), `${stem}-${stamp()}.svg`))];
-    const csvDownload = (rows, stem) => download(new Blob(['﻿' + P.toCsv(rows)], {type: 'text/csv;charset=utf-8'}), `${stem}-${stamp()}.csv`);
+    const scaleSelect = after => select(t('image_scale'), S.imgScale, [1, 2, 3, 4, 6, 8].map(x => [x, x + '×']), v => { S.imgScale = Number(v); if (after) after(); });
+    const chartButtons = (svg, stem) => [scaleSelect(), svg.getAttribute('data-key') ? check(t('ex_key'), S.exKey, v => { S.exKey = v; }) : null, dlBtn('PNG', 'PNG', () => svgPng(svg, S.imgScale, `${stem}-${stamp()}.png`)), dlBtn('SVG', 'SVG', () => download(new Blob([inlineSvg(svg, S.exKey).text], {type: 'image/svg+xml'}), `${stem}-${stamp()}.svg`))];
+    const csvDownload = (rows, stem, comments = []) => download(new Blob(['﻿' + P.toCsv(rows, comments)], {type: 'text/csv;charset=utf-8'}), `${stem}-${stamp()}.csv`);
+    // Description lines for the colour columns of the CSV: scheme, its explanation and the colour of every class.
+    function colourNotes(snap) {
+      const items = P.legendItems(m, snap.scheme, S.lang, {heatKey: snap.heatKey, unit: snap.unit, scale: snap.scale});
+      return [`${t('scheme')}: ${schemeName(snap.scheme)}`, t('key_' + snap.scheme, {log: items.bar && items.bar.log ? ' (log)' : ''}) + ' [colour_class, colour_hex]',
+        ...(items.bar ? [`${P.formatNumber(items.bar.lo, S.lang, 6)} ... ${P.formatNumber(items.bar.hi, S.lang, 6)} ${items.bar.unit}: ${items.bar.ramp.join(' -> ')}; no data: #e5e7eb`] : items.chips.map(c => `${c.fills[0]} = ${c.label} (${c.count})`))];
+    }
+    function tableCsv() { // data export of the whole table; options: colour columns and # description lines (both off by default)
+      const heatKey = P.NUMERIC.includes(S.prop) ? S.prop : 'mass', snap = S.snap || {scheme: S.scheme, heatKey, unit: S.unit, scale: S.scheme === 'heat' ? P.heatScale(m, heatKey, S.unit, S.log) : null};
+      const rows = P.csvRows(m, S.lang, {nameLang: nameLang(), colour: S.exCsvColour ? {scheme: snap.scheme, key: snap.heatKey || 'mass', unit: snap.unit, scale: snap.scale || undefined} : null});
+      csvDownload(rows, 'periodic-table-data', S.exCsvDesc ? P.csvComments(m, S.lang, m.i18n.properties.order, S.exCsvColour ? colourNotes(snap) : []) : []);
+    }
 
     // ---- tabs --------------------------------------------------------------------------------
     const tabs = {};
@@ -282,7 +367,7 @@
         yearIn = S.timeline ? h('input', {type: 'range', min: 1650, max: 2020, step: 1, value: S.year, 'aria-label': t('known_by'), oninput: ev => { S.year = Number(ev.target.value); draw(); }}) : null;
         yearOut = S.timeline ? h('output', {class: 'pt-year'}) : null;
         fill(bar, select(t('scheme'), S.scheme, [['block', t('sch_block')], ['origin', t('sch_origin')], ['country', t('sch_country')], ['state', t('sch_state')], ['heat', t('sch_heat')]], v => { S.scheme = v; S.filter = null; rebuildBar(); draw(); }),
-          select(t('show'), S.prop, propOptions(true), v => { S.prop = v; rebuildBar(); draw(); }), unitSelect(S.prop || (S.scheme === 'heat' ? 'mass' : '')), check(t('fullnames'), S.full, v => { S.full = v; draw(); }),
+          select(t('show'), S.prop, propOptions(true), v => { S.prop = v; rebuildBar(); draw(); }), unitSelect(S.prop || (S.scheme === 'heat' ? 'mass' : '')), check(t('fullnames'), S.full, v => { S.full = v; draw(); }), check(t('localnames'), S.localNames, v => { S.localNames = v; draw(); }),
           S.scheme === 'heat' ? check(t('logscale'), S.log, v => { S.log = v; draw(); }) : null,
           check(t('timeline'), S.timeline, v => { S.timeline = v; if (!v) stopPlay(); rebuildBar(); draw(); }), yearIn, yearOut, S.timeline ? h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: togglePlay}, '▶ ' + t('play')) : null,
           h('label', {class: 'pt-field'}, t('cell'), h('input', {type: 'range', min: 24, max: 80, step: 1, value: S.cell || autoCell(), oninput: ev => { S.cell = Number(ev.target.value); draw(); }})),
@@ -302,19 +387,21 @@
         if (known) hl = hl ? new Set([...hl].filter(x => known.has(x))) : known;
         const hideValue = !prop;
         const g = grid({scheme: S.scheme, prop, heatKey, unit: S.unit, full: S.full, highlight: hl, selected: S.sel, marked: S.mark, onPick: (sym, shift) => { if (shift) S.mark = S.mark === sym ? '' : sym; else S.sel = sym; draw(); }, hideValue});
-        S.snap = {scheme: S.scheme, prop, heatKey, textScale: S.textScale, unit: S.unit, full: S.full, hl, sel: S.sel, mark: S.mark, scale: g.scale, hideValue};
+        S.snap = {scheme: S.scheme, prop, heatKey, textScale: S.textScale, unit: S.unit, full: S.full, nameLang: nameLang(), hl, sel: S.sel, mark: S.mark, scale: g.scale, hideValue};
         if (yearOut) yearOut.textContent = `${t('known_by')}: ${S.year} (${known.size})`;
-        const e = m.bySym[S.sel], L = P.tableLayout(m, 48);
+        const e = m.bySym[S.sel], sizeText = () => { const sz = imageSize(S.snap, S.imgScale, S.exKey); return `→ ${sz.W} × ${sz.H} ${t('pixels')}`; };
+        const sizeLabel = h('span', {class: 'zg-small zg-muted'}, sizeText()), updateSize = () => { sizeLabel.textContent = sizeText(); }; // pixel size of the image follows scale and colour-key option
         fill(cardEl, ...elementCard(e, true)); fill(narrow, ...elementCard(e));
         g.el.append(cardEl);
         fill(body, narrow, h('div', {class: 'pt-scroll'}, g.el), legend(S.scheme, g.scale, heatKey, S.unit, c => { S.filter = S.filter === c ? null : c; draw(); }, S.filter),
           (S.scheme === 'block' || S.scheme === 'origin' || S.scheme === 'country') ? h('p', {class: 'zg-small zg-muted'}, S.scheme === 'origin' ? t('legend_hint') + ' · ' + t('src_caveat') : t('legend_hint')) : null, found ? h('p', {class: 'zg-small'}, t('n_el', {n: found.size})) : null,
           h('p', {class: 'zg-small zg-muted'}, t('kbd_hint')),
           compareBox(),
-          h('div', {class: 'pt-bar-row pt-export'}, scaleSelect(), h('span', {class: 'zg-small zg-muted'}, `→ ${Math.ceil((L.width + 2) * S.imgScale)} × ${Math.ceil((L.height + 2) * S.imgScale)} ${t('pixels')}`),
-            dlBtn('PNG', t('image_scale'), () => tableCanvas(S.snap, S.imgScale).toBlob(b => (b ? download(b, `periodic-table-${S.scheme}-${stamp()}.png`) : note(t('dl_failed'))), 'image/png')),
-            dlBtn('SVG', 'SVG', () => download(new Blob([tableSvg(S.snap)], {type: 'image/svg+xml'}), `periodic-table-${S.scheme}-${stamp()}.svg`)),
-            dlBtn('CSV', 'CSV', () => csvDownload(P.csvRows(m, S.lang), 'periodic-table-data'))),
+          h('div', {class: 'pt-bar-row pt-export'}, scaleSelect(updateSize), sizeLabel,
+            dlBtn('PNG', t('image_scale'), () => tableCanvas(S.snap, S.imgScale, S.exKey).toBlob(b => (b ? download(b, `periodic-table-${S.scheme}-${stamp()}.png`) : note(t('dl_failed'))), 'image/png')),
+            dlBtn('SVG', 'SVG', () => download(new Blob([tableSvg(S.snap, S.exKey)], {type: 'image/svg+xml'}), `periodic-table-${S.scheme}-${stamp()}.svg`)),
+            dlBtn('CSV', 'CSV', tableCsv)),
+          h('div', {class: 'pt-bar-row pt-export'}, check(t('ex_key'), S.exKey, v => { S.exKey = v; updateSize(); }), check(t('ex_csv_desc'), S.exCsvDesc, v => { S.exCsvDesc = v; }), check(t('ex_csv_col'), S.exCsvColour, v => { S.exCsvColour = v; })),
           h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note));
       }
       rebuildBar(); draw(); host.append(bar, body); return host;
@@ -326,7 +413,7 @@
         const gr = grid({scheme: 'origin', full: S.full, selected: S.sel, highlight: S.filter ? new Set(m.elements.filter(e => e.origin.includes(S.filter)).map(e => e.sym)) : null, hideValue: true, onPick: sym => { S.sel = sym; drawTop(); }});
         const e = m.bySym[S.sel], cards = h('div', {class: 'pt-origin-cards'}, m.i18n.origins.order.map(c => h('button', {type: 'button', class: 'pt-origin-card' + (S.filter === c ? ' on' : ''), style: {'--pt-oc': m.i18n.origins.color[c]}, onclick: () => { S.filter = S.filter === c ? null : c; drawTop(); }}, h('b', {}, P.originLabel(m, S.lang, c)), h('span', {}, P.originDesc(m, S.lang, c)))));
         gr.el.append(h('div', {class: 'pt-card'}, ...elementCard(e, true).filter(Boolean)));
-        fill(top, h('div', {class: 'pt-bar-row'}, check(t('fullnames'), S.full, v => { S.full = v; drawTop(); }), h('label', {class: 'pt-field'}, `${t('cell_text')} (${Math.round(S.textScale * 100)} %)`, h('input', {type: 'range', min: 50, max: 200, step: 5, value: Math.round(S.textScale * 100), 'aria-label': t('cell_text'), oninput: ev => { S.textScale = Number(ev.target.value) / 100; drawTop(); }}))), h('div', {class: 'pt-card pt-card-narrow'}, ...elementCard(e).filter(Boolean)), h('div', {class: 'pt-scroll'}, gr.el), h('p', {class: 'zg-small zg-muted'}, t('legend_hint')), cards, h('p', {class: 'zg-small zg-muted'}, t('src_caveat')));
+        fill(top, h('div', {class: 'pt-bar-row'}, check(t('fullnames'), S.full, v => { S.full = v; drawTop(); }), check(t('localnames'), S.localNames, v => { S.localNames = v; drawTop(); }), h('label', {class: 'pt-field'}, `${t('cell_text')} (${Math.round(S.textScale * 100)} %)`, h('input', {type: 'range', min: 50, max: 200, step: 5, value: Math.round(S.textScale * 100), 'aria-label': t('cell_text'), oninput: ev => { S.textScale = Number(ev.target.value) / 100; drawTop(); }}))), h('div', {class: 'pt-card pt-card-narrow'}, ...elementCard(e).filter(Boolean)), h('div', {class: 'pt-scroll'}, gr.el), h('p', {class: 'zg-small zg-muted'}, t('legend_hint')), cards, h('p', {class: 'zg-small zg-muted'}, t('src_caveat')));
       }
       function drawGame() {
         if (!S.og || S.og.mode !== S.ogMode) { S.og = P.createOriginGame(m, {mode: S.ogMode}); S.ogMsg = ''; }
@@ -416,7 +503,7 @@
           let xlo = 0.5, xhi = 118.5; if (scat) { xlo = Math.min(...pts.map(p => p.x)); xhi = Math.max(...pts.map(p => p.x)); if (xlo === xhi) { xlo -= 1; xhi += 1; } const xp = (xhi - xlo) * 0.04; xlo -= xp; xhi += xp; }
           const x = p => isZ ? L + ((scat ? p.x : p.z) - xlo) / (xhi - xlo) * (W - L - R) : L + (p.i + 0.5) / pts.length * (W - L - R), y = v => T + (H - T - B) * (1 - (f(v) - lo) / (hi - lo));
           const segs = []; let run = []; for (const p of pts) { if (p.y === null) { if (run.length) segs.push(run); run = []; } else run.push(p); } if (run.length) segs.push(run);
-          svg = h('svg:svg', {viewBox: `0 0 ${W} ${H}`, class: 'pt-svg', role: 'img', 'aria-label': P.label(m, S.lang, cfg.prop)},
+          svg = h('svg:svg', {viewBox: `0 0 ${W} ${H}`, class: 'pt-svg', role: 'img', 'aria-label': P.label(m, S.lang, cfg.prop), 'data-key': 'block'},
             yt.map(v => [h('svg:line', {x1: L, x2: W - R, y1: T + (H - T - B) * (1 - (v - lo) / (hi - lo)), y2: T + (H - T - B) * (1 - (v - lo) / (hi - lo)), class: 'pt-gridline'}),
               h('svg:text', {x: L - 6, y: T + (H - T - B) * (1 - (v - lo) / (hi - lo)) + 4, class: 'pt-tick', 'text-anchor': 'end'}, useLog ? P.formatNumber(10 ** v, S.lang, 3) : P.formatNumber(v, S.lang, 4))]),
             isZ ? (scat ? P.niceTicks(xlo, xhi, 8) : P.niceTicks(zmin, zmax + 1, 13).filter(v => v >= 1 && v <= 118)).map(v => h('svg:text', {x: x({z: v, x: v}), y: H - B + 16, class: 'pt-tick', 'text-anchor': 'middle'}, P.formatNumber(v, S.lang, 4))) : pts.map(p => h('svg:text', {x: x(p), y: H - B + 16, class: 'pt-tick big', 'text-anchor': 'middle'}, p.sym)),
@@ -430,7 +517,7 @@
         const table = h('table', {class: 'pt-table'}, h('thead', {}, h('tr', {}, h('th', {}, 'Z'), h('th', {}, ''), scat ? h('th', {}, P.label(m, S.lang, xKey)) : null, h('th', {}, P.label(m, S.lang, cfg.prop)))),
           h('tbody', {}, pts.map(p => h('tr', {}, h('td', {}, p.z), h('td', {}, p.sym), scat ? h('td', {}, P.formatNumber(p.x, S.lang, 5)) : null, h('td', {}, p.y === null ? '–' : P.formatNumber(p.y, S.lang, 5))))));
         fill(out, controls, svg, readout, gaps.length ? h('p', {class: 'zg-small zg-muted'}, t('tr_gaps', {list: gaps.join(', ')})) : null,
-          h('div', {class: 'pt-bar-row'}, copy, h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => attempt(() => csvDownload([['Z', 'symbol', 'name', ...(scat ? [`${xKey} [${P.unitFor(m, xKey, S.unit)}]`] : []), `${cfg.prop} [${P.unitFor(m, cfg.prop, S.unit)}]`], ...pts.map(p => [String(p.z), p.sym, m.bySym[p.sym].names.en, ...(scat ? [String(p.x)] : []), p.y === null ? '' : String(p.y)])], `periodic-table-${scat ? xKey + '-vs-' : ''}${cfg.prop}`))}, 'CSV'), ...(vals.length ? chartButtons(svg, `periodic-table-${cfg.prop}`) : [])), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note), h('details', {}, h('summary', {}, t('tab_trend')), table));
+          h('div', {class: 'pt-bar-row'}, copy, h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: () => attempt(() => csvDownload([['Z', 'symbol', 'name', ...(scat ? [`${xKey} [${P.unitFor(m, xKey, S.unit)}]`] : []), `${cfg.prop} [${P.unitFor(m, cfg.prop, S.unit)}]`], ...pts.map(p => [String(p.z), p.sym, cellName(m.bySym[p.sym]), ...(scat ? [String(p.x)] : []), p.y === null ? '' : String(p.y)])], `periodic-table-${scat ? xKey + '-vs-' : ''}${cfg.prop}`))}, 'CSV'), ...(vals.length ? chartButtons(svg, `periodic-table-${cfg.prop}`) : [])), h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note), h('details', {}, h('summary', {}, t('tab_trend')), table));
       }
       draw(); host.append(out); return host;
     }
@@ -442,11 +529,11 @@
       const cols = P.DATA_COLUMNS, headLabel = k => (k === 'sym' ? t('symbol') : k === 'name' ? t('name') : P.label(m, S.lang, k === 'sym' ? 'z' : k)) + ((k === 'ie' || k === 'ea') ? ` (${S.unit})` : (m.i18n.properties.unit[k] && !['z', 'year'].includes(k) ? ` (${m.i18n.properties.unit[k]})` : ''));
       const fmt = (k, v) => (v === null || v === undefined || v === '' ? '–' : typeof v === 'number' ? (k === 'z' || k === 'year' ? String(v) : P.formatNumber(v, S.lang, 5)) : String(v));
       function draw() {
-        let rows = P.sortRows(P.dataRows(m, S.lang, S.unit), key, asc, S.lang);
+        let rows = P.sortRows(P.dataRows(m, S.lang, S.unit).map(r => ({...r, name: cellName(m.bySym[r.sym])})), key, asc, S.lang); // names follow the "names in the panel language" option
         if (filter) { const f = filter.toLowerCase(); rows = rows.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(f))); }
         const head = h('tr', {}, cols.map(k => h('th', {scope: 'col', 'aria-sort': key === k ? (asc ? 'ascending' : 'descending') : 'none', class: 'pt-sortable', tabindex: 0, onclick: () => { if (key === k) asc = !asc; else { key = k; asc = true; } draw(); }, onkeydown: ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.target.click(); } }}, headLabel(k) + (key === k ? (asc ? ' ▲' : ' ▼') : ''))));
         const bar = h('div', {class: 'pt-bar-row'}, h('input', {type: 'search', class: 'pt-search', placeholder: t('search'), 'aria-label': t('search'), value: filter, oninput: ev => { filter = ev.target.value; draw(); const i = out.querySelector('.pt-search'); if (i) { i.focus(); i.setSelectionRange(filter.length, filter.length); } }}), unitSelect('ie'),
-          h('span', {class: 'zg-small zg-muted'}, t('rows_n', {n: rows.length}) + ' · ' + t('sort_hint')), dlBtn('CSV', 'CSV', () => csvDownload(P.csvRows(m, S.lang), 'periodic-table-data')));
+          h('span', {class: 'zg-small zg-muted'}, t('rows_n', {n: rows.length}) + ' · ' + t('sort_hint')), dlBtn('CSV', 'CSV', tableCsv), check(t('localnames'), S.localNames, v => { S.localNames = v; draw(); }), check(t('ex_csv_desc'), S.exCsvDesc, v => { S.exCsvDesc = v; }), check(t('ex_csv_col'), S.exCsvColour, v => { S.exCsvColour = v; }));
         fill(out, bar, h('div', {class: 'pt-data-scroll'}, h('table', {class: 'pt-table pt-data'}, h('thead', {}, head), h('tbody', {}, rows.map(r => h('tr', {onclick: () => { S.sel = r.sym; }}, cols.map(k => h('td', {class: typeof r[k] === 'number' ? 'num' : ''}, fmt(k, r[k])))))))),
           h('p', {class: 'zg-small zg-muted', role: 'status', 'data-pt-note': ''}, S.note));
       }

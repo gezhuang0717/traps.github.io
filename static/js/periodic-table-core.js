@@ -264,6 +264,45 @@
     return {mode: lay.mode, shrink: f, z: put('z', lay.px.z), sym: put('sym', lay.px.sym), name: hide(put('name', lay.px.name), lay.px.name), val: hide(put('val', lay.px.val), lay.px.val)};
   }
 
+
+  // ---- legend and descriptions for saved images; comment rows for CSV ---------------------------------------
+  // Legend of a colour scheme as data: chips [{key, label, fills, count}] or, for the heat map, a bar {lo, hi, unit, log, ramp}.
+  function legendItems(m, scheme, lang, o = {}) {
+    if (scheme === 'heat') {
+      const key = o.heatKey || 'mass', sc = o.scale || heatScale(m, key, o.unit, o.log);
+      return {chips: [], bar: {lo: sc.min, hi: sc.max, unit: unitFor(m, key, o.unit), log: sc.log, ramp: RAMP.slice(), key}};
+    }
+    if (scheme === 'origin') { const n = legendCounts(m); return {chips: m.i18n.origins.order.map(c => ({key: c, label: originLabel(m, lang, c), fills: [m.i18n.origins.color[c]], count: n[c]})), bar: null}; }
+    if (scheme === 'country') { const n = countryCounts(m); return {chips: m.i18n.countries.order.map(c => ({key: c, label: `${m.i18n.countries.flag[c]} ${countryLabel(m, lang, c)}`, fills: [m.i18n.countries.color[c]], count: n[c]})), bar: null}; }
+    if (scheme === 'state') return {chips: m.i18n.states.order.map(c => ({key: c, label: stateLabel(m, lang, c), fills: [m.i18n.states.color[c]], count: m.elements.filter(e => e.state === c).length})), bar: null};
+    return {chips: m.i18n.groups.order.map(b => ({key: b, label: groupLabel(m, lang, b), fills: [m.i18n.groups.color[b]], count: m.elements.filter(e => e.block === b).length})), bar: null};
+  }
+  // Greedy line wrap of legend chips: measure(text) gives the text width in px; a chip = dot + gap + text (+ count) + padding.
+  function layoutChips(chips, maxWidth, font, measure, gap = 10) {
+    const dot = font * 0.9, pad = font * 0.5, rowH = font * 1.7, rows = [];
+    let x = 0, y = 0;
+    for (const chip of chips) {
+      const text = chip.count === undefined ? chip.label : `${chip.label}  ${chip.count}`, w = dot + pad * 0.6 + measure(text) + pad;
+      if (x > 0 && x + w > maxWidth) { x = 0; y += rowH; }
+      rows.push({x, y, w, h: rowH, dot, chip, text}); x += w + gap;
+    }
+    return {items: rows, height: chips.length ? y + rowH : 0, rowH};
+  }
+  // Greedy wrap of a paragraph into lines no wider than maxWidth.
+  function wrapText(text, maxWidth, measure) {
+    const words = String(text).split(/\s+/).filter(Boolean), lines = []; let line = '';
+    for (const w of words) { const t = line ? line + ' ' + w : w; if (line && measure(t) > maxWidth) { lines.push(line); line = w; } else line = t; }
+    if (line) lines.push(line);
+    return lines;
+  }
+  // Description rows (starting with "#") for a CSV file: language, units and the definition of every listed property.
+  function csvComments(m, lang, keys, extra = []) {
+    const rows = ['# Periodic table data (language: ' + lang + ')', ...extra.map(x => '# ' + x)];
+    for (const k of keys) { const unit = m.i18n.properties.unit[k]; rows.push(`# ${label(m, lang, k)}${unit ? ' [' + (k === 'ie' || k === 'ea' ? 'eV; kJ/mol = eV x ' + m.evToKj.toFixed(4) : unit) + ']' : ''}: ${definition(m, lang, k)}`); }
+    rows.push('# Sources: ' + m.data.meta.sources.map(x => x.text).join(' | '));
+    return rows;
+  }
+
   // ---- discovery timeline, comparison, export geometry and CSV -----------------------------------
   // Elements known by a year; elements without a numeric year ("Ancient") are always known.
   const knownBy = (m, year) => new Set(m.elements.filter(e => typeof e.year !== 'number' || e.year <= year).map(e => e.sym));
@@ -286,16 +325,24 @@
     'ionization_energy_eV', 'ionization_energy_kJ_mol', 'electron_affinity_eV', 'electron_affinity_kJ_mol', 'melting_point_K', 'boiling_point_K',
     'density_g_cm3', 'year', 'country', 'origin_codes', 'origin_labels', 'trace_only', 'stable_isotopes'];
   // Rows of the data export (header + 118 elements): names in the chosen language, energies in eV and kJ/mol.
-  function csvRows(m, lang) {
+  // Colour class (label in the language) and fill colours (hex, ';'-separated) of one element in a colour scheme.
+  function colourInfo(m, e, scheme, lang, o = {}) {
+    const st = cellStyle(m, e, scheme, o);
+    const cls = scheme === 'origin' ? e.origin.map(c => originLabel(m, lang, c)).join(' + ') : scheme === 'country' ? e.cc.map(c => countryLabel(m, lang, c)).join(' + ')
+      : scheme === 'state' ? stateLabel(m, lang, e.state) : scheme === 'heat' ? (st.missing ? '' : formatValue(m, e, o.key || 'mass', lang, o.unit)) : groupLabel(m, lang, e.block);
+    return [cls, st.fills.join(';')];
+  }
+  // o.nameLang: language of the 'name' column (default: lang); o.colour: {scheme, key, unit, scale} adds the columns colour_scheme / colour_class / colour_hex.
+  function csvRows(m, lang, o = {}) {
     const n = (e, key, unit) => { const v = value(m, e, key, unit); return v === null ? '' : String(v); };
-    const rows = [CSV_HEADER.slice()]; // column 'name' is in the panel language, 'name_en' always English
-    for (const e of m.elements) rows.push([e.z, e.sym, displayName(e, lang), e.names.en, e.block, e.state, n(e, 'mass'), e.config || '', e.ox || '', n(e, 'chi'), n(e, 'radius'),
+    const rows = [CSV_HEADER.concat(o.colour ? ['colour_scheme', 'colour_class', 'colour_hex'] : [])]; // column 'name' is in the chosen language, 'name_en' always English
+    for (const e of m.elements) rows.push([e.z, e.sym, displayName(e, o.nameLang || lang), e.names.en, e.block, e.state, n(e, 'mass'), e.config || '', e.ox || '', n(e, 'chi'), n(e, 'radius'),
       n(e, 'ie', 'eV'), n(e, 'ie', 'kJ/mol'), n(e, 'ea', 'eV'), n(e, 'ea', 'kJ/mol'), n(e, 'mp'), n(e, 'bp'), n(e, 'density'), e.year, e.country || '',
-      e.origin.join(''), e.origin.map(c => originLabel(m, lang, c)).join('; '), e.trace ? 'yes' : 'no', e.iso.map(i => `${i.a}${e.sym} ${i.pct}%`).join('; ')].map(String));
+      e.origin.join(''), e.origin.map(c => originLabel(m, lang, c)).join('; '), e.trace ? 'yes' : 'no', e.iso.map(i => `${i.a}${e.sym} ${i.pct}%`).join('; '), ...(o.colour ? [o.colour.scheme, ...colourInfo(m, e, o.colour.scheme, lang, o.colour)] : [])].map(String));
     return rows;
   }
   // RFC 4180 quoting; lines end with CRLF.
-  const toCsv = rows => rows.map(r => r.map(c => (/[",\r\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c)).join(',')).join('\r\n') + '\r\n';
+  const toCsv = (rows, comments = []) => [...comments, ...rows.map(r => r.map(c => (/[",\r\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c)).join(','))].join('\r\n') + '\r\n';
 
 
   // ---- property-vs-property scatter, keyboard navigation, sortable data table -------------------------
@@ -356,5 +403,5 @@
 
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount, countryLabel, countryText, countryCounts, CELL_EXTRAS, cellText, fitFont, CELL_TEXT, visualBox, cellLayout};
+    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, colourInfo, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount, countryLabel, countryText, countryCounts, CELL_EXTRAS, cellText, fitFont, CELL_TEXT, visualBox, cellLayout, legendItems, layoutChips, wrapText, csvComments};
 });

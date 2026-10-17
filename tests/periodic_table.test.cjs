@@ -158,3 +158,16 @@ test('Cell layout: Z, symbol, name and value never overlap and stay inside the c
  const big=P.cellLayout(48,{sym:'Fe',z:26,name:'Praseodymium',value:'140.91',textScale:2.5});assert.ok(big.shrink<1&&[big.sym,big.name,big.val].filter(Boolean).reduce((s,x)=>s+x.px*1.18,0)<=48*0.94+1e-6);
  assert.equal(P.cellLayout(24,{sym:'Fe',z:26,name:'Praseodymium'}).name,null); // too small to read: dropped instead of overlapping
 });
+test('Legend items for every colour scheme; chips wrap inside the width; paragraphs wrap; CSV comment rows',()=>{
+ const m2=P.createModel(JSON.parse(require('node:fs').readFileSync(__dirname+'/../static/data/periodic-table.json','utf8')));
+ for(const [scheme,n] of [['block',10],['origin',7],['country',18],['state',3]]){const L=P.legendItems(m2,scheme,'de');assert.equal(L.chips.length,n,scheme);assert.ok(L.chips.every(c=>c.label&&c.fills.length===1&&c.count>=0)&&L.bar===null);}
+ const heat=P.legendItems(m2,'heat','en',{heatKey:'ie',unit:'kJ/mol'});assert.equal(heat.chips.length,0);assert.equal(heat.bar.unit,'kJ/mol');assert.ok(heat.bar.lo<heat.bar.hi&&heat.bar.ramp.length===5);
+ assert.equal(P.legendItems(m2,'origin','en').chips.find(c=>c.key==='o').count,52);
+ const measure=t=>t.length*7,L=P.layoutChips(P.legendItems(m2,'country','en').chips,500,12,measure);
+ assert.ok(L.items.every(i=>i.x>=0&&i.x+i.w<=500+1e-9)&&L.height>=L.rowH*2&&L.items.length===18);
+ for(let i=0;i<L.items.length;i++)for(let j=i+1;j<L.items.length;j++){const a=L.items[i],b=L.items[j];assert.ok(a.y!==b.y||a.x+a.w<=b.x+1e-9||b.x+b.w<=a.x+1e-9,'chips overlap');}
+ assert.equal(P.layoutChips([],500,12,measure).height,0);
+ const lines=P.wrapText('the quick brown fox jumps over the lazy dog',100,measure);assert.ok(lines.length>=3&&lines.every(l=>measure(l)<=100||!l.includes(' ')));assert.equal(lines.join(' '),'the quick brown fox jumps over the lazy dog');
+ const c=P.csvComments(m2,'en',['mass','ie']);assert.ok(c[0].startsWith('# Periodic table data')&&c.some(x=>x.includes('Atomic Mass [u]'))&&c.some(x=>x.includes('kJ/mol = eV x 96.4853'))&&c[c.length-1].startsWith('# Sources:'));
+ const csv=P.toCsv([['a','b']],['# note']);assert.equal(csv,'# note\r\na,b\r\n');
+});
