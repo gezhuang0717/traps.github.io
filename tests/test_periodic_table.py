@@ -112,3 +112,14 @@ def test_audited_values_match_reference_data():
     assert (BY["Ca"]["year"], BY["Ca"]["country"], BY["Si"]["year"], BY["Bi"]["country"], BY["Bh"]["year"], BY["Og"]["state"]) == (1808, "United Kingdom", 1823, "France", 1981, "Solid")
     assert not [s for s, e in BY.items() if e["year"] == "Ancient" and s not in {"C", "S", "Fe", "Cu", "As", "Ag", "Sn", "Sb", "Au", "Hg", "Pb"}]
     assert {s["id"] for s in D["meta"]["sources"]} >= {"nist_asd", "weeks"}
+
+
+def test_country_codes_flags_and_names_in_six_languages():
+    c = D["i18n"]["countries"]
+    for e in E:
+        assert e["cc"] and all(code in c["flag"] for code in e["cc"]), e["sym"]
+    assert set(c["order"]) <= set(c["flag"]) and set(c["order"]) <= set(c["color"])
+    for lang in LANGS:
+        assert set(c["label"][lang]) == set(c["label"]["en"]) and all(v.strip() for v in c["label"][lang].values()), lang
+    assert BY["H"]["cc"] == ["GB"] and BY["Rf"]["cc"] == ["RU", "US"] and BY["Fe"]["cc"] == ["XX"] and BY["Pt"]["cc"] == ["SA"]
+    assert c["flag"]["GB"] == "\U0001F1EC\U0001F1E7" and c["flag"]["XX"] == "\U0001F3FA"

@@ -40,6 +40,22 @@ GROUP_ORDER = ["Alkali Metal", "Alkaline Earth Metal", "Transition Metal", "Post
 GROUP_COLOR = {"Alkali Metal": "#ff6666", "Alkaline Earth Metal": "#ffdead", "Transition Metal": "#ffc0c0",
                "Post-transition Metal": "#cccccc", "Metalloid": "#cccc99", "Nonmetal": "#a0ffa0",
                "Halogen": "#ffff99", "Noble Gas": "#c0ffff", "Lanthanide": "#ffbfff", "Actinide": "#ff99cc"}
+# Discovery country of the dump -> ISO 3166 codes (SA = South America, XX = known since antiquity); colours for the "colour by country" scheme.
+COUNTRY_CODES = {"Austria": ["AT"], "Denmark": ["DK"], "Finland": ["FI"], "France": ["FR"], "Germany": ["DE"], "Italy": ["IT"], "Japan": ["JP"], "Mexico": ["MX"],
+                 "Poland": ["PL"], "Romania": ["RO"], "Russia": ["RU"], "Russia/United States": ["RU", "US"], "South America": ["SA"], "Spain": ["ES"], "Sweden": ["SE"],
+                 "Switzerland": ["CH"], "United Kingdom": ["GB"], "United States": ["US"], "Unknown": ["XX"]}
+COUNTRY_COLORS = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac", "#1f77b4", "#d62728", "#17becf", "#bcbd22", "#8c564b", "#e377c2", "#7f7f7f", "#a0cbe8"]
+
+
+def flag_emoji(code: str) -> str:
+    """Flag emoji of an ISO 3166 code (regional-indicator letters); SA and XX use a globe and an amphora."""
+    if code == "SA":
+        return "\U0001F30E"
+    if code == "XX":
+        return "\U0001F3FA"
+    return "".join(chr(0x1F1E6 + ord(c) - 65) for c in code)
+
+
 ORIGIN_COLOR = {"b": "#7b61c9", "j": "#e0729a", "y": "#e67e22", "o": "#2e86c1", "g": "#27ae60", "c": "#f4d03f", "z": "#9aa5b1"}
 STATE_COLOR = {"Solid": "#d9dee5", "Liquid": "#8ecae6", "Gas": "#b9f0cf"}
 
@@ -160,7 +176,7 @@ def build() -> dict:
             "mp": e["Melting Point (K)"], "bp": e["Boiling Point (K)"], "density": e["Density (g/cm³)"],
             "year": e["Year Discovered"], "country": e["Discovery Country"],
             "origin": [c for c in ORIGIN_ORDER if c in codes], "trace": z in TRACE_Z,
-            "iso": isotope_list(sym, e["Stable Isotopes"]),
+            "iso": isotope_list(sym, e["Stable Isotopes"]), "cc": COUNTRY_CODES[e["Discovery Country"]],
         })
     elements.sort(key=lambda x: x["z"])
     assert [x["z"] for x in elements] == list(range(1, 119))
@@ -168,6 +184,8 @@ def build() -> dict:
     apply_isotope_fixes(by_sym, fixes)
     apply_mass_fixes(by_sym, fixes)
     apply_value_fixes(by_sym, fixes)
+    for e in elements:  # the country may have been corrected
+        e["cc"] = COUNTRY_CODES[e["country"] or "Unknown"]
     fixes.insert(0, {"element": "all", "what": "ionization energy and electron affinity are eV (the GUI labelled them kJ/mol); kJ/mol = eV x 96.485 is computed on display"})
     fixes.append({"element": "Rf-Og", "what": "origin class 'z' (human synthesis); the Johnson table stops at Lr"})
     fixes.append({"element": "all", "what": "origin is a set of sources (Johnson/OSU) instead of one label; 74 of 118 GUI entries said 'Merging Neutron Stars'"})
@@ -215,6 +233,10 @@ def build() -> dict:
                         "label": {l: {c: hand["origins"][c]["label"][l] for c in ORIGIN_ORDER} for l in LANGS},
                         "desc": {l: {c: hand["origins"][c]["desc"][l] for c in ORIGIN_ORDER} for l in LANGS},
                         "trace": hand["trace"]},
+            "countries": {"order": sorted({c for e in elements for c in e["cc"]}, key=lambda c: hand["countries"]["label"]["en"][c]),
+                          "flag": {c: flag_emoji(c) for c in hand["countries"]["label"]["en"]},
+                          "color": {c: COUNTRY_COLORS[i % len(COUNTRY_COLORS)] for i, c in enumerate(sorted(hand["countries"]["label"]["en"]))},
+                          "label": hand["countries"]["label"]},
             "properties": {"order": order, "unit": prop["unit"], "numeric": prop["numeric"], "label": labels, "definition": defs},
         },
         "elements": elements,
