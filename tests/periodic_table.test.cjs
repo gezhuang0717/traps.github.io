@@ -80,3 +80,24 @@ test('Origin game (which): four options with one valid source and three invalid 
   const right=q.options.find(c=>e.origin.includes(c)),wrong=q.options.find(c=>!e.origin.includes(c));
   const before=g.score;const res=k%2?g.answer(right):g.answer(wrong);assert.equal(res.correct,!!(k%2));assert.equal(g.score-before,k%2?10:-5);}
 });
+test('Timeline: ancient and early elements are known in 1800, later ones are not; the set grows monotonically',()=>{
+ const k=P.knownBy(m,1800);assert.ok(k.has('Fe')&&k.has('H')&&k.has('Cu')&&!k.has('Og')&&!k.has('U')===false);
+ assert.ok(P.knownBy(m,2020).size===118&&P.knownBy(m,1700).size<P.knownBy(m,1800).size&&P.knownBy(m,1800).size<P.knownBy(m,1900).size);
+ assert.ok(!P.knownBy(m,1900).has('Ts')&&P.knownBy(m,2010).has('Ts'));
+});
+test('Comparison rows give b - a and bond class follows the 0.4 / 1.7 rule of thumb',()=>{
+ const rows=P.compareRows(m,'Cu','Cl'),chi=rows.find(r=>r.key==='chi');near(chi.diff,3.16-1.9,1e-9);assert.equal(rows.find(r=>r.key==='year').diff,null);
+ near(P.compareRows(m,'H','H','kJ/mol').find(r=>r.key==='ie').a,1312.0,0.2);
+ assert.deepEqual([0.2,0.4,1.7,1.71,null].map(P.bondClass),['nonpolar','polar','polar','ionic',null]);
+});
+test('Table layout matches the GUI geometry: 18 columns, f-block below with a gap, same total aspect',()=>{
+ const L=P.tableLayout(m,100);near(L.pitch,104);near(L.left,80);near(L.top,70);near(L.width,80+18*104-4);near(L.height,70+9.5*104-4);
+ near(L.rects.H.x,80);near(L.rects.H.y,70);near(L.rects.He.x,80+17*104);near(L.rects.Fe.x,80+7*104);near(L.rects.Fe.y,70+3*104);
+ near(L.rects.La.y,70+7.5*104);near(L.rects.Lr.y,70+8.5*104);near(L.rects.La.x,80+2*104);
+ assert.equal(new Set(Object.values(L.rects).map(r=>r.x+','+r.y)).size,118);
+});
+test('CSV export: 119 rows, localised names, eV and kJ/mol, RFC 4180 quoting',()=>{
+ const rows=P.csvRows(m,'de');assert.equal(rows.length,119);assert.equal(rows[0][2],'name_de');const fe=rows.find(r=>r[1]==='Fe');
+ assert.equal(fe[2],'Eisen');near(Number(fe[11]),7.902,1e-9);near(Number(fe[12]),7.902*m.evToKj,1e-6);assert.ok(rows.every(r=>r.length===P.CSV_HEADER.length));
+ assert.equal(P.toCsv([['a,b','c"d','e\nf','g']]),'"a,b","c""d","e\nf",g\r\n');
+});

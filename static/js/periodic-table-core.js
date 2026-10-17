@@ -198,7 +198,41 @@
     return g;
   }
 
+
+  // ---- discovery timeline, comparison, export geometry and CSV -----------------------------------
+  // Elements known by a year; elements without a numeric year ("Ancient") are always known.
+  const knownBy = (m, year) => new Set(m.elements.filter(e => typeof e.year !== 'number' || e.year <= year).map(e => e.sym));
+  // Both elements' values for every numeric property with the difference (b - a); null when either is missing.
+  function compareRows(m, a, b, unit) {
+    const A = m.bySym[a], B = m.bySym[b];
+    return NUMERIC.map(key => { const va = value(m, A, key, unit), vb = value(m, B, key, unit); return {key, a: va, b: vb, diff: va === null || vb === null ? null : vb - va}; });
+  }
+  // Rule of thumb for the bond type from the electronegativity difference (Pauling).
+  const bondClass = delta => (delta === null || delta === undefined ? null : delta < 0.4 ? 'nonpolar' : delta <= 1.7 ? 'polar' : 'ionic');
+  // Painted-table geometry in units of the cell edge; identical to the Mulberry GUI (periodic_table_view.py).
+  const LAYOUT = Object.freeze({axisW: 0.8, axisH: 0.7, gap: 0.04, fOffset: 0.5, pitchesV: 9.5});
+  const rowOffset = row => (row <= 7 ? row - 1 : 7 + LAYOUT.fOffset + (row - 9));
+  function tableLayout(m, cell) {
+    const pitch = cell * (1 + LAYOUT.gap), left = LAYOUT.axisW * cell, top = LAYOUT.axisH * cell, rects = {};
+    for (const e of m.elements) rects[e.sym] = {x: left + (e.col - 1) * pitch, y: top + rowOffset(e.row) * pitch, w: cell, h: cell};
+    return {cell, pitch, left, top, rects, width: left + 18 * pitch - cell * LAYOUT.gap, height: top + LAYOUT.pitchesV * pitch - cell * LAYOUT.gap};
+  }
+  const CSV_HEADER = ['Z', 'symbol', 'name', 'name_en', 'block', 'state', 'mass_u', 'configuration', 'oxidation_states', 'electronegativity', 'radius_pm',
+    'ionization_energy_eV', 'ionization_energy_kJ_mol', 'electron_affinity_eV', 'electron_affinity_kJ_mol', 'melting_point_K', 'boiling_point_K',
+    'density_g_cm3', 'year', 'country', 'origin_codes', 'origin_labels', 'trace_only', 'stable_isotopes'];
+  // Rows of the data export (header + 118 elements): names in the chosen language, energies in eV and kJ/mol.
+  function csvRows(m, lang) {
+    const n = (e, key, unit) => { const v = value(m, e, key, unit); return v === null ? '' : String(v); };
+    const rows = [CSV_HEADER.map((h, i) => (i === 2 ? 'name_' + lang : h))];
+    for (const e of m.elements) rows.push([e.z, e.sym, displayName(e, lang), e.names.en, e.block, e.state, n(e, 'mass'), e.config || '', e.ox || '', n(e, 'chi'), n(e, 'radius'),
+      n(e, 'ie', 'eV'), n(e, 'ie', 'kJ/mol'), n(e, 'ea', 'eV'), n(e, 'ea', 'kJ/mol'), n(e, 'mp'), n(e, 'bp'), n(e, 'density'), e.year, e.country || '',
+      e.origin.join(''), e.origin.map(c => originLabel(m, lang, c)).join('; '), e.trace ? 'yes' : 'no', e.iso.map(i => `${i.a}${e.sym} ${i.pct}%`).join('; ')].map(String));
+    return rows;
+  }
+  // RFC 4180 quoting; lines end with CRLF.
+  const toCsv = rows => rows.map(r => r.map(c => (/[",\r\n]/.test(c) ? '"' + c.replace(/"/g, '""') + '"' : c)).join(',')).join('\r\n') + '\r\n';
+
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame};
+    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, toCsv};
 });
