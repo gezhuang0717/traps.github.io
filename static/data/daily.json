@@ -5017,7 +5017,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-17T22:50:36+00:00",
+    "checked_at": "2026-10-18T06:36:26+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -5034,7 +5034,7 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 13,
+        "matched": 10,
         "new": 0
       },
       {
@@ -5047,7 +5047,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -5069,9 +5069,8 @@
       },
       {
         "source": "Nature Physics",
-        "status": "PASS",
-        "matched": 6,
-        "new": 0
+        "status": "FAILED",
+        "error": "not well-formed (invalid token): line 14, column 4"
       },
       {
         "source": "TRIUMF news",
