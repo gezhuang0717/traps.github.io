@@ -305,6 +305,8 @@
 
   // ---- discovery timeline, comparison, export geometry and CSV -----------------------------------
   // Elements known by a year; elements without a numeric year ("Ancient") are always known.
+  // Years shown by Play and by the timeline video: from, from+step, ... and always the final year.
+  function timelineYears(from = 1650, to = 2020, step = 3) { const out = []; for (let y = from; y < to; y += step) out.push(y); out.push(to); return out; }
   const knownBy = (m, year) => new Set(m.elements.filter(e => typeof e.year !== 'number' || e.year <= year).map(e => e.sym));
   // Both elements' values for every numeric property with the difference (b - a); null when either is missing.
   function compareRows(m, a, b, unit) {
@@ -403,5 +405,5 @@
 
   return {RAMP, NUMERIC, SCORE, createModel, groupOf, periodOf, label, definition, groupLabel, stateLabel, originLabel, originDesc, displayName,
     unitFor, value, formatNumber, formatValue, rampColor, textColor, originGradient, heatScale, cellStyle, legendCounts, search, trend, niceTicks,
-    makeRng, createFindGame, createOriginGame, knownBy, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, colourInfo, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount, countryLabel, countryText, countryCounts, CELL_EXTRAS, cellText, fitFont, CELL_TEXT, visualBox, cellLayout, legendItems, layoutChips, wrapText, csvComments};
+    makeRng, createFindGame, createOriginGame, knownBy, timelineYears, compareRows, bondClass, LAYOUT, rowOffset, tableLayout, CSV_HEADER, csvRows, colourInfo, toCsv, scatter, neighbor, DATA_COLUMNS, dataRows, sortRows, subshells, orbitalFill, electronCount, countryLabel, countryText, countryCounts, CELL_EXTRAS, cellText, fitFont, CELL_TEXT, visualBox, cellLayout, legendItems, layoutChips, wrapText, csvComments};
 });

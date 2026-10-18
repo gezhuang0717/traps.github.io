@@ -20,7 +20,7 @@
       key_block: 'Each cell is coloured by the chemical family of the element.', key_origin: 'Each cell is coloured by the astrophysical or human source(s) of the element; striped cells have several sources and the number counts the elements of each class.',
       key_country: 'Each cell is coloured by the country credited with the discovery; the number counts the elements per country.', key_state: 'Each cell is coloured by the state of matter at room temperature and normal pressure.',
       key_heat: 'The cell colour encodes the value of the shown property from the lowest (left end of the bar) to the highest value (right end){log}; grey cells have no data.',
-      key_points: 'Each point is coloured by the chemical family of the element.'},
+      key_points: 'Each point is coloured by the chemical family of the element.', save_video: 'Save timeline video'},
     zh: {tab_table: '周期表', tab_origins: '起源', tab_game: '找元素', tab_defs: '定义', tab_iso: '同位素', tab_trend: '趋势', tab_trendz: '按质子数', tab_sources: '来源',
       language: '语言', scheme: '着色方式', sch_block: '化学族块', sch_origin: '起源', sch_state: '物态', sch_heat: '性质热图', show: '格内显示', none_prop: '— 仅符号 —', unit: '单位', fullnames: '显示全名', logscale: '对数刻度', search: '搜索符号、名称或 Z', cell: '格子大小',
       legend_hint: '点击类别以高亮', n_el: '{n} 个元素', all_props: '全部性质', close: '关闭', missing: '无数据', pick_hint: '点击一个元素', trace_el: '仅痕量', sel: '已选',
@@ -36,7 +36,7 @@
       key_block: '每个格子按元素所属的化学类别着色。', key_origin: '每个格子按元素的天体物理或人工来源着色；条纹格子表示有多种来源，数字为各类别的元素个数。',
       key_country: '每个格子按发现该元素的国家着色；数字为各国发现的元素个数。', key_state: '每个格子按室温常压下的物质状态着色。',
       key_heat: '格子颜色表示所示性质的数值，从最低值（色条左端）到最高值（右端）{log}；灰色格子表示无数据。',
-      key_points: '每个点按元素所属的化学类别着色。'},
+      key_points: '每个点按元素所属的化学类别着色。', save_video: '保存时间线视频'},
     fi: {tab_table: 'Taulukko', tab_origins: 'Alkuperä', tab_game: 'Etsi alkuaine', tab_defs: 'Määritelmät', tab_iso: 'Isotoopit', tab_trend: 'Trendit', tab_trendz: 'Trendit Z:n mukaan', tab_sources: 'Lähteet',
       language: 'Kieli', scheme: 'Väritys', sch_block: 'Kemiallinen lohko', sch_origin: 'Alkuperä', sch_state: 'Olomuoto', sch_heat: 'Ominaisuuden lämpökartta', show: 'Näytä ruuduissa', none_prop: '— vain symboli —', unit: 'Yksikkö', fullnames: 'Koko nimet', logscale: 'Logaritminen asteikko', search: 'Hae symbolia, nimeä tai Z:aa', cell: 'Ruudun koko',
       legend_hint: 'Napsauta luokkaa korostaaksesi', n_el: '{n} alkuainetta', all_props: 'Kaikki ominaisuudet', close: 'Sulje', missing: 'ei tietoa', pick_hint: 'Napsauta alkuainetta', trace_el: 'Vain jälkiä', sel: 'Valittu',
@@ -52,7 +52,7 @@
       key_block: 'Jokainen ruutu on väritetty alkuaineen kemiallisen ryhmän mukaan.', key_origin: 'Jokainen ruutu on väritetty alkuaineen astrofysikaalisen tai ihmisen tekemän alkuperän mukaan; raidalliset ruudut tarkoittavat useita lähteitä ja luku kertoo luokan alkuaineiden määrän.',
       key_country: 'Jokainen ruutu on väritetty löytäjämaan mukaan; luku kertoo maan löytämien alkuaineiden määrän.', key_state: 'Jokainen ruutu on väritetty huoneenlämpötilan ja normaalipaineen aggregaattitilan mukaan.',
       key_heat: 'Ruudun väri kuvaa näytettävän ominaisuuden arvoa pienimmästä (palkin vasen pää) suurimpaan (oikea pää){log}; harmaat ruudut eivät sisällä tietoa.',
-      key_points: 'Jokainen piste on väritetty alkuaineen kemiallisen ryhmän mukaan.'},
+      key_points: 'Jokainen piste on väritetty alkuaineen kemiallisen ryhmän mukaan.', save_video: 'Tallenna aikajanavideo'},
     de: {tab_table: 'Tabelle', tab_origins: 'Herkunft', tab_game: 'Element finden', tab_defs: 'Definitionen', tab_iso: 'Isotope', tab_trend: 'Trends', tab_trendz: 'Trends nach Z', tab_sources: 'Quellen',
       language: 'Sprache', scheme: 'Färben nach', sch_block: 'Chemischer Block', sch_origin: 'Herkunft', sch_state: 'Aggregatzustand', sch_heat: 'Eigenschafts-Heatmap', show: 'In Zellen zeigen', none_prop: '— nur Symbol —', unit: 'Einheit', fullnames: 'Volle Namen', logscale: 'Logarithmische Skala', search: 'Symbol, Name oder Z suchen', cell: 'Zellgröße',
       legend_hint: 'Klasse anklicken, um sie hervorzuheben', n_el: '{n} Elemente', all_props: 'Alle Eigenschaften', close: 'Schließen', missing: 'keine Daten', pick_hint: 'Element anklicken', trace_el: 'Nur Spuren', sel: 'Ausgewählt',
@@ -68,7 +68,7 @@
       key_block: 'Jede Zelle ist nach der chemischen Familie des Elements gefärbt.', key_origin: 'Jede Zelle ist nach der astrophysikalischen oder menschlichen Quelle des Elements gefärbt; gestreifte Zellen haben mehrere Quellen, die Zahl gibt die Anzahl der Elemente je Klasse an.',
       key_country: 'Jede Zelle ist nach dem Land der Entdeckung gefärbt; die Zahl gibt die Anzahl der Elemente je Land an.', key_state: 'Jede Zelle ist nach dem Aggregatzustand bei Raumtemperatur und Normaldruck gefärbt.',
       key_heat: 'Die Zellfarbe gibt den Wert der angezeigten Eigenschaft vom kleinsten (linkes Ende des Balkens) bis zum größten Wert (rechtes Ende) an{log}; graue Zellen haben keine Daten.',
-      key_points: 'Jeder Punkt ist nach der chemischen Familie des Elements gefärbt.'},
+      key_points: 'Jeder Punkt ist nach der chemischen Familie des Elements gefärbt.', save_video: 'Zeitleisten-Video speichern'},
     ja: {tab_table: '周期表', tab_origins: '起源', tab_game: '元素探し', tab_defs: '用語', tab_iso: '同位体', tab_trend: '傾向', tab_trendz: '原子番号別', tab_sources: '出典',
       language: '言語', scheme: '色分け', sch_block: '化学ブロック', sch_origin: '起源', sch_state: '状態', sch_heat: '物性ヒートマップ', show: 'セルに表示', none_prop: '— 記号のみ —', unit: '単位', fullnames: '元素名を表示', logscale: '対数目盛', search: '記号・名前・Zで検索', cell: 'セルの大きさ',
       legend_hint: '分類をクリックして強調', n_el: '{n} 元素', all_props: 'すべての物性', close: '閉じる', missing: 'データなし', pick_hint: '元素をクリック', trace_el: '痕跡量のみ', sel: '選択中',
@@ -84,7 +84,7 @@
       key_block: '各セルは元素の化学的な分類で色分けされています。', key_origin: '各セルは元素の天体物理的または人工的な起源で色分けされています。縞模様のセルは複数の起源を持ち、数字は各区分の元素数です。',
       key_country: '各セルは発見した国で色分けされています。数字は国ごとの元素数です。', key_state: '各セルは室温・常圧での物質の状態で色分けされています。',
       key_heat: 'セルの色は、表示している性質の値を最小（バーの左端）から最大（右端）まで表します{log}。灰色のセルはデータがありません。',
-      key_points: '各点は元素の化学的な分類で色分けされています。'},
+      key_points: '各点は元素の化学的な分類で色分けされています。', save_video: '年表の動画を保存'},
     fr: {tab_table: 'Tableau', tab_origins: 'Origines', tab_game: 'Trouver l’élément', tab_defs: 'Définitions', tab_iso: 'Isotopes', tab_trend: 'Tendances', tab_trendz: 'Tendances selon Z', tab_sources: 'Sources',
       language: 'Langue', scheme: 'Colorier par', sch_block: 'Bloc chimique', sch_origin: 'Origine', sch_state: 'État', sch_heat: 'Carte thermique d’une propriété', show: 'Afficher dans les cases', none_prop: '— symbole seul —', unit: 'Unité', fullnames: 'Noms complets', logscale: 'Échelle log', search: 'Chercher symbole, nom ou Z', cell: 'Taille des cases',
       legend_hint: 'Cliquez sur une classe pour la mettre en évidence', n_el: '{n} éléments', all_props: 'Toutes les propriétés', close: 'Fermer', missing: 'pas de données', pick_hint: 'Cliquez sur un élément', trace_el: 'Traces seulement', sel: 'Sélectionné',
@@ -100,7 +100,7 @@
       key_block: 'Chaque case est colorée selon la famille chimique de l’élément.', key_origin: 'Chaque case est colorée selon l’origine astrophysique ou humaine de l’élément ; les cases rayées ont plusieurs origines, le nombre indique les éléments de chaque classe.',
       key_country: 'Chaque case est colorée selon le pays de la découverte ; le nombre indique les éléments par pays.', key_state: 'Chaque case est colorée selon l’état de la matière à température ambiante et pression normale.',
       key_heat: 'La couleur de la case code la valeur de la propriété affichée, de la plus faible (extrémité gauche de la barre) à la plus forte (extrémité droite){log} ; les cases grises n’ont pas de données.',
-      key_points: 'Chaque point est coloré selon la famille chimique de l’élément.'},
+      key_points: 'Chaque point est coloré selon la famille chimique de l’élément.', save_video: 'Enregistrer la vidéo de la chronologie'},
   };
   const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹', sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const NS = 'http://www.w3.org/2000/svg';
@@ -363,13 +363,42 @@
         if (S.year >= 2020) S.year = 1650;
         S.playTimer = setInterval(() => { S.year = Math.min(2020, S.year + 3); if (yearIn) yearIn.value = S.year; draw(); if (S.year >= 2020) stopPlay(); }, 90);
       }
+      // Save the discovery timeline (the same steps as Play) as a video; a header band shows the year, the number of known elements and a progress bar.
+      function recordTimeline(btn) {
+        if (!window.zgExport || !window.zgExport.record) { note(t('dl_failed')); return; }
+        stopPlay();
+        const years = P.timelineYears(1650, 2020, 3), base = {...S.snap, sel: '', mark: '', hl: null}, scale = 1.4, label = btn.textContent;
+        const frame = year => tableCanvas({...base, hl: P.knownBy(m, year)}, scale, S.exKey);
+        const first = frame(years[0]), band = Math.round(78 * scale), cv = document.createElement('canvas');
+        cv.width = first.width; cv.height = first.height + band;
+        const ctx = cv.getContext('2d');
+        const paint = year => {
+          const known = P.knownBy(m, year), tc = frame(year), pad = 14 * scale, barW = cv.width - 2 * pad, barY = 46 * scale, frac = (year - 1650) / 370;
+          ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, cv.width, cv.height);
+          ctx.fillStyle = '#222222'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left'; ctx.font = `700 ${24 * scale}px system-ui, sans-serif`;
+          ctx.fillText(`${t('known_by')}: ${year}`, pad, 22 * scale);
+          ctx.textAlign = 'right'; ctx.font = `600 ${18 * scale}px system-ui, sans-serif`; ctx.fillText(`${known.size} / ${m.elements.length}`, cv.width - pad, 22 * scale);
+          ctx.fillStyle = '#e5e7eb'; ctx.fillRect(pad, barY, barW, 9 * scale);
+          ctx.fillStyle = '#3b82f6'; ctx.fillRect(pad, barY, barW * frac, 9 * scale);
+          ctx.fillStyle = '#1e3a8a'; ctx.fillRect(pad + barW * frac - 1.5 * scale, barY - 4 * scale, 3 * scale, 17 * scale);
+          ctx.fillStyle = '#555555'; ctx.font = `${11 * scale}px system-ui, sans-serif`; ctx.textAlign = 'center';
+          for (const y of [1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2020]) ctx.fillText(String(y), pad + barW * (y - 1650) / 370, barY + 24 * scale);
+          ctx.drawImage(tc, 0, band);
+        };
+        const stepMs = 90, hold = 8, frames = [...Array(hold).fill(years[0]), ...years, ...Array(hold).fill(years[years.length - 1])];
+        paint(frames[0]);
+        const rec = window.zgExport.record(cv, frames.length * stepMs / 1000 + 0.8, 'periodic-table-timeline', on => { btn.disabled = on; btn.textContent = on ? '… ' + t('save_video') : label; }, {fps: 30, bitrate: 8e6});
+        if (!rec) return;
+        let i = 0; const timer = setInterval(() => { i += 1; if (i >= frames.length) { clearInterval(timer); return; } paint(frames[i]); }, stepMs);
+      }
       function rebuildBar() {
+        const videoBtn = S.timeline ? h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', 'data-timeline-video': '', onclick: () => recordTimeline(videoBtn)}, '🎬 ' + t('save_video')) : null;
         yearIn = S.timeline ? h('input', {type: 'range', min: 1650, max: 2020, step: 1, value: S.year, 'aria-label': t('known_by'), oninput: ev => { S.year = Number(ev.target.value); draw(); }}) : null;
         yearOut = S.timeline ? h('output', {class: 'pt-year'}) : null;
         fill(bar, select(t('scheme'), S.scheme, [['block', t('sch_block')], ['origin', t('sch_origin')], ['country', t('sch_country')], ['state', t('sch_state')], ['heat', t('sch_heat')]], v => { S.scheme = v; S.filter = null; rebuildBar(); draw(); }),
           select(t('show'), S.prop, propOptions(true), v => { S.prop = v; rebuildBar(); draw(); }), unitSelect(S.prop || (S.scheme === 'heat' ? 'mass' : '')), check(t('fullnames'), S.full, v => { S.full = v; draw(); }), check(t('localnames'), S.localNames, v => { S.localNames = v; draw(); }),
           S.scheme === 'heat' ? check(t('logscale'), S.log, v => { S.log = v; draw(); }) : null,
-          check(t('timeline'), S.timeline, v => { S.timeline = v; if (!v) stopPlay(); rebuildBar(); draw(); }), yearIn, yearOut, S.timeline ? h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: togglePlay}, '▶ ' + t('play')) : null,
+          check(t('timeline'), S.timeline, v => { S.timeline = v; if (!v) stopPlay(); rebuildBar(); draw(); }), yearIn, yearOut, S.timeline ? h('button', {type: 'button', class: 'zg-btn zg-btn-ghost', onclick: togglePlay}, '▶ ' + t('play')) : null, videoBtn,
           h('label', {class: 'pt-field'}, t('cell'), h('input', {type: 'range', min: 24, max: 80, step: 1, value: S.cell || autoCell(), oninput: ev => { S.cell = Number(ev.target.value); draw(); }})),
           h('label', {class: 'pt-field'}, `${t('cell_text')} (${Math.round(S.textScale * 100)} %)`, h('input', {type: 'range', min: 50, max: 200, step: 5, value: Math.round(S.textScale * 100), 'aria-label': t('cell_text'), oninput: ev => { S.textScale = Number(ev.target.value) / 100; rebuildBar(); draw(); }})), search);
       }

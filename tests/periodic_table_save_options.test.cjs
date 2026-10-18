@@ -56,8 +56,21 @@ test('colourInfo agrees with the colours used to paint the cells', () => {
 
 test('the save-option strings exist in all six languages, and the heat description keeps its {log} slot', () => {
   const source = fs.readFileSync(path.join(__dirname, '../static/js/periodic-table.js'), 'utf8');
-  for (const key of ['localnames', 'ex_key', 'ex_csv_desc', 'ex_csv_col', 'key_block', 'key_points', 'key_origin', 'key_country', 'key_state', 'key_heat']) {
+  for (const key of ['localnames', 'ex_key', 'ex_csv_desc', 'ex_csv_col', 'key_block', 'key_points', 'save_video', 'key_origin', 'key_country', 'key_state', 'key_heat']) {
     assert.equal((source.match(new RegExp('\\b' + key + ': \'', 'g')) || []).length, 6, key);
   }
   assert.equal((source.match(/key_heat: '[^']*\{log\}/g) || []).length, 6);
+});
+
+test('timeline video steps equal the Play steps and the legend counts only grow', () => {
+  const years = P.timelineYears(1650, 2020, 3);
+  assert.equal(years[0], 1650); assert.equal(years[years.length - 1], 2020); assert.equal(years[1], 1653); assert.equal(years[years.length - 2], 2019);
+  assert.equal(years.length, 125);
+  let step = 1650; const playYears = [step]; while (step < 2020) { step = Math.min(2020, step + 3); playYears.push(step); } // the loop of the Play button
+  assert.deepEqual(years, playYears);
+  const counts = years.map(y => P.knownBy(model, y).size);
+  assert.ok(counts.every((c, i) => i === 0 || c >= counts[i - 1]));
+  assert.equal(counts[counts.length - 1], model.elements.length); // everything is known by 2020
+  assert.equal(counts[0], model.elements.filter(e => typeof e.year !== 'number').length + model.elements.filter(e => typeof e.year === 'number' && e.year <= 1650).length);
+  assert.deepEqual(P.timelineYears(2000, 2000, 3), [2000]);
 });
