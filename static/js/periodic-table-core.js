@@ -233,16 +233,22 @@
 
   // ---- cell layout: positions and font sizes of Z, symbol, name and value so that nothing overlaps -----------------
   // Used by the table on the page, the PNG/SVG export and (same numbers) the desktop version of this table. Sizes are in pixels for a cell of edge c.
-  const CELL_TEXT = Object.freeze({lineHeight: 1.18, symbolEm: 0.66, nameEm: 0.58, digitEm: 0.58, valueEm: 0.56, flagEm: 1.3, inset: 0.1});
-  // The glyphs fill about 80 % of their line box (leading, side bearings): overlap tests use this inner box.
-  const visualBox = r => ({x: r.x + r.w * CELL_TEXT.inset, y: r.y + r.h * CELL_TEXT.inset, w: r.w * (1 - 2 * CELL_TEXT.inset), h: r.h * (1 - 2 * CELL_TEXT.inset)});
+  const CELL_TEXT = Object.freeze({lineHeight: 1.18, symbolEm: 0.72, nameEm: 0.6, digitEm: 0.6, valueEm: 0.6, flagEm: 1.3, wideEm: 1.02, inset: 0.1, insetX: 0.03});
+  // Widths in em of the bold symbol letters (measured in a common system sans font, rounded up by about 4 %); other characters use symbolEm.
+  const SYMBOL_EM = {A: .72, B: .67, C: .74, D: .73, E: .59, F: .57, G: .76, H: .76, I: .27, J: .58, K: .68, L: .56, M: .89, N: .74, O: .78, P: .65, Q: .78, R: .67, S: .66, T: .62, U: .74, V: .71, W: 1.01, X: .72, Y: .70, Z: .66,
+    a: .57, b: .62, c: .56, d: .62, e: .58, f: .37, g: .61, h: .60, i: .25, j: .25, k: .56, l: .25, m: .89, n: .60, o: .59, p: .61, q: .61, r: .37, s: .53, t: .37, u: .60, v: .55, w: .82, x: .55, y: .56, z: .53};
+  const WIDE = /[\u1100-\u11ff\u2e80-\u9fff\uac00-\ud7af\uf900-\ufaff\uff00-\uffef]/; // Chinese, Japanese, Korean and full-width characters are about one em wide
+  const symbolWidth = sym => Array.from(sym).reduce((s, ch) => s + (SYMBOL_EM[ch] || CELL_TEXT.symbolEm), 0);
+  const textWidth = (text, em) => Array.from(text).reduce((s, ch) => s + (WIDE.test(ch) ? CELL_TEXT.wideEm : em), 0);
+  // The glyphs fill about 80 % of the line height (leading) and almost all of the width: overlap tests use this inner box.
+  const visualBox = r => ({x: r.x + r.w * CELL_TEXT.insetX, y: r.y + r.h * CELL_TEXT.inset, w: r.w * (1 - 2 * CELL_TEXT.insetX), h: r.h * (1 - 2 * CELL_TEXT.inset)});
   function cellLayout(c, o = {}) {
-    const s = Math.max(0.3, Math.min(3, o.textScale || 1)), K = CELL_TEXT, symLen = Math.max(1, String(o.sym || 'X').length), zLen = Math.max(1, String(o.z || 0).length);
-    const name = o.name || '', value = o.value || '', nameLen = Array.from(name).length, valLen = Array.from(value).length;
-    const valueEmWidth = o.flag ? Math.max(1, valLen / 2) * K.flagEm : valLen * K.valueEm, more = !!(name || value);
+    const s = Math.max(0.3, Math.min(3, o.textScale || 1)), K = CELL_TEXT, symW = symbolWidth(String(o.sym || 'X')), zLen = Math.max(1, String(o.z || 0).length);
+    const name = o.name || '', value = o.value || '', nameW = textWidth(name, K.nameEm), valLen = Array.from(value).length;
+    const valueEmWidth = o.flag ? Math.max(1, valLen / 2) * K.flagEm : textWidth(value, K.valueEm), more = !!(name || value);
     const base = {
-      sym: Math.min(c * (more ? 0.34 : 0.40) * s, c * 0.90 / (K.symbolEm * symLen)), z: Math.min(c * 0.20 * s, c * 0.26),
-      name: name ? Math.min(c * 0.17 * s, c * 0.94 / (K.nameEm * nameLen)) : 0, val: value ? Math.min(c * (o.flag ? 0.30 : 0.18) * s, c * 0.94 / valueEmWidth) : 0};
+      sym: Math.min(c * (more ? 0.34 : 0.40) * s, c * 0.90 / symW), z: Math.min(c * 0.20 * s, c * 0.26),
+      name: name ? Math.min(c * 0.17 * s, c * 0.94 / nameW) : 0, val: value ? Math.min(c * (o.flag ? 0.30 : 0.18) * s, c * 0.94 / valueEmWidth) : 0};
     const intersect = (p, q) => { const a = visualBox(p), b = visualBox(q); return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h; };
     function place(mode, f) { // f: common shrink factor
       const px = {sym: base.sym * f, z: base.z * f, name: base.name * f, val: base.val * f}, h = {z: px.z * K.lineHeight, sym: px.sym * K.lineHeight, name: px.name * K.lineHeight, val: px.val * K.lineHeight};
@@ -250,13 +256,14 @@
       let y = (c - total) / 2;
       const out = {mode, total, px, rects: {}, centres: {}};
       if (mode === 'row') { out.rects.z = {x: (c - zLen * K.digitEm * px.z) / 2, y, w: zLen * K.digitEm * px.z, h: h.z}; y += h.z; } else out.rects.z = {x: 0.06 * c, y: 0.04 * c, w: zLen * K.digitEm * px.z, h: h.z};
-      out.rects.sym = {x: (c - symLen * K.symbolEm * px.sym) / 2, y, w: symLen * K.symbolEm * px.sym, h: h.sym}; y += h.sym;
-      if (name) { const w = Math.min(c * 0.94, nameLen * K.nameEm * px.name); out.rects.name = {x: (c - w) / 2, y, w, h: h.name}; y += h.name; }
+      out.rects.sym = {x: (c - symW * px.sym) / 2, y, w: symW * px.sym, h: h.sym}; y += h.sym;
+      if (name) { const w = Math.min(c * 0.94, nameW * px.name); out.rects.name = {x: (c - w) / 2, y, w, h: h.name}; y += h.name; }
       if (value) { const w = Math.min(c * 0.94, valueEmWidth * px.val); out.rects.val = {x: (c - w) / 2, y, w, h: h.val}; }
       return out;
     }
     let f = 1, lay = place('corner', 1);
-    const clash = l => ['sym', 'name', 'val'].some(k => l.rects[k] && intersect(l.rects.z, l.rects[k]));
+    const gap = 0.03 * c; // clearance between the atomic number and the texts next to it (glyph edges are not exact)
+    const clash = l => ['sym', 'name', 'val'].some(k => l.rects[k] && intersect({...l.rects.z, w: l.rects.z.w + gap}, l.rects[k]));
     if (clash(lay)) lay = place('row', 1);
     if (lay.total > c * 0.94) { f = (c * 0.94) / lay.total; lay = place(lay.mode, f); if (lay.mode === 'corner' && clash(lay)) lay = place('row', f); }
     const R = lay.rects, put = (key, px) => (R[key] ? {x: R[key].x, y: R[key].y, w: R[key].w, h: R[key].h, cx: R[key].x + R[key].w / 2, cy: R[key].y + R[key].h / 2, px} : null);

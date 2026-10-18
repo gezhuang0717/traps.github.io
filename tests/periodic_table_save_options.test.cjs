@@ -56,7 +56,7 @@ test('colourInfo agrees with the colours used to paint the cells', () => {
 
 test('the save-option strings exist in all six languages, and the heat description keeps its {log} slot', () => {
   const source = fs.readFileSync(path.join(__dirname, '../static/js/periodic-table.js'), 'utf8');
-  for (const key of ['localnames', 'ex_key', 'ex_csv_desc', 'ex_csv_col', 'key_block', 'key_points', 'save_video', 'key_origin', 'key_country', 'key_state', 'key_heat']) {
+  for (const key of ['localnames', 'ex_key', 'ex_csv_desc', 'ex_csv_col', 'key_block', 'key_points', 'save_video', 'clear_sel', 'key_origin', 'key_country', 'key_state', 'key_heat']) {
     assert.equal((source.match(new RegExp('\\b' + key + ': \'', 'g')) || []).length, 6, key);
   }
   assert.equal((source.match(/key_heat: '[^']*\{log\}/g) || []).length, 6);
