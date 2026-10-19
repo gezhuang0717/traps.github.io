@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-19",
+      "type": "preprint",
+      "title": "Impact of neutron captures on the r-process: I. Propagation of statistical model uncertainties",
+      "summary": "Yu An et al. — Background: The r-process is responsible for producing about half of the elements heavier than iron in the Universe, but the underlying nuclear physics is still largely inaccessible to experiments and relies on theoretical calculations. Purpose: We aim to…",
+      "url": "https://arxiv.org/abs/2610.23395v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "arxiv": "2610.23395v1",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-19T06:50:44+00:00"
+}

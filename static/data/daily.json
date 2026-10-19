@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "date": "2026-10-19",
+      "type": "preprint",
+      "title": "Impact of neutron captures on the r-process: I. Propagation of statistical model uncertainties",
+      "summary": "Yu An et al. — Background: The r-process is responsible for producing about half of the elements heavier than iron in the Universe, but the underlying nuclear physics is still largely inaccessible to experiments and relies on theoretical calculations. Purpose: We aim to…",
+      "url": "https://arxiv.org/abs/2610.23395v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-16",
+      "arxiv": "2610.23395v1",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-18",
       "type": "news",
       "title": "New monolithic ion trap opens quantum simulations to more researchers",
@@ -5077,24 +5093,24 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-18T22:43:10+00:00",
+    "checked_at": "2026-10-19T06:50:44+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
         "matched": 1,
-        "new": 0
+        "new": 1
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 10,
+        "matched": 6,
         "new": 0
       },
       {
@@ -5107,7 +5123,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 4
+        "new": 0
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
