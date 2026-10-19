@@ -15,7 +15,132 @@
       "arxiv": "2610.23395v1",
       "collected_at": "2026-10-19",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "job",
+      "title": "PhD on the ALICE 3 Outer Tracker — Marietta Blau Inst., Vienna",
+      "summary": "Europe · deadline 2026-10-30 · PHD. MBI performs a rich experimental particle physics research program, participating in accelerator- and non-accelerator-based experiments. The institute has major involvement in ALICE and CMS at CERN, the Belle II experiment at KEK, and several…",
+      "url": "https://inspirehep.net/jobs/3215741",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-18",
+      "deadline": "2026-10-30",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "news",
+      "title": "Normally forbidden emissions from graphene could expose quantum fluctuations in incoming light",
+      "summary": "Voltage fluctuations, light fluctuations, temperature fluctuations—any fluctuations are troublesome and thus undesirable. They don't just cause discomfort; in engineering and medical applications, they affect the accuracy of measurements or introduce errors in controls. Even at…",
+      "url": "https://phys.org/news/2026-10-forbidden-emissions-graphene-expose-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "news",
+      "title": "Scientists redetermine a key strontium frequency with 50 times better precision for quantum technologies",
+      "summary": "The Korea Research Institute of Standards and Science (KRISS) has remeasured a key transition frequency of the strontium (Sr) atom for the first time in 88 years, since 1938, using a photonic grating chip. It has established a new absolute frequency value with a measurement…",
+      "url": "https://phys.org/news/2026-10-scientists-redetermine-key-strontium-frequency.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "news",
+      "title": "X-rays reveal surprisingly long-lived spin waves in copper oxide",
+      "summary": "Today's computer technology, based on silicon chips, is slowly reaching its physical limits. Components cannot be miniaturized indefinitely, and clock speeds cannot be increased indefinitely. At the same time, huge AI data centers are being built in many places, and these…",
+      "url": "https://phys.org/news/2026-10-rays-reveal-copper-oxide.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "paper",
+      "title": "Systematic study of the half-lives of nuclear bound-state ${β}^{−}$ decay",
+      "summary": "Author(s): Jing-Wen Ran and Long-Jun Wang Nuclear bound-state ${β}^{−}$ decay (${β}_{\\text{b}}$ decay) is a novel weak-interaction process that becomes possible when atoms are highly ionized, such as in stellar environments or heavy-ion storage rings. In this work we present…",
+      "url": "http://link.aps.org/doi/10.1103/mm62-58yl",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "paper",
+      "title": "Resonance-dominated heavy-ion fusion and structures with negative components in the representation ${d}^{2}(Eσ)/d{E}^{2}$ of the fusion cross section",
+      "summary": "Author(s): Basudeb Sahu The true ion-ion interaction governed by the repulsive electrostatic potential and the attractive nuclear potential at small separation is approximated as a Coulomb barrier decorated by an attractive $δ$-shell potential placed under the barrier. This…",
+      "url": "http://link.aps.org/doi/10.1103/mbqf-s378",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "paper",
+      "title": "Impact of soft versus hard equations of state on hybrid stars",
+      "summary": "Author(s): H. Güven, K. Bozkurt, E. Khan, and J. Margueron The nuclear stiffness as a dominant contribution of nuclear symmetry energy is analyzed in the context of the properties of compact stars, considering constraints from nuclear physics and astrophysics. A compact star…",
+      "url": "http://link.aps.org/doi/10.1103/vxhx-gw7q",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-19",
+      "type": "paper",
+      "title": "Measurement of the $^{19}\\mathrm{F}(p,αγ)^{16}\\mathrm{O}$ astrophysical factor at threshold energies",
+      "summary": "Author(s): X. D. Su et al. Proton-induced reactions on $^{19}\\mathrm{F}$ can lead to different branches of the CNO cycles, possibly resulting in the synthesis of heavier nuclei. For instance, CNO breakout is considered to be a viable path to the production of calcium in the…",
+      "url": "http://link.aps.org/doi/10.1103/bnc6-z6hj",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-19",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-19T06:50:44+00:00"
+  "fetched": "2026-10-19T20:42:39+00:00"
 }
