@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-20",
+      "type": "job",
+      "title": "Postdoctoral Fellow in Nuclear Theory, Physics Division, Argonne National Laboratory — Argonne (main)",
+      "summary": "North America · deadline 2026-11-20 · POSTDOC. The Theory Group in the Physics Division at Argonne National Laboratory is seeking candidates for postdoctoral positions in nuclear theory, to begin as early as Spring 2026. The positions are for two years, with the possibility of…",
+      "url": "https://inspirehep.net/jobs/3216123",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "deadline": "2026-11-20",
+      "collected_at": "2026-10-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-20",
+      "type": "news",
+      "title": "Forgotten particle could answer mystery of why we exist, say physicists",
+      "summary": "Scientists have unveiled a new theory on the birth of the cosmos, suggesting the early universe was shaped by an ancient particle that has been overlooked for decades.",
+      "url": "https://phys.org/news/2026-10-forgotten-particle-mystery-physicists.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-20",
+      "type": "paper",
+      "title": "Precise mass measurement of the $^{149}\\mathrm{La}\\text{−}^{149}\\mathrm{Ce}\\text{−}^{149}\\mathrm{Pr}$ isobaric chain",
+      "summary": "Author(s): B. Liu, M. Brodeur, J. A. Clark, D. Ray, G. Savard, A. A. Valverde, D. P. Burdette, A. M. Houff, A. Mitra, G. E. Morgan, R. Orford, W. S. Porter, C. Quick, F. Rivero, K. S. Sharma, and L. Varriano Penning trap mass measurements of $^{149}\\mathrm{La}$,…",
+      "url": "http://link.aps.org/doi/10.1103/vx4j-hdzg",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-19",
+      "collected_at": "2026-10-20",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-20T06:37:05+00:00"
+}
