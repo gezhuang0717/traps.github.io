@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-21T19:34:26+00:00",
+  "generated": "2026-10-22T06:36:03+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5674,6 +5674,136 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-10-22",
+      "type": "preprint",
+      "title": "Semiclassical molecular dynamics simulations of electromagnetically induced transparency cooling of 2D and 3D ion crystals in a Penning trap",
+      "summary": "John Zaris et al. — Motional modes of trapped-ion crystals in Penning traps can now be cooled to near their ground states via electromagnetically induced transparency (EIT) cooling. Numerical simulations are valuable tools for interpreting EIT cooling results and optimizing…",
+      "url": "https://arxiv.org/abs/2610.29718v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "arxiv": "2610.29718v1",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "preprint",
+      "title": "Recent upgrades to the CRIS Decay Spectroscopy Station: Accessing $β$- and $γ$-ray spectroscopy on pure isomeric beams",
+      "summary": "Simone Casci et al. — The Decay Spectroscopy Station (DSS) of the Collinear Resonance Ionization Spectroscopy (CRIS) experiment at ISOLDE-CERN has been upgraded to perform isomer-selective $β$- and $γ$-ray spectroscopy, including a new tape system to perform spectroscopy, free…",
+      "url": "https://arxiv.org/abs/2610.29627v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "arxiv": "2610.29627v1",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "cern-isolde"
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "type": "job",
+      "title": "Postdoctoral Research Associate — Mississippi State U., ORNL, Oak Ridge (main)",
+      "summary": "North America · deadline 2026-11-10 · POSTDOC. The Medium Energy Physics group at Mississippi State University invites applications for a Postdoctoral Research Associate position in experimental nuclear physics. The successful candidate will work on detector development and…",
+      "url": "https://inspirehep.net/jobs/3217156",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "deadline": "2026-11-10",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "job",
+      "title": "MSc/PhD Positions in Experimental Particle/Nuclear Physics — Manitoba U.",
+      "summary": "North America · deadline 2026-12-01 · MASTER/PHD. The Experimental Subatomic Physics research group at the University of Manitoba invites applications for a graduate student position (MSc or PhD) in experimental particle physics. The successful applicant will join the TRIUMF…",
+      "url": "https://inspirehep.net/jobs/3216597",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "deadline": "2026-12-01",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "triumf-isac"
+      ]
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "A Quantum Cyclotron for Antimatter",
+      "summary": "Author(s): Paolo Crivelli A device that stores a single positron and controls its quantum states could measure its magnetic moment with unprecedented precision, testing a symmetry principle central to quantum field theory. [Physics 19, 132] Published Wed Oct 21, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.132",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Putting Momentum Under the Microscope",
+      "summary": "Author(s): Ryan Wilkinson A new method lets quantum gas microscopes measure not only where atoms are but also how they move. [Physics 19, s129] Published Wed Oct 21, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s129",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Laser-made lattice reveals discrete light solitons in tunable atomic vapor",
+      "summary": "Scientists from the Quantum Technologies Group at the Institute of Physics Zagreb, in collaboration with a colleague from the Physics Department at the Faculty of Science (PMF), have experimentally demonstrated for the first time the existence of discrete one-dimensional (1D)…",
+      "url": "https://phys.org/news/2026-10-laser-lattice-reveals-discrete-solitons.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Perovskite laser maintains stable performance over 400 million pulses",
+      "summary": "In a study published in Advanced Optical Materials, researchers at Vilnius University (VU) demonstrated perovskite-based laser structures that maintained stable performance over more than 400 million pulses. Their findings address one of the major challenges limiting the…",
+      "url": "https://phys.org/news/2026-10-perovskite-laser-stable-million-pulses.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-10-21",
       "type": "preprint",
