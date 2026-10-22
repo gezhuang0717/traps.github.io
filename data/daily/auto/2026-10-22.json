@@ -129,7 +129,112 @@
       "published": "2026-10-21",
       "collected_at": "2026-10-22",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Diamond laser system achieves 100% optical contrast in magnetic-field readout",
+      "summary": "Researchers at Fraunhofer IAF have developed a laser-enhanced quantum sensor that combines high magnetic-field sensitivity with a large dynamic range. Using laser threshold magnetometry, they improved the ratio of sensitivity and dynamic range by a factor of up to 590 compared…",
+      "url": "https://phys.org/news/2026-10-diamond-laser-optical-contrast-magnetic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Quantum interference traps electron waves in metal for first time",
+      "summary": "Ever since quantum mechanics first described particles, like electrons, as rippling waves, researchers have wondered if those waves could be trapped in place. Writing today in Science a century later, a team of Columbia University researchers reports waves of electrons becoming…",
+      "url": "https://phys.org/news/2026-10-quantum-electron-metal.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Lost Schrödinger manuscript reveals his true view of quantum randomness",
+      "summary": "Unlike classical physics, quantum mechanics generally cannot tell us exactly what will happen in an individual event. Instead, it predicts the probabilities of different outcomes. As one of the theory's early pioneers, Erwin Schrödinger played a key role in debates about what…",
+      "url": "https://phys.org/news/2026-10-lost-schrdinger-manuscript-reveals-true.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "news",
+      "title": "Sapphire-grown semiconductor film sets bandgap record",
+      "summary": "Semiconductors with wider bandgaps could pave the way for smaller, more efficient electronics that can handle far higher voltages, but the wider this gap becomes, the harder it is to control how well a material conducts electricity. Now, a team led by Darrell Schlom at Cornell…",
+      "url": "https://phys.org/news/2026-10-sapphire-grown-semiconductor-bandgap.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "paper",
+      "title": "Wigner crystals get dressed",
+      "summary": "Nature Physics, Published online: 22 October 2026; doi:10.1038/s41567-026-03516-9 When repulsion overcomes their tendency to move freely, electrons can arrange into a crystal. Two experiments have now identified Wigner polarons, quasiparticles whose optical signatures reveal…",
+      "url": "https://www.nature.com/articles/s41567-026-03516-9",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "paper",
+      "title": "Teleportation transition of surface codes on a superconducting quantum processor",
+      "summary": "Nature Physics, Published online: 22 October 2026; doi:10.1038/s41567-026-03484-0 Quantum teleportation is often discussed for individual quantum systems, but fault-tolerant quantum computers will encode information in multiqubit states. Now teleportation of surface code…",
+      "url": "https://www.nature.com/articles/s41567-026-03484-0",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-22",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-22",
+      "type": "paper",
+      "title": "Coherent phonon control beyond amplitude saturation in a sliding ferroelectric",
+      "summary": "Nature Physics, Published online: 21 October 2026; doi:10.1038/s41567-026-03491-1 Strong photoexcitation of phonons in a crystal can lead to a nonlinear response. Now it is shown that this breakdown of linearity can be overcome by the application of well-timed photoexcitation…",
+      "url": "https://www.nature.com/articles/s41567-026-03491-1",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-21",
+      "collected_at": "2026-10-22",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-22T06:36:02+00:00"
+  "fetched": "2026-10-22T19:27:47+00:00"
 }
