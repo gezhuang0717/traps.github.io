@@ -1094,7 +1094,7 @@
     };
     autoB.onclick = () => dataRange(false); if (fullB) fullB.onclick = () => dataRange(true);
     const baseChange = sel.onchange;
-    sel.onchange = () => { manualRange = null; baseChange(); syncRange(); };
+    sel.onchange = () => { manualRange = null; baseChange(); syncRange(); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(syncRange).catch(() => {}); };   /* refill min/max once an overlay table has loaded */
     syncRange();
     // own data
     const symbolMap = () => new Map((EL || []).map(e => [e[1], e[0]]));
