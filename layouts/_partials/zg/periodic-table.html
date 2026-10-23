@@ -8,5 +8,5 @@
   <h2>🧪 {{ index $title $k | default $title.en }}</h2>
   <p class="zg-muted">{{ index $intro $k | default $intro.en }}</p>
   <div class="pt-app" data-pt-app><p class="zg-muted" data-pt-status role="status">…</p></div>
-  <noscript><p class="zg-muted">JavaScript is required for the interactive periodic table.</p></noscript>
+  {{ $nojs := dict "en" "Enable JavaScript to use the interactive periodic table." "zh" "请启用 JavaScript 以使用交互式元素周期表。" "fi" "Ota JavaScript käyttöön interaktiivista jaksollista järjestelmää varten." "de" "JavaScript aktivieren, um das interaktive Periodensystem zu nutzen." "ja" "対話型周期表を使うには JavaScript を有効にしてください。" "fr" "Activez JavaScript pour utiliser le tableau périodique interactif." }}<noscript><p class="zg-muted">{{ index $nojs (index (split site.Language.Lang "-") 0) }}</p></noscript>
 </section>

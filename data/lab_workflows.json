@@ -1,0 +1,728 @@
+{
+  "schema_version": 1,
+  "languages": [
+    "en",
+    "zh",
+    "fi",
+    "de",
+    "ja",
+    "fr"
+  ],
+  "topics": {
+    "motion": {
+      "selectors": [
+        "[data-control-help=\"motion\"]",
+        "[data-trap3d]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/lab.html",
+        "layouts/_partials/zg/legacy-penning3d.html",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "See how fast cyclotron, slow magnetron and axial motions combine in a Penning trap.",
+          "inputs": "Set ν₊/ν₋, radial sizes and playback speed; use the extra controls shown for the selected view.",
+          "outputs": "Animated orbit views and trails; PNG or video captures where the buttons are offered.",
+          "gain": "Recognise the three motions and see how a π pulse changes the radial motion.",
+          "hint": "Begin with one ion, change one radius, then apply the π pulse and compare the trail.",
+          "limits": "These are ideal teaching orbits. Radii in drawing units and playback speed do not specify a real apparatus."
+        },
+        "zh": {
+          "purpose": "观察彭宁阱中快回旋、慢磁控和轴向运动如何叠加。",
+          "inputs": "设置 ν₊/ν₋、径向尺寸与播放速度，并使用当前视图显示的附加控制。",
+          "outputs": "得到轨道动画与轨迹线；有相应按钮时可保存 PNG 或视频。",
+          "gain": "辨认三种运动，并观察 π 脉冲如何改变径向运动。",
+          "hint": "先用一个离子，只改一个半径，再施加 π 脉冲比较轨迹。",
+          "limits": "这是理想教学轨道；绘图单位的半径和播放速度不代表真实装置参数。"
+        },
+        "fi": {
+          "purpose": "Katso, miten nopea syklotroni-, hidas magnetroni- ja aksiaaliliike yhdistyvät Penning-loukussa.",
+          "inputs": "Aseta ν₊/ν₋, säteet ja toistonopeus; käytä valitun näkymän lisäsäätimiä.",
+          "outputs": "Animoidut radat ja jäljet; PNG- tai videotallennus, kun vastaava painike on tarjolla.",
+          "gain": "Tunnista kolme liikettä ja näe, miten π-pulssi muuttaa radiaaliliikettä.",
+          "hint": "Aloita yhdellä ionilla, muuta yhtä sädettä ja vertaa jälkeä π-pulssin jälkeen.",
+          "limits": "Radat ovat ideaalisia opetusmalleja. Piirtoyksiköiden säteet ja toistonopeus eivät määritä todellista laitteistoa."
+        },
+        "de": {
+          "purpose": "Sehen, wie schnelle Zyklotron-, langsame Magnetron- und axiale Bewegung in einer Penning-Falle zusammenwirken.",
+          "inputs": "ν₊/ν₋, Radien und Wiedergabetempo einstellen; weitere Regler gehören zur gewählten Ansicht.",
+          "outputs": "Animierte Bahnen und Spuren; PNG- oder Videoaufnahme, sofern angeboten.",
+          "gain": "Die drei Bewegungen erkennen und die Wirkung eines π-Pulses auf die radiale Bewegung verstehen.",
+          "hint": "Mit einem Ion beginnen, einen Radius ändern und die Spur nach dem π-Puls vergleichen.",
+          "limits": "Dies sind ideale Lehrbahnen. Radien in Zeichnungseinheiten und Wiedergabetempo beschreiben keine reale Apparatur."
+        },
+        "ja": {
+          "purpose": "ペニングトラップで速いサイクロトロン運動、遅いマグネトロン運動、軸方向振動が重なる様子を見ます。",
+          "inputs": "ν₊/ν₋、径方向の大きさ、再生速度を設定し、選択した表示の追加設定を使います。",
+          "outputs": "軌道アニメーションと軌跡を表示し、対応するボタンがあれば PNG や動画を保存します。",
+          "gain": "3 種類の運動を見分け、π パルスによる径方向運動の変化を理解できます。",
+          "hint": "イオン 1 個から始め、半径を一つ変え、π パルス前後の軌跡を比べてください。",
+          "limits": "理想的な教育用軌道です。描画単位の半径や再生速度は実機の設定値を表しません。"
+        },
+        "fr": {
+          "purpose": "Voir comment les mouvements cyclotron rapide, magnétron lent et axial se combinent dans un piège de Penning.",
+          "inputs": "Régler ν₊/ν₋, les rayons et la vitesse de lecture, puis les commandes propres à la vue choisie.",
+          "outputs": "Des orbites et des traces animées ; une capture PNG ou vidéo lorsque le bouton est proposé.",
+          "gain": "Reconnaître les trois mouvements et observer l’effet d’une impulsion π sur le mouvement radial.",
+          "hint": "Commencer avec un ion, modifier un rayon, puis comparer la trace après une impulsion π.",
+          "limits": "Ce sont des orbites pédagogiques idéales. Les rayons en unités de dessin et la vitesse de lecture ne décrivent pas un appareil réel."
+        }
+      }
+    },
+    "cyclotron": {
+      "selectors": [
+        "[data-control-help=\"cyclotron\"]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/lab.html",
+        "static/js/lab-calculators.js",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Estimate the ideal free cyclotron frequency for a chosen ion and magnetic field.",
+          "inputs": "Neutral atomic mass in u, positive integer charge number q, and magnetic field B in T.",
+          "outputs": "νc in kHz, calculated with ionic mass m_atom − q·m_e.",
+          "gain": "Compare how changing mass, charge or field changes the expected frequency.",
+          "hint": "Choose a preset first; double B while keeping mass and q fixed and compare νc.",
+          "limits": "Electron binding energies, field imperfections and measurement uncertainties are omitted; extra input digits do not establish accuracy."
+        },
+        "zh": {
+          "purpose": "估算指定离子在给定磁场中的理想自由回旋频率。",
+          "inputs": "中性原子质量（u）、正整数电荷数 q 与磁场 B（T）。",
+          "outputs": "以离子质量 m_atom − q·m_e 计算 νc，单位 kHz。",
+          "gain": "比较质量、电荷数或磁场变化对预期频率的影响。",
+          "hint": "先选预设，保持质量与 q 不变，将 B 加倍并比较 νc。",
+          "limits": "未包含电子结合能、磁场非理想性和测量不确定度；输入更多位数不代表更高准确度。"
+        },
+        "fi": {
+          "purpose": "Arvioi valitun ionin ideaalinen vapaa syklotronitaajuus annetussa magneettikentässä.",
+          "inputs": "Neutraalin atomin massa u-yksiköissä, positiivinen kokonaisluku q ja magneettikenttä B tesloina.",
+          "outputs": "νc kHz-yksiköissä käyttäen ionimassaa m_atom − q·m_e.",
+          "gain": "Vertaa massan, varauksen ja kentän vaikutusta odotettuun taajuuteen.",
+          "hint": "Valitse ensin esiasetus; kaksinkertaista B pitäen massa ja q samoina ja vertaa νc:tä.",
+          "limits": "Elektronien sidosenergiat, kentän epätäydellisyydet ja mittausepävarmuus puuttuvat; lisädesimaalit eivät takaa tarkkuutta."
+        },
+        "de": {
+          "purpose": "Die ideale freie Zyklotronfrequenz eines Ions im gewählten Magnetfeld abschätzen.",
+          "inputs": "Neutrale Atommasse in u, positive ganzzahlige Ladungszahl q und Magnetfeld B in T.",
+          "outputs": "νc in kHz, berechnet mit der Ionenmasse m_atom − q·m_e.",
+          "gain": "Den Einfluss von Masse, Ladung und Feld auf die erwartete Frequenz vergleichen.",
+          "hint": "Zuerst eine Vorgabe wählen; bei gleicher Masse und gleichem q den Wert B verdoppeln und νc vergleichen.",
+          "limits": "Elektronenbindungsenergien, Feldfehler und Messunsicherheiten fehlen; mehr Eingabestellen belegen keine höhere Genauigkeit."
+        },
+        "ja": {
+          "purpose": "指定したイオンと磁場に対する理想的な自由サイクロトロン周波数を見積もります。",
+          "inputs": "中性原子質量（u）、正整数の電荷数 q、磁場 B（T）を入力します。",
+          "outputs": "イオン質量 m_atom − q·m_e を使って νc（kHz）を求めます。",
+          "gain": "質量、電荷数、磁場を変えたときの周波数の変化を比較できます。",
+          "hint": "プリセットを選び、質量と q を固定して B を 2 倍にし、νc を比べてください。",
+          "limits": "電子の結合エネルギー、磁場の不完全性、測定不確かさは含みません。入力桁数は精度を保証しません。"
+        },
+        "fr": {
+          "purpose": "Estimer la fréquence cyclotron libre idéale d’un ion dans un champ magnétique choisi.",
+          "inputs": "Masse atomique neutre en u, nombre entier positif de charges q et champ B en T.",
+          "outputs": "νc en kHz, calculée avec la masse ionique m_atom − q·m_e.",
+          "gain": "Comparer l’effet de la masse, de la charge ou du champ sur la fréquence attendue.",
+          "hint": "Choisir un préréglage, doubler B en gardant masse et q fixes, puis comparer νc.",
+          "limits": "Énergies de liaison électroniques, imperfections du champ et incertitudes de mesure sont omises ; davantage de chiffres saisis ne garantit pas la justesse."
+        }
+      }
+    },
+    "resolution": {
+      "selectors": [
+        "[data-control-help=\"resolution\"]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/lab.html",
+        "static/js/lab-calculators.js",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Estimate the resolving power required to separate two masses.",
+          "inputs": "Two masses in u and editable nominal resolving-power guides for MR-TOF, TOF-ICR and PI-ICR.",
+          "outputs": "Mass difference and required R = mean mass / |Δm|, compared with your guides.",
+          "gain": "See why smaller mass differences require higher resolving power.",
+          "hint": "Keep one mass fixed and move the other closer; use direct entry for R or the logarithmic guide sliders.",
+          "limits": "The guide comparison is an estimate, not measured device performance; equal masses have no distinct mass separation."
+        },
+        "zh": {
+          "purpose": "估算分开两个质量所需的分辨本领。",
+          "inputs": "两个质量（u），以及可编辑的 MR-TOF、TOF-ICR 和 PI-ICR 标称分辨本领参考值。",
+          "outputs": "得到质量差与所需 R = 平均质量 / |Δm|，并与参考值比较。",
+          "gain": "理解质量差越小，为什么需要越高的分辨本领。",
+          "hint": "固定一个质量，将另一个逐渐靠近；可直接输入 R 或使用对数滑块。",
+          "limits": "参考值比较是估算，不是装置性能实测；相同质量没有不同的质量峰可供分离。"
+        },
+        "fi": {
+          "purpose": "Arvioi kahden massan erottamiseen tarvittava erotuskyky.",
+          "inputs": "Kaksi massaa u-yksiköissä sekä muokattavat MR-TOF-, TOF-ICR- ja PI-ICR-vertailuarvot.",
+          "outputs": "Massaero ja tarvittava R = keskimassa / |Δm| sekä vertailu annettuihin ohjearvoihin.",
+          "gain": "Näe, miksi pieni massaero vaatii suuremman erotuskyvyn.",
+          "hint": "Pidä yksi massa vakiona ja siirrä toista lähemmäs; kirjoita R tai käytä logaritmisia liukusäätimiä.",
+          "limits": "Vertailu on arvio, ei laitteen mitattu suorituskyky; samoilla massoilla ei ole erillistä massaeroa."
+        },
+        "de": {
+          "purpose": "Das zum Trennen zweier Massen erforderliche Auflösungsvermögen abschätzen.",
+          "inputs": "Zwei Massen in u und editierbare nominale Richtwerte für MR-TOF, TOF-ICR und PI-ICR.",
+          "outputs": "Massendifferenz und erforderliches R = mittlere Masse / |Δm| im Vergleich zu den Richtwerten.",
+          "gain": "Verstehen, warum kleinere Massendifferenzen ein höheres Auflösungsvermögen erfordern.",
+          "hint": "Eine Masse festhalten, die andere annähern; R direkt eingeben oder die logarithmischen Regler nutzen.",
+          "limits": "Der Vergleich ist eine Abschätzung, keine gemessene Geräteleistung; gleiche Massen besitzen keine getrennte Massendifferenz."
+        },
+        "ja": {
+          "purpose": "二つの質量を分離するために必要な分解能を見積もります。",
+          "inputs": "二つの質量（u）と、編集可能な MR-TOF・TOF-ICR・PI-ICR の目安の分解能を入力します。",
+          "outputs": "質量差と必要 R = 平均質量 / |Δm| を求め、目安と比較します。",
+          "gain": "質量差が小さいほど高い分解能が必要な理由を理解できます。",
+          "hint": "一方の質量を固定して他方を近づけてください。R は直接入力または対数スライダーで設定できます。",
+          "limits": "目安との比較は推定であり、装置の実測性能ではありません。同じ質量には分離すべき質量差がありません。"
+        },
+        "fr": {
+          "purpose": "Estimer le pouvoir de résolution nécessaire pour séparer deux masses.",
+          "inputs": "Deux masses en u et des repères nominaux modifiables pour MR-TOF, TOF-ICR et PI-ICR.",
+          "outputs": "La différence de masse et R requis = masse moyenne / |Δm|, comparés aux repères.",
+          "gain": "Comprendre pourquoi une différence de masse plus petite exige une résolution plus élevée.",
+          "hint": "Garder une masse fixe et rapprocher l’autre ; saisir R directement ou utiliser les curseurs logarithmiques.",
+          "limits": "Cette comparaison est une estimation, pas une performance mesurée ; des masses égales n’ont aucune différence de masse à séparer."
+        }
+      }
+    },
+    "converter": {
+      "selectors": [
+        "[data-control-help=\"converter\"]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/lab.html",
+        "static/js/lab-calculators.js",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Convert one mass between u, keV/c², MeV/c² and kg; optionally calculate mass excess.",
+          "inputs": "A numerical mass, its unit, and optionally the integer mass number A = Z + N.",
+          "outputs": "A mass-conversion table and, when A is provided, the mass excess in keV.",
+          "gain": "Read nuclear masses in different units without confusing mass number with atomic mass.",
+          "hint": "Convert 1 u first; leave A blank for conversion alone and enter A only for mass excess.",
+          "limits": "This is unit conversion using the displayed constants; it does not supply a measured mass or its uncertainty."
+        },
+        "zh": {
+          "purpose": "在 u、keV/c²、MeV/c² 和 kg 之间换算质量，并可计算质量过剩。",
+          "inputs": "质量数值、单位，以及可选的整数质量数 A = Z + N。",
+          "outputs": "得到质量换算表；填写 A 时还显示质量过剩（keV）。",
+          "gain": "用不同单位读取核质量，并区分质量数与原子质量。",
+          "hint": "先换算 1 u；仅换算单位时将 A 留空，需计算质量过剩时再填写。",
+          "limits": "这里使用页面所列常数换算单位，不提供实测质量或其不确定度。"
+        },
+        "fi": {
+          "purpose": "Muunna massa yksiköiden u, keV/c², MeV/c² ja kg välillä ja laske halutessasi massaylijäämä.",
+          "inputs": "Massan lukuarvo, yksikkö ja haluttaessa kokonaislukuinen massaluku A = Z + N.",
+          "outputs": "Muunnostaulukko sekä massaylijäämä keV-yksiköissä, kun A on annettu.",
+          "gain": "Lue ydinmassoja eri yksiköissä sekoittamatta massalukua atomimassaan.",
+          "hint": "Muunna ensin 1 u; jätä A tyhjäksi pelkkää muunnosta varten ja anna se vain massaylijäämää varten.",
+          "limits": "Muunnos käyttää näytettyjä vakioita; se ei tuota mitattua massaa tai sen epävarmuutta."
+        },
+        "de": {
+          "purpose": "Eine Masse zwischen u, keV/c², MeV/c² und kg umrechnen und optional den Massenexzess berechnen.",
+          "inputs": "Massenwert, Einheit und optional die ganzzahlige Massenzahl A = Z + N.",
+          "outputs": "Eine Umrechnungstabelle und bei angegebenem A der Massenexzess in keV.",
+          "gain": "Kernmassen in verschiedenen Einheiten lesen und Massenzahl von Atommasse unterscheiden.",
+          "hint": "Zuerst 1 u umrechnen; A für reine Umrechnung leer lassen und nur für den Massenexzess angeben.",
+          "limits": "Die Umrechnung verwendet die angezeigten Konstanten; sie liefert keine gemessene Masse oder deren Unsicherheit."
+        },
+        "ja": {
+          "purpose": "質量を u・keV/c²・MeV/c²・kg の間で換算し、必要なら質量超過を求めます。",
+          "inputs": "質量の数値、単位、任意で整数の質量数 A = Z + N を入力します。",
+          "outputs": "質量の換算表と、A を入力した場合は質量超過（keV）が得られます。",
+          "gain": "質量数と原子質量を区別しながら、異なる単位で核質量を読めます。",
+          "hint": "まず 1 u を換算してください。単位換算だけなら A は空欄にし、質量超過を求めるときだけ入力します。",
+          "limits": "表示された定数による単位換算です。実測質量やその不確かさを提供するものではありません。"
+        },
+        "fr": {
+          "purpose": "Convertir une masse entre u, keV/c², MeV/c² et kg, puis calculer éventuellement l’excès de masse.",
+          "inputs": "Une valeur de masse, son unité et, si nécessaire, le nombre de masse entier A = Z + N.",
+          "outputs": "Un tableau de conversion et l’excès de masse en keV lorsque A est renseigné.",
+          "gain": "Lire les masses nucléaires dans plusieurs unités sans confondre nombre de masse et masse atomique.",
+          "hint": "Convertir d’abord 1 u ; laisser A vide pour la conversion seule et le saisir pour l’excès de masse.",
+          "limits": "La conversion utilise les constantes affichées ; elle ne fournit ni masse mesurée ni incertitude."
+        }
+      }
+    },
+    "body": {
+      "selectors": [
+        ".zg-body"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/lab-more.html"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Estimate the scale of natural potassium-40 and carbon-14 activity in a body.",
+          "inputs": "Body mass in kg; potassium and carbon content per kg are fixed assumptions listed below.",
+          "outputs": "Estimated activity in Bq, decays per day and a banana-activity comparison.",
+          "gain": "Understand that 1 Bq means one decay per second and that activity scales with the assumed material amount.",
+          "hint": "Try 70 kg, then double the mass and compare both isotope contributions.",
+          "limits": "The fixed-composition estimate does not measure personal activity, absorbed dose or health risk; banana equivalence compares activity only."
+        },
+        "zh": {
+          "purpose": "估算人体天然钾-40 和碳-14 放射性活度的数量级。",
+          "inputs": "体重（kg）；每千克含钾和碳的量采用下方列出的固定假设。",
+          "outputs": "显示估算活度（Bq）、每天衰变数与香蕉活度对比。",
+          "gain": "理解 1 Bq 表示每秒一次衰变，以及活度如何随假定物质量变化。",
+          "hint": "先试 70 kg，再将体重加倍，比较两种核素的贡献。",
+          "limits": "固定成分估算不能测量个人活度、吸收剂量或健康风险；香蕉对比只比较活度。"
+        },
+        "fi": {
+          "purpose": "Arvioi kehon luonnollisen kalium-40:n ja hiili-14:n aktiivisuuden suuruusluokka.",
+          "inputs": "Kehon massa kilogrammoina; kaliumin ja hiilen määrä kiloa kohti perustuu alla lueteltuihin vakio-oletuksiin.",
+          "outputs": "Arvioitu aktiivisuus Bq-yksiköissä, hajoamiset vuorokaudessa ja vertailu banaanin aktiivisuuteen.",
+          "gain": "Ymmärrä, että 1 Bq tarkoittaa yhtä hajoamista sekunnissa ja aktiivisuus riippuu oletetusta ainemäärästä.",
+          "hint": "Kokeile 70 kg, kaksinkertaista massa ja vertaa molempien isotooppien osuuksia.",
+          "limits": "Vakioitu koostumus ei mittaa omaa aktiivisuutta, absorboitunutta annosta tai terveysriskiä; banaanivertailu koskee vain aktiivisuutta."
+        },
+        "de": {
+          "purpose": "Die Größenordnung der natürlichen Kalium-40- und Kohlenstoff-14-Aktivität im Körper abschätzen.",
+          "inputs": "Körpermasse in kg; Kalium- und Kohlenstoffgehalt pro kg sind unten aufgeführte feste Annahmen.",
+          "outputs": "Geschätzte Aktivität in Bq, Zerfälle pro Tag und ein Vergleich mit der Aktivität von Bananen.",
+          "gain": "Verstehen, dass 1 Bq einen Zerfall pro Sekunde bedeutet und die Aktivität von der angenommenen Stoffmenge abhängt.",
+          "hint": "70 kg eingeben, dann die Masse verdoppeln und die Beiträge beider Isotope vergleichen.",
+          "limits": "Die feste Zusammensetzung misst weder persönliche Aktivität noch absorbierte Dosis oder Gesundheitsrisiko; der Bananenvergleich betrifft nur Aktivität."
+        },
+        "ja": {
+          "purpose": "体内の天然カリウム40と炭素14の放射能のおおよその大きさを見積もります。",
+          "inputs": "体重（kg）を入力します。1 kg あたりのカリウムと炭素の量は下記の固定仮定を使います。",
+          "outputs": "推定放射能（Bq）、1 日の崩壊数、バナナの放射能との比較を表示します。",
+          "gain": "1 Bq が毎秒 1 回の崩壊を意味し、放射能が仮定した物質量に比例することを理解できます。",
+          "hint": "70 kg を試し、体重を 2 倍にして二つの核種の寄与を比べてください。",
+          "limits": "組成を固定した推定であり、個人の放射能、吸収線量、健康リスクを測るものではありません。バナナとの比較は放射能だけです。"
+        },
+        "fr": {
+          "purpose": "Estimer l’ordre de grandeur de l’activité naturelle du potassium-40 et du carbone-14 dans le corps.",
+          "inputs": "Masse corporelle en kg ; les teneurs en potassium et en carbone par kg sont des hypothèses fixes indiquées ci-dessous.",
+          "outputs": "Activité estimée en Bq, désintégrations par jour et comparaison avec l’activité de bananes.",
+          "gain": "Comprendre que 1 Bq signifie une désintégration par seconde et que l’activité dépend de la quantité de matière supposée.",
+          "hint": "Essayer 70 kg, doubler la masse et comparer les contributions des deux isotopes.",
+          "limits": "La composition fixe ne mesure ni activité personnelle, ni dose absorbée, ni risque sanitaire ; la comparaison avec la banane concerne uniquement l’activité."
+        }
+      }
+    },
+    "chart": {
+      "selectors": [
+        "[data-control-help=\"chart\"]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/nuclide-chart.html",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Explore how nuclear properties vary across proton number Z and neutron number N.",
+          "inputs": "Search a nuclide, choose the colour quantity, filters and evaluated mass source or theoretical model.",
+          "outputs": "A coloured nuclide chart, selected-nucleus details and the offered chart exports.",
+          "gain": "Locate isotope families, shell patterns and the distinction between evaluated and model values.",
+          "hint": "Search 116Sn, read the colour legend, then switch one quantity or source and compare the same region.",
+          "limits": "These are source snapshots; # marks extrapolation. Model ground states, separation-energy boundaries and illustrative r/rp paths have different meanings."
+        },
+        "zh": {
+          "purpose": "探索核性质如何随质子数 Z 和中子数 N 变化。",
+          "inputs": "搜索核素，选择着色物理量、筛选条件，以及评价质量来源或理论模型。",
+          "outputs": "显示彩色核素图、选中核素的详细数据，并提供页面所列的图表导出。",
+          "gain": "找到同位素家族与壳层规律，并区分评价数据和模型值。",
+          "hint": "搜索 116Sn，先读颜色图例，再只切换一个物理量或来源，比较同一区域。",
+          "limits": "数据是来源快照，# 表示外推；模型基态、分离能边界与示意 r/rp 路径各有不同含义。"
+        },
+        "fi": {
+          "purpose": "Tutki ydinominaisuuksien vaihtelua protoniluvun Z ja neutroniluvun N funktiona.",
+          "inputs": "Hae nuklidi ja valitse värisuure, suodattimet sekä arvioitu massalähde tai teoreettinen malli.",
+          "outputs": "Värillinen nuklidikartta, valitun ytimen tiedot ja tarjolla olevat karttaviennit.",
+          "gain": "Löydä isotooppiperheitä ja kuorirakenteita sekä erota arvioidut ja malliarvot.",
+          "hint": "Hae 116Sn, lue väriselite ja vaihda yksi suure tai lähde vertaillaksesi samaa aluetta.",
+          "limits": "Tiedot ovat lähdeotoksia; # merkitsee ekstrapolointia. Mallin perustilat, separaatioenergiarajat ja havainnolliset r/rp-polut tarkoittavat eri asioita."
+        },
+        "de": {
+          "purpose": "Untersuchen, wie Kerneigenschaften mit Protonenzahl Z und Neutronenzahl N variieren.",
+          "inputs": "Nuklid suchen, Farbgröße und Filter sowie evaluierte Massenquelle oder theoretisches Modell wählen.",
+          "outputs": "Eine farbige Nuklidkarte, Details des gewählten Kerns und die angebotenen Kartenexporte.",
+          "gain": "Isotopenfamilien und Schalenmuster finden und evaluierte Werte von Modellwerten unterscheiden.",
+          "hint": "116Sn suchen, die Farblegende lesen und dann eine Größe oder Quelle für denselben Bereich wechseln.",
+          "limits": "Dies sind Datenstände; # kennzeichnet Extrapolation. Modellgrundzustände, Separationsenergiegrenzen und illustrative r/rp-Pfade haben unterschiedliche Bedeutungen."
+        },
+        "ja": {
+          "purpose": "陽子数 Z と中性子数 N に沿って核の性質がどう変わるか調べます。",
+          "inputs": "核種を検索し、色分けの量、フィルター、評価質量の出典または理論模型を選びます。",
+          "outputs": "色分けした核図表、選択核種の詳細、用意された図表の書き出しが得られます。",
+          "gain": "同位体の系列や殻構造の傾向を見つけ、評価値と模型値を区別できます。",
+          "hint": "116Sn を検索して色の凡例を読み、物理量か出典を一つ変えて同じ領域を比べてください。",
+          "limits": "出典のスナップショットです。# は外挿値を示し、模型の基底状態、分離エネルギー境界、模式的な r/rp 経路は意味が異なります。"
+        },
+        "fr": {
+          "purpose": "Explorer la variation des propriétés nucléaires avec le nombre de protons Z et de neutrons N.",
+          "inputs": "Rechercher un noyau, choisir la grandeur de couleur, les filtres et une source de masses évaluées ou un modèle théorique.",
+          "outputs": "Une carte colorée, les détails du noyau sélectionné et les exports de carte proposés.",
+          "gain": "Repérer familles isotopiques et structures en couches, puis distinguer valeurs évaluées et valeurs de modèle.",
+          "hint": "Rechercher 116Sn, lire la légende et changer une grandeur ou une source pour comparer la même région.",
+          "limits": "Il s’agit de données figées ; # signale une extrapolation. États fondamentaux du modèle, frontières d’énergie de séparation et trajets r/rp illustratifs ont des sens différents."
+        }
+      }
+    },
+    "chain": {
+      "selectors": [
+        "[data-control-help=\"chain\"]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/nuclide-chart.html",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Compare nuclear observables along isotopic, isotonic or isobaric chains.",
+          "inputs": "Choose the observable, fixed Z/N/A chain, nucleus, displayed data/model series, and axis or uncertainty options.",
+          "outputs": "A chain plot with available error bars, point details and PNG/CSV exports.",
+          "gain": "Identify trends and see how a chosen mass source or new input changes derived observables.",
+          "hint": "Click a nucleus first; keep the same axes while switching series and inspect # markers and the formula help.",
+          "limits": "Untabulated and model-derived uncertainties use independent-mass propagation and omit AME correlations; gaps mean required inputs are unavailable."
+        },
+        "zh": {
+          "purpose": "沿同位素、同中子素或同量异位素链比较核观测量。",
+          "inputs": "选择物理量、固定 Z/N/A 的链、核素、显示的数据或模型系列，以及坐标轴和不确定度选项。",
+          "outputs": "得到带可用误差棒的链图、数据点详情与 PNG/CSV 导出。",
+          "gain": "识别变化趋势，并观察质量来源或新输入如何影响导出观测量。",
+          "hint": "先点击核素；切换系列时保持坐标轴一致，并查看 # 标记与公式说明。",
+          "limits": "未列表和模型导出量的不确定度采用独立质量传播，忽略 AME 关联；缺点表示所需输入缺失。"
+        },
+        "fi": {
+          "purpose": "Vertaa ydinobservaabeleita isotooppi-, isotoni- tai isobaariketjuissa.",
+          "inputs": "Valitse suure, kiinteä Z/N/A-ketju, ydin, näytettävät data- ja mallisarjat sekä akseli- ja epävarmuusasetukset.",
+          "outputs": "Ketjukuvaaja saatavilla olevin virhepalkein, pisteiden tiedot ja PNG/CSV-viennit.",
+          "gain": "Tunnista trendejä ja näe massalähteen tai uuden syötteen vaikutus johdettuihin suureisiin.",
+          "hint": "Napsauta ensin ydintä; pidä akselit samoina sarjoja vaihtaessasi ja tarkista #-merkit sekä kaavaohje.",
+          "limits": "Taulukon ulkopuolisten ja mallisuureiden epävarmuudet olettavat riippumattomat massat ilman AME-korrelaatioita; aukko tarkoittaa puuttuvia lähtöarvoja."
+        },
+        "de": {
+          "purpose": "Kernobservablen entlang von Isotopen-, Isotonen- oder Isobarenketten vergleichen.",
+          "inputs": "Größe, feste Z/N/A-Kette, Kern, angezeigte Daten- und Modellreihen sowie Achsen- und Unsicherheitsoptionen wählen.",
+          "outputs": "Ein Kettendiagramm mit verfügbaren Fehlerbalken, Punktdetails und PNG/CSV-Exporten.",
+          "gain": "Trends erkennen und den Einfluss einer Massenquelle oder neuer Eingaben auf abgeleitete Größen sehen.",
+          "hint": "Zuerst einen Kern anklicken; beim Reihenwechsel gleiche Achsen behalten und #-Marker sowie die Formelhilfe prüfen.",
+          "limits": "Nicht tabellierte und aus Modellen abgeleitete Unsicherheiten nutzen unabhängige Massen ohne AME-Korrelationen; Lücken bedeuten fehlende Eingaben."
+        },
+        "ja": {
+          "purpose": "同位体、同中性子体、同重体の系列に沿って核の観測量を比べます。",
+          "inputs": "物理量、固定する Z/N/A、核種、表示するデータ・模型系列、軸と不確かさの設定を選びます。",
+          "outputs": "利用可能な誤差棒付き系列図、点の詳細、PNG/CSV の書き出しが得られます。",
+          "gain": "傾向を見つけ、質量の出典や新しい入力が導出量に与える影響を確認できます。",
+          "hint": "まず核種をクリックし、系列を切り替える際は同じ軸範囲を使い、# 印と式の説明を確認してください。",
+          "limits": "未掲載・模型由来の不確かさは独立な質量から伝播し、AME 相関を含みません。欠けた点は必要な入力がないことを示します。"
+        },
+        "fr": {
+          "purpose": "Comparer des observables le long de chaînes isotopiques, isotoniques ou isobariques.",
+          "inputs": "Choisir la grandeur, la chaîne à Z/N/A fixe, le noyau, les séries de données ou modèles et les options d’axes ou d’incertitude.",
+          "outputs": "Un graphique avec les barres d’erreur disponibles, les détails des points et les exports PNG/CSV.",
+          "gain": "Identifier les tendances et voir l’effet d’une source de masses ou de nouvelles entrées sur les observables dérivées.",
+          "hint": "Cliquer d’abord sur un noyau ; conserver les mêmes axes en changeant de série et consulter les marques # et l’aide des formules.",
+          "limits": "Les incertitudes non tabulées ou dérivées des modèles supposent des masses indépendantes sans corrélations AME ; les lacunes signalent des entrées manquantes."
+        }
+      }
+    },
+    "spectroscopy": {
+      "selectors": [
+        "[data-spectroscopy]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/spectroscopy-tools.html",
+        "static/js/spectroscopy.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Connect source-linked nuclear properties with spectroscopy calculations and model spectra.",
+          "inputs": "Choose a tab, isotope/state and reference, or enter the calculator values or data in the displayed units.",
+          "outputs": "Source tables, derived readouts and plots; data, figure and settings exports where offered.",
+          "gain": "Compare radii, moments or levels and practise the connection between measured inputs and derived quantities.",
+          "hint": "Open the selected tab’s how-to, start with its example, change one input and read the source and approximation notes.",
+          "limits": "Snapshots are not live evaluations. Default calculator numbers may be synthetic; uncertainty and model limits are stated separately for each calculation."
+        },
+        "zh": {
+          "purpose": "将有来源的核性质与光谱计算及模型能谱联系起来。",
+          "inputs": "选择标签页、同位素或核态与参考核，或按页面单位输入计算值和数据。",
+          "outputs": "得到来源表、导出读数与图；有相应功能时可导出数据、图和设置。",
+          "gain": "比较半径、核矩或能级，并练习从测量输入得到导出量。",
+          "hint": "打开当前标签页的操作说明，从示例开始，只改一个输入，并阅读来源和近似说明。",
+          "limits": "快照不是实时评价数据；默认计算值可能是合成教学值，每项计算分别说明不确定度与模型限制。"
+        },
+        "fi": {
+          "purpose": "Yhdistä lähteistetyt ydinominaisuudet spektroskopialaskuihin ja mallispektreihin.",
+          "inputs": "Valitse välilehti, isotooppi tai tila ja vertailu, tai syötä laskurin arvot ja data näytetyissä yksiköissä.",
+          "outputs": "Lähdetaulukot, johdetut lukemat ja kuvaajat sekä tarjolla olevat data-, kuva- ja asetusviennit.",
+          "gain": "Vertaa säteitä, momentteja tai tasoja ja harjoittele mitattujen syötteiden yhteyttä johdettuihin suureisiin.",
+          "hint": "Avaa välilehden käyttöohje, aloita esimerkistä, muuta yhtä syötettä ja lue lähde- ja approksimaatiohuomiot.",
+          "limits": "Otokset eivät ole reaaliaikaisia arvioita. Laskurien oletusarvot voivat olla synteettisiä; epävarmuudet ja mallirajat kerrotaan laskukohtaisesti."
+        },
+        "de": {
+          "purpose": "Belegte Kerneigenschaften mit Spektroskopierechnungen und Modellspektren verbinden.",
+          "inputs": "Reiter, Isotop/Zustand und Referenz wählen oder Rechnerwerte beziehungsweise Daten in den angezeigten Einheiten eingeben.",
+          "outputs": "Quellentabellen, abgeleitete Werte und Diagramme sowie angebotene Daten-, Abbildungs- und Einstellungsexporte.",
+          "gain": "Radien, Momente oder Niveaus vergleichen und den Zusammenhang zwischen Messeingaben und abgeleiteten Größen üben.",
+          "hint": "Die Anleitung des Reiters öffnen, mit dem Beispiel beginnen, einen Wert ändern und Quellen- sowie Näherungshinweise lesen.",
+          "limits": "Datenstände sind keine Live-Evaluationen. Rechner-Vorgaben können synthetisch sein; Unsicherheiten und Modellgrenzen stehen bei der jeweiligen Rechnung."
+        },
+        "ja": {
+          "purpose": "出典付きの核特性を、分光計算や模型スペクトルと結び付けます。",
+          "inputs": "タブ、同位体・核状態、基準を選ぶか、表示単位で計算値やデータを入力します。",
+          "outputs": "出典の表、導出値、図を表示し、対応する機能でデータ・図・設定を書き出します。",
+          "gain": "半径、核モーメント、準位を比較し、測定入力と導出量の関係を練習できます。",
+          "hint": "選択タブの使い方を開き、例から始めて一つの入力を変更し、出典と近似の説明を読んでください。",
+          "limits": "スナップショットはリアルタイムの評価ではありません。既定値は合成教材値の場合があり、不確かさと模型の限界は計算ごとに示します。"
+        },
+        "fr": {
+          "purpose": "Relier les propriétés nucléaires sourcées aux calculs de spectroscopie et aux spectres modèles.",
+          "inputs": "Choisir l’onglet, l’isotope ou l’état et la référence, ou saisir les valeurs et données dans les unités affichées.",
+          "outputs": "Des tables sourcées, valeurs dérivées et graphiques, avec les exports de données, figures et réglages proposés.",
+          "gain": "Comparer rayons, moments ou niveaux et pratiquer le passage des entrées mesurées aux grandeurs dérivées.",
+          "hint": "Ouvrir le mode d’emploi de l’onglet, partir de son exemple, modifier une entrée et lire les sources et approximations.",
+          "limits": "Les instantanés ne sont pas des évaluations en direct. Les valeurs par défaut peuvent être synthétiques ; chaque calcul précise ses incertitudes et limites."
+        }
+      }
+    },
+    "media": {
+      "selectors": [],
+      "source_files": [
+        "layouts/_shortcodes/reader-figure.html",
+        "layouts/_shortcodes/nuclide-chart.html",
+        "layouts/_partials/zg/laser-cooling.html"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Use this figure or video to inspect and explain the selected result or process.",
+          "inputs": "The caption, selected tool settings, displayed time and viewing or export options determine what is shown.",
+          "outputs": "A visual view of the data or model; the nearby export controls save the offered image or recording formats.",
+          "gain": "Compare patterns or before/after states and communicate a result together with its conditions.",
+          "hint": "Read the caption, axes, units and legend first; keep the settings and numerical data with an exported figure or video when available.",
+          "limits": "An animation shows the displayed process or model, and pixels do not add measurement precision; recording availability depends on the browser."
+        },
+        "zh": {
+          "purpose": "用这幅图或视频观察并说明选定的结果或过程。",
+          "inputs": "图注、当前工具设置、显示时间以及视图或导出选项决定展示内容。",
+          "outputs": "得到数据或模型的可视视图；附近导出控件可保存所提供格式的图像或录屏。",
+          "gain": "比较规律或前后状态，并连同条件一起交流结果。",
+          "hint": "先读图注、坐标轴、单位和图例；有相应功能时，将设置和数值数据与导出的图或视频一并保存。",
+          "limits": "动画显示当前过程或模型，像素不增加测量精度；能否录屏取决于浏览器。"
+        },
+        "fi": {
+          "purpose": "Tarkastele ja selitä valittua tulosta tai prosessia tämän kuvan tai videon avulla.",
+          "inputs": "Kuvateksti, työkalun asetukset, näytetty aika sekä näkymä- ja vientivalinnat määräävät sisällön.",
+          "outputs": "Visuaalinen näkymä dataan tai malliin; viereiset vientipainikkeet tallentavat tarjotut kuva- tai tallennusmuodot.",
+          "gain": "Vertaa kuvioita tai alku- ja lopputiloja ja kerro tulos yhdessä sen ehtojen kanssa.",
+          "hint": "Lue ensin kuvateksti, akselit, yksiköt ja selite; säilytä asetukset ja numeerinen data viennin mukana, kun saatavilla.",
+          "limits": "Animaatio näyttää esitetyn prosessin tai mallin, eivätkä pikselit lisää mittaustarkkuutta; tallennuksen saatavuus riippuu selaimesta."
+        },
+        "de": {
+          "purpose": "Mit dieser Abbildung oder diesem Video das gewählte Ergebnis oder den Prozess untersuchen und erklären.",
+          "inputs": "Bildunterschrift, Werkzeugeinstellungen, angezeigte Zeit sowie Ansichts- und Exportoptionen bestimmen den Inhalt.",
+          "outputs": "Eine visuelle Ansicht der Daten oder des Modells; benachbarte Exportregler speichern die angebotenen Bild- oder Aufnahmeformate.",
+          "gain": "Muster oder Vorher-Nachher-Zustände vergleichen und ein Ergebnis mit seinen Bedingungen vermitteln.",
+          "hint": "Zuerst Bildunterschrift, Achsen, Einheiten und Legende lesen; verfügbare Einstellungen und Zahlen mit der exportierten Abbildung oder dem Video aufbewahren.",
+          "limits": "Eine Animation zeigt den dargestellten Prozess oder das Modell; Pixel erhöhen keine Messgenauigkeit. Die Aufnahmefunktion hängt vom Browser ab."
+        },
+        "ja": {
+          "purpose": "この図や動画を使い、選択した結果や過程を観察して説明します。",
+          "inputs": "キャプション、ツールの設定、表示時刻、表示・書き出しの選択が内容を決めます。",
+          "outputs": "データや模型を可視化し、近くの書き出し操作で対応形式の画像や録画を保存します。",
+          "gain": "傾向や前後の状態を比較し、条件とともに結果を伝えられます。",
+          "hint": "まずキャプション、軸、単位、凡例を読み、可能なら図や動画と一緒に設定と数値データも保存してください。",
+          "limits": "動画は表示された過程や模型を示し、画素数は測定精度を増やしません。録画の利用可否はブラウザーによります。"
+        },
+        "fr": {
+          "purpose": "Utiliser cette figure ou vidéo pour examiner et expliquer le résultat ou le processus choisi.",
+          "inputs": "La légende, les réglages de l’outil, le temps affiché et les options de vue ou d’export déterminent le contenu.",
+          "outputs": "Une vue des données ou du modèle ; les commandes voisines enregistrent les formats d’image ou de vidéo proposés.",
+          "gain": "Comparer les tendances ou les états avant/après et communiquer un résultat avec ses conditions.",
+          "hint": "Lire d’abord légende, axes et unités ; conserver les réglages et données numériques avec la figure ou la vidéo exportée, si disponibles.",
+          "limits": "Une animation montre le processus ou modèle affiché ; les pixels n’ajoutent aucune précision de mesure. L’enregistrement dépend du navigateur."
+        }
+      }
+    },
+    "cooling": {
+      "selectors": [
+        "[data-laser]",
+        "[data-paul-cooling]",
+        "[data-neutral-cooling]"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/laser-cooling.html",
+        "layouts/_partials/zg/paul-cooling.html",
+        "layouts/_partials/zg/neutral-cooling.html",
+        "data/cooling_i18n.yaml"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Explore how laser settings and trap geometry change simulated cooling, heating and motion.",
+          "inputs": "Choose the species and tab, then set detuning, intensity and the initial or trap conditions in the units shown.",
+          "outputs": "The selected tab shows clouds or orbits and temperature, velocity or amplitude plots, with its offered exports.",
+          "gain": "Connect the laser force and recoil or trap motion with changes in the plotted observables.",
+          "hint": "Start from a preset, change one parameter and reset for a comparison; retain the same seed wherever a seed control is offered.",
+          "limits": "Tabs use different stated analytic or numerical approximations. Multilevel dynamics are omitted; model temperatures and patterns do not establish experimental performance."
+        },
+        "zh": {
+          "purpose": "探索激光设置和阱几何如何改变模拟中的冷却、加热与运动。",
+          "inputs": "选择粒子与标签页，再按显示单位设置失谐、强度及初始或阱条件。",
+          "outputs": "当前标签页显示粒子云或轨道，以及温度、速度或振幅图，并提供对应导出。",
+          "gain": "把激光力、反冲或阱中运动与图上观测量的变化联系起来。",
+          "hint": "从预设开始，只改一个参数并重置后比较；有随机种子控制时保持同一个种子。",
+          "limits": "各标签页采用分别说明的解析或数值近似，未包含多能级动力学；模型温度和图样不能证明实验性能。"
+        },
+        "fi": {
+          "purpose": "Tutki lasersäätöjen ja loukun geometrian vaikutusta simuloituun jäähdytykseen, lämpenemiseen ja liikkeeseen.",
+          "inputs": "Valitse hiukkanen ja välilehti, säädä virityspoikkeama, intensiteetti ja alku- tai loukkuehdot näytetyissä yksiköissä.",
+          "outputs": "Valitun välilehden pilvet tai radat sekä lämpötila-, nopeus- tai amplitudikuvaajat ja tarjotut viennit.",
+          "gain": "Yhdistä laservoima, rekyyli tai loukkuliike kuvaajien suureiden muutoksiin.",
+          "hint": "Aloita esiasetuksesta, muuta yhtä parametria ja nollaa vertailua varten; pidä sama siemen, kun siemensäädin on tarjolla.",
+          "limits": "Välilehdillä on omat analyyttiset tai numeeriset approksimaationsa. Monitasodynamiikka puuttuu; mallilämpötilat ja kuviot eivät osoita kokeellista suorituskykyä."
+        },
+        "de": {
+          "purpose": "Den Einfluss von Lasereinstellungen und Fallengeometrie auf simulierte Kühlung, Heizung und Bewegung untersuchen.",
+          "inputs": "Spezies und Reiter wählen, dann Verstimmung, Intensität und Anfangs- oder Fallenbedingungen in den angezeigten Einheiten einstellen.",
+          "outputs": "Der gewählte Reiter zeigt Wolken oder Bahnen sowie Temperatur-, Geschwindigkeits- oder Amplitudendiagramme mit den angebotenen Exporten.",
+          "gain": "Laserkräfte, Rückstoß oder Fallenbewegung mit Änderungen der dargestellten Größen verbinden.",
+          "hint": "Mit einer Vorgabe beginnen, einen Parameter ändern und zum Vergleich zurücksetzen; denselben Seed nutzen, wo ein Seed-Regler angeboten wird.",
+          "limits": "Die Reiter verwenden jeweils erklärte analytische oder numerische Näherungen. Mehrniveaudynamik fehlt; Modelltemperaturen und Muster belegen keine experimentelle Leistung."
+        },
+        "ja": {
+          "purpose": "レーザー設定とトラップ形状が、模擬的な冷却・加熱・運動をどう変えるか調べます。",
+          "inputs": "粒子とタブを選び、表示単位で離調、強度、初期条件やトラップ条件を設定します。",
+          "outputs": "タブに応じた粒子雲や軌道、温度・速度・振幅の図と、対応する書き出しが得られます。",
+          "gain": "レーザー力、反跳、トラップ内運動と、図に表示する量の変化を結び付けられます。",
+          "hint": "プリセットから始め、一つの値を変えてリセット後に比較してください。乱数シードの設定がある場合は同じ値を使います。",
+          "limits": "各タブは説明された解析・数値近似を使い、多準位の力学を含みません。模型の温度や模様は実験性能を証明するものではありません。"
+        },
+        "fr": {
+          "purpose": "Explorer l’effet des réglages laser et de la géométrie du piège sur le refroidissement, le chauffage et le mouvement simulés.",
+          "inputs": "Choisir l’espèce et l’onglet, puis régler désaccord, intensité et conditions initiales ou du piège dans les unités affichées.",
+          "outputs": "L’onglet choisi montre nuages ou orbites et courbes de température, vitesse ou amplitude, avec ses exports proposés.",
+          "gain": "Relier force laser, recul ou mouvement piégé aux variations des observables tracées.",
+          "hint": "Partir d’un préréglage, modifier un paramètre et réinitialiser pour comparer ; garder la même graine lorsqu’elle est réglable.",
+          "limits": "Chaque onglet précise ses approximations analytiques ou numériques. La dynamique multi-niveaux est omise ; températures et motifs modèles ne démontrent pas une performance expérimentale."
+        }
+      }
+    },
+    "workbench": {
+      "selectors": [
+        "[data-control-help=\"workbench\"]"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/measurement-workbench.html",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Connect the selected trap or measurement settings with calculated frequencies and signal plots.",
+          "inputs": "Choose ion mass and charge, B, trap voltage and size, then the motion or excitation settings offered in this workbench.",
+          "outputs": "Calculated readouts, model plots and an interpretation, with settings JSON, PNG and CSV exports.",
+          "gain": "Trace how one experimental parameter changes the model signal and retain the numerical result with its settings.",
+          "hint": "Begin with a preset, change one input and compare the readouts; enable the separate calibration panel when using Fancier calibration.",
+          "limits": "The displayed assumptions govern each workbench. Ideal fields and model signals do not establish measured resolution or instrument accuracy."
+        },
+        "zh": {
+          "purpose": "将选定的离子阱或测量设置与计算频率和信号图联系起来。",
+          "inputs": "选择离子质量、电荷数、B、阱电压和尺寸，再设置当前工作台提供的运动或激发参数。",
+          "outputs": "得到计算读数、模型图与解读，可导出设置 JSON、PNG 和 CSV。",
+          "gain": "追踪单个实验参数如何改变模型信号，并将数值结果与设置一同保留。",
+          "hint": "从预设开始，只改一个输入比较读数；使用 Fancier 校准时，在独立校准面板中启用。",
+          "limits": "各工作台受所列假设限制；理想场和模型信号不能证明实测分辨本领或仪器准确度。"
+        },
+        "fi": {
+          "purpose": "Yhdistä valitun loukun tai mittauksen asetukset laskettuihin taajuuksiin ja signaalikuvaajiin.",
+          "inputs": "Valitse ionin massa ja varaus, B, loukun jännite ja koko sekä tämän työkalun liike- tai viritysasetukset.",
+          "outputs": "Lasketut lukemat, mallikuvaajat ja tulkinta sekä asetusten JSON-, PNG- ja CSV-viennit.",
+          "gain": "Seuraa yhden koeparametrin vaikutusta mallisignaaliin ja säilytä numeerinen tulos asetuksineen.",
+          "hint": "Aloita esiasetuksesta ja muuta yhtä syötettä; ota Fancier-kalibrointi käyttöön erillisestä kalibrointipaneelista.",
+          "limits": "Kunkin työkalun ilmoitetut oletukset pätevät. Ideaalikentät ja mallisignaalit eivät osoita mitattua erotuskykyä tai laitteen tarkkuutta."
+        },
+        "de": {
+          "purpose": "Gewählte Fallen- oder Messeinstellungen mit berechneten Frequenzen und Signaldiagrammen verbinden.",
+          "inputs": "Ionenmasse und Ladung, B, Fallenspannung und Größe sowie die angebotenen Bewegungs- oder Anregungsparameter wählen.",
+          "outputs": "Berechnete Werte, Modelldiagramme und Interpretation sowie Exporte als Einstellungs-JSON, PNG und CSV.",
+          "gain": "Den Einfluss eines Versuchsparameters auf das Modellsignal verfolgen und Zahlen mit ihren Einstellungen aufbewahren.",
+          "hint": "Mit einer Vorgabe beginnen und eine Eingabe ändern; die Fancier-Kalibrierung im separaten Kalibrierungspanel aktivieren.",
+          "limits": "Es gelten die jeweils angezeigten Annahmen. Ideale Felder und Modellsignale belegen weder gemessene Auflösung noch Gerätegenauigkeit."
+        },
+        "ja": {
+          "purpose": "選択したトラップや測定の設定を、計算周波数と信号図に結び付けます。",
+          "inputs": "イオン質量、電荷数、B、トラップ電圧と寸法を選び、この作業台の運動・励起設定を入力します。",
+          "outputs": "計算値、模型図、解説と、設定 JSON・PNG・CSV の書き出しが得られます。",
+          "gain": "一つの実験パラメーターが模型信号をどう変えるかを追い、数値結果を設定とともに残せます。",
+          "hint": "プリセットから一つの入力を変えて比較してください。Fancier の校正は独立した校正パネルで有効にします。",
+          "limits": "各作業台に示された仮定が適用されます。理想場や模型信号は実測分解能や装置の正確さを保証しません。"
+        },
+        "fr": {
+          "purpose": "Relier les réglages du piège ou de la mesure choisie aux fréquences calculées et aux signaux tracés.",
+          "inputs": "Choisir masse et charge de l’ion, B, tension et taille du piège, puis les réglages de mouvement ou d’excitation proposés.",
+          "outputs": "Valeurs calculées, graphiques modèles et interprétation, avec exports des réglages JSON, PNG et CSV.",
+          "gain": "Suivre l’effet d’un paramètre expérimental sur le signal modèle et conserver le résultat numérique avec ses réglages.",
+          "hint": "Partir d’un préréglage et modifier une entrée ; activer l’étalonnage Fancier dans le panneau d’étalonnage séparé.",
+          "limits": "Les hypothèses affichées s’appliquent à chaque outil. Champs idéaux et signaux modèles ne démontrent ni résolution mesurée ni exactitude instrumentale."
+        }
+      }
+    },
+    "calibration": {
+      "selectors": [
+        "[data-control-help=\"calibration\"]"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/calibration-panel.html",
+        "data/control_help.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Relate known calibrant ions to the effective field and the selected trap’s frequency predictions.",
+          "inputs": "Select trap 1 or 2, source and mode; enter calibrant ions/charges, measured νc and ν₋ and standard uncertainties σ in Hz. TOF rows use μs.",
+          "outputs": "Effective-field and residual readouts; the full panel also offers calculated ion results and CSV/JSON exports.",
+          "gain": "See how reference measurements alter predictions and check whether calibrant residuals are consistent with the chosen model.",
+          "hint": "Open the panel and enable Use calibration; keep traps 1 and 2 separate, edit one calibrant row and inspect the residuals.",
+          "limits": "Example rows are teaching inputs. Fixed-minus and Ideal use different assumptions; a fit or small residual alone does not establish experimental accuracy."
+        },
+        "zh": {
+          "purpose": "用已知校准离子关联有效磁场与所选离子阱的频率预测。",
+          "inputs": "选择阱 1 或 2、来源与模式；输入校准离子、电荷数、实测 νc、ν₋ 及标准不确定度 σ（Hz）。TOF 行使用 μs。",
+          "outputs": "显示有效磁场与残差；完整面板还提供离子计算结果与 CSV/JSON 导出。",
+          "gain": "观察参考测量如何改变预测，并检查校准残差与所选模型是否一致。",
+          "hint": "打开面板并启用“使用校准”；阱 1、2 分开设置，只改一行校准值并检查残差。",
+          "limits": "示例行是教学输入；固定磁控项与理想模式假设不同，拟合成功或残差小本身不能证明实验准确度。"
+        },
+        "fi": {
+          "purpose": "Yhdistä tunnetut kalibrointi-ionit efektiiviseen kenttään ja valitun loukun taajuusennusteisiin.",
+          "inputs": "Valitse loukku 1 tai 2, lähde ja tila; anna ionit, varaukset, mitatut νc ja ν₋ sekä standardiepävarmuudet σ hertseinä. TOF-rivit käyttävät μs-yksikköä.",
+          "outputs": "Efektiivinen kenttä ja residuaalit; täysi paneeli tarjoaa myös ionitulokset ja CSV/JSON-viennit.",
+          "gain": "Näe vertailumittausten vaikutus ennusteisiin ja tarkista residuaalien sopivuus valittuun malliin.",
+          "hint": "Avaa paneeli ja ota kalibrointi käyttöön; pidä loukut 1 ja 2 erillään, muuta yhtä riviä ja tarkista residuaalit.",
+          "limits": "Esimerkkirivit ovat opetussyötteitä. Kiinteä magnetronitermi ja ideaalitila olettavat eri asioita; pieni residuaali ei yksin osoita kokeellista tarkkuutta."
+        },
+        "de": {
+          "purpose": "Bekannte Kalibranten mit dem effektiven Feld und den Frequenzvorhersagen der gewählten Falle verknüpfen.",
+          "inputs": "Falle 1 oder 2, Quelle und Modus wählen; Ionen/Ladungen, gemessene νc und ν₋ sowie Standardunsicherheiten σ in Hz eingeben. TOF-Zeilen nutzen μs.",
+          "outputs": "Effektives Feld und Residuen; das vollständige Panel bietet auch berechnete Ionenergebnisse und CSV/JSON-Exporte.",
+          "gain": "Den Einfluss von Referenzmessungen auf Vorhersagen sehen und die Residuen am gewählten Modell prüfen.",
+          "hint": "Panel öffnen und Kalibrierung aktivieren; Fallen 1 und 2 getrennt halten, eine Kalibrantenzeile ändern und Residuen prüfen.",
+          "limits": "Beispielzeilen sind Lehreingaben. Fester Magnetronterm und Idealmodus haben verschiedene Annahmen; kleine Residuen allein belegen keine experimentelle Genauigkeit."
+        },
+        "ja": {
+          "purpose": "既知の校正イオンから有効磁場と選択トラップの予測周波数を結び付けます。",
+          "inputs": "トラップ 1/2、出典、モードを選び、校正イオン・電荷数、測定 νc・ν₋、標準不確かさ σ（Hz）を入力します。TOF 行は μs です。",
+          "outputs": "有効磁場と残差を表示し、完全版パネルではイオンの計算結果と CSV/JSON 書き出しも利用できます。",
+          "gain": "基準測定が予測を変える様子を見て、校正残差と選択模型の整合性を確認できます。",
+          "hint": "パネルを開いて校正を有効にし、トラップ 1 と 2 を分けて設定してください。一行を変更して残差を確認します。",
+          "limits": "例の行は教材入力です。固定マグネトロン項と理想モードでは仮定が異なり、小さい残差だけでは実験精度を示せません。"
+        },
+        "fr": {
+          "purpose": "Relier des ions étalons connus au champ effectif et aux fréquences prévues du piège choisi.",
+          "inputs": "Choisir piège 1 ou 2, source et mode ; saisir ions/charges, νc et ν₋ mesurés et incertitudes types σ en Hz. Les lignes TOF utilisent μs.",
+          "outputs": "Champ effectif et résidus ; le panneau complet propose aussi les résultats calculés des ions et les exports CSV/JSON.",
+          "gain": "Voir l’effet des mesures de référence sur les prédictions et vérifier la cohérence des résidus avec le modèle choisi.",
+          "hint": "Ouvrir le panneau et activer l’étalonnage ; séparer les pièges 1 et 2, modifier une ligne et examiner les résidus.",
+          "limits": "Les lignes d’exemple sont pédagogiques. Le terme magnétron fixé et le mode idéal ont des hypothèses différentes ; de faibles résidus seuls ne prouvent pas l’exactitude expérimentale."
+        }
+      }
+    }
+  }
+}

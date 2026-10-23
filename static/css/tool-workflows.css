@@ -1,0 +1,6 @@
+.zg-workflow-fields { display:grid; grid-template-columns:minmax(6rem,1fr) minmax(0,4fr); gap:.45rem .8rem; margin:.8rem 0; font-size:.94em; }
+.zg-workflow-fields dt { font-weight:650; margin:0; }
+.zg-workflow-fields dd { margin:0; overflow-wrap:anywhere; }
+.zg-workflow-guide { margin:.6rem 0; }
+.zg-workflow-guide summary { cursor:pointer; }
+@media(max-width:600px) { .zg-workflow-fields { grid-template-columns:minmax(0,1fr); gap:.2rem; } .zg-workflow-fields dd { margin-bottom:.5rem; } }

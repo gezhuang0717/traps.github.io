@@ -1,2 +1,3 @@
 {{- $path := printf "images/reader/%s" (.Get 0) -}}
 <figure class="zg-reader-figure"><img src="{{ $path | relURL }}" alt="{{ .Get 1 }}" loading="lazy" decoding="async"><figcaption>{{ .Get 1 }}</figcaption></figure>
+{{ partial "zg/tool-workflows.html" . }}

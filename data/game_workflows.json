@@ -1,0 +1,676 @@
+{
+  "schema_version": 1,
+  "languages": [
+    "en",
+    "zh",
+    "fi",
+    "de",
+    "ja",
+    "fr"
+  ],
+  "labels": {
+    "en": {
+      "title": "How to use this activity",
+      "purpose": "Purpose",
+      "inputs": "Inputs and actions",
+      "outputs": "Outputs",
+      "gain": "What you can learn",
+      "hint": "Try this",
+      "limits": "Model limits"
+    },
+    "zh": {
+      "title": "这个活动怎么用",
+      "purpose": "目的",
+      "inputs": "输入与操作",
+      "outputs": "输出",
+      "gain": "能学到什么",
+      "hint": "操作提示",
+      "limits": "模型局限"
+    },
+    "fi": {
+      "title": "Näin käytät tätä toimintoa",
+      "purpose": "Tarkoitus",
+      "inputs": "Syötteet ja toiminnot",
+      "outputs": "Tulokset",
+      "gain": "Mitä opit",
+      "hint": "Kokeile tätä",
+      "limits": "Mallin rajat"
+    },
+    "de": {
+      "title": "So nutzt du diese Aktivität",
+      "purpose": "Ziel",
+      "inputs": "Eingaben und Aktionen",
+      "outputs": "Ergebnisse",
+      "gain": "Was du lernen kannst",
+      "hint": "Probiere das aus",
+      "limits": "Modellgrenzen"
+    },
+    "ja": {
+      "title": "このアクティビティの使い方",
+      "purpose": "目的",
+      "inputs": "入力と操作",
+      "outputs": "出力",
+      "gain": "学べること",
+      "hint": "試してみよう",
+      "limits": "モデルの限界"
+    },
+    "fr": {
+      "title": "Comment utiliser cette activité",
+      "purpose": "Objectif",
+      "inputs": "Entrées et actions",
+      "outputs": "Résultats",
+      "gain": "Ce que vous pouvez apprendre",
+      "hint": "À essayer",
+      "limits": "Limites du modèle"
+    }
+  },
+  "topics": {
+    "half_life": {
+      "selectors": [
+        "#g-hl"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "static/js/games.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Compare evaluated nuclear half-lives.",
+          "inputs": "Choose A or B for the longer half-life; each answer starts the next pair.",
+          "outputs": "Reveals both half-lives, the current streak and a browser-local best score.",
+          "gain": "Practice comparing decay times across units and orders of magnitude.",
+          "hint": "Make a choice, then read both revealed values and their time units before the next pair.",
+          "limits": "This NUBASE2020 comparison quiz neither simulates decay nor measures a half-life."
+        },
+        "zh": {
+          "purpose": "比较评价数据中的原子核半衰期。",
+          "inputs": "选 A 或 B，判断哪个半衰期更长；作答后自动进入下一对。",
+          "outputs": "显示两者的半衰期、当前连对数和仅保存在本浏览器的最高分。",
+          "gain": "练习跨越不同时间单位与数量级比较衰变时间。",
+          "hint": "作答后先读清两个公布数值及其时间单位，再看下一对。",
+          "limits": "这是基于 NUBASE2020 的比较问答，不模拟衰变过程，也不测量半衰期。"
+        },
+        "fi": {
+          "purpose": "Vertaa arvioituihin ydintietoihin perustuvia puoliintumisaikoja.",
+          "inputs": "Valitse A tai B sen mukaan, kumman puoliintumisaika on pidempi; jokainen vastaus tuo uuden parin.",
+          "outputs": "Näet molemmat puoliintumisajat, peräkkäisten oikeiden vastausten määrän ja tähän selaimeen tallennetun ennätyksen.",
+          "gain": "Harjoittele hajoamisaikojen vertailua eri aikayksiköillä ja suuruusluokissa.",
+          "hint": "Valitse vastaus ja lue sitten molemmat paljastetut arvot aikayksikköineen ennen seuraavaa paria.",
+          "limits": "Tämä NUBASE2020-tietoihin perustuva vertailuvisa ei simuloi hajoamista eikä mittaa puoliintumisaikaa."
+        },
+        "de": {
+          "purpose": "Vergleiche evaluierte nukleare Halbwertszeiten.",
+          "inputs": "Wähle A oder B für die längere Halbwertszeit; jede Antwort startet das nächste Paar.",
+          "outputs": "Beide Halbwertszeiten, die aktuelle Serie richtiger Antworten und der lokal im Browser gespeicherte Bestwert werden angezeigt.",
+          "gain": "Übe den Vergleich von Zerfallszeiten über verschiedene Einheiten und Größenordnungen hinweg.",
+          "hint": "Triff eine Wahl und lies dann beide aufgedeckten Werte samt Zeiteinheiten, bevor du das nächste Paar bearbeitest.",
+          "limits": "Dieses Vergleichsquiz auf Basis von NUBASE2020 simuliert keinen Zerfall und misst keine Halbwertszeit."
+        },
+        "ja": {
+          "purpose": "評価データに基づく原子核の半減期を比べます。",
+          "inputs": "半減期が長い方を A または B から選びます。回答するたびに次の組が表示されます。",
+          "outputs": "両方の半減期、現在の連続正解数、このブラウザ内に保存された最高記録を表示します。",
+          "gain": "異なる時間単位や桁にまたがる崩壊時間の比較を練習できます。",
+          "hint": "回答後は、次の組に進む前に、公開された両方の値と時間単位を確認しましょう。",
+          "limits": "NUBASE2020 に基づく比較クイズです。崩壊のシミュレーションや半減期の測定は行いません。"
+        },
+        "fr": {
+          "purpose": "Comparez des demi-vies nucléaires issues de données évaluées.",
+          "inputs": "Choisissez A ou B pour la demi-vie la plus longue ; chaque réponse lance la paire suivante.",
+          "outputs": "Les deux demi-vies, la série actuelle de bonnes réponses et le meilleur score enregistré dans ce navigateur sont affichés.",
+          "gain": "Entraînez-vous à comparer des temps de désintégration exprimés dans des unités et ordres de grandeur différents.",
+          "hint": "Faites un choix, puis lisez les deux valeurs révélées et leurs unités de temps avant la paire suivante.",
+          "limits": "Ce quiz comparatif fondé sur NUBASE2020 ne simule pas la désintégration et ne mesure pas de demi-vie."
+        }
+      }
+    },
+    "tof": {
+      "selectors": [
+        "#g-tof"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "data/control_help.json",
+        "data/games_labels.yaml",
+        "static/js/games.js",
+        "layouts/_partials/zg/measurement-workbench.html"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Find a simulated cyclotron-resonance centre from a flight-time minimum.",
+          "inputs": "Set ion, charge, B, excitation and counts; scan νrf, take shots, then fit or guess.",
+          "outputs": "TOF samples and curve, fitted centre and score; PNG/CSV, plus JSON in the workbench tabs.",
+          "gain": "Compare excitation duration and counting noise without confusing a side fringe with the centre.",
+          "hint": "Start with a wide scan, locate the central dip, then add closer shots; change one setting at a time.",
+          "limits": "Synthetic, ideal-model displays; linewidth and fit error alone do not establish experimental mass uncertainty."
+        },
+        "zh": {
+          "purpose": "通过飞行时间低谷寻找模拟回旋共振的中心。",
+          "inputs": "设置离子、电荷数、B、激发和计数；扫描 νrf、采集，再拟合或提交猜测。",
+          "outputs": "飞行时间样本与曲线、拟合中心和得分；PNG/CSV，工作台标签页另有 JSON。",
+          "gain": "比较激发时间与计数噪声的影响，区分旁瓣和中心。",
+          "hint": "先宽范围扫描定位中央低谷，再在附近加点；每次只改变一个设置。",
+          "limits": "这些是理想模型的合成显示；线宽或拟合误差本身不能确立实验质量不确定度。"
+        },
+        "fi": {
+          "purpose": "Etsi simuloidun syklotroniresonanssin keskitaajuus lentoajan minimistä.",
+          "inputs": "Aseta ioni, varaus, B, viritys ja laskentamäärä; pyyhkäise taajuutta νrf, kerää mittauspisteitä ja sovita tai arvaa.",
+          "outputs": "Lentoaikapisteet ja käyrä, sovitettu keskitaajuus ja pistemäärä; PNG/CSV sekä työpöydän välilehdillä JSON.",
+          "gain": "Vertaa viritysajan ja laskentakohinan vaikutuksia ja opi erottamaan sivukeila resonanssin keskuksesta.",
+          "hint": "Aloita laajalla taajuuspyyhkäisyllä, etsi keskimmäinen minimi ja lisää sitten pisteitä sen lähelle; muuta vain yhtä asetusta kerrallaan.",
+          "limits": "Kuvaajat ovat ideaalisen mallin synteettisiä tuloksia; pelkkä viivanleveys tai sovitusvirhe ei määritä kokeellisen massan epävarmuutta."
+        },
+        "de": {
+          "purpose": "Finde das Zentrum einer simulierten Zyklotronresonanz anhand eines Flugzeitminimums.",
+          "inputs": "Stelle Ion, Ladung, B, Anregung und Zählzahl ein; taste νrf ab, nimm Messpunkte auf und fitte oder schätze das Zentrum.",
+          "outputs": "Flugzeitpunkte und Kurve, angepasstes Zentrum und Punktzahl; PNG/CSV sowie JSON in den Arbeitsbereich-Tabs.",
+          "gain": "Vergleiche Anregungsdauer und Zählrauschen und lerne, eine Nebenkeule vom Zentrum zu unterscheiden.",
+          "hint": "Beginne mit einem weiten Frequenzbereich, suche das zentrale Minimum und ergänze dort engere Messpunkte; ändere jeweils nur eine Einstellung.",
+          "limits": "Synthetische Darstellungen eines idealen Modells; Linienbreite und Fitfehler allein bestimmen keine experimentelle Massenunsicherheit."
+        },
+        "ja": {
+          "purpose": "飛行時間の極小から、模擬サイクロトロン共鳴の中心周波数を探します。",
+          "inputs": "イオン、電荷、B、励起条件、カウント数を設定し、νrf を走査してデータを取得した後、フィットまたは推測します。",
+          "outputs": "飛行時間の標本と曲線、フィットした中心周波数、得点を表示します。PNG/CSV に加え、ワークベンチの各タブでは JSON も出力できます。",
+          "gain": "励起時間と計数ノイズの影響を比較し、サイドローブと中心を見分けられます。",
+          "hint": "広い範囲を走査して中央の谷を見つけ、その近くに測定点を追加しましょう。設定は一度に一つずつ変えます。",
+          "limits": "理想モデルによる合成表示です。線幅やフィット誤差だけでは、実験的な質量の不確かさは確定しません。"
+        },
+        "fr": {
+          "purpose": "Trouvez le centre d’une résonance cyclotron simulée à partir d’un minimum de temps de vol.",
+          "inputs": "Réglez l’ion, la charge, B, l’excitation et le nombre de coups ; balayez νrf, prenez des points, puis ajustez ou proposez une estimation.",
+          "outputs": "Points et courbe de temps de vol, centre ajusté et score ; PNG/CSV, ainsi que JSON dans les onglets de l’atelier.",
+          "gain": "Comparez la durée d’excitation et le bruit de comptage sans confondre un lobe latéral avec le centre.",
+          "hint": "Commencez par un balayage large, repérez le creux central, puis ajoutez des points plus proches ; modifiez un seul réglage à la fois.",
+          "limits": "Affichages synthétiques d’un modèle idéal ; la largeur de raie et l’erreur d’ajustement seules ne déterminent pas l’incertitude expérimentale sur la masse."
+        }
+      }
+    },
+    "pi": {
+      "selectors": [
+        "#g-pi"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "layouts/_partials/zg/pi-icr-box.html",
+        "data/control_help.json",
+        "data/game_additions.yaml",
+        "static/js/games.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Separate selected ion states by their accumulated phase on a detector.",
+          "inputs": "Choose states or an ion list, B, accumulation time and spot width; optionally set timing, counts and calibration.",
+          "outputs": "Detector spots, angles/turns and separation readouts; PNG, hit/frequency CSV and input/result JSON.",
+          "gain": "Recognize phase wrapping and distinguish individual-event width from centroid uncertainty.",
+          "hint": "Compare several accumulation times; identify the closest pair and keep wrapped separation away from zero.",
+          "limits": "Complete turns use known simulation frequencies; the game does not determine an unknown experimental turn count."
+        },
+        "zh": {
+          "purpose": "利用探测器上的积累相位分开所选离子核态。",
+          "inputs": "选择核态或离子列表、B、积累时间和斑点宽度；可另设时序、计数和校准。",
+          "outputs": "探测器斑点、角度/圈数和分离读数；PNG、击中/频率 CSV，以及输入/结果 JSON。",
+          "gain": "识别相位绕回，区分单次事件宽度与质心不确定度。",
+          "hint": "比较几个积累时间，找出最近的一对，避免绕回后的间隔接近零。",
+          "limits": "完整圈数来自已知模拟频率；游戏不能确定未知的实验整圈数。"
+        },
+        "fi": {
+          "purpose": "Erota valitut ionien ydintilat ilmaisimelle kertyneen vaiheen avulla.",
+          "inputs": "Valitse tilat tai ioniluettelo, B, kertymisaika ja täplän leveys; voit asettaa myös ajoituksen, laskentamäärän ja kalibroinnin.",
+          "outputs": "Ilmaisimen täplät, kulmat/kierrosmäärät ja erotuslukemat; PNG, osuma-/taajuus-CSV sekä syöte-/tulos-JSON.",
+          "gain": "Tunnista vaiheen kiertyminen täyden kierroksen yli ja erota yksittäisten tapahtumien leveys keskipisteen epävarmuudesta.",
+          "hint": "Vertaa useita kertymisaikoja, etsi lähin pari ja vältä tilanteita, joissa täyden kierroksen mukaan laskettu vaihe-ero on lähellä nollaa.",
+          "limits": "Kokonaiset kierrokset lasketaan tunnetuista simulaatiotaajuuksista; peli ei määritä tuntematonta kokeellista kokonaiskierrosmäärää."
+        },
+        "de": {
+          "purpose": "Trenne ausgewählte Kernzustände von Ionen anhand ihrer auf dem Detektor abgebildeten akkumulierten Phase.",
+          "inputs": "Wähle Zustände oder eine Ionenliste, B, Akkumulationszeit und Fleckbreite; optional auch Zeitsteuerung, Zählzahl und Kalibrierung.",
+          "outputs": "Detektorflecken, Winkel/Umdrehungen und Trennungswerte; PNG, Treffer-/Frequenz-CSV und Eingabe-/Ergebnis-JSON.",
+          "gain": "Erkenne Phasenumschläge und unterscheide die Breite einzelner Ereignisse von der Unsicherheit des Schwerpunkts.",
+          "hint": "Vergleiche mehrere Akkumulationszeiten; finde das engste Paar und halte dessen Phasenabstand modulo einer Umdrehung von null fern.",
+          "limits": "Die ganzen Umdrehungen werden aus bekannten Simulationsfrequenzen berechnet; das Spiel bestimmt keine unbekannte experimentelle Umdrehungszahl."
+        },
+        "ja": {
+          "purpose": "検出器上の蓄積位相を使い、選択したイオンの核状態を分離します。",
+          "inputs": "状態またはイオン一覧、B、蓄積時間、スポット幅を選びます。時系列、カウント数、校正も設定できます。",
+          "outputs": "検出器のスポット、角度・回転数、分離の指標を表示します。PNG、ヒット・周波数の CSV、入力・結果の JSON を出力できます。",
+          "gain": "位相の折り返しを理解し、個々の検出事象の広がりと重心の不確かさを区別できます。",
+          "hint": "複数の蓄積時間を比べ、最も近い組を探し、折り返し後の位相間隔がゼロに近づかないようにしましょう。",
+          "limits": "整数回転数には既知のシミュレーション周波数を使います。実験で未知の整数回転数を決定するゲームではありません。"
+        },
+        "fr": {
+          "purpose": "Séparez les états nucléaires d’ions sélectionnés grâce à leur phase accumulée sur un détecteur.",
+          "inputs": "Choisissez les états ou une liste d’ions, B, le temps d’accumulation et la largeur des taches ; réglez aussi, si besoin, la séquence temporelle, les comptages et l’étalonnage.",
+          "outputs": "Taches sur le détecteur, angles/tours et indicateurs de séparation ; PNG, CSV des impacts/fréquences et JSON des entrées/résultats.",
+          "gain": "Repérez le repliement de phase et distinguez la largeur des événements individuels de l’incertitude du centroïde.",
+          "hint": "Comparez plusieurs temps d’accumulation ; repérez la paire la plus proche et évitez un écart de phase replié proche de zéro.",
+          "limits": "Les tours complets sont calculés avec les fréquences connues de la simulation ; le jeu ne détermine pas un nombre entier de tours inconnu dans une expérience."
+        }
+      }
+    },
+    "mr": {
+      "selectors": [
+        "#g-mr"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "data/control_help.json",
+        "data/games_labels.yaml",
+        "static/js/games.js",
+        "layouts/_partials/zg/measurement-workbench.html"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Explore when two simulated isobar flight-time peaks separate.",
+          "inputs": "Choose two ions and charge, abundance/counts, laps, initial width and per-lap timing/broadening.",
+          "outputs": "Flight-time histogram and R-versus-laps plot, separation status, PNG/CSV and advanced-workbench JSON.",
+          "gain": "Relate a longer path to peak spacing and to the broadening limit on resolving power.",
+          "hint": "Compare few and many laps while varying initial width and per-lap broadening separately.",
+          "limits": "Synthetic peaks with assumed broadening; separation is not a measured separator transmission or an experimental mass fit."
+        },
+        "zh": {
+          "purpose": "观察两个模拟同量异位素飞行时间峰何时分开。",
+          "inputs": "选择两个离子及电荷数、丰度/计数、圈数、初始宽度和每圈时间/展宽。",
+          "outputs": "飞行时间直方图、R 随圈数变化图、分离状态、PNG/CSV，以及进阶工作台 JSON。",
+          "gain": "理解更长飞行路径如何增加峰间距，以及展宽如何限制分辨本领。",
+          "hint": "分别改变初始宽度和每圈展宽，比较少圈数与多圈数。",
+          "limits": "峰及其展宽为合成假设；分离状态不代表实测分离器透过率或实验质量拟合。"
+        },
+        "fi": {
+          "purpose": "Tutki, milloin kahden simuloidun isobaarin lentoaikapiikit erottuvat.",
+          "inputs": "Valitse kaksi ionia ja varaus, runsaudet/laskentamäärät, kierrosmäärä, alkuleveys sekä kierroskohtainen aika ja leveneminen.",
+          "outputs": "Lentoaikahistogrammi, R kierrosmäärän funktiona, erotustila, PNG/CSV ja edistyneen työpöydän JSON.",
+          "gain": "Yhdistä pidempi lentorata piikkien etäisyyteen ja levenemisen asettamaan erotuskyvyn rajaan.",
+          "hint": "Vertaa pieniä ja suuria kierrosmääriä ja muuta alkuleveyttä sekä kierroskohtaista levenemistä erikseen.",
+          "limits": "Piikit ja niiden oletettu leveneminen ovat synteettisiä; erottuminen ei ole mitattu erottimen läpäisyosuus eikä kokeellinen massasovitus."
+        },
+        "de": {
+          "purpose": "Untersuche, wann sich zwei simulierte Flugzeitpeaks von Isobaren trennen.",
+          "inputs": "Wähle zwei Ionen und ihre Ladung, Häufigkeiten/Zählzahlen, Umlaufzahl, Anfangsbreite sowie Zeit und Verbreiterung pro Umlauf.",
+          "outputs": "Flugzeithistogramm und R gegen Umlaufzahl, Trennungsstatus, PNG/CSV und JSON im erweiterten Arbeitsbereich.",
+          "gain": "Verknüpfe einen längeren Flugweg mit dem Peakabstand und der durch Verbreiterung begrenzten Auflösung.",
+          "hint": "Vergleiche wenige und viele Umläufe und variiere Anfangsbreite und Verbreiterung pro Umlauf getrennt.",
+          "limits": "Synthetische Peaks mit angenommener Verbreiterung; ihre Trennung ist weder eine gemessene Separatortransmission noch ein experimenteller Massenfit."
+        },
+        "ja": {
+          "purpose": "模擬した二つの同重体イオンの飛行時間ピークが、どの条件で分離するか調べます。",
+          "inputs": "二つのイオンと電荷、存在比・カウント数、周回数、初期幅、1周ごとの時間と広がりを選びます。",
+          "outputs": "飛行時間ヒストグラム、周回数に対する R のグラフ、分離状態、PNG/CSV、詳細ワークベンチの JSON を出力します。",
+          "gain": "長い飛行経路とピーク間隔の関係や、広がりが分解能を制限する仕組みを学べます。",
+          "hint": "初期幅と1周ごとの広がりを別々に変え、少ない周回数と多い周回数を比較しましょう。",
+          "limits": "仮定した広がりを持つ合成ピークです。分離状態は、分離装置の実測透過率や実験データの質量フィットを表しません。"
+        },
+        "fr": {
+          "purpose": "Explorez les conditions de séparation de deux pics simulés de temps de vol d’isobares.",
+          "inputs": "Choisissez deux ions et leur charge, les abondances/comptages, le nombre de tours, la largeur initiale, puis le temps et l’élargissement par tour.",
+          "outputs": "Histogramme des temps de vol, courbe de R selon le nombre de tours, état de séparation, PNG/CSV et JSON de l’atelier avancé.",
+          "gain": "Reliez l’allongement du trajet à l’écart entre les pics et à la limite de pouvoir de résolution imposée par leur élargissement.",
+          "hint": "Comparez un petit et un grand nombre de tours en faisant varier séparément la largeur initiale et l’élargissement par tour.",
+          "limits": "Pics synthétiques avec un élargissement supposé ; leur séparation ne constitue ni une transmission mesurée du séparateur ni un ajustement expérimental de masse."
+        }
+      }
+    },
+    "rfq": {
+      "selectors": [
+        "#g-rfq"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "data/control_help.json",
+        "data/game_additions.yaml",
+        "static/js/games.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Find RF/DC settings that keep a target ion inside an ideal transverse quadrupole.",
+          "inputs": "Choose species/target, U/V, radius, frequency, initial spread, residence cycles and seed.",
+          "outputs": "Trajectories, a–q points, finite-time transmission and design readouts; PNG, CSV/JSON and video.",
+          "gain": "Distinguish Mathieu stability boundaries from finite-time survival of the simulated ensemble.",
+          "hint": "Use a preset first, then change U/V; hold seed and residence time fixed when comparing.",
+          "limits": "Collisionless transverse model; axial transport, buffer gas, space charge and fringe fields are omitted."
+        },
+        "zh": {
+          "purpose": "寻找能让目标离子留在理想横向四极场中的 RF/DC 设置。",
+          "inputs": "选择离子/目标、U/V、半径、频率、初始展宽、驻留周期数和随机种子。",
+          "outputs": "轨迹、a–q 工作点、有限时间透过率与设计读数；PNG、CSV/JSON 和视频。",
+          "gain": "区分 Mathieu 稳定边界与所模拟离子群在有限时间内的存活。",
+          "hint": "先用预设再改变 U/V；比较时保持种子和驻留时间相同。",
+          "limits": "无碰撞横向模型，未包括轴向输运、缓冲气体、空间电荷和边缘场。"
+        },
+        "fi": {
+          "purpose": "Etsi RF/DC-asetukset, jotka pitävät kohdeionin ideaalisessa poikittaisessa kvadrupolikentässä.",
+          "inputs": "Valitse ionilaji/kohde, U/V, säde, taajuus, alkujakauman leveys, viipymäjaksojen määrä ja satunnaissiemen.",
+          "outputs": "Radat, a–q-pisteet, äärellisen ajan läpäisyosuus ja suunnittelulukemat; PNG, CSV/JSON ja video.",
+          "gain": "Erota Mathieun vakausrajat simuloidun ionijoukon säilymisestä äärellisen ajan kuluessa.",
+          "hint": "Aloita esiasetuksesta ja muuta sitten U/V-arvoja; pidä siemen ja viipymäaika samoina vertailuissa.",
+          "limits": "Törmäyksetön poikittainen malli; aksiaalinen kuljetus, puskurikaasu, avaruusvaraus ja reunakentät puuttuvat."
+        },
+        "de": {
+          "purpose": "Finde RF/DC-Einstellungen, die ein Zielion in einem idealen transversalen Quadrupolfeld halten.",
+          "inputs": "Wähle Ionenspezies/Ziel, U/V, Radius, Frequenz, Anfangsstreuung, Aufenthaltsdauer in Perioden und Zufallsstartwert.",
+          "outputs": "Trajektorien, a–q-Punkte, Transmission über eine endliche Zeit und Auslegungswerte; PNG, CSV/JSON und Video.",
+          "gain": "Unterscheide Mathieu-Stabilitätsgrenzen vom Überleben des simulierten Ionenensembles über eine endliche Zeit.",
+          "hint": "Nutze zuerst eine Voreinstellung und ändere dann U/V; halte Zufallsstartwert und Aufenthaltsdauer beim Vergleich konstant.",
+          "limits": "Stoßfreies transversales Modell; axialer Transport, Puffergas, Raumladung und Randfelder werden nicht berücksichtigt."
+        },
+        "ja": {
+          "purpose": "目標イオンを理想的な横方向四重極場内に保つ RF/DC 設定を探します。",
+          "inputs": "イオン種・目標、U/V、半径、周波数、初期分布の広がり、滞在周期数、乱数シードを選びます。",
+          "outputs": "軌道、a–q 点、有限時間での透過率、設計指標を表示します。PNG、CSV/JSON、動画を出力できます。",
+          "gain": "Mathieu の安定境界と、模擬イオン集団が有限時間にわたり残存することを区別できます。",
+          "hint": "まずプリセットを使い、その後 U/V を変えましょう。比較時は乱数シードと滞在時間を固定します。",
+          "limits": "衝突のない横方向モデルです。軸方向輸送、バッファガス、空間電荷、端部の漏れ場は含みません。"
+        },
+        "fr": {
+          "purpose": "Trouvez les réglages RF/DC qui maintiennent un ion cible dans un champ quadrupolaire transversal idéal.",
+          "inputs": "Choisissez l’espèce/cible, U/V, le rayon, la fréquence, la dispersion initiale, le séjour en nombre de périodes et la graine aléatoire.",
+          "outputs": "Trajectoires, points a–q, transmission sur une durée finie et indicateurs de conception ; PNG, CSV/JSON et vidéo.",
+          "gain": "Distinguez les frontières de stabilité de Mathieu de la survie de l’ensemble d’ions simulés sur une durée finie.",
+          "hint": "Utilisez d’abord un préréglage, puis modifiez U/V ; gardez la graine et la durée de séjour fixes pour comparer.",
+          "limits": "Modèle transversal sans collisions ; le transport axial, le gaz tampon, la charge d’espace et les champs de bord sont omis."
+        }
+      }
+    },
+    "quiz": {
+      "selectors": [
+        "#g-quiz"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/games.html",
+        "static/js/games.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Recall element symbols, nuclear magic numbers and doubly magic nuclei.",
+          "inputs": "Read the question and choose one of four answers; the next question follows automatically.",
+          "outputs": "Correct-answer feedback, current streak and browser-local best score; no fitted data.",
+          "gain": "Connect proton/neutron shell closures with familiar nuclear identities.",
+          "hint": "For a doubly magic nucleus check both Z and N, using A = Z + N.",
+          "limits": "Uses this quiz's fixed conventional magic-number set; no shell-model calculation is performed."
+        },
+        "zh": {
+          "purpose": "复习元素符号、核幻数和双幻核。",
+          "inputs": "阅读题目并从四个答案中选择；随后自动出现下一题。",
+          "outputs": "正确答案反馈、当前连对数和本浏览器最高分；不产生拟合数据。",
+          "gain": "把质子/中子闭壳与熟悉的核素联系起来。",
+          "hint": "判断双幻核时同时检查 Z 和 N，并使用 A = Z + N。",
+          "limits": "采用问答中固定的传统幻数集合，不进行壳模型计算。"
+        },
+        "fi": {
+          "purpose": "Kertaa alkuaineiden tunnuksia, ytimien maagisia lukuja ja kaksoismaagisia ytimiä.",
+          "inputs": "Lue kysymys ja valitse yksi neljästä vastauksesta; seuraava kysymys tulee automaattisesti.",
+          "outputs": "Palaute oikeasta vastauksesta, peräkkäisten oikeiden vastausten määrä ja selaimeen tallennettu ennätys; ei sovitettua dataa.",
+          "gain": "Yhdistä protonien ja neutronien suljetut kuoret tuttuihin nuklideihin.",
+          "hint": "Tarkista kaksoismaagiselle ytimelle sekä Z että N ja käytä yhtälöä A = Z + N.",
+          "limits": "Visa käyttää kiinteää perinteisten maagisten lukujen joukkoa; kuorimallilaskentaa ei tehdä."
+        },
+        "de": {
+          "purpose": "Wiederhole Elementsymbole, nukleare magische Zahlen und doppelt magische Kerne.",
+          "inputs": "Lies die Frage und wähle eine von vier Antworten; die nächste Frage folgt automatisch.",
+          "outputs": "Rückmeldung zur richtigen Antwort, aktuelle Serie richtiger Antworten und lokaler Browserbestwert; keine angepassten Daten.",
+          "gain": "Verknüpfe abgeschlossene Protonen- und Neutronenschalen mit bekannten Nukliden.",
+          "hint": "Prüfe bei einem doppelt magischen Kern sowohl Z als auch N und nutze A = Z + N.",
+          "limits": "Das Quiz verwendet eine feste Auswahl konventioneller magischer Zahlen; es führt keine Schalenmodellrechnung durch."
+        },
+        "ja": {
+          "purpose": "元素記号、原子核の魔法数、二重魔法核を復習します。",
+          "inputs": "問題を読み、四つの答えから一つを選びます。次の問題は自動的に表示されます。",
+          "outputs": "正解のフィードバック、現在の連続正解数、このブラウザ内の最高記録を表示します。フィットデータは生成しません。",
+          "gain": "陽子・中性子の閉殻を、よく知られた核種と結び付けられます。",
+          "hint": "二重魔法核では Z と N の両方を確認し、A = Z + N を使いましょう。",
+          "limits": "このクイズで定めた従来の魔法数の集合を使います。殻模型計算は行いません。"
+        },
+        "fr": {
+          "purpose": "Révisez les symboles chimiques, les nombres magiques nucléaires et les noyaux doublement magiques.",
+          "inputs": "Lisez la question et choisissez une réponse parmi quatre ; la question suivante s’affiche automatiquement.",
+          "outputs": "Retour sur la bonne réponse, série actuelle de bonnes réponses et meilleur score local au navigateur ; aucune donnée ajustée.",
+          "gain": "Reliez les fermetures de couches de protons et de neutrons à des nucléides familiers.",
+          "hint": "Pour un noyau doublement magique, vérifiez à la fois Z et N en utilisant A = Z + N.",
+          "limits": "Le quiz utilise un ensemble fixe de nombres magiques conventionnels ; aucun calcul de modèle en couches n’est effectué."
+        }
+      }
+    },
+    "periodic": {
+      "selectors": [
+        "#g-ptable"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/periodic-table.html",
+        "static/js/periodic-table.js",
+        "static/data/periodic-table.json"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Explore element properties, qualitative origins and periodic trends, then test recognition.",
+          "inputs": "Select colouring/property/units, search or choose elements, and open a game or trend tab.",
+          "outputs": "Coloured table, property cards, trend/isotope plots and scores; image, CSV and timeline-video export tools.",
+          "gain": "Compare units and missing values while recognizing that an element can have several origin processes.",
+          "hint": "Read the legend first; compare two elements with Shift+click and inspect Sources and Definitions.",
+          "limits": "Origin categories are qualitative contributing sets, not production percentages or unique sites."
+        },
+        "zh": {
+          "purpose": "探索元素性质、定性起源和周期规律，再进行识别练习。",
+          "inputs": "选择着色方式/性质/单位，搜索或选择元素，并打开游戏或趋势标签页。",
+          "outputs": "着色周期表、性质卡片、趋势/同位素图和得分；图像、CSV 和发现时间线视频导出工具。",
+          "gain": "比较单位与缺失值，并理解一个元素可由多个过程产生。",
+          "hint": "先读图例；按住 Shift 点击可比较两个元素，再看“来源”和“定义”。",
+          "limits": "起源类别表示定性贡献集合，不是产额百分比或唯一的天体场所。"
+        },
+        "fi": {
+          "purpose": "Tutki alkuaineiden ominaisuuksia, laadullisia syntytapoja ja jaksollisia trendejä sekä testaa tunnistamista.",
+          "inputs": "Valitse väritys, ominaisuus ja yksiköt, hae tai valitse alkuaineita ja avaa peli- tai trendivälilehti.",
+          "outputs": "Väritetty jaksollinen järjestelmä, ominaisuuskortit, trendi-/isotooppikuvaajat ja pisteet; kuvan, CSV:n ja löytöaikajanan videon vientityökalut.",
+          "gain": "Vertaa yksiköitä ja puuttuvia arvoja ja huomaa, että alkuaine voi syntyä useassa prosessissa.",
+          "hint": "Lue ensin selite; vertaa kahta alkuainetta Shift+napsautuksella ja tutustu lähteisiin ja määritelmiin.",
+          "limits": "Syntytapaluokat ovat laadullisia myötävaikuttavien prosessien joukkoja, eivät tuotanto-osuuksia tai yksikäsitteisiä syntypaikkoja."
+        },
+        "de": {
+          "purpose": "Erkunde Elementeigenschaften, qualitative Entstehungsprozesse und periodische Trends und teste anschließend das Erkennen.",
+          "inputs": "Wähle Färbung, Eigenschaft und Einheiten, suche oder wähle Elemente und öffne einen Spiel- oder Trend-Tab.",
+          "outputs": "Eingefärbtes Periodensystem, Eigenschaftskarten, Trend-/Isotopendiagramme und Punkte; Exportwerkzeuge für Bilder, CSV und ein Video der Entdeckungszeitleiste.",
+          "gain": "Vergleiche Einheiten und fehlende Werte und erkenne, dass mehrere Prozesse zur Entstehung eines Elements beitragen können.",
+          "hint": "Lies zuerst die Legende; vergleiche zwei Elemente mit Umschalt+Klick und sieh dir Quellen und Definitionen an.",
+          "limits": "Die Ursprungskategorien nennen qualitativ beitragende Prozesse, keine Produktionsanteile oder eindeutigen Entstehungsorte."
+        },
+        "ja": {
+          "purpose": "元素の性質、定性的な起源、周期的な傾向を調べ、元素の識別を練習します。",
+          "inputs": "色分け・性質・単位を選び、元素を検索または選択して、ゲームや傾向のタブを開きます。",
+          "outputs": "色分けした周期表、性質カード、傾向・同位体のグラフ、得点を表示します。画像、CSV、発見年表の動画を書き出すツールもあります。",
+          "gain": "単位や欠損値を比較し、一つの元素の生成に複数の過程が寄与し得ることを理解できます。",
+          "hint": "最初に凡例を読みましょう。Shift+クリックで二つの元素を比較し、「出典」と「定義」を確認します。",
+          "limits": "起源カテゴリは寄与する過程の定性的な組合せを示します。生成割合や唯一の天体環境を示すものではありません。"
+        },
+        "fr": {
+          "purpose": "Explorez les propriétés des éléments, leurs origines qualitatives et les tendances périodiques, puis testez leur reconnaissance.",
+          "inputs": "Choisissez la coloration, la propriété et les unités, recherchez ou sélectionnez des éléments, puis ouvrez un onglet de jeu ou de tendances.",
+          "outputs": "Tableau coloré, fiches de propriétés, courbes de tendances/isotopes et scores ; outils d’export d’images, de CSV et de vidéo de la chronologie des découvertes.",
+          "gain": "Comparez les unités et les valeurs manquantes tout en reconnaissant que plusieurs processus peuvent produire un même élément.",
+          "hint": "Lisez d’abord la légende ; comparez deux éléments avec Maj+clic et consultez les sources et les définitions.",
+          "limits": "Les catégories d’origine décrivent qualitativement les processus contributeurs, sans donner de pourcentages de production ni de sites uniques."
+        }
+      }
+    },
+    "cooling": {
+      "selectors": [
+        "#g-laser"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/laser-cooling.html",
+        "layouts/_partials/zg/cooling-guide.html",
+        "layouts/_partials/zg/paul-cooling.html",
+        "layouts/_partials/zg/neutral-cooling.html",
+        "data/cooling_controls.json",
+        "data/laser_cooling.yaml"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Compare the selected cooling model's motion and thermal evolution under changed laser/trap inputs.",
+          "inputs": "Choose a method and species; set that tab's laser/trap inputs and read its control guide.",
+          "outputs": "Method-specific trajectories, velocity/temperature plots and readouts; PNG, CSV, settings JSON and recorded video.",
+          "gain": "Separate physical cooling time from playback and compare trends under fixed initial conditions.",
+          "hint": "For stochastic tabs, hold the seed fixed; change one physical input and compare at the same simulated time.",
+          "limits": "Each tab has different force, recoil and trap approximations; these models do not implement every multilevel or sub-Doppler mechanism."
+        },
+        "zh": {
+          "purpose": "改变激光/阱输入，比较所选冷却模型的运动和热演化。",
+          "inputs": "选择方法与粒子种类，设置该标签页的激光/阱参数，并阅读其控制说明。",
+          "outputs": "对应方法的轨迹、速度/温度图和读数；PNG、CSV、设置 JSON 和录制视频。",
+          "gain": "区分物理冷却时间与播放速度，并在相同初始条件下比较趋势。",
+          "hint": "随机模拟标签页保持同一种子；每次改变一个物理输入，并在相同模拟时刻比较。",
+          "limits": "各标签页采用不同的力、反冲及阱近似；这些模型并未实现所有多能级或亚多普勒机制。"
+        },
+        "fi": {
+          "purpose": "Vertaa valitun jäähdytysmallin liikettä ja lämpötilan kehitystä muuttamalla laserin ja loukun syötteitä.",
+          "inputs": "Valitse menetelmä ja hiukkaslaji, aseta kyseisen välilehden laser-/loukkoparametrit ja lue sen säätöohje.",
+          "outputs": "Menetelmäkohtaiset radat, nopeus-/lämpötilakuvaajat ja lukemat; PNG, CSV, asetusten JSON ja tallennettu video.",
+          "gain": "Erota fysikaalinen jäähdytysaika toiston nopeudesta ja vertaa trendejä samoilla alkuehdoilla.",
+          "hint": "Pidä satunnaissiemen samana stokastisilla välilehdillä; muuta yhtä fysikaalista syötettä ja vertaa samalla simulaatiohetkellä.",
+          "limits": "Välilehdet käyttävät erilaisia voiman, rekyylin ja loukun approksimaatioita; mallit eivät toteuta kaikkia monitaso- tai alidopplerjäähdytyksen mekanismeja."
+        },
+        "de": {
+          "purpose": "Vergleiche Bewegung und thermische Entwicklung des gewählten Kühlmodells bei veränderten Laser- und Fallenparametern.",
+          "inputs": "Wähle Methode und Teilchenspezies, stelle die Laser-/Fallenparameter dieses Tabs ein und lies dessen Bedienhinweise.",
+          "outputs": "Methodenspezifische Trajektorien, Geschwindigkeits-/Temperaturdiagramme und Anzeigen; PNG, CSV, Einstellungs-JSON und aufgezeichnetes Video.",
+          "gain": "Trenne physikalische Kühlzeit von Wiedergabegeschwindigkeit und vergleiche Trends bei gleichen Anfangsbedingungen.",
+          "hint": "Halte bei stochastischen Tabs den Zufallsstartwert fest; ändere eine physikalische Eingabe und vergleiche zur gleichen simulierten Zeit.",
+          "limits": "Jeder Tab verwendet andere Näherungen für Kräfte, Rückstoß und Falle; die Modelle bilden nicht alle Mehrniveau- oder Sub-Doppler-Mechanismen ab."
+        },
+        "ja": {
+          "purpose": "レーザー・トラップの入力を変え、選択した冷却モデルの運動と熱的な変化を比較します。",
+          "inputs": "方式と粒子種を選び、そのタブのレーザー・トラップ条件を設定して、操作ガイドを読みます。",
+          "outputs": "方式に応じた軌道、速度・温度のグラフ、数値を表示します。PNG、CSV、設定の JSON、録画した動画を出力できます。",
+          "gain": "物理的な冷却時間と再生速度を区別し、同じ初期条件で傾向を比較できます。",
+          "hint": "確率的なタブでは乱数シードを固定し、物理的な入力を一つ変えて、同じシミュレーション時刻で比較しましょう。",
+          "limits": "力、反跳、トラップの近似はタブごとに異なります。すべての多準位機構やサブドップラー機構を実装しているわけではありません。"
+        },
+        "fr": {
+          "purpose": "Comparez le mouvement et l’évolution thermique du modèle de refroidissement choisi en modifiant les paramètres du laser et du piège.",
+          "inputs": "Choisissez une méthode et une espèce ; réglez les paramètres laser/piège de cet onglet et lisez son guide des commandes.",
+          "outputs": "Trajectoires, courbes de vitesse/température et valeurs propres à la méthode ; PNG, CSV, JSON des réglages et vidéo enregistrée.",
+          "gain": "Distinguez le temps physique de refroidissement de la vitesse de lecture et comparez les tendances à conditions initiales fixes.",
+          "hint": "Dans les onglets stochastiques, gardez la graine fixe ; changez un paramètre physique et comparez au même instant simulé.",
+          "limits": "Chaque onglet utilise des approximations différentes pour les forces, le recul et le piège ; ces modèles ne couvrent pas tous les mécanismes multiniveaux ou sub-Doppler."
+        }
+      }
+    },
+    "spectroscopy_trail": {
+      "selectors": [
+        "[data-spectroscopy-games]"
+      ],
+      "source_files": [
+        "layouts/_shortcodes/spectroscopy-games.html",
+        "static/js/spectroscopy-games.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Practice source selection, E1 hyperfine rules, isotope-shift signs and gamma-energy bookkeeping.",
+          "inputs": "Select an answer, read the explanation and source, then Next; Reset restarts the eight rounds.",
+          "outputs": "Score, progress, the correct answer with explanation and a primary-source link; no measured-data file.",
+          "gain": "Check assumptions and sign or selection rules before choosing a database or interpreting a transition.",
+          "hint": "Write the isotope-minus-reference convention explicitly and distinguish level-energy differences from measured gamma energies.",
+          "limits": "Teaching exercises with invented numbers; they generate no measured isotope records or experimental results."
+        },
+        "zh": {
+          "purpose": "练习选择来源、E1 超精细定则、同位素位移符号及伽马能量关系。",
+          "inputs": "选择答案，阅读解释与来源，再按“下一题”；“重置”会重新开始八轮。",
+          "outputs": "得分、进度、正确答案及解释和一手来源链接；不输出实测数据文件。",
+          "gain": "在选择数据库或解释跃迁之前，先核查假设、符号及选择定则。",
+          "hint": "明确写出“同位素减参考”的约定，并区分能级差与实测伽马能量。",
+          "limits": "采用虚构数值的教学练习，不生成实测同位素记录或实验结果。"
+        },
+        "fi": {
+          "purpose": "Harjoittele lähteen valintaa, ylihienorakenteen E1-valintasääntöjä, isotooppisiirtymien etumerkkejä ja gammaenergioiden laskentaa.",
+          "inputs": "Valitse vastaus, lue selitys ja lähde ja siirry seuraavaan tehtävään; nollaus aloittaa kahdeksan kierrosta uudelleen.",
+          "outputs": "Pisteet, eteneminen, oikea vastaus selityksineen ja linkki alkuperäislähteeseen; ei mitatun datan tiedostoa.",
+          "gain": "Tarkista oletukset, etumerkit ja valintasäännöt ennen tietokannan valintaa tai siirtymän tulkintaa.",
+          "hint": "Kirjoita erotuksen suunta selvästi: isotooppi miinus vertailu. Erota energiatasojen erot mitatuista gammaenergioista.",
+          "limits": "Opetusharjoituksia keksityillä luvuilla; ne eivät tuota mitattuja isotooppitietueita tai kokeellisia tuloksia."
+        },
+        "de": {
+          "purpose": "Übe die Quellenauswahl, E1-Hyperfeinauswahlregeln, Vorzeichen von Isotopieverschiebungen und Gammaenergiebilanzen.",
+          "inputs": "Wähle eine Antwort, lies Erklärung und Quelle und gehe dann weiter; Zurücksetzen startet die acht Runden neu.",
+          "outputs": "Punktzahl, Fortschritt, richtige Antwort mit Erklärung und Link zur Primärquelle; keine Datei mit Messdaten.",
+          "gain": "Prüfe Annahmen, Vorzeichen und Auswahlregeln, bevor du eine Datenbank auswählst oder einen Übergang interpretierst.",
+          "hint": "Schreibe die Konvention Isotop minus Referenz ausdrücklich auf und unterscheide Niveauenergiedifferenzen von gemessenen Gammaenergien.",
+          "limits": "Lehrübungen mit erfundenen Zahlen; sie erzeugen keine gemessenen Isotopendatensätze oder experimentellen Ergebnisse."
+        },
+        "ja": {
+          "purpose": "出典の選び方、超微細構造の E1 選択則、同位体シフトの符号、ガンマ線エネルギーの収支を練習します。",
+          "inputs": "答えを選び、解説と出典を読んで次の問題へ進みます。リセットすると全8問を最初からやり直します。",
+          "outputs": "得点、進捗、正解と解説、一次資料へのリンクを表示します。測定データのファイルは出力しません。",
+          "gain": "データベースの選択や遷移の解釈に先立ち、仮定、符号、選択則を確認できます。",
+          "hint": "「同位体 − 基準」という規約を明記し、準位エネルギーの差と実測ガンマ線エネルギーを区別しましょう。",
+          "limits": "架空の数値を使う学習用の演習です。実測の同位体記録や実験結果は生成しません。"
+        },
+        "fr": {
+          "purpose": "Exercez-vous au choix des sources, aux règles de sélection hyperfines E1, aux signes des déplacements isotopiques et aux bilans d’énergie gamma.",
+          "inputs": "Choisissez une réponse, lisez l’explication et la source, puis passez à la suite ; la réinitialisation relance les huit manches.",
+          "outputs": "Score, progression, bonne réponse expliquée et lien vers une source primaire ; aucun fichier de données mesurées.",
+          "gain": "Vérifiez les hypothèses, les signes et les règles de sélection avant de choisir une base de données ou d’interpréter une transition.",
+          "hint": "Écrivez explicitement la convention isotope moins référence et distinguez les différences d’énergie des niveaux des énergies gamma mesurées.",
+          "limits": "Exercices pédagogiques avec des nombres inventés ; ils ne produisent aucun relevé isotopique mesuré ni résultat expérimental."
+        }
+      }
+    },
+    "gallery": {
+      "selectors": [
+        ".zg-trapzoo"
+      ],
+      "source_files": [
+        "layouts/_partials/zg/trap-zoo.html",
+        "data/trap_zoo.yaml",
+        "static/js/trap-zoo.js"
+      ],
+      "text": {
+        "en": {
+          "purpose": "Compare how the pictured devices hold, guide or store ions and atoms.",
+          "inputs": "Read each device name and caption and watch the coloured particle trail; there is no adjustable physics input.",
+          "outputs": "Animated geometry/trajectory sketches and device explanations; no numerical measurement result.",
+          "gain": "Recognize magnetic, RF and electrostatic confinement or transport from their visual roles.",
+          "hint": "Compare electrode colours and particle motion, then relate them to the field mechanism in the caption.",
+          "limits": "Sketches are not to scale. Where electrodes are drawn, red/blue indicates polarity, not a calibrated field or energy map."
+        },
+        "zh": {
+          "purpose": "比较图中装置如何囚禁、引导或储存离子和原子。",
+          "inputs": "阅读装置名称与图注，并观察彩色粒子轨迹；这里没有可调的物理输入。",
+          "outputs": "几何/轨迹动画示意与装置说明，不产生数值测量结果。",
+          "gain": "根据画面作用识别磁场、射频和静电的约束或输运。",
+          "hint": "对照电极颜色与粒子运动，再联系图注中说明的场机制。",
+          "limits": "示意图不按比例；若画有电极，红/蓝表示其极性，不代表标定后的场强或能量分布。"
+        },
+        "fi": {
+          "purpose": "Vertaa, miten kuvatut laitteet vangitsevat, ohjaavat tai varastoivat ioneja ja atomeja.",
+          "inputs": "Lue laitteen nimi ja kuvateksti sekä seuraa värillistä hiukkasrataa; säädettäviä fysikaalisia syötteitä ei ole.",
+          "outputs": "Animoidut geometrian ja ratojen luonnokset sekä laitteiden selitykset; ei numeerista mittaustulosta.",
+          "gain": "Tunnista magneettinen, RF- ja sähköstaattinen vangitseminen tai kuljetus niiden kuvattujen tehtävien perusteella.",
+          "hint": "Vertaa elektrodien värejä ja hiukkasten liikettä ja yhdistä ne kuvatekstin kuvaamaan kenttämekanismiin.",
+          "limits": "Luonnokset eivät ole mittakaavassa. Piirretyissä elektrodeissa punainen/sininen ilmaisee napaisuutta, ei kalibroitua kenttä- tai energiakarttaa."
+        },
+        "de": {
+          "purpose": "Vergleiche, wie die gezeigten Geräte Ionen und Atome einschließen, führen oder speichern.",
+          "inputs": "Lies Gerätenamen und Bildunterschrift und beobachte die farbige Teilchenspur; es gibt keine einstellbaren Physikparameter.",
+          "outputs": "Animierte Skizzen von Geometrien und Trajektorien mit Geräteerklärungen; keine numerischen Messergebnisse.",
+          "gain": "Erkenne magnetischen, RF- und elektrostatischen Einschluss oder Transport anhand ihrer dargestellten Funktion.",
+          "hint": "Vergleiche Elektrodenfarben und Teilchenbewegung und ordne sie dem in der Bildunterschrift beschriebenen Feldmechanismus zu.",
+          "limits": "Die Skizzen sind nicht maßstäblich. Bei eingezeichneten Elektroden zeigt Rot/Blau die Polarität, keine kalibrierte Feld- oder Energieverteilung."
+        },
+        "ja": {
+          "purpose": "図の装置がイオンや原子をどのように閉じ込め、導き、蓄積するか比較します。",
+          "inputs": "装置名と説明文を読み、色付きの粒子軌跡を観察します。調整できる物理入力はありません。",
+          "outputs": "形状と軌道の模式アニメーション、装置の説明を表示します。数値の測定結果は生成しません。",
+          "gain": "図中での働きから、磁場、RF、静電場による閉じ込めや輸送を見分けられます。",
+          "hint": "電極の色と粒子の動きを比較し、説明文にある場の仕組みと結び付けましょう。",
+          "limits": "模式図は縮尺どおりではありません。電極が描かれている場合、赤と青は極性を表し、校正済みの場やエネルギーの分布ではありません。"
+        },
+        "fr": {
+          "purpose": "Comparez la façon dont les dispositifs illustrés confinent, guident ou stockent les ions et les atomes.",
+          "inputs": "Lisez le nom et la légende de chaque dispositif et observez la trajectoire colorée des particules ; aucun paramètre physique n’est réglable.",
+          "outputs": "Schémas animés des géométries et trajectoires, avec explications des dispositifs ; aucun résultat de mesure numérique.",
+          "gain": "Identifiez le confinement ou le transport magnétique, RF et électrostatique à partir de leur rôle visuel.",
+          "hint": "Comparez les couleurs des électrodes et le mouvement des particules, puis reliez-les au mécanisme de champ décrit dans la légende.",
+          "limits": "Les croquis ne sont pas à l’échelle. Lorsque des électrodes sont représentées, rouge et bleu indiquent leur polarité, pas une carte étalonnée du champ ou de l’énergie."
+        }
+      }
+    }
+  }
+}

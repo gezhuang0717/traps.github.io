@@ -213,7 +213,21 @@
     };
   }
 
-  const api = Object.freeze({ radiusDifference, nuclearG, doppler, hyperfine, radiusFromShift, kingFit });
+  function integerTicks(min, max) {
+    finite(min, 'axis minimum'); finite(max, 'axis maximum');
+    if (max < min) throw new RangeError('axis maximum must not be below minimum');
+    const lo = Math.max(0, Math.ceil(min)), hi = Math.floor(max);
+    if (!Number.isSafeInteger(lo) || !Number.isSafeInteger(hi)) throw new RangeError('count axis outside safe integer range');
+    if (hi < lo) return [];
+    if (hi === lo) return [lo];
+    const raw = Math.max(1, Math.ceil((hi - lo) / 5)), power = 10 ** Math.floor(Math.log10(raw));
+    const step = [1, 2, 5, 10].find(n => n * power >= raw) * power;
+    const ticks = [];
+    for (let value = Math.ceil(lo / step) * step; value <= hi; value += step) ticks.push(value);
+    return ticks;
+  }
+
+  const api = Object.freeze({ radiusDifference, nuclearG, doppler, hyperfine, radiusFromShift, kingFit, integerTicks });
   host.TrapsSpectroscopy = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(globalThis);
