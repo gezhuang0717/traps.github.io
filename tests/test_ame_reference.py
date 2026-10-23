@@ -38,3 +38,10 @@ def test_published_uncertainties_are_kept_not_recombined():
     assert (eu155[col['qbm']], eu155[col['qbm_s']]) == (251.9612, 0.8682)   # owner rule: tabulated AME uncertainty, not independent marginal errors
     assert len(table['meta']['sources']) == 3 and all(len(s['sha256']) == 64 for s in table['meta']['sources'])
     assert 'github.com/gezhuang' not in json.dumps(table['meta'])
+
+
+def test_pages_load_the_shared_module_before_their_consumers_and_point_at_the_table():
+    for shortcode, consumer in (('layouts/_shortcodes/spectroscopy-tools.html', 'js/spectroscopy.js'), ('layouts/_shortcodes/lab.html', 'js/lab-ame.js')):
+        html = (ROOT / shortcode).read_text(encoding='utf8')
+        assert html.index('js/ame-reference.js') < html.index(consumer), shortcode
+        assert 'data/research-cache/ame2020-reference.json' in html, shortcode

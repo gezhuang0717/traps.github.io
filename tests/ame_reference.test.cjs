@@ -52,3 +52,20 @@ test('binder reports an unknown isotope and fills ion masses with the charge sta
   assert.ok(Math.abs(Number(m.value) - (atom - 2 * R.ELECTRON_U)) < 1e-9);
   charge.value = '1'; charge.fire('input'); await new Promise(r => setTimeout(r, 0)); assert.ok(Math.abs(Number(m.value) - (atom - R.ELECTRON_U)) < 1e-9);
 });
+
+test('every label has all six languages, long texts are real translations, and nothing is empty', () => {
+  const keys = Object.keys(R.LABELS); assert.ok(keys.length >= 19);
+  for (const k of keys) {
+    assert.equal(R.LABELS[k].length, 6, k);
+    R.LABELS[k].forEach((v, i) => { assert.ok(typeof v === 'string' && v.trim(), k + ' ' + i); if (R.LABELS[k][0].length > 60 && i > 0) assert.notEqual(v, R.LABELS[k][0], k + ' ' + i); });
+  }
+  assert.equal(R.translator('zh-hans')('ame_use'), R.LABELS.ame_use[1]); assert.equal(R.translator('fr')('ame_use'), R.LABELS.ame_use[5]);
+  assert.equal(R.translator('xx')('ame_use'), R.LABELS.ame_use[0]); assert.equal(R.translator('en')('no_such_key'), 'no_such_key');
+});
+test('rows lists mass, binding energy, separation energies and Q values with published uncertainties and the # flag', () => {
+  const t = R.translator('en'), r = R.rows(ref.info('Ca', 48), t), by = Object.fromEntries(r);
+  assert.equal(r.length, 12); assert.equal(by['Mass excess / keV'], '-44224.868 ± 0.018'); assert.equal(by['Binding energy per nucleon / keV'], '8666.6916 ± 0.0004');
+  assert.equal(by['Q(β⁻) / keV'], '279.2155 ± 4.9');
+  assert.match(R.rows(ref.info('He', 3), t).find(x => x[0] === 'Q(β⁻) / keV')[1], / #$/);          // extrapolated value is marked
+  assert.equal(R.rows(ref.info('He', 3), t).find(x => x[0] === 'S(n) / keV')[1], '—');             // not published
+});
