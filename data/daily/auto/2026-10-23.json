@@ -138,7 +138,67 @@
       "published": "2026-10-19",
       "collected_at": "2026-10-23",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-23",
+      "type": "news",
+      "title": "Tiny Particles Charge Like Capacitors",
+      "summary": "Author(s): Mark Buchanan Lab experiments provide new details about the charge-transfer process that occurs in ash clouds and other collections of particles. [Physics 19, 143] Published Fri Oct 23, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.143",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-23",
+      "type": "news",
+      "title": "What makes glass good at conducting heat? Sound holds the key",
+      "summary": "Glass can keep a drink safely contained, protect a smartphone screen, or serve as a foundation for electronic components. But when it comes to controlling heat, this familiar material still holds some scientific mysteries. Now, researchers have identified a key factor governing…",
+      "url": "https://phys.org/news/2026-10-glass-good-key.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-23",
+      "type": "news",
+      "title": "Experiment shows when quantum 'cat' states stop bouncing back",
+      "summary": "Quantum systems can occupy superpositions, quantum states that combine different possibilities. For instance, a microwave field can be prepared in a superposition of an empty state and a state that contains microwave light.",
+      "url": "https://phys.org/news/2026-10-quantum-cat-states.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-23",
+      "type": "news",
+      "title": "Light-based method enables precise control of ultrafast electron flow in a scanning tunneling microscope",
+      "summary": "What would it take to watch an electron move through a material? Researchers would need to see individual atoms and capture an electron's motion at incredibly short timescales. A Technion-led team has brought those two capabilities together in a scanning tunneling microscope,…",
+      "url": "https://phys.org/news/2026-10-based-method-enables-precise-ultrafast.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-23",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-23T06:29:07+00:00"
+  "fetched": "2026-10-23T19:31:45+00:00"
 }
