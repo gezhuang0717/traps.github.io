@@ -100,6 +100,9 @@
     const known = r[4] != null && m[1] != null;
     return { v: r[3] - m[0], e: known ? Math.hypot(r[4], m[1]) : null, est: !!(r[5] || m[2]) };
   };
+  const USER = { map: new Map(), column: "", rows: [], parsed: null };  /* the visitor's own table, drawn as a colour layer */
+  let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
+  const bounds = m => manualRange || { lo: m.lo, hi: m.hi };
   const pick = (name, f) => r => { const a = auxGet(name, r); const v = a ? f(a) : null; return v == null || Number.isNaN(v) ? null : v; };
   const logPos = x => x > 0 ? Math.log10(x) : null;
   const reactionDefinitions={
@@ -149,6 +152,8 @@
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
     dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    mine: { label: T.m_mine, user: true, v: r => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : x; }, lo: 0, hi: 1 },
     dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
     dame95: { label: T.m_dame95, aux: "ed", v: r => { const d = edDiff("ame1995", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
   };
@@ -174,8 +179,8 @@
   function colour(r) {
     const m = MODES[mode]; if (m.f) return m.f(r);
     const v = m.v(r); if (v == null) return "#e5e7eb";
-    const x = (v - m.lo) / (m.hi - m.lo);
-    if (m.div) { const t = Math.max(0, Math.min(1, x)), a = Math.abs(t - (0 - m.lo) / (m.hi - m.lo)) * 2; return t < (0 - m.lo) / (m.hi - m.lo) ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
+    const bd = bounds(m), x = (v - bd.lo) / (bd.hi - bd.lo), zero = (0 - bd.lo) / (bd.hi - bd.lo);
+    if (m.div) { const t = Math.max(0, Math.min(1, x)), a = Math.abs(t - zero) * 2; return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
     return ramp(x);
   }
   function drawLegend() {
@@ -184,7 +189,7 @@
     else if (mode === "est") legend.innerHTML = `<span><i style="background:#0ea5e9"></i>${T.measured}</span><span><i style="background:#f59e0b"></i>${T.extrap}</span>`;
     else if (mode === "iso") legend.innerHTML = [0, 1, 2, 3].map(n => `<span><i style="background:${["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][n]}"></i>${n}${n === 3 ? "+" : ""}</span>`).join("");
     else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
-    else { const lo = m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
+    else { const bd = bounds(m), numeric = manualRange || m.user, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
   }
 
   /* ---------- drawing (any context / scale, for high-res export) ---------- */
@@ -520,10 +525,11 @@
   PQ.e2p = [linear(T.m_e2p), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.E, a.sE) : null; }, "keV"];
   PQ.be2 = [linear(T.m_be2), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.b, a.sb) : null; }, "e²b²"];
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
-  for (const [name, ed] of [["dame16", "ame2016"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
+  PQ.mine = [T.m_mine, (d, r) => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : { v: x * 1000, e: null, est: false }; }, ""];
+  for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
   // underlying mass separate for filtering, input labels and CSV provenance.
-  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame16", "dame03", "dame95"];
+  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame16", "dame12", "dame03", "dame95", "mine"];
   const dependencyValue=(quantity,derived,value)=>quantity==='dme'||EXPQ.includes(quantity)?derived.me:value;
   const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
@@ -981,6 +987,57 @@
   sel.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(MODES).map(([k,m])=>[k,m.label])),T);
   sel.value=mode;
   sel.onchange = () => { mode = sel.value; if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(() => { memo.clear(); drawLegend(); draw(); }); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(() => { memo.clear(); drawLegend(); draw(); }).catch(() => {}); drawLegend(); draw(); };
+
+  /* ---- manual colour range and the visitor's own data layer ---- */
+  {
+    const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]');
+    const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData;
+    const redraw = () => { memo.clear(); drawLegend(); draw(); };
+    const show = z => String(Number(Number(z).toPrecision(6)));
+    function syncRange() {
+      const m = MODES[mode], off = !!m.f; [chk, minI, maxI, autoB].forEach(e => { e.disabled = off; });
+      const bd = bounds(m); chk.checked = !!manualRange; if (!off) { minI.value = show(bd.lo); maxI.value = show(bd.hi); }
+      note.textContent = off ? "" : m.rng ? (T.range_log || "log scale: values are log₁₀ of the quantity") : "";
+    }
+    function applyManual() {
+      const lo = Number(minI.value), hi = Number(maxI.value);
+      if (minI.value === "" || maxI.value === "" || !Number.isFinite(lo) || !Number.isFinite(hi) || !(lo < hi)) { note.textContent = T.range_bad || "min must be smaller than max"; return; }
+      manualRange = { lo, hi }; chk.checked = true; note.textContent = ""; redraw();
+    }
+    chk.onchange = () => { if (!chk.checked) { manualRange = null; syncRange(); redraw(); } else applyManual(); };
+    minI.oninput = maxI.oninput = applyManual;
+    autoB.onclick = () => {
+      const m = MODES[mode], vals = []; if (m.f) return;
+      for (const r of allRows()) { if (!pass(r)) continue; const v = m.v(r); if (v != null && Number.isFinite(v)) vals.push(v); }
+      const rr = UD.robustRange(vals); if (!rr) { note.textContent = T.mine_empty || "no values"; return; }
+      let [lo, hi] = rr; if (m.div) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
+      manualRange = { lo, hi }; syncRange(); redraw();
+    };
+    const baseChange = sel.onchange;
+    sel.onchange = () => { manualRange = null; baseChange(); syncRange(); };
+    syncRange();
+    // own data
+    const symbolMap = () => new Map((EL || []).map(e => [e[1], e[0]]));
+    function build() {
+      const col = colS.value, map = new Map(); let matched = 0;
+      for (const r of USER.parsed.rows) { const v = r.values[col]; if (v === undefined) continue; map.set(key(r.Z, r.N), v); if (M.has(key(r.Z, r.N))) matched++; }
+      USER.map = map; USER.column = col;
+      const rg = UD.range([...map.values()]); if (rg) { MODES.mine.lo = rg[0]; MODES.mine.hi = rg[1] > rg[0] ? rg[1] : rg[0] + 1; }
+      status.textContent = (T.mine_status || "{m} of {n} rows are on the chart; {e} skipped").replace("{m}", matched).replace("{n}", map.size).replace("{e}", USER.parsed.errors.length) + (USER.parsed.errors.length ? " — #" + USER.parsed.errors[0].line + " " + USER.parsed.errors[0].message : "");
+      manualRange = null; if (mode !== "mine") { sel.value = "mine"; sel.onchange(); } else { syncRange(); redraw(); }
+    }
+    function apply() {
+      try {
+        const parsed = UD.parse(ta.value, { symbolToZ: symbolMap() });
+        if (!parsed.rows.length) { status.textContent = parsed.errors.length ? (T.error_prefix || "Check input: ") + parsed.errors[0].message : (T.mine_empty || "Paste or load a table first"); return; }
+        USER.parsed = parsed; colS.replaceChildren(...parsed.valueColumns.map(c => Object.assign(document.createElement("option"), { value: c, textContent: c }))); build();
+      } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; }
+    }
+    root.querySelector('[data-nc="mine-apply"]').onclick = apply;
+    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = null; ta.value = ""; colS.replaceChildren(); status.textContent = ""; if (mode === "mine") redraw(); };
+    colS.onchange = () => { if (USER.parsed) build(); };
+    fileI.onchange = async () => { const f = fileI.files[0]; if (!f) return; try { if (f.size > 5000000) throw Error("file larger than 5 MB"); ta.value = await f.text(); apply(); } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; } finally { fileI.value = ""; } };
+  }
   if (msel) msel.onchange = () => setSource(msel.value);
   if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && !Object.keys(PATHS).length) loadModels().then(draw); draw(); });
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");

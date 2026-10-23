@@ -7,7 +7,7 @@
 2. static/data/research-cache/ame-editions-compact.json
    from the validated AME1995/2003/2016 caches already in static/data/research-cache/.
    rows per edition: [Z, N, mass_excess_keV, sigma_keV, estimated(0/1)]; unknown sigma stays null.
-Usage: python tools/make_chart_overlays.py --be2 RAW.json [--check]
+Usage: python tools/make_chart_overlays.py --be2 RAW.json --ame2012 mass.mas12 [--check]
 """
 import argparse
 import hashlib
@@ -60,7 +60,41 @@ def be2_table(raw_path):
     }
 
 
-def editions_table():
+def _num(text):
+    """AME number: '#' replaces the decimal point of an estimated value, '*' or blank means not available."""
+    t = text.strip()
+    if not t or t.startswith("*"):
+        return None, False
+    est = "#" in t
+    return float(t.replace("#", ".")), est
+
+
+def ame2012_table(path, expected_rows=3353):
+    """Parse mass.mas12 (39 header lines; columns a1,i3,i5,i5,i5,1x,a3,a4,1x,f13.5,f11.5,...). Returns rows [Z,N,ME,sigma,est]."""
+    raw = Path(path).read_bytes()
+    lines = raw.decode("ascii").splitlines()[39:]
+    rows = []
+    for ln in lines:
+        if not ln.strip():
+            continue
+        n, z, a = int(ln[4:9]), int(ln[9:14]), int(ln[14:19])
+        if n + z != a:
+            raise SystemExit("inconsistent N+Z=A in AME2012 row: " + ln[:30])
+        me, est = _num(ln[28:41])
+        sig, _ = _num(ln[41:52])
+        if me is not None:
+            rows.append([z, n, me, sig, 1 if est else 0])
+    if len(lines) - sum(1 for x in lines if not x.strip()) != expected_rows:
+        raise SystemExit("AME2012 must have %d nuclides" % expected_rows)
+    rows.sort(key=lambda r: (r[0], r[1]))
+    known = {(1, 0): 7288.97059, (0, 1): 8071.31714, (1, 2): 14949.80611}
+    for r in rows:
+        if (r[0], r[1]) in known and abs(r[2] - known[(r[0], r[1])]) > 1e-6:
+            raise SystemExit("AME2012 parser check failed for Z,N=%s" % ((r[0], r[1]),))
+    return rows, hashlib.sha256(raw).hexdigest()
+
+
+def editions_table(ame2012=None):
     out, meta = {}, {}
     for key, name in EDITIONS.items():
         cache = json.loads((CACHE / name).read_text(encoding="utf8"))
@@ -75,6 +109,10 @@ def editions_table():
         out[key] = rows
         src = cache["source"]
         meta[key] = {"title": src.get("title"), "url": src.get("url"), "evaluation_date": src.get("evaluation_date"), "raw_sha256": cache.get("raw_sha256"), "rows": len(rows)}
+    if ame2012:
+        rows12, digest12 = ame2012_table(ame2012)
+        out["ame2012"] = rows12
+        meta["ame2012"] = {"title": "AME2012 atomic mass evaluation", "url": "https://amdc.impcas.ac.cn/masstables/Ame2012/mass.mas12", "evaluation_date": "2012", "raw_sha256": digest12, "rows": len(rows12), "evaluation": "G. Audi et al., Chinese Physics C 36, 1287 (2012); M. Wang et al., ibid. 36, 1603 (2012)"}
     return {"schema_version": 1, "columns": ["Z", "N", "mass_excess_keV", "sigma_keV", "estimated"],
             "meta": {"editions": meta, "note": "Atomic mass excess of ground states; # (estimated) flags kept; printed zero uncertainties may be rounded."}, "editions": out}
 
@@ -82,9 +120,10 @@ def editions_table():
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--be2", required=True, help="raw adopted-entries.json")
+    ap.add_argument("--ame2012", required=True, help="raw mass.mas12 (https://amdc.impcas.ac.cn/masstables/Ame2012/mass.mas12)")
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args(argv)
-    outputs = {CACHE / "be2-compact.json": be2_table(args.be2), CACHE / "ame-editions-compact.json": editions_table()}
+    outputs = {CACHE / "be2-compact.json": be2_table(args.be2), CACHE / "ame-editions-compact.json": editions_table(args.ame2012)}
     for path, data in outputs.items():
         text = json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n"
         if args.check:

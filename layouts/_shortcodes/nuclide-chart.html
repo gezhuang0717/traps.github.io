@@ -53,6 +53,24 @@
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="fit">{{ $t.fit }}</button>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="random">🎲 {{ $t.random }}</button>
   </div>
+  <div class="nc-bar nc-rangebar">
+    <label class="nc-chk"><input type="checkbox" name="nc-range-manual"> {{ $t.range_manual }}</label>
+    <label>{{ $t.range_min }} <input type="number" name="nc-range-min" step="any" aria-label="{{ $t.range_min }}"></label>
+    <label>{{ $t.range_max }} <input type="number" name="nc-range-max" step="any" aria-label="{{ $t.range_max }}"></label>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
+    <small class="nc-range-note" role="status"></small>
+  </div>
+  <details class="nc-mine"><summary>{{ $t.mine_title }}</summary>
+    <p class="zg-muted">{{ $t.mine_help }}</p>
+    <textarea name="nc-mine-text" rows="6" spellcheck="false" aria-label="{{ $t.mine_title }}" placeholder="Z,N,value&#10;20,28,0.11&#10;50,70,0.08"></textarea>
+    <div class="nc-bar">
+      <label>{{ $t.mine_file }} <input type="file" name="nc-mine-file" accept=".csv,.tsv,.txt,.json"></label>
+      <label>{{ $t.mine_column }} <select name="nc-mine-col"></select></label>
+      <button type="button" class="zg-btn" data-nc="mine-apply">{{ $t.mine_apply }}</button>
+      <button type="button" class="zg-btn zg-btn-ghost" data-nc="mine-clear">{{ $t.mine_clear }}</button>
+    </div>
+    <p class="nc-mine-status" role="status"></p>
+  </details>
   <div class="nc-bar nc-bar2">
     <label>{{ $t.model }} <select name="nc-model"><option value="ame">AME2020 ({{ $t.mod_exp }})</option></select></label>
     <span class="nc-ovl">{{ $t.ovl }}:
@@ -138,4 +156,5 @@
 <script defer src="{{ "js/measured-masses.js" | relURL }}?v={{ readFile "static/js/measured-masses.js" | sha256 }}"></script>
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
+<script defer src="{{ "js/chart-user-data.js" | relURL }}?v={{ readFile "static/js/chart-user-data.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>
