@@ -1,0 +1,129 @@
+# Registry of verified numerical capabilities, separate from link-only resources.
+# Generated browser registry/cache: tools/research_data.py --fetch --all.
+schema_version: 1
+verified_date: "2026-10-23"
+sources:
+  - id: livechart
+    title: "IAEA LiveChart data service"
+    capability: numerical-api
+    service_url: "https://nds.iaea.org/relnsd/v1/data"
+    guide_url: "https://www-nds.iaea.org/relnsd/vcharthtml/api_v0_guide.html"
+    format: livechart-csv
+    evaluation: "ENSDF/AME2020/NUBASE2020/Angeli-Marinova/Stone by field; row cutoff dates retained; fission yields JEFF 3.1.1; beta spectra Betashape 2.2"
+    licence: "Small educational/informational extracts; acknowledge IAEA and original evaluation, retain third-party rights; no endorsement."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+    caveat: "Browser CORS or HTTP 403 may prevent online requests. The Python client uses the officially documented User-Agent. Numeric error responses are failures, never empty successful datasets."
+  - id: be2-nndc
+    title: "NNDC adopted B(E2) downloadable JSON"
+    capability: numerical-download
+    service_url: "https://www.nndc.bnl.gov/be2/data/adopted-entries.json"
+    guide_url: "https://www.nndc.bnl.gov/be2/help.html"
+    format: be2-json
+    evaluation: "Selected 2016 model-independent adopted entries; 2001 entries remain a distinct source version"
+    evaluation_date: "2016"
+    licence: "Small attributed factual subset; original NNDC dataset and evaluation cited; not a full database mirror."
+    caveat: "Delivery URL is used by NNDC's own search JavaScript, not a documented query API. Upward 0+→2+ e²b²; source W.u. convention uses 0.297 A^(4/3) e²fm⁴. Help prose and displayed arrow are inconsistent; preserve provenance."
+  - id: ame2016
+    title: "AME2016 recommended atomic masses"
+    capability: numerical-download
+    service_url: "https://www-nds.iaea.org/amdc/ame2016/mass16.txt"
+    guide_url: "https://www-nds.iaea.org/amdc/"
+    format: ame2016
+    evaluation_date: "2016"
+    evaluation: "W. J. Huang et al. and M. Wang et al., Chinese Physics C 41, 030002/030003 (2017)"
+    licence: "Attributed evaluated mass data; original AMDC format/header and flags retained privately. No AMDC endorsement."
+  - id: ame2003
+    title: "AME2003 recommended atomic masses"
+    capability: numerical-download
+    service_url: "https://www-nds.iaea.org/amdc/ame2003/mass.mas03"
+    fallback_urls: ["https://amdc.impcas.ac.cn/masstables/Ame2003/mass.mas03"]
+    guide_url: "https://www-nds.iaea.org/amdc/"
+    format: ame2003
+    evaluation_date: "2003"
+    evaluation: "G. Audi, A. H. Wapstra and C. Thibault, Nuclear Physics A 729, 337 (2003)"
+    licence: "Attributed evaluated mass data; source-specific precision, # estimates and * missing values retained."
+  - id: ame1995
+    title: "AME1995 recommended atomic masses (rmd variant)"
+    capability: numerical-download
+    service_url: "https://www-nds.iaea.org/amdc/ame1995/mass_rmd.mas95"
+    fallback_urls: ["https://amdc.impcas.ac.cn/masstables/Ame1995/mass_rmd.mas95"]
+    guide_url: "https://www-nds.iaea.org/amdc/"
+    format: ame1995
+    evaluation_date: "1995"
+    evaluation: "G. Audi and A. H. Wapstra, Nuclear Physics A 595, 409 (1995); recommended rmd table"
+    licence: "Attributed evaluated mass data; rmd and experimental variants must remain distinct. Printed rounded-zero uncertainty is not an exact value."
+datasets:
+  - key: livechart-ground-states
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: ground_states, nuclides: 43ca}
+    allowed_query: [nuclides]
+    max_records: 10000
+    units: {radius: fm, magnetic_dipole: nuclear_magneton, electric_quadrupole: barn, energy: keV, massexcess: keV, atomic_mass: micro_u, binding: keV_per_nucleon, half_life_sec: s, abundance: percent}
+  - key: livechart-levels
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: levels, nuclides: 12c}
+    allowed_query: [nuclides]
+    max_records: 20000
+    units: {energy: keV, magnetic_dipole: nuclear_magneton, electric_quadrupole: barn, half_life_sec: s}
+  - key: livechart-gammas
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: gammas, nuclides: 12c}
+    allowed_query: [nuclides]
+    max_records: 30000
+    units: {energy: keV, start_level_energy: keV, end_level_energy: keV, relative_intensity: percent, b_e1: Wu, b_e2: Wu, b_m1: Wu, b_m2: Wu}
+  - key: livechart-decay-rads
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: decay_rads, nuclides: 241am, rad_types: g}
+    allowed_query: [nuclides, rad_types]
+    max_records: 30000
+    units: {energy: keV, intensity: percent, p_energy: keV, start_level_energy: keV, end_level_energy: keV, half_life_sec: s, q: keV}
+  - key: livechart-bin-beta
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: bin_beta, nuclides: 135xe, rad_types: bm}
+    allowed_query: [nuclides, rad_types, metastable_seqno]
+    max_records: 50000
+    units: {bin_en: keV, p_energy: keV, dn_de: source_spectral_density, dn_de_nu: source_spectral_density}
+    note: "Do not infer normalization, bin width or an integrated branching fraction from a density column alone."
+  - key: livechart-cumulative-fy
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: cumulative_fy, products: 135xe}
+    allowed_query: [parents, products]
+    max_records: 20000
+    units: {cumulative_thermal_fy: source_yield_scale_not_rescaled, cumulative_fast_fy: source_yield_scale_not_rescaled, cumulative_14mev_fy: source_yield_scale_not_rescaled}
+    note: "JEFF 3.1.1 source; retain parent, daughter state index and incident-neutron energy regime. Never renormalize these rows to one."
+  - key: livechart-independent-fy
+    source_id: livechart
+    format: livechart-csv
+    query: {fields: independent_fy, products: 135xe}
+    allowed_query: [parents, products]
+    max_records: 20000
+    units: {independent_thermal_fy: source_yield_scale_not_rescaled, independent_fast_fy: source_yield_scale_not_rescaled, independent_14mev_fy: source_yield_scale_not_rescaled}
+    note: "Independent and cumulative yields are different quantities; source state indices are preserved."
+  - key: be2-2016-ca-sn
+    source_id: be2-nndc
+    format: be2-json
+    query: {evaluation: "2016", selection: ca-sn-c12, adopted_type: MODEL_INDEPENDENT}
+    allowed_query: []
+    max_records: 100
+    units: {transition_energy_keV: keV, be2_up_e2b2: e2_b2, be2_down_e2b2: e2_b2, be2_up_e2fm4: e2_fm4, be2_down_e2fm4: e2_fm4, be2_source_wu: Wu_source, be2_up_wu: Wu_up_0.297A4over3}
+  - {key: ame2016, source_id: ame2016, format: ame2016, query: {}, allowed_query: [], max_records: 5000, units: {mass_excess_keV: keV, atomic_mass_u: u, binding_energy_per_nucleon_keV: keV_per_nucleon}}
+  - {key: ame2003, source_id: ame2003, format: ame2003, query: {}, allowed_query: [], max_records: 5000, units: {mass_excess_keV: keV, atomic_mass_u: u, binding_energy_per_nucleon_keV: keV_per_nucleon}}
+  - {key: ame1995, source_id: ame1995, format: ame1995, query: {}, allowed_query: [], max_records: 5000, units: {mass_excess_keV: keV, atomic_mass_u: u, binding_energy_per_nucleon_keV: keV_per_nucleon}}
+  - {key: ame2016-rct1, source_id: ame2016, format: ame-rct, edition: ame2016, table: rct1, url: "https://amdc.impcas.ac.cn/masstables/Ame2016/rct1-16.txt", query: {}, allowed_query: [], max_records: 200, units: {s2n_keV: keV, s2p_keV: keV, qa_keV: keV, q2bm_keV: keV, qep_keV: keV, qbmn_keV: keV}}
+  - {key: ame2016-rct2, source_id: ame2016, format: ame-rct, edition: ame2016, table: rct2, url: "https://amdc.impcas.ac.cn/masstables/Ame2016/rct2-16.txt", query: {}, allowed_query: [], max_records: 200, units: {sn_keV: keV, sp_keV: keV, q4bm_keV: keV, qda_keV: keV, qpa_keV: keV, qna_keV: keV}}
+  - {key: ame2003-rct1, source_id: ame2003, format: ame-rct, edition: ame2003, table: rct1, url: "https://amdc.impcas.ac.cn/masstables/Ame2003/rct1.mas03", query: {}, allowed_query: [], max_records: 200, units: {s2n_keV: keV, s2p_keV: keV, qa_keV: keV, q2bm_keV: keV, qep_keV: keV, qbmn_keV: keV}}
+  - {key: ame2003-rct2, source_id: ame2003, format: ame-rct, edition: ame2003, table: rct2, url: "https://amdc.impcas.ac.cn/masstables/Ame2003/rct2.mas03", query: {}, allowed_query: [], max_records: 200, units: {sn_keV: keV, sp_keV: keV, q4bm_keV: keV, qda_keV: keV, qpa_keV: keV, qna_keV: keV}}
+  - {key: ame1995-rct1, source_id: ame1995, format: ame-rct, edition: ame1995, table: rct1, url: "https://amdc.impcas.ac.cn/masstables/Ame1995/rct1_rmd.mas95", query: {}, allowed_query: [], max_records: 200, units: {s2n_keV: keV, s2p_keV: keV, qa_keV: keV, q2bm_keV: keV, qep_keV: keV, qbmn_keV: keV}}
+  - {key: ame1995-rct2, source_id: ame1995, format: ame-rct, edition: ame1995, table: rct2, url: "https://amdc.impcas.ac.cn/masstables/Ame1995/rct2_rmd.mas95", query: {}, allowed_query: [], max_records: 200, units: {sn_keV: keV, sp_keV: keV, q4bm_keV: keV, qda_keV: keV, qpa_keV: keV, qna_keV: keV}}
+linked_resources:
+  - {id: be2-experimental, capability: link-only, url: "https://www.nndc.bnl.gov/be2/", note: "Individual experimental and predicted tabs are not integrated as adopted recommendations."}
+  - {id: satlas2, capability: link-only, url: "https://github.com/IKS-nm/satlas2", note: "Documented fitting code; not a numerical dataset loaded by this client."}
+  - {id: qspec, capability: link-only, url: "https://patmlr.github.io/qspec/", note: "Documented spectroscopy code; no installed runtime implied."}
+  - {id: pylcp, capability: link-only, url: "https://python-laser-cooling-physics.readthedocs.io/en/latest/", note: "Documented model solver; existing optical presets remain separately sourced."}
+  - {id: steck, capability: link-only, url: "https://steck.us/alkalidata/", note: "Author's reference sheets; no automatic PDF-to-preset parsing."}
