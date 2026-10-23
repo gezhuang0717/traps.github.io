@@ -12,5 +12,5 @@
 {{- $labels := index hugo.Data.game_workflows.labels $lang -}}
 <div hidden data-tool-workflows-config="{{ dict "labels" $labels "topics" $topics | jsonify }}"></div>
 <link rel="stylesheet" href="{{ "css/tool-workflows.css" | relURL }}?v=1">
-<script defer src="{{ "js/tool-workflows.js" | relURL }}?v=1"></script>
+<script defer src="{{ "js/tool-workflows.js" | relURL }}?v=2"></script>
 {{- end -}}

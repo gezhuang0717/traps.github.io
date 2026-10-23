@@ -11,7 +11,22 @@
   }
   function addDescription(node, id) {
     const refs = new Set((node.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
-    refs.add(id);
+    if (node.matches('svg[role="img"]')) {
+      // Keep the explanation inside exported SVGs; a reference to a page-only
+      // details panel would otherwise be lost when the figure is saved.
+      let desc = node.querySelector('desc[data-workflow-description="' + id + '"]');
+      if (!desc) {
+        const doc = node.ownerDocument, fields = doc.getElementById(id);
+        if (!fields) return;
+        desc = doc.createElementNS('http://www.w3.org/2000/svg', 'desc');
+        do { desc.id = id + '-figure-' + (++sequence); } while (doc.getElementById(desc.id));
+        desc.setAttribute('data-workflow-description', id);
+        desc.textContent = [...fields.querySelectorAll('dt')].map(dt => dt.textContent + ': ' + dt.nextElementSibling.textContent).join('\n');
+        node.prepend(desc);
+      }
+      refs.delete(id);
+      refs.add(desc.id);
+    } else refs.add(id);
     node.setAttribute('aria-describedby', [...refs].join(' '));
   }
   function guide(target, key, labels, text, doc) {
