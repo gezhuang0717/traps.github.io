@@ -14,7 +14,7 @@ showDate: false
 
 {{< gallery >}}
 
-{{< trap-zoo >}}
+
 
 ## ¹⁰⁰Sn までの N = Z エキゾチック核 — MASSPASS
 
@@ -74,4 +74,6 @@ showDate: false
 
 {{< spectroscopy-tools >}}
 
-{{< spectroscopy-games >}}
+[分光チャレンジ](../games/#spectroscopy-trail)
+
+{{< trap-zoo >}}

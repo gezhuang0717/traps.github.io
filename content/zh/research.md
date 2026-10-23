@@ -14,7 +14,7 @@ showDate: false
 
 {{< gallery >}}
 
-{{< trap-zoo >}}
+
 
 ## 直至 ¹⁰⁰Sn 的 N = Z 奇特核——MASSPASS
 
@@ -74,4 +74,6 @@ showDate: false
 
 {{< spectroscopy-tools >}}
 
-{{< spectroscopy-games >}}
+[光谱学闯关](../games/#spectroscopy-trail)
+
+{{< trap-zoo >}}

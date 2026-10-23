@@ -14,7 +14,7 @@ I use high-precision ion-trap and storage-ring mass spectrometry to answer quest
 
 {{< gallery >}}
 
-{{< trap-zoo >}}
+
 
 ## Exotic N = Z nuclei up to ¹⁰⁰Sn — MASSPASS
 
@@ -74,4 +74,6 @@ Ion-optical design of beam lines, storage rings and trap set-ups: the injection 
 
 {{< spectroscopy-tools >}}
 
-{{< spectroscopy-games >}}
+[Spectroscopy trail](../games/#spectroscopy-trail)
+
+{{< trap-zoo >}}

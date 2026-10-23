@@ -1,0 +1,7 @@
+# Traps spectroscopy settings v1
+schema = "traps-spectroscopy-v1"
+activeTab = "sp-radii"
+sources = [{"id":"selected-source-snapshot","evaluation_date":"2013","retrieved_date":"2026-10-23"}]
+input.radius-element = "Ca"
+input.radius-mode = "difference"
+input.radius-reference = "40"

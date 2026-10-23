@@ -1,0 +1,46 @@
+[
+  {
+    "id": "calcium-radii",
+    "title_key": "radii",
+    "kind": "evaluated",
+    "expected": "δ⟨r²⟩(48Ca − 40Ca) = -0.003477349999998 ± 0.01918532366092 fm²; 1σ",
+    "files": {
+      "json": "calcium-radii.json",
+      "csv": "calcium-radii.csv",
+      "txt": "calcium-radii.txt"
+    }
+  },
+  {
+    "id": "calcium-doppler",
+    "title_key": "doppler",
+    "kind": "synthetic",
+    "expected": "νlab = 756.1821944298 THz; β = 0.001269584086542",
+    "files": {
+      "json": "calcium-doppler.json",
+      "csv": "calcium-doppler.csv",
+      "txt": "calcium-doppler.txt"
+    }
+  },
+  {
+    "id": "carbon-levels",
+    "title_key": "levels",
+    "kind": "evaluated",
+    "expected": "12C: Eₓ = 0, 4439.82(21) keV; Eγ = 4438.94 keV",
+    "files": {
+      "json": "carbon-levels.json",
+      "csv": "carbon-levels.csv",
+      "txt": "carbon-levels.txt"
+    }
+  },
+  {
+    "id": "radius-uncertainty",
+    "title_key": "radiusShift",
+    "kind": "synthetic",
+    "expected": "δ⟨r²⟩ = 0.4 ± 0.004538464084908 fm²; 1σ",
+    "files": {
+      "json": "radius-uncertainty.json",
+      "csv": "radius-uncertainty.csv",
+      "txt": "radius-uncertainty.txt"
+    }
+  }
+]

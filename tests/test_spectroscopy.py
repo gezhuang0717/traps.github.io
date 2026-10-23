@@ -16,7 +16,7 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LANGS = ("en", "zh", "fi", "de", "ja")
+LANGS = ("en", "zh", "fi", "de", "ja", "fr")
 DATA = yaml.safe_load((ROOT / "data/spectroscopy.yaml").read_text(encoding="utf-8"))
 
 
@@ -104,23 +104,21 @@ def test_nuclear_scheme_preserves_source_gamma_energies_and_unknown_uncertaintie
         assert not math.isclose(gamma_energy, level_difference, rel_tol=0, abs_tol=0.001)
 
 
-def test_five_language_pages_keep_research_tools_before_final_games_section():
+def test_five_language_pages_keep_one_games_page_and_trap_zoo_last():
     shortcode = re.compile(r"{{[<%]\s*([\w-]+)\b[^}]*[>%]}}")
     for lang in LANGS:
         research = (ROOT / "content" / lang / "research.md").read_text(encoding="utf-8")
         games = (ROOT / "content" / lang / "games.md").read_text(encoding="utf-8")
         research_matches = list(shortcode.finditer(research))
-        games_matches = list(shortcode.finditer(games))
         research_codes = [match.group(1) for match in research_matches]
-        games_codes = [match.group(1) for match in games_matches]
+        games_codes = [match.group(1) for match in shortcode.finditer(games)]
         assert research_codes.count("spectroscopy-tools") == 1, lang
-        assert research_codes.count("spectroscopy-games") == 1, lang
-        assert research_codes.index("spectroscopy-tools") < research_codes.index("spectroscopy-games"), lang
-        assert research_codes[-1] == "spectroscopy-games", lang
-        assert games_codes.count("spectroscopy-games") == 1 and games_codes[-1] == "spectroscopy-games", lang
-        # No following content may hide the promised final games section.
+        assert "spectroscopy-games" not in research_codes, lang
+        assert research_codes[-1] == "trap-zoo", lang
+        assert research_codes.count("trap-zoo") == 1, lang
         assert not research[research_matches[-1].end():].strip(), lang
-        assert not games[games_matches[-1].end():].strip(), lang
+        assert games_codes.count("spectroscopy-games") == 1, lang
+        assert "../games/#spectroscopy-trail" in research, lang
 
 
 class SpectroscopyMarkup(HTMLParser):
@@ -146,7 +144,7 @@ def test_actual_shortcode_build_retains_json_nulls_languages_and_usable_assets(t
     if not hugo:
         pytest.skip("Pinned Hugo required; installed in CI before tests")
     assets = ["static/js/zg-export.js", "static/js/spectroscopy-core.js", "static/js/spectroscopy.js",
-              "static/css/spectroscopy.css"]
+              "static/css/spectroscopy.css", "static/js/spectroscopy-settings.js", "static/js/spectroscopy-uncertainty.js", "static/js/spectroscopy-fr.js"]
     for relative in ["layouts/_shortcodes/spectroscopy-tools.html", "data/spectroscopy.yaml",
                      "data/laser_cooling.yaml"] + assets:
         target = tmp_path / relative

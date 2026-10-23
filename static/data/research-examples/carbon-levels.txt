@@ -1,0 +1,6 @@
+# Traps spectroscopy settings v1
+schema = "traps-spectroscopy-v1"
+activeTab = "sp-levels"
+sources = [{"id":"selected-source-snapshot","evaluation_date":"2017-01-01","retrieved_date":"2026-10-23"}]
+input.nuclear-scheme = "0"
+input.max-energy = "5000"

@@ -14,7 +14,7 @@ Käytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiik
 
 {{< gallery >}}
 
-{{< trap-zoo >}}
+
 
 ## Eksoottiset N = Z -ytimet ¹⁰⁰Sn:ään asti — MASSPASS
 
@@ -74,4 +74,6 @@ Suihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu:
 
 {{< spectroscopy-tools >}}
 
-{{< spectroscopy-games >}}
+[Spektroskopiapolku](../games/#spectroscopy-trail)
+
+{{< trap-zoo >}}

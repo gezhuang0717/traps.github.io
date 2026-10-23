@@ -1,0 +1,18 @@
+{
+  "schema": "traps-spectroscopy-v1",
+  "inputs": {
+    "doppler-restTHz": "755.2227662",
+    "doppler-massU": "39.96204227",
+    "doppler-voltageV": "30000",
+    "doppler-charge": "1",
+    "doppler-geometry": "collinear"
+  },
+  "activeTab": "sp-cls",
+  "sources": [
+    {
+      "id": "synthetic-teaching-inputs",
+      "evaluation_date": null,
+      "retrieved_date": "2026-10-23"
+    }
+  ]
+}

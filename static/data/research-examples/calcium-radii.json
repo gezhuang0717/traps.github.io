@@ -1,0 +1,16 @@
+{
+  "schema": "traps-spectroscopy-v1",
+  "inputs": {
+    "radius-element": "Ca",
+    "radius-mode": "difference",
+    "radius-reference": "40"
+  },
+  "activeTab": "sp-radii",
+  "sources": [
+    {
+      "id": "selected-source-snapshot",
+      "evaluation_date": "2013",
+      "retrieved_date": "2026-10-23"
+    }
+  ]
+}

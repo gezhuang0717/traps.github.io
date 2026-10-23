@@ -14,7 +14,7 @@ Mit hochpräziser Ionenfallen- und Speicherring-Massenspektrometrie untersuche i
 
 {{< gallery >}}
 
-{{< trap-zoo >}}
+
 
 ## Exotische N = Z-Kerne bis ¹⁰⁰Sn — MASSPASS
 
@@ -74,4 +74,6 @@ Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: 
 
 {{< spectroscopy-tools >}}
 
-{{< spectroscopy-games >}}
+[Spektroskopiepfad](../games/#spectroscopy-trail)
+
+{{< trap-zoo >}}

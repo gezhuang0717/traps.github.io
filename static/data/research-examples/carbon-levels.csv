@@ -1,0 +1,6 @@
+"section","key","json_value"
+"meta","schema","""traps-spectroscopy-v1"""
+"meta","activeTab","""sp-levels"""
+"meta","sources","[{""id"":""selected-source-snapshot"",""evaluation_date"":""2017-01-01"",""retrieved_date"":""2026-10-23""}]"
+"input","nuclear-scheme","""0"""
+"input","max-energy","""5000"""

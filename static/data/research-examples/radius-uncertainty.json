@@ -1,0 +1,23 @@
+{
+  "schema": "traps-spectroscopy-v1",
+  "inputs": {
+    "radiusShift-shiftMHz": "200",
+    "radiusShift-K_GHz_u": "24",
+    "radiusShift-F_GHz_fm2": "-2",
+    "radiusShift-massU": "12",
+    "radiusShift-referenceMassU": "24",
+    "radiusShift-sigma_shiftMHz": "1",
+    "radiusShift-sigma_K_GHz_u": ".1",
+    "radiusShift-sigma_F_GHz_fm2": ".02",
+    "radiusShift-sigma_massU": ".001",
+    "radiusShift-sigma_referenceMassU": ".001"
+  },
+  "activeTab": "sp-cls",
+  "sources": [
+    {
+      "id": "synthetic-teaching-inputs",
+      "evaluation_date": null,
+      "retrieved_date": "2026-10-23"
+    }
+  ]
+}

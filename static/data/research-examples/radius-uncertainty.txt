@@ -1,0 +1,14 @@
+# Traps spectroscopy settings v1
+schema = "traps-spectroscopy-v1"
+activeTab = "sp-cls"
+sources = [{"id":"synthetic-teaching-inputs","evaluation_date":null,"retrieved_date":"2026-10-23"}]
+input.radiusShift-shiftMHz = "200"
+input.radiusShift-K_GHz_u = "24"
+input.radiusShift-F_GHz_fm2 = "-2"
+input.radiusShift-massU = "12"
+input.radiusShift-referenceMassU = "24"
+input.radiusShift-sigma_shiftMHz = "1"
+input.radiusShift-sigma_K_GHz_u = ".1"
+input.radiusShift-sigma_F_GHz_fm2 = ".02"
+input.radiusShift-sigma_massU = ".001"
+input.radiusShift-sigma_referenceMassU = ".001"

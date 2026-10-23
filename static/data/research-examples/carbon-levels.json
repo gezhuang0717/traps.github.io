@@ -1,0 +1,15 @@
+{
+  "schema": "traps-spectroscopy-v1",
+  "inputs": {
+    "nuclear-scheme": "0",
+    "max-energy": "5000"
+  },
+  "activeTab": "sp-levels",
+  "sources": [
+    {
+      "id": "selected-source-snapshot",
+      "evaluation_date": "2017-01-01",
+      "retrieved_date": "2026-10-23"
+    }
+  ]
+}
