@@ -118,5 +118,29 @@
     "mf_group_other": "その他の核図物理量",
     "mf_be": "全結合エネルギー B",
     "mf_s2p": "2陽子分離エネルギー S₂ₚ"
+  },
+  "fr": {
+    "mf_title": "Autres filtres de masse : formules et voisins",
+    "mf_intro": "Choisissez un filtre dans Grandeur ou dans le menu de couleur de la carte. La même formule s’applique à AME2020, aux masses saisies et à chaque modèle. La fenêtre des valeurs affectées montre les dépendances qui subsistent.",
+    "mf_gap": "écart à un nucléon",
+    "mf_slope": "pente d’énergie de séparation",
+    "mf_pn": "différence proton–neutron fixe",
+    "mf_third": "différence d’ordre trois",
+    "mf_fourth": "différence d’ordre quatre (normalisée par ½)",
+    "mf_formula": "Formule",
+    "mf_neighbours": "Voisins requis (ΔZ, ΔN)",
+    "mf_pn_note": "Les quatre opérateurs proton–neutron fixes utilisent le stencil affiché en chaque centre. Leur interprétation physique pair-pair, impair-impair ou mixte exige la parité appropriée. δVpn choisit automatiquement son stencil selon Z et N.",
+    "mf_convention": "Les pentes sont des différences avant : S₂ₙ(N+1) − S₂ₙ(N), et l’analogue protonique. Gsym inclut ½, conformément aux poids du programme R fourni. Ce sont des différences finies, pas des dérivées divisées par un pas.",
+    "mf_missing": "Les masses manquantes laissent des lacunes. Les termes communs s’annulent avant le calcul des erreurs et de la provenance # ; les autres entrées expérimentales sont supposées indépendantes. L’erreur des modèles est inconnue. Les données # utilisent des symboles creux sans bande d’incertitude.",
+    "mf_group_basic": "Masse et énergie de liaison",
+    "mf_group_separation": "Énergies de séparation",
+    "mf_group_q": "Énergies Q de désintégration",
+    "mf_group_gap": "Écarts de couches",
+    "mf_group_pairing": "Indicateurs d’appariement",
+    "mf_group_pn": "Différences proton–neutron",
+    "mf_group_higher": "Pentes et différences supérieures",
+    "mf_group_other": "Autres grandeurs de la carte",
+    "mf_be": "Énergie de liaison totale B",
+    "mf_s2p": "Énergie de séparation de deux protons S₂ₚ"
   }
 }

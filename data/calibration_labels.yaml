@@ -294,3 +294,71 @@ ja:
   tof_t12: 飛行時間 T1→T2 (µs)
   preset_jyfl: PyMassScanner R31 の JYFLTRAP 既定値
   close: 閉じる
+fr:
+  step_help: Saisie numérique et pas des flèches
+  frequency_step: 'Pas des flèches : fréquence'
+  uncertainty_step: 'Pas des flèches : incertitude'
+  step_hint: Saisissez directement tout nombre décimal fini. Les flèches conservent la partie décimale saisie ;
+    les pas de fréquence et d’incertitude sont indépendants. Changer le pas ne change pas l’étalonnage. Le pas TOF
+    vaut 1 µs. Les calculs utilisent binary64.
+  title: Étalonnage du double piège, comme dans PyMassScanner
+  'off': désactivé
+  'on': activé
+  use: Utiliser les fréquences de référence, à la place de B, U₀ et d idéaux
+  preset: Préréglage
+  custom: personnalisé
+  example: 'Valeurs de default.ini, PyMassScanner R31 : T1 ⁹⁷Mo⁺, T2 ¹³³Cs⁺, ν− = 1653.063 Hz, TOF ⁸²Se⁺ 177 µs
+    et ¹³³Cs⁺ 47.3 µs. Exemples, pas une mesure actuelle.'
+  source: Masses
+  mode: ν−, ν+, νz
+  fixed: 'ν− fixe, PyMassScanner : ν+ = νc − ν−'
+  ideal: 'Quadrupôle idéal : νz² ∝ q/m depuis la référence'
+  calibrant: Ion de référence
+  charge: q
+  nc: νc (Hz)
+  snc: σνc (Hz)
+  nm: ν− (Hz)
+  snm: σν− (Hz)
+  tof: TOF (µs, facultatif)
+  add: + référence
+  remove: retirer
+  beff: Champ effectif B
+  consistency: Cohérence des références
+  birge: Rapport de Birge
+  ions: 'Ions et états, séparés par virgule ou ligne : 85Rb, 129mSn, 170Yb+2, 12C11'
+  compute: Calculer
+  ion: Ion
+  mion: m_ion (u)
+  ratio: νc,cal / νc
+  kevhz: keV par Hz
+  tofp: TOF (µs)
+  src: Source des masses
+  csv: CSV
+  json: JSON
+  bad_ion: Ion ou état inconnu, indisponible ou ambigu
+  invalid: 'Étalonnage non utilisé : vérifiez les valeurs de référence'
+  using: Étalonné avec
+  hint: 'JYFLTRAP possède deux pièges de Penning, chacun avec son étalonnage PyMassScanner : ion de référence, νc
+    mesurée et ν− du piège. Les autres ions suivent νc(ion) = νc(ref)·(m_ref/m_ion)·(q_ion/q_ref), avec AME2020
+    et les excitations NUBASE2020. ν− reste fixe ou suit le quadrupôle idéal ; ν+ = νc − ν−, νz = √(νc² − ν+² −
+    ν−²). Le piège 1 donne la fréquence de purification ; le piège 2 celles de TOF-ICR/PI-ICR, les périodes et keV/Hz.
+    Les temps RFQ→T1 et T1→T2 suivent √(m/q) depuis leur propre référence. Les réglages PyMassScanner reproduisent
+    ses résultats ³⁹K⁺ à moins de 1 mHz.'
+  trap1: Piège 1 — purification
+  trap2: Piège 2 — précision
+  trap1_note: 'Refroidissement sélectif en masse dans le gaz tampon : νc du piège 1 fixe le balayage de conversion
+    et purification.'
+  trap2_note: 'TOF-ICR et PI-ICR : νc, ν+ = νc − ν−, νz et périodes proviennent du piège 2.'
+  tof_cal: Étalonnage du temps de vol, t ∝ √(m/q)
+  rfq_t1: RFQ → piège 1
+  t1_t2: Piège 1 → piège 2
+  tof_us: t (µs)
+  trap_used: Piège utilisé ici
+  nc1: νc piège 1 (Hz)
+  nc2: νc piège 2 (Hz)
+  periods: 'Périodes (µs) : axiale / cyclotron / magnétron'
+  field_ratio: B₂/B₁ − 1
+  tof_rfq: TOF RFQ→T1 (µs)
+  tof_t12: TOF T1→T2 (µs)
+  preset_jyfl: Réglages JYFLTRAP de PyMassScanner R31
+  close: Fermer

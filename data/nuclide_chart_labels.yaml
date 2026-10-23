@@ -163,3 +163,54 @@ ja:
   defs: "導出量の定義"
   line_width: "重ね合わせ線の幅"
   export_hint: "PNG と PDF は現在の表示範囲と線幅を使用します。PDF には高解像度画像、CSV には数値データを保存します。"
+fr:
+  point_source_inputs: Source et entrées
+  fl_ee: Z pair · N pair
+  fl_eo: Z pair · N impair
+  fl_oe: Z impair · N pair
+  fl_oo: Z impair · N impair
+  magic_lines: nombres magiques
+  p_lines: lignes
+  p_err: barres d’erreur
+  p_range: plage / plusieurs chaînes
+  p_chains: chaînes de
+  p_x: plage x
+  fl_oddA: A impair
+  fl_evenA: A pair
+  fl_p3: Δ⁽³⁾ à 3 points disponible
+  fl_p5: Δ⁽⁵⁾ à 5 points disponible
+  fl_unb: non lié aux particules, Sₙ ou Sₚ < 0
+  fl_lowq: 'faible Q : Q(β⁻) ou Q(EC) < 1 MeV'
+  model: Masses
+  mod_exp: expérience
+  model_short: modèle
+  ovl: Lignes
+  rpath: Trajet du processus r
+  rppath: Trajet du processus rp
+  modnote: 'Masses théoriques ; une case * n’existe que dans le modèle. Les limites de séparation exigent des voisins
+    autour de zéro. β₂ manquant reste indisponible. Source :'
+  m_vpn: δVpn (interaction p–n)
+  m_d3n: Δₙ⁽³⁾ (appariement neutronique)
+  m_beta2: Déformation β₂ du modèle
+  m_dmod: ME(AME) − ME(modèle)
+  wig: Indicateur de Wigner W
+  defs: Définitions des grandeurs dérivées
+  deflist:
+  - S<sub>n</sub> = ME(Z,N−1) + ME(n) − ME(Z,N) ; S<sub>2n</sub>, S<sub>p</sub>, S<sub>2p</sub> sont analogues.
+    Une énergie négative autorise l’émission n / 2n / p / 2p. La ligne AME est tracée là où un noyau non lié est
+    connu ; celle d’un modèle suit son dernier noyau lié.
+  - 'δ<sub>2n</sub> = S<sub>2n</sub>(N) − S<sub>2n</sub>(N+2) : les pics peuvent révéler une fermeture de couche.'
+  - 'Δ<sub>n</sub><sup>(3)</sup> = (−1)<sup>N</sup>/2 · [ME(N+1) − 2ME(N) + ME(N−1)] : indicateur de l’alternance
+    pair-impair ; analogue protonique en Z.'
+  - δV<sub>pn</sub> pair-pair = ¼ [B(Z,N) − B(Z,N−2) − B(Z−2,N) + B(Z−2,N−2)]. Les autres parités suivent Cakirli
+    et Casten, PRL 94, 092501 (2005). Cet indicateur estime une interaction moyenne, importante près de N = Z.
+  - 'W = δV<sub>pn</sub>(N) − ½ [δV<sub>pn</sub>(N+2) + δV<sub>pn</sub>(N−2)] : indicateur local de Wigner selon
+    le code Mulberry, susceptible de montrer un pic à N = Z.'
+  - 'Les termes de masse communs s’annulent avant propagation ; les incertitudes restantes se combinent avec une
+    approximation diagonale. # signale une contribution extrapolée. L’incertitude des modèles est inconnue.'
+  - 'Modèles : FRDM (1995), Möller et al., ADNDT 59, 185 ; HFB-17, Goriely et al., PRL 102, 152503 (2009) ; HFB-D1M,
+    Goriely et al., PRL 102, 242501 (2009). Tables distribuées avec TALYS 1.95. Trajet r numérisé depuis ApJ 815,
+    82 (2015) ; trajet rp approximatif.'
+  line_width: Épaisseur des superpositions
+  export_hint: PNG et PDF reprennent la vue et les réglages actuels. Le PDF contient une image haute résolution
+    ; le CSV conserve les données numériques.

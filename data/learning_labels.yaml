@@ -79,3 +79,19 @@ ja:
   text: 核図表で ¹³³Xe の基底状態と核異性体状態を調べ、励起エネルギーと不確かさを確認してください。核異性体は比較的長寿命の励起核状態です。MR-TOF
     ではイオンが静電ミラー間を往復します。周回数、ピーク幅、存在比を変えてみましょう。TOF-ICR では高周波励起を共鳴に沿って走査します。混合信号、単一イオン種のフィット、残差（観測値からフィット値を引いた値）を比べます。PI-ICR
     では運動の位相を検出器に画像化します。蓄積時間を変えて、角度が一周後に戻る様子を観察してください。ピーク分離、統計精度、モデルの偏りは別々の制限です。
+fr:
+  rfq: RFQ / piège de Paul
+  laser: Refroidissement laser
+  ptable: Tableau périodique
+  label: Recherche, publications et outils
+  research: Questions de recherche
+  papers: Rechercher des publications
+  lab: Piège de Penning et carte des nucléides
+  facilities: Explorer les installations
+  title: Suivre les étapes d’une mesure
+  text: 'Examinez dans la carte les états fondamental et isomérique de ¹³³Xe, leurs énergies d’excitation et incertitudes.
+    Un isomère est un état nucléaire excité relativement durable. En MR-TOF, les ions circulent entre deux miroirs
+    électrostatiques : modifiez les tours, les largeurs de pics et les populations. En TOF-ICR, comparez la réponse
+    mélangée, l’ajustement à une espèce et les résidus, observation moins ajustement. En PI-ICR, changez le temps
+    d’accumulation pour observer l’enroulement des phases. Séparation, précision statistique et biais du modèle
+    sont des limites distinctes.'

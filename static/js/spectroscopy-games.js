@@ -7,8 +7,8 @@
   else { root.TrapsSpectroscopyGames = api; api.mountAll(); }
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
-  const languages = ["en", "zh", "fi", "de", "ja"];
-  const text = (en, zh, fi, de, ja) => Object.fromEntries(languages.map((lang, i) => [lang, [en, zh, fi, de, ja][i]]));
+  const languages = ["en", "zh", "fi", "de", "ja", "fr"];
+  const text = (en, zh, fi, de, ja, fr) => Object.fromEntries(languages.map((lang, i) => [lang, [en, zh, fi, de, ja, fr][i]]));
   const getText = (value, lang) => typeof value === "string" ? value : value[lang] || value.en;
   const labels = {
     round: text("Challenge {n} / {total}", "第 {n} / {total} 题", "Tehtävä {n} / {total}", "Aufgabe {n} / {total}", "問題 {n} / {total}"),
@@ -83,6 +83,28 @@
       explanation: text("The photons carry 1200 − 500 = 700 keV and 500 − 0 = 500 keV. Their sum is 1200 keV. The intermediate level cancels in the total energy balance.", "两光子能量分别为 1200 − 500 = 700 keV 和 500 − 0 = 500 keV，总和 1200 keV。总能量平衡中，中间能级相消。", "Fotonien energiat ovat 1200 − 500 = 700 keV ja 500 − 0 = 500 keV. Summa on 1200 keV. Välitason energia kumoutuu kokonaisenergiataseessa.", "Die Photonen tragen 1200 − 500 = 700 keV und 500 − 0 = 500 keV. Die Summe ist 1200 keV. Das Zwischenniveau kürzt sich in der Gesamtbilanz heraus.", "光子のエネルギーは 1200 − 500 = 700 keV と 500 − 0 = 500 keV で、和は 1200 keV です。全体のエネルギー収支では中間準位が相殺されます。")
     }
   ];
+
+  const frenchLabels = {
+    round:"Défi {n} / {total}", score:"Score {score} / {tried}", next:"Défi suivant →", reset:"Recommencer",
+    correct:"Bonne réponse !", wrong:"Consultez le raisonnement ci-dessous.", answer:"Réponse : ", source:"Lire la source : ",
+    complete:"Parcours terminé", summary:"Vous avez répondu aux huit défis. Recommencez pour vous entraîner dans le même ordre.", progress:"Défis terminés",
+    sourceFamily:"01 · Trouver la source", hfsFamily:"02 · Sélection hyperfine", shiftFamily:"03 · Signe du déplacement isotopique", gammaFamily:"04 · Énergie gamma"
+  };
+  Object.entries(frenchLabels).forEach(([key,value]) => { labels[key].fr=value; });
+  const frenchQuestions = [
+    ["Vous cherchez la longueur d’onde évaluée d’une transition électronique dans un atome ou un ion atomique. Par où commencer ?", "NIST ASD fournit des niveaux atomiques, des longueurs d’onde et des probabilités de transition évalués. Vérifiez aussi les références et l’incertitude de chaque donnée ; le nom de la base ne valide pas une mesure."],
+    ["En champ faible, supposons la transition électronique E1 permise. Quelle paire satisfait la seule règle de sélection du moment total F ?", "Pour E1, ΔF = 0, ±1, sauf 0 → 0. La paire 1 → 2 satisfait cette condition. Les règles des sous-niveaux magnétiques et de polarisation restent nécessaires ; ce seul test ne détermine pas l’intensité."],
+    ["Exemple fictif : δν = νA − νref. Si δν = −20 MHz, où se situe la fréquence de transition de l’isotope A ?", "La définition donne νA = νref − 20 MHz. Inverser l’ordre des isotopes inverse le signe. Ce calcul ne détermine pas un rayon de charge nucléaire.", ["20 MHz plus haut", "Identique", "20 MHz plus bas"]],
+    ["Un noyau fictif émet un photon gamma du niveau 900 keV vers le niveau 300 keV. En négligeant le recul, quelle est Eγ ?", "Sans recul, la conservation de l’énergie donne Eγ ≈ Ei − Ef = 900 − 300 = 600 keV. L’énergie gamma est la différence des niveaux, pas la seule énergie d’excitation initiale."],
+    ["Vous cherchez des niveaux nucléaires excités évalués et leurs transitions gamma. Quel service convient ?", "La recherche Levels & Gammas de NuDat donne accès aux ensembles adoptés ENSDF. NIST ASD concerne les spectres atomiques ; Crossref fournit des métadonnées bibliographiques."],
+    ["La transition électronique E1 est permise et F est bien défini. Quelle paire ne satisfait pas la règle sur F ?", "Pour 2 → 4, ΔF = +2, en dehors de 0, ±1. Les deux autres paires satisfont cette condition nécessaire. Le mélange en champ fort et les autres multipôles ne sont pas traités ici."],
+    ["Exemple fictif : νA dépasse νref de 30 MHz. Avec l’ordre inversé δνref,A = νref − νA, quel est le déplacement ?", "νref − (νref + 30 MHz) = −30 MHz. Il faut préciser l’ordre des isotopes et les unités ; le signe seul est ambigu sans convention."],
+    ["Une cascade fictive à deux photons suit 1200 → 500 → 0 keV. Sans recul ni autre rayonnement, quelle est la somme des énergies des photons ?", "Les photons emportent 1200 − 500 = 700 keV et 500 − 0 = 500 keV, soit 1200 keV au total. L’énergie du niveau intermédiaire s’annule dans le bilan."]
+  ];
+  frenchQuestions.forEach(([prompt,explanation,choices],index) => {
+    questions[index].prompt.fr=prompt; questions[index].explanation.fr=explanation;
+    if(choices) choices.forEach((value,i)=>{questions[index].choices[i].fr=value;});
+  });
 
   function passesFRule(f, upper) {
     return [f, upper].every(v => Number.isFinite(v) && v >= 0 && Number.isInteger(2 * v)) &&

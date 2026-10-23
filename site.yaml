@@ -46,6 +46,11 @@ languages:
   locale: ja-JP
   headline: フィンランド・アカデミー研究員 · ペニングトラップと MR-TOF · ユヴァスキュラ大学
   bio: イオントラップによるエキゾチック原子核の質量測定
+- code: fr
+  name: Français
+  locale: fr-FR
+  headline: Chercheur de l’Académie de Finlande · Pièges de Penning et MR-TOF · Université de Jyväskylä
+  bio: Mesures de masse de noyaux exotiques à l’aide de pièges à ions
 menu:
 - page: research
   label:
@@ -54,6 +59,7 @@ menu:
     fi: Tutkimus
     de: Forschung
     ja: 研究
+    fr: Recherche
 - page: publications
   label:
     en: Publications
@@ -61,6 +67,7 @@ menu:
     fi: Julkaisut
     de: Publikationen
     ja: 論文
+    fr: Publications
 - page: talks
   label:
     en: Talks
@@ -68,6 +75,7 @@ menu:
     fi: Esitelmät
     de: Vorträge
     ja: 講演
+    fr: Conférences
 - page: facilities
   label:
     en: Facilities
@@ -75,6 +83,7 @@ menu:
     fi: Laitokset
     de: Anlagen
     ja: 施設
+    fr: Installations
 - page: daily
   label:
     en: Daily
@@ -82,6 +91,7 @@ menu:
     fi: Päivittäin
     de: Täglich
     ja: デイリー
+    fr: Actualités
 - page: lab
   label:
     en: Lab
@@ -89,6 +99,7 @@ menu:
     fi: Labra
     de: Labor
     ja: ラボ
+    fr: Laboratoire
 - page: games
   label:
     en: Games
@@ -96,6 +107,7 @@ menu:
     fi: Pelit
     de: Spiele
     ja: ゲーム
+    fr: Jeux
 - page: databases
   label:
     en: Databases
@@ -103,6 +115,7 @@ menu:
     fi: Tietokannat
     de: Datenbanken
     ja: データベース
+    fr: Bases de données
 - page: projects
   label:
     en: Projects
@@ -110,6 +123,7 @@ menu:
     fi: Projektit
     de: Projekte
     ja: プロジェクト
+    fr: Projets
 - page: group
   label:
     en: Group
@@ -117,6 +131,7 @@ menu:
     fi: Ryhmä
     de: Gruppe
     ja: グループ
+    fr: Équipe
 - page: posts
   label:
     en: Blog
@@ -124,6 +139,7 @@ menu:
     fi: Blogi
     de: Blog
     ja: ブログ
+    fr: Carnet
 - page: cv
   label:
     en: CV
@@ -131,6 +147,7 @@ menu:
     fi: CV
     de: Lebenslauf
     ja: 経歴
+    fr: CV
 themes:
   congo:
     colorScheme: ocean

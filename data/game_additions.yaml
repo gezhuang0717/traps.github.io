@@ -477,3 +477,103 @@ ja:
   phase_timing_note: 磁気回転基準の座標系で、検出器へ投影したパターンの位相をずらします。反時計回りが正です。入力した最初のイオン、または単一対の基底状態が基準周波数を決めます。重ね合わせを有効にすると、νc
     t + (δ₊ − δ₋)/360° が整数になる次の解へ指定時間を進めます。標準クロックは PyMassScanner と同様に理想時間を 4 ns 刻みに丸め、残る位相差を表示します。理想タイミングでは正確に重なります。図、周回数、不確かさ、時間比較、出力には実際の時間を使います。共通の原点はすべてのスポットを回転させ、相対的な間隔を保ちます。
   phase_timing_source: PI-ICR の位相と重ね合わせ法
+fr:
+  centre_sigma: Largeur centrale σx,y (mm)
+  floor_help: Décalage angulaire commun à chaque espèce ou jeu de données ; 1 mrad = 0.0573°. Il ne diminue pas
+    avec davantage d’événements.
+  counts_help: Nombre supposé pour estimer chaque centroïde ; σ angulaire statistique suit 1/√N. Il ne fixe pas
+    les impacts simulés par tir.
+  seed_help: 'Impacts aléatoires reproductibles : mêmes graine et réglages, puis Nouveau/Effacer, répètent un échantillon.
+    Ce n’est pas un paramètre physique.'
+  practice_help: Ce filtre limite seulement le tirage aléatoire d’isomères à T½ ≥ 50 ms. Recherche et saisie manuelles
+    restent disponibles.
+  spots_help: Le σ extérieur règle le flou et la résolution de phase. Le σ central ne modifie que la tache centrale,
+    pas les espèces en orbite.
+  search: Rechercher
+  other_states: Autres niveaux / IAS / classe indéterminée
+  detector_practice: Détecteur et entraînement
+  detector_radius: Distance tache–centre (mm)
+  angular_floor: Plancher systématique angulaire (mrad)
+  centroid_counts: Événements par centroïde
+  seed_label: Graine aléatoire
+  practice_filter: 'Tirage d’entraînement seulement : T½ ≥ 50 ms'
+  compare_title: Comparer les temps d’accumulation
+  compare_times: Comparer les temps choisis
+  wrapped_sep: Séparation angulaire repliée minimale selon le temps
+  compare_note: Les fréquences connues de simulation donnent le nombre entier de tours. Les temps supplémentaires
+    révèlent le repliement des phases ; ils ne déterminent pas un nombre expérimental inconnu.
+  inputs_results: Entrées et résultats
+  rfq_convention: V est l’amplitude RF zéro-crête ; U la tension continue. Ce modèle transverse sans collision illustre
+    la transmission en durée finie. Transport axial, gaz tampon, charge d’espace et champs de bord sont omis.
+  mathieu: Équation de Mathieu
+  small_angle: Approximation des petits angles
+  large_angle: 'Grande largeur angulaire : l’estimation aux petits angles n’est plus applicable'
+  event_width: σφ des événements
+  centroid_width: σφ du centroïde
+  turns: Tours
+  relative_phase: Δφ par rapport à l’espèce 1
+  event_limit: 3 σφ d’événement
+  missing_isomer: Aucun isomère correspondant calculable
+  invalid_state: Choisissez des états valides ; un état indisponible ne devient pas le fondamental.
+  invalid_physical: Entrée physique invalide
+  unconfined: Paramètres du piège idéal non confinants
+  zero_radius: La résolution de phase est indéfinie à rayon nul
+  positive_population: Utilisez une population positive
+  invalid_time: Temps de comparaison invalide
+  separation_target: Séparation visée
+  separation_note: σ est l’écart-type angulaire d’un événement. La recherche teste toutes les paires par pas de
+    0.01 ms jusqu’à 5000 ms, repliement compris ; ce n’est pas un niveau de confiance ajusté.
+  separation_none: Aucun temps ne satisfait cette cible jusqu’à 5000 ms.
+  phase_origin: Origine de phase magnétron (°)
+  custom_angle: Angle personnalisé
+  centre_lines: Relier le centre aux taches
+  phase_note: Angles antihoraires. L’origine commune tourne toutes les taches sans changer leurs séparations. Le
+    dessin utilise un rayon de 21.00 mm, porté à 32.00 mm si une tache dépasse 20.00 mm. Il ne modélise pas les
+    pertes d’acceptance du détecteur.
+  total_turns: Tours νc totaux
+  complete_turns: Tours νc complets
+  delta_turns: Δ tours depuis la première espèce
+  residual_phase: Δφ résiduel depuis la première espèce (°)
+  t180: Premier temps de séparation à 180° (ms)
+  t180_target: Comparer à la première espèce
+  apply180: Appliquer le temps à 180°
+  turn_note: La première espèce est la référence. Tours totaux = νc t ; Δ tours = (νc − νc,ref)t. Les angles résiduels
+    sont repliés sur [−180°, 180°). Le premier temps opposé vaut 1/(2|Δνc|) ; des fréquences égales ne se séparent
+    jamais. Ce temps dépend de la paire et est arrondi au pas de 0.01 ms. Les fréquences de simulation sont connues.
+  energy_hint_title: Quel angle correspond à 1 keV ?
+  energy_hint_note: 'Il s’agit de +1 keV d’énergie de repos, pas cinétique : δm = 1 keV/c² = 0.00000107354410 u.
+    À charge et B fixes, δνc = −νc δm/(mion + δm), δφ = 360° δνc t. Négatif signifie en retard dans la convention
+    antihoraire. Cela dépend du premier ion et du temps ; c’est un incrément hypothétique, pas une excitation mesurée.'
+  reference_label: Référence
+  unwrapped_angle: Angle signé non replié
+  wrapped_angle: Angle résiduel sur [−180°, 180°)
+  pi_h: 'Par rapport à l’origine commune, νc = (φ + 2πn)/(2πt), φ en radians et n tours complets. La simulation
+    connaît n ; l’expérience doit le déterminer. Pour une énergie de repos supplémentaire E à charge fixe : |Δνc|/νc
+    = E/(mion c² + E). Aux petits angles, σφ ≈ σx,y/r ; r est modifiable, initialement 10.00 mm. R = 2πνc t/(2.355
+    σφ) est un repère FWHM, pas une erreur de masse. Un temps plus long peut superposer à nouveau les taches.'
+  pi_fh: 'Le piège idéal combine cyclotron rapide ν₊, magnétron lent ν₋ et axial νz. Φ = U₀(z² − r²/2)/(2d²), νc
+    = qB/(2πmion), νz = √(qU₀/(mion d²))/(2π), ν± = [νc ± √(νc² − 2νz²)]/2. Il faut νc² > 2νz². Identités : ν₊ +
+    ν₋ = νc et ν₊² + ν₋² + νz² = νc² ; au premier ordre, ν₋ ≈ U₀/(4πBd²).'
+  custom_field: B personnalisé (T)
+  zero_field: Le champ magnétique nul ne confine pas le mouvement cyclotron dans ce modèle. Choisissez B > 0.
+  detector_size: Rayon du détecteur
+  custom_sigma: Cible personnalisée (σ)
+  sigma_help: σ est l’écart-type angulaire des événements individuels. 2.355σ approche la FWHM d’un pic gaussien
+    ; ce n’est ni un niveau de confiance ni l’erreur combinée de deux centroïdes. Le préréglage et la saisie manuelle
+    contrôlent la même cible pour la recherche et la comparaison.
+  minus_offset: Décalage de phase ν₋ (°)
+  plus_offset: Décalage de phase ν₊ (°)
+  overlap_reference: Superposer les taches de référence
+  phase_clock: Horloge temporelle
+  ideal_clock: Temps idéal
+  actual_tacc: Temps d’accumulation réalisé
+  ideal_tacc: Temps d’accumulation idéal
+  reference_mismatch: Écart de phase de référence
+  requested_tacc: Temps demandé t_acc
+  phase_timing_title: Phase de référence et synchronisation
+  phase_timing_note: Décalages antihoraires des figures du détecteur dans le repère magnétron. Le premier ion, ou
+    le fondamental d’une paire, fixe les fréquences de référence. Avec superposition, le temps avance à la solution
+    suivante de νc t + (δ₊ − δ₋)/360° = entier. L’horloge initiale arrondit à 4 ns selon PyMassScanner et affiche
+    l’écart restant. Le temps idéal donne une superposition exacte. Graphiques, tours, incertitudes et exports utilisent
+    le temps réalisé. L’origine commune tourne toutes les taches sans changer les séparations.
+  phase_timing_source: Méthode PI-ICR de phase et superposition

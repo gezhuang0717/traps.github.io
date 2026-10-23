@@ -5,10 +5,11 @@
   "fi" (dict "title" "Spektroskopiapolku" "intro" "Kahdeksan pientä haastetta: etsi lähde, tutki valintasääntöä, tulkitse isotooppisiirtymä ja laske gammaenergia." "note" "Opetustehtäviä keksityillä luvuilla. Mitattuja isotooppitietueita tai koetuloksia ei tuoteta." "loading" "Tehtäviä ladataan…" "noscript" "Ota JavaScript käyttöön pelataksesi. Lähteet: NIST Atomic Spectra Database, NNDC NuDat ja Daniel Steckin Alkali D Line Data.")
   "de" (dict "title" "Spektroskopie-Parcours" "intro" "Acht kurze Aufgaben: Quelle finden, Auswahlregel prüfen, Isotopieverschiebung deuten und einen Gammaübergang verfolgen." "note" "Lernaufgaben mit erfundenen Zahlen. Es werden keine gemessenen Isotopendaten oder Versuchsergebnisse erzeugt." "loading" "Aufgaben werden geladen…" "noscript" "Zum Spielen JavaScript aktivieren. Quellen: NIST Atomic Spectra Database, NNDC NuDat und Daniel Stecks Alkali D Line Data.")
   "ja" (dict "title" "分光学チャレンジ" "intro" "8つの小さな問題で、データ源、選択則、同位体シフト、ガンマ遷移を学びます。" "note" "架空の数値を使う学習問題です。実測の同位体データや実験結果は生成しません。" "loading" "問題を読み込み中…" "noscript" "遊ぶには JavaScript を有効にしてください。参考：NIST 原子スペクトルデータベース、NNDC NuDat、Daniel Steck の Alkali D Line Data。")
+  "fr" (dict "title" "Parcours de spectroscopie" "intro" "Huit défis : trouver une source, vérifier une règle de sélection, interpréter un déplacement isotopique et suivre une transition gamma." "note" "Exercices pédagogiques avec des nombres fictifs. Aucune donnée isotopique mesurée ni aucun résultat expérimental n’est généré." "loading" "Chargement des exercices…" "noscript" "Activez JavaScript pour jouer. Sources : NIST Atomic Spectra Database, NNDC NuDat et les références Alkali D Line Data de Daniel Steck.")
 -}}
 {{- $t := index $labels $lang | default (index $labels "en") -}}
 <link rel="stylesheet" href="{{ "css/spectroscopy-games.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/spectroscopy-games.css")) 0 10 }}">
-<section class="sg zg-card" data-spectroscopy-games data-lang="{{ $lang }}" aria-label="{{ $t.title }}">
+<section class="sg zg-card" id="spectroscopy-trail" data-spectroscopy-games data-lang="{{ $lang }}" aria-label="{{ $t.title }}">
   <header class="sg-header">
     <div class="sg-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <h2>{{ $t.title }}</h2>

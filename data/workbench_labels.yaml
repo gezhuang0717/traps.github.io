@@ -282,3 +282,109 @@ ja:
   tof_note: 教材の応答：t(F) = t_offset + t_scale / √(1 + κF)。F は無次元のモード変換割合で、範囲は 0–1 です。既定値は
     t_offset = 62 µs、t_scale = 193 µs、κ = 1.876。未変換背景は 8%、イベント幅 σ は 7 と 9 µs です。混合平均と表示する各成分のイベント密度は存在比で重み付けします。ノイズは例示用です。局所的な
     Δχ² = 1 区間には混合による偏りを含みません。
+fr:
+  mr_title: 'MR-TOF : séparer espèces et isomères'
+  mr_intro: Choisissez jusqu’à trois espèces. Comparez leurs pics au spectre combiné et examinez l’effet du nombre
+    de tours.
+  tof_title: 'TOF-ICR : résonances superposées et biais d’ajustement'
+  tof_intro: Comparez les résonances individuelles au mélange. L’ajustement d’une seule espèce peut sembler précis
+    tout en étant décalé de la cible.
+  penning_title: 'Piège de Penning : champs, fréquences et mouvement'
+  penning_intro: Modifiez l’ion, le champ ou le confinement. Les vues de dessus, de côté et 3D partagent les fréquences
+    et coordonnées physiques du piège idéal.
+  loading: Chargement des données nucléaires évaluées…
+  species: Espèce ionique
+  state: État nucléaire
+  charge: Charge
+  population: Population détectée
+  number: Nombre d’espèces
+  preset: Exemple
+  ground: État fondamental
+  advanced: Paramètres avancés et hypothèses
+  parameters: Paramètres
+  spectrum: Pics individuels et spectre combiné
+  laps_plot: Séparation et largeur selon les tours
+  resonance: Réponses individuelles et mélange
+  residuals: Résidus de l’ajustement à une espèce
+  distribution: Distribution des événements à la fréquence choisie
+  summary: Interprétation
+  individual: Composantes individuelles
+  combined: Échantillon combiné
+  generate: Générer des mesures synthétiques
+  fit: Ajuster comme une seule espèce
+  target: Cible pour le biais d’ajustement
+  save: Exporter les entrées et résultats
+  png: Enregistrer la figure PNG
+  csv: Enregistrer les données CSV
+  seed: Graine aléatoire
+  counts: Nombre total d’ions détectés
+  histogram: Afficher l’histogramme synthétique
+  laps: Tours entre miroirs
+  width: Largeur initiale FWHM (ns)
+  broadening: Élargissement par tour (ps)
+  reference_time: Temps de vol à 100 u, q = 1 (µs)
+  lap_time: Durée d’un tour à 100 u, q = 1 (µs)
+  delay: Retard électronique fixe (µs)
+  calibration: Étalonnage de masse par ion de référence
+  reference_ion: Ion de référence
+  reference_tof: TOF de référence (µs)
+  observed_tof: TOF observé (µs)
+  time_sigma: Incertitude du temps observé (ns)
+  reference_sigma: Incertitude du temps de référence (ns)
+  delay_sigma: Incertitude du retard (ns)
+  calibrate: Calculer la masse étalonnée
+  magnetic: Champ magnétique B (T)
+  excitation: Durée d’excitation (ms)
+  scheme: Séquence d’excitation
+  rect: Impulsion rectangulaire continue
+  ramsey: 'Ramsey : 10 % impulsion / 80 % attente / 10 % impulsion'
+  points: Points du balayage en fréquence
+  ions_point: Ions par fréquence
+  scan_span: Demi-plage autour de la cible (Hz ; 0 = automatique)
+  detuning: Décalage de fréquence de la distribution (Hz)
+  mass_note: 'Masses : fondamental AME2020 et excitation NUBASE2020. # indique une extrapolation. Une erreur inconnue
+    ne vaut pas zéro ; la covariance indisponible est remplacée explicitement par une approximation diagonale. Ionisation
+    et liaison moléculaire sont omises.'
+  mr_note: 'Le temps de vol suit exactement √(mion/q), puis on ajoute le retard électronique. La largeur est phénoménologique
+    : FWHM² = largeur initiale² + (tours × élargissement)². Les populations sont les fractions détectées ; la survie
+    affichée ne simule pas les produits de désintégration.'
+  tof_note: 'Réponse pédagogique : t(F) = t_offset + t_scale / √(1 + κF), F fraction de conversion entre 0 et 1.
+    Valeurs initiales : 62 µs, 193 µs, κ = 1.876 ; fond non converti de 8 %, largeurs σ = 7 et 9 µs. Moyennes et
+    densités sont pondérées par les populations. Le bruit est illustratif ; les intervalles locaux Δχ² = 1 n’incluent
+    pas le biais du mélange.'
+  separated: Voisins séparés
+  overlapping: Isobares superposés
+  unequal: Populations inégales
+  three: Trois espèces
+  isomers: Fondamental et isomère
+  molecular: Ions atomiques et moléculaires
+  unknown: inconnu
+  survival: Survie pendant le vol
+  phase_radius: Rayon des taches sur le détecteur (mm)
+  phase_width: σ cartésien des événements (mm)
+  phase_floor: Plancher systématique angulaire (mrad)
+  phase_count: Événements par espèce
+  voltage: Quadrupôle U₀ (V)
+  geometry: Longueur caractéristique d (mm)
+  cyclotron_radius: Rayon cyclotron (mm)
+  magnetron_radius: Rayon magnétron (mm)
+  axial: Amplitude axiale (mm)
+  duration: Durée de trajectoire (µs)
+  playback: Vitesse de lecture
+  pause: Pause / reprise
+  reset: Réinitialiser
+  step: Un pas
+  penning_note: Potentiel idéal Φ = U₀(2z² − x² − y²)/(4d²). Les fréquences sont physiques ; la lecture change seulement
+    la vitesse d’affichage de la trajectoire. Les illustrations d’impulsions et de refroidissement ailleurs ne prédisent
+    pas un instrument.
+  clear_fit: Effacer l’ajustement
+  power_plot: Pouvoir de résolution selon les tours
+  power_required: Résolution m/q requise
+  counts_bin: Événements par intervalle
+  mean_tof: TOF moyen (µs)
+  event_tof: TOF d’un événement (µs)
+  probability_density: Densité de probabilité (µs⁻¹)
+  residual_tof: Résidu TOF (µs)
+  observations: Observations synthétiques
+  seed_hint: La graine fixe la séquence aléatoire. 20261007 est une valeur initiale modifiable, pas un paramètre
+    physique ni la date du jour.

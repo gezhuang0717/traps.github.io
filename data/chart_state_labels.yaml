@@ -254,3 +254,60 @@ ja:
   state_matches: 全 {total} 状態のうち {n} 状態が該当。ボタンで選択します。
   state_empty: 該当状態なし。検索を消すか全状態を選んでください。
   state_reset: 状態フィルターをリセット
+fr:
+  state_unknown: incertitude indisponible
+  fl_missing: Masse manquante
+  fl_unknown_unc: Incertitude de masse inconnue
+  fl_known_unc: Incertitude de masse connue
+  fl_state_hash: Énergie d’excitation extrapolée
+  state_heading: États et provenance
+  state_search: Rechercher des états
+  state_class: Classe d’état
+  state_isomers: Fondamental et isomères
+  state_all: Tous les états, niveaux et IAS compris
+  state_pending: Fondamental et classement en attente
+  state_withdrawn: attribution retirée
+  state_questioned: attribution mise en doute
+  state_order_uncertain: ordre incertain
+  state_order_inverted: ordre différent d’ENSDF
+  state_model_note: 'Les modèles ne décrivent que les masses fondamentales. Chaque # concerne la valeur ou l’incertitude
+    adjacente.'
+  state_link: Lien vers cet état
+  state_count: attributions isomériques répertoriées
+  state_kinds:
+    ground: état fondamental
+    isomer: isomère
+    analogue: état analogue
+    resonance: résonance
+    unclassified: classement en attente
+  state_bases:
+    source index 0: Indice fondamental 0 de la source
+    source isomer label: Désignation isomérique de la source
+    source IAS label: Désignation d’état analogue de la source
+    NUBASE2020 section 2 higher-isomer assignment: Attribution d’isomère supérieur, section 2 de NUBASE2020
+    NUBASE2020 long-lived-state convention with record lifetime: Convention NUBASE2020 des états de longue durée
+      et durée de cette fiche
+    proton-resonance example in NUBASE2020 Table I explanation: Résonance protonique identifiée dans l’explication
+      de la table I de NUBASE2020
+    excited state; classification not established by available fields: État excité dont les champs disponibles ne
+      permettent pas le classement
+    'short-lived p/q/r record: lifetime alone does not establish level versus isomer': Fiche p/q/r de courte durée
+      ; la durée seule ne distingue pas niveau et isomère
+  state_close: Fermer les détails de l’état
+  state_intro: Ce sont les états nucléaires du nucléide choisi, pas des éléments différents. Filtrez puis sélectionnez
+    un état pour voir ses données.
+  state_search_hint: Recherchez dans ce nucléide une étiquette exacte, par exemple m, une excitation en keV, un
+    spin/parité tel que 10+, ou une classe. Sans recherche, tous les états autorisés par le filtre sont affichés.
+  state_class_hint: Fondamental et isomères est le choix usuel. Tous les états inclut les autres fiches. En attente
+    inclut le fondamental et les fiches non classées. Modifier le filtre ne modifie pas l’état détaillé sélectionné.
+  state_help_title: Que signifient g, m, n et les classes d’états ?
+  state_definitions: 'g = état fondamental, d’énergie minimale. m, n, … conservent les étiquettes de la source ;
+    la classe est distincte. Un isomère est un état excité métastable. Un état analogue (IAS) correspond à un état
+    lié par l’isospin dans un noyau voisin. Une résonance est non liée. En attente signifie que les champs ne suffisent
+    pas pour classer l’état : une lettre seule ne prouve pas un isomère.'
+  state_values_hint: 'Eₓ : excitation au-dessus du fondamental en keV ; T½ : demi-vie ; Jπ : spin et parité (+/−)
+    ; ME : excès de masse. # indique une extrapolation. ? ou absence d’incertitude signifie inconnu, pas zéro. Les
+    notes expliquent la source et l’ordre des états.'
+  state_matches: '{n} états sur {total} correspondent. Sélectionnez-en un.'
+  state_empty: Aucun état ne correspond. Effacez la recherche ou choisissez Tous les états.
+  state_reset: Réinitialiser les filtres d’états

@@ -398,3 +398,77 @@ enableRobotsTXT = true
     name = "経歴"
     pageRef = "cv"
     weight = 120
+[languages.fr]
+  label = "Français"
+  locale = "fr-FR"
+  weight = 6
+  contentDir = "content/fr"
+  title = "Zhuang Ge"
+  [languages.fr.params.profileMode]
+    enabled = true
+    title = "Zhuang Ge"
+    subtitle = "Chercheur de l’Académie de Finlande · Pièges de Penning et MR-TOF · Université de Jyväskylä<br>Mesures de masse de noyaux exotiques à l’aide de pièges à ions"
+    imageUrl = "img/zhuang-ge.png"
+    imageWidth = 160
+    imageHeight = 160
+    imageTitle = "Zhuang Ge"
+    [[languages.fr.params.profileMode.buttons]]
+      name = "Recherche"
+      url = "research/"
+    [[languages.fr.params.profileMode.buttons]]
+      name = "Publications"
+      url = "publications/"
+    [[languages.fr.params.profileMode.buttons]]
+      name = "Actualités"
+      url = "daily/"
+    [[languages.fr.params.profileMode.buttons]]
+      name = "CV"
+      url = "cv/"
+  [[languages.fr.menu.main]]
+    name = "Recherche"
+    pageRef = "research"
+    weight = 10
+  [[languages.fr.menu.main]]
+    name = "Publications"
+    pageRef = "publications"
+    weight = 20
+  [[languages.fr.menu.main]]
+    name = "Conférences"
+    pageRef = "talks"
+    weight = 30
+  [[languages.fr.menu.main]]
+    name = "Installations"
+    pageRef = "facilities"
+    weight = 40
+  [[languages.fr.menu.main]]
+    name = "Actualités"
+    pageRef = "daily"
+    weight = 50
+  [[languages.fr.menu.main]]
+    name = "Laboratoire"
+    pageRef = "lab"
+    weight = 60
+  [[languages.fr.menu.main]]
+    name = "Jeux"
+    pageRef = "games"
+    weight = 70
+  [[languages.fr.menu.main]]
+    name = "Bases de données"
+    pageRef = "databases"
+    weight = 80
+  [[languages.fr.menu.main]]
+    name = "Projets"
+    pageRef = "projects"
+    weight = 90
+  [[languages.fr.menu.main]]
+    name = "Équipe"
+    pageRef = "group"
+    weight = 100
+  [[languages.fr.menu.main]]
+    name = "Carnet"
+    pageRef = "posts"
+    weight = 110
+  [[languages.fr.menu.main]]
+    name = "CV"
+    pageRef = "cv"
+    weight = 120

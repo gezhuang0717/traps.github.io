@@ -68,3 +68,23 @@ ja:
   error: 文集を読み込めませんでした。ページを再読み込みしてください。
   count: '{count} 篇の異なる読み物'
   languages: {en: 英語, zh: 中国語, fi: フィンランド語, de: ドイツ語, ja: 日本語, original: 新しい短文}
+fr:
+  title: Phrase ou poème du jour
+  collection: Recueil
+  all: Toutes les traditions
+  original: Réflexion originale
+  excerpt: Extrait de poème
+  rendering: Interprétation en prose
+  show_original: Texte original
+  source: Lire la source
+  next: Une autre lecture
+  loading: Une fenêtre s’ouvre sur les mots…
+  error: Impossible de charger les lectures. Rechargez la page.
+  count: '{count} lectures distinctes'
+  languages:
+    en: Anglais
+    zh: Chinois
+    fi: Finnois
+    de: Allemand
+    ja: Japonais
+    original: Réflexions originales

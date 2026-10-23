@@ -18,3 +18,8 @@ ja:
   invalid_cyclotron: 正の質量と磁場 B、および 1〜100 の整数の電荷数を入力してください。電子質量を引いた後のイオン質量も正である必要があります。
   invalid_resolution: 正の有限な質量を二つ入力してください。
   invalid_converter: 有限の値を入力してください。A は空欄にするか、正の整数の質量数を入力してください。
+fr:
+  invalid_cyclotron: Saisissez une masse et un champ B positifs, et une charge entière de 1 à 100. La masse après
+    soustraction des électrons doit rester positive.
+  invalid_resolution: Saisissez deux masses positives et finies.
+  invalid_converter: Saisissez une valeur finie ; laissez A vide ou indiquez un nombre de masse entier positif.

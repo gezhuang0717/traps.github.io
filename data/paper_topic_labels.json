@@ -14,5 +14,13 @@
     "常见观测量",
     "显示论文",
     "背景资料"
+  ],
+  "fr": [
+    "Guide des thèmes : qu’étudient-ils ?",
+    "Choisir un thème pour filtrer les articles",
+    "Ces thèmes se recouvrent : un article peut appartenir à plusieurs. Les nombres concernent cette bibliographie, pas tout le domaine. Un thème sans article conserve une explication sans prétendre à une publication ici. Combinez thème, année, rôle et recherche. La spectrométrie de masse mesure les masses ; la spectroscopie optique mesure les spectres.",
+    "Observables usuelles",
+    "Afficher les articles",
+    "Source de référence"
   ]
 }

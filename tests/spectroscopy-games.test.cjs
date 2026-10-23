@@ -61,7 +61,7 @@ test('independent rule and energy checks include forbidden, reversed and invalid
   assert.throws(() => G.isotopeShift(NaN, 1));
 });
 
-test('every prompt, explanation, option and control is present in all five languages', () => {
+test('every prompt, explanation, option and control is present in all six languages', () => {
   for (const value of [...Object.values(G.labels), ...G.questions.flatMap(q => [q.prompt, q.explanation, ...q.choices])]) {
     for (const lang of G.languages) assert.ok(typeof G.getText(value, lang) === 'string' && G.getText(value, lang).trim());
     if (typeof value === 'object') assert.deepEqual(Object.keys(value), G.languages);
@@ -116,9 +116,9 @@ test('two mounted components keep local controls, sources, focus and reset state
   assert.equal(first.fields.next.textContent, G.labels.complete.zh);
 });
 
-test('shortcode uses scoped data attributes without global element IDs', () => {
+test('shortcode uses scoped controls and the requested stable Games anchor', () => {
   const html = fs.readFileSync(path.join(__dirname, '../layouts/_shortcodes/spectroscopy-games.html'), 'utf8');
-  assert.doesNotMatch(html, /\sid=/);
+  assert.deepEqual(html.match(/\sid="[^"]+"/g), [' id="spectroscopy-trail"']);
   assert.match(html, /role="status" aria-live="polite"/);
   assert.match(html, /<noscript>/);
   assert.match(html, /data-spectroscopy-games/);

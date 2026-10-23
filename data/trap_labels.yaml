@@ -130,3 +130,33 @@ ja:
   originy: トラップ中心 y（mm）
   originz: トラップ中心 z（mm）
   originhint: 中心座標は理想トラップと運動を一緒に平行移動し、電極のずれを模擬しません。ν₊ と ν₋ は B、U₀、d から決まり、独立には変更できません。
+fr:
+  record: Enregistrer le processus choisi
+  process: Processus enregistré
+  current: Mouvement actuel
+  pulse: Impulsion π (ν₋ ↔ ν₊ réversible)
+  kick: Impulsion dipolaire
+  gas: Gaz tampon seul
+  sideband: Gaz tampon et couplage quadrupolaire
+  seconds: Durée vidéo (s)
+  phase: Phase dipolaire (°)
+  gamma: Frottement visqueux γ (temps du modèle)
+  couple: Couplage résonant continu
+  pause: Pause / reprise
+  reset: Réinitialiser le mouvement
+  note: 'Modèle pédagogique : rayons à une échelle arbitraire commune, temps et excitations normalisés. Une impulsion
+    π échange les amplitudes des deux modes. L’excitation dipolaire ajoute une amplitude dépendant de la phase.
+    Le faible frottement réduit les mouvements cyclotron et axial, mais agrandit le magnétron d’énergie négative
+    ; le couplage quadrupolaire permet le centrage. Collisions discrètes, diffusion, charge d’espace et extraction
+    sont omises. Le temps vidéo n’est pas une durée d’impulsion expérimentale.'
+  recordnote: Mettez en pause et choisissez les rayons, l’amplitude axiale, la vitesse, le nombre d’ions et la vue.
+    Un processus choisi repart des rayons actuels avec temps, phases et traces réinitialisés ; Mouvement actuel
+    continue sans redémarrage. Les rayons initiaux et la vitesse figurent dans la vidéo. Prévisualisez puis enregistrez
+    la vidéo. Gaz et couplage utilise une excitation continue sur bande latérale.
+  top: Vue de dessus du mouvement
+  side: Vue axiale du mouvement
+  originx: Centre du piège x (mm)
+  originy: Centre du piège y (mm)
+  originz: Centre du piège z (mm)
+  originhint: Ces coordonnées déplacent ensemble le piège idéal et les trajectoires ; elles ne modélisent pas un
+    défaut d’alignement. ν₊ et ν₋ dépendent de B, U₀ et d et ne sont pas réglables indépendamment.

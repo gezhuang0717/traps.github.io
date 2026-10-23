@@ -83,5 +83,22 @@
     "close_warning": "入力行があります。先に保存または出力してください。閉じますか？",
     "count": "{n} / {max} パネル",
     "invalid": "118Sn または 116Sn:1 を入力してください。"
+  },
+  "fr": {
+    "start": "Comparer dans des panneaux indépendants",
+    "help": "Fonctionnement des panneaux indépendants",
+    "hint": "Ajoutez jusqu’à quatre panneaux, chacun avec son isotope, ses masses saisies, modèles, filtres et graphiques. Un panneau ne se charge qu’à son ajout. Les sauvegardes du navigateur sont indépendantes : conservez son lien Ouvrir pour retrouver sa table. Le lien de disposition ne contient que les isotopes et états ; il crée des tables vides. Exportez le CSV avant de fermer. Sur un écran étroit, les panneaux s’empilent ; choisissez Une colonne pour agrandir les graphiques.",
+    "nuclide": "Nucléide ou état, par exemple 116Sn:1",
+    "add": "Ajouter un panneau",
+    "layout": "Disposition",
+    "two": "Deux colonnes",
+    "one": "Une colonne",
+    "share": "Afficher le lien de disposition",
+    "panel": "Panneau",
+    "open": "Ouvrir l’isotope actuel dans un nouvel onglet",
+    "close": "Fermer le panneau",
+    "close_warning": "Ce panneau contient des lignes saisies. Exportez-les ou sauvegardez-les d’abord. Fermer le panneau ?",
+    "count": "{n} / {max} panneaux ouverts",
+    "invalid": "Saisissez un isotope, par exemple 118Sn ou 116Sn:1."
   }
 }

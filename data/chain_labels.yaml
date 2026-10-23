@@ -68,3 +68,17 @@ ja:
   model_quantity: "この物理量にはモデル曲線がありません"
   axis_invalid: "有限の最小値 < 最大値を入力してください。現在は自動範囲です"
   axis_offscale: "範囲外の値は端の三角形で表示します。ホバーで値を確認できます"
+fr:
+  axis_x: Axe x
+  axis_data: Données
+  axis_full: Chaîne complète
+  axis_manual: Manuel
+  axis_y: Axe y
+  axis_all: Données et modèle
+  axis_data_only: Données seules
+  axis_errors: Inclure les incertitudes dans l’échelle
+  chain_count: '{shown} chaînes affichées sur {total}'
+  model_many: Les modèles sont limités à six chaînes ; réduisez la plage
+  model_quantity: Aucune série de modèle pour cette grandeur
+  axis_invalid: Saisissez des limites finies avec minimum < maximum ; limites automatiques utilisées
+  axis_offscale: Les triangles au bord signalent une valeur hors échelle ; survolez-les pour la lire

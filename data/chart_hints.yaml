@@ -88,3 +88,62 @@ ja:
     - ["質量モデル、残差、β₂", "FRDM1992 は 1995 年、FRDM2012 は 2016 年に発表されました。HFB-17、HFB-D1M は異なるモデルです。ME(AME) − ME(モデル)>0 は評価質量超過の方が大きいことを示します。β₂ は無次元四重極変形で、符号はモデル規約で長球／扁球を区別します。モデルの不確かさは未提供で、ゼロではありません。全体の RMS 誤差は核ごとの誤差棒ではありません。"]
     - ["核種系列と不確かさ", "同位体系列は Z、同中性子体系列は N、同重体系列は A を固定します。範囲設定は系列と横座標を選びます。誤差棒は標準不確かさです。同じ質量の重複項を先にまとめ、残る異なる質量には完全な AME 共分散がないため対角近似を使います。連線は視線の案内で、欠損はゼロではありません。"]
     - ["過程経路と保存", "r は速い中性子捕獲、rp は速い陽子捕獲です。橙色と緑色の経路は例示で、あらゆる温度・密度の反応網計算ではありません。EC は電子捕獲、β⁺ は陽電子崩壊です。PNG／PDF は選んだ線幅を使用し、PDF には高解像度画像を保存します。CSV は数値精度を保ち、図にウェブサイト名を入れません。"]
+fr:
+  title: 'Aide de la carte : symboles, filtres et calculs'
+  entries:
+  - - Z, N et A
+    - Z compte les protons et identifie l’élément ; N compte les neutrons ; A = Z + N est le nombre de masse. Vers
+      la droite on ajoute des neutrons, vers le haut des protons. A est un nombre entier, pas une masse mesurée
+      en u.
+  - - Excès de masse ME
+    - ME = (m_atom − A u)c² pour l’atome neutre fondamental. C’est une différence d’énergie, pas une masse négative
+      quand ME < 0. L’atome neutre ¹²C définit 12 u et ME = 0. Un MeV vaut 1000 keV.
+  - - Liaison B et B/A
+    - La convention atomique est B = Z ME(¹H) + N ME(n) − ME(Z,N). B/A est la moyenne par nucléon. Les petites différences
+      de liaison électronique sont incluses ; une liaison nucléaire de haute précision exige leur correction.
+  - - Filtres de masse
+    - 'Mesuré/extrapolé utilise l’indicateur de qualité ; # signifie estimé par systématique. δm < 1, 10 ou 100
+      keV exige une erreur standard inférieure au seuil et une masse non extrapolée. Masse absente et incertitude
+      inconnue sont distinctes ; un champ vide ne vaut jamais zéro.'
+  - - Autres filtres
+    - 'Stabilité, demi-vie connue, isomères confirmés, Z/N magique, A pair/impair, N < Z et N≈Z sélectionnent des
+      propriétés différentes. Δ⁽³⁾/Δ⁽⁵⁾ exige tous les voisins. Faible Q sélectionne une énergie positive β⁻ ou
+      EC sous 1 MeV. Le # d’excitation est indépendant du # de masse fondamentale.'
+  - - États, demi-vie et spin
+    - Un isomère est un état nucléaire métastable, pas un autre élément. La liste conserve les désignations, états
+      supérieurs et excitations Eₓ. Les autres niveaux et IAS exigent le filtre avancé. T½ est la demi-vie ; Jπ
+      le spin/parité. Les modèles donnent les masses fondamentales, pas les excitations isomériques.
+  - - Séparation et limites de liaison
+    - Sₙ retire un neutron, S₂ₙ deux ; Sₚ et S₂ₚ sont analogues. Une énergie négative autorise l’émission sans en
+      donner la durée. La ligne indique la dernière entrée liée selon la table affichée, pas une frontière continue
+      directement mesurée ; le bord de la table peut la limiter.
+  - - Énergies Q
+    - Avec les masses atomiques neutres, Q(β⁻) = ME(parent) − ME(fils), comme Q(EC) ; Q(α) retranche aussi ME(⁴He).
+      L’émission β⁺ exige en plus 2mₑc² ≈ 1.022 MeV. Un Q(EC) positif ne suffit donc pas pour β⁺.
+  - - Écarts de couches δ₂ₙ et δ₂ₚ
+    - δ₂ₙ(Z,N) = S₂ₙ(Z,N) − S₂ₙ(Z,N+2) ; la forme protonique emploie Z. Une variation brusque peut indiquer une
+      fermeture de couche. Les repères 2, 8, 20, 28, 50, 82, 126 ne garantissent pas une même force de couche partout.
+  - - Appariement Δ⁽³⁾ et Δ⁽⁵⁾
+    - 'Ce sont des indicateurs d’alternance pair-impair, pas des écarts microscopiques mesurés directement. À Z
+      fixe : Δₙ⁽³⁾ = (−1)ᴺ[ME(N+1) − 2ME(N) + ME(N−1)]/2 ; Δₙ⁽⁵⁾ = −(−1)ᴺ[ME(N+2) − 4ME(N+1) + 6ME(N) − 4ME(N−1)
+      + ME(N−2)]/8. Remplacer N par Z pour les protons. Voisin absent : résultat absent.'
+  - - Indicateur proton–neutron δVpn
+    - Pour Z et N pairs, δVpn = [B(Z,N) − B(Z,N−2) − B(Z−2,N) + B(Z−2,N−2)]/4. Cette différence estime une interaction
+      moyenne. Les autres parités emploient d’autres stencils ; la courbe n’est pas un potentiel isolé à deux particules.
+  - - Indicateur de Wigner W
+    - Ici W(Z,N) = δVpn(Z,N) − [δVpn(Z,N+2) + δVpn(Z,N−2)]/2, à Z fixe. Il compare les voisins à deux neutrons et
+      peut mettre en évidence N = Z. Il possède une unité d’énergie ; il dépend du stencil et des masses disponibles.
+  - - Modèles, résidu et β₂
+    - FRDM1992 a été publié en 1995, FRDM2012 en 2016 ; HFB-17 et HFB-D1M sont distincts. ME(AME) − ME(modèle) est
+      positif si l’excès évalué est supérieur. β₂ est une déformation quadrupolaire sans unité. L’erreur d’un modèle
+      est indisponible, pas nulle ; une RMS globale n’est pas l’erreur de chaque noyau.
+  - - Chaînes et incertitudes
+    - Une chaîne isotopique fixe Z, isotonique N, isobarique A. Les plages sélectionnent les chaînes et abscisses.
+      Les barres sont les erreurs standards ; une même masse s’annule avant propagation. Les autres masses utilisent
+      une covariance diagonale approchée, faute de covariance AME complète. Une lacune n’est pas zéro et une ligne
+      guide seulement l’œil.
+  - - Trajets, couleurs et figures
+    - r signifie capture rapide de neutrons ; rp, capture rapide de protons. Les trajets sont illustratifs, pas
+      un calcul de réseau pour toutes les conditions. EC = capture électronique ; β⁺ = émission de positon. Ajustez
+      les lignes avant l’export PNG/PDF ; le PDF reprend l’image haute résolution, le CSV la précision numérique.
+      Les figures omettent la marque du site.

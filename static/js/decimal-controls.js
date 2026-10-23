@@ -21,7 +21,7 @@
   if(typeof module!=='undefined'&&module.exports)module.exports={stepDecimal};
   if(!host.document)return;
   const lang=(document.documentElement.lang||'en').split('-')[0];
-  const words={en:['Increase','Decrease'],zh:['增加','减少'],fi:['Suurenna','Pienennä'],de:['Erhöhen','Verringern'],ja:['増やす','減らす']}[lang]||['Increase','Decrease'];
+  const words={en:['Increase','Decrease'],zh:['增加','减少'],fi:['Suurenna','Pienennä'],de:['Erhöhen','Verringern'],ja:['増やす','減らす'],fr:['Augmenter','Diminuer']}[lang]||['Increase','Decrease'];
   const scope='[data-games], [data-workbench], .zg-lab';
   const syncState=new WeakMap();
   function decorate(n) {

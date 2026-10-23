@@ -1,0 +1,18 @@
+/* French labels for spectroscopy.js; scientific data and source names stay unchanged. */
+window.TrapsSpectroscopyFR = Object.freeze({
+  intro:"Explorez des données évaluées avec leurs sources et reliez les propriétés nucléaires à la spectroscopie laser.",
+  scope:"Sélection de données figées, pas une base exhaustive ou en temps réel. La date d’évaluation diffère de la date de consultation.",
+  radii:"Rayons de charge",moments:"Moments nucléaires",levels:"Niveaux nucléaires",cls:"Atelier CLS",cooling:"Transitions de refroidissement",
+  element:"Élément",quantity:"Grandeur",reference:"Isotope de référence",absolute:"Rayon RMS / fm",difference:"δ⟨r²⟩ / fm²",state:"État nucléaire",isotope:"Isotope",source:"Source",sigma:"Incertitude (1σ)",
+  independent:"Les différences propagent des incertitudes marginales indépendantes ; la covariance de l’évaluation n’est pas fournie. La référence commune corrèle les points. L’autocomparaison donne exactement zéro.",
+  mu:"Moment magnétique / μN",g:"Facteur g nucléaire",spin:"Spin I",spinNote:"g = μ/(I μN). L’identité de l’état est conservée. Pour I = 0, g est indéfini. Il s’agit de moments nucléaires, pas atomiques.",
+  scheme:"Nucléide",maxEnergy:"Excitation maximale / keV",levelNote:"Énergies d’excitation nucléaire en keV. Une transition apparaît seulement si ses deux niveaux sont visibles. Ce ne sont pas des niveaux électroniques ou hyperfins atomiques.",
+  doppler:"Conversion relativiste faisceau–laser",rest:"Fréquence au repos / THz",mass:"Masse de la particule / u",voltage:"Tension d’accélération / V",charge:"Charge absolue / e",geometry:"Géométrie",collinear:"Colinéaire (même sens)",anticollinear:"Anticolinéaire (sens opposés)",calculate:"Calculer",lab:"Fréquence requise au laboratoire / THz",
+  dopplerNote:"Une particule initialement au repos acquiert l’énergie q e U. Utilisez sa masse ionique réelle. Dispersion d’énergie, potentiel de contact et incertitude systématique ne sont pas inclus.",
+  hyperfine:"Calcul des niveaux hyperfins",hyperfineNote:"Énergies hyperfines au premier ordre, à champ nul, par rapport au barycentre. A et B sont saisis en MHz. Ni intensités, ni mélange Zeeman, ni ajustement spectral.",
+  radiusShift:"Déplacement isotopique → différence de rayon",shift:"δν isotope − référence / MHz",refMass:"Masse de référence / u",radiusShiftNote:"δν = K(1/M − 1/Mref) + F δ⟨r²⟩. K et F signés doivent correspondre à cette transition et à la convention isotope moins référence. Les valeurs initiales sont pédagogiques. Sans covariance des facteurs atomiques, aucune incertitude n’est déduite.",
+  king:"Diagramme de King : déplacements modifiés",kingInput:"Une paire x,y par ligne (GHz·u)",kingNote:"Saisissez μ δν pour deux transitions, avec μ = M Mref/(M − Mref). La droite initiale est synthétique. Ajustement OLS non pondéré, sans erreur en x, covariance ni interprétation de nouvelle physique.",
+  preset:"Transition prédéfinie",wavelength:"Longueur d’onde dans le vide / nm",linewidth:"Largeur Γ/2π / MHz",repump:"Repompage",dopplerT:"Température Doppler / μK",recoilT:"Température de recul / μK",coolingNote:"T_D = ħΓ/(2kB), T_r = (ħk)²/(m kB), k = 2π/λ. Cette convention vaut 2E_r/kB. Si T_D < T_r, un modèle tenant compte du recul est nécessaire. Les limites propres à chaque isotope sont conservées.",
+  sources:"Provenance et couverture",evaluation:"Évaluation / version",retrieved:"Consulté le",status:"Statut",noData:"Aucune donnée sélectionnée pour cette condition.",massNumber:"Nombre de masse A",export:"Enregistrer les données / la figure",error:"Vérifiez la saisie : ",settings:"Enregistrer les réglages JSON",
+  loadSettings:"Charger les réglages JSON",teachingInputs:"A = 100 MHz, B = 0 : valeurs pédagogiques"
+});

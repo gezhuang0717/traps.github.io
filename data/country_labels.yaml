@@ -96,3 +96,23 @@ ja:
   reading: この場所について読む
   metadata_note: 場所は公開地理情報に基づきます。随想は創作であり、歴史的な引用ではありません。
   all_places: すべての場所を見る
+fr:
+  title: Pays ou région du jour
+  location: 'Région ONU : {location}.'
+  intro: Explorez sa géographie, sa culture et son histoire.
+  wiki: Wikipédia
+  maps: Google Maps
+  baidu: Baidu Maps
+  another: Un autre pays
+  loading: Ouverture de l’atlas…
+  error: Impossible de charger cette fiche. Rechargez la page.
+  source: 'Géographie : ONU M49'
+  collection: '{count} lieux distincts avec lectures et légendes de voyage variées'
+  select: Choisir un pays ou une région
+  story_next: Une autre histoire
+  place: Lieu à explorer
+  coordinates: Latitude {lat}° · longitude {lon}°
+  reading: Lire à propos de ce lieu
+  metadata_note: Les sujets reposent sur des données géographiques ouvertes ; les légendes sont ludiques, pas des
+    citations historiques.
+  all_places: Explorer tous les lieux

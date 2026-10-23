@@ -43,3 +43,12 @@ ja:
   guide_yes: 公称目安 ≥ 必要な R
   guide_no: 公称目安 < 必要な R
   guide_unknown: 公称目安は不明
+fr:
+  fancier: 'Détaillé : double piège JYFLTRAP'
+  classic: Jeu ou démonstration d’origine
+  advanced: Simulation avancée
+  tools: Outils de physique
+  guide: Repère nominal de pouvoir de résolution
+  guide_yes: repère nominal ≥ R requis
+  guide_no: repère nominal < R requis
+  guide_unknown: repère nominal inconnu

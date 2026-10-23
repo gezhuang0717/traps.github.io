@@ -55,13 +55,13 @@
       save(new Blob([text], { type: "text/csv;charset=utf-8" }), `${name}-${stamp()}.csv`);
     },
     record(canvas, seconds, name, onState, options = {}) {
-      if (!canvas.captureStream || !window.MediaRecorder) { const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording is not supported in this browser.',zh:'此浏览器不支持视频录制。',fi:'Selain ei tue videon tallennusta.',de:'Dieser Browser unterstützt keine Videoaufnahme.',ja:'このブラウザーは動画の録画に対応していません。'})[lang]||'Video recording is not supported in this browser.');onState&&onState(false);return; }
+      if (!canvas.captureStream || !window.MediaRecorder) { const lang=(document.documentElement.lang||'en').split('-')[0];alert(({fr:'Ce navigateur ne prend pas en charge l’enregistrement vidéo.',en:'Video recording is not supported in this browser.',zh:'此浏览器不支持视频录制。',fi:'Selain ei tue videon tallennusta.',de:'Dieser Browser unterstützt keine Videoaufnahme.',ja:'このブラウザーは動画の録画に対応していません。'})[lang]||'Video recording is not supported in this browser.');onState&&onState(false);return; }
       const types = (options.prefer === "webm" ? [] : ["video/mp4;codecs=avc1.42E01E", "video/mp4;codecs=avc1", "video/mp4"]).concat(["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"]); /* MP4 first (Chrome/Edge ≥ 126, Safari); WebM fallback (Firefox) */
       const type = types.find(t => MediaRecorder.isTypeSupported(t)) || "";
       let stream,rec,failed=false;
       const parts=[];
       const finish=()=>{stream?.getTracks().forEach(t=>t.stop());onState&&onState(false);};
-      const failure=error=>{console.warn("Video recording failed:",error?.message||"empty recording");failed=true;finish();const lang=(document.documentElement.lang||'en').split('-')[0];alert(({en:'Video recording failed. Try a shorter duration or another browser.',zh:'视频录制失败。请尝试较短时长或其他浏览器。',fi:'Videon tallennus epäonnistui. Kokeile lyhyempää kestoa tai toista selainta.',de:'Videoaufnahme fehlgeschlagen. Kürzere Dauer oder anderen Browser versuchen.',ja:'録画に失敗しました。短い時間または別のブラウザーでお試しください。'})[lang]||'Video recording failed.');};
+      const failure=error=>{console.warn("Video recording failed:",error?.message||"empty recording");failed=true;finish();const lang=(document.documentElement.lang||'en').split('-')[0];alert(({fr:'Échec de l’enregistrement vidéo. Essayez une durée plus courte ou un autre navigateur.',en:'Video recording failed. Try a shorter duration or another browser.',zh:'视频录制失败。请尝试较短时长或其他浏览器。',fi:'Videon tallennus epäonnistui. Kokeile lyhyempää kestoa tai toista selainta.',de:'Videoaufnahme fehlgeschlagen. Kürzere Dauer oder anderen Browser versuchen.',ja:'録画に失敗しました。短い時間または別のブラウザーでお試しください。'})[lang]||'Video recording failed.');};
       try{stream=canvas.captureStream(options.fps || 60);rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),videoBitsPerSecond:options.bitrate || 25e6});}catch(error){failure(error);return;}
       rec.ondataavailable = e => e.data.size && parts.push(e.data);
       rec.onerror=failure;
@@ -74,7 +74,7 @@
         const previous=container.querySelector('[data-recording-result]');
         if(previous){URL.revokeObjectURL(previous.dataset.url);previous.remove();}
         const url=URL.createObjectURL(new Blob(parts,{type:mime})), box=document.createElement('div'),video=document.createElement('video'),link=document.createElement('a');
-        const lang=(document.documentElement.lang||'en').split('-')[0],label=({en:'Save recorded video',zh:'保存录制视频',fi:'Tallenna kuvattu video',de:'Aufgenommenes Video speichern',ja:'録画した動画を保存'})[lang]||'Save recorded video';
+        const lang=(document.documentElement.lang||'en').split('-')[0],label=({fr:'Enregistrer la vidéo',en:'Save recorded video',zh:'保存录制视频',fi:'Tallenna kuvattu video',de:'Aufgenommenes Video speichern',ja:'録画した動画を保存'})[lang]||'Save recorded video';
         box.dataset.recordingResult='';box.dataset.url=url;video.src=url;video.controls=true;video.preload='metadata';video.style.width='100%';video.style.maxHeight='360px';link.href=url;link.download=`${name}-${stamp()}.${mime.includes('mp4')?'mp4':'webm'}`;link.textContent=label;link.className='zg-btn zg-btn-ghost';box.append(video,link);container.append(box);
         finish();
       };
@@ -92,7 +92,7 @@
   };
   // Reuse each figure's own PNG renderer so PDF shows the same inputs and view.
   const lang = (document.documentElement.lang || "en").split("-")[0];
-  const note = ({ en: "Save PDF · high-resolution image", zh: "保存 PDF · 高分辨率图像", fi: "Tallenna PDF · tarkka kuva", de: "PDF speichern · hochauflösendes Bild", ja: "PDF 保存 · 高解像度画像" })[lang] || "Save PDF";
+  const note = ({ fr: "Enregistrer le PDF · image haute résolution", en: "Save PDF · high-resolution image", zh: "保存 PDF · 高分辨率图像", fi: "Tallenna PDF · tarkka kuva", de: "PDF speichern · hochauflösendes Bild", ja: "PDF 保存 · 高解像度画像" })[lang] || "Save PDF";
   function addPdfButtons(node) {
     const buttons = node.matches?.("button") ? [node] : Array.from(node.querySelectorAll?.("button") || []);
     for (const source of buttons) {

@@ -72,3 +72,17 @@ ja:
   csv: 入力と結果 · CSV
   json: 入力と結果 · JSON
   badseed: RFQ の乱数シードが無効です。
+fr:
+  results: Droite de fonctionnement et limites de masse
+  line: Droite de fonctionnement
+  low: LMCO · limite de masse inférieure
+  high: HMCO · limite de masse supérieure
+  range: Intervalle idéal stable, frontières exclues
+  none: Aucune fenêtre de transmission dans la première région de stabilité.
+  rfonly: Pas de limite supérieure finie sans tension continue ; le confinement diminue lorsque m/z augmente.
+  'off': 'RF coupée : pas de confinement dynamique simultané dans les deux directions transverses.'
+  limits: Les limites idéales de Mathieu ne sont pas des efficacités de transmission mesurées. V est l’amplitude
+    RF zéro-crête ; crête-à-crête = 2V. Les limites dépendent de la charge ; les valeurs sont m/z en u/e.
+  csv: Entrées et résultats · CSV
+  json: Entrées et résultats · JSON
+  badseed: Graine aléatoire RFQ invalide.

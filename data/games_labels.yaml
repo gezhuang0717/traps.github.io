@@ -413,3 +413,121 @@ ja:
   rfq_o: "他の質量の最大透過率"
   rfq_start: "U と V を調整：目標質量（★）は通し、他はロッドに当てよう。"
   rfq_h: "RF 周期数は滞在時間であり、電極の長さではありません。周波数 f MHz で N 周期なら t = N/f マイクロ秒です。初期値の 1.00 MHz、60 周期は 60.00 µs です。実際のフィルター長には軸方向速度も必要で、L = v_z t となります。ここでは軸方向運動を計算しません。r₀ は軸から電極表面までの距離で、初期値は 10.00 mm です。V は RF の片振幅、U は直流電圧、Ω = 2πf です。z は正の素電荷の個数、m/z は電荷あたりの質量です。無次元の a、q が Mathieu 安定図上の位置を決め、動作直線は a/q = 2U/V です。LMCO と HMCO は理想的な質量電荷比の下限と上限で、透過効率ではありません。初期広がりは発射位置円盤の半径を r₀ に対する百分率で指定します。発射速度にもこの教材用広がりを使い、実測ビームのエミッタンスではありません。アニメーション速度は再生だけを変え、a、q やカットオフは変えません。乱数シードは発射系列を再現します。緑の安定領域は理想的な無限時間方程式での有界運動を示し、有限時間だけ生き残ることは安定性の証明ではありません。"
+fr:
+  pi_multi: Plusieurs espèces ioniques, saisie manuelle
+  pi_mtab: Table de masses
+  pi_ions: Ions
+  pi_presets: Exemples
+  pi_syntax: 'Séparez par des virgules : 84Rb · Rb-84 · 133Cs+2 ou 133Cs2+ pour la charge ; 45mSc, 45Scm ou 45Sc*
+    pour un isomère, Eₓ de NUBASE2020, m2 pour le deuxième ; 12C16O2 ou 12C11 pour les molécules et agrégats ; 87Rb:0.3
+    pour l’intensité relative. Masse ionique = masse atomique − q·mₑ, liaisons électroniques négligées.'
+  pi_bad: introuvable
+  pi_species: espèces
+  pi_closest: paire la plus proche
+  pi_mindep: indépendant de la masse au premier ordre
+  pi_unstable: 'certains ions ne sont pas confinés : réduisez U₀ ou augmentez d'
+  pi_fh: 'Fréquences du piège hyperbolique idéal : νc = qB/(2πm), νz = √(qU₀/(m d²))/(2π), ν± = νc/2 ± √(νc²/4 −
+    νz²/2). Donc ν₊ + ν₋ = νc et ν₊² + ν₋² + νz² = νc². Au premier ordre ν₋ ≈ U₀/(4πB d²), presque indépendant de
+    la masse. Une référence magnétron peut servir plusieurs espèces, comme dans PyMassScanner. La phase i vaut φ_i
+    = 2π νc,i t_acc modulo 2π.'
+  pi_center: tache centrale
+  pi_cfrac: Fraction de la tache centrale
+  pi: Séparer l’isomère par PI-ICR
+  pi_n: Après t_acc, la phase cyclotron de chaque ion est projetée sur un détecteur de position. Fondamental et
+    isomère diffèrent de Eₓ/c² ; leurs taches se séparent de Δφ = 2π Δνc t_acc. Cherchez un temps qui les sépare.
+  iso_pick: État nucléaire NUBASE2020
+  pi_spot: Largeur cartésienne σx,y
+  pi_ratio: Fraction isomérique
+  pi_auto: t_acc minimal
+  pi_ref: magnétron, référence
+  pi_gs: fondamental
+  pi_is: isomère
+  pi_angle: angle de phase (degrés)
+  pi_h: 'νc = (φc + 2πn)/(2π t_acc). La largeur angulaire est approximativement σφ ≈ σr/R_tache ; le pouvoir de
+    résolution vaut R = 2π νc t_acc/(2.355 σφ). Le repliement à 2π peut superposer à nouveau les états : choisissez
+    un temps éloigné d’une séparation nulle. Voir Eliseev et al., PRL 110, 082501 (2013), et Nesterenko et al.,
+    EPJA 54, 154 (2018).'
+  set_one: A seul
+  rfq_custom: ajouter des ions ou isotopes
+  target: Cible
+  emit: Dispersion initiale
+  cycles: Temps de séjour · cycles RF
+  rfq_bad: 'nucléide inconnu ; exemples : 100Sn, Sn-100, 133Cs+2'
+  mr_manual: saisir les noyaux manuellement
+  charge: État de charge
+  counts: Ions
+  mr_sum: somme des deux pics
+  mr_auto: Tours nécessaires
+  ion: Ion
+  video: Vidéo
+  tof_n: Réglez ν_rf, tirez des ions et cherchez le minimum du temps de vol. Pour ¹³³Cs⁺ à 7 T, νc = qB/(2πm) ≈
+    808795.01 Hz. Moins de tirs et une meilleure estimation donnent davantage de points.
+  tof_start: 'Balayez ν_rf : à résonance, la conversion complète fait arriver les ions le plus tôt. Cherchez le
+    creux.'
+  trf: Durée d’excitation T_rf
+  scheme: Excitation
+  rect: rectangulaire
+  ramsey: Ramsey, deux impulsions
+  ions: Ions par tir, moyenne
+  view: Vue
+  v_pts: points et moyennes
+  v_pix: histogramme 2D en pixels
+  theory: afficher la réponse théorique
+  scan: Balayage automatique, 15 points
+  fit: Ajuster νc
+  fit_res: Ajustement
+  fit_need: Mesurez au moins trois fréquences avant l’ajustement.
+  ions_got: ions détectés
+  scan_done: balayage terminé ; cherchez le creux et affinez avec des tirs individuels
+  hints: Repères physiques
+  h1: À ν_rf = νc, l’excitation quadrupolaire convertit le magnétron lent en cyclotron modifié rapide. Le gradient
+    magnétique convertit l’énergie radiale en énergie axiale ; les ions résonants arrivent plus vite. La résonance
+    est un minimum du temps de vol.
+  h2: Largeur FWHM ≈ 0.8/T_rf pour une impulsion rectangulaire. Une excitation plus longue rétrécit le creux ; la
+    précision statistique suit 1/(T_rf·√N).
+  h3: L’impulsion rectangulaire possède des lobes secondaires de type sinc². Ramsey donne une frange centrale environ
+    40 % plus étroite et des franges latérales plus fortes. Ne confondez pas une frange latérale et le centre.
+  h4: 'Masse : m = qB/(2πνc), avec B étalonné par une référence. Une erreur de 0.1 Hz à 808 kHz vaut δm/m ≈ 1.2×10⁻⁷,
+    soit environ 15 keV à A = 133.'
+  png: PNG
+  csv: CSV
+  mr_n: Les ions se réfléchissent entre deux miroirs électrostatiques. Chaque tour augmente le temps de vol et la
+    séparation temporelle des isobares, tout en élargissant les pics. Commencez avec la largeur du paquet initial
+    puis ajoutez des tours.
+  pair: Paire d’isobares
+  rand: Paire aléatoire de NUBASE2020
+  dt0: Largeur initiale Δt₀ (FWHM)
+  dlap: Élargissement par tour
+  tlap: Durée d’un tour, A = 100
+  t0: Temps sans tour, A = 100
+  ratio: Rapport d’intensité
+  mr_sat: l’élargissement par tour atteint Δt₀ après
+  mr_h: t(N) = t₀ + N·T_lap ∝ √m, Δt = t·Δm/(2m), FWHM² = Δt₀² + (N·δ)², R = t/(2·FWHM). Séparation si Δt ≥ FWHM,
+    soit R ≥ m/Δm. La largeur initiale domine aux faibles tours ; l’élargissement par tour limite R aux grands nombres
+    de tours.
+  rfq: 'Garder les ions : piège de Paul linéaire / filtre RFQ'
+  rfq_n: Les ions traversent le champ quadrupolaire alternatif de quatre électrodes. Seuls les points (q,a) stables
+    restent dans r₀ ; les autres croissent et frappent une barre. Réglez U et V pour transmettre seulement la masse
+    visée.
+  a: Nombre de masse visé A
+  set: Ions dans le faisceau
+  set_near: A − 2, A, A + 2
+  set_far: A/2, A, 2A
+  u: Tension continue U
+  v: Amplitude RF V
+  speed: Vitesse
+  cool: Refroidisseur, U = 0 et q ≈ 0.4
+  tip: Filtre de masse à la pointe
+  pause: Pause / reprise
+  rfq_stable: stable en x et y
+  rfq_score: Score
+  rfq_t: cible transmise
+  rfq_o: meilleure autre masse
+  rfq_start: 'Réglez U et V : la masse cible ★ doit passer, les autres toucher les barres.'
+  rfq_h: 'Les cycles règlent le séjour, pas la longueur : N cycles à f MHz donnent t = N/f µs. Ainsi 60 cycles à
+    1 MHz valent 60 µs. Une longueur exigerait la vitesse axiale L = vz t, non simulée. r₀ est la distance axe–électrode,
+    initialement 10 mm ; V est zéro-crête, U continu, Ω = 2πf. z compte les charges positives, m/z la masse par
+    charge. Les paramètres de Mathieu a,q suivent a/q = 2U/V. LMCO/HMCO sont des limites idéales, pas des efficacités
+    mesurées. La dispersion initiale fixe le disque de départ et les vitesses du modèle, pas une émittance mesurée.
+    La vitesse d’animation n’altère ni a,q ni les limites ; la graine répète les lancements. Survivre un temps fini
+    ne prouve pas la stabilité infinie.'
