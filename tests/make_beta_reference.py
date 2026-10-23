@@ -46,10 +46,16 @@ def moments(par):
     return {"f": float(n0), "mean_keV": float(n1 / n0 * ME)}
 
 out = {"generator": "tests/make_beta_reference.py (mpmath %s, 30 digits)" % mp.__version__, "fermi": [], "l0": [], "spectra": []}
+# Input provenance is independent of the numerical integration. This is one selected beta+ branch, not EC or a branch mixture.
+out["input_sources"] = {"22Na": {"id": "ddep-na22-2009", "evaluation": "2009-07", "publication": "Monographie BIPM-5, Vol. 5 (2010)",
+    "url": "https://www.bipm.org/documents/20126/53814638/Monographie%2BBIPM-5%2B-%2BVolume%2B5%2B%282010%29.pdf/16dbe6ec-914a-9228-ed5a-8dcb9cea7de0",
+    "printed_pages": [1, 3], "year_seconds": 31556926, "half_life_years": 2.6029, "branch_id": "beta+_0,1", "daughter_level_keV": 1274.577,
+    "values": {"Q_keV": 546.44, "t12_s": 82139522.6854, "br": 0.9030, "ref_mean_keV": 215.62},
+    "uncertainties": {"Q_keV": 0.21, "t12_s": 25245.5408, "br": 0.0009, "ref_mean_keV": 0.17}}}
 for Z, A, W, s in [(2, 3, 1.01, 1), (2, 3, 1.036, 1), (29, 63, 1.05, 1), (29, 63, 1.1, 1), (29, 63, 1.3, 1), (82, 208, 1.5, 1), (82, 208, 3.0, 1), (10, 22, 1.4, -1), (62, 147, 1.2, -1), (7, 14, 1.2, 1), (100, 250, 2.0, 1)]:
     W = mp.mpf(W)
     out["fermi"].append({"Z": Z, "A": A, "W": float(W), "sign": s, "F": float(fermi(Z, W, A, s)), "F_screened": float(screened(Z, W, A, s)), "L0": float(l0(Z, W, A, s))})
 for par in [dict(Zd=2, A=3, Q_keV=18.5906, mode="-", type="allowed"), dict(Zd=29, A=63, Q_keV=66.945, mode="-", type="allowed"), dict(Zd=7, A=14, Q_keV=156.476, mode="-", type="allowed"),
-            dict(Zd=40, A=90, Q_keV=2278.7, mode="-", type="first_unique"), dict(Zd=5, A=10, Q_keV=556.02, mode="-", type="second_unique"), dict(Zd=10, A=22, Q_keV=545.6, mode="+", type="allowed")]:
+            dict(Zd=40, A=90, Q_keV=2278.7, mode="-", type="first_unique"), dict(Zd=5, A=10, Q_keV=556.02, mode="-", type="second_unique"), dict(Zd=10, A=22, Q_keV=546.44, mode="+", type="allowed")]:
     out["spectra"].append({**par, **moments(par)})
 print(json.dumps(out, indent=1))

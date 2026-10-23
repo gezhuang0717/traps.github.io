@@ -55,9 +55,9 @@
       beta_curve_nu:["neutrino", "中微子", "neutriino", "Neutrino", "ニュートリノ", "neutrino"],
       beta_caption:["Educational model spectrum, normalised to unit area", "模型谱（教学用），按单位面积归一化", "Mallispektri (opetuskäyttöön), normitettu yksikköpinta-alaan", "Modellspektrum (Lehrmodell), auf Fläche 1 normiert", "モデルスペクトル（教育用）、面積 1 に規格化", "Spectre modèle (pédagogique), normalisé à une aire unité"],
       beta_value:["Value", "数值", "Arvo", "Wert", "値", "Valeur"],
-      beta_mean:["Mean electron energy / keV", "电子平均能量 / keV", "Elektronin keskienergia / keV", "Mittlere Elektronenenergie / keV", "電子の平均エネルギー / keV", "Énergie moyenne de l’électron / keV"],
+      beta_mean:['Mean electron/positron kinetic energy / keV','平均电子/正电子动能 / keV','Elektronin/positronin keskimääräinen liike-energia / keV','Mittlere kinetische Elektronen-/Positronenenergie / keV','電子・陽電子の平均運動エネルギー / keV','Énergie cinétique moyenne de l’électron/positron / keV'],
       beta_meannu:["Mean neutrino energy / keV", "中微子平均能量 / keV", "Neutriinon keskienergia / keV", "Mittlere Neutrinoenergie / keV", "ニュートリノの平均エネルギー / keV", "Énergie moyenne du neutrino / keV"],
-      beta_modeE:["Most probable electron energy / keV", "电子最可几能量 / keV", "Elektronin todennäköisin energia / keV", "Wahrscheinlichste Elektronenenergie / keV", "電子の最確エネルギー / keV", "Énergie la plus probable de l’électron / keV"],
+      beta_modeE:["Most probable electron/positron kinetic energy / keV", "电子/正电子最可几动能 / keV", "Elektronin/positronin todennäköisin liike-energia / keV", "Wahrscheinlichste kinetische Elektronen-/Positronenenergie / keV", "電子・陽電子の最確運動エネルギー / keV", "Énergie cinétique la plus probable de l’électron/positron / keV"],
       beta_f:["Phase-space factor f", "相空间因子 f", "Faasiavaruustekijä f", "Phasenraumfaktor f", "位相空間因子 f", "Facteur d’espace de phase f"],
       beta_logft:["log ft", "log ft", "log ft", "log ft", "log ft", "log ft"],
       beta_ref:["Reference mean energy / keV (literature, rounded)", "参考平均能量 / keV（文献值，已取整）", "Vertailukeskienergia / keV (kirjallisuus, pyöristetty)", "Referenz der mittleren Energie / keV (Literatur, gerundet)", "参照平均エネルギー / keV（文献値、丸め）", "Énergie moyenne de référence / keV (littérature, arrondie)"],
@@ -272,22 +272,26 @@
       else{
         const onoff=[{value:'1',label:t('beta_on')},{value:'0',label:t('beta_off')}],name=s=>s.nuclide+(s.mode==='+'?' (β⁺)':'')+' · '+t('beta_s_'+s.type);
         const g=group(p),dsSel=control(g,t('dataset'),'beta-dataset',[{value:'preset',label:t('ds_preset')},{value:'hand',label:t('ds_hand')}]),which=control(g,t('beta_preset'),'beta-preset',B.PRESETS.map((s,i)=>({value:String(i),label:name(s)}))),hand=group(p),hz=control(hand,t('beta_Z'),'beta-hand-z',null,2),ha=control(hand,t('beta_A'),'beta-hand-a',null,3),hq=control(hand,t('beta_Q'),'beta-hand-q',null,18.5906),hmode=control(hand,t('beta_mode'),'beta-hand-mode',[{value:'-',label:'β⁻'},{value:'+',label:'β⁺'}]),hs=control(hand,t('beta_shape'),'beta-hand-shape',B.SHAPES.map(k=>({value:k,label:t('beta_s_'+k)}))),opt=group(p),sc=control(opt,t('beta_screen'),'beta-screening',onoff),fs=control(opt,t('beta_finite'),'beta-finite',onoff),nu=control(opt,t('beta_nu'),'beta-nu',onoff),ht=control(opt,t('beta_halflife'),'beta-halflife',null,B.PRESETS[0].t12_s),hb=control(opt,t('beta_br'),'beta-branching',null,B.PRESETS[0].br);
-        howto(p,'howto_beta');const err=error(p),plot=el('div',null,{class:'sp-plot'}),out=el('div');p.append(plot,out);let current=null;savebar(p,'beta-spectrum',()=>current);note(p,'betaNote');
+        howto(p,'howto_beta');const err=error(p),plot=el('div',null,{class:'sp-plot'}),out=el('div'),presetSource=el('p',null,{class:'sp-source'});p.append(plot,out,presetSource);let current=null;savebar(p,'beta-spectrum',()=>current);note(p,'betaNote');
         function draw(){
-          err.textContent='';current=null;const isHand=dsSel.value==='hand';hand.hidden=!isHand;which.parentElement.hidden=isHand;
+          err.textContent='';presetSource.replaceChildren();current=null;const isHand=dsSel.value==='hand';hand.hidden=!isHand;which.parentElement.hidden=isHand;
           try{
             const need=(i,code)=>{try{return num(i);}catch(_){throw Object.assign(Error(code),{code});}},s=isHand?{Zd:need(hz,'Z'),A:need(ha,'A'),Q_keV:need(hq,'Q'),mode:hmode.value,type:hs.value,nuclide:'Z = '+hz.value+', A = '+ha.value+', Q = '+hq.value+' keV'}:B.PRESETS[Number(which.value)];
             const flag=i=>i.value==='1',r=B.spectrum({Zd:s.Zd,A:s.A,Q_keV:s.Q_keV,mode:s.mode,type:s.type,screening:flag(sc),finite:flag(fs),points:300});
             const T=ht.value.trim()===''?null:Number(ht.value),br=hb.value.trim()===''?1:Number(hb.value);
             if(T!==null&&!(T>0&&Number.isFinite(T)))throw Object.assign(Error('half-life'),{code:'halflife'});if(!(br>0&&br<=1))throw Object.assign(Error('branching'),{code:'br'});
-            const rows=[[t('beta_shape'),(s.mode==='-'?'β⁻':'β⁺')+' · '+t('beta_s_'+s.type)],[t('beta_mean'),r.mean_keV.toPrecision(6)],[t('beta_meannu'),r.mean_nu_keV.toPrecision(6)],[t('beta_modeE'),Number(r.mode_keV.toFixed(r.mode_keV<10?2:1))],[t('beta_f'),r.f.toExponential(5)]];
+            const inputUncertainties={Q_keV:s.uncertainties?.Q_keV??null,t12_s:T===s.t12_s?s.uncertainties?.t12_s??null:null,br:br===s.br?s.uncertainties?.br??null:null};
+            const withSigma=(value,sigma)=>fmt(value)+(sigma==null?'':' ± '+fmt(sigma));
+            const rows=[[t('beta_shape'),(s.mode==='-'?'β⁻':'β⁺')+' · '+t('beta_s_'+s.type)],[t('beta_Q'),withSigma(s.Q_keV,inputUncertainties.Q_keV)],[t('beta_mean'),r.mean_keV.toPrecision(6)],[t('beta_meannu'),r.mean_nu_keV.toPrecision(6)],[t('beta_modeE'),Number(r.mode_keV.toFixed(r.mode_keV<10?2:1))],[t('beta_f'),r.f.toExponential(5)],[t('beta_br'),withSigma(br,inputUncertainties.br)]];
+            if(T!==null)rows.push([t('beta_halflife'),withSigma(T,inputUncertainties.t12_s)]);
             if(T!==null)rows.push([t('beta_logft'),B.logft(r.f,T,br).toFixed(3)]);
-            if(!isHand&&s.ref_mean_keV!=null)rows.push([t('beta_ref'),s.ref_mean_keV],[t('beta_diff'),((r.mean_keV/s.ref_mean_keV-1)*100).toFixed(2)]);
+            if(!isHand&&s.ref_mean_keV!=null)rows.push([t('beta_ref'),withSigma(s.ref_mean_keV,s.uncertainties?.ref_mean_keV)],[t('beta_diff'),((r.mean_keV/s.ref_mean_keV-1)*100).toFixed(2)]);
+            if(s.source?.url)presetSource.append(el('a',t('source')+': '+s.source.publication,{href:s.source.url,target:'_blank',rel:'noopener'}),document.createTextNode(' · '+t('evaluation')+': '+s.source.evaluation+' · '+s.source.branch_id));
             table(out,[t('quantity'),t('beta_value')],rows);
             const title=t('beta_title')+' · '+(isHand?s.nuclide:name(s)),lines=[{points:[],stroke:'#5478ca',label:t('beta_curve_e')}];
             if(flag(nu))lines.push({points:r.Enu_keV.map((x,i)=>({x,y:r.Nnu_per_keV[i]})),stroke:'#d46c34',label:t('beta_curve_nu')});
             figure(plot,title,t('beta_x'),t('beta_y'),r.E_keV.map((x,i)=>({x,y:r.N_per_keV[i]})),true,null,{noMarkers:true,lines,zeroBase:true,caption:t('beta_caption'),tickFmt:v=>v===0?'0':(Math.abs(v)<1e-3||Math.abs(v)>=1e5)?v.toExponential(1):String(Number(v.toPrecision(3)))});
-            current={plot,headers:['E_keV','N_electron_per_keV','E_nu_keV','N_neutrino_per_keV'],rows:r.E_keV.map((x,i)=>[x,r.N_per_keV[i],r.Enu_keV[i],r.Nnu_per_keV[i]]),meta:{Z_daughter:s.Zd,A:s.A,Q_keV:s.Q_keV,mode:s.mode,shape:s.type,screening:flag(sc),finite_size:flag(fs),mean_keV:r.mean_keV,mean_nu_keV:r.mean_nu_keV,f:r.f,log10_f:r.log10f,model:'educational Fermi-function model; see note'}};
+            current={plot,headers:['E_keV','N_beta_particle_per_keV','E_nu_keV','N_neutrino_per_keV'],rows:r.E_keV.map((x,i)=>[x,r.N_per_keV[i],r.Enu_keV[i],r.Nnu_per_keV[i]]),meta:{Z_daughter:s.Zd,A:s.A,Q_keV:s.Q_keV,mode:s.mode,shape:s.type,screening:flag(sc),finite_size:flag(fs),mean_keV:r.mean_keV,mean_nu_keV:r.mean_nu_keV,f:r.f,log10_f:r.log10f,half_life_s:T,branching_fraction:br,log_ft:T===null?null:B.logft(r.f,T,br),input_uncertainties:inputUncertainties,preset_source:s.source||null,reference_mean_keV:s.ref_mean_keV??null,reference_mean_sigma_keV:s.uncertainties?.ref_mean_keV??null,constants:{alpha:B.ALPHA,electron_rest_energy_keV:B.ME_KEV},model:'educational Fermi-function model; see note'}};
           }catch(e){plot.replaceChildren();out.replaceChildren();err.textContent=t('error')+(e&&e.code&&t('beta_err_'+e.code)!=='beta_err_'+e.code?t('beta_err_'+e.code):userError(e));}
         }
         which.addEventListener('change',()=>{const s=B.PRESETS[Number(which.value)];ht.value=s.t12_s;hb.value=s.br;draw();});

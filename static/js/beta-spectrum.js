@@ -149,7 +149,11 @@
     { id: '32P', nuclide: '³²P → ³²S', Zd: 16, A: 32, Q_keV: 1710.66, mode: '-', type: 'allowed', ref_mean_keV: 695.0, t12_s: 1.2329e6, br: 1 },
     { id: '90Y', nuclide: '⁹⁰Y → ⁹⁰Zr', Zd: 40, A: 90, Q_keV: 2278.7, mode: '-', type: 'first_unique', ref_mean_keV: 933.7, t12_s: 2.3053e5, br: 0.9998 },
     { id: '10Be', nuclide: '¹⁰Be → ¹⁰B', Zd: 5, A: 10, Q_keV: 556.02, mode: '-', type: 'second_unique', ref_mean_keV: null, t12_s: 4.3772e13, br: 1 },
-    { id: '22Na', nuclide: '²²Na → ²²Ne', Zd: 10, A: 22, Q_keV: 545.6, mode: '+', type: 'allowed', ref_mean_keV: 215.5, t12_s: 8.2e7, br: 0.9044 },
+    { id: '22Na', nuclide: '²²Na → ²²Ne* (1274.577 keV)', Zd: 10, A: 22, Q_keV: 546.44, mode: '+', type: 'allowed', ref_mean_keV: 215.62, t12_s: 82139522.6854, br: 0.9030,
+      source: { id: 'ddep-na22-2009', evaluator: 'M. Galán (CIEMAT)', evaluation: '2009-07', publication: 'Monographie BIPM-5, Vol. 5 (2010)',
+        url: 'https://www.bipm.org/documents/20126/53814638/Monographie%2BBIPM-5%2B-%2BVolume%2B5%2B%282010%29.pdf/16dbe6ec-914a-9228-ed5a-8dcb9cea7de0',
+        printed_pages: [1, 3], year_seconds: 31556926, half_life_years: 2.6029, branch_id: 'beta+_0,1', daughter_level_keV: 1274.577 },
+      uncertainties: { Q_keV: 0.21, t12_s: 25245.5408, br: 0.0009, ref_mean_keV: 0.17 } },
   ];
 
   const api = Object.freeze({ ALPHA, ME_KEV, reLnGamma, fermi, screened, finiteSize, shape, spectrum, logft, integrate, PRESETS, SHAPES: Object.keys(SHAPES) });

@@ -25,7 +25,7 @@ test('limits: no Coulomb field gives F = 1, the plotted spectrum is normalised, 
   assert.ok(s.E_keV[0] < 1e-3 && Math.abs(s.E_keV.at(-1) - 66.945) < 1e-3 && s.N_per_keV.at(-1) < 1e-6 * Math.max(...s.N_per_keV));
 });
 test('beta+ decay suppresses low energies while beta- enhances them (Coulomb effect)', () => {
-  const m = B.spectrum({ Zd: 10, A: 22, Q_keV: 545.6, mode: '-', type: 'allowed' }).mean_keV, p = B.spectrum({ Zd: 10, A: 22, Q_keV: 545.6, mode: '+', type: 'allowed' }).mean_keV;
+  const m = B.spectrum({ Zd: 10, A: 22, Q_keV: 546.44, mode: '-', type: 'allowed' }).mean_keV, p = B.spectrum({ Zd: 10, A: 22, Q_keV: 546.44, mode: '+', type: 'allowed' }).mean_keV;
   assert.ok(p > m + 15, `mean beta+ ${p} should exceed beta- ${m}`);
 });
 test('presets reproduce evaluated mean energies within the stated accuracy of this model (allowed 1 %, forbidden unique 2 %)', () => {
@@ -93,4 +93,18 @@ test('valid presets and explicit correction choices retain finite positive norms
       assert.equal(s.params.finite, finite); // Never silently turn off or clamp a rejected correction.
     }
   }
+});
+test('Na-22 is the source-pinned DDEP selected positron branch, with coherent total half-life and conditional mean', () => {
+  const p = B.PRESETS.find(p => p.id === '22Na'), input = ref.input_sources['22Na'];
+  for (const [key, value] of Object.entries(input.values)) assert.equal(p[key], value, key);
+  assert.equal(p.source.id, input.id);
+  assert.equal(p.source.branch_id, 'beta+_0,1');
+  assert.equal(p.source.daughter_level_keV, 1274.577);
+  assert.deepEqual(p.uncertainties, input.uncertainties);
+  assert.ok(Math.abs(p.t12_s - p.source.half_life_years * p.source.year_seconds) < 1e-7);
+  assert.ok(Math.abs(p.uncertainties.t12_s - 0.0008 * p.source.year_seconds) < 1e-9);
+  const c = ref.spectra.find(c => c.Zd === 10 && c.A === 22 && c.mode === '+');
+  assert.equal(c.Q_keV, input.values.Q_keV); // The independent quadrature uses this selected endpoint, not atomic QEC.
+  const s = B.spectrum(p);
+  assert.ok(rel(s.f, c.f) < 1e-7 && rel(s.mean_keV, c.mean_keV) < 1e-7);
 });

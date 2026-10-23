@@ -151,11 +151,39 @@
   {
    "Zd": 10,
    "A": 22,
-   "Q_keV": 545.6,
+   "Q_keV": 546.44,
    "mode": "+",
    "type": "allowed",
-   "f": 0.28165142723670566,
-   "mean_keV": 215.70286172241634
+   "f": 0.28338520883523904,
+   "mean_keV": 216.04892318659998
   }
- ]
+ ],
+ "input_sources": {
+  "22Na": {
+   "id": "ddep-na22-2009",
+   "evaluation": "2009-07",
+   "publication": "Monographie BIPM-5, Vol. 5 (2010)",
+   "url": "https://www.bipm.org/documents/20126/53814638/Monographie%2BBIPM-5%2B-%2BVolume%2B5%2B%282010%29.pdf/16dbe6ec-914a-9228-ed5a-8dcb9cea7de0",
+   "printed_pages": [
+    1,
+    3
+   ],
+   "year_seconds": 31556926,
+   "half_life_years": 2.6029,
+   "branch_id": "beta+_0,1",
+   "daughter_level_keV": 1274.577,
+   "values": {
+    "Q_keV": 546.44,
+    "t12_s": 82139522.6854,
+    "br": 0.903,
+    "ref_mean_keV": 215.62
+   },
+   "uncertainties": {
+    "Q_keV": 0.21,
+    "t12_s": 25245.5408,
+    "br": 0.0009,
+    "ref_mean_keV": 0.17
+   }
+  }
+ }
 }
