@@ -2,7 +2,7 @@
 {{- $titles := dict "en" "Nuclei & light: data laboratory" "zh" "原子核与光：数据实验室" "fi" "Ytimet ja valo: datalaboratorio" "de" "Kerne und Licht: Datenlabor" "ja" "原子核と光：データ実験室" "fr" "Noyaux et lumière : laboratoire de données" -}}
 <link rel="stylesheet" href="{{ "css/spectroscopy.css" | relURL }}">
 <section class="zg-spectroscopy" id="research-spectroscopy" data-spectroscopy data-lang="{{ $lang }}"
-  data-values="{{ hugo.Data.spectroscopy | jsonify }}" data-cooling="{{ hugo.Data.laser_cooling.species | jsonify }}" data-example-base="{{ "data/research-examples/" | relURL }}">
+  data-values="{{ hugo.Data.spectroscopy | jsonify }}" data-cooling="{{ hugo.Data.laser_cooling.species | jsonify }}" data-example-base="{{ "data/research-examples/" | relURL }}" data-props-url="{{ "data/research-cache/nuclear-properties-compact.json" | relURL }}">
   <header><p class="sp-eyebrow">CLS · IAEA · NNDC · NIST</p><h2>{{ index $titles $lang | default $titles.en }}</h2></header>
   <div data-sp-app></div>
   <noscript><p>Enable JavaScript to explore the local source snapshots and calculators. / 请启用 JavaScript 以使用数据与计算器。</p></noscript>
@@ -11,5 +11,6 @@
 <script defer src="{{ "js/spectroscopy-core.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-settings.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-uncertainty.js" | relURL }}"></script>
+<script defer src="{{ "js/spectroscopy-data.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-fr.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy.js" | relURL }}"></script>

@@ -32,3 +32,8 @@
 .zg-spectroscopy .sp-method{margin:1.3rem 0;padding-top:.2rem;border-top:1px solid #94a3b844}
 .zg-spectroscopy .sp-badge{display:inline-block;border:1px solid #94a3b850;padding:.15rem .5rem;border-radius:10px;font-size:.75rem;margin:.25rem .3rem .25rem 0}
 @media(max-width:480px){.zg-spectroscopy{padding:.8rem;border-radius:12px}.zg-spectroscopy .sp-tabs{gap:.35rem}.zg-spectroscopy .sp-tabs button{font-size:.8rem;flex:1 1 40%}.zg-spectroscopy label{flex-basis:125px}.zg-spectroscopy td,.zg-spectroscopy th{padding:.4rem;font-size:.72rem}.zg-spectroscopy .sp-plot{margin-inline:-.3rem}}
+.zg-spectroscopy .sp-user{margin:.6rem 0;padding:.6rem .8rem;border:1px dashed var(--zg-border,#94a3b866);border-radius:12px}
+.zg-spectroscopy .sp-user textarea,.zg-spectroscopy textarea[name="king-points"]{width:100%;box-sizing:border-box;font:13px/1.45 ui-monospace,Menlo,monospace;min-height:7rem}
+.zg-spectroscopy .sp-howto{margin:.4rem 0 .8rem;font-size:.9rem}
+.zg-spectroscopy .sp-howto summary{cursor:pointer;font-weight:650}
+.zg-spectroscopy .sp-howto ol{margin:.4rem 0 0;padding-inline-start:1.3rem;line-height:1.55}
