@@ -3,7 +3,7 @@
   'use strict';
   const C=window.ZGNeutralCooling,V=window.ZGCoolingView;if(!C||!V)return;
   document.querySelectorAll('[data-neutral-cooling]').forEach(root=>{
-    const q=name=>root.querySelector(`[name="${name}"]`),zh=root.dataset.zh==='true',text=(en,cn)=>zh?cn:en;
+    const q=name=>root.querySelector(`[name="${name}"]`),zh=root.dataset.zh==='true',text=(en,cn)=>zh?cn:window.ZGTr(en);
     const canvases=[...root.querySelectorAll('[data-neutral-canvas]')],canvas=name=>canvases.find(c=>c.dataset.neutralCanvas===name),status=root.querySelector('[data-neutral-status]'),inspect=root.querySelector('[data-neutral-inspect]'),pinned=root.querySelector('[data-neutral-pinned]');
     const panel=root.closest('[data-local-panel]'),species=JSON.parse(root.dataset.species).filter(x=>!x.ion),maps=new Map();
     let state=null,animation=0,yaw=.65,pitch=.45,latestSample=0;

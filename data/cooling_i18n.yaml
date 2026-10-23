@@ -1,0 +1,1346 @@
+# Cooling workbench, guide and facility-guide strings in six languages (en zh fi de ja fr).
+# Used through layouts/_partials/zg/ct.html. zh text is the original curated Chinese; fi/de/ja/fr added 23 Oct 2026.
+c000:
+  de: Parameterleitfaden, physikalische Grundlagen und Experimente
+  en: Parameter guide, physical basics and experiments
+  fi: Parametrien opas, fysiikan perusteet ja kokeet
+  fr: Guide des paramètres, bases physiques et expériences
+  ja: パラメータガイド、物理の基礎と実験
+  zh: 参数逐项说明、物理基础与实验步骤
+c001:
+  de: Die 3D-Bewegung und die Kühlkurven verwenden dieselbe Uhr. Räumliche Bahnen werden auf den Bildschirm projiziert; das Drehen der Kamera verändert die Ionen nicht. Die Dynamik beruht auf idealen Feldern, klassischen Ionen und voneinander unabhängigen Zwei-Niveau-Strahlen.
+  en: The 3D motion and cooling curves use the same clock. Spatial trajectories are projected onto the screen; rotating the camera does not change the ions. Dynamics use ideal fields, classical ions and independent two-level beams.
+  fi: 3D-liike ja jäähdytyskäyrät käyttävät samaa kelloa. Avaruudelliset radat projisoidaan näytölle; kameran kääntäminen ei muuta ioneja. Dynamiikassa käytetään ideaalisia kenttiä, klassisia ioneja ja toisistaan riippumattomia kaksitasosäteitä.
+  fr: Le mouvement 3D et les courbes de refroidissement utilisent la même horloge. Les trajectoires spatiales sont projetées sur l'écran ; faire tourner la caméra ne modifie pas les ions. La dynamique repose sur des champs idéaux, des ions classiques et des faisceaux à deux niveaux indépendants.
+  ja: 3D の運動と冷却曲線は同じ時計を使います。空間軌道は画面に投影されており、カメラを回してもイオンは変わりません。力学には理想的な電磁場、古典的なイオン、互いに独立した二準位ビームを用います。
+  zh: 三维视图与冷却曲线使用同一时钟。相空间中的轨迹投影在屏幕上；旋转视角不会改变离子运动。动力学采用理想场、经典离子与独立二能级光束。
+c002:
+  de: Jeder Strahl streut mit R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²]. Absorption überträgt ±ℏk Impuls; spontane Emission liefert einen zufälligen 3D-Rückstoß. Die Achsentemperaturen werden aus der Geschwindigkeitsvarianz nach Abzug der Schwerpunktsdrift berechnet, Tᵢ=m Var(vᵢ)/kB; die mittlere Temperatur ist der Mittelwert der Achsen. Mikrobewegung und kollektive Bewegung können in diese Größe eingehen; sie ist nicht automatisch eine Gleichgewichtstemperatur.
+  en: Each beam scatters at R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²]. Absorption gives ±ℏk momentum; spontaneous emission gives random 3D recoil. Axis temperatures use velocity variance after removing centre-of-mass drift, Tᵢ=m Var(vᵢ)/kB; mean temperature averages the axes. Micromotion and collective motion can enter this diagnostic; it is not automatically an equilibrium temperature.
+  fi: Jokainen säde sirottaa nopeudella R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²]. Absorptio antaa ±ℏk liikemäärän; spontaani emissio antaa satunnaisen 3D-rekyylin. Akselien lämpötilat lasketaan nopeuden varianssista massakeskipisteen ajautuman poiston jälkeen, Tᵢ=m Var(vᵢ)/kB; keskilämpötila on akselien keskiarvo. Mikroliike ja kollektiivinen liike voivat vaikuttaa tähän diagnostiikkaan; se ei ole automaattisesti tasapainolämpötila.
+  fr: Chaque faisceau diffuse au taux R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²]. L'absorption transfère une impulsion ±ℏk ; l'émission spontanée donne un recul 3D aléatoire. Les températures par axe utilisent la variance des vitesses après retrait de la dérive du centre de masse, Tᵢ=m Var(vᵢ)/kB ; la température moyenne est la moyenne des axes. Le micromouvement et le mouvement collectif peuvent entrer dans ce diagnostic ; ce n'est pas automatiquement une température d'équilibre.
+  ja: 各ビームは R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²] で散乱します。吸収で ±ℏk の運動量を受け取り、自然放出でランダムな 3D 反跳を受けます。軸ごとの温度は重心ドリフトを除いた速度分散 Tᵢ=m Var(vᵢ)/kB から求め、平均温度は各軸の平均です。マイクロモーションや集団運動もこの診断量に入り得るため、必ずしも平衡温度ではありません。
+  zh: 单束散射率 R = (Γ/2)s/[1+s+(2(δ−kv)/Γ)²]。吸收提供 ±ℏk 动量，随机发射提供三维反冲。去除整体漂移后，以速度方差计算各轴温度 Tᵢ=m Var(vᵢ)/kB；平均温度为三轴平均。微运动和有序集体运动仍可进入该诊断，不能自动解释为平衡热温度。
+c003:
+  de: Parameter / Größe
+  en: Parameter / quantity
+  fi: Parametri / suure
+  fr: Paramètre / grandeur
+  ja: パラメータ / 物理量
+  zh: 参数 / 量
+c004:
+  de: Bedeutung, Wirkung und Verwendung
+  en: Meaning, effect and use
+  fi: Merkitys, vaikutus ja käyttö
+  fr: Signification, effet et usage
+  ja: 意味・効果・使い方
+  zh: 意义、影响与使用方法
+c005:
+  de: 'Empfohlene Reihenfolge: (1) rote und blaue Verstimmung in der optischen Melasse vergleichen; (2) in der analytischen Penning-Falle Strahlversatz null und vorgeschlagenen Versatz vergleichen, 50 ms anzeigen und die Bahn anpassen; (3) im Reiter „Noch ausgefeilter“ Paul- oder Penning-Falle wählen und alle drei Achsen vergleichen; (4) bei der Paul-Falle gemitteltes und tatsächliches RF-Feld vergleichen; (5) nach dem Festlegen von Parametern und Startwert das CSV speichern. Der Penning-Einschluss besitzt kein positiv definites statisches 3D-Minimum des elektrischen Potentials; die statische Relaxation der Paul-Falle darf daher nicht auf die Penning-Falle übertragen werden.'
+  en: 'Suggested sequence: (1) compare red and blue detuning in optical molasses; (2) compare zero and suggested offset in analytic Penning, show 50 ms and fit the orbit; (3) choose Paul or Penning in the fancier panel and compare all three axes; (4) compare averaged and actual RF for Paul; (5) save CSV after fixing parameters and seed. Penning confinement has no positive-definite static 3D electric-potential minimum, so Paul static relaxation must not be applied to Penning.'
+  fi: 'Ehdotettu järjestys: (1) vertaa punaista ja sinistä virityseroa optisessa melassissa; (2) vertaa nollaa ja ehdotettua siirtymää analyyttisessä Penning-loukussa, näytä 50 ms ja sovita rata; (3) valitse Paul- tai Penning-loukku välilehdellä “Vielä edistyneempi” ja vertaa kaikkia kolmea akselia; (4) vertaa Paul-loukussa keskiarvoistettua ja todellista RF:ää; (5) tallenna CSV, kun parametrit ja siemenluku on lukittu. Penning-loukun vangitsemisessa ei ole positiividefiniittiä staattista 3D-sähköpotentiaalin minimiä, joten Paul-loukun staattista relaksaatiota ei saa soveltaa Penning-loukkuun.'
+  fr: 'Séquence suggérée : (1) comparer les désaccords vers le rouge et vers le bleu dans la mélasse optique ; (2) comparer un décalage de faisceau nul et le décalage suggéré dans le piège de Penning analytique, afficher 50 ms et ajuster l''orbite ; (3) dans l''onglet « Détaillé », choisir un piège de Paul ou de Penning et comparer les trois axes ; (4) pour le piège de Paul, comparer le champ RF moyenné et le champ RF réel ; (5) enregistrer le CSV après avoir fixé les paramètres et la graine. Le confinement de Penning n''a pas de minimum défini positif du potentiel électrique statique 3D ; la relaxation statique du piège de Paul ne doit donc pas être appliquée au piège de Penning.'
+  ja: 推奨手順：(1) 光学モラセスで赤離調と青離調を比較する。(2) 解析的ペニングトラップでオフセット 0 と提案オフセットを比較し、50 ms を表示して軌道をフィットする。(3)「さらに高度」タブでパウルまたはペニングを選び、3 軸すべてを比較する。(4) パウルトラップでは平均化した RF と実際の RF を比較する。(5) パラメータと乱数シードを固定してから CSV を保存する。ペニングトラップの閉じ込めには正定値の静的 3D 電位の極小がないため、パウルトラップの静的緩和をペニングトラップに適用してはいけません。
+  zh: 建议顺序：① 原始光学黏胶用红失谐与蓝失谐比较；② 解析潘宁页比较偏移 0 与建议偏移，再显示 50 ms 并适应轨道；③ 更进阶页选择 Paul 或 Penning，运行并比较三个轴；④ 保罗阱比较平均势与真实射频；⑤ 固定参数和种子后保存 CSV。潘宁阱没有正定的静态三维电势最低点，不能把保罗阱的静态松弛直接用于潘宁阱。
+c006:
+  de: Wiedergabe und genaue Untersuchung
+  en: Playback and careful inspection
+  fi: Toisto ja tarkka tarkastelu
+  fr: Lecture et inspection minutieuse
+  ja: 再生と詳細な確認
+  zh: 播放与逐步观察
+c007:
+  de: Wiedergabegeschwindigkeit
+  en: Playback speed
+  fi: Toistonopeus
+  fr: Vitesse de lecture
+  ja: 再生速度
+  zh: 播放速度
+c008:
+  de: Schieberegler für die Wiedergabegeschwindigkeit
+  en: Playback speed slider
+  fi: Toistonopeuden liukusäädin
+  fr: Curseur de vitesse de lecture
+  ja: 再生速度スライダー
+  zh: 播放速度滑块
+c009:
+  de: Geschwindigkeitsfaktor
+  en: Speed multiplier
+  fi: Nopeuskerroin
+  fr: Facteur de vitesse
+  ja: 速度倍率
+  zh: 速度倍数
+c010:
+  de: Pausieren und einen Schritt ausführen
+  en: Pause and step once
+  fi: Pysäytä ja ota yksi askel
+  fr: Mettre en pause et avancer d'un pas
+  ja: 一時停止して 1 ステップ進める
+  zh: 暂停并前进一步
+c011:
+  de: Zeit pro Einzelschritt (µs)
+  en: Single-step time (µs)
+  fi: Yksittäisaskeleen aika (µs)
+  fr: Durée d'un pas unique (µs)
+  ja: 1 ステップの時間 (µs)
+  zh: 单步时间 (µs)
+c012:
+  de: Bildrate des Videos
+  en: Video frame rate
+  fi: Videon kuvataajuus
+  fr: Fréquence d'images de la vidéo
+  ja: 動画のフレームレート
+  zh: 视频帧率
+c013:
+  de: Wie Geschwindigkeit, Genauigkeit und Video zusammenwirken
+  en: How speed, accuracy and video work together
+  fi: Miten nopeus, tarkkuus ja video toimivat yhdessä
+  fr: Comment la vitesse, la précision et la vidéo fonctionnent ensemble
+  ja: 速度・精度・動画の関係
+  zh: 速度、精度和视频如何配合
+c014:
+  de: Die Geschwindigkeit ändert die Zahl der sicheren Schritte oder das Fortschreiten der analytischen Uhr, ohne den numerischen Zeitschritt zu vergrößern. Für die Inspektion die langsame Wiedergabe oder Einzelschritte verwenden. Schnelle Wiedergabe wird durch eine Obergrenze der Rechenarbeit pro Bild begrenzt und kann unter dem gewünschten Faktor liegen; die physikalische Uhr zeigt den tatsächlichen Fortschritt. Die Video-fps bestimmt die Aufnahmerate und garantiert nicht, dass schnelle Bewegungen aufgelöst werden. Zur Verringerung von Aliasing den Beobachtungszeitraum verkürzen und langsam aufnehmen.
+  en: Speed changes the number of safe steps or the analytic clock advance, without enlarging the numerical timestep. Use slow playback or single steps for inspection. Fast playback is limited by a per-frame work cap and may fall below the requested multiplier. The physical clock reports the actual advance. Video fps controls capture sampling; it does not guarantee resolution of rapid motion. Shorten the observation span and record slowly to reduce aliasing.
+  fi: Nopeus muuttaa turvallisten askelten määrää tai analyyttisen kellon etenemistä suurentamatta numeerista aika-askelta. Käytä hidasta toistoa tai yksittäisaskelia tarkasteluun. Nopeaa toistoa rajoittaa kuvakohtainen laskentaraja, joten se voi jäädä pyydettyä kerrointa pienemmäksi; fysikaalinen kello näyttää todellisen etenemisen. Videon fps säätää kuvaustaajuutta eikä takaa nopean liikkeen erottumista. Lyhennä havaintojaksoa ja tallenna hitaasti vähentääksesi laskostumista.
+  fr: La vitesse modifie le nombre de pas sûrs ou l'avance de l'horloge analytique, sans agrandir le pas de temps numérique. Pour inspecter, utilisez la lecture lente ou le pas unique. La lecture rapide est limitée par un plafond de calcul par image et peut rester sous le facteur demandé ; l'horloge physique indique l'avance réelle. Les images par seconde de la vidéo règlent l'échantillonnage de la capture et ne garantissent pas de résoudre les mouvements rapides. Raccourcissez la durée d'observation et enregistrez lentement pour limiter le repliement.
+  ja: 速度を上げても数値の時間刻みは大きくならず、安全なステップ数や解析的な時計の進みが変わります。確認にはスロー再生や 1 ステップ送りを使ってください。高速再生はフレームごとの計算量の上限があるため、指定倍率に届かないことがあります。物理時計は実際の進みを表示します。動画の fps は撮影間隔を決めるもので、速い運動の分解を保証しません。エイリアシングを減らすには、観測区間を短くしてゆっくり録画してください。
+  zh: 速度只改变显示时推进的步数或解析时钟，不放大数值积分时间步。慢速或单步便于观察；高速受每帧计算上限限制，可能达不到指定倍数。物理时钟是实际推进时间。录制帧率决定保存的视频采样，不保证解析高频运动；为避免混叠，应缩短观察时间并慢速录制。
+c015:
+  de: 'Magnetooptische Falle: sechsstrahliges 3D-Einfangen und Kühlen'
+  en: 'Magneto-optical trap: six-beam 3D capture and cooling'
+  fi: 'Magneto-optinen loukku: kuusisäteinen 3D-vangitseminen ja jäähdytys'
+  fr: 'Piège magnéto-optique : capture et refroidissement 3D à six faisceaux'
+  ja: 磁気光学トラップ：6 ビームによる 3 次元捕獲と冷却
+  zh: 磁光阱：六光束三维捕获与冷却
+c016:
+  de: 'Optische 3D-Melasse: Kühlung und Ausdehnung der Wolke'
+  en: '3D optical molasses: cooling and cloud expansion'
+  fi: '3D-optinen melassi: jäähtyminen ja pilven laajeneminen'
+  fr: 'Mélasse optique 3D : refroidissement et expansion du nuage'
+  ja: 3 次元光学モラセス：冷却と原子雲の膨張
+  zh: 三维光学黏胶：冷却与云团膨胀
+c017:
+  de: Sechs gegenläufige Gauß-Strahlen wirken auf voneinander unabhängige neutrale Atome. Melasse dämpft die Geschwindigkeit ohne rücktreibende Kraft; eine MOT kombiniert ein Quadrupol-Magnetfeld mit zirkularer Polarisation, um ausgelenkte Atome zurückzuführen. Temperatur, Gesamtdrift und Wolkengröße getrennt vergleichen.
+  en: Six counterpropagating Gaussian beams act on independent neutral atoms. Molasses damps velocity without a restoring force; a MOT combines a quadrupole magnetic field and circular polarization to restore displaced atoms. Compare temperature, bulk drift and cloud size separately.
+  fi: Kuusi vastakkaissuuntaista Gaussin sädettä vaikuttaa toisistaan riippumattomiin neutraaleihin atomeihin. Melassi vaimentaa nopeutta ilman palauttavaa voimaa; MOT yhdistää kvadrupolimagneettikentän ja ympyräpolarisaation palauttamaan siirtyneet atomit. Vertaa lämpötilaa, kokonaisliikettä ja pilven kokoa erikseen.
+  fr: Six faisceaux gaussiens contre-propageants agissent sur des atomes neutres indépendants. La mélasse amortit la vitesse sans force de rappel ; un MOT combine un champ magnétique quadripolaire et une polarisation circulaire pour rappeler les atomes déplacés. Comparez séparément la température, la dérive d'ensemble et la taille du nuage.
+  ja: 6 本の対向するガウスビームが、互いに独立した中性原子に作用します。モラセスは復元力なしに速度を減衰させ、MOT は四重極磁場と円偏光を組み合わせて変位した原子を引き戻します。温度、全体のドリフト、雲の大きさは別々に比較してください。
+  zh: 六束反向传播的高斯光束作用于独立中性原子。光学黏胶减小速度，但没有位置恢复力；磁光阱结合四极磁场与圆偏振产生恢复力。比较温度、整体漂移和云团大小，不要把三者混为一谈。
+c018:
+  de: 'Semiklassisches Lehrmodell im Browser: ideales F=0 → F′=1, augenblickliche stationäre Streuung, Näherung gemeinsamer Sättigung und isotrope Diffusion durch spontane Emission. Die Alkali-Einträge sind effektive Linienbeispiele; ihre reale Hyperfeinstruktur, das Rückpumpen, Polarisationsgradienten sowie Sub-Doppler- und Grau-Melasse-Dynamik sind nicht enthalten.'
+  en: 'Browser semiclassical teaching model: ideal F=0 → F′=1, instantaneous steady scattering, shared-saturation approximation and isotropic spontaneous-emission diffusion. Alkali entries are effective-line examples; their real hyperfine structure, repumping, polarization-gradient, sub-Doppler and gray-molasses dynamics are omitted.'
+  fi: 'Selaimessa toimiva puoliklassinen opetusmalli: ideaalinen F=0 → F′=1, hetkellinen vakaa sironta, jaetun saturaation approksimaatio ja isotrooppinen spontaanin emission diffuusio. Alkalimetallien rivit ovat tehollisia esimerkkirivejä; niiden todellista hyperhienorakennetta, takaisinpumppausta, polarisaatiogradienttia, sub-Doppler- ja harmaamelassidynamiikkaa ei ole mukana.'
+  fr: 'Modèle pédagogique semi-classique dans le navigateur : F=0 → F′=1 idéal, diffusion stationnaire instantanée, approximation de saturation partagée et diffusion isotrope due à l''émission spontanée. Les entrées alcalines sont des exemples de raies effectives ; leur structure hyperfine réelle, le repompage, les gradients de polarisation, la dynamique sub-Doppler et celle de la mélasse grise sont omis.'
+  ja: ブラウザ上の半古典的な教育用モデル：理想的な F=0 → F′=1、瞬時の定常散乱、共有飽和近似、等方的な自然放出拡散。アルカリ原子の項目は実効的なスペクトル線の例であり、実際の超微細構造、再ポンピング、偏光勾配、サブドップラー冷却、グレーモラセスの力学は含みません。
+  zh: 浏览器半经典教学模型：理想 F=0 → F′=1，瞬时稳态散射、共享饱和近似、各向同性自发辐射扩散。碱金属是有效谱线示例，不包含其真实超精细结构、回泵、偏振梯度、亚多普勒或灰黏胶动力学。
+c019:
+  de: Neutrales Atom / Übergang
+  en: Neutral atom / transition
+  fi: Neutraali atomi / siirtymä
+  fr: Atome neutre / transition
+  ja: 中性原子 / 遷移
+  zh: 中性原子 / 谱线
+c020:
+  de: Übergangsdaten und Näherungen
+  en: Transition data and approximations
+  fi: Siirtymädata ja approksimaatiot
+  fr: Données de transition et approximations
+  ja: 遷移データと近似
+  zh: 谱线数据与近似
+c021:
+  de: Γ/2π wird in MHz angegeben; der Rechenkern verwendet Γ (rad/s), λ (m) und die Atommasse (kg). Rückstoßaufgelöste Übergänge werden abgelehnt und nicht als gültige Diffusionskühlung behandelt.
+  en: Γ/2π is given in MHz; the kernel uses Γ (rad/s), λ (m) and atomic mass (kg). Recoil-resolved transitions are rejected rather than treated as valid diffusion cooling.
+  fi: Γ/2π annetaan MHz-yksikössä; ydin käyttää Γ:aa (rad/s), λ:aa (m) ja atomimassaa (kg). Rekyyli-erotetut siirtymät hylätään eikä niitä käsitellä pätevänä diffuusiojäähdytyksenä.
+  fr: Γ/2π est donné en MHz ; le noyau de calcul utilise Γ (rad/s), λ (m) et la masse atomique (kg). Les transitions résolues en recul sont rejetées plutôt que traitées comme un refroidissement par diffusion valide.
+  ja: Γ/2π は MHz で示します。計算コアは Γ (rad/s)、λ (m)、原子質量 (kg) を使います。反跳分解される遷移は有効な拡散冷却として扱わず、拒否します。
+  zh: Γ/2π 以 MHz 给出；核心程序使用 Γ（rad/s）、λ（m）与原子质量（kg）。接近反冲分辨区的谱线会被拒绝，不用扩散模型伪造窄线冷却。
+c022:
+  de: Strahlen, Magnetfeld und Anfangswolke
+  en: Beams, magnetic field and initial cloud
+  fi: Säteet, magneettikenttä ja alkupilvi
+  fr: Faisceaux, champ magnétique et nuage initial
+  ja: ビーム、磁場、初期の原子雲
+  zh: 光束、磁场与初始云团
+c025:
+  de: B = (−b x/2, −b y/2, b z); 1 G/cm = 0,01 T/m.
+  en: B = (−b x/2, −b y/2, b z); 1 G/cm = 0.01 T/m.
+  fi: B = (−b x/2, −b y/2, b z); 1 G/cm = 0,01 T/m.
+  fr: B = (−b x/2, −b y/2, b z) ; 1 G/cm = 0,01 T/m.
+  ja: B = (−b x/2, −b y/2, b z); 1 G/cm = 0.01 T/m。
+  zh: B = (−b x/2, −b y/2, b z)；1 G/cm = 0.01 T/m。
+c026:
+  de: Gradient b der starken Achse (G/cm)
+  en: Strong-axis gradient b (G/cm)
+  fi: Vahvan akselin gradientti b (G/cm)
+  fr: Gradient b de l'axe fort (G/cm)
+  ja: 強軸方向の勾配 b (G/cm)
+  zh: 强轴梯度 b (G/cm)
+c027:
+  de: Effektive Zeeman-Steigung in μ_B für das ideale F=0→F′=1-System; sie wird nicht automatisch aus den Hyperfeinzuständen der Alkalimetalle berechnet.
+  en: Effective Zeeman slope in μ_B for the ideal F=0→F′=1 system; not automatically calculated from alkali hyperfine states.
+  fi: Tehollinen Zeeman-kulma μ_B-yksikössä ideaaliselle F=0→F′=1-systeemille; sitä ei lasketa automaattisesti alkalien hyperhienotiloista.
+  fr: Pente Zeeman effective en μ_B pour le système idéal F=0→F′=1 ; elle n'est pas calculée automatiquement à partir des états hyperfins des alcalins.
+  ja: 理想的な F=0→F′=1 系に対する μ_B 単位の実効ゼーマン勾配。アルカリ原子の超微細状態から自動計算されるものではありません。
+  zh: 理想 F=0→F′=1 的有效 Zeeman 斜率，单位 μ_B；不由碱金属超精细态自动计算。
+c028:
+  de: Anfangsdrift
+  en: Initial drift
+  fi: Alkuliike (ajautuma)
+  fr: Dérive initiale
+  ja: 初期ドリフト
+  zh: 初始漂移
+c029:
+  de: Laser an
+  en: Laser on
+  fi: Laser päällä
+  fr: Laser activé
+  ja: レーザー ON
+  zh: 激光开
+c029b:
+  de: Laser an
+  en: Laser on
+  fi: Laser päällä
+  fr: Laser activé
+  ja: レーザー ON
+  zh: 开激光
+c030:
+  de: Rückstoßdiffusion
+  en: Recoil diffusion
+  fi: Rekyylidiffuusio
+  fr: Diffusion de recul
+  ja: 反跳拡散
+  zh: 反冲扩散
+c031:
+  de: Schwerkraft −z
+  en: Gravity −z
+  fi: Painovoima −z
+  fr: Gravité −z
+  ja: 重力 −z
+  zh: 重力 −z
+c032:
+  de: Integration, Dauer und Verlustkriterium
+  en: Integration, duration and loss criterion
+  fi: Integrointi, kesto ja häviökriteeri
+  fr: Intégration, durée et critère de perte
+  ja: 積分・継続時間・損失基準
+  zh: 积分、时长与损失判据
+c033:
+  de: Laufzeit (ms)
+  en: Run duration (ms)
+  fi: Ajon kesto (ms)
+  fr: Durée de l'exécution (ms)
+  ja: 実行時間 (ms)
+  zh: 运行时长 (ms)
+c033b:
+  de: Laufzeit (ms)
+  en: Run duration (ms)
+  fi: Ajon kesto (ms)
+  fr: Durée de l'exécution (ms)
+  ja: 実行時間 (ms)
+  zh: 最长运行时间 (ms)
+c034:
+  de: Maximaler Zeitschritt (µs)
+  en: Maximum timestep (µs)
+  fi: Suurin aika-askel (µs)
+  fr: Pas de temps maximal (µs)
+  ja: 最大時間刻み (µs)
+  zh: 最大时间步 (µs)
+c035:
+  de: Zufallsstartwert
+  en: Random seed
+  fi: Satunnaislukujen siemen
+  fr: Graine aléatoire
+  ja: 乱数シード
+  zh: 随机种子
+c036:
+  de: Sphärischer Verlustradius (mm; 0 = aus)
+  en: Spherical loss radius (mm; 0 = off)
+  fi: Pallomainen häviösäde (mm; 0 = pois)
+  fr: Rayon de perte sphérique (mm ; 0 = désactivé)
+  ja: 球状の損失半径 (mm; 0 = 無効)
+  zh: 球形损失半径 (mm；0 = 关闭)
+c037:
+  de: Stochastische Diffusionsintegration mit zusätzlichen Zeitschrittgrenzen für Dämpfung, rücktreibende Kraft, Strahldurchflug und Zeeman-Änderung. Optische Zyklen, Transienten der inneren Zustände und einzelne seltene Photonenereignisse werden nicht aufgelöst; Photonenzahlen sind Erwartungswerte. Die Wiedergabegeschwindigkeit ändert nie den physikalischen Zeitschritt. Die Arbeit ist auf 20 Millionen Teilchenschritte begrenzt; zur Konvergenzprüfung den Zeitschritt halbieren. Der Verlustradius ist eine vom Nutzer definierte diagnostische Grenze, keine MOT-Wand; die Temperatur der Überlebenden verwendet nur Atome, die noch innerhalb liegen.
+  en: Stochastic diffusion integration with additional damping, restoring-force, beam-transit and Zeeman-change timestep limits. Optical cycles, internal-state transients and individual sparse photon events are not resolved; photon counts are expectations. Playback speed never changes the physical timestep. Work is capped at 20 million particle steps; halve the timestep to check convergence. The loss radius is a user-defined diagnostic boundary, not a MOT wall; survivor temperature uses only atoms still inside it.
+  fi: Stokastinen diffuusiointegrointi lisävaimennus-, palautusvoima-, sädekulku- ja Zeeman-muutosaika-askelrajoituksin. Optisia sykliä, sisäisten tilojen transientteja ja yksittäisiä harvoja fotonitapahtumia ei erotella; fotonimäärät ovat odotusarvoja. Toistonopeus ei koskaan muuta fysikaalista aika-askelta. Työ rajoitetaan 20 miljoonaan hiukkasaskeleeseen; puolita aika-askel tarkistaaksesi suppenemisen. Häviösäde on käyttäjän määrittelemä diagnostinen raja, ei MOT-seinä; eloonjääneiden lämpötila käyttää vain säteen sisään jääneitä atomeja.
+  fr: Intégration stochastique de diffusion avec limites supplémentaires du pas de temps liées à l'amortissement, à la force de rappel, au transit dans les faisceaux et au changement Zeeman. Les cycles optiques, les transitoires d'états internes et les événements photoniques rares individuels ne sont pas résolus ; les nombres de photons sont des espérances. La vitesse de lecture ne change jamais le pas de temps physique. Le travail est plafonné à 20 millions de pas de particules ; divisez le pas par deux pour vérifier la convergence. Le rayon de perte est une frontière de diagnostic définie par l'utilisateur, pas une paroi de MOT ; la température des survivants n'utilise que les atomes restés à l'intérieur.
+  ja: 減衰・復元力・ビーム通過・ゼーマン変化に対する追加の時間刻み制限を備えた、確率的拡散の積分です。光学サイクル、内部状態の過渡現象、個々のまれな光子イベントは分解せず、光子数は期待値です。再生速度が物理的な時間刻みを変えることはありません。計算量は粒子ステップ 2000 万回に制限され、収束の確認には時間刻みを半分にしてください。損失半径はユーザーが定義する診断用の境界で、MOT の壁ではありません。生存原子の温度は半径内に残った原子のみから求めます。
+  zh: 使用带反冲的随机扩散积分；时间步还受阻尼、恢复力、穿越光束与 Zeeman 变化尺度限制。它不解析光学周期、内部态瞬态或稀疏散射中的逐光子事件；光子计数是预期值。播放速度不改变物理时间步。运行总量上限为两千万粒子步；减半时间步检查收敛。损失半径是用户定义的诊断边界，不是磁光阱硬壁；“剩余温度”只统计仍在边界内的原子。
+c038:
+  de: Starten / Pausieren
+  en: Run / pause
+  fi: Aja / tauko
+  fr: Lancer / mettre en pause
+  ja: 実行 / 一時停止
+  zh: 运行 / 暂停
+c039:
+  de: Aktuelle Bedingungen zurücksetzen
+  en: Reset current conditions
+  fi: Palauta nykyiset ehdot
+  fr: Réinitialiser les conditions actuelles
+  ja: 現在の条件をリセット
+  zh: 按当前条件重置
+c040:
+  de: Ansicht anpassen
+  en: Fit view
+  fi: Sovita näkymä
+  fr: Ajuster la vue
+  ja: 表示範囲に合わせる
+  zh: 完整视图
+c041:
+  de: Kamera zurücksetzen
+  en: Reset camera
+  fi: Palauta kamera
+  fr: Réinitialiser la caméra
+  ja: カメラをリセット
+  zh: 重置相机
+c042:
+  de: Ansicht und Werteinspektion
+  en: View and value inspection
+  fi: Näkymä ja arvojen tarkastelu
+  fr: Vue et inspection des valeurs
+  ja: 表示と値の確認
+  zh: 视图与数值检查
+c043:
+  de: Räumliche Halbweite (mm)
+  en: Spatial half-range (mm)
+  fi: Avaruudellinen puoliväli (mm)
+  fr: Demi-étendue spatiale (mm)
+  ja: 空間の半幅 (mm)
+  zh: 空间半范围 (mm)
+c044:
+  de: Punktgröße (px)
+  en: Point size (px)
+  fi: Pisteen koko (px)
+  fr: Taille des points (px)
+  ja: 点の大きさ (px)
+  zh: 点大小 (px)
+c045:
+  de: Linienbreite (px)
+  en: Line width (px)
+  fi: Viivan leveys (px)
+  fr: Épaisseur de ligne (px)
+  ja: 線の太さ (px)
+  zh: 线宽 (px)
+c046:
+  de: 2D-Projektion
+  en: 2D projection
+  fi: 2D-projektio
+  fr: Projection 2D
+  ja: 2 次元投影
+  zh: 二维投影
+c047:
+  de: Diagnoseachse
+  en: Diagnostic axis
+  fi: Diagnostiikka-akseli
+  fr: Axe de diagnostic
+  ja: 診断軸
+  zh: 诊断轴
+c048:
+  de: Kraftkurve
+  en: Force curve
+  fi: Voimakäyrä
+  fr: Courbe de force
+  ja: 力の曲線
+  zh: 力曲线
+c049:
+  de: Anfangswolke (hohle Punkte)
+  en: Initial cloud (hollow points)
+  fi: Alkupilvi (ontot pisteet)
+  fr: Nuage initial (points creux)
+  ja: 初期の原子雲（白抜きの点）
+  zh: 初始云团（空心点）
+c050:
+  de: Automatisch drehen
+  en: Auto rotate
+  fi: Automaattinen pyöritys
+  fr: Rotation automatique
+  ja: 自動回転
+  zh: 自动旋转
+c051:
+  de: Das 3D-Diagramm durch Ziehen drehen und mit dem Mausrad zoomen. Mit dem Zeiger über einen Punkt oder eine Kurve fahren, um Werte zu sehen; klicken, um sie im Textfeld festzuhalten. Ansichtsänderungen erhalten die Physik; physikalische Änderungen stoppen und setzen den Lauf zurück. Verborgene Methoden-Reiter pausieren sofort ohne Hintergrundsimulation.
+  en: Drag the 3D plot to rotate and use the wheel to zoom. Hover over a point or curve for values; click to pin them in the textbox. View changes keep the physics; physical edits stop and reset the run. Hidden method tabs pause immediately without background simulation.
+  fi: Pyöritä 3D-kuvaa vetämällä ja zoomaa rullalla. Vie osoitin pisteen tai käyrän päälle nähdäksesi arvot; napsauta kiinnittääksesi ne tekstikenttään. Näkymän muutokset säilyttävät fysiikan; fysikaaliset muutokset pysäyttävät ja nollaavat ajon. Piilotetut menetelmävälilehdet pysähtyvät heti ilman taustasimulaatiota.
+  fr: Faites glisser le graphique 3D pour le faire tourner et utilisez la molette pour zoomer. Survolez un point ou une courbe pour voir les valeurs ; cliquez pour les épingler dans la zone de texte. Les changements de vue conservent la physique ; les modifications physiques arrêtent et réinitialisent l'exécution. Les onglets de méthode masqués se mettent immédiatement en pause, sans simulation en arrière-plan.
+  ja: 3D プロットはドラッグで回転し、ホイールで拡大縮小します。点や曲線にカーソルを合わせると値が表示され、クリックするとテキストボックスに固定されます。表示の変更では物理計算は変わらず、物理パラメータを編集すると実行は停止してリセットされます。非表示の手法タブは直ちに一時停止し、バックグラウンドでは計算しません。
+  zh: 拖动三维图旋转、滚轮缩放；悬停在点或曲线上查看数值，单击固定到下方文本框。改变视图不会重算物理结果；改变物理参数会停止并重置。隐藏标签页立即暂停，不在后台计算。
+c052:
+  de: Fixierte Diagrammwerte
+  en: Pinned plot values
+  fi: Kiinnitetyt kuvaajan arvot
+  fr: Valeurs du graphique épinglées
+  ja: 固定したプロット値
+  zh: 固定的图中数值
+c053:
+  de: Aktuelle Ergebnisse und Bedingungen speichern
+  en: Save current results and conditions
+  fi: Tallenna nykyiset tulokset ja ehdot
+  fr: Enregistrer les résultats et conditions actuels
+  ja: 現在の結果と条件を保存
+  zh: 保存当前结果与条件
+c054:
+  de: Verlaufs-CSV
+  en: History CSV
+  fi: Historia-CSV
+  fr: CSV de l'historique
+  ja: 履歴 CSV
+  zh: 历史数据 CSV
+c055:
+  de: Teilchen-CSV
+  en: Particle CSV
+  fi: Hiukkas-CSV
+  fr: CSV des particules
+  ja: 粒子 CSV
+  zh: 逐粒子 CSV
+c056:
+  de: Video / Aufnahme beenden
+  en: Video / stop recording
+  fi: Video / lopeta tallennus
+  fr: Vidéo / arrêter l'enregistrement
+  ja: 動画 / 録画停止
+  zh: 视频 / 停止录制
+c056b:
+  de: Video / Aufnahme beenden
+  en: Video / stop recording
+  fi: Video / lopeta tallennus
+  fr: Vidéo / arrêter l'enregistrement
+  ja: 動画 / 録画停止
+  zh: 录制 / 停止视频
+c057:
+  de: Videolänge (s)
+  en: Video length (s)
+  fi: Videon pituus (s)
+  fr: Durée de la vidéo (s)
+  ja: 動画の長さ (s)
+  zh: 视频时长 (s)
+c057b:
+  de: Videolänge (s)
+  en: Video length (s)
+  fi: Videon pituus (s)
+  fr: Durée de la vidéo (s)
+  ja: 動画の長さ (s)
+  zh: 视频长度 (s)
+c058:
+  de: JSON-Bedingungen wiederherstellen
+  en: Restore JSON conditions
+  fi: Palauta JSON-ehdot
+  fr: Restaurer les conditions JSON
+  ja: JSON の条件を復元
+  zh: 恢复 JSON 条件
+c059:
+  de: Bild- / Videopanels
+  en: Figure / video panels
+  fi: Kuva- / videopaneelit
+  fr: Panneaux de figures / vidéo
+  ja: 図・動画のパネル
+  zh: 图像 / 视频面板
+c060:
+  de: Alle sieben
+  en: All seven
+  fi: Kaikki seitsemän
+  fr: Les sept
+  ja: 7 つすべて
+  zh: 全部七幅
+c061:
+  de: 3D-Wolke + Temperatur (gut für Videos)
+  en: 3D cloud + temperature (good for video)
+  fi: 3D-pilvi + lämpötila (sopii videolle)
+  fr: Nuage 3D + température (adapté à la vidéo)
+  ja: 3D の原子雲 + 温度（動画向き）
+  zh: 三维云团 + 温度（适合视频）
+c062:
+  de: 2D-Projektion + Phasenraum
+  en: 2D projection + phase space
+  fi: 2D-projektio + vaiheavaruus
+  fr: Projection 2D + espace des phases
+  ja: 2 次元投影 + 位相空間
+  zh: 二维投影 + 相空间
+c063:
+  de: PNG und PDF verwenden dieselben gewählten Ansichten; das PDF enthält ein hochauflösendes Bild. JSON speichert Bedingungen, Ansicht, tatsächlichen Zeitschritt und Statistik; die Wiederherstellung beginnt mit demselben Startwert und setzt den Zufallszustand nicht mittendrin fort. CSV speichert den abgetasteten Verlauf und die Teilchen-Momentaufnahme. Aufgenommene Videos haben unter der Browser-Vorschau einen eigenen Speicherlink; den Ordner im Speichern-Dialog des Systems wählen.
+  en: PNG and PDF use the same selected views; the PDF contains a high-resolution image. JSON saves conditions, view, actual timestep and statistics; restore starts from the same seed rather than resuming the random state midway. CSV saves the sampled history and particle snapshot. Recorded video has a separate save link below its browser preview; choose your folder in the system save dialog.
+  fi: PNG ja PDF käyttävät samoja valittuja näkymiä; PDF sisältää korkearesoluutioisen kuvan. JSON tallentaa ehdot, näkymän, todellisen aika-askeleen ja tilastot; palautus alkaa samasta siemenluvusta eikä jatka satunnaislukujen tilaa kesken. CSV tallentaa otetun historian ja hiukkasten tilannekuvan. Tallennetulla videolla on oma tallennuslinkki selainesikatselun alla; valitse kansio järjestelmän tallennusikkunassa.
+  fr: Le PNG et le PDF utilisent les mêmes vues sélectionnées ; le PDF contient une image haute résolution. Le JSON enregistre les conditions, la vue, le pas de temps réel et les statistiques ; la restauration repart de la même graine au lieu de reprendre l'état aléatoire en cours de route. Le CSV enregistre l'historique échantillonné et un instantané des particules. La vidéo enregistrée a son propre lien de sauvegarde sous l'aperçu du navigateur ; choisissez votre dossier dans la boîte de dialogue d'enregistrement du système.
+  ja: PNG と PDF は同じ選択ビューを使い、PDF には高解像度の画像が含まれます。JSON は条件、表示、実際の時間刻み、統計を保存します。復元は同じシードから開始し、乱数の状態を途中から再開するものではありません。CSV はサンプルした履歴と粒子のスナップショットを保存します。録画した動画にはブラウザのプレビューの下に別の保存リンクがあり、保存先フォルダーはシステムの保存ダイアログで選びます。
+  zh: PNG 与 PDF 使用同一组所选画面；PDF 为高分辨率图像。JSON 保存条件、视图、实际时间步与当前统计，载入后按相同种子从头运行，并非恢复中途随机状态。CSV 保存当前采样历史及原子状态。视频在浏览器预览下方另有保存链接；请在系统保存框选择自己的文件夹。
+c064:
+  de: Physik, Gleichungen, Grenzen und Quellen
+  en: Physics, equations, limits and sources
+  fi: Fysiikka, yhtälöt, rajat ja lähteet
+  fr: Physique, équations, limites et sources
+  ja: 物理・方程式・限界・出典
+  zh: 物理、公式、局限与来源
+c065:
+  de: Die zirkulare Polarisation wird auf die lokale Magnetfeldrichtung projiziert; starke und transversale Achsen haben entgegengesetzte Helizität. Schrotrauschen der Absorption und isotrope spontane Emission ergeben Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R_total/3). Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B]; die Schwerpunktsdrift wird ausgeschlossen. „Rückstoß aus“ ist ein deterministischer Vergleich, keine physikalische Kühlgrenze. Die Doppler-Skala ℏΓ/(2k_B) ist eine Referenz; endliche Strahlen, Sättigung, Magnetfelder, Schwerkraft und Verluste verändern Gleichgewicht und Einfang.
+  en: Circular polarization is projected onto the local magnetic-field direction; strong and transverse axes have opposite helicities. Absorption shot noise and isotropic spontaneous emission give Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R_total/3). Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B]; centroid drift is excluded. Recoil off is a deterministic comparison, not a physical cooling limit. The Doppler scale ℏΓ/(2k_B) is a reference; finite beams, saturation, magnetic fields, gravity and escape alter equilibrium and capture.
+  fi: Ympyräpolarisaatio projisoidaan paikalliseen magneettikentän suuntaan; vahvalla ja poikittaisilla akseleilla on vastakkaiset heliciteetit. Absorption haulikohina ja isotrooppinen spontaani emissio antavat Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R_total/3). Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B]; keskipisteen ajautuma jätetään pois. Rekyylin sammutus on deterministinen vertailu, ei fysikaalinen jäähdytysraja. Doppler-asteikko ℏΓ/(2k_B) on viitearvo; äärelliset säteet, saturaatio, magneettikentät, painovoima ja karkaaminen muuttavat tasapainoa ja vangitsemista.
+  fr: La polarisation circulaire est projetée sur la direction locale du champ magnétique ; les axes fort et transverses ont des hélicités opposées. Le bruit de grenaille d'absorption et l'émission spontanée isotrope donnent Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R_total/3). Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B] ; la dérive du centroïde est exclue. Recul désactivé est une comparaison déterministe, pas une limite physique de refroidissement. L'échelle Doppler ℏΓ/(2k_B) est une référence ; les faisceaux finis, la saturation, les champs magnétiques, la gravité et l'échappement modifient l'équilibre et la capture.
+  ja: 円偏光は局所的な磁場方向に射影され、強軸と横方向の軸ではヘリシティが逆になります。吸収のショットノイズと等方的な自然放出から Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R_total/3) が得られます。Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B] で、重心ドリフトは除外します。反跳オフは決定論的な比較であり、物理的な冷却限界ではありません。ドップラー限界 ℏΓ/(2k_B) は基準値で、有限のビーム、飽和、磁場、重力、脱出は平衡や捕獲を変えます。
+  zh: 圆偏振在局部磁场方向投影，强轴与横轴使用相反手性。吸收散粒噪声与各向同性自发辐射给出 Var(dvⱼ)/dt = vᵣ²(Rⱼ,+ + Rⱼ,− + R总/3)。温度 Tⱼ = m Σ(vⱼ−v̄ⱼ)²/[(N−1)k_B]；质心漂移不计入温度。关反冲是确定性对照，不是物理冷却极限。多普勒尺度 ℏΓ/(2k_B) 是参考值；有限光束、饱和、磁场、重力和逃逸使稳态与捕获行为不同。
+c066:
+  de: Dieses Programm ruft PyLCP nicht auf; seine heuristische Gleichung dient als Formelreferenz. Bei hoher Geschwindigkeit oder Sättigung weicht diese Näherung von den vollständigen Ratengleichungen oder den optischen Bloch-Gleichungen ab. Mehrfachstreuung, Stöße, Dunkelzustände, Kohärenz, Dipolkräfte, magnetische Dipolkräfte und Mehrniveau-Rückpumpen sind nicht enthalten.
+  en: This program does not call PyLCP; its heuristic equation supplies the formula reference. At high velocity or saturation this approximation differs from full rate equations or optical Bloch equations. Multiple scattering, collisions, dark states, coherence, dipole forces, magnetic-dipole forces and multilevel repumping are omitted.
+  fi: Tämä ohjelma ei kutsu PyLCP:tä; sen heuristinen yhtälö toimii kaavaviitteenä. Suurella nopeudella tai saturaatiolla tämä approksimaatio poikkeaa täydellisistä ratayhtälöistä tai optisista Blochin yhtälöistä. Monisirontaa, törmäyksiä, tummia tiloja, koherenssia, dipolivoimia, magneettisia dipolivoimia ja monitasoista takaisinpumppausta ei ole mukana.
+  fr: Ce programme n'appelle pas PyLCP ; son équation heuristique sert de référence de formule. À grande vitesse ou forte saturation, cette approximation diffère des équations de taux complètes ou des équations de Bloch optiques. La diffusion multiple, les collisions, les états noirs, la cohérence, les forces dipolaires, les forces dipolaires magnétiques et le repompage multi-niveaux sont omis.
+  ja: このプログラムは PyLCP を呼び出しません。その発見的な式は数式の参照用です。高速や高飽和では、この近似は完全なレート方程式や光学ブロッホ方程式と異なります。多重散乱、衝突、暗状態、コヒーレンス、双極子力、磁気双極子力、多準位の再ポンピングは含みません。
+  zh: 本程序未调用 PyLCP；其启发式方程提供公式依据。高速度与高饱和下，该近似与完整速率方程 / 光学 Bloch 方程不同。没有多重散射、碰撞、暗态、相干、光偶极力、磁偶极力或多能级回泵。
+c067:
+  de: Artikel der Autoren (NIST)
+  en: Author paper (NIST)
+  fi: Tekijöiden artikkeli (NIST)
+  fr: Article des auteurs (NIST)
+  ja: 著者の論文 (NIST)
+  zh: 作者论文（NIST）
+c068:
+  de: Dokumentation
+  en: documentation
+  fi: dokumentaatio
+  fr: documentation
+  ja: ドキュメント
+  zh: 文档
+c069:
+  de: Übergangsdaten der Alkalimetalle
+  en: Alkali transition data
+  fi: Alkalimetallien siirtymädata
+  fr: Données de transition des alcalins
+  ja: アルカリ金属の遷移データ
+  zh: 碱金属谱线数据
+c070:
+  de: 'Ausgefeiltere Simulation: 3D-Laserkühlung in Paul- / Penning-Fallen'
+  en: 'Fancier simulation: 3D laser cooling in Paul / Penning traps'
+  fi: 'Edistyneempi simulaatio: 3D-lasterjäähdytys Paul- / Penning-loukuissa'
+  fr: 'Simulation détaillée : refroidissement laser 3D dans les pièges de Paul / Penning'
+  ja: さらに高度なシミュレーション：パウル / ペニングトラップでの 3 次元レーザー冷却
+  zh: 更进阶：保罗 / 潘宁阱中的三维激光冷却
+c071:
+  de: Den tatsächlichen RF-Antrieb mit dem zeitgemittelten Potential vergleichen. Mikrobewegung, Ionenabstoßung, rotverstimmte Kühlung und blauverstimmte Heizung beobachten. Alle Ansichten teilen sich eine Simulationsuhr.
+  en: Compare the actual RF drive with the time-averaged potential. Watch micromotion, ion repulsion, red-detuned cooling and blue-detuned heating. All views share one simulation clock.
+  fi: Vertaa todellista RF-ajoa aikakeskiarvoistettuun potentiaaliin. Tarkkaile mikroliikettä, ionien hylkimistä, punaviritteistä jäähdytystä ja sinivirittyisä lämmitystä. Kaikki näkymät käyttävät samaa simulaatiokelloa.
+  fr: Comparez le pilotage RF réel avec le potentiel moyenné dans le temps. Observez le micromouvement, la répulsion entre ions, le refroidissement à désaccord rouge et le chauffage à désaccord bleu. Toutes les vues partagent une seule horloge de simulation.
+  ja: 実際の RF 駆動と時間平均ポテンシャルを比較します。マイクロモーション、イオン間の反発、赤離調による冷却、青離調による加熱を観察できます。すべてのビューは同じシミュレーション時計を共有します。
+  zh: 比较真实射频与时间平均势：观察微运动、离子间排斥，以及红失谐冷却或蓝失谐加热。所有图使用同一模拟时钟。
+c072:
+  de: Ion
+  en: Ion
+  fi: Ioni
+  fr: Ion
+  ja: イオン
+  zh: 离子
+c073:
+  de: Falle
+  en: Trap
+  fi: Loukku
+  fr: Piège
+  ja: トラップ
+  zh: 离子阱
+c074:
+  de: Voreinstellung
+  en: Preset
+  fi: Esiasetus
+  fr: Préréglage
+  ja: プリセット
+  zh: 预设
+c075:
+  de: Kühlung
+  en: cooling
+  fi: jäähdytys
+  fr: refroidissement
+  ja: 冷却
+  zh: 冷却
+c076:
+  de: blaue Heizung
+  en: blue heating
+  fi: sininen lämmitys
+  fr: chauffage bleu
+  ja: 青離調による加熱
+  zh: 蓝失谐加热
+c077:
+  de: RF-Mikrobewegung
+  en: RF micromotion
+  fi: RF-mikroliike
+  fr: micromouvement RF
+  ja: RF マイクロモーション
+  zh: 射频微运动
+c078:
+  de: Potential
+  en: Potential
+  fi: Potentiaali
+  fr: Potentiel
+  ja: ポテンシャル
+  zh: 势模型
+c079:
+  de: Zeitgemittelt
+  en: Time-averaged
+  fi: Aikakeskiarvo
+  fr: Moyenné dans le temps
+  ja: 時間平均
+  zh: 时间平均势
+c080:
+  de: Tatsächliches RF
+  en: Actual RF
+  fi: Todellinen RF
+  fr: RF réel
+  ja: 実際の RF
+  zh: 真实射频
+c081:
+  de: 'Exakte Mathieu-Frequenzen (aus: adiabatische Näherung)'
+  en: 'Exact Mathieu frequencies (off: adiabatic approximation)'
+  fi: 'Tarkat Mathieun taajuudet (pois: adiabaattinen approksimaatio)'
+  fr: 'Fréquences de Mathieu exactes (désactivé : approximation adiabatique)'
+  ja: 厳密なマシュー周波数（オフ：断熱近似）
+  zh: 精确 Mathieu 频率（关闭时用绝热近似）
+c082:
+  de: Bewegungsspuren
+  en: Motion trails
+  fi: Liikejäljet
+  fr: Traînées de mouvement
+  ja: 運動の軌跡
+  zh: 运动轨迹
+c083:
+  de: Anfangswolke (hohl)
+  en: Initial cloud (hollow)
+  fi: Alkupilvi (ontto)
+  fr: Nuage initial (creux)
+  ja: 初期の原子雲（白抜き）
+  zh: 初始云团（空心点）
+c084:
+  de: Ansicht auf die Wolke zentrieren
+  en: Centre view on cloud
+  fi: Keskitä näkymä pilveen
+  fr: Centrer la vue sur le nuage
+  ja: 表示を原子雲の中心に合わせる
+  zh: 视图跟随云团中心
+c085:
+  de: Anfangspositionen relaxieren
+  en: Relax initial positions
+  fi: Relaksoi alkupaikat
+  fr: Relaxer les positions initiales
+  ja: 初期位置を緩和する
+  zh: 先松弛初始位置
+c086:
+  de: Coulomb-Abstoßung
+  en: Coulomb repulsion
+  fi: Coulombin hylkiminen
+  fr: Répulsion coulombienne
+  ja: クーロン反発
+  zh: 库仑排斥
+c087:
+  de: Fallendesign und Eingaben
+  en: Trap design and inputs
+  fi: Loukun suunnittelu ja syötteet
+  fr: Conception du piège et entrées
+  ja: トラップの設計と入力
+  zh: 阱设计与输入
+c088:
+  de: 'Die axiale Frequenz wird aus Endkappenspannung, Geometrie und Ionenmasse berechnet. Physikalische Spannungen normal eingeben; der erweiterte Modus setzt das Mathieu-q direkt. Ein Wechsel der Spezies behält die Spannungen bei: die Stabilität erneut prüfen. V_RF ist die differentielle Null-bis-Spitze-Amplitude zwischen den Stabpaaren.'
+  en: 'Axial frequency is calculated from endcap voltage, geometry and ion mass. Enter physical voltages normally; advanced mode sets Mathieu q directly. Species changes preserve voltages: check stability again. V_RF is the differential zero-to-peak amplitude between rod pairs.'
+  fi: 'Aksiaalitaajuus lasketaan päätyelektrodin jännitteestä, geometriasta ja ionin massasta. Syötä fysikaaliset jännitteet normaalisti; edistynyt tila asettaa Mathieun q:n suoraan. Lajin vaihto säilyttää jännitteet: tarkista stabiilius uudelleen. V_RF on sauvaparien välinen differentiaalinen nollasta huippuun -amplitudi.'
+  fr: 'La fréquence axiale est calculée à partir de la tension des électrodes de bout, de la géométrie et de la masse de l''ion. Saisissez les tensions physiques normalement ; le mode avancé fixe directement le q de Mathieu. Changer d''espèce conserve les tensions : revérifiez la stabilité. V_RF est l''amplitude différentielle zéro-crête entre les paires de tiges.'
+  ja: 軸方向周波数はエンドキャップ電圧、形状、イオン質量から計算されます。物理的な電圧は通常どおり入力してください。詳細モードではマシュー q を直接設定します。イオン種を変えても電圧は保たれるため、安定性を再確認してください。V_RF はロッド対間の差動のゼロ・ピーク振幅です。
+  zh: 轴向频率不能直接设置：由端电极电压、几何和离子质量计算。默认输入实际电压；高级模式只直接设置 Mathieu q。切换离子保持电压，需重新检查稳定性。V_RF 是两组电极间的零到峰值差分幅度。
+c089:
+  de: Eingabemodus
+  en: Input mode
+  fi: Syöttötila
+  fr: Mode de saisie
+  ja: 入力モード
+  zh: 输入方式
+c090:
+  de: Spannung / Geometrie
+  en: Voltage / geometry
+  fi: Jännite / geometria
+  fr: Tension / géométrie
+  ja: 電圧 / 形状
+  zh: 电压与几何
+c091:
+  de: 'Erweitert: direktes q'
+  en: 'Advanced: direct q'
+  fi: 'Edistynyt: suora q'
+  fr: 'Avancé : q direct'
+  ja: 詳細：q を直接指定
+  zh: 高级：直接设置 q
+c092:
+  de: Endkappe relativ zum Ring (V)
+  en: endcap relative to ring (V)
+  fi: päätyelektrodi renkaaseen nähden (V)
+  fr: électrode de bout par rapport à l'anneau (V)
+  ja: リングに対するエンドキャップ (V)
+  zh: 端盖相对环电极电压 (V)
+c093:
+  de: charakteristische Größe (mm)
+  en: characteristic size (mm)
+  fi: ominaiskoko (mm)
+  fr: dimension caractéristique (mm)
+  ja: 特性寸法 (mm)
+  zh: 特征尺寸 (mm)
+c094:
+  de: Stabilen Startpunkt für dieses Ion anwenden
+  en: Apply stable starting point for this ion
+  fi: Käytä tälle ionille vakaata aloituspistettä
+  fr: Appliquer un point de départ stable pour cet ion
+  ja: このイオンの安定な開始点を適用
+  zh: 应用当前离子的稳定起点
+c095:
+  de: Gleichungen, Variablen und Stabilität
+  en: Equations, variables and stability
+  fi: Yhtälöt, muuttujat ja stabiilius
+  fr: Équations, variables et stabilité
+  ja: 方程式・変数・安定性
+  zh: 公式、变量与稳定条件
+c096:
+  de: Reale Plattenelektroden benötigen einen kalibrierten Feldkoeffizienten; der Plattenabstand allein begründet dieses ideale Potential nicht. Geometrie und Anzeigebereich sind verschiedene Größen.
+  en: Real plate electrodes require a calibrated field coefficient; plate spacing alone does not establish this ideal potential. Geometry and display range are different quantities.
+  fi: Todelliset levyelektrodit vaativat kalibroidun kenttäkertoimen; pelkkä levyjen etäisyys ei vahvista tätä ideaalista potentiaalia. Geometria ja näyttöalue ovat eri suureita.
+  fr: Des électrodes planes réelles exigent un coefficient de champ étalonné ; l'espacement des plaques seul n'établit pas ce potentiel idéal. La géométrie et la plage d'affichage sont des grandeurs différentes.
+  ja: 実際の平板電極には校正された電場係数が必要で、板の間隔だけではこの理想ポテンシャルは成り立ちません。形状と表示範囲は別の量です。
+  zh: 真实平板端盖需要标定场系数，不能仅由板间距假设理想势。几何大小与绘图范围不同。
+c097:
+  de: Radialer Strahlversatz (µm)
+  en: Radial beam offset (µm)
+  fi: Säteen radiaalinen siirtymä (µm)
+  fr: Décalage radial du faisceau (µm)
+  ja: ビームの径方向オフセット (µm)
+  zh: 径向光束偏移 (µm)
+c098:
+  de: Radiale Strahltaille (µm)
+  en: Radial beam waist (µm)
+  fi: Säteen radiaalinen vyö (µm)
+  fr: Col radial du faisceau (µm)
+  ja: ビームの径方向ウエスト (µm)
+  zh: 径向光束腰 (µm)
+c099:
+  de: Eigenes Ion
+  en: Custom ion
+  fi: Oma ioni
+  fr: Ion personnalisé
+  ja: カスタムイオン
+  zh: 自定义离子
+c100:
+  de: Ionenmasse (u)
+  en: Ion mass (u)
+  fi: Ionin massa (u)
+  fr: Masse de l'ion (u)
+  ja: イオン質量 (u)
+  zh: 离子质量 (u)
+c101:
+  de: Ladung q (e)
+  en: Charge q (e)
+  fi: Varaus q (e)
+  fr: Charge q (e)
+  ja: 電荷 q (e)
+  zh: 电荷 q (e)
+c102:
+  de: Anfangs-ε-Ziel (µm·m/s)
+  en: Initial ε target (µm·m/s)
+  fi: Alku-ε-tavoite (µm·m/s)
+  fr: Cible de ε initial (µm·m/s)
+  ja: 初期 ε の目標値 (µm·m/s)
+  zh: 初始 ε 目标 (µm·m/s)
+c103:
+  de: T aus ε setzen
+  en: Set T from ε
+  fi: Aseta T ε:n mukaan
+  fr: Fixer T d'après ε
+  ja: ε から T を設定
+  zh: 由 ε 设置初温
+c104:
+  de: Radius der Ionenmarkierung (px)
+  en: Ion marker radius (px)
+  fi: Ionimerkin säde (px)
+  fr: Rayon du marqueur d'ion (px)
+  ja: イオンマーカーの半径 (px)
+  zh: 离子标记半径 (px)
+c105:
+  de: Lauf, Abbildungen, Daten und Video
+  en: Run, figures, data and video
+  fi: Ajo, kuvat, data ja video
+  fr: Exécution, figures, données et vidéo
+  ja: 実行・図・データ・動画
+  zh: 运行、图像、数据和视频
+c106:
+  de: Zurücksetzen
+  en: Reset
+  fi: Nollaa
+  fr: Réinitialiser
+  ja: リセット
+  zh: 重置
+c107:
+  de: Gesamte Ansicht anpassen
+  en: Fit whole view
+  fi: Sovita koko näkymä
+  fr: Ajuster toute la vue
+  ja: 全体表示に合わせる
+  zh: 完整视图
+c108:
+  de: Bedingungen
+  en: conditions
+  fi: ehdot
+  fr: conditions
+  ja: 条件
+  zh: 条件
+c109:
+  de: Parameter
+  en: parameters
+  fi: parametrit
+  fr: paramètres
+  ja: パラメータ
+  zh: 参数
+c110:
+  de: '3D-Ansicht: zum Drehen ziehen, zum Zoomen das Mausrad verwenden (auf Touchscreens „Ansichtszoom“); „Anpassen“ stellt den Maßstab wieder her. Das Video nimmt einen 2–30 Sekunden langen Ausschnitt unter den aktuellen Bedingungen auf. Kurze Läufe verlangsamen ihre Anzeige während der Aufnahme; die physikalische Uhr bleibt ausdrücklich sichtbar. Abbildungen und Video enthalten eine Zusammenfassung der Bedingungen; die vollständigen Bedingungen als JSON und die Zahlen als CSV speichern. Den gewünschten Ordner im Speichern-Dialog des Browsers wählen.'
+  en: '3D view: drag to rotate, wheel to zoom (use View zoom on touch screens); Fit restores the scale. Video records a 2–30 second clip under the current conditions. Short runs slow their display while recording; the physical clock remains explicit. Figures and video include a condition summary; save full conditions as JSON and numbers as CSV. Choose your preferred folder in the browser’s save dialog.'
+  fi: '3D-näkymä: pyöritä vetämällä, zoomaa rullalla (kosketusnäytöillä käytä Näkymän zoomia); Sovita palauttaa mittakaavan. Video tallentaa 2–30 sekunnin klipin nykyisillä ehdoilla. Lyhyet ajot hidastavat näyttöään tallennuksen aikana; fysikaalinen kello pysyy selkeästi näkyvissä. Kuvat ja video sisältävät ehtojen yhteenvedon; tallenna täydet ehdot JSON-tiedostona ja luvut CSV-tiedostona. Valitse haluamasi kansio selaimen tallennusikkunassa.'
+  fr: 'Vue 3D : faites glisser pour tourner, utilisez la molette pour zoomer (sur écran tactile, utilisez Zoom de la vue) ; Ajuster rétablit l''échelle. La vidéo enregistre un clip de 2 à 30 secondes dans les conditions actuelles. Les exécutions courtes ralentissent leur affichage pendant l''enregistrement ; l''horloge physique reste affichée explicitement. Les figures et la vidéo incluent un résumé des conditions ; enregistrez les conditions complètes en JSON et les nombres en CSV. Choisissez votre dossier dans la boîte de dialogue d''enregistrement du navigateur.'
+  ja: 3D 表示：ドラッグで回転、ホイールで拡大縮小（タッチ画面では「表示ズーム」を使用）。「全体表示に合わせる」で縮尺が元に戻ります。動画は現在の条件で 2〜30 秒のクリップを録画します。短い実行は録画中に表示が遅くなりますが、物理時計は明示されます。図と動画には条件の要約が入ります。全条件は JSON、数値は CSV で保存してください。保存先はブラウザーの保存ダイアログで選べます。
+  zh: 三维图：拖动旋转，滚轮放大（触屏用放大框）；“完整视图”重设比例。视频按当前条件录制 2–30 秒；短模拟在录制时减慢显示，物理时钟仍明确标出。图像与视频带条件摘要；完整条件另存 JSON，数值另存 CSV。浏览器的保存位置请选择保存文件夹。
+c111:
+  de: Rotierende 3D-Projektion (Koordinaten in µm)
+  en: Rotating 3D projection (coordinates µm)
+  fi: Pyörivä 3D-projektio (koordinaatit µm)
+  fr: Projection 3D en rotation (coordonnées en µm)
+  ja: 回転する 3 次元投影（座標は µm）
+  zh: 旋转三维投影（坐标 µm）
+c112:
+  de: Radiale x–y-Projektion
+  en: Radial x–y projection
+  fi: Radiaalinen x–y-projektio
+  fr: Projection radiale x–y
+  ja: 径方向 x–y 投影
+  zh: 径向 x–y 投影
+c113:
+  de: 'Temperatur: Mittelwert, x, y, z (mK, logarithmisch)'
+  en: 'Temperature: mean, x, y, z (mK, logarithmic)'
+  fi: 'Lämpötila: keskiarvo, x, y, z (mK, logaritminen)'
+  fr: 'Température : moyenne, x, y, z (mK, logarithmique)'
+  ja: 温度：平均、x、y、z (mK、対数軸)
+  zh: 温度：平均、x、y、z（mK，对数）
+c114:
+  de: x–vₓ-Phasenraum (µm, m/s)
+  en: x–vₓ phase space (µm, m/s)
+  fi: x–vₓ-vaiheavaruus (µm, m/s)
+  fr: Espace des phases x–vₓ (µm, m/s)
+  ja: x–vₓ 位相空間 (µm, m/s)
+  zh: x–vₓ 相空间（µm、m/s）
+c115:
+  de: Anfangs-Phasenraumfläche und Größe der Ionenkugel
+  en: Initial phase-space area and ion-ball size
+  fi: Alkuvaiheavaruuden ala ja ionipallon koko
+  fr: Aire initiale de l'espace des phases et taille de la boule d'ions
+  ja: 初期の位相空間面積とイオン球の大きさ
+  zh: 初始相空间面积与离子球大小
+c116:
+  de: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²), in µm·m/s. Ein unkorrelierter Gauß-Start hat ε ≈ σₓ√(kBT/m). „T aus ε setzen“ verwendet diese Beziehung und deaktiviert die Relaxation der Anfangspositionen. Endliche Stichproben weichen vom gewünschten Ziel ab; die Statusanzeige nennt das tatsächliche anfängliche und aktuelle ε. Die Temperatur verwendet die Varianzen der Geschwindigkeitsstichprobe nach Abzug des Schwerpunkts; der Mittelwert ist der Durchschnitt aus x/y/z. Die Anfangs-T ist ein Verteilungsziel, daher weicht eine kleine Stichprobe ab. Freisetzung potentieller Energie und Mikrobewegung können vorübergehende Erwärmung verursachen; die Kurven werden nicht zum Fallen gezwungen. Die Doppler-Linie ist eine Referenzskala und keine Vorhersage für jede Bedingung. Dies ist eine Phasenraumfläche und keine Strahlemittanz in mm·mrad, die eine Longitudinalgeschwindigkeit erfordert. Der Kugelradius ändert nur die gezeichnete Markierung; er ist nicht der physikalische Radius des Ions.
+  en: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²), in µm·m/s. An uncorrelated Gaussian start has ε ≈ σₓ√(kBT/m). Set T from ε uses this relation and disables initial-position relaxation. Finite samples differ from the requested target; the status shows actual initial and current ε. Temperature uses the velocity sample variances after centre-of-mass subtraction; mean is the average of x/y/z. Initial T is a distribution target, so a small sample differs. Potential-energy release and micromotion can cause transient heating; curves are not forced to decrease. The Doppler line is a reference scale rather than a prediction for every condition. This is a phase-space area, rather than beam emittance in mm·mrad, which requires a longitudinal velocity. Ball radius changes the drawn marker only; it is not the ion’s physical radius.
+  fi: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²), yksikössä µm·m/s. Korreloimattoman Gaussin alulle ε ≈ σₓ√(kBT/m). “Aseta T ε:n mukaan” käyttää tätä yhteyttä ja poistaa alkupaikkojen relaksaation käytöstä. Äärelliset otokset poikkeavat pyydetystä tavoitteesta; tilarivi näyttää todellisen alku- ja nykyisen ε:n. Lämpötila käyttää nopeusotoksen variansseja massakeskipisteen vähennyksen jälkeen; keskiarvo on x/y/z:n keskiarvo. Alku-T on jakauman tavoite, joten pieni otos poikkeaa siitä. Potentiaalienergian vapautuminen ja mikroliike voivat aiheuttaa ohimenevää lämpenemistä; käyriä ei pakoteta laskemaan. Doppler-viiva on viiteasteikko eikä ennuste jokaiselle tilanteelle. Tämä on vaiheavaruuden ala, ei sädeemittanssi yksikössä mm·mrad, joka vaatii pitkittäisnopeuden. Pallon säde muuttaa vain piirrettyä merkkiä; se ei ole ionin fysikaalinen säde.
+  fr: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²), en µm·m/s. Un départ gaussien non corrélé a ε ≈ σₓ√(kBT/m). Fixer T d'après ε utilise cette relation et désactive la relaxation des positions initiales. Les échantillons finis diffèrent de la cible demandée ; l'état affiche le ε initial et le ε courant réels. La température utilise les variances de l'échantillon de vitesses après soustraction du centre de masse ; la moyenne est celle de x/y/z. T initial est une cible de distribution, donc un petit échantillon s'en écarte. La libération d'énergie potentielle et le micromouvement peuvent provoquer un chauffage transitoire ; les courbes ne sont pas forcées à décroître. La ligne Doppler est une échelle de référence et non une prédiction pour chaque condition. Il s'agit d'une aire dans l'espace des phases, et non de l'émittance d'un faisceau en mm·mrad, qui nécessite une vitesse longitudinale. Le rayon de la boule ne change que le marqueur dessiné ; ce n'est pas le rayon physique de l'ion.
+  ja: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²)、単位は µm·m/s。相関のないガウス分布の初期状態では ε ≈ σₓ√(kBT/m) です。「ε から T を設定」はこの関係を使い、初期位置の緩和を無効にします。有限サンプルは目標値と一致せず、ステータスには実際の初期 ε と現在の ε が表示されます。温度は重心を引いた後の速度サンプル分散から求め、平均は x/y/z の平均です。初期 T は分布の目標値なので、小さなサンプルでは差が出ます。ポテンシャルエネルギーの解放やマイクロモーションにより一時的な加熱が起こることがあり、曲線は減少するよう強制されません。ドップラー線は基準のスケールであり、あらゆる条件の予測ではありません。これは位相空間の面積であり、縦方向速度を必要とする mm·mrad のビームエミッタンスではありません。球の半径は描画マーカーだけを変え、イオンの物理的な半径ではありません。
+  zh: εₓ = √(Var(x)Var(vₓ) − Cov(x,vₓ)²)，单位 µm·m/s。无相关的高斯初态约为 σₓ√(kBT/m)；“由 ε 设置初温”据此计算 T，并关闭初始位置松弛。有限粒子样本的实际 ε 与输入目标有差别，状态栏同时显示初始与当前 ε。温度曲线使用去除质心速度后的三轴样本方差，均值是三轴的平均；初温输入是随机分布的目标，少量离子的样本值通常不同。初始势能释放和微运动可使曲线短时升温，并不强制单调下降。图中多普勒标线是参考尺度，非所有条件的最终温度预测。该量不是需要纵向速度定义的 mm·mrad 束流发射度。球半径仅改变绘图标记；并非离子的物理半径。
+c117:
+  de: Modell, Bedienelemente und Quellen
+  en: Model, controls and sources
+  fi: Malli, säätimet ja lähteet
+  fr: Modèle, commandes et sources
+  ja: モデル・操作・出典
+  zh: 模型、用法与来源
+c118:
+  de: 'Voreinstellungen: ⁴⁰Ca⁺, 397 nm, Γ/2π=23,05 MHz. Kühlung ausführen und dann blaue Heizung oder die RF-Voreinstellung vergleichen. Eine Änderung physikalischer Parameter setzt die Trajektorie zurück; Zoomen ändert nur die Darstellung. Die Temperatur verwendet die Geschwindigkeitsvarianz nach Abzug der Schwerpunktsdrift. Die Temperatur bei tatsächlichem RF enthält Mikrobewegung und ist keine reine säkulare Temperatur.'
+  en: 'Defaults: ⁴⁰Ca⁺, 397 nm, Γ/2π=23.05 MHz. Run cooling, then compare blue heating or the RF preset. Changing physical parameters resets the trajectory; zoom changes only the drawing. Temperature uses velocity variance after subtracting centre-of-mass drift. Actual-RF temperature includes micromotion and is not a pure secular temperature.'
+  fi: 'Oletukset: ⁴⁰Ca⁺, 397 nm, Γ/2π=23,05 MHz. Aja jäähdytys ja vertaa sitten sinistä lämmitystä tai RF-esiasetusta. Fysikaalisten parametrien muutos nollaa radan; zoom muuttaa vain piirtämistä. Lämpötila käyttää nopeuden varianssia massakeskipisteen ajautuman vähennyksen jälkeen. Todellisen RF:n lämpötila sisältää mikroliikkeen eikä ole puhdas sekulaarilämpötila.'
+  fr: 'Valeurs par défaut : ⁴⁰Ca⁺, 397 nm, Γ/2π=23,05 MHz. Lancez le refroidissement, puis comparez le chauffage bleu ou le préréglage RF. Modifier des paramètres physiques réinitialise la trajectoire ; le zoom ne change que le dessin. La température utilise la variance des vitesses après soustraction de la dérive du centre de masse. La température avec RF réel inclut le micromouvement et n''est pas une température séculaire pure.'
+  ja: 既定値：⁴⁰Ca⁺、397 nm、Γ/2π=23.05 MHz。冷却を実行してから、青離調による加熱や RF プリセットと比較してください。物理パラメータを変えると軌道はリセットされ、ズームは描画だけを変えます。温度は重心ドリフトを引いた後の速度分散から求めます。実際の RF での温度はマイクロモーションを含み、純粋な永年運動の温度ではありません。
+  zh: 默认 ⁴⁰Ca⁺，397 nm，Γ/2π=23.05 MHz。先运行冷却，再选择蓝失谐或射频微运动预设。修改物理参数会重置轨迹；放大仅改变画面。温度由去除整体漂移后的速度方差定义，真实射频结果包含微运动，因此不是纯世俗温度。
+c119:
+  de: Klassische Punktionen, ideale Felder, voneinander unabhängige Zwei-Niveau-Strahlen und stochastischer Rückstoß; Coulomb-Abrundung 0,3 µm, einstellbarer Stabradius/Apertur. Mindestens 40 Integrationsschritte pro RF-Periode. Die Dynamik des Mehrniveau-Rückpumpens ist nicht enthalten; dieses Lehrmodell ist weder ein experimenteller noch ein Kristallphasen-Nachweis.
+  en: Classical point ions, ideal fields, independent two-level beams and stochastic recoil; Coulomb softening 0.3 µm, adjustable rod radius/aperture. At least 40 integration steps per RF period. Multilevel repumping dynamics are omitted; this teaching model is not experimental or crystal-phase evidence.
+  fi: Klassiset pistemäiset ionit, ideaaliset kentät, toisistaan riippumattomat kaksitasosäteet ja stokastinen rekyyli; Coulombin pehmennys 0,3 µm, säädettävä sauvan säde/aukko. Vähintään 40 integrointiaskelta RF-jaksoa kohti. Monitasoista takaisinpumppausdynamiikkaa ei ole mukana; tämä opetusmalli ei ole kokeellinen todiste eikä kidefaasin todiste.
+  fr: Ions ponctuels classiques, champs idéaux, faisceaux à deux niveaux indépendants et recul stochastique ; adoucissement coulombien de 0,3 µm, rayon de tige et ouverture réglables. Au moins 40 pas d'intégration par période RF. La dynamique de repompage multi-niveaux est omise ; ce modèle pédagogique n'est ni une preuve expérimentale ni une preuve de phase cristalline.
+  ja: 古典的な点イオン、理想的な電磁場、互いに独立した二準位ビーム、確率的な反跳を用います。クーロン力の緩和は 0.3 µm、ロッド半径と開口は調整可能です。積分は RF 1 周期あたり少なくとも 40 ステップ。多準位の再ポンピングの力学は含まず、この教育用モデルは実験的証拠でも結晶相の証拠でもありません。
+  zh: 经典点离子、理想场、独立二能级光束及随机反冲；库仑相互作用在 0.3 µm 软化。r₀ 可调。射频每周期至少 40 个时间步。该教学模型不包含多能级回泵动力学；不能作为实验或晶体相变证据。
+c120:
+  de: 'Ionenmassen: AME2020-Atommasse minus Elektronenmasse; Korrekturen der Ionisationsbindungsenergie werden weggelassen. Der Spannungsmodus behält beim Wechsel der Spezies Spannungen und Geometrie bei; q und die Bewegungsfrequenzen ändern sich mit der Masse. Die JSON-Bedingungen enthalten die Masse.'
+  en: 'Ion masses: AME2020 atomic mass minus electron mass; ionization binding corrections are omitted. Voltage mode keeps voltages and geometry when changing species; q and motional frequencies change with mass. The JSON conditions record the mass.'
+  fi: 'Ionien massat: AME2020-atomimassa miinus elektronin massa; ionisaation sidosenergiakorjauksia ei oteta huomioon. Jännitetilassa jännitteet ja geometria säilyvät lajia vaihdettaessa; q ja liiketaajuudet muuttuvat massan mukana. JSON-ehdot tallentavat massan.'
+  fr: 'Masses des ions : masse atomique AME2020 moins la masse des électrons ; les corrections d''énergie de liaison d''ionisation sont omises. Le mode tension conserve tensions et géométrie quand l''espèce change ; q et les fréquences de mouvement changent avec la masse. Les conditions JSON enregistrent la masse.'
+  ja: イオン質量：AME2020 の原子質量から電子質量を引いたもので、電離の束縛エネルギーの補正は含みません。電圧モードではイオン種を変えても電圧と形状は保たれ、q と運動周波数は質量とともに変わります。JSON の条件には質量が記録されます。
+  zh: 离子质量：AME2020 原子质量减去电子质量；忽略电离结合能修正。电压模式切换离子时保持电压和几何，q 与频率随质量改变；可在 JSON 条件中检查质量。
+c121:
+  de: Fallendesign, Umkehrrechnungen und Herleitungen
+  en: Trap design, inverse calculations and derivations
+  fi: Loukun suunnittelu, käänteislaskennat ja johdot
+  fr: Conception du piège, calculs inverses et démonstrations
+  ja: トラップの設計・逆算・導出
+  zh: 阱设计、反算与公式推导
+c122:
+  de: Die RFQ-Stabpotentiale sind ±(U−V cos Ωt). V ist die Null-bis-Spitze-Amplitude eines Stabpaars gegenüber Masse; die differentielle Amplitude beträgt 2V. Das Kühlungspanel verwendet das differentielle V_RF, daher sind gleiche Zahlenwerte der Spannungen nicht austauschbar.
+  en: RFQ rod potentials are ±(U−V cos Ωt). V is the zero-to-peak amplitude of one rod pair relative to ground; the differential amplitude is 2V. The cooling panel uses differential V_RF, so equal numerical voltages are not interchangeable.
+  fi: RFQ-sauvojen potentiaalit ovat ±(U−V cos Ωt). V on yhden sauvaparin nollasta huippuun -amplitudi maahan nähden; differentiaaliamplitudi on 2V. Jäähdytyspaneeli käyttää differentiaalista V_RF-arvoa, joten samat numeeriset jännitteet eivät ole keskenään vaihdettavissa.
+  fr: Les potentiels des tiges RFQ valent ±(U−V cos Ωt). V est l'amplitude zéro-crête d'une paire de tiges par rapport à la masse ; l'amplitude différentielle est 2V. Le panneau de refroidissement utilise V_RF différentiel, donc des tensions numériquement égales ne sont pas interchangeables.
+  ja: RFQ のロッド電位は ±(U−V cos Ωt) です。V は接地に対する 1 組のロッドのゼロ・ピーク振幅で、差動振幅は 2V です。冷却パネルは差動の V_RF を使うため、数値が同じ電圧でも互換ではありません。
+  zh: 此 RFQ 的杆电压为 ±(U−V cos Ωt)，V 是单组杆对地的零到峰值幅度。两组杆之间的差分幅度为 2V。冷却面板的 V_RF 是差分幅度，因此相同数值不可直接互换。
+c123:
+  de: nur in der adiabatischen Näherung.
+  en: in the adiabatic approximation only.
+  fi: vain adiabaattisessa approksimaatiossa.
+  fr: uniquement dans l'approximation adiabatique.
+  ja: 断熱近似に限ります。
+  zh: 只在绝热近似适用时成立。
+c124:
+  de: Ziel-q
+  en: Target q
+  fi: Tavoite-q
+  fr: q cible
+  ja: 目標 q
+  zh: 目标 q
+c125:
+  de: Ziel-a
+  en: Target a
+  fi: Tavoite-a
+  fr: a cible
+  ja: 目標 a
+  zh: 目标 a
+c126:
+  de: Erforderliche Spannungen in der Vorschau anzeigen
+  en: Preview required voltages
+  fi: Esikatsele tarvittavat jännitteet
+  fr: Prévisualiser les tensions nécessaires
+  ja: 必要な電圧をプレビュー
+  zh: 预览所需电压
+c127:
+  de: Vorschau anwenden
+  en: Apply preview
+  fi: Käytä esikatselu
+  fr: Appliquer l'aperçu
+  ja: プレビューを適用
+  zh: 应用预览
+c128:
+  de: Das inverse Design verwendet das gewählte Zielion, den Radius und die RF-Frequenz. Vor dem Anwenden in der Vorschau prüfen; jede Änderung macht die vorherige Vorschau ungültig. Die nominelle Tiefe QqV/4 gilt für U=0 bei r=r₀ im idealen adiabatischen Modell und ist keine gemessene Barriere an der Staboberfläche. Massengrenzen beschreiben den ersten Stabilitätsbereich für unendliche Zeit; die Transmission bei endlicher Verweilzeit kann abweichen.
+  en: Inverse design uses the selected target ion, radius and RF frequency. Preview before applying; any edit invalidates the previous preview. Nominal depth QqV/4 is for U=0 at r=r₀ in the ideal adiabatic model, rather than a measured rod-surface barrier. Mass cutoffs describe the infinite-time first stability region; finite-residence transmission may differ.
+  fi: Käänteissuunnittelu käyttää valittua kohdeionia, sädettä ja RF-taajuutta. Esikatsele ennen käyttöä; mikä tahansa muutos mitätöi edellisen esikatselun. Nimellissyvyys QqV/4 pätee, kun U=0 ja r=r₀ ideaalisessa adiabaattisessa mallissa, eikä se ole mitattu sauvan pinnan este. Massarajat kuvaavat äärettömän ajan ensimmäistä stabiiliusaluetta; äärellisen viipymäajan läpäisy voi poiketa.
+  fr: La conception inverse utilise l'ion cible, le rayon et la fréquence RF sélectionnés. Prévisualisez avant d'appliquer ; toute modification invalide l'aperçu précédent. La profondeur nominale QqV/4 correspond à U=0 en r=r₀ dans le modèle adiabatique idéal ; ce n'est pas une barrière mesurée à la surface des tiges. Les coupures de masse décrivent la première région de stabilité en temps infini ; la transmission à temps de séjour fini peut différer.
+  ja: 逆設計は、選択した対象イオン、半径、RF 周波数を使います。適用前にプレビューしてください。何かを編集すると以前のプレビューは無効になります。公称の深さ QqV/4 は理想的な断熱モデルで U=0、r=r₀ の場合のもので、ロッド表面での測定されたバリアではありません。質量カットオフは無限時間での第 1 安定領域を表し、有限の滞在時間での透過は異なることがあります。
+  zh: 反算使用当前目标离子、半径和 RF 频率。先预览再应用，任何输入变化均取消旧预览。名义势阱深度 QqV/4 在 U=0、r=r₀ 的理想绝热模型下计算；非真实杆表面的势垒。质量截止值来自无限时间第一稳定区；有限驻留透过率可能不同。
+c129:
+  de: Wie Einrichtungen und Massenmessexperimente zusammenhängen
+  en: How facilities and mass measurement experiments fit together
+  fi: Miten laitokset ja massamittauskokeet liittyvät toisiinsa
+  fr: Comment les installations et les expériences de mesure de masse s'articulent
+  ja: 施設と質量測定実験の関係
+  zh: 设施、机构与质量测量装置的关系
+c130:
+  de: Eine Trägerinstitution betreibt eine Einrichtung; eine Einrichtung liefert Strahlen für unterschiedliche Experimente; ein Experiment nutzt ein oder mehrere Instrumente. Dieser Leitfaden beschreibt diese Beziehungen, nicht eine Mitarbeiterliste oder eine Liste von Kollaborationen.
+  en: A host institution operates a facility; a facility supplies beams to distinct experiments; an experiment uses one or more instruments. This guide describes those relationships, rather than a staff roster or a list of collaborations.
+  fi: Isäntäorganisaatio ylläpitää laitosta; laitos tuottaa säteitä erillisille kokeille; koe käyttää yhtä tai useampaa instrumenttia. Tämä opas kuvaa näitä suhteita, ei henkilöstöluetteloa tai yhteistyöverkostojen luetteloa.
+  fr: Un établissement hôte exploite une installation ; une installation fournit des faisceaux à des expériences distinctes ; une expérience utilise un ou plusieurs instruments. Ce guide décrit ces relations, et non un organigramme du personnel ni une liste de collaborations.
+  ja: ホスト機関が施設を運営し、施設は個々の実験にビームを供給し、実験は 1 つ以上の装置を使います。このガイドはこうした関係を説明するもので、職員名簿や共同研究の一覧ではありません。
+  zh: 机构承载束流设施；设施为不同实验提供离子束；实验使用一台或多台仪器。下表说明这些关系，不是人员名册，也不表示与所有实验都有合作关系。
+c131:
+  de: Einrichtung und Träger
+  en: Facility and host
+  fi: Laitos ja isäntäorganisaatio
+  fr: Installation et établissement hôte
+  ja: 施設とホスト機関
+  zh: 设施与机构
+c132:
+  de: Experimente und Zweck
+  en: Experiments and purpose
+  fi: Kokeet ja tarkoitus
+  fr: Expériences et objectif
+  ja: 実験と目的
+  zh: 实验与用途
+c133:
+  de: Beschreibungen geprüft am 10. Oktober 2026. Aktuellen Betrieb, Personen und Besucheranforderungen bitte den verlinkten offiziellen Seiten entnehmen.
+  en: Descriptions reviewed 10 October 2026. Follow the linked official pages for current operation, people and visitor requirements.
+  fi: Kuvaukset tarkistettu 10. lokakuuta 2026. Seuraa linkitettyjä virallisia sivuja ajantasaisen toiminnan, henkilöiden ja vierailijavaatimusten osalta.
+  fr: Descriptions vérifiées le 10 octobre 2026. Consultez les pages officielles liées pour l'exploitation actuelle, le personnel et les conditions de visite.
+  ja: 説明は 2026 年 10 月 10 日に確認しました。最新の運転状況、人員、来訪者の要件については、リンク先の公式ページをご覧ください。
+  zh: 说明核对日期：2026 年 10 月 10 日。各实验的运行情况、人员与访客要求请以所链接的官方页面为准。
+c135:
+  de: Bereich der Geschwindigkeitsansicht
+  en: Velocity view range
+  fi: Nopeusnäkymän alue
+  fr: Plage de la vue des vitesses
+  ja: 速度表示の範囲
+  zh: 速度图范围
+c136:
+  de: Anfangsbereich (Kühlung vergleichen)
+  en: Initial range (compare cooling)
+  fi: Alkualue (vertaa jäähtymistä)
+  fr: Plage initiale (comparer le refroidissement)
+  ja: 初期範囲（冷却の比較用）
+  zh: 初始范围（比较冷却）
+c137:
+  de: Aktuelle Wolke (Verteilung untersuchen)
+  en: Current cloud (inspect distribution)
+  fi: Nykyinen pilvi (tarkastele jakaumaa)
+  fr: Nuage actuel (inspecter la distribution)
+  ja: 現在の原子雲（分布の確認）
+  zh: 当前云团（细看分布）
+c138:
+  de: Einfangbereich des Lasers
+  en: Laser capture range
+  fi: Laserin vangitsemisalue
+  fr: Plage de capture du laser
+  ja: レーザーの捕獲範囲
+  zh: 激光俘获范围
+c139:
+  de: Animation und Bedingungen speichern
+  en: Save animation and conditions
+  fi: Tallenna animaatio ja ehdot
+  fr: Enregistrer l'animation et les conditions
+  ja: アニメーションと条件を保存
+  zh: 保存动画与条件
+c140:
+  de: Nach der Aufnahme unter der Vorschau „Aufgenommenes Video speichern“ verwenden. Die Aufnahmen enthalten Parameter und physikalische Zeit.
+  en: After recording, use Save recorded video below its preview. Captures include parameters and physical time.
+  fi: Tallennuksen jälkeen käytä Tallenna tallennettu video -linkkiä esikatselun alla. Tallenteet sisältävät parametrit ja fysikaalisen ajan.
+  fr: Après l'enregistrement, utilisez Enregistrer la vidéo sous son aperçu. Les captures incluent les paramètres et le temps physique.
+  ja: 録画後、プレビューの下にある「録画した動画を保存」を使ってください。録画にはパラメータと物理時間が含まれます。
+  zh: 录制后在预览下点击“保存录制视频”；画面包含参数与物理时间。
+c141:
+  de: Beobachtungszeitraum (ms)
+  en: Observation span (ms)
+  fi: Havaintojakso (ms)
+  fr: Durée d'observation (ms)
+  ja: 観測区間 (ms)
+  zh: 观察时长 (ms)
+c142:
+  de: Bahn-Zoom
+  en: Orbit zoom
+  fi: Radan zoom
+  fr: Zoom de l'orbite
+  ja: 軌道のズーム
+  zh: 轨道放大
+c143:
+  de: Ansicht zurücksetzen
+  en: Reset view
+  fi: Palauta näkymä
+  fr: Réinitialiser la vue
+  ja: 表示をリセット
+  zh: 重置画面
+c144:
+  de: Radiale Halbweite (µm)
+  en: Radial half-range (µm)
+  fi: Radiaalinen puoliväli (µm)
+  fr: Demi-étendue radiale (µm)
+  ja: 径方向の半幅 (µm)
+  zh: 径向半范围 (µm)
+c145:
+  de: Axiale Halbweite (µm)
+  en: Axial half-range (µm)
+  fi: Aksiaalinen puoliväli (µm)
+  fr: Demi-étendue axiale (µm)
+  ja: 軸方向の半幅 (µm)
+  zh: 轴向半范围 (µm)
+c146:
+  de: Inspektionszeit (ms)
+  en: Inspect time (ms)
+  fi: Tarkasteluhetki (ms)
+  fr: Instant d'inspection (ms)
+  ja: 確認する時刻 (ms)
+  zh: 查看时刻 (ms)
+c147:
+  de: Diese Zeit anzeigen
+  en: Show this time
+  fi: Näytä tämä hetki
+  fr: Afficher cet instant
+  ja: この時刻を表示
+  zh: 显示此时刻
+c148:
+  de: 3D-Blickwinkel
+  en: 3D view angle
+  fi: 3D-katselukulma
+  fr: Angle de vue 3D
+  ja: 3D の視点角度
+  zh: 三维视角
+c149:
+  de: An aktuelle Bahn anpassen
+  en: Fit current orbit
+  fi: Sovita nykyiseen rataan
+  fr: Ajuster à l'orbite actuelle
+  ja: 現在の軌道に合わせる
+  zh: 适应当前轨道
+c150:
+  de: 'Strahlversatz 0 mit dem vorgeschlagenen Versatz vergleichen: Der Indikator tritt in das grüne Fenster ein, und die Magnetronrate wechselt von positiv zu negativ. Zum Vergleich der Kühlung einen festen Bereich beibehalten; „An aktuelle Bahn anpassen“ vergrößert die aktuelle Bewegung. Die Inspektionszeit verschiebt den Beobachtungspunkt ohne neue Anpassung.'
+  en: 'Compare beam offset 0 with Suggest offset: the indicator enters the green window and the magnetron rate changes from positive to negative. Keep a fixed range to compare cooling; Fit current orbit magnifies the current motion. Inspect time changes the observation point without refitting.'
+  fi: 'Vertaa säteen siirtymää 0 ehdotettuun siirtymään: ilmaisin siirtyy vihreälle alueelle ja magnetronin nopeus vaihtuu positiivisesta negatiiviseksi. Pidä alue kiinteänä verrataksesi jäähtymistä; Sovita nykyiseen rataan suurentaa nykyisen liikkeen. Tarkasteluhetki muuttaa havaintopistettä ilman uutta sovitusta.'
+  fr: 'Comparez le décalage de faisceau 0 avec le décalage suggéré : l''indicateur entre dans la fenêtre verte et le taux de magnétron passe de positif à négatif. Gardez une plage fixe pour comparer le refroidissement ; Ajuster à l''orbite actuelle agrandit le mouvement courant. L''instant d''inspection déplace le point d''observation sans nouvel ajustement.'
+  ja: ビームオフセット 0 と提案オフセットを比較してください。指標が緑の範囲に入り、マグネトロン速度の符号が正から負に変わります。冷却を比較するには範囲を固定し、「現在の軌道に合わせる」で現在の運動を拡大します。確認時刻を変えても再フィットはされず、観測点だけが動きます。
+  zh: 先将光束偏移设为 0，再点「建议偏移」：箭头进入绿色区间，磁控管变化率从正变负。固定范围用于比较冷却；「适应当前轨道」用于放大。查看时刻只改变观察位置，不重新拟合。
+c151:
+  de: Axiale z–x-Projektion (unabhängige Bereiche)
+  en: Axial z–x projection (independent ranges)
+  fi: Aksiaalinen z–x-projektio (itsenäiset alueet)
+  fr: Projection axiale z–x (plages indépendantes)
+  ja: 軸方向 z–x 投影（独立した範囲）
+  zh: 轴向 z–x 投影（独立范围）
+c152:
+  de: 3D-Projektion (physikalische Eigenfrequenzen)
+  en: 3D projection (physical eigenfrequencies)
+  fi: 3D-projektio (fysikaaliset ominaistaajuudet)
+  fr: Projection 3D (fréquences propres physiques)
+  ja: 3 次元投影（物理的な固有周波数）
+  zh: 三维投影（真实本征频率）
+c153:
+  de: Die Bahnen verwenden die physikalischen Phasen von ν₊, ν₋ und νz zur angezeigten Zeit; die Spur umfasst die letzten sechs Zyklotronperioden. Die Wiedergabe nutzt eine beschleunigte logarithmische Uhr, und schnelle Bewegung kann visuell Aliasing zeigen. Die 3D-Ansicht durch Ziehen drehen; mit dem Mausrad zoomen.
+  en: Orbits use the physical ν₊, ν₋ and νz phases at the displayed time; the trail covers the last six cyclotron periods. Playback uses an accelerated logarithmic clock and fast motion can visually alias. Drag the 3D view to rotate; wheel to zoom.
+  fi: Radat käyttävät fysikaalisia ν₊-, ν₋- ja νz-vaiheita näytettynä hetkenä; jälki kattaa viimeiset kuusi syklotronijaksoa. Toisto käyttää kiihdytettyä logaritmista kelloa, ja nopea liike voi näyttää laskostuvalta. Pyöritä 3D-näkymää vetämällä; zoomaa rullalla.
+  fr: Les orbites utilisent les phases physiques de ν₊, ν₋ et νz à l'instant affiché ; la traînée couvre les six dernières périodes cyclotron. La lecture utilise une horloge logarithmique accélérée et un mouvement rapide peut présenter un repliement visuel. Faites glisser la vue 3D pour la faire tourner ; molette pour zoomer.
+  ja: 軌道は表示時刻における物理的な ν₊、ν₋、νz の位相を使い、軌跡は直近 6 サイクロトロン周期分を表示します。再生は加速された対数時計を使うため、速い運動は見かけ上エイリアシングを起こすことがあります。3D 表示はドラッグで回転し、ホイールで拡大縮小します。
+  zh: 轨道使用真实 ν₊、ν₋、νz 与当前物理时间的相位，轨迹线仅显示最近六个回旋周期；播放采用加速的对数时钟，高频运动可能视觉混叠。拖动三维图旋转，滚轮缩放。
+c154:
+  de: Verstimmung δ/Γ
+  en: Detuning δ/Γ
+  fi: Viritysero δ/Γ
+  fr: Désaccord δ/Γ
+  ja: 離調 δ/Γ
+  zh: 失谐 δ/Γ
+c155:
+  de: Sättigung auf der Achse pro Strahl s₀
+  en: On-axis saturation per beam s₀
+  fi: Akselin saturaatio säettä kohden s₀
+  fr: Saturation sur l'axe par faisceau s₀
+  ja: ビームあたりの軸上飽和パラメータ s₀
+  zh: 每束轴上饱和参数 s₀
+c156:
+  de: 1/e²-Intensitätsradius des Strahls (mm)
+  en: Beam 1/e² intensity radius (mm)
+  fi: Säteen 1/e²-intensiteettisäde (mm)
+  fr: Rayon d'intensité 1/e² du faisceau (mm)
+  ja: ビームの 1/e² 強度半径 (mm)
+  zh: 光束强度 1/e² 半径 (mm)
+c157:
+  de: Ziel der Anfangstemperatur (µK)
+  en: Initial temperature target (µK)
+  fi: Alkulämpötilan tavoite (µK)
+  fr: Cible de température initiale (µK)
+  ja: 初期温度の目標値 (µK)
+  zh: 初始温度目标 (µK)
+c158:
+  de: Anfängliche RMS-Größe pro Achse (mm)
+  en: Initial RMS size per axis (mm)
+  fi: Alkuperäinen RMS-koko akselia kohden (mm)
+  fr: Taille RMS initiale par axe (mm)
+  ja: 各軸の初期 RMS サイズ (mm)
+  zh: 每轴初始 RMS 尺寸 (mm)
+c159:
+  de: Teilchen
+  en: Particles
+  fi: Hiukkasia
+  fr: Particules
+  ja: 粒子数
+  zh: 粒子数
+c160:
+  de: 3D-Wolke · gleiche physikalische Achsen (mm)
+  en: 3D cloud · equal physical axes (mm)
+  fi: 3D-pilvi · yhtä suuret fysikaaliset akselit (mm)
+  fr: Nuage 3D · axes physiques égaux (mm)
+  ja: 3D の原子雲・物理的に等しい軸 (mm)
+  zh: 三维云团 · 等比例物理轴 (mm)
+c161:
+  de: 2D-Wolkenprojektion (mm)
+  en: 2D cloud projection (mm)
+  fi: 2D-pilviprojektio (mm)
+  fr: Projection 2D du nuage (mm)
+  ja: 2 次元の原子雲投影 (mm)
+  zh: 二维云团投影 (mm)
+c162:
+  de: Temperatur der Überlebenden · Mittelwert, x, y, z (µK)
+  en: Survivor temperature · mean, x, y, z (µK)
+  fi: Eloonjääneiden lämpötila · keskiarvo, x, y, z (µK)
+  fr: Température des survivants · moyenne, x, y, z (µK)
+  ja: 生存原子の温度・平均、x、y、z (µK)
+  zh: 剩余原子温度 · 平均、x、y、z (µK)
+c163:
+  de: RMS-Größen der Wolke · x, y, z (mm)
+  en: RMS cloud sizes · x, y, z (mm)
+  fi: Pilven RMS-koot · x, y, z (mm)
+  fr: Tailles RMS du nuage · x, y, z (mm)
+  ja: 原子雲の RMS サイズ・x、y、z (mm)
+  zh: 云团 RMS 尺寸 · x、y、z (mm)
+c164:
+  de: Schwerpunktsgeschwindigkeit · x, y, z (m/s)
+  en: Centroid velocity · x, y, z (m/s)
+  fi: Keskipisteen nopeus · x, y, z (m/s)
+  fr: Vitesse du centroïde · x, y, z (m/s)
+  ja: 重心速度・x、y、z (m/s)
+  zh: 质心漂移速度 · x、y、z (m/s)
+c165:
+  de: Diagnose der Strahlungsdruckkraft (10⁻²¹ N)
+  en: Radiation-pressure force diagnostic (10⁻²¹ N)
+  fi: Säteilypaineen voimadiagnostiikka (10⁻²¹ N)
+  fr: Diagnostic de la force de pression de radiation (10⁻²¹ N)
+  ja: 放射圧力の診断 (10⁻²¹ N)
+  zh: 辐射压力诊断 (10⁻²¹ N)
+c166:
+  de: Phasenraum der gewählten Achse (mm, m/s)
+  en: Selected-axis phase space (mm, m/s)
+  fi: Valitun akselin vaiheavaruus (mm, m/s)
+  fr: Espace des phases de l'axe sélectionné (mm, m/s)
+  ja: 選択した軸の位相空間 (mm, m/s)
+  zh: 所选轴相空间 (mm、m/s)
+c167:
+  de: Rote Verstimmung dämpft langsame Atome; blaue Verstimmung kann heizen.
+  en: Red detuning damps slow atoms; blue detuning can heat.
+  fi: Punainen viritysero vaimentaa hitaita atomeja; sininen viritysero voi lämmittää.
+  fr: Un désaccord vers le rouge amortit les atomes lents ; un désaccord vers le bleu peut chauffer.
+  ja: 赤離調は遅い原子を減衰させ、青離調は加熱することがあります。
+  zh: 红失谐可阻尼慢原子，蓝失谐可能加热。
+c168:
+  de: I/I_sat pro Strahl; der Nenner verwendet die lokale Summe aller sechs Strahlen.
+  en: I/I_sat per beam; the denominator uses the local sum of all six beams.
+  fi: I/I_sat säettä kohden; nimittäjä käyttää kaikkien kuuden säteen paikallista summaa.
+  fr: I/I_sat par faisceau ; le dénominateur utilise la somme locale des six faisceaux.
+  ja: ビームあたりの I/I_sat。分母には 6 本すべてのビームの局所的な合計を使います。
+  zh: 每束光的 I/I_sat；分母使用六束光的局部总饱和度。
+c169:
+  de: Die Intensität fällt wie exp(−2 r_perp²/w²) ab, mit dem Abstand quer zu jedem Strahl.
+  en: Intensity falls as exp(−2 r_perp²/w²), using distance transverse to each beam.
+  fi: Intensiteetti laskee kuten exp(−2 r_perp²/w²) käyttäen kunkin säteen poikittaisetäisyyttä.
+  fr: L'intensité décroît comme exp(−2 r_perp²/w²), à partir de la distance transverse à chaque faisceau.
+  ja: 強度は各ビームに垂直な距離を用いて exp(−2 r_perp²/w²) に従って減少します。
+  zh: 按各束横向距离，强度为 exp(−2 r_perp²/w²)。
+c170:
+  de: Gaußsche Geschwindigkeitsvarianz pro Achse k_B T/m; endliche Stichproben weichen von diesem Ziel ab.
+  en: Gaussian velocity variance per axis k_B T/m; finite samples differ from this target.
+  fi: Gaussin nopeusvarianssi akselia kohden k_B T/m; äärelliset otokset poikkeavat tästä tavoitteesta.
+  fr: Variance gaussienne des vitesses par axe k_B T/m ; les échantillons finis diffèrent de cette cible.
+  ja: 各軸のガウス分布の速度分散は k_B T/m です。有限サンプルは目標値と一致しません。
+  zh: 每轴高斯速度方差 k_B T/m；有限样本不完全等于目标。
+c171:
+  de: Eine Standardabweichung jeder gaußschen Ortskomponente, kein Teilchenradius.
+  en: One standard deviation of each Gaussian position component, not a particle radius.
+  fi: Kunkin Gaussin paikkakomponentin yksi keskihajonta, ei hiukkasen säde.
+  fr: Un écart-type de chaque composante de position gaussienne, et non un rayon de particule.
+  ja: 各ガウス位置成分の標準偏差 1 つ分であり、粒子の半径ではありません。
+  zh: 各高斯位置分量的一个标准差，并非原子球半径。
+c172:
+  de: Unabhängige Teilchen; größere Stichproben verringern statistische Schwankungen und erhöhen den Rechenaufwand.
+  en: Independent particles; larger samples reduce statistical fluctuations and increase work.
+  fi: Toisistaan riippumattomat hiukkaset; suurempi otos vähentää tilastollista vaihtelua mutta lisää laskentaa.
+  fr: Particules indépendantes ; un échantillon plus grand réduit les fluctuations statistiques et augmente le travail de calcul.
+  ja: 互いに独立した粒子です。サンプルを増やすと統計ゆらぎは減りますが、計算量は増えます。
+  zh: 独立粒子；增大样本可减小统计涨落，但增加运算量。
+c173:
+  de: U_dc · Stab-Gleichspannung (V)
+  en: U_dc · rod DC (V)
+  fi: U_dc · sauvojen tasajännite (V)
+  fr: U_dc · tension continue des tiges (V)
+  ja: U_dc · ロッドの直流電圧 (V)
+  zh: U_dc · 杆直流 (V)
+c174:
+  de: V_RF · differentielle Spitze (V)
+  en: V_RF · differential peak (V)
+  fi: V_RF · differentiaalinen huippu (V)
+  fr: V_RF · crête différentielle (V)
+  ja: V_RF · 差動ピーク (V)
+  zh: V_RF · 差分峰值 (V)
+c175:
+  de: r₀ · Abstand Stab–Achse (mm)
+  en: r₀ · rod-to-axis distance (mm)
+  fi: r₀ · sauvan etäisyys akselista (mm)
+  fr: r₀ · distance tige–axe (mm)
+  ja: r₀ · ロッドから軸までの距離 (mm)
+  zh: r₀ · 杆到轴距离 (mm)
+c176:
+  de: U_end · Endkappen-Gleichspannung (V)
+  en: U_end · endcap DC (V)
+  fi: U_end · päätyelektrodin tasajännite (V)
+  fr: U_end · tension continue de l'électrode de bout (V)
+  ja: U_end · エンドキャップの直流電圧 (V)
+  zh: U_end · 端电极直流 (V)
+c177:
+  de: z₀ · halber Endkappenabstand (mm)
+  en: z₀ · endcap half-distance (mm)
+  fi: z₀ · päätyelektrodin puoliväli (mm)
+  fr: z₀ · demi-distance des électrodes de bout (mm)
+  ja: z₀ · エンドキャップ間の半距離 (mm)
+  zh: z₀ · 端电极半间距 (mm)
+c178:
+  de: κ · Geometriefaktor der Endkappe
+  en: κ · endcap geometry factor
+  fi: κ · päätyelektrodin geometriakerroin
+  fr: κ · facteur géométrique de l'électrode de bout
+  ja: κ · エンドキャップの形状係数
+  zh: κ · 端电极几何因子
+c179:
+  de: Ionenanzahl
+  en: Ion count
+  fi: Ionien määrä
+  fr: Nombre d'ions
+  ja: イオン数
+  zh: 离子数
+c180:
+  de: Anfangstemperatur (mK)
+  en: Initial temperature (mK)
+  fi: Alkulämpötila (mK)
+  fr: Température initiale (mK)
+  ja: 初期温度 (mK)
+  zh: 初温 (mK)
+c181:
+  de: Anfängliches Wolken-σ (µm)
+  en: Initial cloud σ (µm)
+  fi: Alkupilven σ (µm)
+  fr: σ initial du nuage (µm)
+  ja: 初期の雲の σ (µm)
+  zh: 初始云团 σ (µm)
+c182:
+  de: RF-Frequenz (MHz)
+  en: RF frequency (MHz)
+  fi: RF-taajuus (MHz)
+  fr: Fréquence RF (MHz)
+  ja: RF 周波数 (MHz)
+  zh: 射频频率 (MHz)
+c183:
+  de: Mathieu-q
+  en: Mathieu q
+  fi: Mathieun q
+  fr: q de Mathieu
+  ja: マシュー q
+  zh: Mathieu q
+c184:
+  de: Berechnetes axiales νz (kHz)
+  en: Calculated axial νz (kHz)
+  fi: Laskettu aksiaalinen νz (kHz)
+  fr: νz axiale calculée (kHz)
+  ja: 計算された軸方向 νz (kHz)
+  zh: 计算的轴向 νz (kHz)
+c185:
+  de: Intensitätsskala s (pro Strahl s/6)
+  en: Intensity scale s (per beam s/6)
+  fi: Intensiteettiasteikko s (säettä kohden s/6)
+  fr: Échelle d'intensité s (par faisceau s/6)
+  ja: 強度スケール s（ビームあたり s/6）
+  zh: 强度尺度 s（每束 s/6）
+c186:
+  de: Beobachtungsdauer (ms)
+  en: Observation duration (ms)
+  fi: Havaintoaika (ms)
+  fr: Durée d'observation (ms)
+  ja: 観測時間 (ms)
+  zh: 观察时长 (ms)
+c187:
+  de: Ansichtszoom
+  en: View zoom
+  fi: Näkymän zoom
+  fr: Zoom de la vue
+  ja: 表示ズーム
+  zh: 视图放大
+c192:
+  de: 'Noch ausgefeilter: 3D-Paul-/Penning-Falle'
+  en: 'Fancier: 3D Paul / Penning'
+  fi: 'Vielä edistyneempi: 3D Paul / Penning'
+  fr: 'Détaillé : piège de Paul / Penning 3D'
+  ja: さらに高度：3 次元パウル / ペニングトラップ
+  zh: 更进阶：三维保罗 / 潘宁阱
+c193:
+  de: Optische 3D-Melasse
+  en: 3D optical molasses
+  fi: 3D-optinen melassi
+  fr: Mélasse optique 3D
+  ja: 3 次元光学モラセス
+  zh: 三维光学黏胶
+c194:
+  de: Magnetooptische Falle · MOT
+  en: Magneto-optical trap · MOT
+  fi: Magneto-optinen loukku · MOT
+  fr: Piège magnéto-optique · MOT
+  ja: 磁気光学トラップ · MOT
+  zh: 磁光阱 MOT

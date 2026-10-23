@@ -8,6 +8,22 @@
     "zh": {
       "name": "原子 / 跃迁",
       "effect": "质量决定反冲和阱频率；波长决定光子动量，线宽决定散射与多普勒尺度。本模型未求解回泵动力学。"
+    },
+    "fi": {
+      "name": "Laji / siirtymä",
+      "effect": "Massa määrää rekyylin ja loukun taajuudet. Aallonpituus määrää fotonin liikemäärän; luonnonleveys määrää sirontanopeuden ja Doppler-asteikot. Yksinkertaistetut säteet eivät sisällä takaisinpumppauksen dynamiikkaa."
+    },
+    "de": {
+      "name": "Spezies / Übergang",
+      "effect": "Die Masse bestimmt Rückstoß und Fallenfrequenzen. Die Wellenlänge bestimmt den Photonenimpuls; die Linienbreite bestimmt Streurate und Doppler-Skalen. Die vereinfachten Strahlen enthalten keine Rückpump-Dynamik."
+    },
+    "ja": {
+      "name": "種 / 遷移",
+      "effect": "質量は反跳とトラップ周波数を決めます。波長は光子の運動量を、線幅は散乱とドップラーのスケールを決めます。簡略化したビームには再ポンピングの力学を含みません。"
+    },
+    "fr": {
+      "name": "Espèce / transition",
+      "effect": "La masse fixe le recul et les fréquences du piège. La longueur d'onde fixe l'impulsion du photon ; la largeur de raie fixe la diffusion et les échelles Doppler. Les faisceaux simplifiés omettent la dynamique du repompeur."
     }
   },
   {
@@ -19,6 +35,22 @@
     "zh": {
       "name": "失谐 δ/Γ",
       "effect": "负失谐通常抑制速度，正失谐加热。先用 −0.5，再比较 +0.5。Γ 为角频率衰减率，即 2π × MHz 线宽。"
+    },
+    "fi": {
+      "name": "Viritysero δ/Γ",
+      "effect": "Negatiivinen viritysero yleensä vaimentaa nopeutta; positiivinen lämmittää. Aloita arvosta −0,5 ja vertaa sitten arvoon +0,5. Γ on kulmahajoamisnopeus: Γ = 2π × luonnonleveys MHz:nä."
+    },
+    "de": {
+      "name": "Verstimmung δ/Γ",
+      "effect": "Negative Verstimmung dämpft die Geschwindigkeit in der Regel; positive heizt. Bei −0,5 beginnen und dann +0,5 vergleichen. Γ ist die Winkel-Zerfallsrate: Γ = 2π × Linienbreite in MHz."
+    },
+    "ja": {
+      "name": "離調 δ/Γ",
+      "effect": "負の離調は通常速度を減衰させ、正の離調は加熱します。まず −0.5 から始め、次に +0.5 と比較してください。Γ は角周波数での崩壊率で、Γ = 2π × 線幅 (MHz) です。"
+    },
+    "fr": {
+      "name": "Désaccord δ/Γ",
+      "effect": "Un désaccord négatif amortit en général la vitesse ; un désaccord positif chauffe. Commencez à −0,5, puis comparez avec +0,5. Γ est le taux de désexcitation angulaire : Γ = 2π × largeur de raie en MHz."
     }
   },
   {
@@ -30,6 +62,22 @@
     "zh": {
       "name": "饱和参数 s",
       "effect": "增大 s 通常提高散射率，也提高反冲和功率展宽，并不保证更低温。原始/解析页为每束光 s；三维页每束活动光束使用输入强度尺度的六分之一。"
+    },
+    "fi": {
+      "name": "Saturaatio s",
+      "effect": "Suurempi s lisää sirontaa mutta myös rekyyliä ja tehoverhenemista; se ei takaa kylmempää pilveä. Alkuperäinen ja analyyttinen paneeli käyttävät sädekohtaista s:ää; 3D-paneeli jakaa intensiteettiasteikkonsa kuudella aktiivista sädettä kohden."
+    },
+    "de": {
+      "name": "Sättigung s",
+      "effect": "Ein größeres s erhöht die Streuung, aber auch Rückstoß und Leistungsverbreiterung; es garantiert keine kältere Wolke. Die ursprünglichen/analytischen Panels verwenden s pro Strahl; das 3D-Panel teilt seine Intensitätsskala durch sechs pro aktivem Strahl."
+    },
+    "ja": {
+      "name": "飽和 s",
+      "effect": "s を大きくすると散乱は増えますが、反跳やパワー広がりも増え、雲が必ず冷たくなるとは限りません。従来版・解析版のパネルはビームごとの s を使い、3D パネルは強度スケールを有効なビーム 6 本で割ります。"
+    },
+    "fr": {
+      "name": "Saturation s",
+      "effect": "Un s plus grand augmente la diffusion, mais aussi le recul et l'élargissement par la puissance ; cela ne garantit pas un nuage plus froid. Les panneaux d'origine/analytiques utilisent s par faisceau ; le panneau 3D divise son échelle d'intensité par six pour les faisceaux actifs."
     }
   },
   {
@@ -41,6 +89,22 @@
     "zh": {
       "name": "初始温度",
       "effect": "决定高斯初始速度方差，并非最终平衡温度。少量离子的实际初温会偏离设定值。对比条件时固定种子。"
+    },
+    "fi": {
+      "name": "Alkulämpötila",
+      "effect": "Asettaa alkuperäisen Gaussin nopeusvarianssin, ei lopullista tasapainoa. Pieni otos ei välttämättä vastaa pyydettyä lämpötilaa täsmälleen. Käytä kiinteää siementä verratessasi ehtoja."
+    },
+    "de": {
+      "name": "Anfangstemperatur",
+      "effect": "Legt die anfängliche gaußsche Geschwindigkeitsvarianz fest, nicht das endgültige Gleichgewicht. Eine kleine Stichprobe muss die gewünschte Temperatur nicht exakt treffen. Beim Vergleich von Bedingungen einen festen Startwert verwenden."
+    },
+    "ja": {
+      "name": "初期温度",
+      "effect": "最終的な平衡ではなく、初期のガウス分布の速度分散を設定します。サンプルが小さいと、指定した温度と厳密には一致しないことがあります。条件を比較するときは乱数シードを固定してください。"
+    },
+    "fr": {
+      "name": "Température initiale",
+      "effect": "Fixe la variance gaussienne initiale des vitesses, pas l'équilibre final. Un petit échantillon ne reproduit pas forcément exactement la température demandée. Utilisez une graine fixe pour comparer des conditions."
     }
   },
   {
@@ -52,6 +116,22 @@
     "zh": {
       "name": "粒子数",
       "effect": "增大粒子数可减小统计波动，但库仑成对计算量按 N² 增长。建议先用 8–12 个；真实射频先用少量离子。"
+    },
+    "fi": {
+      "name": "Hiukkasmäärä",
+      "effect": "Useampi hiukkanen tasoittaa tilastollista kohinaa, mutta Coulombin parilaskenta kasvaa kuten N². Aloita arvoilla 8–12; käytä pientä määrää todellisessa RF-mallissa."
+    },
+    "de": {
+      "name": "Teilchenzahl",
+      "effect": "Mehr Teilchen glätten das statistische Rauschen, aber die Coulomb-Paarberechnung wächst wie N². Mit 8–12 beginnen; beim tatsächlichen RF-Modell eine kleine Zahl verwenden."
+    },
+    "ja": {
+      "name": "粒子数",
+      "effect": "粒子を増やすと統計ノイズは滑らかになりますが、クーロン対の計算量は N² で増えます。8〜12 から始め、実際の RF モデルでは少ない数にしてください。"
+    },
+    "fr": {
+      "name": "Nombre de particules",
+      "effect": "Davantage de particules lisse le bruit statistique, mais le calcul coulombien par paires croît en N². Commencez avec 8–12 ; utilisez un petit nombre pour le modèle RF réel."
     }
   },
   {
@@ -63,6 +143,22 @@
     "zh": {
       "name": "发射反冲 / 光子模型",
       "effect": "随机发射加热，红失谐吸收冷却。各向同性发射将反冲分配到三个轴。桌面平均力选项取消反冲扩散，不能预测多普勒平衡。"
+    },
+    "fi": {
+      "name": "Emissiorekyyli / fotonimalli",
+      "effect": "Satunnainen fotoniemissio lämmittää, kun taas punaviritteinen absorptio jäähdyttää. Isotrooppinen emissio jakaa rekyylin kolmelle akselille. Työpöytäversion keskivoimavaihtoehto poistaa tämän diffuusion eikä voi ennustaa Doppler-tasapainoa."
+    },
+    "de": {
+      "name": "Emissionsrückstoß / Photonenmodell",
+      "effect": "Zufällige Photonenemission heizt, während rotverstimmte Absorption kühlt. Isotrope Emission verteilt den Rückstoß auf drei Achsen. Die Desktop-Option der mittleren Kraft entfernt diese Diffusion und kann kein Doppler-Gleichgewicht vorhersagen."
+    },
+    "ja": {
+      "name": "放出反跳 / 光子モデル",
+      "effect": "ランダムな光子放出は加熱し、赤離調の吸収は冷却します。等方的な放出は反跳を 3 軸に分配します。デスクトップ版の平均力オプションはこの拡散を除くため、ドップラー平衡は予測できません。"
+    },
+    "fr": {
+      "name": "Recul d'émission / modèle de photons",
+      "effect": "L'émission aléatoire de photons chauffe, tandis que l'absorption à désaccord rouge refroidit. L'émission isotrope répartit le recul sur trois axes. L'option de force moyenne du bureau supprime cette diffusion et ne peut pas prédire un équilibre Doppler."
     }
   },
   {
@@ -74,6 +170,22 @@
     "zh": {
       "name": "磁场 B (T)",
       "effect": "仅潘宁阱。增大 B 提高回旋频率，并改变磁控管频率和冷却窗口。要求 ωc² > 2ωz²。小数位数代表数值输入精度，并非实际磁场准确度。"
+    },
+    "fi": {
+      "name": "Magneettikenttä B (T)",
+      "effect": "Vain Penning. Suurempi B nostaa syklotronitaajuutta ja muuttaa magnetronitaajuutta ja jäähdytysikkunaa. Vaadi ωc² > 2ωz². Tarkka desimaalisyöttö on numeerinen asetus, ei kentän tarkkuus."
+    },
+    "de": {
+      "name": "Magnetfeld B (T)",
+      "effect": "Nur Penning. Ein größeres B erhöht die Zyklotronfrequenz und verändert Magnetronfrequenz und Kühlfenster. Es muss ωc² > 2ωz² gelten. Die feine Dezimaleingabe ist eine numerische Einstellung, keine Feldgenauigkeit."
+    },
+    "ja": {
+      "name": "磁場 B (T)",
+      "effect": "ペニングトラップのみ。B を大きくするとサイクロトロン周波数が上がり、マグネトロン周波数と冷却の窓も変わります。ωc² > 2ωz² を満たす必要があります。細かい小数入力は数値設定であり、磁場の精度ではありません。"
+    },
+    "fr": {
+      "name": "Champ magnétique B (T)",
+      "effect": "Penning uniquement. Un B plus grand augmente la fréquence cyclotron et modifie la fréquence magnétron et la fenêtre de refroidissement. Il faut ωc² > 2ωz². La saisie décimale fine est un réglage numérique, pas une précision de champ."
     }
   },
   {
@@ -85,6 +197,22 @@
     "zh": {
       "name": "U₀ 与特征长度 d",
       "effect": "解析潘宁模型满足 ωz² = Q U₀/(m d²)。增大 U₀ 或减小 d 加强轴向束缚，但可能破坏径向稳定性。三维模型直接输入轴向频率。"
+    },
+    "fi": {
+      "name": "U₀ ja ominaispituus d",
+      "effect": "Analyyttinen Penning-malli: ωz² = Q U₀/(m d²), joten suurempi U₀ tai pienempi d kiristää aksiaalista vangitsemista mutta voi tuhota radiaalisen stabiiliuden. 3D-malli ottaa aksiaalitaajuuden suoraan."
+    },
+    "de": {
+      "name": "U₀ und charakteristische Länge d",
+      "effect": "Analytisches Penning-Modell: ωz² = Q U₀/(m d²); ein größeres U₀ oder kleineres d verstärkt den axialen Einschluss, kann aber die radiale Stabilität zerstören. Das 3D-Modell übernimmt die axiale Frequenz direkt."
+    },
+    "ja": {
+      "name": "U₀ と特性長 d",
+      "effect": "解析的ペニングモデルでは ωz² = Q U₀/(m d²) です。U₀ を大きく、または d を小さくすると軸方向の閉じ込めは強まりますが、径方向の安定性が失われることがあります。3D モデルは軸方向周波数を直接受け取ります。"
+    },
+    "fr": {
+      "name": "U₀ et longueur caractéristique d",
+      "effect": "Modèle de Penning analytique : ωz² = Q U₀/(m d²), donc un U₀ plus grand ou un d plus petit resserre le confinement axial mais peut détruire la stabilité radiale. Le modèle 3D prend directement la fréquence axiale."
     }
   },
   {
@@ -96,6 +224,22 @@
     "zh": {
       "name": "轴向频率 νz (kHz)",
       "effect": "束缚 z。在保罗阱中，轴向直流场同时使 x/y 散焦；在潘宁阱中，它改变两个径向模。增大后需重查稳定性。"
+    },
+    "fi": {
+      "name": "Aksiaalitaajuus νz (kHz)",
+      "effect": "Rajoittaa z:tä. Paul-loukussa sen tasakenttä defokusoi x/y; Penning-loukussa se muuttaa molempia radiaalimoodeja. Tarkista stabiilius uudelleen, kun suurennat sitä."
+    },
+    "de": {
+      "name": "Axiale Frequenz νz (kHz)",
+      "effect": "Schließt z ein. In einer Paul-Falle defokussiert ihr Gleichfeld x/y; in einer Penning-Falle verändert es beide radialen Moden. Nach einer Erhöhung die Stabilität erneut prüfen."
+    },
+    "ja": {
+      "name": "軸方向周波数 νz (kHz)",
+      "effect": "z 方向を閉じ込めます。パウルトラップではその直流電場が x/y を発散させ、ペニングトラップでは両方の径方向モードを変えます。上げたあとは安定性を再確認してください。"
+    },
+    "fr": {
+      "name": "Fréquence axiale νz (kHz)",
+      "effect": "Confine z. Dans un piège de Paul, son champ continu défocalise x/y ; dans un piège de Penning, il modifie les deux modes radiaux. Revérifiez la stabilité après l'avoir augmentée."
     }
   },
   {
@@ -107,6 +251,22 @@
     "zh": {
       "name": "射频频率与 Mathieu q",
       "effect": "仅保罗阱。平均径向频率满足 ωr² ≈ Ω²q²/8 − ωz²/2。增大 q 加强束缚，也增加微运动。显示的稳定性为世俗/第一稳定带近似，非完整 Floquet 图。"
+    },
+    "fi": {
+      "name": "RF-taajuus ja Mathieun q",
+      "effect": "Vain Paul. Aikakeskiarvoistettu radiaalitaajuus noudattaa kaavaa ωr² ≈ Ω²q²/8 − ωz²/2. Suurempi q kiristää vangitsemista mutta lisää mikroliikettä. Näytetty stabiiliustarkistus on sekulaari-/ensimmäisen kaistan ohje, ei täydellinen Floquet-kartta."
+    },
+    "de": {
+      "name": "RF-Frequenz und Mathieu-q",
+      "effect": "Nur Paul. Die zeitgemittelte radiale Frequenz folgt ωr² ≈ Ω²q²/8 − ωz²/2. Ein größeres q verstärkt den Einschluss, erhöht aber die Mikrobewegung. Die angezeigte Stabilitätsprüfung ist eine säkulare Richtlinie für das erste Band und keine vollständige Floquet-Karte."
+    },
+    "ja": {
+      "name": "RF 周波数とマシュー q",
+      "effect": "パウルトラップのみ。時間平均の径方向周波数は ωr² ≈ Ω²q²/8 − ωz²/2 に従います。q を大きくすると閉じ込めは強まりますが、マイクロモーションも増えます。表示される安定性チェックは永年運動・第 1 帯域の目安であり、完全なフロケ図ではありません。"
+    },
+    "fr": {
+      "name": "Fréquence RF et q de Mathieu",
+      "effect": "Piège de Paul uniquement. La fréquence radiale moyennée dans le temps vérifie ωr² ≈ Ω²q²/8 − ωz²/2. Augmenter q resserre le confinement mais accroît le micromouvement. La vérification de stabilité affichée est un guide séculaire/première bande, pas une carte de Floquet complète."
     }
   },
   {
@@ -118,6 +278,22 @@
     "zh": {
       "name": "平均势与真实射频",
       "effect": "平均势去掉快速微运动。真实射频积分振荡四极场，动能温度包含微运动。比较时固定种子和时长。本模型潘宁阱没有射频四极场。"
+    },
+    "fi": {
+      "name": "Aikakeskiarvoistettu vs. todellinen RF",
+      "effect": "Keskiarvoistettu potentiaali poistaa nopean mikroliikkeen. Todellinen RF integroi värähtelevän kvadrupolin ja sisällyttää mikroliikkeen kineettiseen lämpötilaan. Vertaa samalla siemenellä ja kestolla. Penning-loukussa ei tässä mallissa ole RF-kvadrupolia."
+    },
+    "de": {
+      "name": "Zeitgemitteltes versus tatsächliches RF",
+      "effect": "Das gemittelte Potential entfernt die schnelle Mikrobewegung. Das tatsächliche RF integriert den oszillierenden Quadrupol und bezieht die Mikrobewegung in die kinetische Temperatur ein. Mit gleichem Startwert und gleicher Dauer vergleichen. Penning hat in diesem Modell keinen RF-Quadrupol."
+    },
+    "ja": {
+      "name": "時間平均と実際の RF",
+      "effect": "平均化したポテンシャルは高速のマイクロモーションを取り除きます。実際の RF は振動する四重極を積分し、運動温度にマイクロモーションを含めます。同じシードと継続時間で比較してください。このモデルのペニングトラップには RF 四重極はありません。"
+    },
+    "fr": {
+      "name": "Moyenné dans le temps ou RF réel",
+      "effect": "Le potentiel moyenné supprime le micromouvement rapide. Le RF réel intègre le quadripôle oscillant et inclut le micromouvement dans la température cinétique. Comparez avec la même graine et la même durée. Le Penning n'a pas de quadripôle RF dans ce modèle."
     }
   },
   {
@@ -129,6 +305,22 @@
     "zh": {
       "name": "径向光束偏移 yb (µm)",
       "effect": "潘宁阱：偏移形成强度梯度力矩。零偏移可冷却回旋运动，却加热磁控管运动。建议偏移搜索解析小振幅窗口，数值三维模型的最佳值可能不同。"
+    },
+    "fi": {
+      "name": "Säteen radiaalinen siirtymä yb (µm)",
+      "effect": "Penning: siirtymä synnyttää intensiteettigradientin vääntömomentin. Nollasiirtymä jäähdyttää syklotroniliikettä mutta voi lämmittää magnetroniliikettä. Ehdota siirtymä etsii analyyttisen pienen amplitudin ikkunan; numeeristen 3D-tulosten optimin ei tarvitse olla sama."
+    },
+    "de": {
+      "name": "Radialer Strahlversatz yb (µm)",
+      "effect": "Penning: Der Versatz erzeugt ein Drehmoment durch den Intensitätsgradienten. Versatz null kühlt die Zyklotronbewegung, kann aber die Magnetronbewegung heizen. „Versatz vorschlagen“ sucht das analytische Fenster kleiner Amplituden; numerische 3D-Ergebnisse müssen nicht dasselbe Optimum haben."
+    },
+    "ja": {
+      "name": "ビームの径方向オフセット yb (µm)",
+      "effect": "ペニングトラップでは、オフセットが強度勾配によるトルクを生みます。オフセット 0 ではサイクロトロン運動は冷却されますが、マグネトロン運動は加熱されることがあります。「オフセットを提案」は解析的な小振幅の窓を探索します。数値的な 3D 結果の最適値が同じとは限りません。"
+    },
+    "fr": {
+      "name": "Décalage radial du faisceau yb (µm)",
+      "effect": "Penning : le décalage crée un couple par gradient d'intensité. Un décalage nul refroidit le mouvement cyclotron mais peut chauffer le mouvement magnétron. Suggérer un décalage cherche la fenêtre analytique à petite amplitude ; les résultats 3D numériques n'ont pas forcément le même optimum."
     }
   },
   {
@@ -140,6 +332,22 @@
     "zh": {
       "name": "束腰 w (µm)",
       "effect": "高斯光强正比于 exp[−2(y−yb)²/w²]。更窄光束梯度更强，但覆盖轨道更少。解析变化率是局部近似，应使用远小于 w 的振幅。"
+    },
+    "fi": {
+      "name": "Säteen vyö w (µm)",
+      "effect": "Gaussin intensiteetti on verrannollinen lausekkeeseen exp[−2(y−yb)²/w²]. Kapeampi säde vahvistaa gradientteja mutta kattaa vähemmän rataa. Analyyttiset nopeudet ovat paikallisia approksimaatioita; käytä amplitudia, joka on paljon pienempi kuin w."
+    },
+    "de": {
+      "name": "Strahltaille w (µm)",
+      "effect": "Die gaußsche Intensität ist proportional zu exp[−2(y−yb)²/w²]. Ein schmalerer Strahl verstärkt die Gradienten, deckt aber weniger von der Bahn ab. Analytische Raten sind lokale Näherungen; eine Amplitude deutlich kleiner als w verwenden."
+    },
+    "ja": {
+      "name": "ビームウエスト w (µm)",
+      "effect": "ガウス強度は exp[−2(y−yb)²/w²] に比例します。ビームを細くすると勾配は強くなりますが、軌道を覆う範囲は狭くなります。解析的な速度は局所近似なので、w よりずっと小さい振幅を使ってください。"
+    },
+    "fr": {
+      "name": "Col du faisceau w (µm)",
+      "effect": "L'intensité gaussienne est proportionnelle à exp[−2(y−yb)²/w²]. Un faisceau plus étroit renforce les gradients mais couvre moins l'orbite. Les taux analytiques sont des approximations locales ; utilisez une amplitude très inférieure à w."
     }
   },
   {
@@ -151,6 +359,22 @@
     "zh": {
       "name": "光束倾角 θ",
       "effect": "解析潘宁模型：增大倾角提供轴向冷却分量，同时削弱径向分量。更进阶三维模型采用一束径向 +x 光和两束轴向 ±z 光，光束几何不同。"
+    },
+    "fi": {
+      "name": "Säteen kallistus θ",
+      "effect": "Analyyttinen Penning: kallistuksen kasvattaminen tuo aksiaalisen jäähdytyskomponentin ja pienentää radiaalikomponenttia. Edistyneempi 3D-Penning-malli käyttää sen sijaan yhtä radiaalista +x-sädettä ja kahta aksiaalista ±z-sädettä; se on eri sädegeometria."
+    },
+    "de": {
+      "name": "Strahlneigung θ",
+      "effect": "Analytisches Penning: Eine größere Neigung liefert eine axiale Kühlkomponente und verringert die radiale. Das ausgefeiltere 3D-Penning-Modell hat stattdessen einen radialen +x-Strahl und zwei axiale ±z-Strahlen; das ist eine andere Strahlgeometrie."
+    },
+    "ja": {
+      "name": "ビームの傾き θ",
+      "effect": "解析的ペニングモデルでは、傾きを大きくすると軸方向の冷却成分が加わり、径方向の成分は減ります。より高度な 3D ペニングモデルは、径方向の +x ビーム 1 本と軸方向の ±z ビーム 2 本を使い、ビーム配置が異なります。"
+    },
+    "fr": {
+      "name": "Inclinaison du faisceau θ",
+      "effect": "Penning analytique : augmenter l'inclinaison apporte une composante de refroidissement axiale tout en réduisant la composante radiale. Le modèle Penning 3D détaillé utilise à la place un faisceau radial +x et deux faisceaux axiaux ±z ; c'est une autre géométrie de faisceaux."
     }
   },
   {
@@ -162,6 +386,22 @@
     "zh": {
       "name": "初始 r₊、r₋ 与 z 振幅",
       "effect": "解析潘宁模型将三个包络设为相同初始振幅。过大时会超出线性冷却近似。建议先用 20 µm 与 100 µm 束腰。查看时刻显示后续振幅，不改变初值。"
+    },
+    "fi": {
+      "name": "Alku-r₊-, r₋- ja z-amplitudit",
+      "effect": "Analyyttinen Penning aloittaa kolme verhokäyrää tästä amplitudista. Suuret arvot voivat poistua lineaarisesta jäähdytysalueesta. Aloita 20 µm:llä ja 100 µm:n vyöllä. Tarkasteluhetki näyttää myöhemmät amplitudit; se ei muuta alkuarvoa."
+    },
+    "de": {
+      "name": "Anfangsamplituden r₊, r₋ und z",
+      "effect": "Das analytische Penning-Modell startet die drei Einhüllenden mit dieser Amplitude. Große Werte können den linearen Kühlbereich verlassen. Mit 20 µm und einer Taille von 100 µm beginnen. Die Inspektionszeit zeigt spätere Amplituden; sie ändert den Anfangswert nicht."
+    },
+    "ja": {
+      "name": "初期の r₊・r₋・z の振幅",
+      "effect": "解析的ペニングモデルでは、3 つの包絡線をこの振幅から開始します。大きな値では線形な冷却領域を外れることがあります。20 µm、ウエスト 100 µm から始めてください。確認時刻は後の振幅を表示するだけで、初期値は変えません。"
+    },
+    "fr": {
+      "name": "Amplitudes initiales r₊, r₋ et z",
+      "effect": "Le Penning analytique démarre les trois enveloppes à cette amplitude. De grandes valeurs peuvent sortir du régime de refroidissement linéaire. Commencez avec 20 µm et un col de 100 µm. L'instant d'inspection montre les amplitudes ultérieures ; il ne change pas la valeur initiale."
     }
   },
   {
@@ -173,6 +413,22 @@
     "zh": {
       "name": "初始云团 σ / 位置松弛",
       "effect": "三维：σ 是各空间轴的高斯宽度。随机库仑云团可释放静电能，初期升温。保罗阱的位置松弛在时钟开始前构造近似局部构型，不等同于冷却或全局基态。"
+    },
+    "fi": {
+      "name": "Alkupilven σ / relaksaatio",
+      "effect": "3D: σ on Gaussin leveys kullakin avaruusakselilla. Satunnainen vuorovaikuttava pilvi voi vapauttaa sähköstaattista energiaa ja lämmetä aluksi. Paul-loukun Relaksoi alkupaikat valmistelee likimääräisen paikallisen konfiguraation ennen kellon käynnistystä; se ei ole simuloitua jäähdytystä eikä todistettu globaali minimi."
+    },
+    "de": {
+      "name": "Anfängliches Wolken-σ / Relaxation",
+      "effect": "3D: σ ist die gaußsche Breite auf jeder Raumachse. Eine zufällige wechselwirkende Wolke kann elektrostatische Energie freisetzen und sich anfangs erwärmen. „Anfangspositionen relaxieren“ bei der Paul-Falle bereitet vor dem Start der Uhr eine näherungsweise lokale Konfiguration vor; das ist keine simulierte Kühlung und kein bewiesenes globales Minimum."
+    },
+    "ja": {
+      "name": "初期の雲の σ / 緩和",
+      "effect": "3D では σ は各空間軸のガウス幅です。ランダムに配置した相互作用する雲は静電エネルギーを放出して、最初は温まることがあります。パウルトラップの「初期位置を緩和する」は、時計を始める前に近似的な局所配置を用意するもので、シミュレートされた冷却でも、証明された大域的最小でもありません。"
+    },
+    "fr": {
+      "name": "σ initial du nuage / relaxation",
+      "effect": "3D : σ est la largeur gaussienne sur chaque axe spatial. Un nuage aléatoire en interaction peut libérer de l'énergie électrostatique et chauffer au début. Relaxer les positions initiales (Paul) prépare une configuration locale approchée avant le démarrage de l'horloge ; ce n'est ni un refroidissement simulé ni un minimum global prouvé."
     }
   },
   {
@@ -184,6 +440,22 @@
     "zh": {
       "name": "库仑排斥",
       "effect": "排斥重新分配能量，并可产生有序构型。0.3 µm 软化避免近距离奇点。仅凭形状不能证明晶体相。潘宁阱默认关闭排斥，便于先比较单粒子行为。"
+    },
+    "fi": {
+      "name": "Coulombin hylkiminen",
+      "effect": "Hylkiminen jakaa energiaa uudelleen ja voi muodostaa järjestäytyneitä rakenteita. Voima pehmennetään 0,3 µm:ssä singulaarisen lähikohtaamisen välttämiseksi. Muoto yksin ei todista kidefaasia. Penning aloittaa hylkimisen ollessa pois päältä selkeää yhden hiukkasen vertailua varten."
+    },
+    "de": {
+      "name": "Coulomb-Abstoßung",
+      "effect": "Die Abstoßung verteilt Energie um und kann geordnete Strukturen bilden. Die Kraft wird bei 0,3 µm abgerundet, um eine singuläre Nahbegegnung zu vermeiden. Die Form allein ist kein Beweis für eine Kristallphase. Penning startet mit ausgeschalteter Abstoßung für einen klaren Einzelteilchen-Vergleich."
+    },
+    "ja": {
+      "name": "クーロン反発",
+      "effect": "反発はエネルギーを再分配し、秩序構造を生むことがあります。力は特異な近接衝突を避けるため 0.3 µm で緩和されています。形だけでは結晶相の証拠になりません。ペニングトラップでは、1 粒子との比較をわかりやすくするため、反発オフで開始します。"
+    },
+    "fr": {
+      "name": "Répulsion coulombienne",
+      "effect": "La répulsion redistribue l'énergie et peut créer des structures ordonnées. La force est adoucie à 0,3 µm pour éviter une rencontre rapprochée singulière. La forme seule ne prouve pas une phase cristalline. Le Penning commence répulsion désactivée pour une comparaison claire à une seule particule."
     }
   },
   {
@@ -195,6 +467,22 @@
     "zh": {
       "name": "观察时长 / 查看时刻",
       "effect": "时长设定物理终点；播放速度仅控制呈现。解析页显示此时刻跳转到包络的选定时刻。重置回到 t=0。所有三维投影与温度共用时钟。"
+    },
+    "fi": {
+      "name": "Havaintojakso / tarkasteluhetki",
+      "effect": "Kesto asettaa fysikaalisen loppuajan; toistonopeus muuttaa esitystä. Analyyttinen Näytä tämä hetki hyppää valittuun verhokäyrän aikaan. Nollaus käynnistää uudelleen hetkestä t=0. Kaikki 3D-projektiot ja lämpötilat jakavat yhden kellon."
+    },
+    "de": {
+      "name": "Beobachtungsdauer / Inspektionszeit",
+      "effect": "Die Dauer legt die physikalische Endzeit fest; die Wiedergabegeschwindigkeit ändert die Darstellung. Das analytische „Diese Zeit anzeigen“ springt zur gewählten Einhüllendenzeit. „Zurücksetzen“ startet bei t=0 neu. Alle 3D-Projektionen und Temperaturen teilen sich eine Uhr."
+    },
+    "ja": {
+      "name": "観測時間 / 確認する時刻",
+      "effect": "継続時間は物理的な終了時刻を決め、再生速度は表示だけを変えます。解析版の「この時刻を表示」は選んだ包絡線の時刻へ移動します。リセットは t=0 から再開します。すべての 3D 投影と温度は同じ時計を共有します。"
+    },
+    "fr": {
+      "name": "Durée d'observation / instant d'inspection",
+      "effect": "La durée fixe l'instant final physique ; la vitesse de lecture ne change que la présentation. Afficher cet instant (analytique) saute à l'instant d'enveloppe choisi. Réinitialiser redémarre à t=0. Toutes les projections 3D et les températures partagent une seule horloge."
     }
   },
   {
@@ -206,6 +494,22 @@
     "zh": {
       "name": "径向/轴向范围、放大与视角",
       "effect": "范围为 µm 单位半宽。固定范围便于看收缩，自动适应便于看细节。放大和视角不改变物理。超出图框会提示；图像裁切与离子超过模型孔径是两回事。"
+    },
+    "fi": {
+      "name": "Radiaali-/aksiaaliset alueet, zoom ja kamera",
+      "effect": "Alueet ovat puolileveyksiä yksikössä µm. Kiinteät rajat paljastavat kutistumisen; sovitus paljastaa yksityiskohdat. Zoom ja kamera eivät koskaan muuta fysiikkaa. Leikkautunut rata merkitään; leikkautuminen on eri asia kuin ionin ylittäessä mallin aukon."
+    },
+    "de": {
+      "name": "Radiale/axiale Bereiche, Zoom und Kamera",
+      "effect": "Die Bereiche sind Halbweiten in µm. Feste Grenzen zeigen das Schrumpfen; die Anpassung zeigt Details. Zoom und Kamera verändern nie die Physik. Eine abgeschnittene Bahn wird markiert; Abschneiden ist etwas anderes als ein Ion, das die Modellapertur durchquert."
+    },
+    "ja": {
+      "name": "径方向・軸方向の範囲、ズーム、カメラ",
+      "effect": "範囲は µm 単位の半幅です。範囲を固定すると収縮が見え、自動調整すると細部が見えます。ズームとカメラは物理を変えません。切り取られた軌道には印が付きます。切り取りは、イオンがモデルの開口を横切ることとは別です。"
+    },
+    "fr": {
+      "name": "Plages radiale/axiale, zoom et caméra",
+      "effect": "Les plages sont des demi-largeurs en µm. Des limites fixes révèlent la contraction ; l'ajustement révèle les détails. Le zoom et la caméra ne modifient jamais la physique. Une orbite tronquée est signalée ; la troncature diffère d'un ion qui franchit l'ouverture du modèle."
     }
   },
   {
@@ -217,6 +521,22 @@
     "zh": {
       "name": "随机种子",
       "effect": "相同种子、参数和数值步序可复现随机轨迹。不同种子改变光子历史。解释微小差异前应比较多个种子。"
+    },
+    "fi": {
+      "name": "Satunnaislukujen siemen",
+      "effect": "Sama siemen sekä identtiset asetukset ja numeeriset askeleet toistavat stokastisen ajon. Eri siemenet muuttavat fotonihistorioita. Vertaa trendejä usealla siemenellä ennen pienten erojen tulkintaa."
+    },
+    "de": {
+      "name": "Zufallsstartwert",
+      "effect": "Derselbe Startwert mit identischen Einstellungen und numerischen Schritten wiederholt den stochastischen Lauf. Unterschiedliche Startwerte ändern die Photonenhistorien. Trends über mehrere Startwerte vergleichen, bevor kleine Unterschiede interpretiert werden."
+    },
+    "ja": {
+      "name": "乱数シード",
+      "effect": "同じシード、同じ設定、同じ数値ステップなら、確率的な実行が再現されます。シードが違うと光子の履歴が変わります。小さな差を解釈する前に、複数のシードで傾向を比較してください。"
+    },
+    "fr": {
+      "name": "Graine aléatoire",
+      "effect": "La même graine avec des réglages et des pas numériques identiques répète l'exécution stochastique. Des graines différentes changent les histoires de photons. Comparez les tendances sur plusieurs graines avant d'interpréter de petites différences."
     }
   },
   {
@@ -228,6 +548,22 @@
     "zh": {
       "name": "βrω₋ < F′ < βrω₊",
       "effect": "βr 是径向摩擦系数 (N·s/m)，F′ 为横向力梯度 (N/m)。当 βr>0 时，F′/(2πβr) 应在 ν₋ 与 ν₊ 之间。负振幅变化率为冷却，正值为加热。对数频率轴让两个边界同时可见。"
+    },
+    "fi": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr on radiaalinen kitkakerroin (N·s/m); F′ on poikittainen voimagradientti (N/m). Kun βr>0, F′/(2πβr):n on oltava ν₋:n ja ν₊:n välissä. Negatiiviset amplitudinopeudet jäähdyttävät; positiiviset lämmittävät. Logaritminen taajuusakseli tekee molemmat rajat näkyviksi."
+    },
+    "de": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr ist der radiale Reibungskoeffizient (N·s/m); F′ ist der transversale Kraftgradient (N/m). Für βr>0 muss F′/(2πβr) zwischen ν₋ und ν₊ liegen. Negative Amplitudenraten kühlen; positive Raten heizen. Die logarithmische Frequenzachse macht beide Grenzen sichtbar."
+    },
+    "ja": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr は径方向の摩擦係数 (N·s/m)、F′ は横方向の力の勾配 (N/m) です。βr>0 のとき F′/(2πβr) は ν₋ と ν₊ の間になければなりません。振幅の変化率が負なら冷却、正なら加熱です。対数の周波数軸により両方の境界が見えます。"
+    },
+    "fr": {
+      "name": "βrω₋ < F′ < βrω₊",
+      "effect": "βr est le coefficient de friction radial (N·s/m) ; F′ est le gradient de force transverse (N/m). Pour βr>0, F′/(2πβr) doit se situer entre ν₋ et ν₊. Des taux d'amplitude négatifs refroidissent ; des taux positifs chauffent. L'axe de fréquence logarithmique rend les deux limites visibles."
     }
   },
   {
@@ -239,6 +575,22 @@
     "zh": {
       "name": "PNG / CSV / 参数",
       "effect": "PNG 保存图像，CSV 保存物理曲线及参数头。浏览器通常使用其下载文件夹，请主动选择所需本地文件夹。桌面导出还含粒子坐标、输入参数、结构诊断与 PNG/PDF/SVG。数据不会上传。"
+    },
+    "fi": {
+      "name": "PNG / CSV / asetukset",
+      "effect": "PNG tallentaa näkymät; CSV tallentaa fysikaaliset käyrät ja parametriotsikon. Selaimet tallentavat yleensä asetettuun latauskansioon; valitse haluamasi paikallinen kansio. Työpöytäviennit sisältävät hiukkaskoordinaatit, syötteet, rakennediagnostiikan ja PNG/PDF/SVG-tiedostot. Tietoja ei lähetetä minnekään."
+    },
+    "de": {
+      "name": "PNG / CSV / Einstellungen",
+      "effect": "PNG speichert die Ansichten; CSV speichert physikalische Verläufe und einen Parameterkopf. Browser speichern normalerweise im eingestellten Download-Ordner; den gewünschten lokalen Ordner wählen. Desktop-Exporte enthalten Teilchenkoordinaten, Eingaben, Strukturdiagnosen und PNG/PDF/SVG. Es werden keine Daten hochgeladen."
+    },
+    "ja": {
+      "name": "PNG / CSV / 設定",
+      "effect": "PNG はビューを、CSV は物理量の推移とパラメータのヘッダーを保存します。ブラウザーは通常、設定されたダウンロードフォルダーに保存するため、好みのローカルフォルダーを選んでください。デスクトップ版の出力には、粒子座標、入力、構造診断、PNG/PDF/SVG が含まれます。データはアップロードされません。"
+    },
+    "fr": {
+      "name": "PNG / CSV / réglages",
+      "effect": "Le PNG enregistre les vues ; le CSV enregistre les tracés physiques et un en-tête de paramètres. Les navigateurs enregistrent normalement dans leur dossier de téléchargement configuré ; choisissez votre dossier local préféré. Les exports de bureau incluent les coordonnées des particules, les entrées, les diagnostics de structure et PNG/PDF/SVG. Aucune donnée n'est téléversée."
     }
   },
   {
@@ -250,6 +602,22 @@
     "zh": {
       "name": "视图跟随云团中心",
       "effect": "仅在绘图时减去云团平均位置。结合完整视图，可放大已偏离阱中心的冷云团。此时坐标相对云团中心，导出物理数据与温度均不变。"
+    },
+    "fi": {
+      "name": "Keskitä näkymä pilveen",
+      "effect": "Vähentää pilven keskiarvopaikan vain piirroksesta. Yhdistä toimintoon Sovita koko näkymä erottaaksesi kylmän pilven, joka on ajautunut pois loukun keskustasta. Koordinaatit ovat tällöin suhteessa pilven keskipisteeseen; viedyt fysiikka ja lämpötila pysyvät ennallaan."
+    },
+    "de": {
+      "name": "Ansicht auf die Wolke zentrieren",
+      "effect": "Zieht die mittlere Position der Wolke nur von der Zeichnung ab. Mit „Gesamte Ansicht anpassen“ kombinieren, um eine kalte Wolke aufzulösen, die aus dem Fallenzentrum gedriftet ist. Die Koordinaten sind dann relativ zum Wolkenzentrum; exportierte Physik und Temperatur bleiben unverändert."
+    },
+    "ja": {
+      "name": "表示を原子雲の中心に合わせる",
+      "effect": "描画からだけ雲の平均位置を差し引きます。「全体表示に合わせる」と組み合わせると、トラップ中心から流れた冷たい雲を詳しく見られます。座標は雲の中心に対する相対値になり、出力される物理量と温度は変わりません。"
+    },
+    "fr": {
+      "name": "Centrer la vue sur le nuage",
+      "effect": "Soustrait la position moyenne du nuage du dessin uniquement. Combinez avec Ajuster toute la vue pour résoudre un nuage froid qui a dérivé hors du centre du piège. Les coordonnées sont alors relatives au centre du nuage ; la physique et la température exportées restent inchangées."
     }
   }
 ]

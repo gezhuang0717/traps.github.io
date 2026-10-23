@@ -1,0 +1,315 @@
+# Runtime UI strings of the cooling scripts: English text -> translation (fi de ja fr). Used by static/js/cooling-i18n.js (ZGTr).
+de:
+  ' · Unstable selected confinement': ' · Instabiler gewählter Einschluss'
+  3D · drag to rotate · wheel to zoom: 3D · zum Drehen ziehen · Mausrad zum Zoomen
+  3D · equal axes · drag / wheel: 3D · gleiche Achsen · ziehen / Mausrad
+  Centred sample variance; survivor population: Zentrierte Stichprobenvarianz; überlebende Population
+  Centred x–vₓ phase space: Zentrierter x–vₓ-Phasenraum
+  Centroid velocity x / y / z: Schwerpunktsgeschwindigkeit x / y / z
+  'Choose stable confinement: adjust endcap voltage / geometry, B (Penning) or RF voltage (Paul)': 'Stabilen Einschluss wählen: Endkappenspannung / Geometrie, B (Penning) oder RF-Spannung (Paul) anpassen'
+  Cloud widths about centroid: Wolkenbreiten um den Schwerpunkt
+  Conditions restored. Run restarts from the saved seed at t = 0.: Bedingungen wiederhergestellt. Der Lauf startet beim gespeicherten Startwert bei t = 0.
+  'Derived from your input: ': 'Aus Ihrer Eingabe abgeleitet: '
+  Doppler / recoil reference: Doppler- / Rückstoß-Referenz
+  Doppler reference: Doppler-Referenz
+  Drift is separate from temperature: Drift ist von der Temperatur getrennt
+  Enter finite values within the displayed ranges: Endliche Werte innerhalb der angezeigten Bereiche eingeben
+  Enter finite view values within the displayed ranges.: Endliche Ansichtswerte innerhalb der angezeigten Bereiche eingeben.
+  Expected scattered photons (sum): Erwartete gestreute Photonen (Summe)
+  Finished. Save figures, history, particle states and conditions below.: Fertig. Abbildungen, Verlauf, Teilchenzustände und Bedingungen unten speichern.
+  How are the hand-typed values used? (click): Wie werden die von Hand eingegebenen Werte verwendet? (klicken)
+  'Import failed: ': 'Import fehlgeschlagen: '
+  Initial safe timestep ceiling: Anfängliche sichere Zeitschrittobergrenze
+  Invalid / unstable confinement: Ungültiger / instabiler Einschluss
+  Invalid input: Ungültige Eingabe
+  Mean T; x / y / z: Mittlere T; x / y / z
+  Optical force only; other coordinates = 0: Nur optische Kraft; übrige Koordinaten = 0
+  Outside range → Fit: Außerhalb des Bereichs → Anpassen
+  Outside range; Fit current orbit: Außerhalb des Bereichs; an aktuelle Bahn anpassen
+  Phase space · laboratory values: Phasenraum · Laborwerte
+  Physical time (ms): Physikalische Zeit (ms)
+  Physical time / steps: Physikalische Zeit / Schritte
+  Ready. Physical edits reset the same-seed initial cloud.: Bereit. Physikalische Änderungen setzen die Anfangswolke mit demselben Startwert zurück.
+  Repump: Rückpumper
+  'Running with blue detuning: anti-damping and heating are expected.': 'Lauf mit blauer Verstimmung: Antidämpfung und Heizung sind zu erwarten.'
+  Running. Hover to inspect; click Run / pause to stop.: Läuft. Zum Untersuchen mit dem Zeiger darüberfahren; zum Stoppen auf Starten / Pausieren klicken.
+  Small-speed damping x / y / z: Dämpfung bei kleiner Geschwindigkeit x / y / z
+  Source: Quelle
+  Stable ideal confinement: Stabiler idealer Einschluss
+  Survivors / lost: Überlebende / verloren
+  Switch to the custom entry and type mass, charge, wavelength and linewidth below: Zur eigenen Eingabe wechseln und unten Masse, Ladung, Wellenlänge und Linienbreite eintragen
+  Target gives T outside 0.05–1000 mK; adjust ε or cloud σ: Das Ziel ergibt T außerhalb von 0,05–1000 mK; ε oder Wolken-σ anpassen
+  Transition data and approximations: Übergangsdaten und Näherungen
+  Transition source: Quelle des Übergangs
+  'Typed by hand (custom ion/atom):': 'Von Hand eingegeben (eigenes Ion/Atom):'
+  User-entered transition and mass: Vom Nutzer eingegebener Übergang und Masse
+  actual physical time: tatsächliche physikalische Zeit
+  analytic envelopes / physical orbit phases: analytische Einhüllende / physikalische Bahnphasen
+  charge q (e): Ladung q (e)
+  charge state (0 for a neutral atom): Ladungszustand (0 für ein neutrales Atom)
+  cooling wavelength λ (nm): Kühlwellenlänge λ (nm)
+  fixed maximum step: feste maximale Schrittweite
+  ion mass in u (AME atomic mass minus q·mₑ): Ionenmasse in u (AME-Atommasse minus q·mₑ)
+  ion mass m (u): Ionenmasse m (u)
+  laboratory origin: Laborursprung
+  log frequency scale: logarithmische Frequenzskala
+  max decel. ħkΓ/2m: max. Verzögerung ħkΓ/2m
+  mean: Mittelwert
+  mean velocity (m/s): mittlere Geschwindigkeit (m/s)
+  natural linewidth Γ/2π (MHz): natürliche Linienbreite Γ/2π (MHz)
+  natural linewidth Γ/2π = 1/(2πτ) of the transition: natürliche Linienbreite Γ/2π = 1/(2πτ) des Übergangs
+  negative = cooling: negativ = Kühlung
+  projected horizontal (mm): projizierte Horizontale (mm)
+  projected vertical (mm): projizierte Vertikale (mm)
+  user input: Nutzereingabe
+  vacuum wavelength of the cooling transition: Vakuumwellenlänge des Kühlübergangs
+  ? '① Mass m (u): type the ion mass (AME atomic mass minus q·mₑ). m = value × 1.66053906660×10⁻²⁷ kg. It sets the recoil velocity v_rec = ħk/m, the recoil temperature T_r, the trap frequencies ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), the Paul q = 2QV/(m r₀²Ω²) and the Coulomb accelerations.'
+  : '① Masse m (u): die Ionenmasse eingeben (AME-Atommasse minus q·mₑ). m = Wert × 1,66053906660×10⁻²⁷ kg. Sie bestimmt die Rückstoßgeschwindigkeit v_rec = ħk/m, die Rückstoßtemperatur T_r, die Fallenfrequenzen ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), das Paul-q = 2QV/(m r₀²Ω²) und die Coulomb-Beschleunigungen.'
+  '② Charge q (e): Q = q·e enters every trap frequency, the Mathieu parameters and the ion–ion force Q²/4πε₀r².': '② Ladung q (e): Q = q·e geht in jede Fallenfrequenz, die Mathieu-Parameter und die Ion-Ion-Kraft Q²/4πε₀r² ein.'
+  ? '③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.'
+  : '③ Wellenlänge λ (nm, Vakuum): k = 2π/λ, Photonenimpuls ħk; die Doppler-Verschiebung k·v bildet die Kühlkraft F(v) = ħk[R(δ−kv) − R(δ+kv)]; Sättigungsintensität I_sat = πhcΓ/3λ³.'
+  ? '④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.'
+  : '④ Linienbreite Γ/2π (MHz): Γ = 2π × Wert × 10⁶ s⁻¹. Streurate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); Verstimmungen in Einheiten von Γ (δ/Γ); Doppler-Grenze T_D = ħΓ/2k_B; Einfanggeschwindigkeit ≈ Γ/2k.'
+  ? '⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).'
+  : '⑤ Rechenkette: Eingabe → SI (m, Q, k, Γ) → in jedem Zeitschritt für jedes Ion: lokales s und Δ = δ − k·v → Poisson-Photonenzahlen → Rückstoß ħk plus zufällige Emissionsstöße → neue Geschwindigkeit → Temperaturstatistik. Die Zeile darunter zeigt, was Ihre Zahlen unmittelbar ergeben; prüfen, ob sie plausibel sind (T_D sollte im Bereich µK–mK liegen).'
+  ? '⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable.'
+  : '⑥ Einschränkung: Zwei-Niveau-Modell (keine Hyperfeinstruktur, Dunkelzustände oder Rückpumper); bei T_r ≳ T_D (schmale Linie) ist das semiklassische Ergebnis nicht zuverlässig.'
+  ✎ Custom (type by hand): ✎ Eigenes (von Hand eingeben)
+  ✎ Custom ion (mass, charge, λ, Γ by hand): ✎ Eigenes Ion (Masse, Ladung, λ, Γ von Hand)
+  ✎ Type ion by hand: ✎ Ion von Hand eingeben
+  ✓ Both radial modes cool: ✓ Beide radialen Moden kühlen
+fi:
+  ' · Unstable selected confinement': ' · Epävakaa valittu vangitseminen'
+  3D · drag to rotate · wheel to zoom: 3D · pyöritä vetämällä · zoomaa rullalla
+  3D · equal axes · drag / wheel: 3D · yhtäsuuret akselit · vedä / rulla
+  Centred sample variance; survivor population: Keskitetty otosvarianssi; eloonjäänyt populaatio
+  Centred x–vₓ phase space: Keskitetty x–vₓ-vaiheavaruus
+  Centroid velocity x / y / z: Keskipisteen nopeus x / y / z
+  'Choose stable confinement: adjust endcap voltage / geometry, B (Penning) or RF voltage (Paul)': 'Valitse vakaa vangitseminen: säädä päätyelektrodin jännitettä / geometriaa, B:tä (Penning) tai RF-jännitettä (Paul)'
+  Cloud widths about centroid: Pilven leveydet keskipisteen ympärillä
+  Conditions restored. Run restarts from the saved seed at t = 0.: Ehdot palautettu. Ajo alkaa tallennetusta siemenestä hetkestä t = 0.
+  'Derived from your input: ': 'Syötteestäsi johdettu: '
+  Doppler / recoil reference: Doppler- / rekyyliviite
+  Doppler reference: Doppler-viite
+  Drift is separate from temperature: Ajautuma on erillinen lämpötilasta
+  Enter finite values within the displayed ranges: Syötä äärelliset arvot näytettyjen rajojen sisällä
+  Enter finite view values within the displayed ranges.: Syötä äärelliset näkymäarvot näytettyjen rajojen sisällä.
+  Expected scattered photons (sum): Odotetut sironneet fotonit (summa)
+  Finished. Save figures, history, particle states and conditions below.: Valmis. Tallenna kuvat, historia, hiukkastilat ja ehdot alta.
+  How are the hand-typed values used? (click): Miten käsin syötettyjä arvoja käytetään? (napsauta)
+  'Import failed: ': 'Tuonti epäonnistui: '
+  Initial safe timestep ceiling: Alkuperäinen turvallisen aika-askeleen yläraja
+  Invalid / unstable confinement: Virheellinen / epävakaa vangitseminen
+  Invalid input: Virheellinen syöte
+  Mean T; x / y / z: Keski-T; x / y / z
+  Optical force only; other coordinates = 0: Vain optinen voima; muut koordinaatit = 0
+  Outside range → Fit: Alueen ulkopuolella → Sovita
+  Outside range; Fit current orbit: Alueen ulkopuolella; sovita nykyiseen rataan
+  Phase space · laboratory values: Vaiheavaruus · laboratorion arvot
+  Physical time (ms): Fysikaalinen aika (ms)
+  Physical time / steps: Fysikaalinen aika / askeleet
+  Ready. Physical edits reset the same-seed initial cloud.: Valmis. Fysikaaliset muutokset nollaavat saman siemenen alkupilven.
+  Repump: Takaisinpumppaus
+  'Running with blue detuning: anti-damping and heating are expected.': 'Ajo sinisellä virityserolla: vastavaimennus ja lämpeneminen ovat odotettavissa.'
+  Running. Hover to inspect; click Run / pause to stop.: Käynnissä. Tarkastele viemällä osoitin kohteen päälle; pysäytä napsauttamalla Aja / tauko.
+  Small-speed damping x / y / z: Pienen nopeuden vaimennus x / y / z
+  Source: Lähde
+  Stable ideal confinement: Vakaa ideaalinen vangitseminen
+  Survivors / lost: Eloonjääneet / menetetyt
+  Switch to the custom entry and type mass, charge, wavelength and linewidth below: Vaihda oma syöttö ja kirjoita alle massa, varaus, aallonpituus ja luonnonleveys
+  Target gives T outside 0.05–1000 mK; adjust ε or cloud σ: Tavoite antaa T:n alueen 0,05–1000 mK ulkopuolelle; säädä ε:ää tai pilven σ:aa
+  Transition data and approximations: Siirtymädata ja approksimaatiot
+  Transition source: Siirtymän lähde
+  'Typed by hand (custom ion/atom):': 'Käsin syötetty (oma ioni/atomi):'
+  User-entered transition and mass: Käyttäjän syöttämä siirtymä ja massa
+  actual physical time: todellinen fysikaalinen aika
+  analytic envelopes / physical orbit phases: analyyttiset verhokäyrät / fysikaaliset ratavaiheet
+  charge q (e): varaus q (e)
+  charge state (0 for a neutral atom): varaustila (0 neutraalille atomille)
+  cooling wavelength λ (nm): jäähdytyksen aallonpituus λ (nm)
+  fixed maximum step: kiinteä suurin askel
+  ion mass in u (AME atomic mass minus q·mₑ): ionin massa yksikössä u (AME-atomimassa miinus q·mₑ)
+  ion mass m (u): ionin massa m (u)
+  laboratory origin: laboratorion origo
+  log frequency scale: logaritminen taajuusasteikko
+  max decel. ħkΓ/2m: suurin hidastuvuus ħkΓ/2m
+  mean: keskiarvo
+  mean velocity (m/s): keskinopeus (m/s)
+  natural linewidth Γ/2π (MHz): luonnonleveys Γ/2π (MHz)
+  natural linewidth Γ/2π = 1/(2πτ) of the transition: siirtymän luonnonleveys Γ/2π = 1/(2πτ)
+  negative = cooling: negatiivinen = jäähtyminen
+  projected horizontal (mm): projisoitu vaaka (mm)
+  projected vertical (mm): projisoitu pysty (mm)
+  user input: käyttäjän syöte
+  vacuum wavelength of the cooling transition: jäähdytyssiirtymän tyhjiöaallonpituus
+  ? '① Mass m (u): type the ion mass (AME atomic mass minus q·mₑ). m = value × 1.66053906660×10⁻²⁷ kg. It sets the recoil velocity v_rec = ħk/m, the recoil temperature T_r, the trap frequencies ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), the Paul q = 2QV/(m r₀²Ω²) and the Coulomb accelerations.'
+  : '① Massa m (u): syötä ionin massa (AME-atomimassa miinus q·mₑ). m = arvo × 1,66053906660×10⁻²⁷ kg. Se määrää rekyylinopeuden v_rec = ħk/m, rekyylilämpötilan T_r, loukun taajuudet ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), Paul-loukun q = 2QV/(m r₀²Ω²) ja Coulombin kiihtyvyydet.'
+  '② Charge q (e): Q = q·e enters every trap frequency, the Mathieu parameters and the ion–ion force Q²/4πε₀r².': '② Varaus q (e): Q = q·e vaikuttaa kaikkiin loukun taajuuksiin, Mathieun parametreihin ja ionien väliseen voimaan Q²/4πε₀r².'
+  ? '③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.'
+  : '③ Aallonpituus λ (nm, tyhjiö): k = 2π/λ, fotonin liikemäärä ħk; Doppler-siirtymä k·v muodostaa jäähdytysvoiman F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturaatiointensiteetti I_sat = πhcΓ/3λ³.'
+  ? '④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.'
+  : '④ Luonnonleveys Γ/2π (MHz): Γ = 2π × arvo × 10⁶ s⁻¹. Sirontanopeus R = (Γ/2)s/(1 + s + (2Δ/Γ)²); virityserot ilmoitetaan Γ:n yksiköissä (δ/Γ); Doppler-raja T_D = ħΓ/2k_B; vangitsemisnopeus ≈ Γ/2k.'
+  ? '⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).'
+  : '⑤ Laskentaketju: syöte → SI (m, Q, k, Γ) → jokaisella aika-askeleella jokaiselle ionille paikallinen s ja Δ = δ − k·v → Poisson-fotonimäärät → rekyyli ħk sekä satunnaiset emissiopotkut → uusi nopeus → lämpötilatilastot. Alla oleva rivi näyttää, mitä lukusi antavat suoraan; tarkista, että ne ovat järkeviä (T_D:n tulisi olla µK–mK).'
+  ? '⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable.'
+  : '⑥ Varoitus: kaksitasomalli (ei hyperhienorakennetta, tummia tiloja tai takaisinpumppareita); jos T_r ≳ T_D (kapea viiva), puoliklassinen tulos ei ole luotettava.'
+  ✎ Custom (type by hand): ✎ Oma (syötä käsin)
+  ✎ Custom ion (mass, charge, λ, Γ by hand): ✎ Oma ioni (massa, varaus, λ, Γ käsin)
+  ✎ Type ion by hand: ✎ Syötä ioni käsin
+  ✓ Both radial modes cool: ✓ Molemmat radiaalimoodit jäähtyvät
+fr:
+  ' · Unstable selected confinement': ' · Confinement sélectionné instable'
+  3D · drag to rotate · wheel to zoom: 3D · glisser pour tourner · molette pour zoomer
+  3D · equal axes · drag / wheel: 3D · axes égaux · glisser / molette
+  Centred sample variance; survivor population: Variance d'échantillon centrée ; population survivante
+  Centred x–vₓ phase space: Espace des phases x–vₓ centré
+  Centroid velocity x / y / z: Vitesse du centroïde x / y / z
+  'Choose stable confinement: adjust endcap voltage / geometry, B (Penning) or RF voltage (Paul)': 'Choisissez un confinement stable : ajustez la tension / géométrie des électrodes de bout, B (Penning) ou la tension RF (Paul)'
+  Cloud widths about centroid: Largeurs du nuage autour du centroïde
+  Conditions restored. Run restarts from the saved seed at t = 0.: Conditions restaurées. L'exécution repart de la graine enregistrée à t = 0.
+  'Derived from your input: ': 'Déduit de votre saisie : '
+  Doppler / recoil reference: Référence Doppler / recul
+  Doppler reference: Référence Doppler
+  Drift is separate from temperature: La dérive est distincte de la température
+  Enter finite values within the displayed ranges: Saisissez des valeurs finies dans les plages affichées
+  Enter finite view values within the displayed ranges.: Saisissez des valeurs de vue finies dans les plages affichées.
+  Expected scattered photons (sum): Photons diffusés attendus (somme)
+  Finished. Save figures, history, particle states and conditions below.: Terminé. Enregistrez ci-dessous les figures, l'historique, les états des particules et les conditions.
+  How are the hand-typed values used? (click): Comment les valeurs saisies à la main sont-elles utilisées ? (cliquer)
+  'Import failed: ': 'Échec de l''import : '
+  Initial safe timestep ceiling: Plafond initial du pas de temps sûr
+  Invalid / unstable confinement: Confinement invalide / instable
+  Invalid input: Entrée invalide
+  Mean T; x / y / z: T moyenne ; x / y / z
+  Optical force only; other coordinates = 0: Force optique seulement ; autres coordonnées = 0
+  Outside range → Fit: Hors plage → Ajuster
+  Outside range; Fit current orbit: Hors plage ; ajustez à l'orbite actuelle
+  Phase space · laboratory values: Espace des phases · valeurs du laboratoire
+  Physical time (ms): Temps physique (ms)
+  Physical time / steps: Temps physique / pas
+  Ready. Physical edits reset the same-seed initial cloud.: Prêt. Les modifications physiques réinitialisent le nuage initial avec la même graine.
+  Repump: Repompeur
+  'Running with blue detuning: anti-damping and heating are expected.': 'Exécution avec désaccord bleu : anti-amortissement et chauffage attendus.'
+  Running. Hover to inspect; click Run / pause to stop.: En cours. Survolez pour inspecter ; cliquez sur Lancer / mettre en pause pour arrêter.
+  Small-speed damping x / y / z: Amortissement à faible vitesse x / y / z
+  Stable ideal confinement: Confinement idéal stable
+  Survivors / lost: Survivants / perdus
+  Switch to the custom entry and type mass, charge, wavelength and linewidth below: Passez à la saisie personnalisée et entrez ci-dessous masse, charge, longueur d'onde et largeur de raie
+  Target gives T outside 0.05–1000 mK; adjust ε or cloud σ: La cible donne T hors de 0,05–1000 mK ; ajustez ε ou σ du nuage
+  Transition data and approximations: Données de transition et approximations
+  Transition source: Source de la transition
+  'Typed by hand (custom ion/atom):': 'Saisi à la main (ion/atome personnalisé) :'
+  User-entered transition and mass: Transition et masse saisies par l'utilisateur
+  actual physical time: temps physique réel
+  analytic envelopes / physical orbit phases: enveloppes analytiques / phases d'orbite physiques
+  charge state (0 for a neutral atom): état de charge (0 pour un atome neutre)
+  cooling wavelength λ (nm): longueur d'onde de refroidissement λ (nm)
+  fixed maximum step: pas maximal fixe
+  ion mass in u (AME atomic mass minus q·mₑ): masse de l'ion en u (masse atomique AME moins q·mₑ)
+  ion mass m (u): masse de l'ion m (u)
+  laboratory origin: origine du laboratoire
+  log frequency scale: échelle de fréquence logarithmique
+  max decel. ħkΓ/2m: décélération max. ħkΓ/2m
+  mean: moyenne
+  mean velocity (m/s): vitesse moyenne (m/s)
+  natural linewidth Γ/2π (MHz): largeur naturelle Γ/2π (MHz)
+  natural linewidth Γ/2π = 1/(2πτ) of the transition: largeur naturelle Γ/2π = 1/(2πτ) de la transition
+  negative = cooling: négatif = refroidissement
+  projected horizontal (mm): horizontale projetée (mm)
+  projected vertical (mm): verticale projetée (mm)
+  user input: saisie de l'utilisateur
+  vacuum wavelength of the cooling transition: longueur d'onde dans le vide de la transition de refroidissement
+  ? '① Mass m (u): type the ion mass (AME atomic mass minus q·mₑ). m = value × 1.66053906660×10⁻²⁷ kg. It sets the recoil velocity v_rec = ħk/m, the recoil temperature T_r, the trap frequencies ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), the Paul q = 2QV/(m r₀²Ω²) and the Coulomb accelerations.'
+  : '① Masse m (u) : saisissez la masse de l''ion (masse atomique AME moins q·mₑ). m = valeur × 1,66053906660×10⁻²⁷ kg. Elle fixe la vitesse de recul v_rec = ħk/m, la température de recul T_r, les fréquences du piège ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), le q de Paul = 2QV/(m r₀²Ω²) et les accélérations coulombiennes.'
+  '② Charge q (e): Q = q·e enters every trap frequency, the Mathieu parameters and the ion–ion force Q²/4πε₀r².': '② Charge q (e) : Q = q·e intervient dans toutes les fréquences du piège, les paramètres de Mathieu et la force ion–ion Q²/4πε₀r².'
+  ? '③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.'
+  : '③ Longueur d''onde λ (nm, vide) : k = 2π/λ, impulsion du photon ħk ; le décalage Doppler k·v construit la force de refroidissement F(v) = ħk[R(δ−kv) − R(δ+kv)] ; intensité de saturation I_sat = πhcΓ/3λ³.'
+  ? '④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.'
+  : '④ Largeur de raie Γ/2π (MHz) : Γ = 2π × valeur × 10⁶ s⁻¹. Taux de diffusion R = (Γ/2)s/(1 + s + (2Δ/Γ)²) ; les désaccords sont en unités de Γ (δ/Γ) ; limite Doppler T_D = ħΓ/2k_B ; vitesse de capture ≈ Γ/2k.'
+  ? '⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).'
+  : '⑤ Chaîne de calcul : entrée → SI (m, Q, k, Γ) → à chaque pas de temps, pour chaque ion : s local et Δ = δ − k·v → nombres de photons de Poisson → recul ħk plus impulsions d''émission aléatoires → nouvelle vitesse → statistiques de température. La ligne ci-dessous montre ce que donnent directement vos nombres ; vérifiez qu''ils sont raisonnables (T_D devrait être de l''ordre du µK au mK).'
+  ? '⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable.'
+  : '⑥ Réserve : modèle à deux niveaux (sans structure hyperfine, états noirs ni repompeurs) ; si T_r ≳ T_D (raie étroite), le résultat semi-classique n''est pas fiable.'
+  ✎ Custom (type by hand): ✎ Personnalisé (saisie manuelle)
+  ✎ Custom ion (mass, charge, λ, Γ by hand): ✎ Ion personnalisé (masse, charge, λ, Γ saisis à la main)
+  ✎ Type ion by hand: ✎ Saisir l'ion à la main
+  ✓ Both radial modes cool: ✓ Les deux modes radiaux refroidissent
+ja:
+  ' · Unstable selected confinement': ' · 選択した閉じ込めは不安定'
+  3D · drag to rotate · wheel to zoom: 3D・ドラッグで回転・ホイールで拡大縮小
+  3D · equal axes · drag / wheel: 3D・等しい軸・ドラッグ / ホイール
+  Centred sample variance; survivor population: 中心化した標本分散。生存した集団
+  Centred x–vₓ phase space: 中心化した x–vₓ 位相空間
+  Centroid velocity x / y / z: 重心速度 x / y / z
+  'Choose stable confinement: adjust endcap voltage / geometry, B (Penning) or RF voltage (Paul)': 安定な閉じ込めを選んでください：エンドキャップ電圧 / 形状、B（ペニング）または RF 電圧（パウル）を調整
+  Cloud widths about centroid: 重心まわりの雲の幅
+  Conditions restored. Run restarts from the saved seed at t = 0.: 条件を復元しました。実行は保存したシードから t = 0 で再開します。
+  'Derived from your input: ': 入力から導出：
+  Doppler / recoil reference: ドップラー / 反跳の基準
+  Doppler reference: ドップラー基準
+  Drift is separate from temperature: ドリフトは温度とは別です
+  Enter finite values within the displayed ranges: 表示範囲内の有限の値を入力してください
+  Enter finite view values within the displayed ranges.: 表示範囲内の有限の値を入力してください。
+  Expected scattered photons (sum): 散乱光子数の期待値（合計）
+  Finished. Save figures, history, particle states and conditions below.: 完了しました。図、履歴、粒子の状態、条件は下で保存できます。
+  How are the hand-typed values used? (click): 手入力した値はどう使われる？（クリック）
+  'Import failed: ': 読み込みに失敗しました：
+  Initial safe timestep ceiling: 初期の安全な時間刻みの上限
+  Invalid / unstable confinement: 無効 / 不安定な閉じ込め
+  Invalid input: 入力が無効です
+  Mean T; x / y / z: 平均 T、x / y / z
+  Optical force only; other coordinates = 0: 光学力のみ。他の座標は 0
+  Outside range → Fit: 範囲外 → 合わせる
+  Outside range; Fit current orbit: 範囲外です。現在の軌道に合わせてください
+  Phase space · laboratory values: 位相空間・実験室系の値
+  Physical time (ms): 物理時間 (ms)
+  Physical time / steps: 物理時間 / ステップ数
+  Ready. Physical edits reset the same-seed initial cloud.: 準備完了。物理パラメータを変えると、同じシードの初期の雲にリセットされます。
+  Repump: 再ポンプ
+  'Running with blue detuning: anti-damping and heating are expected.': 青離調で実行中：反減衰と加熱が予想されます。
+  Running. Hover to inspect; click Run / pause to stop.: 実行中。カーソルを合わせて確認でき、「実行 / 一時停止」をクリックすると停止します。
+  Small-speed damping x / y / z: 低速での減衰 x / y / z
+  Source: 出典
+  Stable ideal confinement: 安定な理想的閉じ込め
+  Survivors / lost: 生存 / 損失
+  Switch to the custom entry and type mass, charge, wavelength and linewidth below: カスタム入力に切り替え、下に質量、電荷、波長、線幅を入力してください
+  Target gives T outside 0.05–1000 mK; adjust ε or cloud σ: 目標では T が 0.05–1000 mK の範囲外になります。ε または雲の σ を調整してください
+  Transition data and approximations: 遷移データと近似
+  Transition source: 遷移の出典
+  'Typed by hand (custom ion/atom):': 手入力（カスタムのイオン / 原子）：
+  User-entered transition and mass: ユーザー入力の遷移と質量
+  actual physical time: 実際の物理時間
+  analytic envelopes / physical orbit phases: 解析的な包絡線 / 物理的な軌道位相
+  charge q (e): 電荷 q (e)
+  charge state (0 for a neutral atom): 電荷状態（中性原子は 0）
+  cooling wavelength λ (nm): 冷却波長 λ (nm)
+  fixed maximum step: 固定の最大ステップ
+  ion mass in u (AME atomic mass minus q·mₑ): u 単位のイオン質量（AME の原子質量から q·mₑ を引いた値）
+  ion mass m (u): イオン質量 m (u)
+  laboratory origin: 実験室の原点
+  log frequency scale: 対数周波数スケール
+  max decel. ħkΓ/2m: 最大減速度 ħkΓ/2m
+  mean: 平均
+  mean velocity (m/s): 平均速度 (m/s)
+  natural linewidth Γ/2π (MHz): 自然線幅 Γ/2π (MHz)
+  natural linewidth Γ/2π = 1/(2πτ) of the transition: 遷移の自然線幅 Γ/2π = 1/(2πτ)
+  negative = cooling: 負の値 = 冷却
+  projected horizontal (mm): 水平方向の投影 (mm)
+  projected vertical (mm): 垂直方向の投影 (mm)
+  user input: ユーザー入力
+  vacuum wavelength of the cooling transition: 冷却遷移の真空波長
+  ? '① Mass m (u): type the ion mass (AME atomic mass minus q·mₑ). m = value × 1.66053906660×10⁻²⁷ kg. It sets the recoil velocity v_rec = ħk/m, the recoil temperature T_r, the trap frequencies ν_c = qB/2πm, ν_z ∝ √(qU₀/m d²), the Paul q = 2QV/(m r₀²Ω²) and the Coulomb accelerations.'
+  : ① 質量 m (u)：イオン質量（AME の原子質量から q·mₑ を引いた値）を入力します。m = 値 × 1.66053906660×10⁻²⁷ kg です。反跳速度 v_rec = ħk/m、反跳温度 T_r、トラップ周波数 ν_c = qB/2πm・ν_z ∝ √(qU₀/m d²)、パウルトラップの q = 2QV/(m r₀²Ω²)、クーロン加速度を決めます。
+  '② Charge q (e): Q = q·e enters every trap frequency, the Mathieu parameters and the ion–ion force Q²/4πε₀r².': ② 電荷 q (e)：Q = q·e はすべてのトラップ周波数、マシュー・パラメータ、イオン間の力 Q²/4πε₀r² に入ります。
+  ? '③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.'
+  : ③ 波長 λ (nm、真空)：k = 2π/λ、光子の運動量は ħk です。ドップラーシフト k·v が冷却力 F(v) = ħk[R(δ−kv) − R(δ+kv)] をつくり、飽和強度は I_sat = πhcΓ/3λ³ です。
+  ? '④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.'
+  : ④ 線幅 Γ/2π (MHz)：Γ = 2π × 値 × 10⁶ s⁻¹。散乱率は R = (Γ/2)s/(1 + s + (2Δ/Γ)²)、離調は Γ 単位 (δ/Γ)、ドップラー限界は T_D = ħΓ/2k_B、捕獲速度は ≈ Γ/2k です。
+  ? '⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).'
+  : ⑤ 計算の流れ：入力 → SI 単位 (m, Q, k, Γ) → 各時間ステップで各イオンについて局所的な s と Δ = δ − k·v → ポアソン分布の光子数 → 反跳 ħk とランダムな放出キック → 新しい速度 → 温度の統計。下の行に入力値から直接得られる量が表示されるので、妥当か確認してください（T_D は µK〜mK のはずです）。
+  ? '⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable.'
+  : ⑥ 注意：二準位モデルです（超微細構造、暗状態、再ポンプ光は含みません）。T_r ≳ T_D（狭い線幅）の場合、半古典的な結果は信頼できません。
+  ✎ Custom (type by hand): ✎ カスタム（手入力）
+  ✎ Custom ion (mass, charge, λ, Γ by hand): ✎ カスタムイオン（質量・電荷・λ・Γ を手入力）
+  ✎ Type ion by hand: ✎ イオンを手入力
+  ✓ Both radial modes cool: ✓ 両方の径方向モードが冷却される

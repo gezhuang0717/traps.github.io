@@ -263,5 +263,58 @@
         "校正を有効にし、出典とモードを選び、行を編集して残差と有効磁場を確認。固定マイナスはフィットしたマグネトロン項、理想は理想計算を使用。例は教材入力です。TOF 校正は飛行時間（μs）を使います。"
       ]
     }
+  },
+  "fr": {
+    "title": "Que signifient ces commandes ?",
+    "topics": {
+      "chart": [
+        "Choisissez une grandeur de couleur, puis recherchez par exemple 116Sn et appuyez sur Entrée ou cliquez sur un noyau. Afficher filtre les cases visibles ; cela ne modifie pas les données.",
+        "Masses choisit les masses évaluées AME (extrapolations # comprises) ou un modèle théorique d'états fondamentaux. Sₙ/S₂ₙ/Sₚ/S₂ₚ = 0 marquent les frontières d'énergie de séparation du modèle. N = Z et les lignes magiques sont des lignes de référence ; les trajets r/rp sont illustratifs. L'épaisseur de ligne ne change que le dessin."
+      ],
+      "chain": [
+        "Grandeur fixe l'observable verticale. Chaîne garde fixe Z (même élément), N (même nombre de neutrons) ou A = Z + N (même nombre de masse). Cliquez sur un noyau pour choisir sa chaîne.",
+        "Activez Chaînes multiples pour saisir un intervalle de numéros de chaîne et un intervalle horizontal. Axe X : étendue mesurée, étendue complète du modèle ou limites manuelles. Axe Y : toutes les séries, données seules ou limites manuelles. Les barres d'erreur montrent les incertitudes ; les inclure dans l'échelle automatique élargit les limites. Les triangles marquent les valeurs tronquées."
+      ],
+      "motion": [
+        "ν₊/ν₋ fixe le rapport entre fréquence radiale rapide et lente. r₊ et r₋ fixent les rayons des deux cercles en unités de dessin. La vitesse change la lecture de l'animation, pas le champ magnétique.",
+        "Le bouton d'impulsion π montre la conversion entre mouvements radiaux ; Effacer la trace supprime les anciennes trajectoires. Les commandes de refroidissement et de processus sont des réglages du modèle pédagogique."
+      ],
+      "cyclotron": [
+        "Choisissez un préréglage ou saisissez la masse atomique neutre en u. q est le nombre entier positif de charges (par ex. q = 2 signifie 2e). B est la densité de flux magnétique en tesla.",
+        "Saisissez dix décimales pour B ; les flèches changent 1 T en conservant la fraction. Le calculateur soustrait q masses d'électron ; νc affiché est une fréquence cyclotron idéale en kHz."
+      ],
+      "resolution": [
+        "Saisissez deux masses en u. R requis = masse moyenne / différence de masse absolue ; des masses plus proches exigent un pouvoir de résolution plus élevé. Les trois lignes comparent cette exigence à vos repères nominaux d'appareil modifiables.",
+        "Les curseurs de repère sont logarithmiques : un pas d'exposant entier multiplie R par dix. Vous pouvez saisir R directement. Une coche verte signifie repère ≥ R requis ; le rouge signifie repère < R requis. Cette comparaison est une estimation, pas une mesure d'un appareil."
+      ],
+      "converter": [
+        "Valeur et Unité décrivent la masse à convertir. u, keV/c², MeV/c² et kg sont des unités de masse ; c est la vitesse de la lumière.",
+        "A est le nombre de masse entier (protons + neutrons), pas la masse atomique en u. Saisissez A seulement pour calculer aussi l'excès de masse, (m/u − A) × 931494,10242 keV ; laissez-le vide pour la seule conversion d'unités."
+      ],
+      "tof": [
+        "Choisissez un ion, la charge positive z, B et le temps d'excitation. Rectangulaire signifie une impulsion RF ; Ramsey signifie deux impulsions séparées. Plus d'ions par tir réduit le bruit de comptage simulé.",
+        "Éloignez νrf de la résonance et prenez des tirs pour construire la courbe. Théorie superpose le modèle. Points/pixels ne change que le dessin du détecteur. Une excitation plus longue affine la résonance idéale."
+      ],
+      "mr": [
+        "Sélectionnez une paire d'ions ou activez la saisie manuelle. Rapport fixe leur abondance relative ; Comptages fixe le nombre d'événements simulés. Tours fixe le nombre d'allers-retours entre les miroirs.",
+        "Δt₀ est la largeur temporelle initiale, Δt/tour l'élargissement ajouté par tour, t/tour la durée d'un aller-retour et t₀ le temps de vol initial. Utilisez les unités affichées. Plus de tours peut séparer les pics mais aussi les élargir. Somme additionne les pics ; log R change l'échelle du pouvoir de résolution."
+      ],
+      "rfq": [
+        "Choisissez des ions et une cible ; Personnalisé accepte une liste séparée par des virgules comme 100Sn, 99In, 133Cs+2. A est le nombre de masse, V la tension RF, U la tension continue, r₀ le rayon des électrodes et Ω/2π la fréquence RF.",
+        "Émittance fixe la dispersion initiale relative à r₀. Cycles fixe le temps de séjour en périodes RF, Vitesse seulement la lecture. Une graine répète le même ensemble initial simulé. Les coupures de stabilité décrivent un modèle de Mathieu idéal ; la transmission est un résultat de trajectoires pour cet ensemble."
+      ],
+      "pi": [
+        "Recherchez un ion ou activez plusieurs ions. Autres états inclut des enregistrements du catalogue au-delà de la liste par défaut état fondamental/isomère. Table de masses choisit la source évaluée ; B fixe le champ. Le temps d'accumulation fixe la croissance de phase ; un temps plus long peut aussi replier la séparation autour de 360°.",
+        "Rayon est le rayon de l'anneau du détecteur ; la largeur de tache utilise l'unité affichée de 0,1 mm. Rapport et contamination fixent les populations. σ est la cible de séparation en largeur de tache, pas une incertitude de masse. Les décalages de phase déplacent les origines de référence/ion ; l'horloge arrondit le temps demandé à un temps réalisable. La pratique de détecteur ajoute un plancher angulaire et des comptages de centroïde ; la graine répète le bruit. Ouvrez le guide de phase/temporisation pour les détails. U₀ et d fixent les fréquences idéales du piège."
+      ],
+      "workbench": [
+        "Commencez par la masse de l'ion, la charge positive, B et la tension/taille du piège. ν₊, ν₋ et νz sont les fréquences cyclotron modifiée, magnétron et axiale ; νc = ν₊ + ν₋ dans ce modèle idéal.",
+        "Utilisez d'abord les préréglages existants, puis changez un paramètre à la fois et comparez les lectures. Rayons/phases fixent le mouvement initial, les réglages d'excitation l'impulsion appliquée et Vitesse la lecture. Le mode détaillé peut utiliser un étalonnage séparé piège 1/piège 2 ; activez-le explicitement dans le panneau d'étalonnage."
+      ],
+      "calibration": [
+        "Le piège 1 sert à la purification ; le piège 2 à la mesure de précision. Chaque ligne d'étalon contient un ion/charge connus, νc et ν₋ mesurés, et leurs incertitudes types σ en Hz. Gardez les deux pièges séparés.",
+        "Activez Utiliser l'étalonnage, choisissez la source et le mode, puis modifiez les lignes et vérifiez les résidus/le champ effectif. Fixé-moins utilise le terme magnétron ajusté ; Idéal utilise le calcul idéal du piège. Les valeurs d'exemple sont des entrées pédagogiques. L'étalonnage TOF utilise des ions connus et des temps de vol en μs ; n'y saisissez pas de fréquences cyclotron."
+      ]
+    }
   }
 }

@@ -40,14 +40,14 @@
     },
     text(d, zh) {
       const f = (x, u) => (Math.abs(x) >= 1e4 || Math.abs(x) < 1e-2 ? x.toExponential(4) : x.toPrecision(5)) + " " + u;
-      const p = [[zh ? "质量" : "m", f(d.m, "kg")], ["Γ", f(d.g, "rad/s")], ["k = 2π/λ", f(d.k, "m⁻¹")], ["T_D = ħΓ/2k_B", f(d.TD * 1e3, "mK")], ["T_r = ħ²k²/(m k_B)", f(d.Tr * 1e6, "µK")],
-        ["v_rec = ħk/m", f(d.vr * 1e3, "mm/s")], ["v_cap ≈ Γ/2k", f(d.vc, "m/s")], ["I_sat = πhcΓ/3λ³", f(d.Isat, "mW/cm²")], [zh ? "最大减速 ħkΓ/2m" : "max decel. ħkΓ/2m", f(d.amax, "m/s²")]];
+      const p = [[zh ? "质量" : ZGTr("m"), f(d.m, "kg")], ["Γ", f(d.g, "rad/s")], ["k = 2π/λ", f(d.k, "m⁻¹")], ["T_D = ħΓ/2k_B", f(d.TD * 1e3, "mK")], ["T_r = ħ²k²/(m k_B)", f(d.Tr * 1e6, "µK")],
+        ["v_rec = ħk/m", f(d.vr * 1e3, "mm/s")], ["v_cap ≈ Γ/2k", f(d.vc, "m/s")], ["I_sat = πhcΓ/3λ³", f(d.Isat, "mW/cm²")], [zh ? "最大减速 ħkΓ/2m" : ZGTr("max decel. ħkΓ/2m"), f(d.amax, "m/s²")]];
       if (d.nuc) p.push(["ν_c = qB/2πm", f(d.nuc / 1e3, "kHz")]);
       return p.map(([a, b]) => a + " = " + b).join(" · ");
     },
     help(zh) {
       const d = document.createElement("details"), s = document.createElement("summary"), q = document.createElement("div");
-      s.textContent = zh ? "手动输入如何进入计算？（点击展开）" : "How are the hand-typed values used? (click)";
+      s.textContent = zh ? "手动输入如何进入计算？（点击展开）" : ZGTr("How are the hand-typed values used? (click)");
       const P = zh ? [
         "① 质量 m（u）：输入离子质量（AME 原子质量减去 q·mₑ）。m = 质量 × 1.66053906660×10⁻²⁷ kg。它决定反冲速度 v_rec = ħk/m、反冲温度 T_r、阱频率 ν_c = qB/2πm、ν_z ∝ √(qU₀/m d²)、保罗阱 q = 2QV/(m r₀²Ω²) 以及库仑相互作用下的加速度。",
         "② 电荷 q（e）：Q = q·e，进入所有阱频率、马蒂厄参数与离子间库仑力 Q²/4πε₀r²。",
@@ -60,13 +60,13 @@
         "③ Wavelength λ (nm, vacuum): k = 2π/λ, photon momentum ħk; the Doppler shift k·v builds the cooling force F(v) = ħk[R(δ−kv) − R(δ+kv)]; saturation intensity I_sat = πhcΓ/3λ³.",
         "④ Linewidth Γ/2π (MHz): Γ = 2π × value × 10⁶ s⁻¹. Scattering rate R = (Γ/2)s/(1 + s + (2Δ/Γ)²); detunings are in units of Γ (δ/Γ); Doppler limit T_D = ħΓ/2k_B; capture velocity ≈ Γ/2k.",
         "⑤ Calculation chain: input → SI (m, Q, k, Γ) → every time step, for each ion: local s and Δ = δ − k·v → Poisson photon numbers → recoil ħk plus random emission kicks → new velocity → temperature statistics. The line below shows what your numbers give directly; check that they are sensible (T_D should be µK–mK).",
-        "⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable."];
+        "⑥ Caveat: two-level model (no hyperfine structure, dark states or repumpers); if T_r ≳ T_D (narrow line) the semiclassical result is not reliable."].map(ZGTr);
       for (const t of P) { const e = document.createElement("p"); e.textContent = t; q.append(e); }
       d.append(s, q); return d;
     },
     button(sel, zh) {
-      const b = document.createElement("button"); b.type = "button"; b.className = "zg-btn zg-btn-ghost"; b.textContent = zh ? "✎ 手动输入离子" : "✎ Type ion by hand";
-      b.title = zh ? "选择“自定义”，在下方输入质量、电荷、波长和线宽" : "Switch to the custom entry and type mass, charge, wavelength and linewidth below";
+      const b = document.createElement("button"); b.type = "button"; b.className = "zg-btn zg-btn-ghost"; b.textContent = zh ? "✎ 手动输入离子" : ZGTr("✎ Type ion by hand");
+      b.title = zh ? "选择“自定义”，在下方输入质量、电荷、波长和线宽" : ZGTr("Switch to the custom entry and type mass, charge, wavelength and linewidth below");
       b.addEventListener("click", () => { sel.value = "custom"; sel.dispatchEvent(new Event("change", { bubbles: true })); });
       sel.insertAdjacentElement("afterend", b); return b;
     }
@@ -77,17 +77,17 @@
     const sel = box.querySelector("select[name=species]");
     /* "custom" entry: mass (u), charge, λ (nm) and Γ/2π (MHz) typed by hand; values read live from the inputs */
     const zh = (document.documentElement.lang || "").startsWith("zh"), row = document.createElement("div"); row.className = "g-opts-row g-custom-ion"; row.dataset.customIon = ""; row.hidden = true;
-    const head = document.createElement("strong"); head.textContent = zh ? "手动输入（自定义离子/原子）：" : "Typed by hand (custom ion/atom):"; row.append(head);
+    const head = document.createElement("strong"); head.textContent = zh ? "手动输入（自定义离子/原子）：" : ZGTr("Typed by hand (custom ion/atom):"); row.append(head);
     const fld = (n, lab, v, step, tip) => { const l = document.createElement("label"), i = document.createElement("input"); i.type = "number"; i.name = n; i.dataset.fullPrecision = ""; i.step = step || "any"; i.value = v; i.title = tip; l.title = tip; l.append(lab + " ", i); row.append(l); return i; };
     const base = list.find(x => x.ion) || list[0], f = {
-      m: fld("cMass", zh ? "离子质量 m (u)" : "ion mass m (u)", base.mass_u || +String(base.nuclide).match(/^\d+/)[0], "any", zh ? "离子质量（原子质量单位 u）；AME 原子质量减 q·mₑ" : "ion mass in u (AME atomic mass minus q·mₑ)"),
-      q: fld("cCharge", zh ? "电荷 q (e)" : "charge q (e)", base.q, "1", zh ? "电荷态（中性原子填 0）" : "charge state (0 for a neutral atom)"),
-      l: fld("cLambda", zh ? "冷却波长 λ (nm)" : "cooling wavelength λ (nm)", base.lambda_nm, "any", zh ? "冷却跃迁的真空波长" : "vacuum wavelength of the cooling transition"),
-      g: fld("cGamma", zh ? "自然线宽 Γ/2π (MHz)" : "natural linewidth Γ/2π (MHz)", base.gamma_MHz, "any", zh ? "跃迁自然线宽 Γ/2π = 1/(2πτ)" : "natural linewidth Γ/2π = 1/(2πτ) of the transition") };
+      m: fld("cMass", zh ? "离子质量 m (u)" : ZGTr("ion mass m (u)"), base.mass_u || +String(base.nuclide).match(/^\d+/)[0], "any", zh ? "离子质量（原子质量单位 u）；AME 原子质量减 q·mₑ" : ZGTr("ion mass in u (AME atomic mass minus q·mₑ)")),
+      q: fld("cCharge", zh ? "电荷 q (e)" : ZGTr("charge q (e)"), base.q, "1", zh ? "电荷态（中性原子填 0）" : ZGTr("charge state (0 for a neutral atom)")),
+      l: fld("cLambda", zh ? "冷却波长 λ (nm)" : ZGTr("cooling wavelength λ (nm)"), base.lambda_nm, "any", zh ? "冷却跃迁的真空波长" : ZGTr("vacuum wavelength of the cooling transition")),
+      g: fld("cGamma", zh ? "自然线宽 Γ/2π (MHz)" : ZGTr("natural linewidth Γ/2π (MHz)"), base.gamma_MHz, "any", zh ? "跃迁自然线宽 Γ/2π = 1/(2πτ)" : ZGTr("natural linewidth Γ/2π = 1/(2πτ) of the transition")) };
     const derived = document.createElement("div"); derived.className = "g-custom-derived";
-    const upd = () => { const B = +(box.querySelector('[name=B]')?.value || 0); derived.textContent = (zh ? "由输入得到：" : "Derived from your input: ") + ZGCustomIon.text(ZGCustomIon.derive({ mass_u: +f.m.value, q: +f.q.value, lambda_nm: +f.l.value, gamma_MHz: +f.g.value }, B), zh); };
+    const upd = () => { const B = +(box.querySelector('[name=B]')?.value || 0); derived.textContent = (zh ? "由输入得到：" : ZGTr("Derived from your input: ")) + ZGCustomIon.text(ZGCustomIon.derive({ mass_u: +f.m.value, q: +f.q.value, lambda_nm: +f.l.value, gamma_MHz: +f.g.value }, B), zh); };
     row.append(derived, ZGCustomIon.help(zh)); upd(); row.addEventListener("input", upd);
-    const custom = { id: "custom", label: zh ? "✎ 自定义（手动输入）" : "✎ Custom (type by hand)", ion: !!box.dataset.laser && box.dataset.laser === "penning" ? true : base.ion, nuclide: "0X", repump: "—", note: zh ? "用户输入" : "user input", src: "" };
+    const custom = { id: "custom", label: zh ? "✎ 自定义（手动输入）" : ZGTr("✎ Custom (type by hand)"), ion: !!box.dataset.laser && box.dataset.laser === "penning" ? true : base.ion, nuclide: "0X", repump: "—", note: zh ? "用户输入" : ZGTr("user input"), src: "" };
     Object.defineProperties(custom, { mass_u: { get: () => +f.m.value }, q: { get: () => +f.q.value }, lambda_nm: { get: () => +f.l.value }, gamma_MHz: { get: () => +f.g.value } });
     list.push(custom); sel.closest(".g-opts-row").after(row);
     list.forEach(s => sel.add(new Option(s.label, s.id)));
@@ -178,11 +178,11 @@
       { const {g,W,H}=crisp(cv("win")),br=res.beta*Math.cos(p.theta)**2,low=res.freq.nm,high=res.freq.np,nu=br>0?res.Fy/br/TAU:NaN;
         const l=Math.log10(low)-.45,h=Math.log10(high)+.45,X=v=>40+(W-80)*(Math.log10(Math.max(v,10**l))-l)/(h-l),inside=br>0&&nu>low&&nu<high;
         g.fillStyle="#dcfce7";g.fillRect(X(low),52,X(high)-X(low),30);g.strokeStyle="#16805c";g.strokeRect(X(low),52,X(high)-X(low),30);
-        g.font="13px system-ui";g.fillStyle="#23314a";g.textAlign="left";g.fillText((br<=0?"βr ≤ 0 · "+L.notall:inside?(box.dataset.zh==="true"?"✓ 两个径向模均冷却":"✓ Both radial modes cool"):(box.dataset.zh==="true"?(nu<=low?"⚠ 磁控管加热":"⚠ 回旋模加热"):(nu<=low?"⚠ Magnetron heats":"⚠ Cyclotron heats"))),12,20);
-        g.fillText("F′ / (2π βr) = "+(Number.isFinite(nu)?fmt(nu,5)+" Hz":"—")+" · "+(box.dataset.zh==="true"?"对数频率轴":"log frequency scale"),12,40);
+        g.font="13px system-ui";g.fillStyle="#23314a";g.textAlign="left";g.fillText((br<=0?"βr ≤ 0 · "+L.notall:inside?(box.dataset.zh==="true"?"✓ 两个径向模均冷却":ZGTr("✓ Both radial modes cool")):(box.dataset.zh==="true"?(nu<=low?"⚠ 磁控管加热":"⚠ 回旋模加热"):(nu<=low?"⚠ Magnetron heats":"⚠ Cyclotron heats"))),12,20);
+        g.fillText("F′ / (2π βr) = "+(Number.isFinite(nu)?fmt(nu,5)+" Hz":"—")+" · "+(box.dataset.zh==="true"?"对数频率轴":ZGTr("log frequency scale")),12,40);
         const at=Math.max(24,Math.min(W-24,Number.isFinite(nu)&&nu>0?X(nu):24));g.strokeStyle=inside?"#16805c":"#e11d48";g.fillStyle=g.strokeStyle;g.lineWidth=3;g.beginPath();g.moveTo(at,46);g.lineTo(at,86);g.stroke();g.beginPath();g.moveTo(at,52);g.lineTo(at-6,43);g.lineTo(at+6,43);g.closePath();g.fill();
         g.fillStyle="#23314a";g.textAlign="left";g.fillText("ν− = "+fmt(low,4)+" Hz",X(low),103);g.textAlign="right";g.fillText("ν+ = "+fmt(high/1e3,4)+" kHz",X(high),103);
-        g.textAlign="left";g.fillText("γ− = "+fmt(res.gm,4)+" s⁻¹ · γ+ = "+fmt(res.gp,4)+" s⁻¹",12,124);g.fillText("γz = "+fmt(res.gz,4)+" s⁻¹ · "+(box.dataset.zh==="true"?"负值 = 冷却":"negative = cooling"),12,146);
+        g.textAlign="left";g.fillText("γ− = "+fmt(res.gm,4)+" s⁻¹ · γ+ = "+fmt(res.gp,4)+" s⁻¹",12,124);g.fillText("γz = "+fmt(res.gz,4)+" s⁻¹ · "+(box.dataset.zh==="true"?"负值 = 冷却":ZGTr("negative = cooling")),12,146);
       }
       /* amplitude log-log */
       { const { g, W, H } = crisp(cv("amp")), m = { l: 46, r: 12, t: 12, b: 34 }, t0 = 1e-6, t1 = +q("span").value/1e3, n = 160, cols = ["#e0457b", "#478cff", "#1a9e5c"], names = [L.cyc, L.mag, L.ax];
@@ -194,7 +194,7 @@
         if (simT > 0) { g.strokeStyle = ink(); g.globalAlpha = .5; g.beginPath(); g.moveTo(X(Math.max(simT, t0)), m.t); g.lineTo(X(Math.max(simT, t0)), H - m.b); g.stroke(); g.globalAlpha = 1; }
         axes(g, W, H, m, L.time + " (log)", "amplitude (log)"); }
       drawOrbit();
-      if(typeof play!=="undefined")play.readout.textContent=`t = ${tmUnit(simT)} · ${play.rate()}× · ${box.dataset.zh==="true"?"解析包络 / 真实轨道相位":"analytic envelopes / physical orbit phases"}`;
+      if(typeof play!=="undefined")play.readout.textContent=`t = ${tmUnit(simT)} · ${play.rate()}× · ${box.dataset.zh==="true"?"解析包络 / 真实轨道相位":ZGTr("analytic envelopes / physical orbit phases")}`;
       const f = res.freq, A100 = amps(0.1), rate = g => fmt(g) + " s⁻¹", eqs = x => isFinite(x) ? fmt(x * 1e6) + " µm" : L.lost;
       const state = res.Fy <= res.window[0] ? L.below : res.Fy >= res.window[1] ? L.above : L.inside;
       const rows = [["ν₊ / ν₋ / ν_z", `${fmt(f.np / 1e3, 6)} kHz / ${fmt(f.nm, 5)} Hz / ${fmt(f.nz / 1e3, 5)} kHz`], [L.rates, `${L.cyc} ${rate(res.gp)} · ${L.mag} ${rate(res.gm)} · ${L.ax} ${rate(res.gz)}`], [L.window, state], [L.eq, `${eqs(res.eqPlus)} / ${eqs(res.eqMinus)} / ${eqs(res.eqZ)}`], ["A(100 ms)", A100.map(a => fmt(a * 1e6) + " µm").join(" / ")], ["γ₊ + γ₋ = −β_r/2m", `${fmt(res.gp + res.gm)} = ${fmt(-res.beta * Math.cos(p.theta) ** 2 / (2 * res.m))} s⁻¹`]];
@@ -212,7 +212,7 @@
         if(name==='space')ZGCoolingView.cage(g,map,extent*.6,(+q('camera').value)*Math.PI/180,pitch);
         g.strokeStyle='#2563eb';g.lineWidth=1.8;g.beginPath();for(let i=0;i<=360;i++){const[x,y]=coords(point(t-trail+trail*i/360));if(Number.isFinite(x)&&Number.isFinite(y)){i?g.lineTo(x,y):g.moveTo(x,y);}}g.stroke();const[x,y]=coords(point(t));if(Number.isFinite(x)&&Number.isFinite(y)){g.fillStyle='#f59e0b';g.beginPath();g.arc(x,y,5,0,TAU);g.fill();}g.restore();
         if(name==='space'){for(const[k,color]of ['#b91c1c','#15803d','#1d4ed8'].entries()){const basis=[0,0,0];basis[k]=(k===2?zr:rr)*.8;const[x,y]=coords(basis);g.strokeStyle=color;g.fillStyle=color;g.lineWidth=2;g.beginPath();g.moveTo(map.X(0),map.Y(0));g.lineTo(x,y);g.stroke();g.textAlign='left';g.fillText(['x','y','z'][k],x+4,y-4);}}
-        if(![ap,am,az].every(Number.isFinite)||ap+am>rr||az>zr){g.fillStyle='#b91c1c';g.textAlign='right';g.fillText(box.dataset.zh==='true'?'超出范围；适应当前轨道':'Outside range; Fit current orbit',W-12,32);}
+        if(![ap,am,az].every(Number.isFinite)||ap+am>rr||az>zr){g.fillStyle='#b91c1c';g.textAlign='right';g.fillText(box.dataset.zh==='true'?'超出范围；适应当前轨道':ZGTr('Outside range; Fit current orbit'),W-12,32);}
       }
     }
     function conditions(){const p=params();return{parameters:{species:sel.value,trap:'analytic Penning envelopes',B_T:p.B,U0_V:p.U0,d_m:p.d,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,waist_m:p.w,offset_m:p.yb,theta_rad:p.theta,eta:p.eta,initial_amplitudes_um:{r_plus:+q('a0p').value,r_minus:+q('a0m').value,z:+q('a0z').value},observation_ms:+q('span').value},view:{yaw_deg:+q('camera').value,pitch_rad:pitch,radial_half_um:+q('radialRange').value,axial_half_um:+q('axialRange').value,zoom:+q('zoom').value},time_s:simT,playback:play.metadata()};}

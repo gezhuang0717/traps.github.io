@@ -1,14 +1,14 @@
 {{ $zh := hasPrefix site.Language.Lang "zh" }}
 <fieldset class="g-playback" data-playback-controls>
-<legend>{{ if $zh }}播放与逐步观察{{ else }}Playback and careful inspection{{ end }}</legend>
+<legend>{{ partial "zg/ct.html" "c006" }}</legend>
 <div class="g-opts-row">
-<label>{{ if $zh }}播放速度{{ else }}Playback speed{{ end }} <input type="range" name="playbackSlider" min="0.05" max="10" step="0.05" value="1" aria-label="{{ if $zh }}播放速度滑块{{ else }}Playback speed slider{{ end }}"></label>
-<label>{{ if $zh }}速度倍数{{ else }}Speed multiplier{{ end }} <input type="number" name="playbackSpeed" min="0.05" max="10" step="0.05" value="1" data-full-precision> ×</label>
+<label>{{ partial "zg/ct.html" "c007" }} <input type="range" name="playbackSlider" min="0.05" max="10" step="0.05" value="1" aria-label="{{ partial "zg/ct.html" "c008" }}"></label>
+<label>{{ partial "zg/ct.html" "c009" }} <input type="number" name="playbackSpeed" min="0.05" max="10" step="0.05" value="1" data-full-precision> ×</label>
 <button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="0.1">0.1×</button><button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="1">1×</button><button type="button" class="zg-btn zg-btn-ghost" data-playback-rate="5">5×</button>
-<button type="button" class="zg-btn zg-btn-ghost" data-playback-step>{{ if $zh }}暂停并前进一步{{ else }}Pause and step once{{ end }}</button>
-{{ if eq . "analytic" }}<label>{{ if $zh }}单步时间 (µs){{ else }}Single-step time (µs){{ end }} <input name="stepUs" data-step-increment="0.001" type="number" min="0.001" max="100000" step="any" value="1"></label>{{ end }}
-<label>{{ if $zh }}视频帧率{{ else }}Video frame rate{{ end }} <select name="videoFps"><option value="10">10 fps</option><option value="20" selected>20 fps</option><option value="30">30 fps</option><option value="60">60 fps</option></select></label>
+<button type="button" class="zg-btn zg-btn-ghost" data-playback-step>{{ partial "zg/ct.html" "c010" }}</button>
+{{ if eq . "analytic" }}<label>{{ partial "zg/ct.html" "c011" }} <input name="stepUs" data-step-increment="0.001" type="number" min="0.001" max="100000" step="any" value="1"></label>{{ end }}
+<label>{{ partial "zg/ct.html" "c012" }} <select name="videoFps"><option value="10">10 fps</option><option value="20" selected>20 fps</option><option value="30">30 fps</option><option value="60">60 fps</option></select></label>
 </div>
 <p class="zg-muted" data-playback-readout aria-live="off"></p>
-<details><summary>{{ if $zh }}速度、精度和视频如何配合{{ else }}How speed, accuracy and video work together{{ end }}</summary><p>{{ if $zh }}速度只改变显示时推进的步数或解析时钟，不放大数值积分时间步。慢速或单步便于观察；高速受每帧计算上限限制，可能达不到指定倍数。物理时钟是实际推进时间。录制帧率决定保存的视频采样，不保证解析高频运动；为避免混叠，应缩短观察时间并慢速录制。{{ else }}Speed changes the number of safe steps or the analytic clock advance, without enlarging the numerical timestep. Use slow playback or single steps for inspection. Fast playback is limited by a per-frame work cap and may fall below the requested multiplier. The physical clock reports the actual advance. Video fps controls capture sampling; it does not guarantee resolution of rapid motion. Shorten the observation span and record slowly to reduce aliasing.{{ end }}</p></details>
+<details><summary>{{ partial "zg/ct.html" "c013" }}</summary><p>{{ partial "zg/ct.html" "c014" }}</p></details>
 </fieldset>

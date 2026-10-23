@@ -1,0 +1,2 @@
+{{- /* Localized cooling-workbench string by key from data/cooling_i18n.yaml (en zh fi de ja fr; English fallback). */ -}}
+{{- $l := site.Language.Lang -}}{{- $k := cond (hasPrefix $l "zh") "zh" $l -}}{{- $e := index hugo.Data.cooling_i18n . -}}{{- (index $e $k) | default $e.en | safeHTML -}}
