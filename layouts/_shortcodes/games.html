@@ -65,7 +65,7 @@
     <div class="zg-row"><button type="button" class="zg-btn" data-act="shot">{{ $t.shot }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="scan">{{ $t.scan }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="fit">{{ $t.fit }}</button><button type="button" class="zg-btn" data-act="guess">{{ $t.guess }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="new">{{ $t.new }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">⤓ {{ $t.csv }}</button></div>
     <p class="g-msg" aria-live="polite"></p><p class="g-info zg-muted"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><ul><li>{{ $t.h1 }}</li><li>{{ $t.h2 }}</li><li>{{ $t.h3 }}</li><li>{{ $t.h4 }}</li></ul></details></section>
-</div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "tof" "id" "g-tof-workbench") }}</div><div data-local-panel="fancier" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "tof" "id" "g-tof-fancier" "cal" true) }}</div></section>
+</div><div data-local-panel="advanced" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "tof" "id" "g-tof-workbench") }}</div><div data-local-panel="fancier" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "tof" "id" "g-tof-fancier" "cal" true) }}</div></section>
   <section id="g-pi" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "pi" "advanced" false "fancier" true) }}<div data-local-panel="classic">
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-classic" "t" $t) }}</div><div data-local-panel="fancier" hidden>
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-fancier" "t" $t "cal" true) }}</div></section>
@@ -96,7 +96,7 @@
     <div class="zg-row"><button type="button" class="zg-btn" data-act="auto">{{ $t.mr_auto }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="new">{{ $t.new }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (R)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">⤓ {{ $t.csv }}</button></div>
     <p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.mr_h }}</p></details></section>
-</div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "mr" "id" "g-mr-workbench") }}</div></section>
+</div><div data-local-panel="advanced" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "mr" "id" "g-mr-workbench") }}</div></section>
   <section class="zg-card g-box" id="g-rfq"><h2>🧲 {{ $t.rfq }}</h2><p class="zg-muted">{{ $t.rfq_n }}</p>
     {{ partial "zg/control-help.html" "rfq" }}
     <div class="g-opts-row">

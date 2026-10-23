@@ -118,6 +118,8 @@ def test_five_language_pages_keep_one_games_page_and_trap_zoo_last():
         assert research_codes.count("trap-zoo") == 1, lang
         assert not research[research_matches[-1].end():].strip(), lang
         assert games_codes.count("spectroscopy-games") == 1, lang
+        assert games_codes.index("spectroscopy-games") < games_codes.index("games"), lang
+        assert games_codes[-1] == "games", lang
         assert "../games/#spectroscopy-trail" in research, lang
 
 

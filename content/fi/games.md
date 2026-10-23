@@ -8,6 +8,6 @@ showDate: false
 
 Pelaa, kun suihku on poissa. Parhaat tulokset tallentuvat vain selaimeesi.
 
-{{< games >}}
-
 {{< spectroscopy-games >}}
+
+{{< games >}}

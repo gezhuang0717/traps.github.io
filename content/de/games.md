@@ -8,6 +8,6 @@ showDate: false
 
 Spielen, während der Strahl aus ist. Bestwerte werden nur in deinem Browser gespeichert.
 
-{{< games >}}
-
 {{< spectroscopy-games >}}
+
+{{< games >}}
