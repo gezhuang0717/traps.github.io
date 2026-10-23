@@ -40,3 +40,10 @@ test('log ft and input validation', () => {
   assert.throws(() => B.spectrum({ Zd: 2, A: 3, Q_keV: 10, mode: 'x', type: 'allowed' }), /mode/);
   assert.throws(() => B.spectrum({ Zd: 2, A: 3, Q_keV: 10, mode: '-', type: 'weird' }), /shape/);
 });
+test('beta- screening is continuous at W = 1 + V0 (the ratio below it is frozen, not reset to the unscreened function)', () => {
+  for (const [Z, A] of [[7, 14], [29, 63], [82, 208]]) {
+    const V0 = 1.13 * B.ALPHA * B.ALPHA * Math.pow(Z, 4 / 3), Wk = 1 + V0, p = W => Math.sqrt(W * W - 1);
+    const below = B.screened(Z, Wk - 1e-7, A, 1) * p(Wk - 1e-7), above = B.screened(Z, Wk + 1e-7, A, 1) * p(Wk + 1e-7);
+    assert.ok(Math.abs(below / above - 1) < 2e-4, `Z=${Z}: ${below} vs ${above}`);
+  }
+});

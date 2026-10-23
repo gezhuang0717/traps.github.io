@@ -14,7 +14,9 @@ def fermi(Z, W, A, sign):
 
 def screened(Z, W, A, sign):
     V0 = mp.mpf("1.13") * ALPHA ** 2 * mp.mpf(Z) ** (mp.mpf(4) / 3); W1 = W - sign * V0
-    if not W1 > 1 + mp.mpf("1e-9"): return fermi(Z, W, A, sign)
+    if not W1 > 1 + mp.mpf("1e-9"):  # beta- below 1 + V0: the screening ratio is held at its threshold value (continuous spectrum)
+        Wt = 1 + V0 + mp.mpf("2e-9")
+        return fermi(Z, W, A, sign) * screened(Z, Wt, A, sign) / fermi(Z, Wt, A, sign)
     return mp.sqrt(W1 ** 2 - 1) * W1 / (mp.sqrt(W ** 2 - 1) * W) * fermi(Z, W1, A, sign)
 
 def l0(Z, W, A, sign):

@@ -30,12 +30,17 @@
     const lnF = Math.log(2 * (gamma + 1)) + 2 * (gamma - 1) * Math.log(2 * p * R) + Math.PI * y + 2 * reLnGamma(gamma, y) - 2 * reLnGamma(2 * gamma + 1, 0);
     return Math.exp(lnF);
   }
-  /* Rose screening: electron energy shifted by V0 = 1.13 alpha^2 Z^(4/3) (m_e c^2); used only where the shifted energy stays above 1. */
+  /* Rose screening: electron energy shifted by V0 = 1.13 alpha^2 Z^(4/3) (m_e c^2); below the threshold the ratio is frozen (see below). */
   function screened(Z, W, A, sign) {
     const V0 = screenShift(Z), W1 = W - sign * V0;
-    if (!(W1 > 1 + 1e-9)) return fermi(Z, W, A, sign);
-    const p = Math.sqrt(W * W - 1), p1 = Math.sqrt(W1 * W1 - 1);
-    return (p1 * W1) / (p * W) * fermi(Z, W1, A, sign);
+    if (W1 > 1 + 1e-9) {
+      const p = Math.sqrt(W * W - 1), p1 = Math.sqrt(W1 * W1 - 1);
+      return (p1 * W1) / (p * W) * fermi(Z, W1, A, sign);
+    }
+    /* beta- below W = 1 + V0 the shifted energy would not exceed the rest energy: the screening ratio S/F is held at its threshold value,
+       so the spectrum stays continuous instead of jumping back to the unscreened function */
+    const Wt = 1 + V0 + 2e-9;
+    return fermi(Z, W, A, sign) * screened(Z, Wt, A, sign) / fermi(Z, Wt, A, sign);
   }
   /* Leading terms of the finite-size convolution correction L0 (Wilkinson). */
   function finiteSize(Z, W, A, sign) {
