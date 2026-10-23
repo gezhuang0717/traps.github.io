@@ -10,7 +10,7 @@
     if(entries.length>500)throw Error('settings_too_many');
     for(const[key,v]of entries)if(!safeKey(key)||typeof v!=='string'||v.length>32000)throw Error('settings_value');
     const activeTab=value.activeTab??'sp-radii';
-    if(!/^sp-(radii|moments|levels|cls|cooling)$/.test(activeTab))throw Error('settings_tab');
+    if(!/^sp-(radii|moments|levels|cls|cooling|beta|datacode)$/.test(activeTab))throw Error('settings_tab');
     const sources=value.sources??[];
     if(!Array.isArray(sources)||sources.length>200)throw Error('settings_sources');
     // Source metadata is retained for attribution; it never replaces trusted data.

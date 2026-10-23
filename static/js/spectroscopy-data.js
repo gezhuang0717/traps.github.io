@@ -82,7 +82,13 @@
       if (v.length === 5) p.rho_xy = rho;
       return p;
     });
-    return { points, weighted: points.length >= 3 && points.every(p => p.sx != null && p.sy != null) };
+    const supplied = points.map(p => p.sx != null && p.sy != null);
+    // A missing error is unknown. Mixing known/unknown rows must not silently
+    // discard all supplied errors by falling back to a descriptive OLS fit.
+    if (supplied.some(Boolean) && !supplied.every(Boolean)) {
+      throw Object.assign(Error('Every King point must supply sx and sy, or all points must omit uncertainties'), { code: 'KING_MIXED_UNCERTAINTY' });
+    }
+    return { points, weighted: points.length >= 3 && supplied.every(Boolean) };
   }
 
   /* ±1σ band of the line y = a + b x from the parameter covariance [[var a, cov],[cov, var b]] (order intercept, slope). */
@@ -113,13 +119,14 @@
         else levels.push({ id: f[1], energy_keV: E, sigma_energy_keV: sg, spin_parity: f[4] || '' });
       } else if (f[0].toLowerCase() === 'gamma') {
         const E = num(f[3]), sg = num(f[4]);
-        if (!f[1] || !f[2] || E === null || Number.isNaN(E) || E <= 0 || Number.isNaN(sg)) errors.push({ line: i + 1, message: 'gamma,from,to,E_keV[,sigma] with E > 0' });
+        if (!f[1] || !f[2] || E === null || Number.isNaN(E) || E <= 0 || Number.isNaN(sg) || (sg !== null && sg < 0)) errors.push({ line: i + 1, message: 'gamma,from,to,E_keV[,sigma] with E > 0' });
         else transitions.push({ from: f[1], to: f[2], energy_keV: E, sigma_energy_keV: sg });
       } else errors.push({ line: i + 1, message: 'line must start with level or gamma' });
     });
     const ids = new Set(levels.map(l => l.id));
     if (ids.size !== levels.length) errors.push({ line: 0, message: 'duplicate level id' });
-    transitions.forEach(t => { if (!ids.has(t.from) || !ids.has(t.to)) errors.push({ line: 0, message: 'gamma refers to an undefined level' }); });
+    const energy = new Map(levels.map(l => [l.id, l.energy_keV]));
+    transitions.forEach(t => { if (!ids.has(t.from) || !ids.has(t.to)) errors.push({ line: 0, message: 'gamma refers to an undefined level' }); else if (!(energy.get(t.from) > energy.get(t.to))) errors.push({ line: 0, message: 'gamma must connect a higher level to a lower level' }); });
     return { scheme: { nuclide: name || 'user', source_id: 'user', levels, transitions }, errors };
   }
 

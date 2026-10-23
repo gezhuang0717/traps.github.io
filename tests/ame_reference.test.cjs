@@ -53,6 +53,56 @@ test('binder reports an unknown isotope and fills ion masses with the charge sta
   charge.value = '1'; charge.fire('input'); await new Promise(r => setTimeout(r, 0)); assert.ok(Math.abs(Number(m.value) - (atom - R.ELECTRON_U)) < 1e-9);
 });
 
+function deferred() { let resolve, reject; const promise = new Promise((ok, no) => { resolve = ok; reject = no; }); return { promise, resolve, reject }; }
+test('an own edit while AME loading is pending cancels its fill and onFill callback', async () => {
+  const pending = deferred(), isotope = fakeInput('48Ca'), check = fakeInput(), mass = fakeInput('1'), status = fakeInput(); check.checked = true;
+  let fills = 0, inputs = 0; mass.addEventListener('input', () => inputs++);
+  const b = R.bind({ load: () => pending.promise, isotope, check, fields: [{ el: mass, key: 'massU' }], status, onFill: () => fills++ });
+  const request = b.refill(); await Promise.resolve();
+  mass.value = '47.9'; mass.fire('input');
+  pending.resolve(ref); await request;
+  assert.equal(mass.value, '47.9'); assert.equal(check.checked, false); assert.equal(fills, 0); assert.equal(inputs, 1); assert.match(status.textContent, /your own values/);
+  check.checked = true; await b.refill(); assert.equal(fills, 1); assert.ok(Math.abs(Number(mass.value) - 47.952522654) < 1e-9);
+});
+test('unchecking during AME loading prevents later writes and a stale rejection cannot replace user status', async () => {
+  for (const rejects of [false, true]) {
+    const pending = deferred(), isotope = fakeInput('48Ca'), check = fakeInput(), mass = fakeInput('47.9'), status = fakeInput(); check.checked = true;
+    let fills = 0; const b = R.bind({ load: () => pending.promise, isotope, check, fields: [{ el: mass, key: 'massU' }], status, onFill: () => fills++ });
+    const request = b.refill(); await Promise.resolve(); check.checked = false; check.fire('change');
+    if (rejects) pending.reject(Error('stale network failure')); else pending.resolve(ref);
+    await request; assert.equal(mass.value, '47.9'); assert.equal(fills, 0); assert.match(status.textContent, /your own values/);
+  }
+});
+test('latest isotope and charge request alone fills after one shared pending table load', async () => {
+  const pending = deferred(), isotope = fakeInput('48Ca'), charge = fakeInput('2'), check = fakeInput(), mass = fakeInput('1'), status = fakeInput(); check.checked = true;
+  let loads = 0; const filled = [];
+  const b = R.bind({ load: () => { loads++; return pending.promise; }, isotope, charge, check, fields: [{ el: mass, key: 'massU', ion: true }], status, onFill: i => filled.push(i.label) });
+  const first = b.refill(); await Promise.resolve(); isotope.value = '40Ar'; isotope.fire('input'); charge.value = '1'; charge.fire('input');
+  pending.resolve(ref); await first; await Promise.resolve();
+  assert.equal(loads, 1); assert.deepEqual(filled, ['40Ar']); assert.match(status.textContent, /AME2020 · 40Ar/);
+  assert.ok(Math.abs(Number(mass.value) - (ref.info('Ar', 40).atomicMassU.v - R.ELECTRON_U)) < 1e-9);
+});
+test('a current load failure is retryable and a checkbox input event invalidates pending fill', async () => {
+  const pending = deferred(), isotope = fakeInput('48Ca'), check = fakeInput(), mass = fakeInput('7'), status = fakeInput(); check.checked = true;
+  let loads = 0, fills = 0;
+  const b = R.bind({ load: () => ++loads === 1 ? pending.promise : Promise.resolve(ref), isotope, check, fields: [{ el: mass, key: 'massU' }], status, onFill: () => fills++ });
+  const first = b.refill(); await Promise.resolve(); pending.reject(Error('current failure')); await first; assert.equal(status.textContent, 'current failure');
+  await b.refill(); assert.equal(loads, 2); assert.equal(fills, 1);
+  const next = deferred(); const other = R.bind({ load: () => next.promise, isotope, check, fields: [{ el: mass, key: 'massU' }], status, onFill: () => fills++ });
+  const stale = other.refill(); await Promise.resolve(); mass.value = '8'; check.checked = false; check.fire('input'); next.resolve(ref); await stale;
+  assert.equal(mass.value, '8'); assert.equal(fills, 1);
+});
+test('mounted AME checkbox has a stable settings name, with default checkbox state and public API preserved', () => {
+  const doc = { createTextNode: value => ({ textContent: value }), createElement: () => Object.assign(fakeInput(), {
+    attrs: {}, children: [], setAttribute(k, v) { this.attrs[k] = v; if (k === 'value') this.value = v; }, append(...values) { this.children.push(...values); }
+  }) };
+  let mounted; const after = { after(row) { mounted = row; } };
+  const row = R.mountRow(after, { doc, t: k => k, load: async () => ref, name: 'radiusShift-reference', label: 'Reference', iso: '40Ca', fields: [], defaultOn: false });
+  assert.equal(row.check.attrs.name, 'radiusShift-reference-use-ame'); assert.equal(row.check.checked, false); assert.equal(row.iso.attrs.name, 'radiusShift-reference'); assert.equal(mounted, row.row);
+  assert.deepEqual(Object.keys(row).sort(), ['check', 'iso', 'refill', 'row', 'status']);
+  const unnamed = R.mountRow(after, { doc, t: k => k, load: async () => ref, fields: [] }); assert.equal(unnamed.check.attrs.name, undefined); assert.equal(unnamed.check.checked, true);
+});
+
 test('every label has all six languages, long texts are real translations, and nothing is empty', () => {
   const keys = Object.keys(R.LABELS); assert.ok(keys.length >= 19);
   for (const k of keys) {

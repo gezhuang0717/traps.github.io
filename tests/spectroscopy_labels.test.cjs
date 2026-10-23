@@ -20,3 +20,10 @@ test('how-to texts keep four numbered steps in every language', () => {
   for (const k of ['howto_radii', 'howto_moments', 'howto_levels', 'howto_cls']) extra[k].forEach((v, i) => assert.equal(v.split('\n').length, 4, k + ' ' + i));
   for (const v of extra.howto_cooling) assert.equal(v.split('\n').length, 3);
 });
+test('uncertainty and beta applicability errors have all six interface translations', () => {
+  const errors = object('const inputErrors=');
+  for (const key of ['KING_MIXED_UNCERTAINTY', 'beta-finite-size-domain', 'beta-numerical-domain']) {
+    assert.equal(errors[key].length, 6, key);
+    errors[key].forEach((text, i) => { assert.ok(text.trim(), key + ' language ' + i); if (i) assert.notEqual(text, errors[key][0]); });
+  }
+});

@@ -7,3 +7,10 @@ test('Duplicate assignments and malformed quoted CSV are rejected',()=>{assert.t
 test('No prototype keys, unsupported tabs, missing schemas or non-string inputs',()=>{for(const value of [{...example,schema:'unknown'},{...example,activeTab:'external'},{...example,inputs:{x:5}},JSON.parse('{"schema":"traps-spectroscopy-v1","inputs":{"__proto__":"x"}}')])assert.throws(()=>S.normalize(value));});
 test('TXT parser preserves equals and comments inside JSON values',()=>{assert.equal(S.parse(S.serialize({...example,inputs:{x:'# a = b'}},'txt')).inputs.x,'# a = b');});
 test('Resource size and unknown formats are bounded',()=>{assert.throws(()=>S.parse(' '.repeat(131073)));assert.throws(()=>S.serialize(example,'xml'));});
+test('Every current research tab, including beta and data/code, round trips in every settings format',()=>{
+  for(const activeTab of ['sp-radii','sp-moments','sp-levels','sp-cls','sp-cooling','sp-beta','sp-datacode']){
+    const value={...example,activeTab,inputs:{...example.inputs,'beta-dataset':'hand','beta-hand-q':'156.476','beta-halflife':'','datacode-source':'livechart-levels'}};
+    for(const format of ['json','csv','txt'])assert.deepEqual(S.parse(S.serialize(value,format),format),value,activeTab+' '+format);
+  }
+  for(const activeTab of ['sp-beta-extra','sp-datacode/../../x','sp-unknown'])assert.throws(()=>S.normalize({...example,activeTab}),/settings_tab/);
+});

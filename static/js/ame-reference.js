@@ -61,18 +61,30 @@
            text: { loading, missing, user, source, estimated }, onFill?: (info) => void }.  Returns { refill }.  The result of every fill is a plain 'input' event, so a
            host that clears stale output on input keeps working. */
   function bind(o) {
-    let ref = null, filling = false;
+    let ref = null, loading = null, filling = false, generation = 0;
     const T = Object.assign({ loading: 'loading AME2020 …', missing: 'not in AME2020', user: 'your own values', source: 'AME2020', estimated: 'estimated (#)' }, o.text || {});
     const say = s => { if (o.status) o.status.textContent = s; };
     async function refill() {
+      const request = ++generation, isotope = o.isotope.value, charge = o.charge ? o.charge.value : null;
+      const current = () => request === generation && o.check.checked && o.isotope.value === isotope && (!o.charge || o.charge.value === charge);
       if (!o.check.checked) { say(T.user); return; }
-      try { if (!ref) { say(T.loading); ref = await o.load(); } } catch (e) { say(String(e && e.message || e)); return; }
-      const p = parseIsotope(o.isotope.value), i = p && ref.info(p.symbol, p.A);
-      if (!i) { say(p ? T.missing + ': ' + o.isotope.value.trim() : T.missing); return; }
-      const q = o.charge ? Number(o.charge.value) : 0; let est = false;
+      try {
+        if (!ref) {
+          say(T.loading);
+          if (!loading) loading = Promise.resolve().then(() => o.load()).then(value => { ref = value; loading = null; return value; }, error => { loading = null; throw error; });
+          await loading;
+        }
+      } catch (e) { if (current()) say(String(e && e.message || e)); return; }
+      // Fetching the shared table must never overwrite a newer request or an
+      // own value entered while the promise was pending, even if no event fired.
+      if (!current()) return;
+      const p = parseIsotope(isotope), i = p && ref.info(p.symbol, p.A);
+      if (!i) { say(p ? T.missing + ': ' + isotope.trim() : T.missing); return; }
+      const q = o.charge ? Number(charge) : 0; let est = false;
       filling = true;
       try {
         for (const f of o.fields) {
+          if (!current()) return;
           let x = f.ion ? ionMassU(i, Number.isFinite(q) ? q : 0) : (KEYS[f.key] || (() => null))(i);
           if (f.key.endsWith('_s') && x && x.v == null) x = null;
           if (!x || x.v == null || !Number.isFinite(x.v)) { f.el.value = ''; continue; }
@@ -80,13 +92,14 @@
           f.el.dispatchEvent(new Event('input', { bubbles: true }));
         }
       } finally { filling = false; }
+      if (!current()) return;
       say(T.source + ' · ' + i.label + (est ? ' · ' + T.estimated : ''));
       if (o.onFill) o.onFill(i);
     }
-    const edited = () => { if (!filling && o.check.checked) { o.check.checked = false; say(T.user); } };
+    const edited = () => { if (!filling) { generation++; if (o.check.checked) o.check.checked = false; say(T.user); } };
     o.fields.forEach(f => f.el.addEventListener('input', edited));
     o.isotope.addEventListener('input', refill); o.isotope.addEventListener('change', refill);
-    o.check.addEventListener('change', refill);
+    o.check.addEventListener('input', refill); o.check.addEventListener('change', refill);
     if (o.charge) o.charge.addEventListener('input', () => { if (o.fields.some(f => f.ion)) refill(); });
     return { refill };
   }
@@ -133,7 +146,7 @@
     const on = o.defaultOn !== false, row = h('div', null, { class: o.rowClass || 'sp-controls sp-ame-row' }), lab = h('label', o.label);
     const iso = h('input', null, { type: 'text', value: o.iso || '', spellcheck: 'false', autocomplete: 'off', 'aria-label': o.label }); if (o.name) iso.setAttribute('name', o.name);
     const cl = h('label', null, { style: 'display:flex;flex-direction:row;align-items:center;gap:.5rem;align-self:end;padding-bottom:.6rem' });
-    const check = h('input', null, { type: 'checkbox', style: 'width:1.2rem;height:1.2rem;margin:0' }); check.checked = on;
+    const check = h('input', null, { type: 'checkbox', style: 'width:1.2rem;height:1.2rem;margin:0' }); check.checked = on; if (o.name) check.setAttribute('name', o.name + '-use-ame');
     const status = h('small', o.t(on ? 'ame_hint' : 'ame_hint_off'), { class: 'sp-note', role: 'status', 'aria-live': 'polite', style: 'flex:1 1 14rem;align-self:end' });
     lab.append(iso); cl.append(check, d.createTextNode(' ' + o.t('ame_use'))); row.append(lab, cl, status); after.after(row);
     const b = bind({ load: o.load, isotope: iso, check, fields: o.fields, charge: o.charge || null, status, onFill: o.onFill,

@@ -35,6 +35,20 @@ test('King lines: errors optional, all-or-nothing per line, rho validated by the
   assert.throws(() => D.parseKing('1,3,0.1'), /sx and sy/); assert.throws(() => D.parseKing('1,3,-1,1'), /negative/); assert.throws(() => D.parseKing('1,a'), /line 1/);
   assert.equal(D.parseKing('1,3,0.1,0.2,0.5').points[0].rho_xy, 0.5);
 });
+test('King input rejects mixed known/missing row errors instead of silently switching to OLS', () => {
+  const known = ['0,1,0.1,0.2', '1,3,0.1,0.2', '2,5,0.1,0.2'];
+  for (let missing = 0; missing < known.length; missing++) {
+    const lines = known.map((line, i) => i === missing ? line.split(',').slice(0, 2).join(',') : line);
+    assert.throws(() => D.parseKing(lines.join('\n')), e => e.code === 'KING_MIXED_UNCERTAINTY');
+  }
+  const plain = D.parseKing('0,1\n1,3\n2,5');
+  assert.equal(plain.weighted, false);
+  assert.ok(plain.points.every(p => !Object.hasOwn(p, 'sx') && !Object.hasOwn(p, 'sy')));
+  const exactX = D.parseKing('0,1,0,0.2\n1,3,0,0.2\n2,5,0,0.2');
+  assert.equal(exactX.weighted, true);
+  assert.ok(exactX.points.every(p => p.sx === 0 && p.sy === 0.2));
+  close(U.kingFit(exactX).slope, 2, 1e-7);
+});
 test('OLS band equals the textbook confidence-line standard error', () => {
   const pts = [[1, 3.1], [2, 4.9], [3, 7.2], [4, 8.8], [5, 11.1]].map(([x, y]) => ({ x, y })), r = D.olsWithBand(pts, [0, 2.5, 6]);
   const n = 5, mx = 3, sxx = 10, my = pts.reduce((s, p) => s + p.y, 0) / n, b = pts.reduce((s, p) => s + (p.x - mx) * (p.y - my), 0) / sxx, a = my - b * mx;
@@ -52,4 +66,7 @@ test('hand-entered nuclear scheme is validated against its own level ids', () =>
   const t = 'level,gs,0,,0+\nlevel,a,4439.82,0.21,2+\ngamma,a,gs,4438.94';
   const ok = D.parseScheme(t, 'X'); assert.equal(ok.errors.length, 0); assert.equal(ok.scheme.transitions[0].sigma_energy_keV, null); assert.equal(ok.scheme.levels[1].spin_parity, '2+');
   assert.ok(D.parseScheme('level,a,1\nlevel,a,2', 'X').errors.length > 0); assert.ok(D.parseScheme('gamma,a,b,10', 'X').errors.length > 0); assert.ok(D.parseScheme('foo,1', 'X').errors.length > 0);
+  assert.ok(D.parseScheme(t + ',-1', 'X').errors.length > 0, 'negative gamma uncertainty');
+  assert.ok(D.parseScheme('level,gs,0\nlevel,a,20\ngamma,gs,a,20', 'X').errors.length > 0, 'upward emission');
+  assert.ok(D.parseScheme('level,a,20\ngamma,a,a,1', 'X').errors.length > 0, 'self emission');
 });
