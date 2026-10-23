@@ -118,6 +118,10 @@
   const bounds = m => manualRange || (m.auto && autoBounds(m)) || { lo: m.lo, hi: m.hi };
   const pick = (name, f) => r => { const a = auxGet(name, r); const v = a ? f(a) : null; return v == null || Number.isNaN(v) ? null : v; };
   const logPos = x => x > 0 ? Math.log10(x) : null;
+  /* discrete classes with a fixed legend (ground-state spin, mass precision, model deviation), parity filters and view options */
+  const CL = window.ZGChartClasses, WHITE = "#ffffff";
+  let emptyColour = "#e5e7eb", zpar = "all", npar = "all", isoMark = false;
+  const binMode = (label, of, list, none, extra = {}) => ({ label, f: r => { const k = of(r); return k == null ? (none ? none[0] : "#e5e7eb") : list[k][0]; }, bins: { of, list, none }, ...extra });
   const reactionDefinitions={
     q2bm:{label:'Q(2β⁻)',formula:'ME(Z,N) − ME(Z+2,N−2)',terms:[[0,0,1],[2,-2,-1]]},
     q2ec:{label:'Q(2EC)',formula:'ME(Z,N) − ME(Z−2,N+2)',terms:[[0,0,1],[-2,2,-1]]},
@@ -169,6 +173,9 @@
     mine: { label: T.m_mine, user: true, v: r => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : x; }, lo: 0, hi: 1 },
     dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
     dame95: { label: T.m_dame95, aux: "ed", v: r => { const d = edDiff("ame1995", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
+    spinb: binMode(T.m_spinb, r => CL.spinClass(r[8]), CL.SPIN_LABELS.map((l, i) => [CL.SPIN_COLOURS[i], l]), [WHITE, T.lg_uncertain]),
+    precb: binMode(T.m_precb, r => CL.precisionClass(r[4], r[5], r[3] != null), [...CL.PRECISION_LABELS.map((l, i) => [CL.PRECISION_COLOURS[i], l]), ["#d946ef", T.extrap], [WHITE, T.lg_unknown]], null),
+    dmodb: binMode(T.m_dmodb, r => { const x = dmod(r); return CL.deviationClass(x ? x.v : null); }, CL.DEVIATION_LABELS.map((l, i) => [CL.DEVIATION_COLOURS[i], "ΔME " + l]), [WHITE, T.lg_nodata], { need: true }),
   };
   for(const [name,q]of Object.entries(reactionDefinitions))MODES[name]={label:q.label,v:r=>mv(D(r)[name]),lo:-40,hi:40,u:'MeV',div:true};
   const extraFilters=window.ZGMassSurface.filters;
@@ -187,11 +194,11 @@
     unb: [T.fl_unb || "particle-unbound (Sₙ or Sₚ < 0)", r => { const d = derived(r); return (d.sn && d.sn.v < 0) || (d.sp && d.sp.v < 0); }],
     lowq: [T.fl_lowq || "Q(β) < 1 MeV", r => { const d = derived(r); return (d.qbm && d.qbm.v > 0 && d.qbm.v < 1000) || (d.qec && d.qec.v > 0 && d.qec.v < 1000); }],
   };
-  const pass = r => r.mo ? filt === "all" : FILTERS[filt][1](r);
+  const pass = r => (r.mo ? filt === "all" : FILTERS[filt][1](r)) && CL.parityOk(r[0], zpar) && CL.parityOk(r[1], npar);
   const allRows = () => src === "ame" ? rows : rows.concat(extraRows);
   function colour(r) {
     const m = MODES[mode]; if (m.f) return m.f(r);
-    const v = m.v(r); if (v == null) return "#e5e7eb";
+    const v = m.v(r); if (v == null) return emptyColour;
     const bd = bounds(m), x = (v - bd.lo) / (bd.hi - bd.lo), zero = (0 - bd.lo) / (bd.hi - bd.lo);
     if (m.div) { const t = Math.max(0, Math.min(1, x)), a = t < zero ? (zero > 0 ? (zero - t) / zero : 0) : (zero < 1 ? (t - zero) / (1 - zero) : 0); return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
     return ramp(x);
@@ -202,6 +209,7 @@
     else if (mode === "est") legend.innerHTML = `<span><i style="background:#0ea5e9"></i>${T.measured}</span><span><i style="background:#f59e0b"></i>${T.extrap}</span>`;
     else if (mode === "iso") legend.innerHTML = [0, 1, 2, 3].map(n => `<span><i style="background:${["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][n]}"></i>${n}${n === 3 ? "+" : ""}</span>`).join("");
     else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
+    else if (m.bins) legend.innerHTML = [...m.bins.list, ...(m.bins.none ? [m.bins.none] : [])].map(([c, l]) => `<span><i style="background:${c};outline:1px solid rgba(100,116,139,.55)"></i>${escape(l)}</span>`).join("") + (m.need && MOD[modelKey()] ? `<span class="nc-mnote">${escape(MOD[modelKey()].name)}</span>` : "");
     else { const bd = bounds(m), numeric = manualRange || m.user || m.auto, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
      drawStats();
   }
@@ -226,14 +234,16 @@
       const [x, y] = P(r[0], r[1]);
       if (x < -s || y < -s || x > Wd || y > Hd) continue;
       const ok = pass(r); c.globalAlpha = ok ? (r.mo ? 0.5 : 1) : 0.1;
-      c.fillStyle = r.mo && (mode === "decay" || MODES[mode].f) ? "#cbd5e1" : colour(r); c.fillRect(x, y, s - (s > 3 ? sc : 0.3), s - (s > 3 ? sc : 0.3));
+      const fill = r.mo && (mode === "decay" || MODES[mode].f) ? "#cbd5e1" : colour(r); c.fillStyle = fill; c.fillRect(x, y, s - (s > 3 ? sc : 0.3), s - (s > 3 ? sc : 0.3));
+      if (isoMark && ok && r[11].length && s >= 5 * sc) { const t = Math.min(s * 0.38, 9 * sc), e = s > 3 ? sc : 0.3; c.fillStyle = "#7c3aed"; c.beginPath(); c.moveTo(x + s - e - t, y); c.lineTo(x + s - e, y); c.lineTo(x + s - e, y + t); c.closePath(); c.fill(); }
       if(ok&&s>=10*sc&&measured?.marked(r[0],r[1])){c.strokeStyle="#a71984";c.lineWidth=2*sc;c.strokeRect(x+sc,y+sc,s-3*sc,s-3*sc);}
       if (mid && ok) {
-        const dark = r[6] === 99 || ["bm", "sf", "n"].includes(decayClass(r)) && mode === "decay";
+        const dark = r[6] === 99 || ["bm", "sf", "n"].includes(decayClass(r)) && mode === "decay" || (MODES[mode].bins && darkHex(fill));
         c.fillStyle = dark ? "#fff" : "#111";
         c.font = `${Math.min(14 * sc, s * 0.28)}px system-ui`;
         c.fillText(sup(r[0] + r[1]) + r[2] + (r[5] ? "#" : "") + (r.mo ? "*" : "") + (measured?.marked(r[0],r[1]) ? "★" : ""), x + s / 2, y + s * (big ? 0.32 : 0.5));
         if (big && !r.mo) { c.font = `${Math.min(11 * sc, s * 0.2)}px system-ui`; c.fillText(r[7].replace("stable", "★"), x + s / 2, y + s * 0.68); }
+        if (s >= 66 * sc && !r.mo) { c.font = `${Math.min(9.5 * sc, s * 0.13)}px system-ui`; if (r[3] != null) c.fillText(meText(r), x + s / 2, y + s * 0.82); const th = src !== "ame" ? getM(src, r[0], r[1]) : null; if (th) c.fillText("th " + Math.round(th.v), x + s / 2, y + s * 0.93); }
       }
     }
     c.globalAlpha = 1;
@@ -252,13 +262,16 @@
     eo: { of: r => (r[0] % 2) * 2 + (r[1] % 2), list: [[0, T.fl_ee], [1, T.fl_eo], [2, T.fl_oe], [3, T.fl_oo]] },
   };
   const nuc = r => sup(r[0] + r[1]) + r[2];
+  const darkHex = h => { const m = /^#([0-9a-f]{6})$/i.exec(h); if (!m) return false; const n = parseInt(m[1], 16); return 0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255) < 140; };
+  const meText = r => "ME " + Number(r[3].toFixed(Math.abs(r[3]) >= 1e5 ? 0 : 1)) + (r[4] != null ? "(" + Number(r[4].toPrecision(2)) + ")" : "") + (r[5] ? "#" : "");
   const num = x => String(Number(Number(x).toPrecision(5)));
   const fill = (text, o) => String(text || "").replace(/\{(\w+)\}/g, (_, k) => o[k] ?? "");
   const edLabel = ed => ed.toUpperCase();
   const edText = ed => { const e = EDSTATS && EDSTATS[ed]; return e ? fill(T.ed_opt_title, { ed: edLabel(ed), n: e.nuclides, m: e.measured, e: e.estimated, i: e.nubase ? e.nubase.isomers : "?", nub: e.nubase ? e.nubase.table : "NUBASE" }) : ""; };
   function drawStats() {
     if (!statBox) return;
-    const m = MODES[mode], list = allRows().filter(pass), cat = CATS[mode], ST = window.ZGChartStats;
+    const m = MODES[mode], list = allRows().filter(pass), ST = window.ZGChartStats;
+    const cat = CATS[mode] || (m.bins && { of: r => { const k = m.bins.of(r); return k == null ? "none" : k; }, list: [...m.bins.list.map(([, l], i) => [i, l]), ...(m.bins.none ? [["none", m.bins.none[1]]] : [])] });
     const strong = t => `<b>${t}</b>`;
     let html = "";
     if (cat) {
@@ -508,6 +521,11 @@
       out.push(T.f_left.replace("{p}", f >= 99.995 ? "≈ 100" : f >= 0.01 ? f.toFixed(2) : f > 1e-300 ? f.toExponential(1).replace(/e([+-]\d+)/, (_, x) => " × 10" + String(+x).replace(/-/, "⁻").replace(/\d/g, d => SUP[d])) : "≈ 0")); }
     return out;
   }
+  /* separation and decay channels of the card: green when energetically possible (Q > 0 decay, S < 0 emission), red when not, grey without data */
+  const CHANNELS = [["S", "Sₙ", "sn"], ["S", "Sₚ", "sp"], ["Q", "Q(α)", "qa"], ["Q", "Q(β⁻)", "qbm"], ["Q", "Q(β⁺/EC)", "qec"], ["Q", "Q(ECp)", "qep"], ["Q", "Q(β⁻n)", "qbmn"],
+    ["S", "S₂ₙ", "s2n"], ["S", "S₂ₚ", "s2p"], ["Q", "Q(2β⁻)", "q2bm"], ["Q", "Q(2EC)", "q2ec"], ["Q", "Q(2β⁺)", "q2bp"]];
+  const channelItems = d => CHANNELS.map(([kind, name, k]) => { const o = d[k], st = CL.channelState(kind, o ? o.v : null);
+    return `<li class="nc-ch nc-ch-${st}" title="${escape(T["ch_" + st])}"><b>${name}</b> = ${o ? fv(o, 1, 1, "") : "—"}</li>`; }).join("");
   function showCard(r) {
     if (!r) { card.hidden = true; return; }
     const d = derived(r), dm = src !== "ame" && MOD[src] ? derivedZN(r[0], r[1], src) : null, A = r[0] + r[1], el = EL.find(e => e[0] === r[0]), row = (k, v) => `<tr><th>${k}</th><td>${v}</td></tr>`;
@@ -523,6 +541,7 @@
       ${row("Q(β⁻)", fv(d.qbm))}${row("Q(EC)", fv(d.qec))}${row("Q(α)", fv(d.qa))}${row("δ₂ₙ", fv(d.d2n))}
       ${row("Δₙ⁽³⁾ · Δₚ⁽³⁾", fv(d.d3n) + "<br>" + fv(d.d3p))}${row("δV<sub>pn</sub>", fv(d.vpn))}${row(T.wig, fv(d.wig))}
       ${dm ? `<tr class="nc-mrow"><th colspan="2">${MOD[src].name} · ${cardT.ground}</th></tr>${row(T.me, dm.me ? (dm.me.v / 1000).toFixed(3) + " MeV" : "—")}${row("ME(AME) − ME(" + T.model_short + ")", d.me && dm.me ? ((d.me.v - dm.me.v) / 1000).toFixed(3) + " MeV" : "—")}${row("Sₙ · S₂ₙ", fv(dm.sn, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2n, 3).replace(/ ± 0\.000/, ""))}${row("Sₚ · S₂ₚ", fv(dm.sp, 3).replace(/ ± 0\.000/, "") + " · " + fv(dm.s2p, 3).replace(/ ± 0\.000/, ""))}${row("β₂", dm.beta2 ? (dm.beta2.v / 1000).toFixed(3) : "—")}` : ""}
+      <tr class="nc-chan-row"><th colspan="2">${T.ch_title}</th></tr><tr><td colspan="2"><ul class="nc-chan" aria-label="${escape(T.ch_title)}">${channelItems(d)}</ul><p class="zg-small zg-muted">${T.ch_help}</p></td></tr>
       ${row(T.disc, r[9] || "—")}
       ${r[11].length ? row(T.isomers, r[11].map(i => `${sup(A)}${i[0]}${r[2]}: Eₓ = ${escape(isomerExcitationText(i,catalog?.states.get(i[7]),unknown))} keV, ${escape(i[2] || "?")}, ${escape(i[3] || "")}`).join("<br>")) : ""}</table>
       <details class="nc-explanation"><summary>${cardT.precision}</summary><p>${cardT.rounding}</p></details>
@@ -1066,6 +1085,31 @@
   sel.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(MODES).map(([k,m])=>[k,m.label])),T);
   sel.value=mode;
   sel.onchange = () => { mode = sel.value; if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(() => { memo.clear(); drawLegend(); draw(); }); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(() => { memo.clear(); drawLegend(); draw(); }).catch(() => {}); drawLegend(); draw(); };
+
+  /* ---- parity filters, hotkeys, isomer marks and the colour of empty cells ---- */
+  {
+    const q = n => root.querySelector('[name="' + n + '"]'), zS = q("nc-zpar"), nS = q("nc-npar"), isoC = q("nc-isomark"), emC = q("nc-empty"), hk = root.querySelector(".nc-hotkey-status");
+    const say = (key, v) => { if (hk) hk.textContent = fill(T[key], { v }); }, onoff = b => b ? T.hk_on : T.hk_off;
+    const refresh = () => { memo.clear(); fsel.onchange(); };
+    if (zS) zS.onchange = () => { zpar = zS.value; refresh(); };
+    if (nS) nS.onchange = () => { npar = nS.value; refresh(); };
+    if (isoC) isoC.onchange = () => { isoMark = isoC.checked; draw(); };
+    if (emC) emC.oninput = () => { emptyColour = emC.value; memo.clear(); draw(); };
+    cv.tabIndex = 0; cv.addEventListener("pointerdown", () => cv.focus({ preventScroll: true }));
+    cv.addEventListener("keydown", e => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const k = e.key.toLowerCase(); let used = true;
+      if (k === "m") { const b = ovl && ovl.querySelector("[data-opt=magic]"); if (b) { b.checked = !b.checked; draw(); say("hk_magic", onoff(b.checked)); } }
+      else if (k === "p") { zpar = CL.nextParity(zpar); if (zS) zS.value = zpar; refresh(); say("hk_zpar", T["par_" + zpar]); }
+      else if (k === "n") { npar = CL.nextParity(npar); if (nS) nS.value = npar; refresh(); say("hk_npar", T["par_" + npar]); }
+      else if (k === "i") { isoMark = !isoMark; if (isoC) isoC.checked = isoMark; draw(); say("hk_iso", onoff(isoMark)); }
+      else if (k === "d") { let i = sel.selectedIndex, n = sel.options.length; do { i = (i + 1) % n; } while (sel.options[i].value === "mine" && !USER.map.size && n > 1); sel.selectedIndex = i; sel.onchange(); say("hk_mode", sel.options[i].text); }
+      else if (k === "g") { pin = null; showCard(null); fit(); }
+      else if (k === "s") search.focus();
+      else used = false;
+      if (used) e.preventDefault();
+    });
+  }
 
   /* ---- manual colour range and the visitor's own data layer ---- */
   {

@@ -11,7 +11,7 @@
     higher:['D1nS2n','D1pS2p','Gplus','Gsym'],
   };
   // Experimental overlays and edition comparisons: kept apart from `groups`, which is the contract of the 38 physical mass quantities.
-  const overlay={experimental:['rms','mu','qmom','e2p','be2','beta2e'],editions:['dame16','dame12','dame03','dame95'],user:['mine']};
+  const overlay={experimental:['rms','mu','qmom','e2p','be2','beta2e'],editions:['dame16','dame12','dame03','dame95'],classes:['spinb','precb','dmodb'],user:['mine']};
   const aliases={BE:'be',BEA:'bea'};
   const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function html(items,labels){

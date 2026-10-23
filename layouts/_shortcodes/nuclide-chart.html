@@ -47,6 +47,8 @@
   <div class="nc-bar">
     <label>{{ $t.colour }} <select name="nc-colour"></select></label>
     <label>{{ $t.filter }} <select name="nc-filter"></select></label> <small class="nc-fcount"></small>
+    <label>{{ $t.par_z }} <select name="nc-zpar"><option value="all">{{ $t.par_all }}</option><option value="odd">{{ $t.par_odd }}</option><option value="even">{{ $t.par_even }}</option></select></label>
+    <label>{{ $t.par_n }} <select name="nc-npar"><option value="all">{{ $t.par_all }}</option><option value="odd">{{ $t.par_odd }}</option><option value="even">{{ $t.par_even }}</option></select></label>
     <input type="search" name="nc-search" placeholder="{{ $t.search }} (100Sn)" aria-label="{{ $t.search }}">
     <button type="button" class="zg-btn" data-nc="in" aria-label="{{ $t.in }}">＋</button>
     <button type="button" class="zg-btn" data-nc="out" aria-label="{{ $t.out }}">−</button>
@@ -61,6 +63,11 @@
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
     <small class="nc-range-note" role="status"></small>
   </div>
+  <div class="nc-bar nc-viewbar">
+    <label class="nc-chk"><input type="checkbox" name="nc-isomark"> {{ $t.opt_isomark }}</label>
+    <label>{{ $t.opt_empty }} <input type="color" name="nc-empty" value="#e5e7eb"></label>
+  </div>
+  <p class="nc-hotkeys zg-small zg-muted"><b>{{ $t.hk_title }}:</b> {{ $t.hk_text }} <span class="nc-hotkey-status" role="status" aria-live="polite"></span></p>
   <details class="nc-mine"><summary>{{ $t.mine_title }}</summary>
     <p class="zg-muted">{{ $t.mine_help }}</p>
     <textarea name="nc-mine-text" rows="6" spellcheck="false" aria-label="{{ $t.mine_title }}" placeholder="Z,N,value&#10;20,28,0.11&#10;50,70,0.08"></textarea>
@@ -161,5 +168,6 @@
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-user-data.js" | relURL }}?v={{ readFile "static/js/chart-user-data.js" | sha256 }}"></script>
+<script defer src="{{ "js/chart-classes.js" | relURL }}?v={{ readFile "static/js/chart-classes.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-stats.js" | relURL }}?v={{ readFile "static/js/chart-stats.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>

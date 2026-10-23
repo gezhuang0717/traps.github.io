@@ -121,7 +121,7 @@ function domHarness(language,selected='50-66-1'){
  const ground={me:{v:-91525.979,e:.096},BEA:{v:8523.116587586206,e:.0008646403}};
  const h=helpers({card,T,unknown:'?',catalog:{groups:new Map([['sn116',group]]),states},selectedState:selected,evaluatedData:null,evaluatedWarning:false,
   src:'ame',MOD:{},EL:[],derived:()=>ground,derivedZN:()=>ground,sup:n=>String(n),facts:()=>[],decayText:()=>'',measured:null,
-  fv:(v,d=3,f=1000,u=' MeV')=>v?v.v/f+u:'—',document:{createElement:tag=>tag==='div'?panel:empty()},window,
+  fv:(v,d=3,f=1000,u=' MeV')=>v?v.v/f+u:'—',channelItems:()=>'',document:{createElement:tag=>tag==='div'?panel:empty()},window,
   location:{href:'https://example.test/lab/?nuclide=116Sn'},URL,history:{pushState(){}}});
  h.cardT=h.cardLabels(language);
  const start=source.indexOf('  function showCard(r)'),end=source.indexOf('  /* ---------- chain plot',start);

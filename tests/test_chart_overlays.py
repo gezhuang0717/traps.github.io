@@ -96,3 +96,19 @@ def test_statistics_labels_exist_in_all_languages_with_the_same_placeholders():
             text = labels[lang].get(key)
             assert isinstance(text, str) and text.strip(), (lang, key)
             assert set(re.findall(r'\{(\w+)\}', text)) == holes, (lang, key)
+
+
+def test_class_and_parity_labels_exist_in_all_languages_with_the_same_placeholders():
+    import re
+    labels = yaml.safe_load((ROOT / 'data/nuclide_chart_labels.yaml').read_text(encoding='utf8'))
+    keys = ['m_spinb', 'm_precb', 'm_dmodb', 'mf_group_classes', 'lg_uncertain', 'lg_unknown', 'lg_nodata', 'par_z', 'par_n', 'par_all', 'par_odd', 'par_even',
+            'hk_title', 'hk_text', 'hk_magic', 'hk_zpar', 'hk_npar', 'hk_iso', 'hk_mode', 'hk_on', 'hk_off', 'opt_isomark', 'opt_empty',
+            'ch_title', 'ch_help', 'ch_possible', 'ch_impossible', 'ch_nodata']
+    for key in keys:
+        holes = set(re.findall(r'\{(\w+)\}', labels['en'][key]))
+        for lang in LANGS:
+            text = labels[lang].get(key)
+            assert isinstance(text, str) and text.strip(), (lang, key)
+            assert set(re.findall(r'\{(\w+)\}', text)) == holes, (lang, key)
+    for lang in LANGS:  # the hotkey line names the same seven keys in every language
+        assert all(k in labels[lang]['hk_text'] for k in ('M ', 'P ', 'N ', 'I ', 'D ', 'G ', 'S ')), lang
