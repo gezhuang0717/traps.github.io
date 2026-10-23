@@ -57,6 +57,7 @@
     <label class="nc-chk"><input type="checkbox" name="nc-range-manual"> {{ $t.range_manual }}</label>
     <label>{{ $t.range_min }} <input type="number" name="nc-range-min" step="any" aria-label="{{ $t.range_min }}"></label>
     <label>{{ $t.range_max }} <input type="number" name="nc-range-max" step="any" aria-label="{{ $t.range_max }}"></label>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-full">{{ $t.range_full }}</button>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
     <small class="nc-range-note" role="status"></small>
   </div>
@@ -91,6 +92,9 @@
     <aside class="nc-card" hidden></aside>
   </div>
   <p class="nc-legend"></p>
+  <p class="nc-statbox zg-small" role="status" aria-live="polite"></p>
+  <div class="nc-edhint zg-small" role="status" aria-live="polite" hidden></div>
+  <details class="nc-editions"><summary>🗂 {{ $t.ed_title }}</summary><p class="zg-small">{{ $t.ed_intro }}</p><div class="nc-table-scroll nc-ed-table"></div><p class="zg-small zg-muted">{{ $t.ed_note }}</p></details>
   <div class="nc-export"><button type="button" class="zg-btn zg-btn-ghost" data-nc="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="csv">⤓ {{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-nc="video">⏺ {{ $t.video }}</button></div>
   <h3>📈 {{ $t.plot }}</h3>
   {{ partial "zg/control-help.html" "chain" }}
@@ -157,4 +161,5 @@
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-user-data.js" | relURL }}?v={{ readFile "static/js/chart-user-data.js" | sha256 }}"></script>
+<script defer src="{{ "js/chart-stats.js" | relURL }}?v={{ readFile "static/js/chart-stats.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>

@@ -66,3 +66,33 @@ def test_ame2012_matches_known_values_and_the_neighbouring_edition():
     assert len(diffs) == 3353 and diffs[len(diffs) // 2] < 1.0  # editions agree to well under a keV for the median nuclide
     meta = load('ame-editions-compact.json')['meta']['editions']['ame2012']
     assert meta['rows'] == 3353 and len(meta['raw_sha256']) == 64 and meta['url'].endswith('mass.mas12')
+
+
+def test_edition_statistics_match_the_tables_and_the_published_nubase_counts():
+    meta = load('ame-editions-compact.json')['meta']
+    stats = meta['stats']
+    editions = load('ame-editions-compact.json')['editions']
+    assert list(stats) == ['ame1995', 'ame2003', 'ame2012', 'ame2016', 'ame2020'] or set(stats) == {'ame1995', 'ame2003', 'ame2012', 'ame2016', 'ame2020'}
+    for key, rows in editions.items():
+        assert stats[key]['nuclides'] == len(rows)
+        assert stats[key]['estimated'] == sum(r[4] for r in rows) and stats[key]['measured'] == sum(1 - r[4] for r in rows)
+    # NUBASE2003 and NUBASE2016 list exactly the ground states of the AME tables; the older and the 2012 tables list a few more
+    for key in ('ame2003', 'ame2016'):
+        n = stats[key]['nubase']
+        assert (n['ground_states'], n['ground_measured'], n['ground_estimated']) == (stats[key]['nuclides'], stats[key]['measured'], stats[key]['estimated'])
+    assert stats['ame2012']['nubase']['ground_states'] == 3379 and stats['ame1995']['nubase']['ground_no_mass'] == 4
+    assert stats['ame2020']['nuclides'] == 3558 and stats['ame2020']['nubase']['isomers'] == 1841
+    assert [stats[k]['nubase']['isomers'] for k in ('ame1995', 'ame2003', 'ame2012', 'ame2016', 'ame2020')] == [727, 1163, 1675, 1747, 1841]
+
+
+def test_statistics_labels_exist_in_all_languages_with_the_same_placeholders():
+    import re
+    labels = yaml.safe_load((ROOT / 'data/nuclide_chart_labels.yaml').read_text(encoding='utf8'))
+    keys = [k for k in labels['en'] if k.startswith(('st_', 'ed_'))]
+    assert len(keys) == 27
+    for key in keys:
+        holes = set(re.findall(r'\{(\w+)\}', labels['en'][key]))
+        for lang in LANGS:
+            text = labels[lang].get(key)
+            assert isinstance(text, str) and text.strip(), (lang, key)
+            assert set(re.findall(r'\{(\w+)\}', text)) == holes, (lang, key)

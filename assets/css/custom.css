@@ -275,6 +275,9 @@ header nav > div:first-child { margin-inline-end: 1.2rem; }
 .nc-facts{margin:.5rem 0 0;padding-left:1.1rem}.nc-facts li{margin:.15rem 0}
 .nc-src{margin:.4rem 0 0;font-size:.7rem;opacity:.7}
 .nc-legend{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.8rem}
+.nc-statbox{margin:.35rem 0;padding:.4rem .6rem;border:1px solid var(--zg-line,rgba(127,127,160,.35));border-radius:8px;background:var(--zg-card-alt,rgba(127,127,160,.08))}.nc-statbox:empty{display:none}.nc-statbox b{font-variant-numeric:tabular-nums}
+.nc-edhint{margin:.35rem 0;padding:.4rem .6rem;border-left:4px solid var(--zg-blue,#2563eb);border-radius:0 8px 8px 0;background:var(--zg-card-alt,rgba(37,99,235,.08))}.nc-edhint[hidden]{display:none}.nc-edhint p{margin:.15rem 0}
+.nc-editions{margin:.4rem 0}.nc-ed-tab{border-collapse:collapse;width:100%;font-size:.82rem;font-variant-numeric:tabular-nums}.nc-ed-tab th,.nc-ed-tab td{padding:.25rem .5rem;border-bottom:1px solid var(--zg-line,rgba(127,127,160,.3));text-align:right;white-space:nowrap}.nc-ed-tab th:first-child,.nc-ed-tab td:first-child,.nc-ed-tab th:nth-child(2),.nc-ed-tab td:nth-child(2){text-align:left}.nc-ed-tab tr.nc-ed-cur{background:rgba(142,78,198,.16);font-weight:600}
 .nc-legend span{display:inline-flex;align-items:center;gap:.3rem}.nc-legend i{width:.8rem;height:.8rem;border-radius:3px;display:inline-block}
 .nc-ramp{display:inline-block;width:9rem;height:.7rem;border-radius:4px;background:linear-gradient(90deg,hsl(270,85%,52%),hsl(200,85%,52%),hsl(130,85%,52%),hsl(60,85%,52%),hsl(0,85%,52%))}
 .nc-ptable{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:3px;margin-top:.5rem}

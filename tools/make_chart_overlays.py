@@ -7,16 +7,79 @@
 2. static/data/research-cache/ame-editions-compact.json
    from the validated AME1995/2003/2016 caches already in static/data/research-cache/.
    rows per edition: [Z, N, mass_excess_keV, sigma_keV, estimated(0/1)]; unknown sigma stays null.
-Usage: python tools/make_chart_overlays.py --be2 RAW.json --ame2012 mass.mas12 [--check]
+3. the same file also carries meta.stats: per edition the number of nuclides, measured and estimated (#) masses (AME tables) and the
+   states documented in the NUBASE table published with that edition (ground states, isomers, nuclides with isomers, other excited states,
+   isobaric analogue states). Needs --nubase-dir with the five raw NUBASE files (names in NUBASE_FILES).
+Usage: python tools/make_chart_overlays.py --be2 RAW.json --ame2012 mass.mas12 [--nubase-dir DIR] [--check]
 """
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "static/data/research-cache"
 EDITIONS = {"ame1995": "ame1995--b788736036d0c3b0.json", "ame2003": "ame2003--4f5d3418ae510ef2.json", "ame2016": "ame2016--fd2b0b9c190b6f6b.json"}
+
+
+# AME edition -> the NUBASE table evaluated together with it (file name inside --nubase-dir, public URL)
+NUBASE_FILES = {
+    "ame1995": ("nubtab97.asc", "https://amdc.impcas.ac.cn/nubase/nubase1997/nubtab97.asc", "NUBASE1997"),
+    "ame2003": ("nubtab03.asc", "https://amdc.impcas.ac.cn/nubase/nubase2003/nubtab03.asc", "NUBASE2003"),
+    "ame2012": ("nubtab12.asc", "https://amdc.impcas.ac.cn/nubase/nubase2012/nubtab12.asc", "NUBASE2012"),
+    "ame2016": ("nubase2016.txt", "https://amdc.impcas.ac.cn/nubase/nubase2016.txt", "NUBASE2016"),
+    "ame2020": ("nubase_4.mas20", "https://amdc.impcas.ac.cn/masstables/Ame2020/nubase_4.mas20", "NUBASE2020"),
+}
+_MASS = re.compile(r"-?\d+(?:\.\d*)?(#?)")
+
+
+def nubase_counts(path):
+    """Count the states of one NUBASE table by the state index i of the 'ZZZi' field (columns 5-8, identical in all editions):
+    i=0 ground state, i=1,2 isomers (m, n), i=3..6 further excited states (p, q, r, x; some of them are isomers when a nuclide has
+    more than two), i=8,9 isobaric analogue states. Ground states carry the AME mass; a '#' on it marks an extrapolated value."""
+    raw = Path(path).read_bytes()
+    ground = measured = estimated = no_mass = isomers = other = analogue = 0
+    with_isomer = set()
+    for ln in raw.decode("latin-1").splitlines():
+        if ln.startswith("#") or len(ln) < 20 or not ln[:3].strip().isdigit():
+            continue
+        a, zi = int(ln[:3]), ln[4:8]
+        if not zi.strip().isdigit():
+            continue
+        i, z = int(zi[3]), int(zi[:3])
+        if i == 0:
+            ground += 1
+            m = _MASS.search(ln[17:])
+            if m:
+                estimated += 1 if m.group(1) else 0
+                measured += 0 if m.group(1) else 1
+            else:
+                no_mass += 1  # listed with decay data only (four such nuclides in NUBASE1997)
+        elif i in (1, 2):
+            isomers += 1
+            with_isomer.add((a, z))
+        elif i in (8, 9):
+            analogue += 1
+        else:
+            other += 1
+    return {"ground_states": ground, "ground_measured": measured, "ground_estimated": estimated, "ground_no_mass": no_mass, "isomers": isomers,
+            "nuclides_with_isomers": len(with_isomer), "other_excited_states": other, "analogue_states": analogue,
+            "raw_sha256": hashlib.sha256(raw).hexdigest()}
+
+
+def edition_stats(out, nubase_dir):
+    stats = {}
+    for key, rows in out.items():
+        stats[key] = {"nuclides": len(rows), "measured": sum(1 for r in rows if not r[4]), "estimated": sum(1 for r in rows if r[4]),
+                      "max_Z": max(r[0] for r in rows), "max_A": max(r[0] + r[1] for r in rows)}
+    if nubase_dir:
+        for key, (name, url, label) in NUBASE_FILES.items():
+            entry = stats.setdefault(key, {})
+            entry["nubase"] = dict(nubase_counts(Path(nubase_dir) / name), table=label, url=url)
+        n20 = stats["ame2020"]["nubase"]  # AME2020 itself is the mass column of NUBASE2020
+        stats["ame2020"].update({"nuclides": n20["ground_states"], "measured": n20["ground_measured"], "estimated": n20["ground_estimated"]})
+    return stats
 
 
 def val(entry, key):
@@ -94,7 +157,7 @@ def ame2012_table(path, expected_rows=3353):
     return rows, hashlib.sha256(raw).hexdigest()
 
 
-def editions_table(ame2012=None):
+def editions_table(ame2012=None, nubase_dir=None):
     out, meta = {}, {}
     for key, name in EDITIONS.items():
         cache = json.loads((CACHE / name).read_text(encoding="utf8"))
@@ -114,16 +177,17 @@ def editions_table(ame2012=None):
         out["ame2012"] = rows12
         meta["ame2012"] = {"title": "AME2012 atomic mass evaluation", "url": "https://amdc.impcas.ac.cn/masstables/Ame2012/mass.mas12", "evaluation_date": "2012", "raw_sha256": digest12, "rows": len(rows12), "evaluation": "G. Audi et al., Chinese Physics C 36, 1287 (2012); M. Wang et al., ibid. 36, 1603 (2012)"}
     return {"schema_version": 1, "columns": ["Z", "N", "mass_excess_keV", "sigma_keV", "estimated"],
-            "meta": {"editions": meta, "note": "Atomic mass excess of ground states; # (estimated) flags kept; printed zero uncertainties may be rounded."}, "editions": out}
+            "meta": {"editions": meta, "stats": edition_stats(out, nubase_dir), "note": "Atomic mass excess of ground states; # (estimated) flags kept; printed zero uncertainties may be rounded."}, "editions": out}
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--be2", required=True, help="raw adopted-entries.json")
     ap.add_argument("--ame2012", required=True, help="raw mass.mas12 (https://amdc.impcas.ac.cn/masstables/Ame2012/mass.mas12)")
+    ap.add_argument("--nubase-dir", help="folder with the raw NUBASE tables (file names in NUBASE_FILES); adds meta.stats isomer counts")
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args(argv)
-    outputs = {CACHE / "be2-compact.json": be2_table(args.be2), CACHE / "ame-editions-compact.json": editions_table(args.ame2012)}
+    outputs = {CACHE / "be2-compact.json": be2_table(args.be2), CACHE / "ame-editions-compact.json": editions_table(args.ame2012, args.nubase_dir)}
     for path, data in outputs.items():
         text = json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n"
         if args.check:

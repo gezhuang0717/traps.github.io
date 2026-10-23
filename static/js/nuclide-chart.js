@@ -78,6 +78,7 @@
   /* Experimental overlays (charge radii, moments, B(E2), E(2+)) and AME edition comparisons, loaded on demand from the compact tables
      built by tools/make_nuclear_properties.py and tools/make_chart_overlays.py. Unknown values stay null; nothing is invented. */
   const AUX = { props: null, be2: null, ed: null }, auxJobs = {}, auxBase = root.dataset.aux || "";
+  let EDSTATS = null;  /* meta.stats of the edition table: measured / estimated masses and NUBASE isomers per AME edition */
   const auxFile = { props: "nuclear-properties-compact.json", be2: "be2-compact.json", ed: "ame-editions-compact.json" };
   function auxBuild(name, j) {
     const c = Object.fromEntries(j.columns.map((n, i) => [n, i]));
@@ -87,11 +88,12 @@
       return m;
     }
     if (name === "be2") return new Map(j.rows.map(x => [key(x[c.Z], x[c.N]), { E: x[c.E2_keV], sE: x[c.sigma_E2_keV], b: x[c.be2_up_e2b2], sb: x[c.sigma_be2_up_e2b2], beta: x[c.beta2], sbeta: x[c.sigma_beta2], year: x[c.evaluation_year] }]));
+    EDSTATS = (j.meta && j.meta.stats) || null;
     return Object.fromEntries(Object.entries(j.editions).map(([e, rows]) => [e, new Map(rows.map(x => [key(x[0], x[1]), [x[2], x[3], x[4]]]))]));
   }
   function loadAux(name) {
     if (AUX[name]) return Promise.resolve();
-    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
+    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); if (name === "ed") titleEditionOptions(); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
   }
   const auxGet = (name, r) => AUX[name] && AUX[name].get(key(r[0], r[1]));
   const edDiff = (ed, r) => {
@@ -102,7 +104,18 @@
   };
   const USER = { map: new Map(), column: "", rows: [], parsed: null };  /* the visitor's own table, drawn as a colour layer */
   let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
-  const bounds = m => manualRange || { lo: m.lo, hi: m.hi };
+  /* Colour range of a mode flagged `auto` (the AME edition differences): the minimum and maximum of every plotted value, independent of the
+     filter, instead of a fixed window. Not cached until the overlay table is loaded, so the first draw never freezes a fallback range. */
+  const autoCache = new Map();
+  function autoBounds(m) {
+    const id = src + "|" + m.label, hit = autoCache.get(id); if (hit) return hit;
+    let lo = Infinity, hi = -Infinity;
+    for (const r of allRows()) { const v = m.v(r); if (v != null && Number.isFinite(v)) { if (v < lo) lo = v; if (v > hi) hi = v; } }
+    if (!(hi >= lo)) return null;
+    if (hi === lo) { lo -= 0.5; hi += 0.5; }
+    const b = { lo, hi }; autoCache.set(id, b); return b;
+  }
+  const bounds = m => manualRange || (m.auto && autoBounds(m)) || { lo: m.lo, hi: m.hi };
   const pick = (name, f) => r => { const a = auxGet(name, r); const v = a ? f(a) : null; return v == null || Number.isNaN(v) ? null : v; };
   const logPos = x => x > 0 ? Math.log10(x) : null;
   const reactionDefinitions={
@@ -151,11 +164,11 @@
     e2p: { label: T.m_e2p, aux: "be2", v: pick("be2", a => logPos(a.E)), lo: 1.5, hi: 3.7, rng: ["32 keV", "5 MeV"] },
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
-    dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
-    dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
+    dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
     mine: { label: T.m_mine, user: true, v: r => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : x; }, lo: 0, hi: 1 },
-    dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
-    dame95: { label: T.m_dame95, aux: "ed", v: r => { const d = edDiff("ame1995", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
+    dame95: { label: T.m_dame95, aux: "ed", v: r => { const d = edDiff("ame1995", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
   };
   for(const [name,q]of Object.entries(reactionDefinitions))MODES[name]={label:q.label,v:r=>mv(D(r)[name]),lo:-40,hi:40,u:'MeV',div:true};
   const extraFilters=window.ZGMassSurface.filters;
@@ -180,7 +193,7 @@
     const m = MODES[mode]; if (m.f) return m.f(r);
     const v = m.v(r); if (v == null) return "#e5e7eb";
     const bd = bounds(m), x = (v - bd.lo) / (bd.hi - bd.lo), zero = (0 - bd.lo) / (bd.hi - bd.lo);
-    if (m.div) { const t = Math.max(0, Math.min(1, x)), a = Math.abs(t - zero) * 2; return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
+    if (m.div) { const t = Math.max(0, Math.min(1, x)), a = t < zero ? (zero > 0 ? (zero - t) / zero : 0) : (zero < 1 ? (t - zero) / (1 - zero) : 0); return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
     return ramp(x);
   }
   function drawLegend() {
@@ -189,7 +202,8 @@
     else if (mode === "est") legend.innerHTML = `<span><i style="background:#0ea5e9"></i>${T.measured}</span><span><i style="background:#f59e0b"></i>${T.extrap}</span>`;
     else if (mode === "iso") legend.innerHTML = [0, 1, 2, 3].map(n => `<span><i style="background:${["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][n]}"></i>${n}${n === 3 ? "+" : ""}</span>`).join("");
     else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
-    else { const bd = bounds(m), numeric = manualRange || m.user, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
+    else { const bd = bounds(m), numeric = manualRange || m.user || m.auto, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
+     drawStats();
   }
 
   /* ---------- drawing (any context / scale, for high-res export) ---------- */
@@ -227,6 +241,71 @@
     [[hover, ink], [pin, "#e5484d"]].forEach(([r, col]) => { if (!r || sc > 1 && r === hover) return; const [x, y] = P(r[0], r[1]); c.strokeStyle = col; c.lineWidth = 2 * sc; c.strokeRect(x - sc, y - sc, s + sc, s + sc); });
     c.fillStyle = sc > 1 ? '#222' : ink; c.font = `${12 * sc}px system-ui`; c.textAlign = "left"; c.fillText("N →", Wd - 36 * sc, Hd - 8 * sc); c.fillText("Z ↑", 6 * sc, 14 * sc);
   }
+  /* ---------- label boxes: summary of the plotted values, AME edition hint and edition table ---------- */
+  const statBox = root.querySelector(".nc-statbox"), edHint = root.querySelector(".nc-edhint"), edBox = root.querySelector(".nc-editions"), edTable = root.querySelector(".nc-ed-table");
+  const EDMODE = { dame95: "ame1995", dame03: "ame2003", dame12: "ame2012", dame16: "ame2016" };
+  const RNG_UNIT = { e2p: "keV", be2: "e²b²", dme: "keV" };   /* colour modes that store log10 of the quantity */
+  const CATS = {
+    decay: { of: r => decayClass(r), list: [["stable", T.stable], ["bm", "β⁻"], ["bp", "β⁺/EC"], ["a", "α"], ["sf", "SF"], ["p", "p"], ["n", "n"], ["it", "IT"], ["punst", T.punst]] },
+    est: { of: r => r[3] == null ? "none" : r[5] ? "x" : "m", list: [["m", T.measured], ["x", T.extrap]] },
+    iso: { of: r => Math.min(3, r[11].length), list: [[0, "0"], [1, "1"], [2, "2"], [3, "3+"]] },
+    eo: { of: r => (r[0] % 2) * 2 + (r[1] % 2), list: [[0, T.fl_ee], [1, T.fl_eo], [2, T.fl_oe], [3, T.fl_oo]] },
+  };
+  const nuc = r => sup(r[0] + r[1]) + r[2];
+  const num = x => String(Number(Number(x).toPrecision(5)));
+  const fill = (text, o) => String(text || "").replace(/\{(\w+)\}/g, (_, k) => o[k] ?? "");
+  const edLabel = ed => ed.toUpperCase();
+  const edText = ed => { const e = EDSTATS && EDSTATS[ed]; return e ? fill(T.ed_opt_title, { ed: edLabel(ed), n: e.nuclides, m: e.measured, e: e.estimated, i: e.nubase ? e.nubase.isomers : "?", nub: e.nubase ? e.nubase.table : "NUBASE" }) : ""; };
+  function drawStats() {
+    if (!statBox) return;
+    const m = MODES[mode], list = allRows().filter(pass), cat = CATS[mode], ST = window.ZGChartStats;
+    const strong = t => `<b>${t}</b>`;
+    let html = "";
+    if (cat) {
+      const count = new Map(); for (const r of list) { const k = cat.of(r); count.set(k, (count.get(k) || 0) + 1); }
+      html = strong(fill(T.st_n, { n: list.length })) + " · " + cat.list.map(([k, l]) => `${escape(l)} ${strong(count.get(k) || 0)}`).join(" · ");
+    } else if (mode === "hl") {
+      const known = list.filter(r => r[6] > -98 && r[6] < 99), s = ST.summarize(known.map(r => ({ v: r[6], id: r }))), stable = list.filter(r => r[6] === 99).length;
+      const t = v => `10^${num(v)} s`;
+      html = s ? strong(fill(T.st_hl, { n: s.n })) + ` · ${T.st_min} ${strong(t(s.min.v))} (${nuc(s.min.id)}) · ${T.st_max} ${strong(t(s.max.v))} (${nuc(s.max.id)}) · ${T.st_median} ${strong(t(s.median))} · ${T.st_hl_stable} ${strong(stable)}` : escape(T.st_none);
+    } else if (m.v) {
+      const items = list.map(r => ({ v: m.v(r), id: r })), s = ST.summarize(items);
+      const unit = m.rng ? RNG_UNIT[mode] || "" : m.u || "", shown = v => num(m.rng ? Math.pow(10, v) : v) + (unit ? " " + unit : "");
+      if (!s) html = escape(T.st_none);
+      else {
+        const bd = bounds(m), out = items.filter(x => Number.isFinite(x.v) && (x.v < bd.lo || x.v > bd.hi)).length;
+        html = strong(fill(T.st_n, { n: s.n })) + ` · ${T.st_min} ${strong(shown(s.min.v))} (${nuc(s.min.id)}) · ${T.st_max} ${strong(shown(s.max.v))} (${nuc(s.max.id)}) · ${T.st_median} ${strong(shown(s.median))}` + (out ? ` · ${fill(T.st_clipped, { k: out })}` : "");
+      }
+    }
+    statBox.innerHTML = html;
+    drawEdHint(); renderEditions();
+  }
+  function drawEdHint() {
+    if (!edHint) return;
+    const ed = EDMODE[mode]; edHint.hidden = !ed; if (!ed) return;
+    if (!AUX.ed || !EDSTATS) { edHint.textContent = T.ed_loading; return; }
+    const c = window.ZGChartStats.compareEditions(rows, AUX.ed[ed], key), label = edLabel(ed), lines = [edText(ed), fill(T.ed_hint_head, { ed: label, n: c.compared })];
+    if (c.added) lines.push(fill(T.ed_hint_new, { ed: label, n: c.added }));
+    if (c.dropped) lines.push(fill(T.ed_hint_drop, { ed: label, n: c.dropped }));
+    if (c.estimatedToMeasured || c.measuredToEstimated) lines.push(fill(T.ed_hint_stat, { a: c.estimatedToMeasured, b: c.measuredToEstimated }));
+    if (c.largest) lines.push(fill(T.ed_hint_spread, { med: num(c.medianAbs), mean: num(c.meanDifference), max: num(c.largest.v), id: sup(c.largest.id[0] + c.largest.id[1]) + (EL.find(e => e[0] === c.largest.id[0]) || [0, "Z" + c.largest.id[0]])[1] }));
+    lines.push(fill(T.ed_hint_sigma, { n: c.beyond3Sigma }));
+    edHint.innerHTML = lines.map(l => `<p>${escape(l)}</p>`).join("");
+  }
+  function renderEditions() {
+    if (!edTable || !edBox || !edBox.open) return;
+    const ST = window.ZGChartStats;
+    if (!EDSTATS) { edTable.textContent = T.ed_loading; return; }
+    const head = [T.ed_col_ed, T.ed_col_nub, T.ed_col_n, T.ed_col_meas, T.ed_col_est, T.ed_col_iso, T.ed_col_wiso, T.ed_col_oth], cur = EDMODE[mode] || "ame2020";
+    edTable.innerHTML = `<table class="nc-ed-tab"><thead><tr>${head.map(h => `<th scope="col">${escape(h)}</th>`).join("")}</tr></thead><tbody>` + ST.editionRows(EDSTATS).map(e =>
+      `<tr${e.key === cur ? ' class="nc-ed-cur" aria-current="true"' : ""}><th scope="row">${e.label}</th><td>${escape(e.nubase)}</td><td>${e.nuclides}</td><td>${e.measured}</td><td>${e.estimated}</td><td>${e.isomers ?? "—"}</td><td>${e.withIsomers ?? "—"}</td><td>${e.other ?? "—"}</td></tr>`).join("") + "</tbody></table>";
+  }
+  function titleEditionOptions() {   /* hover hint for every AME edition entry of the colour menu */
+    if (!EDSTATS) return;
+    for (const o of sel.options) { const ed = EDMODE[o.value]; if (ed) o.title = edText(ed); }
+  }
+  if (edBox) edBox.addEventListener("toggle", () => { if (!edBox.open) return; renderEditions(); if (!EDSTATS) loadAux("ed").then(() => { renderEditions(); titleEditionOptions(); }).catch(() => {}); });
+
   /* ---------- theory masses, drip lines and process paths ---------- */
   const DRIP = { sn: ["#2563eb", [6, 4]], s2n: ["#1e3a8a", []], sp: ["#ef4444", [6, 4]], s2p: ["#991b1b", []] };
   const dripCache = new Map();
@@ -990,12 +1069,12 @@
 
   /* ---- manual colour range and the visitor's own data layer ---- */
   {
-    const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]');
+    const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]');
     const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData;
     const redraw = () => { memo.clear(); drawLegend(); draw(); };
     const show = z => String(Number(Number(z).toPrecision(6)));
     function syncRange() {
-      const m = MODES[mode], off = !!m.f; [chk, minI, maxI, autoB].forEach(e => { e.disabled = off; });
+      const m = MODES[mode], off = !!m.f; [chk, minI, maxI, autoB, fullB].forEach(e => { if (e) e.disabled = off; });
       const bd = bounds(m); chk.checked = !!manualRange; if (!off) { minI.value = show(bd.lo); maxI.value = show(bd.hi); }
       note.textContent = off ? "" : m.rng ? (T.range_log || "log scale: values are log₁₀ of the quantity") : "";
     }
@@ -1006,13 +1085,14 @@
     }
     chk.onchange = () => { if (!chk.checked) { manualRange = null; syncRange(); redraw(); } else applyManual(); };
     minI.oninput = maxI.oninput = applyManual;
-    autoB.onclick = () => {
+    const dataRange = full => {   /* full: the true minimum and maximum; otherwise the 2–98 % window that ignores a few outliers */
       const m = MODES[mode], vals = []; if (m.f) return;
       for (const r of allRows()) { if (!pass(r)) continue; const v = m.v(r); if (v != null && Number.isFinite(v)) vals.push(v); }
-      const rr = UD.robustRange(vals); if (!rr) { note.textContent = T.mine_empty || "no values"; return; }
-      let [lo, hi] = rr; if (m.div) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
+      const rr = full ? UD.range(vals) : UD.robustRange(vals); if (!rr) { note.textContent = T.mine_empty || "no values"; return; }
+      let [lo, hi] = rr; if (m.div && !full) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
       manualRange = { lo, hi }; syncRange(); redraw();
     };
+    autoB.onclick = () => dataRange(false); if (fullB) fullB.onclick = () => dataRange(true);
     const baseChange = sel.onchange;
     sel.onchange = () => { manualRange = null; baseChange(); syncRange(); };
     syncRange();
@@ -1041,7 +1121,7 @@
   if (msel) msel.onchange = () => setSource(msel.value);
   if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && !Object.keys(PATHS).length) loadModels().then(draw); draw(); });
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");
-  fsel.onchange = () => { filt = fsel.value; draw(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
+  fsel.onchange = () => { filt = fsel.value; draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
   search.addEventListener("keydown", e => {
     if (e.key !== "Enter") return;
     try {

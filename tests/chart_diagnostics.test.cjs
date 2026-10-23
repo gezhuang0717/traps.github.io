@@ -57,7 +57,7 @@ test('actual chain CSV uses mass provenance for the sigma diagnostic and residua
 });
 test('chart parity filters and their legend share translated labels',()=>{
  const labels={fl_ee:'偶 Z · 偶 N',fl_eo:'偶 Z · 奇 N',fl_oe:'奇 Z · 偶 N',fl_oo:'奇 Z · 奇 N'};
- const legend={},context={mode:'eo',MODES:{eo:{}},legend,T:labels,escape:s=>s};
+ const legend={},context={mode:'eo',MODES:{eo:{}},legend,T:labels,escape:s=>s,drawStats:()=>{}};
  vm.runInNewContext(slice('  function drawLegend()','\n  /* ---------- drawing')+'\ndrawLegend();',context);
  for(const text of Object.values(labels))assert.ok(legend.innerHTML.includes(text));
  assert.equal(/\beven\b|\bodd\b/.test(legend.innerHTML),false);
