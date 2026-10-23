@@ -64,6 +64,15 @@ images:
     fi: 'Isokroninen massaspektrometria varastorenkaassa: eri m/q-arvon ja nopeuden ionit kiertävät eri radoilla, ja TOF-ilmaisin ajoittaa ne.'
     de: 'Isochrone Massenspektrometrie im Speicherring: Ionen mit unterschiedlichem m/q und Geschwindigkeit laufen auf verschiedenen Bahnen und werden von einem TOF-Detektor gemessen.'
     ja: 蓄積リングでの等時性質量分析：m/q と速度の異なるイオンが異なる軌道を周回し、TOF 検出器で時間計測される。
+- file: mirror-mcp-timing.webp
+  caption:
+    en: 'Mirror-type MCP detector: test set-up, design, and timing resolution versus accelerating voltage (experiment and simulation).'
+    zh: 镜型 MCP 探测器：测试布局、结构设计以及时间分辨随加速电压的变化（实验与模拟）。
+    fi: 'Peili-MCP-ilmaisin: testijärjestely, rakenne ja aikaresoluutio kiihdytysjännitteen funktiona (koe ja simulaatio).'
+    de: 'Spiegel-MCP-Detektor: Testaufbau, Konstruktion und Zeitauflösung in Abhängigkeit der Beschleunigungsspannung (Experiment und Simulation).'
+    ja: ミラー型 MCP 検出器：試験配置、設計、加速電圧に対する時間分解能（実験とシミュレーション）。
+  source: Z. Ge et al., RIKEN Accel. Prog. Rep. 51, 152 (2018)
+  url: https://www.nishina.riken.jp/researcher/APR/APR051/pdf/152.pdf
 - file: foil-mcp-detectors.webp
   wide: true
   caption:
@@ -83,15 +92,6 @@ images:
     fi: Tarkkuusloukkukokeiden matalaenergisen radioaktiivisen ionisuihkulinjan 3D-CAD-malli.
     de: 3D-CAD-Layout einer niederenergetischen Strahlführung für radioaktive Ionen und Präzisionsfallen-Experimente.
     ja: 精密トラップ実験用の低エネルギー放射性イオンビームラインの 3 次元 CAD レイアウト。
-- file: mirror-mcp-timing.webp
-  caption:
-    en: 'Mirror-type MCP detector: test set-up, design, and timing resolution versus accelerating voltage (experiment and simulation).'
-    zh: 镜型 MCP 探测器：测试布局、结构设计以及时间分辨随加速电压的变化（实验与模拟）。
-    fi: 'Peili-MCP-ilmaisin: testijärjestely, rakenne ja aikaresoluutio kiihdytysjännitteen funktiona (koe ja simulaatio).'
-    de: 'Spiegel-MCP-Detektor: Testaufbau, Konstruktion und Zeitauflösung in Abhängigkeit der Beschleunigungsspannung (Experiment und Simulation).'
-    ja: ミラー型 MCP 検出器：試験配置、設計、加速電圧に対する時間分解能（実験とシミュレーション）。
-  source: Z. Ge et al., RIKEN Accel. Prog. Rep. 51, 152 (2018)
-  url: https://www.nishina.riken.jp/researcher/APR/APR051/pdf/152.pdf
 - video: network-light.mp4
   poster: network-light-poster.webp
   caption:
@@ -102,7 +102,6 @@ images:
     ja: 元素合成ネットワーク計算：核図表上の存在量（質量分率）の時間発展（軽い核の領域）。
 - video: network-heavy.mp4
   poster: network-heavy-poster.webp
-  wide: true
   caption:
     en: 'Nucleosynthesis network simulation up to the heaviest elements: the reaction flow moves across the chart of nuclides.'
     zh: 直至最重元素的核合成网络模拟：反应流在核素图上推进。

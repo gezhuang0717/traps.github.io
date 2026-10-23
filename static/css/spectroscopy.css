@@ -37,3 +37,4 @@
 .zg-spectroscopy .sp-howto{margin:.4rem 0 .8rem;font-size:.9rem}
 .zg-spectroscopy .sp-howto summary{cursor:pointer;font-weight:650}
 .zg-spectroscopy .sp-howto ol{margin:.4rem 0 0;padding-inline-start:1.3rem;line-height:1.55}
+.zg-spectroscopy .sp-code{white-space:pre;overflow:auto;max-height:26rem;margin:.6rem 0;padding:.8rem 1rem;border-radius:12px;background:#0f172a;color:#e2e8f0;font:12.5px/1.5 ui-monospace,Menlo,monospace}

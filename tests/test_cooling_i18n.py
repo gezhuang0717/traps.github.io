@@ -67,3 +67,14 @@ def test_trap_zoo_and_control_help_include_french():
     help_ = json.loads((ROOT / 'data/control_help.json').read_text(encoding='utf8'))
     assert help_['fr']['title'] and set(help_['fr']['topics']) == set(help_['en']['topics'])
     assert all(len(help_['fr']['topics'][k]) == len(v) for k, v in help_['en']['topics'].items())
+
+
+def test_research_code_examples_cover_six_languages_and_four_code_languages():
+    data = _yaml('research_code_examples.yaml')['sources']
+    assert len(data) >= 7
+    for source in data:
+        for field in ('title', 'what'):
+            assert set(source[field]) == set(LANGS), (source['id'], field)
+        assert set(source['code']) == {'curl', 'python', 'r', 'javascript'}, source['id']
+        if source['kind'] == 'api':
+            assert source['endpoint'].startswith('https://') and 'User-Agent' in source['code']['python'] + source['code']['curl'], source['id']

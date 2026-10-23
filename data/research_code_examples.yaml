@@ -1,0 +1,293 @@
+# Verified data sources and copy-paste calls shown in the Research "Data & code" tab (static/js/spectroscopy.js).
+# Every API call below was run against the live service on 23 Oct 2026; NIST is link-only because its form parameters are not verified.
+sources:
+- id: livechart-ground-states
+  kind: api
+  title:
+    en: IAEA LiveChart · all ground states (radii, moments, masses, Q values)
+    zh: IAEA LiveChart · 全部基态（半径、矩、质量、Q 值）
+    fi: IAEA LiveChart · kaikki perustilat (säteet, momentit, massat, Q-arvot)
+    de: IAEA LiveChart · alle Grundzustände (Radien, Momente, Massen, Q-Werte)
+    ja: IAEA LiveChart · 全基底状態（半径・モーメント・質量・Q 値）
+    fr: IAEA LiveChart · tous les états fondamentaux (rayons, moments, masses, valeurs Q)
+  what:
+    en: 'One CSV with every known ground state: RMS charge radius (Angeli & Marinova), magnetic and quadrupole moments, mass excess, half-life, decay modes, separation energies. Use nuclides=48ca for one nuclide.'
+    zh: 一个 CSV 包含全部已知基态：RMS 电荷半径（Angeli & Marinova）、磁矩与电四极矩、质量过剩、半衰期、衰变模式、分离能。单个核素用 nuclides=48ca。
+    fi: 'Yksi CSV kaikista tunnetuista perustiloista: RMS-varaussäde (Angeli & Marinova), magneettinen ja kvadrupolimomentti, massaylijäämä, puoliintumisaika, hajoamistavat, separaatioenergiat. Yksi nuklidi: nuclides=48ca.'
+    de: 'Eine CSV mit allen bekannten Grundzuständen: RMS-Ladungsradius (Angeli & Marinova), magnetisches und Quadrupolmoment, Massenexzess, Halbwertszeit, Zerfallsarten, Separationsenergien. Ein Nuklid: nuclides=48ca.'
+    ja: 既知の全基底状態を 1 つの CSV に収録：RMS 電荷半径（Angeli & Marinova）、磁気・四重極モーメント、質量過剰、半減期、崩壊様式、分離エネルギー。1 核種なら nuclides=48ca。
+    fr: 'Un CSV avec tous les états fondamentaux connus : rayon de charge RMS (Angeli & Marinova), moments magnétique et quadrupolaire, excès de masse, période, modes de désintégration, énergies de séparation. Un nucléide : nuclides=48ca.'
+  endpoint: https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all
+  docs: https://www-nds.iaea.org/relnsd/vcharthtml/api_v0_guide.html
+  local: nuclear-properties-compact.json
+  code:
+    curl: curl -A "Mozilla/5.0" "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all" -o ground_states.csv
+    python: 'import io, requests, pandas as pd
+
+      URL = "https://nds.iaea.org/relnsd/v1/data"
+
+      HEAD = {"User-Agent": "Mozilla/5.0"}  # the service refuses clients without a User-Agent
+
+      r = requests.get(URL, params={"fields": "ground_states", "nuclides": "all"}, headers=HEAD, timeout=60)
+
+      r.raise_for_status()
+
+      df = pd.read_csv(io.StringIO(r.text))
+
+      radii = df.dropna(subset=["radius"])[["z", "n", "symbol", "radius", "unc_r"]]
+
+      print(radii.head())'
+    r: 'options(HTTPUserAgent = "Mozilla/5.0")
+
+      gs <- read.csv("https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=all")
+
+      head(gs[!is.na(gs$radius), c("z", "n", "symbol", "radius", "unc_r", "magnetic_dipole", "unc_md")])'
+    javascript: '// Node 18+. Browsers may block this request (CORS): use the local compact files below instead.
+
+      const url = "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=48ca";
+
+      const csv = await (await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } })).text();
+
+      const [header, ...rows] = csv.trim().split("\n");
+
+      console.log(header.split(",").slice(0, 8), rows[0].split(",").slice(0, 8));'
+- id: livechart-levels
+  kind: api
+  title:
+    en: IAEA LiveChart · levels, gamma rays, decay radiation, beta spectra, fission yields
+    zh: IAEA LiveChart · 能级、γ 射线、衰变辐射、β 谱、裂变产额
+    fi: IAEA LiveChart · tasot, gammasäteet, hajoamissäteily, beetaspektrit, fissiosaannot
+    de: IAEA LiveChart · Niveaus, Gammastrahlen, Zerfallsstrahlung, Beta-Spektren, Spaltausbeuten
+    ja: IAEA LiveChart · 準位・γ 線・崩壊放射線・β 線スペクトル・核分裂収率
+    fr: IAEA LiveChart · niveaux, rayons gamma, rayonnement de désintégration, spectres bêta, rendements de fission
+  what:
+    en: 'The same service with other fields: levels and gammas (ENSDF, one nuclide per call), decay_rads (rad_types=g, a, bm…), bin_beta, cumulative_fy and independent_fy (products=135xe). Units follow the source.'
+    zh: 同一服务的其他字段：levels 与 gammas（ENSDF，每次一个核素）、decay_rads（rad_types=g、a、bm…）、bin_beta、cumulative_fy 与 independent_fy（products=135xe）。单位沿用来源。
+    fi: 'Sama palvelu muilla kentillä: levels ja gammas (ENSDF, yksi nuklidi kerrallaan), decay_rads (rad_types=g, a, bm…), bin_beta, cumulative_fy ja independent_fy (products=135xe). Yksiköt ovat lähteen.'
+    de: 'Derselbe Dienst mit anderen Feldern: levels und gammas (ENSDF, ein Nuklid je Aufruf), decay_rads (rad_types=g, a, bm …), bin_beta, cumulative_fy und independent_fy (products=135xe). Einheiten der Quelle.'
+    ja: 同じサービスの別フィールド：levels と gammas（ENSDF、1 回に 1 核種）、decay_rads（rad_types=g, a, bm…）、bin_beta、cumulative_fy と independent_fy（products=135xe）。単位は出典に従います。
+    fr: 'Le même service avec d’autres champs : levels et gammas (ENSDF, un nucléide par appel), decay_rads (rad_types=g, a, bm…), bin_beta, cumulative_fy et independent_fy (products=135xe). Unités de la source.'
+  endpoint: https://nds.iaea.org/relnsd/v1/data?fields=levels&nuclides=12c
+  docs: https://www-nds.iaea.org/relnsd/vcharthtml/api_v0_guide.html
+  code:
+    curl: 'curl -A "Mozilla/5.0" "https://nds.iaea.org/relnsd/v1/data?fields=levels&nuclides=12c" -o c12_levels.csv
+
+      curl -A "Mozilla/5.0" "https://nds.iaea.org/relnsd/v1/data?fields=gammas&nuclides=12c" -o c12_gammas.csv
+
+      curl -A "Mozilla/5.0" "https://nds.iaea.org/relnsd/v1/data?fields=decay_rads&nuclides=241am&rad_types=g" -o am241_gammas.csv'
+    python: "import io, requests, pandas as pd\nURL = \"https://nds.iaea.org/relnsd/v1/data\"\nHEAD = {\"User-Agent\": \"Mozilla/5.0\"}  # the service refuses clients without a User-Agent\nqueries = [\n    {\"fields\": \"levels\", \"nuclides\": \"12c\"},\n    {\"fields\": \"gammas\", \"nuclides\": \"12c\"},\n    {\"fields\": \"decay_rads\", \"nuclides\": \"241am\", \"rad_types\": \"g\"},\n    {\"fields\": \"bin_beta\", \"nuclides\": \"135xe\", \"rad_types\": \"bm\"},\n    {\"fields\": \"cumulative_fy\", \"products\": \"135xe\"},\n]\nfor q in queries:\n    r = requests.get(URL, params=q, headers=HEAD, timeout=60)\n    r.raise_for_status()\n    df = pd.read_csv(io.StringIO(r.text))\n    print(q[\"fields\"], df.shape)"
+    r: 'options(HTTPUserAgent = "Mozilla/5.0")
+
+      levels <- read.csv("https://nds.iaea.org/relnsd/v1/data?fields=levels&nuclides=12c")
+
+      gammas <- read.csv("https://nds.iaea.org/relnsd/v1/data?fields=gammas&nuclides=12c")
+
+      str(levels)'
+    javascript: '// Node 18+
+
+      const get = async q => (await fetch("https://nds.iaea.org/relnsd/v1/data?" + new URLSearchParams(q), { headers: { "User-Agent": "Mozilla/5.0" } })).text();
+
+      const levels = await get({ fields: "levels", nuclides: "12c" });
+
+      console.log(levels.split("\n").slice(0, 3).join("\n"));'
+- id: nndc-be2
+  kind: api
+  title:
+    en: NNDC · adopted B(E2) values and first 2⁺ energies
+    zh: NNDC · 采用的 B(E2) 值与第一 2⁺ 能量
+    fi: NNDC · hyväksytyt B(E2)-arvot ja ensimmäiset 2⁺-energiat
+    de: NNDC · adoptierte B(E2)-Werte und erste 2⁺-Energien
+    ja: NNDC · 採用 B(E2) 値と最初の 2⁺ エネルギー
+    fr: NNDC · valeurs B(E2) adoptées et premières énergies 2⁺
+  what:
+    en: 'JSON of the adopted B(E2; 0⁺→2⁺) ↑ in e²b², β₂ and E(2⁺) of even-even nuclei: Raman 2001 and Pritychenko 2016 entries (the newer one supersedes). 983 entries.'
+    zh: 偶偶核采用的 B(E2; 0⁺→2⁺) ↑（e²b²）、β₂ 与 E(2⁺) 的 JSON：含 Raman 2001 与 Pritychenko 2016（后者取代前者）。共 983 条。
+    fi: 'JSON, jossa parillis-parillisten ytimien hyväksytyt B(E2; 0⁺→2⁺) ↑ (e²b²), β₂ ja E(2⁺): Raman 2001 ja Pritychenko 2016 (uudempi korvaa). 983 riviä.'
+    de: 'JSON mit den adoptierten B(E2; 0⁺→2⁺) ↑ in e²b², β₂ und E(2⁺) gerade-gerader Kerne: Raman 2001 und Pritychenko 2016 (die neuere ersetzt die ältere). 983 Einträge.'
+    ja: 偶偶核の採用値 B(E2; 0⁺→2⁺) ↑（e²b²）、β₂、E(2⁺) の JSON：Raman 2001 と Pritychenko 2016（新しい方が優先）。983 件。
+    fr: 'JSON des B(E2 ; 0⁺→2⁺) ↑ adoptés en e²b², β₂ et E(2⁺) des noyaux pair-pair : entrées Raman 2001 et Pritychenko 2016 (la plus récente remplace). 983 entrées.'
+  endpoint: https://www.nndc.bnl.gov/be2/data/adopted-entries.json
+  docs: https://www.nndc.bnl.gov/be2/help.html
+  local: be2-compact.json
+  code:
+    curl: curl -A "Mozilla/5.0" "https://www.nndc.bnl.gov/be2/data/adopted-entries.json" -o be2_adopted.json
+    python: "import requests\nentries = requests.get(\"https://www.nndc.bnl.gov/be2/data/adopted-entries.json\", headers={\"User-Agent\": \"Mozilla/5.0\"}, timeout=60).json()\nca = [(e[\"nuclide\"][\"symbol\"], e[\"nuclide\"][\"a\"], e[\"reference\"], e[\"be2\"][\"value\"], e[\"be2\"].get(\"error\"))\n      for e in entries if e[\"nuclide\"][\"z\"] == 20 and \"be2\" in e]\nfor row in sorted(ca): print(row)  # B(E2)up in e^2 b^2"
+    r: 'library(jsonlite)
+
+      be2 <- fromJSON("https://www.nndc.bnl.gov/be2/data/adopted-entries.json")
+
+      ca <- be2[be2$nuclide$z == 20 & !is.na(be2$be2$value), ]
+
+      data.frame(A = ca$nuclide$a, B_E2_up = ca$be2$value, sigma = ca$be2$error)'
+    javascript: 'const entries = await (await fetch("https://www.nndc.bnl.gov/be2/data/adopted-entries.json")).json();
+
+      const ca = entries.filter(e => e.nuclide.z === 20 && e.be2).map(e => [e.nuclide.a, e.be2.value, e.be2.error, e.reference]);
+
+      console.table(ca);'
+- id: amdc-editions
+  kind: file
+  title:
+    en: AMDC · atomic mass evaluations AME2020, AME2016, AME2003, AME1995
+    zh: AMDC · 原子质量评价 AME2020、AME2016、AME2003、AME1995
+    fi: AMDC · atomimassa-arvioinnit AME2020, AME2016, AME2003, AME1995
+    de: AMDC · Atommassen-Evaluationen AME2020, AME2016, AME2003, AME1995
+    ja: AMDC · 原子質量評価 AME2020・AME2016・AME2003・AME1995
+    fr: AMDC · évaluations de masses atomiques AME2020, AME2016, AME2003, AME1995
+  what:
+    en: 'Fixed-width text tables with # (estimated) flags. The site keeps compact copies of all editions (ground states, mass excess ± σ) and the chart shows AME2020 minus each earlier edition. Note: AME1995 lists total binding energy, later editions per nucleon.'
+    zh: '带 #（估计值）标记的定宽文本表。本站保存各版本的紧凑副本（基态质量过剩 ± σ），核素图可显示 AME2020 与各旧版之差。注意：AME1995 给出总结合能，之后的版本为每核子结合能。'
+    fi: 'Kiinteälevyiset tekstitaulukot # (arvio) -merkinnöin. Sivusto säilyttää kaikkien painosten tiiviit kopiot (perustilan massaylijäämä ± σ), ja kartta näyttää AME2020 miinus aiempi painos. Huom.: AME1995 antaa kokonaissidosenergian, myöhemmät nukleonia kohti.'
+    de: 'Festbreiten-Texttabellen mit #-Kennzeichnung (geschätzt). Die Seite hält kompakte Kopien aller Ausgaben (Grundzustand, Massenexzess ± σ); die Karte zeigt AME2020 minus frühere Ausgabe. Hinweis: AME1995 nennt die gesamte Bindungsenergie, spätere Ausgaben je Nukleon.'
+    ja: '# （推定値）フラグ付きの固定幅テキスト表。本サイトは全版の簡易コピー（基底状態の質量過剰 ± σ）を保持し、核図表で AME2020 と旧版との差を表示します。注意：AME1995 は全結合エネルギー、以降は核子あたりです。'
+    fr: 'Tables texte à largeur fixe avec indicateur # (estimé). Le site garde des copies compactes de toutes les éditions (état fondamental, excès de masse ± σ) et la carte montre AME2020 moins chaque édition antérieure. Attention : AME1995 donne l’énergie de liaison totale, les suivantes par nucléon.'
+  endpoint: https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt
+  docs: https://www-nds.iaea.org/amdc/
+  local: ame-editions-compact.json
+  code:
+    curl: 'curl -O https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt
+
+      curl -O https://www-nds.iaea.org/amdc/ame2016/mass16.txt
+
+      curl -O https://www-nds.iaea.org/amdc/ame2003/mass.mas03
+
+      curl -O https://www-nds.iaea.org/amdc/ame1995/mass_rmd.mas95'
+    python: '# Parsed, validated records with provenance (from the repository of this website):
+
+      #   python tools/research_data.py --list
+
+      #   python tools/research_data.py --fetch --dataset ame2016 --output my_cache --raw-dir my_raw
+
+      # Or read the compact copy kept on this site:
+
+      import requests
+
+      d = requests.get("https://gezhuang0717.github.io/traps.github.io/data/research-cache/ame-editions-compact.json").json()
+
+      row = next(r for r in d["editions"]["ame2016"] if (r[0], r[1]) == (20, 28))  # Z, N, ME / keV, sigma / keV, estimated
+
+      print(d["columns"], row)'
+    r: 'ed <- jsonlite::fromJSON("https://gezhuang0717.github.io/traps.github.io/data/research-cache/ame-editions-compact.json")
+
+      m <- as.data.frame(ed$editions$ame2016); names(m) <- ed$columns
+
+      head(m[m$Z == 20, ])'
+    javascript: 'const d = await (await fetch("https://gezhuang0717.github.io/traps.github.io/data/research-cache/ame-editions-compact.json")).json();
+
+      const me = ed => new Map(d.editions[ed].map(r => [r[0] * 1000 + r[1], r]));
+
+      const a20 = me("ame2016").get(20 * 1000 + 28);  // [Z, N, ME/keV, sigma/keV, estimated]
+
+      console.log(d.columns, a20);'
+- id: site-compact
+  kind: local
+  title:
+    en: This site · compact radii, moments, B(E2) and AME-edition tables
+    zh: 本站 · 紧凑的半径、矩、B(E2) 与 AME 版本表
+    fi: Tämä sivusto · tiiviit säde-, momentti-, B(E2)- ja AME-painostaulukot
+    de: Diese Seite · kompakte Radien-, Momenten-, B(E2)- und AME-Ausgaben-Tabellen
+    ja: 本サイト · 半径・モーメント・B(E2)・AME 版の簡易表
+    fr: Ce site · tables compactes de rayons, moments, B(E2) et éditions AME
+  what:
+    en: Static JSON files with source, evaluation, retrieval date and raw-file hash in "meta". CORS is open, so they can be fetched from any script. Unknown uncertainties are null, never 0.
+    zh: 静态 JSON 文件，"meta" 中含来源、评价、获取日期与原始文件哈希。CORS 开放，可由任何脚本读取。未知不确定度为 null，绝不为 0。
+    fi: Staattisia JSON-tiedostoja; "meta" sisältää lähteen, arvioinnin, hakupäivän ja raakatiedoston tiivisteen. CORS on auki. Tuntematon epävarmuus on null, ei 0.
+    de: Statische JSON-Dateien mit Quelle, Evaluation, Abrufdatum und Rohdatei-Hash in "meta". CORS ist offen. Unbekannte Unsicherheiten sind null, nie 0.
+    ja: ソース・評価・取得日・生データのハッシュを "meta" に含む静的 JSON。CORS は開放されています。不明な不確かさは null で、0 ではありません。
+    fr: Fichiers JSON statiques avec source, évaluation, date de récupération et empreinte du fichier brut dans « meta ». CORS ouvert. Une incertitude inconnue vaut null, jamais 0.
+  endpoint: https://gezhuang0717.github.io/traps.github.io/data/research-cache/nuclear-properties-compact.json
+  docs: https://github.com/gezhuang0717/traps.github.io
+  local: nuclear-properties-compact.json
+  code:
+    curl: 'curl -O https://gezhuang0717.github.io/traps.github.io/data/research-cache/nuclear-properties-compact.json
+
+      curl -O https://gezhuang0717.github.io/traps.github.io/data/research-cache/be2-compact.json
+
+      curl -O https://gezhuang0717.github.io/traps.github.io/data/research-cache/ame-editions-compact.json'
+    python: 'import requests, pandas as pd
+
+      BASE = "https://gezhuang0717.github.io/traps.github.io/data/research-cache/"
+
+      d = requests.get(BASE + "nuclear-properties-compact.json").json()
+
+      df = pd.DataFrame(d["rows"], columns=d["columns"])
+
+      print(d["meta"]["retrieved_at"], len(df))
+
+      print(df[df.Z == 20].dropna(subset=["r_fm"]))   # calcium charge radii'
+    r: 'd <- jsonlite::fromJSON("https://gezhuang0717.github.io/traps.github.io/data/research-cache/nuclear-properties-compact.json")
+
+      df <- as.data.frame(d$rows); names(df) <- d$columns
+
+      subset(df, Z == 20 & !is.na(r_fm))'
+    javascript: 'const BASE = "https://gezhuang0717.github.io/traps.github.io/data/research-cache/";
+
+      const d = await (await fetch(BASE + "nuclear-properties-compact.json")).json();
+
+      const c = Object.fromEntries(d.columns.map((n, i) => [n, i]));
+
+      console.table(d.rows.filter(r => r[c.Z] === 20 && r[c.r_fm] != null).map(r => [r[c.A], r[c.r_fm], r[c.sigma_r_fm]]));'
+- id: traps-research-data
+  kind: local
+  title:
+    en: This site · TrapsResearchData (online first, saved copy as fallback)
+    zh: 本站 · TrapsResearchData（优先在线，失败时用已保存副本）
+    fi: Tämä sivusto · TrapsResearchData (ensin verkosta, tallennettu kopio varana)
+    de: Diese Seite · TrapsResearchData (zuerst online, gespeicherte Kopie als Rückfall)
+    ja: 本サイト · TrapsResearchData（オンライン優先、保存コピーで代替）
+    fr: Ce site · TrapsResearchData (en ligne d’abord, copie enregistrée en secours)
+  what:
+    en: 'A small JavaScript loader used by the tools: it tries the official service first (bounded time-out, validated rows), then falls back to the SHA-verified saved response and reports which one it used.'
+    zh: 本站工具使用的小型 JavaScript 加载器：先尝试官方服务（有超时和行校验），失败再用经 SHA 校验的已保存响应，并报告实际使用的是哪一个。
+    fi: 'Työkalujen käyttämä pieni JavaScript-lataaja: kokeilee ensin virallista palvelua (aikaraja, validoidut rivit), sitten SHA-tarkistettua tallennettua vastausta, ja kertoo kumpaa käytti.'
+    de: 'Ein kleiner JavaScript-Lader der Werkzeuge: probiert zuerst den offiziellen Dienst (Zeitlimit, geprüfte Zeilen), dann die SHA-geprüfte gespeicherte Antwort und meldet, welche genutzt wurde.'
+    ja: ツールが使う小さな JavaScript ローダー：まず公式サービス（タイムアウト・行検証あり）を試し、失敗すれば SHA 検証済みの保存コピーに切り替え、どちらを使ったか報告します。
+    fr: 'Petit chargeur JavaScript des outils : il essaie d’abord le service officiel (délai borné, lignes validées), puis la réponse enregistrée vérifiée par SHA, et indique laquelle a servi.'
+  endpoint: js/research-data.js
+  docs: https://github.com/gezhuang0717/traps.github.io/blob/main/static/js/research-data.js
+  local: null
+  code:
+    curl: '# This is a browser/Node module, not an HTTP endpoint. See the JavaScript tab.'
+    python: '# Same idea in Python (bounded batch refresh with validation and an immutable saved fallback):
+
+      #   python tools/research_data.py --list
+
+      #   python tools/research_data.py --fetch --dataset livechart-ground-states --query nuclides=all --output my_cache --raw-dir my_raw'
+    r: '# Use the compact JSON files (see "This site · compact … tables") with jsonlite::fromJSON().'
+    javascript: "<script src=\"js/research-data.js\"></script>\n<script>\n  TrapsResearchData.load(\"livechart-ground-states\", { onlineFirst: true, timeoutMs: 8000, query: { nuclides: \"48ca\" } })\n    .then(({ data, origin, warnings }) => console.log(origin, data.records.length, warnings));\n</script>"
+- id: links
+  kind: link
+  title:
+    en: More resources (web interfaces and documentation)
+    zh: 更多资源（网页界面与文档）
+    fi: Lisää resursseja (verkkokäyttöliittymät ja dokumentaatio)
+    de: Weitere Ressourcen (Weboberflächen und Dokumentation)
+    ja: その他のリソース（Web インターフェースと文書）
+    fr: Autres ressources (interfaces web et documentation)
+  what:
+    en: NIST Atomic Spectra Database (wavelengths, levels), NuDat 3 and ENSDF (nuclear structure), CIAAW (atomic weights), AMDC (masses). They have no stable public API that this site tests, so only the links are given.
+    zh: NIST 原子光谱数据库（波长、能级）、NuDat 3 与 ENSDF（核结构）、CIAAW（原子量）、AMDC（质量）。它们没有本站测试过的稳定公开 API，因此仅提供链接。
+    fi: NIST:n atomispektritietokanta (aallonpituudet, tasot), NuDat 3 ja ENSDF (ydinrakenne), CIAAW (atomipainot), AMDC (massat). Sivuston testaamaa vakaata rajapintaa ei ole, joten vain linkit.
+    de: NIST-Atomspektren-Datenbank (Wellenlängen, Niveaus), NuDat 3 und ENSDF (Kernstruktur), CIAAW (Atomgewichte), AMDC (Massen). Für sie gibt es keine hier getestete stabile API; daher nur Links.
+    ja: NIST 原子スペクトルデータベース（波長・準位）、NuDat 3 と ENSDF（核構造）、CIAAW（原子量）、AMDC（質量）。本サイトで検証した安定した API はないため、リンクのみです。
+    fr: 'Base de spectres atomiques du NIST (longueurs d’onde, niveaux), NuDat 3 et ENSDF (structure nucléaire), CIAAW (masses atomiques), AMDC (masses). Pas d’API stable testée ici : liens seulement.'
+  endpoint: https://physics.nist.gov/PhysRefData/ASD/lines_form.html
+  docs: https://www.nndc.bnl.gov/nudat3/
+  local: null
+  links:
+  - - NIST ASD
+    - https://physics.nist.gov/PhysRefData/ASD/lines_form.html
+  - - NuDat 3
+    - https://www.nndc.bnl.gov/nudat3/
+  - - ENSDF
+    - https://www.nndc.bnl.gov/ensdf/
+  - - CIAAW
+    - https://ciaaw.org/atomic-weights.htm
+  - - AMDC
+    - https://amdc.impcas.ac.cn/
+  - - IAEA LiveChart
+    - https://nds.iaea.org/relnsd/vcharthtml/VChartHTML.html
+  code:
+    curl: '# links only'
+    python: '# links only'
+    r: '# links only'
+    javascript: // links only
