@@ -61,14 +61,44 @@ groups:
     url: https://iopscience.iop.org/journal/0954-3899
   - name: Chinese Physics C
     url: https://iopscience.iop.org/journal/1674-1137
+  - name: Nuclear Science and Techniques (NST)
+    url: https://link.springer.com/journal/41365
+  - name: Progress in Particle and Nuclear Physics
+    url: https://www.sciencedirect.com/journal/progress-in-particle-and-nuclear-physics
+  - name: Atomic Data and Nuclear Data Tables
+    url: https://www.sciencedirect.com/journal/atomic-data-and-nuclear-data-tables
+  - name: Nuclear Data Sheets
+    url: https://www.sciencedirect.com/journal/nuclear-data-sheets
+  - name: Annual Review of Nuclear and Particle Science
+    url: https://www.annualreviews.org/journal/nucl
+  - name: Rev. Mod. Phys.
+    url: https://journals.aps.org/rmp
+  - name: Nuclear Physics News (NuPECC)
+    url: https://www.tandfonline.com/journals/gnpn20
   - name: Astrophys. J.
     url: https://iopscience.iop.org/journal/0004-637X
+  - name: Astrophys. J. Lett.
+    url: https://iopscience.iop.org/journal/2041-8205
+  - name: Astron. Astrophys.
+    url: https://www.aanda.org
+  - name: Mon. Not. R. Astron. Soc.
+    url: https://academic.oup.com/mnras
   - name: Nature — nuclear physics
     url: https://www.nature.com/subjects/nuclear-physics
   - name: Nature — nuclear astrophysics
     url: https://www.nature.com/subjects/nuclear-astrophysics
   - name: Atoms (MDPI)
     url: https://www.mdpi.com/journal/atoms
+  - name: Rev. Sci. Instrum. (instrumentation)
+    url: https://pubs.aip.org/aip/rsi
+  - name: arXiv nucl-ex (new)
+    url: https://arxiv.org/list/nucl-ex/new
+  - name: arXiv nucl-th (new)
+    url: https://arxiv.org/list/nucl-th/new
+  - name: arXiv astro-ph.SR (nuclear astrophysics, new)
+    url: https://arxiv.org/list/astro-ph.SR/new
+  - name: arXiv astro-ph.HE (new)
+    url: https://arxiv.org/list/astro-ph.HE/new
 - key: f
   icon: 🏛
   items:
