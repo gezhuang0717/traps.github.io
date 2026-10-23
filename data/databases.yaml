@@ -291,6 +291,233 @@ categories:
   name: {en: "Data centres & networks", zh: "数据中心与国际网络", fi: "Tietokeskukset ja verkostot", de: "Datenzentren & Netzwerke", ja: "データセンターとネットワーク"}
 
 items:
+# ───────────── spectroscopy and cooling companions (verified 2026-10-23) ─────────────
+- id: be2
+  name: "B(E2; 0⁺ → 2⁺) database"
+  org: "NNDC, Brookhaven National Laboratory"
+  cat: structure
+  kind: evaluated
+  url: "https://www.nndc.bnl.gov/be2/"
+  short: {en: "Adopted, experimental and predicted electric quadrupole transition strengths for even-even nuclei.", zh: "偶偶核电四极跃迁强度：推荐值、实验值与预测值。"}
+  what: {en: "First-2⁺ E2 strengths and associated evaluation references; separate tabs distinguish recommendations from individual measurements and predictions.", zh: "第一 2⁺ 态的 E2 强度及评价文献；不同选项区分推荐值、单次测量与预测。"}
+  use:
+    en: ["Choose Adopted or Experimental, then enter a nuclide or Z/N/A range.", "Read the transition direction, units, uncertainty and source before comparing collectivity."]
+    zh: ["先选 Adopted 或 Experimental，再输入核素或 Z/N/A 范围。", "比较集体性前，核对跃迁方向、单位、不确定度与来源。"]
+  tips: {en: "Upward B(E2; 0→2) and downward B(E2; 2→0) differ by a factor of five; Weisskopf units also depend on A.", zh: "向上 B(E2; 0→2) 与向下 B(E2; 2→0) 相差五倍；Weisskopf 单位还依赖质量数 A。"}
+  cite: "B. Pritychenko et al., At. Data Nucl. Data Tables 107, 1 (2016), and the selected measurement/evaluation."
+- id: livechart-api
+  name: "LiveChart CSV API and notebooks"
+  org: "IAEA Nuclear Data Section"
+  cat: tools
+  kind: tool
+  url: "https://www-nds.iaea.org/relnsd/vcharthtml/api_v0_guide.html"
+  help: "https://iaea-nds.github.io/lc_api_notebook/"
+  short: {en: "Programmatic companion to LiveChart: documented CSV fields, state identifiers and reproducible examples.", zh: "LiveChart 的程序接口：CSV 字段、核态编号及可复现实例。"}
+  what: {en: "Ground states, levels, gamma transitions, decay radiations and fission yields. The service documents its data sources and extraction-date fields.", zh: "基态、能级、γ 跃迁、衰变辐射和裂变产额；文档说明底层数据源及提取日期字段。"}
+  use:
+    en: ["Request fields=levels&nuclides=12c or fields=gammas&nuclides=12c from the documented service.", "Join gamma start/end level indices to level idx; preserve evaluation cutoff and extraction dates."]
+    zh: ["按文档请求 fields=levels&nuclides=12c 或 fields=gammas&nuclides=12c。", "用 γ 起末能级编号关联 levels 的 idx，并保留评价截止日与提取日期。"]
+  tips: {en: "Gamma transitions and decay gamma radiations are different datasets. Blank uncertainty is unknown. The official guide describes a User-Agent header for HTTP 403 responses.", zh: "γ 能级跃迁与核衰变 γ 辐射属于不同数据集；空白误差表示未知。官方指南说明 HTTP 403 时如何添加 User-Agent。"}
+- id: ensdf-tools
+  name: "ENSDF analysis and utility codes"
+  org: "IAEA / NSDD network"
+  cat: tools
+  kind: tool
+  url: "https://www-nds.iaea.org/public/ensdf_pgm/"
+  short: {en: "Official gateway to the NSDD-maintained analysis and checking programs used with ENSDF.", zh: "NSDD 维护的 ENSDF 分析与检查程序官方入口。"}
+  what: {en: "A maintained-code repository and references to individual packages, alongside a clearly separated legacy-code collection.", zh: "维护中的代码仓库、各程序入口，以及单独列出的旧版代码集合。"}
+  use:
+    en: ["Follow the NSDD repository link and choose the program for the required evaluation task.", "Read that program's manual, inputs, units and maintenance status; retain its version with results."]
+    zh: ["进入 NSDD 仓库，按评价任务选择程序。", "阅读该程序的手册、输入、单位与维护状态，并随结果保存版本。"]
+  tips: {en: "A format or consistency check is not a new nuclear-data evaluation; legacy tools may require older compilers.", zh: "格式或一致性检查不等于完成新的核数据评价；旧工具可能需要较早的编译器。"}
+- id: steck-alkali
+  name: "Steck Alkali D Line Data"
+  org: "Daniel A. Steck, University of Oregon"
+  cat: atomic
+  kind: library
+  url: "https://steck.us/alkalidata/"
+  short: {en: "Consistent D-line, hyperfine and optical reference sheets for Rb, Cs and Na cooling experiments.", zh: "Rb、Cs、Na 冷却实验的 D 线、超精细与光学参数参考表。"}
+  what: {en: "Atomic and optical parameters, hyperfine conventions and resonance-fluorescence notes. The author describes these as useful compilations rather than critical reviews.", zh: "原子与光学参数、超精细约定及共振荧光说明；作者将其定位为实用汇编而非严格评价。"}
+  use:
+    en: ["Choose the isotope-specific PDF and record its revision date.", "Check whether a linewidth means Γ or Γ/2π and whether wavelength is in vacuum before transferring a preset."]
+    zh: ["选择对应同位素的 PDF，并记录修订日期。", "传入预设前，核对线宽指 Γ 还是 Γ/2π，以及波长是否为真空值。"]
+  tips: {en: "The four D-line sheets list revision 2.3.4 (8 August 2025) at this check; cite the exact sheet and underlying measurement when needed.", zh: "本次核对时四份 D 线表为 2.3.4 版（2025-08-08）；应引用具体表格，必要时追溯原始测量。"}
+- id: satlas2
+  name: "SATLAS2"
+  org: "IKS Nuclear Moments collaboration"
+  cat: tools
+  kind: tool
+  url: "https://github.com/IKS-nm/satlas2"
+  help: "https://iks-nm.github.io/satlas2/"
+  short: {en: "Statistical Analysis Toolbox for Laser Spectroscopy, with shared parameters and simultaneous spectrum fitting.", zh: "激光谱统计分析工具箱：共享参数及多个谱的联合拟合。"}
+  what: {en: "Python models and fitting machinery intended for laser-spectroscopy analysis; source, examples and tests are available in the maintained repository.", zh: "面向激光谱分析的 Python 模型与拟合框架；仓库提供源代码、实例与测试。"}
+  use:
+    en: ["Start from an example matching the counting statistics and hyperfine model.", "Fit shared A/B constants and centroids consistently across spectra; inspect correlations and residuals."]
+    zh: ["先选与计数统计和超精细模型相符的实例。", "跨谱一致地拟合共享 A/B 常数与质心，并检查相关性与残差。"]
+  tips: {en: "Pin the version and report constraints, likelihood and frequency calibration; a converged fit alone does not establish correct spin or moments.", zh: "固定版本，报告约束、似然与频率刻度；拟合收敛本身不能证明自旋或核矩正确。"}
+- id: satlas-legacy
+  name: "SATLAS original documentation"
+  org: "W. Gins, R. P. de Groote and K. M. Lynch"
+  cat: tools
+  kind: tool
+  url: "https://woutergins.github.io/satlas/"
+  short: {en: "Original SATLAS documentation for reproducing analyses that cite the earlier laser-spectroscopy fitter.", zh: "原版 SATLAS 文档，用于复现采用早期激光谱拟合器的分析。"}
+  what: {en: "The original package's spectrum models, χ² and maximum-likelihood fitting interfaces and tutorials; distinct from SATLAS2.", zh: "原版谱模型、χ² 与最大似然拟合接口及教程；与 SATLAS2 分开。"}
+  use:
+    en: ["Check the cited paper's software version before following its original example.", "Record a reproducible environment and compare a migration to SATLAS2 against the old saved fit."]
+    zh: ["按原始实例操作前，核对论文使用的软件版本。", "记录可复现环境；迁移到 SATLAS2 时与原有已保存拟合比较。"]
+  tips: {en: "Keep old and new APIs separate when reproducing the uranium CLS analysis; this card is for version lineage, not a second copy of SATLAS2.", zh: "复现铀共线激光谱分析时，区分新旧 API；此入口用于版本溯源。"}
+- id: qspec
+  name: "qspec"
+  org: "Patrick Müller and contributors"
+  cat: tools
+  kind: tool
+  url: "https://patmlr.github.io/qspec/"
+  help: "https://patmlr.github.io/qspec/tutorials/tutorials.html"
+  short: {en: "Laser-spectroscopy toolbox for angular-momentum algebra, fit models, King plots and laser–atom dynamics.", zh: "激光谱工具箱：角动量代数、拟合模型、King 图及激光—原子动力学。"}
+  what: {en: "Documented modules cover physical functions, statistical analysis, modular spectra and coherent/dissipative interactions.", zh: "文档模块涵盖物理函数、统计分析、模块化谱和相干/耗散相互作用。"}
+  use:
+    en: ["Choose a tutorial for the intended King-plot, hyperfine-fit or simulation task.", "Retain units, isotope references, input covariance and the installed version with your analysis."]
+    zh: ["按 King 图、超精细拟合或模拟任务选择教程。", "随分析保留单位、参考同位素、输入协方差及安装版本。"]
+  tips: {en: "A King-plot line requires consistent isotope-shift signs and mass conventions; software cannot supply missing atomic field/mass-shift factors.", zh: "King 图需要一致的同位素移位符号和质量约定；软件不能补齐缺失的原子场移位或质量移位因子。"}
+  cite: "P. Müller and W. Nörtershäuser, Computer Physics Communications 311, 109550 (2025); doi:10.1016/j.cpc.2025.109550; cite the version used."
+- id: pylcp
+  name: "PyLCP — Python laser cooling physics"
+  org: "S. Eckel, D. Barker, E. Norrgard and collaborators"
+  cat: tools
+  kind: tool
+  url: "https://python-laser-cooling-physics.readthedocs.io/en/latest/"
+  short: {en: "Optical Bloch, rate-equation and related models built from atomic/molecular Hamiltonians and laser fields.", zh: "由原子/分子哈密顿量与激光场构造光学 Bloch、速率方程等模型。"}
+  what: {en: "Examples include optical molasses, magneto-optical traps, Hamiltonians, beams, magnetic fields and governing equations.", zh: "实例包括光学黏团、磁光阱、哈密顿量、光束、磁场与演化方程。"}
+  use:
+    en: ["Start with a documented Hamiltonian and one reproduced force or trajectory example.", "Converge timestep, state basis and solver tolerance before interpreting temperature or capture."]
+    zh: ["从文档哈密顿量和一个已复现的力或轨迹实例开始。", "解释温度或俘获前，应检查时间步长、内态基组与求解容差的收敛。"]
+  tips: {en: "Choose the equation model explicitly; a rate-equation force calculation is not automatically a full coherent sub-Doppler simulation.", zh: "明确选择演化模型；速率方程力计算不会自动成为完整相干亚多普勒模拟。"}
+  cite: "S. Eckel et al., Computer Physics Communications 270, 108166; doi:10.1016/j.cpc.2021.108166."
+- id: arc
+  name: "ARC — Alkali Rydberg Calculator"
+  org: "ARC collaboration"
+  cat: tools
+  kind: tool
+  url: "https://arc-alkali-rydberg-calculator.readthedocs.io/en/latest/"
+  short: {en: "Atomic level diagrams, transition strengths and interactions for alkali and divalent atoms.", zh: "碱金属与二价原子的能级图、跃迁强度和相互作用。"}
+  what: {en: "Python routines and atomic data for single-atom and pair-state calculations, including supported Stark and polarizability workflows.", zh: "单原子与双原子态计算的 Python 程序及原子数据，含适用的 Stark 和极化率计算。"}
+  use:
+    en: ["Select a supported species and start from the level or transition notebook.", "Read each method's state range and units; use getCitationForARC() for the methods actually used."]
+    zh: ["选择支持的元素，从能级或跃迁笔记本开始。", "阅读方法适用原子态范围及单位；用 getCitationForARC() 获取实际所用方法的引用。"]
+  tips: {en: "Calculated atomic states are separate from evaluated nuclear levels; compare predicted quantities with their measured references.", zh: "计算原子态与评价核能级是不同层次；预测量应与相应测量参考比较。"}
+- id: elecsus
+  name: "ElecSus"
+  org: "Durham Quantum Light and Matter group"
+  cat: tools
+  kind: tool
+  url: "https://github.com/durham-qlm/ElecSus"
+  short: {en: "Weak-probe alkali-vapour D-line spectra and magneto-optical susceptibility, with fitting examples.", zh: "弱探测碱金属蒸气 D 线谱与磁光极化率，附拟合实例。"}
+  what: {en: "Calculates propagation and spectral response with temperature, magnetic-field geometry and polarization; includes experimental-data fitting interfaces.", zh: "计算温度、磁场几何和偏振条件下的传播及谱响应，并提供实验数据拟合接口。"}
+  use:
+    en: ["Run the documented Basic Calculations notebook with a supported alkali atom.", "Keep magnetic geometry, polarization and the chosen release fixed when comparing experimental transmission."]
+    zh: ["使用支持的碱金属运行 Basic Calculations 笔记本。", "比较实验透射谱时，记录磁场几何、偏振和版本。"]
+  tips: {en: "The weak-probe model is not a saturated-cooling model. Read release-specific Python/GUI compatibility notes before installation.", zh: "弱探测模型不等于饱和冷却模型；安装前应阅读该版本的 Python/GUI 兼容说明。"}
+- id: atomphys
+  name: "atomphys"
+  org: "M. Grau and contributors"
+  cat: tools
+  kind: tool
+  url: "https://atomphys.org/"
+  short: {en: "Unit-aware Python access to atomic states, transitions and quantities derived from NIST ASD data.", zh: "带单位的 Python 原子态、跃迁及基于 NIST ASD 的导出量接口。"}
+  what: {en: "Fetches atomic levels and transitions and computes quantities such as lifetimes, polarizabilities and saturation intensities.", zh: "读取原子能级与跃迁，计算寿命、极化率和饱和光强等量。"}
+  use:
+    en: ["Follow the Atom/State/Transition example for a selected atom.", "Inspect which measured transition rates are present before using derived lifetimes or saturation intensity."]
+    zh: ["按 Atom/State/Transition 实例选择原子。", "使用导出寿命或饱和光强前，检查哪些实验跃迁速率已被收录。"]
+  tips: {en: "Missing transitions can make a derived lifetime incomplete. Follow NIST data-use terms; the catalogue links to the service without mirroring its database.", zh: "缺失跃迁可能使导出寿命不完整；遵守 NIST 数据条款，本目录仅链接服务，不镜像其数据库。"}
+- id: qutip
+  name: "QuTiP — Quantum Toolbox in Python"
+  org: "QuTiP project"
+  cat: tools
+  kind: tool
+  url: "https://qutip.org/"
+  help: "https://qutip.readthedocs.io/"
+  short: {en: "Open-system quantum dynamics and quantum-optics tutorials for constructing explicit laser–atom models.", zh: "开放量子系统动力学与量子光学教程，可构建明确的激光—原子模型。"}
+  what: {en: "Solvers and examples for Hamiltonian evolution, dissipation and quantum states; a general numerical framework rather than an evaluated atomic database.", zh: "哈密顿演化、耗散与量子态的求解器和实例；属于通用数值框架。"}
+  use:
+    en: ["Specify the basis, Hamiltonian and collapse operators before running a quantum-optics tutorial.", "Check normalization, limiting cases and basis/tolerance convergence, then record the version."]
+    zh: ["运行量子光学教程前，明确基组、哈密顿量与塌缩算符。", "检查归一化、极限情形以及基组/容差收敛，再记录版本。"]
+  tips: {en: "Physical frequencies, decay conventions and truncation are supplied by the user; numerical output is not experimental validation.", zh: "频率、衰变约定与截断由使用者提供；数值输出不等于实验验证。"}
+- id: chianti
+  name: "CHIANTI atomic database"
+  org: "CHIANTI collaboration"
+  cat: atomic
+  kind: evaluated
+  url: "https://www.chiantidatabase.org/"
+  short: {en: "Atomic data and Python/IDL tools for spectroscopic diagnostics of astrophysical plasmas.", zh: "用于天体等离子体谱学诊断的原子数据及 Python/IDL 工具。"}
+  what: {en: "Evaluated atomic inputs and programs for plasma spectra, line lists and diagnostic calculations with documented versions.", zh: "评价原子输入及等离子体谱、谱线列表和诊断程序，提供版本说明。"}
+  use:
+    en: ["Choose the ion and database version, then follow a line-emission or diagnostic example.", "Record temperature/density assumptions and check the atomic-data references for important transitions."]
+    zh: ["选择离子与数据库版本，再按谱线发射或诊断实例操作。", "记录温度/密度假设，并核对关键跃迁的原子数据文献。"]
+  tips: {en: "Plasma excitation and ionization conditions differ from a cold trapped atom; do not transfer plasma emissivities into cooling presets.", zh: "等离子体激发与电离条件不同于阱中冷原子，不能把等离子体发射率直接作为冷却预设。"}
+- id: nist-handbook
+  name: "NIST basic atomic spectroscopy handbook"
+  org: "NIST Physical Measurement Laboratory"
+  cat: atomic
+  kind: evaluated
+  url: "https://www.nist.gov/pml/handbook-basic-atomic-spectroscopic-data"
+  short: {en: "Compact reference tables of strong lines and levels for neutral and singly ionized atoms.", zh: "中性原子与一价离子的强线及能级简明参考表。"}
+  what: {en: "An intentionally selected handbook for H through Es, with persistent/strong lines, classifications and selected level tables; data-content update is November 2013.", zh: "从 H 至 Es 的选编手册，含持久线/强线、归属与部分能级表；数据内容更新日期为 2013 年 11 月。"}
+  use:
+    en: ["Open an element table or the wavelength finding list for a first identification.", "For precision work follow the original references and compare the current ASD entry."]
+    zh: ["打开元素表或按波长排序的查找表进行初步识别。", "精密工作应追溯原始文献，并比较当前 ASD 条目。"]
+  tips: {en: "A selected handbook is not a complete line list. This card links to NIST; it does not redistribute SRD tables.", zh: "选编手册不是完整谱线表。本卡仅链接 NIST，不重新发布其 SRD 表格。"}
+- id: nist-asbib
+  name: "NIST atomic-spectra bibliographies"
+  org: "NIST Atomic Spectroscopy Group"
+  cat: literature
+  kind: bibliography
+  url: "https://www.nist.gov/pml/nist-atomic-spectra-bibliographic-databases"
+  short: {en: "Find original papers on atomic energies, wavelengths, transition probabilities and line broadening.", zh: "检索原子能量、波长、跃迁概率与谱线展宽的原始文献。"}
+  what: {en: "Three distinct bibliographic services cover energy levels/spectra, radiative probabilities/lifetimes, and broadening/shifts.", zh: "三个不同文献服务分别涵盖能级/谱、辐射跃迁概率/寿命和展宽/移位。"}
+  use:
+    en: ["Select the database matching the quantity and search the atom/ion.", "Read the cited paper's method and uncertainty before using a number in a spectroscopy model."]
+    zh: ["按所需物理量选择文献库，再检索原子或离子。", "将数值用于谱学模型前，阅读论文中的方法和不确定度。"]
+  tips: {en: "A bibliography entry is a reference, not a recommended numerical value; distinguish theoretical and experimental papers.", zh: "文献条目是参考来源，并非数值推荐；应区分理论与实验论文。"}
+- id: uranium-cls-paper
+  name: "U⁺ collinear laser spectroscopy at IGISOL"
+  org: "A. Raggio and collaborators / Scientific Reports"
+  cat: literature
+  kind: journal
+  url: "https://www.nature.com/articles/s41598-024-76975-w"
+  short: {en: "Original ten-transition study of 234,235,238U⁺ isotope shifts and 235U hyperfine parameters.", zh: "234、235、238U⁺ 的十条跃迁同位素移位及 235U 超精细参数原始研究。"}
+  what: {en: "A concrete CLS example connecting scan voltage, relativistic Doppler conversion, shared hyperfine fits and statistical/systematic uncertainties.", zh: "具体共线激光谱实例：扫描电压、相对论多普勒变换、共享超精细拟合及统计/系统误差。"}
+  use:
+    en: ["Read the beam/voltage convention and Tables 1–3 before reproducing a transition.", "Keep isotope-shift direction and separate statistical/systematic errors; follow the associated raw-data record."]
+    zh: ["复现跃迁前先阅读束流/电压约定与表 1–3。", "保留同位素移位方向及分开的统计/系统误差，并查看对应原始数据记录。"]
+  tips: {en: "The paper does not extract new absolute radii through a King plot: too few isotopes were studied and atomic factors remain necessary.", zh: "该文未通过 King 图提取新的绝对半径：研究同位素数量不足，且仍需原子因子。"}
+  cite: "A. Raggio et al., Scientific Reports 14, 25621 (2024); doi:10.1038/s41598-024-76975-w."
+- id: uranium-cls-data
+  name: "IGISOL U⁺ CLS raw-data record"
+  org: "A. Raggio and collaborators / GSI Repository / Zenodo"
+  cat: literature
+  kind: experimental
+  url: "https://repository.gsi.de/record/356783"
+  help: "https://doi.org/10.5281/zenodo.12671588"
+  short: {en: "Public metadata and data-deposit link for the ten-transition 234,235,238U⁺ CLS experiment.", zh: "234、235、238U⁺ 十条跃迁共线激光谱实验的公开元数据及数据存储链接。"}
+  what: {en: "The GSI record identifies the original experiment and its Zenodo dataset DOI, connecting a publication to deposited raw measurements.", zh: "GSI 记录标明原始实验与 Zenodo 数据 DOI，将论文与存储的原始测量关联。"}
+  use:
+    en: ["Check authors, dataset DOI and associated article, then read file metadata before downloading.", "Keep the deposit version, calibration information and licence alongside any reanalysis."]
+    zh: ["核对作者、数据 DOI 和关联论文，下载前阅读文件元数据。", "重新分析时保留存储版本、刻度信息与许可条款。"]
+  tips: {en: "Catalogue metadata was verified; the data files were not downloaded or refitted here. Availability does not establish a completed reproduction.", zh: "本目录已核对元数据，未下载或重新拟合数据文件；可获取不表示已完成复现。"}
+- id: cris
+  name: "CRIS — collinear resonance ionization spectroscopy"
+  org: "CERN-ISOLDE CRIS collaboration"
+  cat: networks
+  kind: portal
+  url: "https://isolde-cris.web.cern.ch/"
+  help: "https://isolde-cris.web.cern.ch/cris.html"
+  short: {en: "Experiment, technique and publication links for high-resolution spectroscopy with sensitive ion detection.", zh: "高分辨谱与灵敏离子探测结合的实验、技术及论文入口。"}
+  what: {en: "Public technique explanations, isotope/molecule projects and articles on extracting nuclear properties from hyperfine spectroscopy.", zh: "公开技术说明、同位素/分子项目，以及通过超精细谱提取核性质的论文。"}
+  use:
+    en: ["Read the CRIS technique page, then choose a project and its original article.", "Use public publications for quantitative values; keep experiment-specific systematics with extracted nuclear properties."]
+    zh: ["先读 CRIS 技术页，再选择项目及原始论文。", "定量值应取自公开论文，并与提取核性质所需的实验系统误差一起保存。"]
+  tips: {en: "This is an experiment portal, not a complete evaluated moments/radii database; internal collaboration links may require access.", zh: "这是实验门户，不是完整评价核矩/半径数据库；合作组内部链接可能需要权限。"}
 # ───────────── structure & decay ─────────────
 - id: nudat
   name: "NuDat 3"

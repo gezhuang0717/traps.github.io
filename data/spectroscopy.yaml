@@ -1,0 +1,83 @@
+# Small attributed factual excerpts for the spectroscopy teaching workbench.
+# Frozen source editions, not a complete or automatically refreshed database.
+# Independent radii errors cannot recover correlations in isotope-shift results.
+coverage:
+  en: "Selected published Ca radii (2013), three ground-state magnetic moments and four 12C nuclear levels. Missing isotopes/states mean unavailable in this teaching snapshot. Optical cooling presets remain in laser_cooling.yaml."
+  zh: "选取 2013 年已发表的钙同位素半径、三个基态磁矩及 12C 的四个核能级。未列同位素或核态表示本教学快照未收录；光学冷却预设仍在 laser_cooling.yaml。"
+sources:
+  - id: angeli-marinova-2013-ca
+    title: "Angeli & Marinova (2013), published Ca rms charge radii via IAEA"
+    url: "https://www-nds.iaea.org/radii/"
+    doi: "10.1016/j.adt.2011.12.006"
+    status: "Published evaluated values; selected Ca excerpt; preliminary update columns excluded"
+    evaluation_date: "2013"
+    retrieved_date: "2026-10-23"
+    licence: "Small attributed factual excerpt. IAEA database terms allow educational/informational use; acknowledge IAEA and the original evaluation. Third-party material may have separate terms."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+  - id: livechart-ca43-moment
+    title: "43Ca ground state, ENSDF through IAEA LiveChart"
+    url: "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=43ca"
+    status: "Evaluated source snapshot; ground state only"
+    evaluation_date: "2015-03-31"
+    retrieved_date: "2026-10-23"
+    evaluators: "Balraj Singh and Jun Chen"
+    licence: "Small attributed factual excerpt for educational/informational use under IAEA database terms; retain ENSDF attribution. No endorsement implied."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+  - id: livechart-rb87-moment
+    title: "87Rb ground state, ENSDF through IAEA LiveChart"
+    url: "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=87rb"
+    status: "Evaluated source snapshot; ground state only"
+    evaluation_date: "2015-07-27"
+    retrieved_date: "2026-10-23"
+    evaluators: "T. D. Johnson and W. D. Kulp"
+    licence: "Small attributed factual excerpt for educational/informational use under IAEA database terms; retain ENSDF attribution. No endorsement implied."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+  - id: livechart-cs133-moment
+    title: "133Cs ground state, ENSDF through IAEA LiveChart"
+    url: "https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=133cs"
+    status: "Evaluated source snapshot; ground state only"
+    evaluation_date: "2010-10-31"
+    retrieved_date: "2026-10-23"
+    evaluators: "Yu. Khazov, A. Rodionov and F. G. Kondev"
+    licence: "Small attributed factual excerpt for educational/informational use under IAEA database terms; retain ENSDF attribution. No endorsement implied."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+  - id: livechart-c12-levels
+    title: "12C adopted levels and gamma transitions, ENSDF through IAEA LiveChart"
+    url: "https://nds.iaea.org/relnsd/v1/data?fields=levels&nuclides=12c"
+    gamma_url: "https://nds.iaea.org/relnsd/v1/data?fields=gammas&nuclides=12c"
+    status: "Four-level partial scheme from a frozen evaluated snapshot; not the complete decay or reaction scheme"
+    evaluation_date: "2017-01-01"
+    retrieved_date: "2026-10-23"
+    evaluators: "J. H. Kelley, J. E. Purcell and C. G. Sheu"
+    licence: "Small attributed factual excerpt for educational/informational use under IAEA database terms; retain ENSDF attribution. No endorsement implied."
+    terms_url: "https://www.iaea.org/about/terms-of-use"
+charge_radii:
+  - {element: Ca, A: 40, Z: 20, state: ground, r_fm: 3.4776, sigma_fm: 0.0019, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 41, Z: 20, state: ground, r_fm: 3.4780, sigma_fm: 0.0019, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 42, Z: 20, state: ground, r_fm: 3.5081, sigma_fm: 0.0021, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 43, Z: 20, state: ground, r_fm: 3.4954, sigma_fm: 0.0019, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 44, Z: 20, state: ground, r_fm: 3.5179, sigma_fm: 0.0021, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 45, Z: 20, state: ground, r_fm: 3.4944, sigma_fm: 0.0021, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 46, Z: 20, state: ground, r_fm: 3.4953, sigma_fm: 0.0020, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 47, Z: 20, state: ground, r_fm: 3.4783, sigma_fm: 0.0024, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 48, Z: 20, state: ground, r_fm: 3.4771, sigma_fm: 0.0020, source_id: angeli-marinova-2013-ca}
+  - {element: Ca, A: 50, Z: 20, state: ground, r_fm: 3.5168, sigma_fm: 0.0064, source_id: angeli-marinova-2013-ca}
+moments:
+  - {element: Ca, A: 43, Z: 20, state: ground, spin: "7/2", spin_parity: "7/2-", mu_muN: -1.31733, sigma_muN: 0.00006, source_id: livechart-ca43-moment}
+  - {element: Rb, A: 87, Z: 37, state: ground, spin: "3/2", spin_parity: "3/2-", mu_muN: 2.75129, sigma_muN: 0.00008, source_id: livechart-rb87-moment}
+  - {element: Cs, A: 133, Z: 55, state: ground, spin: "7/2", spin_parity: "7/2+", mu_muN: 2.5778, sigma_muN: 0.0014, source_id: livechart-cs133-moment}
+nuclear_schemes:
+  - nuclide: "12C"
+    source_id: livechart-c12-levels
+    note:
+      en: "Partial nuclear scheme. Photon energies are the source gamma energies, including recoil; do not substitute the level-energy differences. No branching fractions are inferred."
+      zh: "局部核能级纲图。光子能量采用源表中的 γ 能量（含反冲影响），不能直接以能级差替代；未推断分支比。"
+    levels:
+      - {id: c12-0, energy_keV: 0, sigma_energy_keV: null, spin_parity: "0+"}
+      - {id: c12-1, energy_keV: 4439.82, sigma_energy_keV: 0.21, spin_parity: "2+"}
+      - {id: c12-2, energy_keV: 7654.07, sigma_energy_keV: 0.19, spin_parity: "0+"}
+      - {id: c12-3, energy_keV: 9641, sigma_energy_keV: 5, spin_parity: "3-"}
+    transitions:
+      - {from: c12-1, to: c12-0, energy_keV: 4438.94, sigma_energy_keV: null, multipolarity: E2}
+      - {from: c12-2, to: c12-1, energy_keV: 3213.79, sigma_energy_keV: null, multipolarity: E2}
+      - {from: c12-3, to: c12-0, energy_keV: 9637, sigma_energy_keV: null, multipolarity: E3}
