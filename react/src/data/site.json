@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-23T12:18:59+00:00",
+  "generated": "2026-10-23T12:20:59+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -11909,16 +11909,18 @@
         }
       },
       {
-        "file": "mirror-mcp-detector.webp",
+        "file": "foil-mcp-detectors.webp",
+        "wide": true,
         "caption": {
-          "en": "Design of the electrostatic-mirror-type MCP timing detector developed for the Rare-RI Ring at RIKEN.",
-          "zh": "为 RIKEN Rare-RI Ring 研制的静电镜型 MCP 定时探测器设计图。",
-          "fi": "RIKENin Rare-RI Ringille kehitetyn sähköstaattisen peili-MCP-ajoitusilmaisimen rakenne.",
-          "de": "Konstruktion des elektrostatischen Spiegel-MCP-Zeitdetektors für den Rare-RI Ring am RIKEN.",
-          "ja": "RIKEN 稀少 RI リング用に開発した静電ミラー型 MCP 時間検出器の設計図。"
+          "en": "Schematic overview of the foil-MCP detectors: (a) mirror-type electrostatic detector; (b) direct-projection electrostatic detector; (c) electrostatic-lens detector; (d) detector with parallel magnetic and electrostatic fields; (e) detector with crossed magnetic and electrostatic fields. The secondary-electron (SE) trajectories are from SIMION simulations.",
+          "zh": "箔-MCP 探测器示意总览：(a) 镜型静电探测器；(b) 直接投射型静电探测器；(c) 静电透镜型探测器；(d) 磁场与静电场平行布置的探测器；(e) 磁场与静电场交叉布置的探测器。二次电子（SE）轨迹来自 SIMION 模拟。",
+          "fi": "Kalvo-MCP-ilmaisimien kaaviokuva: (a) peilityyppinen sähköstaattinen ilmaisin; (b) suoraan projisoiva sähköstaattinen ilmaisin; (c) sähköstaattinen linssi-ilmaisin; (d) ilmaisin, jossa magneetti- ja sähkökenttä ovat yhdensuuntaiset; (e) ilmaisin, jossa magneetti- ja sähkökenttä ovat ristikkäiset. Sekundäärielektronien (SE) radat ovat SIMION-simulaatioista.",
+          "de": "Schematische Übersicht der Folien-MCP-Detektoren: (a) elektrostatischer Detektor vom Spiegeltyp; (b) elektrostatischer Detektor mit direkter Projektion; (c) elektrostatischer Detektor mit Linse; (d) Detektor mit parallelem Magnet- und elektrostatischem Feld; (e) Detektor mit gekreuztem Magnet- und elektrostatischem Feld. Die Trajektorien der Sekundärelektronen (SE) stammen aus SIMION-Simulationen.",
+          "ja": "箔-MCP 検出器の概略図：(a) ミラー型静電検出器、(b) 直接投影型静電検出器、(c) 静電レンズ型検出器、(d) 磁場と静電場を平行に配置した検出器、(e) 磁場と静電場を直交に配置した検出器。二次電子（SE）の軌道は SIMION シミュレーションによる。",
+          "fr": "Vue d’ensemble schématique des détecteurs à feuille et MCP : (a) détecteur électrostatique de type miroir ; (b) détecteur électrostatique à projection directe ; (c) détecteur électrostatique à lentille ; (d) détecteur à champs magnétique et électrostatique parallèles ; (e) détecteur à champs magnétique et électrostatique croisés. Les trajectoires des électrons secondaires (SE) proviennent de simulations SIMION."
         },
-        "source": "Z. Ge et al., JPS Conf. Proc. 35, 011023 (2021)",
-        "url": "https://doi.org/10.7566/JPSCP.35.011023"
+        "source": "Z. Ge, Sensors 24, 7261 (2024)",
+        "url": "https://doi.org/10.3390/s24227261"
       },
       {
         "file": "beamline-cad.webp",
