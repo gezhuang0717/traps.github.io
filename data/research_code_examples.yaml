@@ -195,7 +195,7 @@ sources:
     ja: ソース・評価・取得日・生データのハッシュを "meta" に含む静的 JSON。CORS は開放されています。不明な不確かさは null で、0 ではありません。
     fr: Fichiers JSON statiques avec source, évaluation, date de récupération et empreinte du fichier brut dans « meta ». CORS ouvert. Une incertitude inconnue vaut null, jamais 0.
   endpoint: https://gezhuang0717.github.io/traps.github.io/data/research-cache/nuclear-properties-compact.json
-  docs: https://github.com/gezhuang0717/traps.github.io
+  docs: null
   local: nuclear-properties-compact.json
   code:
     curl: 'curl -O https://gezhuang0717.github.io/traps.github.io/data/research-cache/nuclear-properties-compact.json
@@ -243,7 +243,7 @@ sources:
     ja: ツールが使う小さな JavaScript ローダー：まず公式サービス（タイムアウト・行検証あり）を試し、失敗すれば SHA 検証済みの保存コピーに切り替え、どちらを使ったか報告します。
     fr: 'Petit chargeur JavaScript des outils : il essaie d’abord le service officiel (délai borné, lignes validées), puis la réponse enregistrée vérifiée par SHA, et indique laquelle a servi.'
   endpoint: js/research-data.js
-  docs: https://github.com/gezhuang0717/traps.github.io/blob/main/static/js/research-data.js
+  docs: null
   local: null
   code:
     curl: '# This is a browser/Node module, not an HTTP endpoint. See the JavaScript tab.'

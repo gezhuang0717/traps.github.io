@@ -78,3 +78,17 @@ def test_research_code_examples_cover_six_languages_and_four_code_languages():
         assert set(source['code']) == {'curl', 'python', 'r', 'javascript'}, source['id']
         if source['kind'] == 'api':
             assert source['endpoint'].startswith('https://') and 'User-Agent' in source['code']['python'] + source['code']['curl'], source['id']
+
+
+def test_new_public_data_files_pass_the_publication_privacy_rules():
+    """The CI publication gate rejects personal GitHub links, local paths and tool attribution in public sources."""
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import publish
+    hits = []
+    for name in ('research_code_examples.yaml', 'cooling_i18n.yaml', 'cooling_js_i18n.yaml', 'gallery.yaml', 'daily_links.yaml'):
+        path = ROOT / 'data' / name
+        publish.scan_text(path, path.read_text(encoding='utf8'), 'data/' + name, hits)
+    for path in (p for p in (ROOT / 'static/data/research-cache').glob('*-compact.json') if not p.name.startswith('._')):
+        publish.scan_text(path, path.read_text(encoding='utf8'), path.name, hits)
+    assert not hits, hits
