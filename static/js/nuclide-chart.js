@@ -74,6 +74,34 @@
   const ramp = x => `hsl(${(1 - Math.max(0, Math.min(1, x))) * 270},85%,52%)`;
   const mv = (o, f = 1000) => o == null ? null : o.v / f;
   const D = r => derivedZN(r[0], r[1], src);          /* derived values from the current mass source */
+
+  /* Experimental overlays (charge radii, moments, B(E2), E(2+)) and AME edition comparisons, loaded on demand from the compact tables
+     built by tools/make_nuclear_properties.py and tools/make_chart_overlays.py. Unknown values stay null; nothing is invented. */
+  const AUX = { props: null, be2: null, ed: null }, auxJobs = {}, auxBase = root.dataset.aux || "";
+  const auxFile = { props: "nuclear-properties-compact.json", be2: "be2-compact.json", ed: "ame-editions-compact.json" };
+  function auxBuild(name, j) {
+    const c = Object.fromEntries(j.columns.map((n, i) => [n, i]));
+    if (name === "props") {
+      const m = new Map();
+      for (const x of j.rows) { const k = key(x[c.Z], x[c.A] - x[c.Z]); if (m.has(k) && x[c.kind] === "u") continue; m.set(k, { r: x[c.r_fm], sr: x[c.sigma_r_fm], mu: x[c.mu_muN], smu: x[c.sigma_mu_muN], Q: x[c.Q_b], sQ: x[c.sigma_Q_b], jp: x[c.Jpi] }); }
+      return m;
+    }
+    if (name === "be2") return new Map(j.rows.map(x => [key(x[c.Z], x[c.N]), { E: x[c.E2_keV], sE: x[c.sigma_E2_keV], b: x[c.be2_up_e2b2], sb: x[c.sigma_be2_up_e2b2], beta: x[c.beta2], sbeta: x[c.sigma_beta2], year: x[c.evaluation_year] }]));
+    return Object.fromEntries(Object.entries(j.editions).map(([e, rows]) => [e, new Map(rows.map(x => [key(x[0], x[1]), [x[2], x[3], x[4]]]))]));
+  }
+  function loadAux(name) {
+    if (AUX[name]) return Promise.resolve();
+    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
+  }
+  const auxGet = (name, r) => AUX[name] && AUX[name].get(key(r[0], r[1]));
+  const edDiff = (ed, r) => {
+    const m = AUX.ed && AUX.ed[ed] && AUX.ed[ed].get(key(r[0], r[1]));
+    if (!m || r[3] == null) return null;
+    const known = r[4] != null && m[1] != null;
+    return { v: r[3] - m[0], e: known ? Math.hypot(r[4], m[1]) : null, est: !!(r[5] || m[2]) };
+  };
+  const pick = (name, f) => r => { const a = auxGet(name, r); const v = a ? f(a) : null; return v == null || Number.isNaN(v) ? null : v; };
+  const logPos = x => x > 0 ? Math.log10(x) : null;
   const reactionDefinitions={
     q2bm:{label:'Q(2β⁻)',formula:'ME(Z,N) − ME(Z+2,N−2)',terms:[[0,0,1],[2,-2,-1]]},
     q2ec:{label:'Q(2EC)',formula:'ME(Z,N) − ME(Z−2,N+2)',terms:[[0,0,1],[-2,2,-1]]},
@@ -114,6 +142,15 @@
     d3n: { label: T.m_d3n, v: r => mv(D(r).d3n), lo: 0, hi: 2.5, u: "MeV" },
     beta2: { label: T.m_beta2, need: true, v: r => { const v = MOD[modelKey()] && MOD[modelKey()].map.get(key(r[0], r[1])); return v && v[1] != null ? v[1] / 1000 : null; }, lo: -0.3, hi: 0.4, div: true },
     dmod: { label: T.m_dmod, need: true, v: r => mv(dmod(r)), lo: -3, hi: 3, u: "MeV", div: true },
+    rms: { label: T.m_rms, aux: "props", v: pick("props", a => a.r), lo: 1.5, hi: 6, u: "fm" },
+    mu: { label: T.m_mu, aux: "props", v: pick("props", a => a.mu), lo: -5, hi: 5, u: "μN", div: true },
+    qmom: { label: T.m_qmom, aux: "props", v: pick("props", a => a.Q), lo: -1.5, hi: 1.5, u: "b", div: true },
+    e2p: { label: T.m_e2p, aux: "be2", v: pick("be2", a => logPos(a.E)), lo: 1.5, hi: 3.7, rng: ["32 keV", "5 MeV"] },
+    be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
+    beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
+    dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
+    dame95: { label: T.m_dame95, aux: "ed", v: r => { const d = edDiff("ame1995", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true },
   };
   for(const [name,q]of Object.entries(reactionDefinitions))MODES[name]={label:q.label,v:r=>mv(D(r)[name]),lo:-40,hi:40,u:'MeV',div:true};
   const extraFilters=window.ZGMassSurface.filters;
@@ -475,9 +512,19 @@
   };
   for(const [name,q]of Object.entries(reactionDefinitions))PQ[name]=[q.label,d=>d[name],'MeV'];
   for(const [name,f]of Object.entries(extraFilters))PQ[name]=[filterLabel(name,f),d=>d[name],'MeV'];
+  const linear = label => String(label).replace(/,\s*(?:log scale|对数|log|échelle log|対数)\)/, ")"); // chain plots show the value itself, not its logarithm
+  const expObj = (v, e) => v == null ? null : { v: v * 1000, e: e == null ? null : e * 1000, est: false };
+  PQ.rms = [T.m_rms, (d, r) => { const a = auxGet("props", r); return a ? expObj(a.r, a.sr) : null; }, "fm"];
+  PQ.mu = [T.m_mu, (d, r) => { const a = auxGet("props", r); return a ? expObj(a.mu, a.smu) : null; }, "μN"];
+  PQ.qmom = [T.m_qmom, (d, r) => { const a = auxGet("props", r); return a ? expObj(a.Q, a.sQ) : null; }, "b"];
+  PQ.e2p = [linear(T.m_e2p), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.E, a.sE) : null; }, "keV"];
+  PQ.be2 = [linear(T.m_be2), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.b, a.sb) : null; }, "e²b²"];
+  PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
+  for (const [name, ed] of [["dame16", "ame2016"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
   // underlying mass separate for filtering, input labels and CSV provenance.
-  const dependencyValue=(quantity,derived,value)=>quantity==='dme'?derived.me:value;
+  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame16", "dame03", "dame95"];
+  const dependencyValue=(quantity,derived,value)=>quantity==='dme'||EXPQ.includes(quantity)?derived.me:value;
   const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
   root.querySelector('.nc-filter-definitions').innerHTML='<table><thead><tr><th>'+escape(T.pq)+'</th><th>'+escape(T.mf_formula)+'</th><th>'+escape(T.mf_neighbours)+'</th></tr></thead><tbody>'+Object.entries(formulaDefinitions).map(([name,f])=>'<tr><th>'+escape(f.label||filterLabel(name,f))+'</th><td>'+escape(f.formula)+'</td><td>'+escape(offsets(f))+'</td></tr>').join('')+'</tbody></table>';
@@ -639,7 +686,7 @@
     const passPoint=(r,v,source)=>{
       const [z,n]=r,ame=get(z,n),mass=source==='loaded'||source==='hybrid'?getter('hybrid')(z,n):ame;
       const referenceDerived=derivedZN(z,n,'ame'),hybridDerived=derivedZN(z,n,'hybrid');
-      const reference=['hl','beta2'].includes(pq.value)?ame:q[1](referenceDerived,r);
+      const reference=['hl','beta2',...EXPQ].includes(pq.value)?ame:q[1](referenceDerived,r);
       return CP.experimentalFilter({mode:filter,centre:ame,reference,value:v,
         active:!!inputTable?.active.has(z+'-'+n+'-0'),
         affected:MM.affected(dependencyValue(pq.value,hybridDerived,q[1](hybridDerived,r))),mass,maxSigma});
@@ -656,16 +703,16 @@
     for(const r of inputTable?.active.values()||[])if(!r.state.source_state_index&&belongs(r.state.Z,r.state.N)&&!centres.has(key(r.state.Z,r.state.N)))centres.set(key(r.state.Z,r.state.N),[r.state.Z,r.state.N,r.state.element,null,null,0,-97,'—','',null,'',[]]);
     for(const s of ['ame','loaded','hybrid']){
       if(!root.querySelector('[data-series='+s+']').checked||s!=='ame'&&(!advanced||!hasNewGround))continue;
-      if(s!=='ame'&&['hl','beta2','dmod'].includes(pq.value))continue;
+      if(s!=='ame'&&['hl','beta2','dmod',...EXPQ].includes(pq.value))continue;
       for(const r of centres.values()){
         if(!inX(r[0],r[1])||s==='loaded'&&!inputTable?.active.has(r[0]+'-'+r[1]+'-0'))continue;
         const p=makePoint(r,s);if(p)plotPts.push(p);
       }
     }
     const modelKeys=selectedModels();
-    const modelReason=modelKeys.length&&!advanced?T.loaded_cap:modelKeys.length&&['dme','hl','dmod'].includes(pq.value)?T.model_quantity:modelKeys.some(k=>modelErrors.has(k))?T.loaded_model_error:modelKeys.some(k=>!MOD[k])?T.loaded_model_loading:'';
+    const modelReason=modelKeys.length&&!advanced?T.loaded_cap:modelKeys.length&&['dme','hl','dmod',...EXPQ].includes(pq.value)?T.model_quantity:modelKeys.some(k=>modelErrors.has(k))?T.loaded_model_error:modelKeys.some(k=>!MOD[k])?T.loaded_model_loading:'';
     const modelNuclei=[];
-    if(advanced&&!['dme','hl','dmod'].includes(pq.value))for(const mk of modelKeys){
+    if(advanced&&!['dme','hl','dmod',...EXPQ].includes(pq.value))for(const mk of modelKeys){
       if(!MOD[mk])continue;
       for(const k of MOD[mk].map.keys()){
         const z=Math.floor(k/1000),n=k%1000;if(!belongs(z,n))continue;modelNuclei.push([z,n]);if(!inX(z,n))continue;
@@ -683,7 +730,7 @@
     if(chainInput('band').checked){
       bands=CP.experimentalBands(plotPts);
     }
-    if(chainInput('residual').checked&&!['hl','dme','dmod','beta2'].includes(pq.value)){
+    if(chainInput('residual').checked&&!['hl','dme','dmod','beta2',...EXPQ].includes(pq.value)){
       for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
@@ -845,7 +892,7 @@
     if(e.key==='+'||e.key==='=')zoomPlot(1/1.5);else if(e.key==='-')zoomPlot(1.5);else if(e.key==='Home')fitPlot();
     else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
   });
-  pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); plotChain(); };
+  pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); const au = EXPQ.includes(pq.value) && MODES[pq.value].aux; if (au && !AUX[au]) loadAux(au).then(() => plotChain()).catch(() => plotChain()); plotChain(); };
   root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring]").forEach(el => el.addEventListener("input", () => plotChain()));
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   const rgb = root.querySelector("[name=nc-range]"); if (rgb) rgb.addEventListener("change", () => { root.querySelector(".nc-prange-in").hidden = !rgb.checked;
@@ -933,7 +980,7 @@
   root.querySelector("[data-nc=random]").onclick = () => { const p = rows.filter(pass), r = p[Math.floor(Math.random() * p.length)]; pin = r; zoomTo(r); showCard(r); plotChain(r); };
   sel.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(MODES).map(([k,m])=>[k,m.label])),T);
   sel.value=mode;
-  sel.onchange = () => { mode = sel.value; if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(() => { memo.clear(); drawLegend(); draw(); }); drawLegend(); draw(); };
+  sel.onchange = () => { mode = sel.value; if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(() => { memo.clear(); drawLegend(); draw(); }); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(() => { memo.clear(); drawLegend(); draw(); }).catch(() => {}); drawLegend(); draw(); };
   if (msel) msel.onchange = () => setSource(msel.value);
   if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && !Object.keys(PATHS).length) loadModels().then(draw); draw(); });
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");

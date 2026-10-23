@@ -10,12 +10,14 @@
     pn:['vpn','wig','D2pS2n','D1pS1n','D1pS2n','D2pS1n'],
     higher:['D1nS2n','D1pS2p','Gplus','Gsym'],
   };
+  // Experimental overlays and edition comparisons: kept apart from `groups`, which is the contract of the 38 physical mass quantities.
+  const overlay={experimental:['rms','mu','qmom','e2p','be2','beta2e'],editions:['dame16','dame03','dame95']};
   const aliases={BE:'be',BEA:'bea'};
   const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function html(items,labels){
     const used=new Set(),option=key=>{used.add(key);return '<option value="'+escape(key)+'">'+escape(items[key])+'</option>';};
     let out='';
-    for(const [group,keys]of Object.entries(groups)){
+    for(const [group,keys]of Object.entries({...groups,...overlay})){
       const present=keys.map(k=>Object.hasOwn(items,k)?k:aliases[k]).filter(k=>k&&Object.hasOwn(items,k));
       if(present.length)out+='<optgroup label="'+escape(labels['mf_group_'+group])+'">'+present.map(option).join('')+'</optgroup>';
     }
@@ -23,6 +25,6 @@
     if(other.length)out+='<optgroup label="'+escape(labels.mf_group_other)+'">'+other.map(option).join('')+'</optgroup>';
     return out;
   }
-  const api={groups,aliases,html};host.ZGMassQuantityMenu=api;
+  const api={groups,overlay,aliases,html};host.ZGMassQuantityMenu=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
