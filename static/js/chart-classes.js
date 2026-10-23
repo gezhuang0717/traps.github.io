@@ -62,7 +62,40 @@
     return open ? 'possible' : 'impossible';
   }
 
-  const api = Object.freeze({ parseSpin, spinClass, SPIN_LABELS, SPIN_COLOURS, precisionClass, PRECISION_EDGES, PRECISION_LABELS, PRECISION_COLOURS,
+  /* ---- divided colour bar: n classes from interior edges ---- */
+  /* equal-width interior edges (n - 1 of them) over [lo, hi]; with `symmetric` the range is ±max(|lo|,|hi|) and n is made odd, so the middle class contains zero */
+  function equalEdges(lo, hi, n, symmetric = false) {
+    n = Math.max(2, Math.min(40, Math.round(n)));
+    if (symmetric) { const a = Math.max(Math.abs(lo), Math.abs(hi)); if (n % 2 === 0) n += 1; lo = -a; hi = a; }
+    if (!(hi > lo)) return [];
+    return Array.from({ length: n - 1 }, (_, i) => lo + (hi - lo) * (i + 1) / n);
+  }
+  /* equal-count interior edges: the values at the k/n quantiles; repeated edges are merged, so fewer classes can come back */
+  function quantileEdges(values, n) {
+    const s = values.filter(Number.isFinite).sort((a, b) => a - b); n = Math.max(2, Math.min(40, Math.round(n)));
+    if (s.length < 2) return [];
+    const at = q => { const x = (s.length - 1) * q, i = Math.floor(x), f = x - i; return s[i] + (s[Math.min(i + 1, s.length - 1)] - s[i]) * f; };
+    const e = []; for (let k = 1; k < n; k++) { const v = at(k / n); if (!e.length || v > e[e.length - 1]) e.push(v); }
+    return e;
+  }
+  const parseEdges = text => [...new Set(String(text ?? '').split(/[\s,;]+/).filter(Boolean).map(Number).filter(Number.isFinite))].sort((a, b) => a - b);
+  /* class of v: the number of interior edges strictly below it, so an edge value belongs to the lower class */
+  function classIndex(v, edges) { let k = 0; while (k < edges.length && v > edges[k]) k++; return k; }
+  /* one representative value per class, used to colour it with the same scale as the continuous bar: the middle of the part of the class
+     that lies inside [lo, hi]; a class wholly outside the range takes the nearest range end */
+  function classCentres(edges, lo, hi) {
+    const pts = [-Infinity, ...edges, Infinity];
+    return Array.from({ length: edges.length + 1 }, (_, i) => { const a = Math.max(pts[i], lo), b = Math.min(pts[i + 1], hi); return a <= b ? (a + b) / 2 : (pts[i + 1] < lo ? lo : hi); });
+  }
+  const classLabels = (edges, f) => edges.length ? ['≤ ' + f(edges[0]), ...edges.slice(1).map((e, i) => f(edges[i]) + ' … ' + f(e)), '> ' + f(edges[edges.length - 1])] : [];
+  /* colour-blind-safe sequential scheme (viridis, eight anchors), x in [0, 1] */
+  const VIRIDIS = [[68, 1, 84], [70, 50, 126], [54, 92, 141], [39, 127, 142], [31, 161, 135], [74, 194, 109], [159, 218, 58], [253, 231, 37]];
+  function viridis(x) {
+    const t = Math.max(0, Math.min(1, x)) * (VIRIDIS.length - 1), i = Math.min(VIRIDIS.length - 2, Math.floor(t)), f = t - i;
+    return 'rgb(' + [0, 1, 2].map(k => Math.round(VIRIDIS[i][k] + (VIRIDIS[i + 1][k] - VIRIDIS[i][k]) * f)).join(',') + ')';
+  }
+
+  const api = Object.freeze({ equalEdges, quantileEdges, parseEdges, classIndex, classCentres, classLabels, viridis, parseSpin, spinClass, SPIN_LABELS, SPIN_COLOURS, precisionClass, PRECISION_EDGES, PRECISION_LABELS, PRECISION_COLOURS,
     deviationClass, DEVIATION_EDGES, DEVIATION_LABELS, DEVIATION_COLOURS, parityOk, nextParity, channelState });
   if (typeof window !== 'undefined') window.ZGChartClasses = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

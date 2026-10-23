@@ -121,6 +121,8 @@
   /* discrete classes with a fixed legend (ground-state spin, mass precision, model deviation), parity filters and view options */
   const CL = window.ZGChartClasses, WHITE = "#ffffff";
   let emptyColour = "#e5e7eb", zpar = "all", npar = "all", isoMark = false;
+  let classOn = false, classN = 9, classMethod = "equal", classText = "", classScheme = "default", classState = null, isolateMode = "";  /* divided colour bar (off = the continuous bar) */
+  const isolate = new Set();
   const binMode = (label, of, list, none, extra = {}) => ({ label, f: r => { const k = of(r); return k == null ? (none ? none[0] : "#e5e7eb") : list[k][0]; }, bins: { of, list, none }, ...extra });
   const reactionDefinitions={
     q2bm:{label:'Q(2β⁻)',formula:'ME(Z,N) − ME(Z+2,N−2)',terms:[[0,0,1],[2,-2,-1]]},
@@ -198,10 +200,14 @@
   const allRows = () => src === "ame" ? rows : rows.concat(extraRows);
   function colour(r) {
     const m = MODES[mode]; if (m.f) return m.f(r);
-    const v = m.v(r); if (v == null) return emptyColour;
+    let v = m.v(r); if (v == null) return emptyColour;
+    if (classOn && classState && classState.mode === mode) v = classState.centres[CL.classIndex(v, classState.edges)];
+    return colourOfValue(m, v);
+  }
+  function colourOfValue(m, v) {
     const bd = bounds(m), x = (v - bd.lo) / (bd.hi - bd.lo), zero = (0 - bd.lo) / (bd.hi - bd.lo);
     if (m.div) { const t = Math.max(0, Math.min(1, x)), a = t < zero ? (zero > 0 ? (zero - t) / zero : 0) : (zero < 1 ? (t - zero) / (1 - zero) : 0); return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
-    return ramp(x);
+    return classOn && classScheme === "viridis" ? CL.viridis(x) : ramp(x);
   }
   function drawLegend() {
     const m = MODES[mode];
@@ -209,7 +215,8 @@
     else if (mode === "est") legend.innerHTML = `<span><i style="background:#0ea5e9"></i>${T.measured}</span><span><i style="background:#f59e0b"></i>${T.extrap}</span>`;
     else if (mode === "iso") legend.innerHTML = [0, 1, 2, 3].map(n => `<span><i style="background:${["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][n]}"></i>${n}${n === 3 ? "+" : ""}</span>`).join("");
     else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
-    else if (m.bins) legend.innerHTML = [...m.bins.list, ...(m.bins.none ? [m.bins.none] : [])].map(([c, l]) => `<span><i style="background:${c};outline:1px solid rgba(100,116,139,.55)"></i>${escape(l)}</span>`).join("") + (m.need && MOD[modelKey()] ? `<span class="nc-mnote">${escape(MOD[modelKey()].name)}</span>` : "");
+    else if (m.bins) legend.innerHTML = legendItems([...m.bins.list, ...(m.bins.none ? [m.bins.none] : [])].map(([c, l], i) => ({ key: i === m.bins.list.length ? "none" : i, c, l }))) + (m.need && MOD[modelKey()] ? `<span class="nc-mnote">${escape(MOD[modelKey()].name)}</span>` : "");
+    else if (classOn && m.v) legend.innerHTML = classLegend(m);
     else { const bd = bounds(m), numeric = manualRange || m.user || m.auto, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
      drawStats();
   }
@@ -228,12 +235,12 @@
       if (m <= 120) { const [, y] = P(m, 0); c.beginPath(); c.moveTo(0, y); c.lineTo(Wd, y); c.moveTo(0, y + s); c.lineTo(Wd, y + s); c.stroke(); }
     });
     if (optOn("nz")) { c.save(); c.strokeStyle = "rgba(142,78,198,.75)"; c.lineWidth = lineWidth() * sc; c.setLineDash([5 * sc, 5 * sc]); const a = P(0, 0), b = P(120, 120); c.beginPath(); c.moveTo(a[0], a[1] + s); c.lineTo(b[0] + s, b[1]); c.stroke(); c.restore(); }
-    const big = s >= 26 * sc, mid = s >= 14 * sc;
+    const big = s >= 26 * sc, mid = s >= 14 * sc, iso = activeIso();
     c.textAlign = "center"; c.textBaseline = "middle";
     for (const r of allRows()) {
       const [x, y] = P(r[0], r[1]);
       if (x < -s || y < -s || x > Wd || y > Hd) continue;
-      const ok = pass(r); c.globalAlpha = ok ? (r.mo ? 0.5 : 1) : 0.1;
+      const ok = pass(r) && (!iso || iso.has(classOf(r))); c.globalAlpha = ok ? (r.mo ? 0.5 : 1) : 0.1;
       const fill = r.mo && (mode === "decay" || MODES[mode].f) ? "#cbd5e1" : colour(r); c.fillStyle = fill; c.fillRect(x, y, s - (s > 3 ? sc : 0.3), s - (s > 3 ? sc : 0.3));
       if (isoMark && ok && r[11].length && s >= 5 * sc) { const t = Math.min(s * 0.38, 9 * sc), e = s > 3 ? sc : 0.3; c.fillStyle = "#7c3aed"; c.beginPath(); c.moveTo(x + s - e - t, y); c.lineTo(x + s - e, y); c.lineTo(x + s - e, y + t); c.closePath(); c.fill(); }
       if(ok&&s>=10*sc&&measured?.marked(r[0],r[1])){c.strokeStyle="#a71984";c.lineWidth=2*sc;c.strokeRect(x+sc,y+sc,s-3*sc,s-3*sc);}
@@ -262,6 +269,44 @@
     eo: { of: r => (r[0] % 2) * 2 + (r[1] % 2), list: [[0, T.fl_ee], [1, T.fl_eo], [2, T.fl_oe], [3, T.fl_oo]] },
   };
   const nuc = r => sup(r[0] + r[1]) + r[2];
+  /* ---- divided colour bar: class edges, legend with counts, click to isolate ---- */
+  const rngUnit = m => m.rng ? RNG_UNIT[mode] || "" : m.u || "";
+  function refreshClassState() {
+    const m = MODES[mode]; classState = null;
+    if (!classOn || m.f || !m.v) return;
+    const bd = bounds(m); let edges;
+    if (classMethod === "manual") { edges = CL.parseEdges(classText); if (m.rng) edges = edges.filter(e => e > 0).map(Math.log10); }
+    else if (classMethod === "quantile") edges = CL.quantileEdges(allRows().filter(pass).map(r => m.v(r)).filter(Number.isFinite), classN);
+    else edges = CL.equalEdges(bd.lo, bd.hi, classN, !!m.div);
+    if (edges.length) classState = { mode, edges, centres: CL.classCentres(edges, bd.lo, bd.hi) };
+  }
+  function legendItems(items) {
+    return items.map(it => `<button type="button" class="nc-lg" data-class="${it.key}" aria-pressed="false" title="${escape(T.cl_isolate)}"><i style="background:${it.c};outline:1px solid rgba(100,116,139,.55)"></i>${escape(it.l)} <small data-count="${it.key}"></small></button>`).join("")
+      + `<button type="button" class="nc-lg nc-lg-all" data-class="all" hidden>${escape(T.cl_show_all)}</button>`;
+  }
+  function classLegend(m) {
+    refreshClassState();
+    const st = classState; if (!st) return `<span class="nc-mnote">${escape(T.cl_none)}</span>`;
+    const f = v => String(Number((m.rng ? Math.pow(10, v) : v).toPrecision(4))), unit = rngUnit(m), labels = CL.classLabels(st.edges, f);
+    return legendItems(labels.map((l, i) => ({ key: i, c: colourOfValue(m, st.centres[i]), l: l + (unit ? " " + unit : "") })));
+  }
+  const activeIso = () => isolateMode === mode && isolate.size ? isolate : null;
+  function classOf(r) {
+    const m = MODES[mode];
+    if (m.bins) { const k = m.bins.of(r); return k == null ? "none" : k; }
+    if (classOn && classState && classState.mode === mode && m.v) { const v = m.v(r); return v == null || !Number.isFinite(v) ? "none" : CL.classIndex(v, classState.edges); }
+    return null;
+  }
+  function decorateLegend() {
+    const m = MODES[mode], counts = new Map(), iso = activeIso();
+    if (m.bins || (classOn && classState)) for (const r of allRows()) { if (!pass(r)) continue; const k = classOf(r); counts.set(k, (counts.get(k) || 0) + 1); }
+    legend.querySelectorAll("[data-count]").forEach(el => { const k = el.dataset.count === "none" ? "none" : Number(el.dataset.count); el.textContent = "· " + (counts.get(k) || 0); });
+    legend.querySelectorAll("[data-class]").forEach(b => {
+      if (b.dataset.class === "all") { b.hidden = !iso; return; }
+      const on = !!iso && iso.has(b.dataset.class === "none" ? "none" : Number(b.dataset.class));
+      b.setAttribute("aria-pressed", on ? "true" : "false"); b.classList.toggle("nc-lg-on", on);
+    });
+  }
   const darkHex = h => { const m = /^#([0-9a-f]{6})$/i.exec(h); if (!m) return false; const n = parseInt(m[1], 16); return 0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255) < 140; };
   const meText = r => "ME " + Number(r[3].toFixed(Math.abs(r[3]) >= 1e5 ? 0 : 1)) + (r[4] != null ? "(" + Number(r[4].toPrecision(2)) + ")" : "") + (r[5] ? "#" : "");
   const num = x => String(Number(Number(x).toPrecision(5)));
@@ -291,7 +336,7 @@
       }
     }
     statBox.innerHTML = html;
-    drawEdHint(); renderEditions();
+    decorateLegend(); drawEdHint(); renderEditions();
   }
   function drawEdHint() {
     if (!edHint) return;
@@ -1111,6 +1156,29 @@
     });
   }
 
+  /* ---- divided colour bar (default off: the continuous bar) ---- */
+  {
+    const q = n => root.querySelector('[name="' + n + '"]'), cOn = q("nc-classes"), cN = q("nc-class-n"), cM = q("nc-class-method"), cE = q("nc-class-edges"), cS = q("nc-class-scheme"), note = root.querySelector(".nc-class-note");
+    if (cOn && cN && cM && cE && cS) {
+      const sync = () => {
+        const m = MODES[mode], off = !!m.f || !m.v, on = cOn.checked && !off, manual = cM.value === "manual";
+        cOn.disabled = off; cN.disabled = !on || manual; cM.disabled = !on; cE.hidden = !manual; cE.disabled = !on || !manual; cS.disabled = !on || !!m.div;
+        note.textContent = cOn.checked && off ? T.cl_off_mode : on && m.div && !manual && classMethod === "equal" ? fill(T.cl_note_zero, { n: classState ? classState.edges.length + 1 : "" }) : "";
+      };
+      const apply = () => { classOn = cOn.checked; classN = Math.max(3, Math.min(20, Math.round(Number(cN.value)) || 9)); classMethod = cM.value; classText = cE.value; classScheme = cS.value; isolate.clear(); isolateMode = ""; memo.clear(); drawLegend(); draw(); sync(); };
+      [cOn, cM, cS].forEach(e => { e.onchange = apply; }); cN.oninput = cE.oninput = apply;
+      sel.addEventListener("change", () => { isolate.clear(); isolateMode = ""; drawLegend(); draw(); sync(); });
+      legend.addEventListener("click", e => {
+        const b = e.target.closest("[data-class]"); if (!b) return;
+        const k = b.dataset.class;
+        if (k === "all") isolate.clear(); else { const key = k === "none" ? "none" : Number(k); if (isolateMode !== mode) isolate.clear(); isolate.has(key) ? isolate.delete(key) : isolate.add(key); }
+        isolateMode = mode; draw(); drawStats();
+      });
+      cv.addEventListener("keydown", e => { if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "c" && !cOn.disabled) { cOn.checked = !cOn.checked; apply(); const h = root.querySelector(".nc-hotkey-status"); if (h) h.textContent = fill(T.hk_class, { v: cOn.checked ? T.hk_on : T.hk_off }); e.preventDefault(); } });
+      sync();
+    }
+  }
+
   /* ---- manual colour range and the visitor's own data layer ---- */
   {
     const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]');
@@ -1165,7 +1233,7 @@
   if (msel) msel.onchange = () => setSource(msel.value);
   if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && !Object.keys(PATHS).length) loadModels().then(draw); draw(); });
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");
-  fsel.onchange = () => { filt = fsel.value; draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
+  fsel.onchange = () => { filt = fsel.value; drawLegend(); draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
   search.addEventListener("keydown", e => {
     if (e.key !== "Enter") return;
     try {

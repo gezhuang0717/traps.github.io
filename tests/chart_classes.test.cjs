@@ -91,3 +91,45 @@ test('the hotkey, parity and class controls are wired in the template and menu',
   assert.deepEqual(require('../static/js/mass-quantity-menu.js').overlay.classes, ['spinb', 'precb', 'dmodb']);
   for (const key of ['m', 'p', 'n', 'i', 'd', 'g', 's']) assert.ok(source.includes('k === "' + key + '"'), key);
 });
+
+
+test('divided colour bar: equal-width, symmetric and equal-count interior edges', () => {
+  assert.deepEqual(C.equalEdges(0, 10, 5), [2, 4, 6, 8]);
+  const sym = C.equalEdges(-30, 20, 4, true);                  // even n becomes 5 so that one class is centred on zero
+  assert.equal(sym.length, 4); assert.ok(Math.abs(sym[0] + sym[3]) < 1e-12 && Math.abs(sym[1] + sym[2]) < 1e-12); assert.equal(C.classIndex(0, sym), 2);
+  assert.deepEqual(C.equalEdges(5, 5, 4), []);
+  const values = Array.from({ length: 1000 }, (_, i) => Math.pow(i / 999, 3) * 100);   // strongly skewed
+  const q = C.quantileEdges(values, 5), counts = new Array(q.length + 1).fill(0);
+  for (const v of values) counts[C.classIndex(v, q)]++;
+  assert.equal(q.length, 4); assert.ok(Math.max(...counts) - Math.min(...counts) <= 2, counts.join());
+  assert.deepEqual(C.quantileEdges([3, 3, 3, 3, 3, 3], 4), [3]);   // merged repeated edges
+  assert.deepEqual(C.quantileEdges([1], 4), []);
+});
+
+test('divided colour bar: class index, centres, labels and manual edges', () => {
+  const e = [-1000, -500, 0, 500, 1000];
+  assert.deepEqual([-5000, -1000, -999, 0, 0.1, 1000, 1001].map(v => C.classIndex(v, e)), [0, 0, 1, 2, 3, 4, 5]);
+  assert.deepEqual(C.classCentres([-10, 0, 10], -30, 30), [-20, -5, 5, 20]);
+  assert.deepEqual(C.classCentres([5], 0, 10), [2.5, 7.5]);
+  assert.deepEqual(C.classCentres([-50], -10, 10), [-10, 0]);                    // a class wholly outside the range takes the range end
+  assert.deepEqual(C.classCentres([50], -10, 10), [0, 10]);
+  assert.deepEqual(C.classLabels([1, 2], x => String(x)), ['≤ 1', '1 … 2', '> 2']);
+  assert.deepEqual(C.parseEdges('500, -500; 0  1000,0,abc'), [-500, 0, 500, 1000]);
+  assert.deepEqual(C.parseEdges(''), []);
+});
+
+test('viridis is a smooth colour-blind-safe ramp from dark purple to yellow', () => {
+  assert.equal(C.viridis(0), 'rgb(68,1,84)'); assert.equal(C.viridis(1), 'rgb(253,231,37)');
+  assert.equal(C.viridis(-3), C.viridis(0)); assert.equal(C.viridis(7), C.viridis(1));
+  const lum = x => { const m = C.viridis(x).match(/\d+/g).map(Number); return 0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]; };
+  for (let i = 1; i <= 20; i++) assert.ok(lum(i / 20) > lum((i - 1) / 20), String(i));   // monotonic lightness
+});
+
+test('the divided colour bar is off by default and wired to its controls', () => {
+  const template = fs.readFileSync(path.join(__dirname, '../layouts/_shortcodes/nuclide-chart.html'), 'utf8');
+  for (const name of ['nc-classes', 'nc-class-n', 'nc-class-method', 'nc-class-edges', 'nc-class-scheme', 'nc-class-note']) assert.ok(template.includes(name), name);
+  assert.doesNotMatch(template, /name="nc-classes"[^>]*checked/);                       // the old continuous bar stays the default
+  assert.match(source, /let classOn = false, classN = 9, classMethod = "equal"/);
+  assert.match(source, /classOn && classScheme === "viridis" \? CL\.viridis\(x\) : ramp\(x\)/);   // off: the unchanged ramp
+  assert.match(source, /e\.key\.toLowerCase\(\) === "c"/);
+});

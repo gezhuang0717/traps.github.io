@@ -2,7 +2,7 @@ const test = require('node:test'), assert = require('node:assert/strict'), fs = 
 const source = fs.readFileSync('static/js/nuclide-chart.js', 'utf8');
 function slice(start, end) { const a = source.indexOf(start), b = source.indexOf(end, a); assert.ok(a >= 0 && b > a, start); return source.slice(a, b); }
 function context(values, extra = {}) {
-  const ctx = { src: 'ame', manualRange: null, emptyColour: '#e5e7eb', rows: values.map((v, i) => [i, 0, 'X', 0, 0, 0, 0, 0, 0, 0, 0, [], v]), extraRows: [], mode: 'd', ramp: x => 'ramp' + x.toFixed(2), ...extra };
+  const ctx = { src: 'ame', manualRange: null, emptyColour: '#e5e7eb', classOn: false, classScheme: 'default', classState: null, rows: values.map((v, i) => [i, 0, 'X', 0, 0, 0, 0, 0, 0, 0, 0, [], v]), extraRows: [], mode: 'd', ramp: x => 'ramp' + x.toFixed(2), ...extra };
   ctx.MODES = { d: { label: 'diff', v: r => r[12], lo: -30, hi: 30, div: true, auto: true }, f: { label: 'fixed', v: r => r[12], lo: -5, hi: 5, div: true } };
   vm.createContext(ctx);
   vm.runInContext('const allRows = () => src === "ame" ? rows : rows.concat(extraRows);\n' + slice('  const autoCache = new Map();', '  const pick =') + '\n' + slice('  function colour(r) {', '  function drawLegend()') + '\nthis.bounds = bounds; this.colour = colour;', ctx);

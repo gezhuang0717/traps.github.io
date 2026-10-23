@@ -112,3 +112,18 @@ def test_class_and_parity_labels_exist_in_all_languages_with_the_same_placeholde
             assert set(re.findall(r'\{(\w+)\}', text)) == holes, (lang, key)
     for lang in LANGS:  # the hotkey line names the same seven keys in every language
         assert all(k in labels[lang]['hk_text'] for k in ('M ', 'P ', 'N ', 'I ', 'D ', 'G ', 'S ')), lang
+
+
+def test_colour_class_labels_exist_in_all_languages_with_the_same_placeholders():
+    import re
+    labels = yaml.safe_load((ROOT / 'data/nuclide_chart_labels.yaml').read_text(encoding='utf8'))
+    keys = ['cl_use', 'cl_n', 'cl_method', 'cl_equal', 'cl_quantile', 'cl_manual', 'cl_edges', 'cl_scheme', 'cl_scheme_default', 'cl_scheme_viridis',
+            'cl_help_t', 'cl_help', 'cl_isolate', 'cl_show_all', 'cl_none', 'cl_off_mode', 'cl_note_zero', 'hk_class']
+    for key in keys:
+        holes = set(re.findall(r'\{(\w+)\}', labels['en'][key]))
+        for lang in LANGS:
+            text = labels[lang].get(key)
+            assert isinstance(text, str) and text.strip(), (lang, key)
+            assert set(re.findall(r'\{(\w+)\}', text)) == holes, (lang, key)
+    for lang in LANGS:
+        assert ' C ' in labels[lang]['hk_text'] or '· C ' in labels[lang]['hk_text'], lang

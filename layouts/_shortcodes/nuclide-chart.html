@@ -63,6 +63,15 @@
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
     <small class="nc-range-note" role="status"></small>
   </div>
+  <div class="nc-bar nc-classbar">
+    <label class="nc-chk"><input type="checkbox" name="nc-classes"> {{ $t.cl_use }}</label>
+    <label>{{ $t.cl_n }} <input type="number" name="nc-class-n" min="3" max="20" step="1" value="9" disabled></label>
+    <label>{{ $t.cl_method }} <select name="nc-class-method" disabled><option value="equal">{{ $t.cl_equal }}</option><option value="quantile">{{ $t.cl_quantile }}</option><option value="manual">{{ $t.cl_manual }}</option></select></label>
+    <input type="text" name="nc-class-edges" placeholder="-1000, -500, 0, 500, 1000" aria-label="{{ $t.cl_edges }}" spellcheck="false" hidden disabled>
+    <label>{{ $t.cl_scheme }} <select name="nc-class-scheme" disabled><option value="default">{{ $t.cl_scheme_default }}</option><option value="viridis">{{ $t.cl_scheme_viridis }}</option></select></label>
+    <small class="nc-class-note" role="status"></small>
+  </div>
+  <details class="nc-explanation nc-class-help"><summary>💡 {{ $t.cl_help_t }}</summary><p class="zg-small">{{ $t.cl_help }}</p></details>
   <div class="nc-bar nc-viewbar">
     <label class="nc-chk"><input type="checkbox" name="nc-isomark"> {{ $t.opt_isomark }}</label>
     <label>{{ $t.opt_empty }} <input type="color" name="nc-empty" value="#e5e7eb"></label>
