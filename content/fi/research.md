@@ -74,6 +74,6 @@ Suihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu:
 
 {{< spectroscopy-tools >}}
 
-[Spektroskopiapolku](../games/#spectroscopy-trail)
+[Spektroskopiapolku](../lab/#spectroscopy-trail)
 
 {{< trap-zoo >}}

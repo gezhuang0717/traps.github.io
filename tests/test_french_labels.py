@@ -33,9 +33,10 @@ def test_french_main_routes_and_menu_have_real_french_content():
     assert "Chercheur" in (ROOT/"content/fr/_index.md").read_text()
     research=(ROOT/"content/fr/research.md").read_text().strip()
     assert research.endswith("{{< trap-zoo >}}")
-    assert "../games/#spectroscopy-trail" in research
+    assert "../lab/#spectroscopy-trail" in research
     assert "{{< spectroscopy-games >}}" not in research
-    assert (ROOT/"content/fr/games.md").read_text().count("{{< spectroscopy-games >}}") == 1
+    assert (ROOT/"content/fr/games.md").read_text().count("{{< spectroscopy-games >}}") == 0
+    assert (ROOT/"content/fr/lab.md").read_text().count("{{< spectroscopy-games >}}") == 1
 
 def test_curated_french_roots_cover_every_current_english_key_and_placeholder():
     for name in CURATED:

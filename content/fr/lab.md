@@ -15,3 +15,7 @@ Des outils interactifs issus de mon travail quotidien avec les pièges de Pennin
 {{< lab-more >}}
 
 {{< nuclide-chart >}}
+
+{{< spectroscopy-games >}}
+
+{{< trap-zoo >}}

@@ -8,6 +8,4 @@ showDate: false
 
 Jouez pendant les pauses du faisceau. Les meilleurs scores sont conservés uniquement dans votre navigateur.
 
-{{< spectroscopy-games >}}
-
 {{< games >}}

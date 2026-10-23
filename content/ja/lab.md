@@ -15,3 +15,7 @@ showDate: false
 {{< lab-more >}}
 
 {{< nuclide-chart >}}
+
+{{< spectroscopy-games >}}
+
+{{< trap-zoo >}}

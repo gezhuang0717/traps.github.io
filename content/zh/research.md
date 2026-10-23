@@ -74,6 +74,6 @@ showDate: false
 
 {{< spectroscopy-tools >}}
 
-[光谱学闯关](../games/#spectroscopy-trail)
+[光谱学闯关](../lab/#spectroscopy-trail)
 
 {{< trap-zoo >}}

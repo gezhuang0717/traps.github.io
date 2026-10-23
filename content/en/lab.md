@@ -15,3 +15,7 @@ Small interactive tools from my everyday work with Penning traps and MR-TOF — 
 {{< lab-more >}}
 
 {{< nuclide-chart >}}
+
+{{< spectroscopy-games >}}
+
+{{< trap-zoo >}}

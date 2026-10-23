@@ -70,6 +70,6 @@ Conception de lignes de faisceau, d’anneaux de stockage et de systèmes de pi�
 
 {{< spectroscopy-tools >}}
 
-[Jouer au parcours de spectroscopie](../games/#spectroscopy-trail).
+[Jouer au parcours de spectroscopie](../lab/#spectroscopy-trail).
 
 {{< trap-zoo >}}

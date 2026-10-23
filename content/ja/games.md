@@ -8,6 +8,4 @@ showDate: false
 
 ビームが止まっている間に遊んでみてください。最高得点はブラウザ内にのみ保存されます。
 
-{{< spectroscopy-games >}}
-
 {{< games >}}

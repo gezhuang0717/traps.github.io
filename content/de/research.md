@@ -74,6 +74,6 @@ Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: 
 
 {{< spectroscopy-tools >}}
 
-[Spektroskopiepfad](../games/#spectroscopy-trail)
+[Spektroskopiepfad](../lab/#spectroscopy-trail)
 
 {{< trap-zoo >}}

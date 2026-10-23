@@ -15,3 +15,7 @@ Pieniä interaktiivisia työkaluja arkityöstäni Penning-loukkujen ja MR-TOF:n 
 {{< lab-more >}}
 
 {{< nuclide-chart >}}
+
+{{< spectroscopy-games >}}
+
+{{< trap-zoo >}}

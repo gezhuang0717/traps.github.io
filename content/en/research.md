@@ -74,6 +74,6 @@ Ion-optical design of beam lines, storage rings and trap set-ups: the injection 
 
 {{< spectroscopy-tools >}}
 
-[Spectroscopy trail](../games/#spectroscopy-trail)
+[Spectroscopy trail](../lab/#spectroscopy-trail)
 
 {{< trap-zoo >}}

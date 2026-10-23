@@ -104,23 +104,22 @@ def test_nuclear_scheme_preserves_source_gamma_energies_and_unknown_uncertaintie
         assert not math.isclose(gamma_energy, level_difference, rel_tol=0, abs_tol=0.001)
 
 
-def test_five_language_pages_keep_one_games_page_and_trap_zoo_last():
+def test_trail_sits_after_the_chart_of_nuclei_and_before_the_trap_zoo_on_the_lab_page():
     shortcode = re.compile(r"{{[<%]\s*([\w-]+)\b[^}]*[>%]}}")
     for lang in LANGS:
-        research = (ROOT / "content" / lang / "research.md").read_text(encoding="utf-8")
-        games = (ROOT / "content" / lang / "games.md").read_text(encoding="utf-8")
-        research_matches = list(shortcode.finditer(research))
-        research_codes = [match.group(1) for match in research_matches]
-        games_codes = [match.group(1) for match in shortcode.finditer(games)]
+        read = lambda name: (ROOT / "content" / lang / name).read_text(encoding="utf-8")
+        research, games, lab = read("research.md"), read("games.md"), read("lab.md")
+        codes = lambda text: [m.group(1) for m in shortcode.finditer(text)]
+        research_codes, games_codes, lab_codes = codes(research), codes(games), codes(lab)
         assert research_codes.count("spectroscopy-tools") == 1, lang
-        assert "spectroscopy-games" not in research_codes, lang
-        assert research_codes[-1] == "trap-zoo", lang
-        assert research_codes.count("trap-zoo") == 1, lang
-        assert not research[research_matches[-1].end():].strip(), lang
-        assert games_codes.count("spectroscopy-games") == 1, lang
-        assert games_codes.index("spectroscopy-games") < games_codes.index("games"), lang
+        assert "spectroscopy-games" not in research_codes and "spectroscopy-games" not in games_codes, lang
+        assert research_codes[-1] == "trap-zoo" and research_codes.count("trap-zoo") == 1, lang
+        assert not research[list(shortcode.finditer(research))[-1].end():].strip(), lang
         assert games_codes[-1] == "games", lang
-        assert "../games/#spectroscopy-trail" in research, lang
+        assert lab_codes.count("spectroscopy-games") == 1 and lab_codes.count("trap-zoo") == 1, lang
+        assert lab_codes.index("nuclide-chart") < lab_codes.index("spectroscopy-games") < lab_codes.index("trap-zoo"), lang
+        assert lab_codes[-1] == "trap-zoo", lang
+        assert "../lab/#spectroscopy-trail" in research, lang
 
 
 class SpectroscopyMarkup(HTMLParser):

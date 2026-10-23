@@ -15,3 +15,7 @@ Kleine interaktive Werkzeuge aus meiner täglichen Arbeit mit Penning-Fallen und
 {{< lab-more >}}
 
 {{< nuclide-chart >}}
+
+{{< spectroscopy-games >}}
+
+{{< trap-zoo >}}

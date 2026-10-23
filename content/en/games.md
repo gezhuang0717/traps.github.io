@@ -8,6 +8,4 @@ showDate: false
 
 Play while the beam is off. Best scores are kept in your browser only.
 
-{{< spectroscopy-games >}}
-
 {{< games >}}

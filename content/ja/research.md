@@ -74,6 +74,6 @@ showDate: false
 
 {{< spectroscopy-tools >}}
 
-[分光チャレンジ](../games/#spectroscopy-trail)
+[分光チャレンジ](../lab/#spectroscopy-trail)
 
 {{< trap-zoo >}}
