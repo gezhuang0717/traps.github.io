@@ -76,13 +76,14 @@
   }
   const screenShift = Z => 1.13 * ALPHA * ALPHA * Math.pow(Z, 4 / 3);
 
+  const fail = (code, message) => Object.assign(new RangeError(message), { code });
   function validate(par) {
     const { Zd, A, Q_keV } = par;
-    if (!Number.isInteger(Zd) || Zd < 1 || Zd > 118) throw RangeError('daughter proton number Z must be an integer from 1 to 118');
-    if (!Number.isInteger(A) || A < 2 || A > 300) throw RangeError('mass number A must be an integer from 2 to 300');
-    if (!(Q_keV > 0 && Q_keV < 30000)) throw RangeError('endpoint energy Q must be between 0 and 30 MeV (keV units)');
-    if (!(par.type in SHAPES)) throw RangeError('unknown shape ' + par.type);
-    if (!['-', '+'].includes(par.mode)) throw RangeError('mode must be - or +');
+    if (!Number.isInteger(Zd) || Zd < 1 || Zd > 118) throw fail('Z', 'daughter proton number Z must be an integer from 1 to 118');
+    if (!Number.isInteger(A) || A < 2 || A > 300) throw fail('A', 'mass number A must be an integer from 2 to 300');
+    if (!(Q_keV > 0 && Q_keV < 30000)) throw fail('Q', 'endpoint energy Q must be between 0 and 30 MeV (keV units)');
+    if (!(par.type in SHAPES)) throw fail('shape', 'unknown shape ' + par.type);
+    if (!['-', '+'].includes(par.mode)) throw fail('mode', 'mode must be - or +');
   }
 
   /* spectrum({Zd, A, Q_keV, mode: '-'|'+', type, screening, finite, points}) -> arrays in keV. Q is the kinetic-energy endpoint. */

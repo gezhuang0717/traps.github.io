@@ -27,6 +27,11 @@
     const langCode=root.dataset.lang,lang=['en','zh','fi','de','ja','fr'].indexOf(langCode),at=Math.max(0,lang);
     const extra={
       beta:["Beta spectrum", "β能谱", "Beetaspektri", "Betaspektrum", "β線スペクトル", "Spectre bêta"],
+      beta_err_Z:["the daughter proton number Z must be an integer from 1 to 118", "子核质子数 Z 必须是 1 到 118 的整数", "Tytärytimen protoniluvun Z on oltava kokonaisluku väliltä 1–118", "Die Protonenzahl Z des Tochterkerns muss eine ganze Zahl von 1 bis 118 sein", "娘核の陽子数 Z は 1〜118 の整数にしてください", "Le Z du noyau fils doit être un entier de 1 à 118"],
+      beta_err_A:["the mass number A must be an integer from 2 to 300", "质量数 A 必须是 2 到 300 的整数", "Massaluvun A on oltava kokonaisluku väliltä 2–300", "Die Massenzahl A muss eine ganze Zahl von 2 bis 300 sein", "質量数 A は 2〜300 の整数にしてください", "Le nombre de masse A doit être un entier de 2 à 300"],
+      beta_err_Q:["the endpoint energy Q must be between 0 and 30 000 keV", "端点能量 Q 必须在 0 到 30 000 keV 之间", "Päätepisteenergian Q on oltava välillä 0–30 000 keV", "Die Endpunktsenergie Q muss zwischen 0 und 30 000 keV liegen", "終端エネルギー Q は 0〜30 000 keV にしてください", "L’énergie limite Q doit être comprise entre 0 et 30 000 keV"],
+      beta_err_halflife:["the half-life must be a positive number of seconds", "半衰期必须是正的秒数", "Puoliintumisajan on oltava positiivinen sekuntiluku", "Die Halbwertszeit muss eine positive Sekundenzahl sein", "半減期は正の秒数にしてください", "La période doit être un nombre positif de secondes"],
+      beta_err_br:["the branching ratio must be in (0, 1]", "分支比必须在 (0, 1] 内", "Haarautumissuhteen on oltava välillä (0, 1]", "Das Verzweigungsverhältnis muss in (0, 1] liegen", "分岐比は (0, 1] の範囲にしてください", "Le rapport d’embranchement doit être dans (0, 1]"],
       beta_preset:["Preset decay", "预设衰变", "Valmis hajoaminen", "Vorgegebener Zerfall", "プリセット崩壊", "Désintégration prédéfinie"],
       beta_Z:["Daughter Z", "子核质子数 Z", "Tytärytimen Z", "Tochterkern-Z", "娘核の陽子数 Z", "Z du noyau fils"],
       beta_A:["Mass number A", "质量数 A", "Massaluku A", "Massenzahl A", "質量数 A", "Nombre de masse A"],
@@ -237,10 +242,10 @@
         function draw(){
           err.textContent='';current=null;const isHand=dsSel.value==='hand';hand.hidden=!isHand;which.parentElement.hidden=isHand;
           try{
-            const s=isHand?{Zd:num(hz),A:num(ha),Q_keV:num(hq),mode:hmode.value,type:hs.value,nuclide:'Z = '+hz.value+', A = '+ha.value+', Q = '+hq.value+' keV'}:B.PRESETS[Number(which.value)];
+            const need=(i,code)=>{try{return num(i);}catch(_){throw Object.assign(Error(code),{code});}},s=isHand?{Zd:need(hz,'Z'),A:need(ha,'A'),Q_keV:need(hq,'Q'),mode:hmode.value,type:hs.value,nuclide:'Z = '+hz.value+', A = '+ha.value+', Q = '+hq.value+' keV'}:B.PRESETS[Number(which.value)];
             const flag=i=>i.value==='1',r=B.spectrum({Zd:s.Zd,A:s.A,Q_keV:s.Q_keV,mode:s.mode,type:s.type,screening:flag(sc),finite:flag(fs),points:300});
             const T=ht.value.trim()===''?null:Number(ht.value),br=hb.value.trim()===''?1:Number(hb.value);
-            if(T!==null&&!(T>0&&Number.isFinite(T)))throw Error('half-life must be positive');if(!(br>0&&br<=1))throw Error('branching ratio must be in (0, 1]');
+            if(T!==null&&!(T>0&&Number.isFinite(T)))throw Object.assign(Error('half-life'),{code:'halflife'});if(!(br>0&&br<=1))throw Object.assign(Error('branching'),{code:'br'});
             const rows=[[t('beta_shape'),(s.mode==='-'?'β⁻':'β⁺')+' · '+t('beta_s_'+s.type)],[t('beta_mean'),r.mean_keV.toPrecision(6)],[t('beta_meannu'),r.mean_nu_keV.toPrecision(6)],[t('beta_modeE'),Number(r.mode_keV.toFixed(r.mode_keV<10?2:1))],[t('beta_f'),r.f.toExponential(5)]];
             if(T!==null)rows.push([t('beta_logft'),B.logft(r.f,T,br).toFixed(3)]);
             if(!isHand&&s.ref_mean_keV!=null)rows.push([t('beta_ref'),s.ref_mean_keV],[t('beta_diff'),((r.mean_keV/s.ref_mean_keV-1)*100).toFixed(2)]);
@@ -249,10 +254,10 @@
             if(flag(nu))lines.push({points:r.Enu_keV.map((x,i)=>({x,y:r.Nnu_per_keV[i]})),stroke:'#d46c34',label:t('beta_curve_nu')});
             figure(plot,title,t('beta_x'),t('beta_y'),r.E_keV.map((x,i)=>({x,y:r.N_per_keV[i]})),true,null,{noMarkers:true,lines,zeroBase:true,caption:t('beta_caption'),tickFmt:v=>v===0?'0':(Math.abs(v)<1e-3||Math.abs(v)>=1e5)?v.toExponential(1):String(Number(v.toPrecision(3)))});
             current={plot,headers:['E_keV','N_electron_per_keV','E_nu_keV','N_neutrino_per_keV'],rows:r.E_keV.map((x,i)=>[x,r.N_per_keV[i],r.Enu_keV[i],r.Nnu_per_keV[i]]),meta:{Z_daughter:s.Zd,A:s.A,Q_keV:s.Q_keV,mode:s.mode,shape:s.type,screening:flag(sc),finite_size:flag(fs),mean_keV:r.mean_keV,mean_nu_keV:r.mean_nu_keV,f:r.f,log10_f:r.log10f,model:'educational Fermi-function model; see note'}};
-          }catch(e){plot.replaceChildren();out.replaceChildren();err.textContent=t('error')+userError(e)+(e&&e.message?' ('+e.message+')':'');}
+          }catch(e){plot.replaceChildren();out.replaceChildren();err.textContent=t('error')+(e&&e.code&&t('beta_err_'+e.code)!=='beta_err_'+e.code?t('beta_err_'+e.code):userError(e));}
         }
         which.addEventListener('change',()=>{const s=B.PRESETS[Number(which.value)];ht.value=s.t12_s;hb.value=s.br;draw();});
-        [dsSel,hmode,hs,sc,fs,nu].forEach(i=>i.addEventListener('change',draw));[hz,ha,hq,ht,hb].forEach(i=>i.addEventListener('input',draw));draw();
+        dsSel.addEventListener('change',()=>{if(dsSel.value==='hand'){ht.value='';hb.value='1';}else{const s=B.PRESETS[Number(which.value)];ht.value=s.t12_s;hb.value=s.br;}});[dsSel,hmode,hs,sc,fs,nu].forEach(i=>i.addEventListener('change',draw));[hz,ha,hq,ht,hb].forEach(i=>i.addEventListener('input',draw));draw();
       }
     }
     {
