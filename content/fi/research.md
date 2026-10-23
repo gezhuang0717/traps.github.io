@@ -71,3 +71,7 @@ Suihkulinjojen, varastorenkaiden ja loukkulaitteistojen ionioptinen suunnittelu:
 **Ydinastrofysiikka.** Röntgenpurkauksissa ja νp-prosessissa reaktiovirta kulkee lähellä protonivuotolinjaa ja odottaa ytimissä, joilla on pieni protonikaappauksen *Q*-arvo; r-prosessissa neutronien erotusenergiat määrittävät neutronikaappausvirran polun. Massat ovat siksi keskeinen ydinfysikaalinen lähtötieto alkuaineiden alkuperälle; katso paneeli [Jaksollinen järjestelmä ja alkuaineiden alkuperä](../games/#g-ptable).
 
 **Isotooppisiirtymät.** Isotooppiketjujen laserspektroskopiassa massasiirtymä vaatii tarkat atomimassat; ne pienentävät mitatuista siirtymistä johdettujen varaussäteiden erotusten epävarmuutta.
+
+{{< spectroscopy-tools >}}
+
+{{< spectroscopy-games >}}

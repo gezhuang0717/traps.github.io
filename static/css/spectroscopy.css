@@ -1,0 +1,34 @@
+.zg-spectroscopy{margin:2.5rem 0;padding:clamp(1rem,3vw,2rem);border:1px solid var(--zg-border,#94a3b844);border-radius:20px;background:linear-gradient(135deg,#6478ee0b,#1cbba60a);color:inherit;min-width:0;scroll-margin-top:5rem}
+.zg-spectroscopy .sp-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:#4e72ba;margin:0}
+.zg-spectroscopy h2{margin:.3rem 0 1rem!important;font-size:clamp(1.5rem,3vw,2rem)}
+.zg-spectroscopy h3{margin:1rem 0 .6rem!important;font-size:1.15rem}
+.zg-spectroscopy h4{margin:.75rem 0 .4rem!important}
+.zg-spectroscopy p{font-size:.93rem;line-height:1.6;margin:.6rem 0}
+.zg-spectroscopy .sp-tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.2rem 0}
+.zg-spectroscopy button,.zg-spectroscopy select,.zg-spectroscopy input,.zg-spectroscopy textarea{font:inherit;color:inherit;max-width:100%;border:1px solid #94a3b870;border-radius:8px;background:var(--zg-card,var(--entry,transparent));padding:.5rem .65rem;box-sizing:border-box;min-height:42px}
+.zg-spectroscopy button{cursor:pointer;font-weight:600}
+.zg-spectroscopy button:hover{border-color:#5174d8;background:#6478ee16}
+.zg-spectroscopy button:focus-visible,.zg-spectroscopy input:focus-visible,.zg-spectroscopy select:focus-visible,.zg-spectroscopy textarea:focus-visible{outline:3px solid #7594ec;outline-offset:3px}
+.zg-spectroscopy .sp-tabs [aria-selected=true]{background:#4265bc;color:#fff;border-color:#4265bc}
+.zg-spectroscopy [hidden]{display:none!important}
+.zg-spectroscopy .sp-controls{display:flex;flex-wrap:wrap;align-items:end;gap:.8rem;margin:.8rem 0}
+.zg-spectroscopy label{display:flex;flex-direction:column;gap:.25rem;font-size:.84rem;font-weight:600;flex:1 1 145px;min-width:0}
+.zg-spectroscopy select,.zg-spectroscopy textarea{width:100%}
+.zg-spectroscopy textarea{min-height:120px;font-family:ui-monospace,monospace;resize:vertical}
+.zg-spectroscopy .sp-plot{background:#fff;border:1px solid #b9c6d9;border-radius:12px;overflow:hidden;margin:.8rem 0}
+.zg-spectroscopy svg{display:block;width:100%;height:auto;max-height:500px;color:#18283d}
+.zg-spectroscopy .sp-save{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0}
+.zg-spectroscopy .sp-table-wrap{max-width:100%;overflow-x:auto;margin:.8rem 0}
+.zg-spectroscopy table{border-collapse:collapse;width:100%;font-size:.8rem!important;display:table!important;margin:0!important}
+.zg-spectroscopy td,.zg-spectroscopy th{padding:.45rem .6rem;border-bottom:1px solid #94a3b844;text-align:left;white-space:normal;vertical-align:top}
+.zg-spectroscopy th{font-weight:650}
+.zg-spectroscopy .sp-source{font-size:.78rem;overflow-wrap:anywhere;line-height:1.6}
+.zg-spectroscopy .sp-source a{color:inherit;text-decoration:underline}
+.zg-spectroscopy .sp-note{border-left:3px solid #6b89c9;padding:.4rem .8rem;background:#758ddd0b}
+.zg-spectroscopy .sp-error{color:#b62a43;font-weight:600;min-height:1.4em;overflow-wrap:anywhere}
+.zg-spectroscopy .sp-result{display:block;padding:.65rem .8rem;border-radius:8px;background:#2aaf9a12;font-variant-numeric:tabular-nums;white-space:pre-wrap;overflow-wrap:anywhere;margin:.6rem 0}
+.zg-spectroscopy details{border-top:1px solid #94a3b84a;padding:.8rem 0;margin:.8rem 0}
+.zg-spectroscopy summary{cursor:pointer;font-weight:650;line-height:1.6}
+.zg-spectroscopy .sp-method{margin:1.3rem 0;padding-top:.2rem;border-top:1px solid #94a3b844}
+.zg-spectroscopy .sp-badge{display:inline-block;border:1px solid #94a3b850;padding:.15rem .5rem;border-radius:10px;font-size:.75rem;margin:.25rem .3rem .25rem 0}
+@media(max-width:480px){.zg-spectroscopy{padding:.8rem;border-radius:12px}.zg-spectroscopy .sp-tabs{gap:.35rem}.zg-spectroscopy .sp-tabs button{font-size:.8rem;flex:1 1 40%}.zg-spectroscopy label{flex-basis:125px}.zg-spectroscopy td,.zg-spectroscopy th{padding:.4rem;font-size:.72rem}.zg-spectroscopy .sp-plot{margin-inline:-.3rem}}

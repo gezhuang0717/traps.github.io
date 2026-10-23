@@ -71,3 +71,7 @@ Ion-optical design of beam lines, storage rings and trap set-ups: the injection 
 **Nuclear astrophysics.** In X-ray bursts and the νp-process the reaction flow runs close to the proton drip line and waits at nuclei with small proton-capture *Q*-values; in the r-process the neutron-separation energies fix the path of the neutron-capture flow. Masses are therefore central nuclear input for the origin of the elements; see the panel [Periodic table & origin of the elements](../games/#g-ptable).
 
 **Isotope shifts.** In laser spectroscopy of isotope chains the mass shift requires accurate atomic masses; they reduce the uncertainty of the charge-radius differences extracted from the measured shifts.
+
+{{< spectroscopy-tools >}}
+
+{{< spectroscopy-games >}}

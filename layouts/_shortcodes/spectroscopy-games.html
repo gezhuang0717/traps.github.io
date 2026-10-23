@@ -1,0 +1,31 @@
+{{- $lang := index (split .Page.Language.Lang "-") 0 -}}
+{{- $labels := dict
+  "en" (dict "title" "Spectroscopy trail" "intro" "Eight short challenges: find a source, test a selection rule, read an isotope shift and follow a gamma transition." "note" "Teaching exercises with invented numbers. No measured isotope records or experimental results are generated." "loading" "Loading the exercises…" "noscript" "Enable JavaScript to play. Reference sources: NIST Atomic Spectra Database, NNDC NuDat and Daniel Steck’s Alkali D Line Data.")
+  "zh" (dict "title" "光谱学闯关" "intro" "八道小挑战：选择数据来源、检验选择定则、判断同位素位移并追踪伽马跃迁。" "note" "使用虚构数值的教学练习，不生成实测同位素记录或实验结果。" "loading" "正在载入练习……" "noscript" "启用 JavaScript 即可答题。参考来源：NIST 原子光谱数据库、NNDC NuDat 和 Daniel Steck 的碱金属 D 线数据。")
+  "fi" (dict "title" "Spektroskopiapolku" "intro" "Kahdeksan pientä haastetta: etsi lähde, tutki valintasääntöä, tulkitse isotooppisiirtymä ja laske gammaenergia." "note" "Opetustehtäviä keksityillä luvuilla. Mitattuja isotooppitietueita tai koetuloksia ei tuoteta." "loading" "Tehtäviä ladataan…" "noscript" "Ota JavaScript käyttöön pelataksesi. Lähteet: NIST Atomic Spectra Database, NNDC NuDat ja Daniel Steckin Alkali D Line Data.")
+  "de" (dict "title" "Spektroskopie-Parcours" "intro" "Acht kurze Aufgaben: Quelle finden, Auswahlregel prüfen, Isotopieverschiebung deuten und einen Gammaübergang verfolgen." "note" "Lernaufgaben mit erfundenen Zahlen. Es werden keine gemessenen Isotopendaten oder Versuchsergebnisse erzeugt." "loading" "Aufgaben werden geladen…" "noscript" "Zum Spielen JavaScript aktivieren. Quellen: NIST Atomic Spectra Database, NNDC NuDat und Daniel Stecks Alkali D Line Data.")
+  "ja" (dict "title" "分光学チャレンジ" "intro" "8つの小さな問題で、データ源、選択則、同位体シフト、ガンマ遷移を学びます。" "note" "架空の数値を使う学習問題です。実測の同位体データや実験結果は生成しません。" "loading" "問題を読み込み中…" "noscript" "遊ぶには JavaScript を有効にしてください。参考：NIST 原子スペクトルデータベース、NNDC NuDat、Daniel Steck の Alkali D Line Data。")
+-}}
+{{- $t := index $labels $lang | default (index $labels "en") -}}
+<link rel="stylesheet" href="{{ "css/spectroscopy-games.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/spectroscopy-games.css")) 0 10 }}">
+<section class="sg zg-card" data-spectroscopy-games data-lang="{{ $lang }}" aria-label="{{ $t.title }}">
+  <header class="sg-header">
+    <div class="sg-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <h2>{{ $t.title }}</h2>
+    <p class="sg-intro">{{ $t.intro }}</p>
+    <p class="sg-note">{{ $t.note }}</p>
+  </header>
+  <p data-sg-loading>{{ $t.loading }}</p>
+  <div data-sg-stage hidden>
+    <div class="sg-status"><span data-sg-round></span><strong data-sg-score></strong></div>
+    <progress class="sg-progress" data-sg-progress max="8" value="0"></progress>
+    <div class="sg-card" data-sg-card>
+      <div class="sg-card-top"><span class="sg-family" data-sg-family></span><span class="sg-symbol" data-sg-symbol aria-hidden="true"></span></div>
+      <fieldset class="sg-question-set"><legend data-sg-question tabindex="-1"></legend><div class="sg-options" data-sg-options></div></fieldset>
+      <div class="sg-feedback" data-sg-feedback role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></div>
+    </div>
+    <div class="sg-actions"><button class="zg-btn" type="button" data-sg-next disabled></button><button class="zg-btn" type="button" data-sg-reset></button></div>
+  </div>
+  <noscript><p>{{ $t.noscript }}</p><p><a href="https://www.nist.gov/pml/atomic-spectra-database">NIST ASD</a> · <a href="https://www.nndc.bnl.gov/nudat3/">NNDC NuDat</a> · <a href="https://steck.us/alkalidata/">Alkali D Line Data</a></p></noscript>
+</section>
+<script defer src="{{ "js/spectroscopy-games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/spectroscopy-games.js")) 0 10 }}"></script>

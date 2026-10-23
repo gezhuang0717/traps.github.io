@@ -71,3 +71,7 @@ Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: 
 **Nukleare Astrophysik.** In Röntgenausbrüchen und im νp-Prozess verläuft der Reaktionsfluss nahe der Protonen-Abbruchkante und wartet an Kernen mit kleinem Protoneneinfang-*Q*-Wert; im r-Prozess legen die Neutronen-Separationsenergien den Pfad des Neutroneneinfangs fest. Massen sind daher zentrale Kernphysik-Eingangsdaten für die Herkunft der Elemente; siehe das Panel [Periodensystem & Herkunft der Elemente](../games/#g-ptable).
 
 **Isotopieverschiebungen.** In der Laserspektroskopie von Isotopenketten benötigt die Massenverschiebung genaue Atommassen; sie verringern die Unsicherheit der aus den gemessenen Verschiebungen extrahierten Ladungsradiendifferenzen.
+
+{{< spectroscopy-tools >}}
+
+{{< spectroscopy-games >}}
