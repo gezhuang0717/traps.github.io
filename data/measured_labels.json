@@ -53,7 +53,7 @@
     "loaded_legend": "AME2020 measured and # points share blue; # points are open. Each input label has one colour for New and New + AME2020, with different markers. New + AME2020 shows mixed formulas only. Models are dashed; their spread is not uncertainty.",
     "loaded_residual_hint": "Δ = plotted series − AME2020, shared x axis. Shared AME inputs cancel; independent primitive errors combine in quadrature, other correlations omitted. Model residual error bars show AME uncertainty only; model uncertainty is unavailable.",
     "loaded_markers": "Mark loaded nuclides on reference chart/card",
-    "loaded_details": "Visible points and their mass inputs (first 300)",
+    "loaded_details": "Visible points and their mass inputs",
     "loaded_model_error": "A model failed to load. Retry its selection; other series remain available.",
     "loaded_isomer": "Isomer only: Eₓ = loaded ME(m) − active ME(g); ground-state chains unchanged.",
     "loaded_errors": {
@@ -214,7 +214,7 @@
     "loaded_legend": "AME2020实测点与#点同为蓝色，#点空心。每个输入标签的“新值”和“新值 + AME2020”同色、不同符号；后者仅显示混合质量公式。模型用虚线；模型范围不是不确定度。",
     "loaded_residual_hint": "Δ＝图中系列−AME2020，共用x轴。共同AME输入相消；独立原始输入误差按平方和合成，忽略其他相关性。模型残差误差棒仅含AME不确定度，模型不确定度未知。",
     "loaded_markers": "在参考核素图／信息卡标记载入核素",
-    "loaded_details": "可见点及其质量输入（前300点）",
+    "loaded_details": "可见点及其质量输入",
     "loaded_model_error": "模型加载失败。重新选择可重试；其他系列仍可用。",
     "loaded_isomer": "仅异能态：Eₓ＝载入ME(m)−当前ME(g)；不改变基态链。",
     "loaded_errors": {
@@ -375,7 +375,7 @@
     "loaded_legend": "AME2020-pisteet ovat sinisiä; # on avoin. Kunkin syötetunnisteen New ja New + AME2020 ovat samanvärisiä eri symbolein. Jälkimmäinen näyttää vain sekakaavat. Mallit ovat katkoviivoja; niiden vaihteluväli ei ole epävarmuus.",
     "loaded_residual_hint": "Δ = sarja − AME2020, yhteinen x-akseli. Yhteiset AME-syötteet kumoutuvat; muut virheet riippumattomina, muut korrelaatiot puuttuvat. Mallierojen virhepalkki vain AME.",
     "loaded_markers": "Merkitse ladatut nuklidit karttaan/korttiin",
-    "loaded_details": "Näkyvät pisteet ja massasyötteet (ensimmäiset 300)",
+    "loaded_details": "Näkyvät pisteet ja massasyötteet",
     "loaded_model_error": "Mallin lataus epäonnistui. Valitse uudelleen; muut sarjat toimivat.",
     "loaded_isomer": "Vain isomeeri: Eₓ = ladattu ME(m) − aktiivinen ME(g); perustilaketjut ennallaan.",
     "loaded_errors": {
@@ -536,7 +536,7 @@
     "loaded_legend": "AME2020 ist blau; # ist offen. New und New + AME2020 haben je Eingabelabel dieselbe Farbe und verschiedene Symbole. Letzteres zeigt nur gemischte Formeln. Modelle sind gestrichelt; ihre Spannweite ist keine Unsicherheit.",
     "loaded_residual_hint": "Δ = Reihe − AME2020 mit gemeinsamer x-Achse. Gemeinsame AME-Eingaben heben sich auf; sonst unabhängige Fehler, weitere Korrelationen fehlen. Modellfehlerbalken zeigen nur AME-Unsicherheit.",
     "loaded_markers": "Geladene Nuklide auf Karte/Karteikarte markieren",
-    "loaded_details": "Sichtbare Punkte und Masseneingaben (erste 300)",
+    "loaded_details": "Sichtbare Punkte und Masseneingaben",
     "loaded_model_error": "Modell nicht geladen. Erneut auswählen; andere Reihen bleiben verfügbar.",
     "loaded_isomer": "Nur Isomer: Eₓ = geladen ME(m) − aktiv ME(g); Grundzustandsketten unverändert.",
     "loaded_errors": {
@@ -697,7 +697,7 @@
     "loaded_legend": "AME2020は青、#は中空です。入力ラベルごとのNewとNew + AME2020は同色で異なる記号です。後者は混合式のみを表示します。モデルは破線で、幅は不確かさではありません。",
     "loaded_residual_hint": "Δ＝系列−AME2020、共通x軸。共通AME入力は相殺。独立入力誤差を二乗和で合成し、他の相関は無視。モデル残差の誤差棒はAMEのみです。",
     "loaded_markers": "参照核図表・情報カードに入力核を表示",
-    "loaded_details": "表示点と質量入力（最初の300点）",
+    "loaded_details": "表示点と質量入力",
     "loaded_model_error": "モデルを読込めませんでした。再選択で再試行できます。他の系列は利用可能です。",
     "loaded_isomer": "異性体のみ：Eₓ＝入力ME(m)−有効ME(g)。基底状態系列は変更しません。",
     "loaded_errors": {
@@ -858,7 +858,7 @@
     "loaded_legend": "Les points AME mesurés et # sont bleus ; # est creux. Chaque étiquette d’entrée partage une couleur entre Nouvelles et Nouvelles + AME2020, avec des symboles distincts. La combinaison ne montre que les formules mixtes. Les modèles sont pointillés ; leur dispersion n’est pas une incertitude.",
     "loaded_residual_hint": "Δ = série tracée − AME2020, même abscisse. Les termes AME communs s’annulent ; les erreurs primitives indépendantes s’ajoutent en quadrature, les autres corrélations sont omises. Le résidu d’un modèle porte seulement l’erreur AME ; l’erreur théorique est indisponible.",
     "loaded_markers": "Marquer les nucléides saisis sur la carte de référence",
-    "loaded_details": "Points visibles et masses utilisées, 300 premiers",
+    "loaded_details": "Points visibles et masses utilisées",
     "loaded_model_error": "Échec du chargement d’un modèle. Réessayez ; les autres séries restent disponibles.",
     "loaded_isomer": "Isomère seulement : Eₓ = ME(m) saisie − ME(g) active ; les chaînes fondamentales restent identiques.",
     "loaded_errors": {

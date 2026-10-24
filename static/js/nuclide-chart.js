@@ -728,7 +728,13 @@
   };
   const inSeries=(p,s)=>p.styleKey===s.key;
   const chainColor=group=>{const groups=plotPts.groups||[];return groups.length>1?'hsl('+groups.indexOf(group)/groups.length*300+',75%,45%)':'#3b5bdb';};
-  const pointColor=(p,s)=>s.id==='ame'?chainColor(p.g):s.color;
+  /* Publication options of the chain plot: line mode, marker offset (dodge) and a grey AME2020 reference. They change only the drawing. */
+  const AME_GREY='#8a8f98';
+  const chainOpt=()=>({lines:chainInput('lines').checked,mode:chainInput('linemode')?.value||'series',dodge:Math.max(0,Math.min(.4,Number(chainInput('dodge')?.value)||0)),mute:!!chainInput('muteame')?.checked});
+  const muteActive=()=>chainOpt().mute&&plotPts.some(p=>p.series!=='ame');
+  const shiftOf=series=>CP.seriesShift(series,chainOpt().dodge);
+  const pointColor=(p,s)=>s.id==='ame'?(muteActive()?AME_GREY:chainColor(p.g)):s.color;
+  const legendColor=s=>s.id==='ame'&&muteActive()?AME_GREY:s.color;
   let markerSignature='';
   function markerControls(){
     const current=new Set();
@@ -788,10 +794,14 @@
   }
   function pointTable(){
     const d=root.querySelector('.nc-point-table');if(!d.open||!plotDomain)return;
-    const ps=plotPts.concat(modPts).filter(p=>p.x>=plotDomain.x0&&p.x<=plotDomain.x1).slice(0,300);
-    d.querySelector('div').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>'+escape(T.point_source_inputs)+'</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
+    const every=plotPts.concat(modPts).filter(p=>p.x>=plotDomain.x0&&p.x<=plotDomain.x1);
+    const limitBox=d.querySelector('[name=nc-pt-limit]'),allBox=d.querySelector('[name=nc-pt-all]');
+    const wanted=allBox.checked?every.length:Math.max(1,Math.floor(Number(limitBox.value))||300),ps=every.slice(0,wanted);
+    limitBox.disabled=allBox.checked;d.querySelector('.nc-pt-count').textContent=T.pt_count.replace('{n}',ps.length).replace('{total}',every.length);
+    d.querySelector('.nc-table-scroll').innerHTML='<table><thead><tr><th>Z,N</th><th>x</th><th>'+escape(PQ[pq.value][0])+'</th><th>σ</th><th>'+escape(T.point_source_inputs)+'</th></tr></thead><tbody>'+ps.map(p=>'<tr><td>'+p.r[0]+','+p.r[1]+'</td><td>'+p.x+'</td><td>'+p.y+(p.est?' #':'')+'</td><td>'+(p.e??'—')+'</td><td>'+escape(p.source)+'<br>'+escape(humanInputs(p))+'</td></tr>').join('')+'</tbody></table>';
   }
   root.querySelector('.nc-point-table').addEventListener('toggle',pointTable);
+  root.querySelectorAll('.nc-point-table [name=nc-pt-limit], .nc-point-table [name=nc-pt-all]').forEach(el=>el.addEventListener('input',pointTable));
   const impact=root.querySelector('.nc-impact'),impactInput=root.querySelector('[name=nc-impact-input]'),impactQ=root.querySelector('[name=nc-impact-quantity]'),impactM=root.querySelector('[name=nc-impact-model]');
   let impactRows=[],impactPage=0,impactRequest=0;
   const impactNames={...Object.fromEntries(Object.entries(PQ).map(([k,v])=>[k,v[0]])),BE:T.loaded_be,BEA:T.m_bea,ex:'Eₓ from ME'};
@@ -933,7 +943,7 @@
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
-    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+s.color+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
+    root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+legendColor(s)+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
     const label=(ch==='Z'?T.p_iso:ch==='N'?T.p_isot:T.p_isob)+': '+ch+' = '+first+(shown>1?'–'+(first+shown-1):'');
     pinfo.textContent=label+' · '+q[0]+' · '+(plotPts.length+modPts.length)+' '+T.points+' · '+T.chain_count.replace('{shown}',shown).replace('{total}',total)+(modelReason?' · '+modelReason:'')+(!advanced&&modelReason!==T.loaded_cap&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)?' · '+T.loaded_cap:'')+' · '+bands.length+' '+T.loaded_band_points+(hasNewGround&&root.querySelector('[data-series=hybrid]').checked&&!plotPts.some(p=>p.series==='hybrid')?' · '+T.loaded_no_mixed:'');
     const fullX=[...centres.values()].map(r=>xv(r[0],r[1])).concat(modelNuclei.map(([z,n])=>xv(z,n)));
@@ -942,6 +952,13 @@
     root.querySelector('.nc-manual-x').hidden=chainInput('xscale').value!=='manual';root.querySelector('.nc-manual-y').hidden=chainInput('yscale').value!=='manual';
     pc.setAttribute('aria-label',label+'; '+q[0]+'; x '+plotDomain.x0+'–'+plotDomain.x1+'; '+(plotPts.length+modPts.length)+' '+T.points);
     pointTable();resize();drawPlot();drawResidual();
+  }
+  /* "revised": the whole chain with the new inputs (AME2020 values replaced by the New + AME2020 value where one exists);
+     "changed": only the segments that touch a changed point. Lines run through the true N; only the markers are offset. */
+  function drawRevised(c,px,py,group,hyb,mode){
+    c.save();c.lineJoin='round';c.lineCap='round';c.beginPath();
+    for(const [a,b] of CP.revisedSegments(plotPts.filter(p=>p.series==='ame'&&p.g===group),hyb,mode)){c.moveTo(px(a.x),py(a.y));c.lineTo(px(b.x),py(b.y));}
+    c.stroke();c.restore();
   }
   function drawBands(c,points,px,py,sc=1){
     if(!chainInput('band').checked)return;
@@ -979,6 +996,7 @@
     const groups=plotPts.groups||[],multi=groups.length>1;
     const gcol=chainColor;
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
+    const modeSetting=chainInput('linemode').value||'series',dodge=Math.max(0,Math.min(.4,Number(chainInput('dodge').value)||0)),shiftOf=series=>CP.seriesShift(series,dodge);   /* publication options: line mode and marker offset */
     drawBands(c,plotPts,px,py,sc);
     // Mixed calculations first, then the reference and new input centres.
     const paintOrder=visibleSeries.slice().sort((a,b)=>(a.id==='loaded'?2:a.id==='ame'?1:0)-(b.id==='loaded'?2:b.id==='ame'?1:0));
@@ -986,10 +1004,12 @@
       const ps=plotPts.concat(modPts).filter(p=>inSeries(p,s)&&p.g===group);if(!ps.length)continue;
       const col=pointColor(ps[0],s);
       c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lw*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
-      if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
+      const hybridSets=visibleSeries.filter(v=>v.id==='hybrid').length,lineMode=modeSetting==='revised'&&hybridSets>1?'changed':modeSetting,revisedLine=showLine&&s.id==='hybrid'&&(lineMode==='revised'||lineMode==='changed');   /* several input sets: each colours only its own changed segments */
+      if(revisedLine){c.setLineDash([]);c.lineWidth=1.7*lw*sc;drawRevised(c,px,py,group,ps,lineMode);}
+      else if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       for(const p of ps){
         if(p.x<x0||p.x>x1)continue;
-        const xx=px(p.x),yy=py(p.y),color=col;c.strokeStyle=color;c.fillStyle=color;
+        const xx=px(p.x+shiftOf(p.series)),yy=py(p.y),color=col;c.strokeStyle=color;c.fillStyle=color;
         if(p.y<y0||p.y>y1){const y=geom.clampY(p.y),sign=p.y>y1?1:-1;c.beginPath();c.moveTo(xx,y);c.lineTo(xx-4*sc,y+sign*7*sc);c.lineTo(xx+4*sc,y+sign*7*sc);c.closePath();c.fill();continue;}
         if(showErr&&p.e>0){c.beginPath();c.moveTo(xx,py(p.y-p.e));c.lineTo(xx,py(p.y+p.e));for(const ey of [p.y-p.e,p.y+p.e]){c.moveTo(xx-3*sc,py(ey));c.lineTo(xx+3*sc,py(ey));}c.stroke();}
         const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*mark*sc;
@@ -1003,7 +1023,7 @@
     c.textAlign='center';c.fillStyle=sc>1?'#222':ink;c.font=st.titleSize*sc+'px system-ui';titleLines(Wd/sc).forEach((text,i)=>c.fillText(text,Wd/2,(st.titleSize+2+i*st.titleSize*1.35)*sc));
     c.textAlign='left';c.font=st.legendSize*sc+'px system-ui';
     const legendLines=seriesLegendLines(Wd/sc);
-    legendLines.forEach((line,i)=>{const y=(titleHeight(Wd/sc)+12+i*legendRow())*sc;if(line.first){c.fillStyle=line.style.color;c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
+    legendLines.forEach((line,i)=>{const y=(titleHeight(Wd/sc)+12+i*legendRow())*sc;if(line.first){c.fillStyle=legendColor(line.style);c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
     c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(titleHeight(Wd/sc)+12+legendRow()*(legendLines.length+i))*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
@@ -1042,7 +1062,7 @@
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
       const ps=residualPts.filter(p=>inSeries(p,s)&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:s.id==='hybrid'?[2,3]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
-      ps.forEach(p=>{const x=px(p.x),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5*mark,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
+      ps.forEach(p=>{const x=px(p.x+shiftOf(p.series)),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5*mark,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
     c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
@@ -1091,7 +1111,15 @@
     else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
   });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); const au = EXPQ.includes(pq.value) && MODES[pq.value].aux; if (au && !AUX[au]) loadAux(au).then(() => plotChain()).catch(() => plotChain()); plotChain(); };
-  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring]").forEach(el => el.addEventListener("input", () => plotChain()));
+  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring], [name=nc-linemode], [name=nc-dodge], [name=nc-muteame]").forEach(el => el.addEventListener("input", () => plotChain()));
+  /* One choice that sets the options together: "publication" = revised curve in colour over a grey AME2020 line, markers offset, error bars, no reference ring. */
+  chainInput('pubpreset')?.addEventListener('change',e=>{
+    const v=e.target.value;if(!v)return;
+    const set=(n,x)=>{const el=chainInput(n);if(!el)return;if(el.type==='checkbox')el.checked=!!x;else el.value=x;};
+    if(v==='publication'){set('lines',true);set('linemode','revised');set('dodge',.12);set('muteame',true);set('err',true);set('band',false);set('reference-ring',false);}
+    else{set('lines',true);set('linemode','series');set('dodge',0);set('muteame',false);set('err',true);set('reference-ring',true);}
+    plotChain();
+  });
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));
   const rgb = root.querySelector("[name=nc-range]"); if (rgb) rgb.addEventListener("change", () => { root.querySelector(".nc-prange-in").hidden = !rgb.checked;
     if (rgb.checked && chain) { const ch = pchain.value, own = ch === "Z" ? chain[0] : ch === "N" ? chain[1] : chain[0] + chain[1], set = (n, v) => { const el = root.querySelector(`[name=${n}]`); if (el.value === "") el.value = v; };
@@ -1154,8 +1182,8 @@
   root.querySelector("[data-nc=pcsv]").onclick = () => {
     if(!plotDomain||!chainFigureStyle.valid())return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
-    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated','figure_style_json'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst,JSON.stringify(chainStyle())];}),FS.exportName(chainStyle(),'chain-'+pq.value));
+    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated','figure_style_json','line_mode','marker_offset_N','AME_grey'],
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst,JSON.stringify(chainStyle()),chainInput('lines').checked?(chainInput('linemode').value||'series'):'none',Number(chainInput('dodge').value)||0,!!chainInput('muteame').checked];}),FS.exportName(chainStyle(),'chain-'+pq.value));
   };
 
   /* ---------- events ---------- */

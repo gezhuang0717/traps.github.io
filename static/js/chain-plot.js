@@ -34,6 +34,22 @@
     return found;
   }
   const connects = (a, b, step = 1) => a && b && a.g === b.g && a.series === b.series && b.x - a.x === step;
+  /* Segments of the "revised" curve of one chain: AME2020 points where nothing changed, the changed (New + AME2020) value where one exists.
+     mode "revised": every pair of neighbouring N; mode "changed": only the pairs that touch a changed point. Returns [[pointA, pointB], ...]. */
+  function revisedSegments(amePts, changedPts, mode) {
+    const byX = new Map(amePts.map(p => [p.x, { p, changed: false }]));
+    for (const p of changedPts) byX.set(p.x, { p, changed: true });
+    const xs = [...byX.keys()].sort((a, b) => a - b), out = [];
+    for (let i = 1; i < xs.length; i++) {
+      if (xs[i] - xs[i - 1] !== 1) continue;
+      const a = byX.get(xs[i - 1]), b = byX.get(xs[i]);
+      if (mode === 'changed' && !a.changed && !b.changed) continue;
+      out.push([a.p, b.p]);
+    }
+    return out;
+  }
+  /* Horizontal marker offset (in N) of a series, so that markers with the same value do not hide each other. */
+  const seriesShift = (series, dodge) => series === 'loaded' ? -dodge : series === 'hybrid' ? dodge : series === 'mine' ? -2 * dodge : 0;
   function rangeFor(memory, type, own) {
     return memory[type] || { c0: String(own), c1: String(own), x0: '', x1: '' };
   }
@@ -94,7 +110,7 @@
   function paintMarker(c,shape,x,y,r,color,open=false,background='#fff'){
     markerPath(c,shape,x,y,r);c.fillStyle=open?background:color;c.strokeStyle=color;c.fill();c.stroke();
   }
-  const api = { chainExtent, geometry, nearest, connects, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, experimentalBands, residualStyle, markers, markerPath, paintMarker };
+  const api = { chainExtent, geometry, nearest, connects, revisedSegments, seriesShift, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, experimentalBands, residualStyle, markers, markerPath, paintMarker };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

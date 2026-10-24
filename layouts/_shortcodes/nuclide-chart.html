@@ -135,9 +135,14 @@
     <label>{{ $t.pchain }} <select name="nc-pchain"><option value="Z">{{ $t.p_iso }}</option><option value="N">{{ $t.p_isot }}</option><option value="A">{{ $t.p_isob }}</option></select></label>
     <label class="nc-chk"><input type="checkbox" name="nc-lines" checked> {{ $t.p_lines }}</label>
     <label class="nc-chk"><input type="checkbox" name="nc-err" checked> {{ $t.p_err }}</label>
+    <label>{{ $t.p_linemode }} <select name="nc-linemode"><option value="series">{{ $t.lm_series }}</option><option value="revised">{{ $t.lm_revised }}</option><option value="changed">{{ $t.lm_changed }}</option></select></label>
+    <label>{{ $t.p_dodge }} <input type="number" name="nc-dodge" class="nc-num" min="0" max="0.4" step="0.02" value="0"></label>
+    <label class="nc-chk"><input type="checkbox" name="nc-muteame"> {{ $t.p_muteame }}</label>
+    <label>{{ $t.p_preset }} <select name="nc-pubpreset"><option value="">—</option><option value="publication">{{ $t.pp_publication }}</option><option value="default">{{ $t.pp_default }}</option></select></label>
     <span class="nc-prange"><label class="nc-chk"><input type="checkbox" name="nc-range"> {{ $t.p_range }}</label>
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
   </div>
+  <details class="nc-explanation nc-pub-help"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.p_pub_title }}</summary><p class="zg-small">{{ $t.p_pub_hint }}</p></details>
   <p id="nc-filter-formula" class="nc-filter-formula zg-small" hidden></p>
   <details class="nc-mass-filter-help nc-explanation"><summary>{{ $t.mf_title }}</summary><p>{{ $t.mf_intro }}</p><div class="nc-table-scroll nc-filter-definitions"></div><p>{{ $t.mf_pn_note }}</p><p>{{ $t.mf_convention }}</p><p>{{ $t.mf_missing }}</p><p><a href="https://doi.org/10.1103/PhysRevC.99.064313">Ayet San Andrés et al. (2019) · S₂ₙ</a> · <a href="https://doi.org/10.1103/PhysRevC.107.029901">Erratum (2023)</a> · <a href="https://doi.org/10.1103/PhysRevLett.94.092501">Cakirli et al. (2005) · δVpn</a></p></details>
   <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>
@@ -178,7 +183,7 @@
   <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · ● ○ ◆ □</summary><p class="zg-small zg-muted">{{ $t.loaded_legend }}</p><p class="zg-muted zg-small"># {{ $t.hashnote }}; {{ $t.errnote }}.</p></details>
   <div class="nc-residual-panel" hidden><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · Δ</summary><p class="zg-small">{{ $t.loaded_residual_hint }}</p></details><canvas class="nc-residual nc-plot" width="960" height="300" aria-label="{{ $t.loaded_residual }}"></canvas></div>
   <p class="nc-point-detail zg-small" aria-live="polite"></p>
-  <details class="nc-point-table"><summary>{{ $t.loaded_details }}</summary><div class="nc-table-scroll"></div></details>
+  <details class="nc-point-table"><summary>{{ $t.loaded_details }}</summary><div class="nc-bar zg-small"><label>{{ $t.pt_limit }} <input type="number" name="nc-pt-limit" class="nc-num" min="1" step="50" value="300"></label><label class="nc-chk"><input type="checkbox" name="nc-pt-all"> {{ $t.pt_all }}</label><span class="nc-pt-count zg-muted" role="status"></span></div><div class="nc-table-scroll"></div></details>
   {{- $h := index hugo.Data.chart_hints $k -}}
   <details class="nc-defs"><summary>💡 {{ $h.title }}</summary><dl>{{ range $h.entries }}<dt><strong>{{ index . 0 }}</strong></dt><dd>{{ index . 1 }}</dd>{{ end }}</dl><p><a href="https://www-nds.iaea.org/amdc/ame2020/">AME2020 / NUBASE2020</a> · <a href="https://doi.org/10.1103/PhysRevLett.94.092501">δVpn</a> · <a href="https://doi.org/10.1088/1674-1137/43/4/044105">Δ⁽⁵⁾</a> · <a href="https://arxiv.org/abs/1508.06294">FRDM2012</a></p></details>
   <h3>{{ $t.pt }}</h3>
