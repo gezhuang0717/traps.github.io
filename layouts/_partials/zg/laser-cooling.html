@@ -27,7 +27,7 @@
 <div class="g-export-bar"><strong>{{ partial "zg/ct.html" "c139" }}</strong><button type="button" class="zg-btn" data-act="video">⏺ {{ partial "zg/ct.html" "c056" }}</button><label>{{ partial "zg/ct.html" "c057b" }} <input name="videoSeconds" type="number" value="8" min="2" max="30" step="1"></label><button type="button" class="zg-btn zg-btn-ghost" data-act="settings">JSON {{ partial "zg/ct.html" "c108" }}</button><span class="zg-muted">{{ partial "zg/ct.html" "c140" }}</span></div>
   {{ partial "zg/cooling-playback.html" "numerical" }}
   <p class="zg-muted">{{ $t.goal }}</p>
-  <div class="g-laser-grid">
+  <div class="g-laser-grid" data-figure-note="laser-cooling-figures">
     <figure><figcaption>{{ $t.view }}</figcaption><canvas width="520" height="200" data-cv="cloud"></canvas></figure>
     <figure><figcaption>{{ $t.hist }}</figcaption><canvas width="520" height="240" data-cv="hist"></canvas></figure>
     <figure><figcaption>{{ $t.tplot }}</figcaption><canvas width="520" height="240" data-cv="temp"></canvas></figure>
@@ -69,7 +69,7 @@
   <p class="zg-muted">{{ partial "zg/ct.html" "c150" }}</p>
   {{ partial "zg/cooling-playback.html" "analytic" }}
   <figure><figcaption>{{ $t.window }}</figcaption><canvas width="760" height="170" data-cv="win"></canvas></figure>
-  <div class="g-laser-grid">
+  <div class="g-laser-grid" data-figure-note="penning-cooling-figures">
     <figure><figcaption>{{ $t.orbit }}</figcaption><canvas width="420" height="420" data-cv="orbit"></canvas></figure>
     <figure><figcaption>{{ partial "zg/ct.html" "c151" }}</figcaption><canvas width="420" height="420" data-cv="axial"></canvas></figure>
     <figure><figcaption>{{ partial "zg/ct.html" "c152" }}</figcaption><canvas width="420" height="420" data-cv="space"></canvas></figure>

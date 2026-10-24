@@ -16,8 +16,8 @@ def test_all_labels_used_by_workbenches_exist():
     assert not missing, missing
 
 
-def test_workbench_scripts_are_loaded_before_workbenches():
+def test_plot_engine_is_loaded_before_workbenches():
     for page in ("games.html", "lab.html"):
         html = (ROOT / "layouts/_shortcodes" / page).read_text(encoding="utf8")
-        order = [html.index(name) for name in ("js/figure-style.js", "js/wb-plot.js", "js/workbenches.js")]
+        order = [html.index(name) for name in ("js/wb-plot.js", "js/workbenches.js")]
         assert order == sorted(order), page

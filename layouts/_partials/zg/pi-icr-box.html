@@ -29,7 +29,7 @@
         <button type="button" class="zg-btn zg-btn-ghost" data-act="preset" data-ions="85Rb, 170Yb+2, 87Rb:0.3">q = 1, 2</button></div>
       <p class="zg-muted zg-small">{{ $t.pi_syntax }}</p>
     </div>
-    <div class="g-rfq-grid"><canvas width="420" height="420"></canvas><canvas width="420" height="420"></canvas></div>
+    <div class="g-rfq-grid" data-figure-note="pi-icr"><canvas width="420" height="420"></canvas><canvas width="420" height="420"></canvas></div>
     <div class="pi-freq"></div><div class="g-opts-row"><label>{{ $t.t180_target }} <select name="t180-target"></select></label><label>{{ $t.t180 }} <input type="number" name="t180" readonly step="0.01"></label><button type="button" class="zg-btn zg-btn-ghost" data-act="apply180">{{ $t.apply180 }}</button></div><p class="zg-muted">{{ $t.turn_note }}</p>
     <details class="g-hints"><summary>{{ $t.compare_title }}</summary>
       <div class="g-opts-row"><label><input name="compare-times" type="checkbox">{{ $t.compare_times }}</label><label>t₂ (ms) <input name="compare-t2" type="number" min="0.01" max="10000" step="0.01" value="100"></label><label>t₃ (ms) <input name="compare-t3" type="number" min="0.01" max="10000" step="0.01" value="500"></label></div>

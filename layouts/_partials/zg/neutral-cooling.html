@@ -39,7 +39,7 @@
 <label><input name="showInitial" type="checkbox" checked> {{ partial "zg/ct.html" "c049" }}</label><label><input name="autorotate" type="checkbox"> {{ partial "zg/ct.html" "c050" }}</label></div><p>{{ partial "zg/ct.html" "c051" }}</p><output data-neutral-inspect aria-live="off"></output><textarea data-neutral-pinned readonly rows="2" aria-label="{{ partial "zg/ct.html" "c052" }}"></textarea></details>
 {{ partial "zg/cooling-playback.html" "numerical" }}
 <p class="g-msg" data-neutral-status aria-live="polite"></p><dl class="g-laser-out" data-neutral-values></dl>
-<div class="g-laser-grid">
+<div class="g-laser-grid" data-figure-note="neutral-cooling-figures">
 {{ range slice (dict "n" "cloud" "k" "c160") (dict "n" "projection" "k" "c161") (dict "n" "temperature" "k" "c162") (dict "n" "position" "k" "c163") (dict "n" "velocity" "k" "c164") (dict "n" "force" "k" "c165") (dict "n" "phase" "k" "c166") }}
 <figure><figcaption>{{ partial "zg/ct.html" .k }}</figcaption><canvas width="560" height="340" data-neutral-canvas="{{ .n }}"></canvas></figure>{{ end }}
 </div>

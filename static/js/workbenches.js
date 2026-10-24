@@ -3,8 +3,8 @@
   /* Measurement workbenches: MR-TOF, TOF-ICR and Penning. Plots are drawn by ZGWbPlot (static/js/wb-plot.js) from one scene description, so the
      figure on the page, the saved PNG / PDF / SVG and the CSV contain the same legend: every species, every isomer, the combined curve and the
      parameters. Up to ten species; neighbouring peaks (in flight-time or frequency order) are compared unless "every pair" is ticked. */
-  const P = window.ZGPhysics, W = window.ZGWbPlot, U = window.ZGUI, FS = window.ZGFigureStyle;
-  if (!P || !W || !U || !FS) { console.error("workbenches.js needs physics.js, wb-plot.js, zg-ui.js and figure-style.js"); return; }
+  const P = window.ZGPhysics, W = window.ZGWbPlot, U = window.ZGUI;
+  if (!P || !W || !U) { console.error("workbenches.js needs physics.js, wb-plot.js and zg-ui.js"); return; }
   const MAXN = 10, SUM = "ink";
   const COL = ["#3e63dd", "#dc505b", "#16856b", "#e5a000", "#0e9fbd", "#d6409f", "#7a8a2a", "#a35c2f", "#5b6678", "#6f4bd8"];
   const BASE_STYLE = { titleSize: 15, axisSize: 12, tickSize: 11, legendSize: 11, markerDiameter: 6, lineWidth: 1, rasterWidth: 2160, filename: "" };
@@ -44,6 +44,8 @@
     let cat, ions = [], descs = [], names = [], labels = [], model = null, acquisition = null, fit = null, parameters = null, displayRows = [], origin = 0, view = "top", paused = matchMedia("(prefers-reduced-motion: reduce)").matches, play = 1, orbit = [], frame = null;
     const ui = { style: { ...BASE_STYLE }, legend: "bottom", explain: true };
     try { cat = await P.load(root.dataset.catalogue, root.dataset.ame); } catch (e) { error.hidden = false; error.textContent = e.message; summary.textContent = e.message; return; }
+    const FS = window.ZGFigureStyle;   /* loaded by the chart / spectroscopy scripts of the same page; looked up after the data arrived */
+    if (!FS) { error.hidden = false; error.textContent = "figure-style.js is not loaded on this page"; return; }
     const ionRows = kind === "penning" ? 1 : MAXN;
     const DEFAULT_ION = kind === "mr" ? ["133Xe", "133Xe", "133Cs", "132Xe", "134Xe", "131Xe", "135Xe", "130Xe", "136Xe", "129Xe"] : ["133Cs", "133Xe", "133Ba", "132Xe", "134Xe", "131Xe", "135Xe", "130Xe", "136Xe", "129Xe"];
     const defaultWeight = i => kind === "mr" ? (i === 0 ? 70 : i < 3 ? 30 : 10) : 50;

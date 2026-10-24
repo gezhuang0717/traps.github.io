@@ -5,7 +5,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 class E {
-  constructor(tag) { this.tag = tag; this.children = []; this.className = ''; this.textContent = ''; this.attrs = {}; this.nodeType = 1; }
+  constructor(tag) { this.tag = tag; this.children = []; this.className = ''; this.textContent = ''; this.attrs = {}; this.nodeType = 1; this.dataset = {}; this.after_ = []; }
+  after(...n) { this.after_.push(...n); }
   append(...n) { this.children.push(...n); }
   setAttribute(k, v) { this.attrs[k] = v; }
 }
@@ -48,4 +49,16 @@ test('figure notes: block, plain lines, missing id', () => {
   const block = U.notesBlock('mathieu');
   assert.match(block.className, /zg-fold zg-fig-fold/);
   assert.match(text(block), /selected point/);
+});
+
+test('attachNotes puts one explanation block after each marked figure, once, and skips unknown ids', () => {
+  const U = load({ a: { title: 'A', summary: 's', items: [['x', 'y']] }, b: { title: 'B', summary: 's', items: [['x', 'y']] } });
+  const one = new E('canvas'); one.dataset.figureNote = 'a';
+  const two = new E('div'); two.dataset.figureNote = 'a missing b';
+  const root = { querySelectorAll: () => [one, two] };
+  assert.equal(U.attachNotes(root), 3);
+  assert.equal(one.after_.length, 1);
+  assert.equal(two.after_.length, 1);
+  assert.equal(two.after_[0].after_.length, 1, 'the second block follows the first');
+  assert.equal(U.attachNotes(root), 0, 'second call changes nothing');
 });

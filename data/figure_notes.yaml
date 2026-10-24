@@ -148,6 +148,168 @@ en:
       - η scales as V/f². For your V, f_min is the lowest frequency with η ≤ target; for your f, V_max is the highest RF peak voltage.
     - - A₃ₙ/Aₙ
       - First unwanted harmonic of the round-rod potential relative to the wanted one (see the rod-ratio rule).
+  tof-hunt:
+    title: How to read the TOF-ICR hunt plot
+    summary: Mean time of flight to the detector against the RF excitation frequency; the dip marks the cyclotron resonance you are hunting.
+    items:
+    - - Blue dots with bars
+      - Mean time of flight ± standard error of the ions shot at that frequency.
+    - - Orange dashed line
+      - The RF frequency currently set with the slider.
+    - - Green curve and band
+      - 'Fit to the shots so far: the fitted resonance curve and, as a band, its centre ± uncertainty.'
+    - - Red line
+      - True resonance frequency, drawn only after you reveal it.
+    - - Axes
+      - 'x: νRF − νc,ref (Hz), the detuning from the reference cyclotron frequency. y: mean time of flight (µs); a lower value means more radial energy was converted, so the ion was closer to resonance.'
+    - - Text in the corner
+      - Ion, field B, reference νc, excitation time T_rf with scheme, and the number of ions and shots.
+  mr-classic:
+    title: How to read the MR-TOF game plots
+    summary: 'Upper plot: simulated time-of-flight peaks of the two ions after the chosen number of laps. Lower plot: resolving power against laps, compared with the resolving power the pair needs.'
+    items:
+    - - Blue and red peaks
+      - Counts per bin of the first ion (blue) and the second ion (red); each bar takes the colour of the nearer peak centre.
+    - - Violet dashed curve
+      - Sum of both peaks, when the sum box is ticked.
+    - - Δt, FWHM
+      - Time separation of the two peak centres and the full width at half maximum of one peak, in ns.
+    - - x axis
+      - Time of flight relative to the first ion, TOF − t₁ (ns).
+    - - Violet curve (lower plot)
+      - Resolving power R = t/(2·FWHM) against the number of laps; the width grows with the laps, so R levels off.
+    - - Orange dot
+      - R at the current number of laps.
+    - - Red dashed line
+      - 'Resolving power m/Δm the pair needs: ((m₁ + m₂)/2)/|Δm|. The peaks separate once the violet curve is above it.'
+    - - log R
+      - When ticked, the vertical axis shows log₁₀ R.
+  rfq-classic:
+    title: How to read the RFQ game
+    summary: 'Left: cross-section of the four rods with the simulated ions. Right: the a–q stability diagram with the working point of every ion species.'
+    items:
+    - - Red and blue rods
+      - Polarity of the four rods at the instant shown (+ red, − blue); it swaps every half RF period.
+    - - Dashed circle
+      - 'Field radius r₀: distance from the axis to the rod surface.'
+    - - Dots and thin lines
+      - Ions and their recent path, one colour per species.
+    - - Sparks
+      - An ion hit a rod and is lost; ions that survive the chosen number of RF cycles count as transmitted.
+    - - Green region
+      - Values of q = 4zeV/(m r₀² Ω²) and a = 8zeU/(m r₀² Ω²) with bounded motion in both planes.
+    - - 0.908 and tip
+      - Largest stable q at a = 0, and the apex of the region where only a narrow mass window is stable.
+    - - Dashed line
+      - Scan line a/q = 2U/V set by the DC and RF voltages; a larger U/V narrows the transmitted mass window.
+    - - Coloured points
+      - Working point (q, a) of each ion species; the target ion has a ring.
+  pi-icr:
+    title: How to read the PI-ICR plots
+    summary: A position-sensitive detector records where the ions land after the accumulation time; the angle of each spot is the phase of the motion.
+    items:
+    - - Large circle
+      - Detector area; the dashed cross is the detector centre.
+    - - Coloured rings and labels
+      - 'Expected spot of each species after the accumulation time: the angle is its accumulated phase, the ring radius is twice the phase width σ.'
+    - - Dots or pixels
+      - 'Simulated ion hits (dots, coloured by species; dark: centre-spot hits, grey: reference-spot hits) or their 2D histogram (pixels).'
+    - - Small circle at the centre
+      - Centre spot, the origin of the angles.
+    - - Grey point and label
+      - Reference position (first magnetron phase), when shown.
+    - - Angle histogram
+      - Hits against polar angle (0–360°); dashed lines mark the expected angle of each species.
+    - - min Δφ against t_acc
+      - 'Fancier tab: smallest phase difference between any two species as a function of accumulation time; the dashed red line is the required separation (σ target × event width), vertical lines are the compared times.'
+  penning-sim:
+    title: How to read the Penning-trap motion plot
+    summary: 'Left: view along the magnetic field (x–y plane). Right: side view with the axial position.'
+    items:
+    - - Red dot
+      - Current ion position.
+    - - Coloured trail
+      - Recent path; it fades from older (blue) to newer (magenta).
+    - - Large circle and cross
+      - Edge of the display range and the trap axis.
+    - - Two circles at once
+      - Fast modified-cyclotron motion (ν₊, radius r₊) riding on the slow magnetron motion (ν₋, radius r₋).
+    - - Side view
+      - Hyperbolic electrodes (curves) with the axial position z of the ion along the field.
+    - - Sliders
+      - r₊, r₋ and the axial amplitude are percentages of the display scale, not millimetres.
+  penning-3d:
+    title: How to read the 3D Penning-trap view
+    summary: Ion paths in an ideal Penning trap with the magnetic field along the vertical axis; drag to rotate, wheel to zoom.
+    items:
+    - - B
+      - Magnetic field axis (vertical line).
+    - - Orange and blue outlines
+      - Ring electrode (orange) and end caps (blue), when electrodes are shown.
+    - - Grey vertical lines
+      - Magnetic field lines, when shown.
+    - - Coloured trails
+      - Path of each ion, fading from old to new; with several ions each ion has its own colour.
+    - - Red outline below
+      - Plane of a PI-ICR-like detector with dots where the ions would hit it, when the detector is shown.
+  laser-cooling-figures:
+    title: How to read the laser-cooling plots
+    summary: One-dimensional Doppler cooling of an atomic ensemble between two counter-propagating laser beams.
+    items:
+    - - Cloud
+      - Schematic positions of the simulated particles, not a real geometry; the colour shows the speed (blue slow, red fast).
+    - - Blue bars
+      - Histogram of the particle velocities (counts).
+    - - Rose curve
+      - Normalised laser force F(v) from the two beams.
+    - - Dashed lines
+      - v = 0 and the capture velocities ±v_c; faster particles are not cooled efficiently.
+    - - Temperature plot
+      - Ensemble temperature against time with dashed reference lines for the Doppler limit (green), the steady-state theory value (brown) and the recoil temperature (violet).
+  penning-cooling-figures:
+    title: How to read the Penning-trap laser-cooling plots
+    summary: Laser cooling of an ion in a Penning trap works only if the force gradient lies in a window between the magnetron and the cyclotron frequency.
+    items:
+    - - Green band
+      - The window ν₋ … ν₊ on a logarithmic frequency axis.
+    - - Arrow
+      - 'F′/(2π βr): the force gradient divided by the radial friction coefficient. Inside the band both radial modes are cooled; below it the magnetron mode heats, above it the cyclotron mode heats.'
+    - - γ₋, γ₊, γz
+      - Rates of change of the magnetron, cyclotron and axial amplitudes (s⁻¹); a negative value means cooling.
+    - - Orbit, axial and 3D plots
+      - Radial x–y orbit, axial z–x projection and a 3D projection of the physical motion; the 3D axes are red x, green y, blue z.
+    - - Amplitude plot
+      - Log–log amplitude of the cyclotron, magnetron and axial motion against time; dashed lines mark 10 µm and 0.1 s.
+  neutral-cooling-figures:
+    title: How to read the neutral-atom cooling plots
+    summary: Numerical cooling of a neutral-atom cloud by the selected laser-cooling method; every panel shows the same simulated atoms.
+    items:
+    - - 3D cloud
+      - Atoms in equal physical axes (mm); red, green and blue arrows are x, y, z; grey circles mark the initial positions, if shown; drag or wheel to rotate and zoom.
+    - - 2D projection
+      - The same atoms on the plane selected in the view controls.
+    - - Temperature
+      - 'Survivor temperature from the centred velocity variance: total T (dark), Tx (red), Ty (green), Tz (blue); the dashed gold line is the Doppler temperature scale.'
+    - - RMS size
+      - Root-mean-square cloud size σx, σy, σz (mm).
+    - - Centroid velocity
+      - Mean velocity of the cloud along x, y, z (m/s).
+    - - Force diagnostic
+      - Radiation-pressure force along the chosen axis against position or velocity, other coordinates at zero (10⁻²¹ N).
+    - - Phase space
+      - Position against velocity along the selected axis, laboratory values (mm, m/s).
+  paul-cooling-figures:
+    title: How to read the Paul-trap laser-cooling plots
+    summary: Numerical cooling of a Coulomb cloud of trapped ions; every panel shows the same simulated ions.
+    items:
+    - - 3D projection
+      - Rotating 3D view in µm; red, green and blue arrows are x, y, z.
+    - - x–y, z–x, y–z
+      - Projections of the same ions on the radial and axial planes.
+    - - Temperature
+      - 'Mean, x, y and z temperature (mK, logarithmic) from the centred velocity variances; the dashed line is the Doppler scale ħΓ/(2k_B). Curves are not forced to fall: release of potential energy and micromotion can heat.'
+    - - Phase space
+      - x − mean(x) against vₓ − mean(vₓ) (µm, m/s).
 zh:
   mathieu:
     title: 如何阅读 Mathieu 稳定性图
@@ -297,6 +459,168 @@ zh:
       - η 正比于 V/f²。给定 V，使 η ≤ 目标的最低 f 为 f_min；给定 f，最高射频峰值电压为 V_max。
     - - A₃ₙ/Aₙ
       - 圆杆电势中第一个不需要的谐波相对于所需谐波的大小（见杆比规则）。
+  tof-hunt:
+    title: 如何阅读 TOF-ICR 寻峰图
+    summary: 到达探测器的平均飞行时间随射频激发频率的变化；凹陷处就是要寻找的回旋共振。
+    items:
+    - - 蓝点和误差棒
+      - 该频率下所发射离子的平均飞行时间 ± 标准误差。
+    - - 橙色虚线
+      - 滑块当前设置的射频频率。
+    - - 绿色曲线和色带
+      - 对已有测量的拟合：拟合的共振曲线，色带为拟合中心 ± 不确定度。
+    - - 红线
+      - 真实共振频率，只在你揭晓答案后绘出。
+    - - 坐标轴
+      - x：νRF − νc,ref（Hz），相对参考回旋频率的失谐。y：平均飞行时间（µs）；数值越低表示转换的径向能量越多，离子越接近共振。
+    - - 角落文字
+      - 离子、磁场 B、参考 νc、激发时间 T_rf 与方案，以及离子数和发射次数。
+  mr-classic:
+    title: 如何阅读 MR-TOF 游戏图
+    summary: 上图：选定圈数后两种离子的模拟飞行时间峰。下图：分辨本领随圈数的变化，并与该离子对所需的分辨本领比较。
+    items:
+    - - 蓝色与红色峰
+      - 第一种离子（蓝）和第二种离子（红）每个时间格的计数；每根柱取离它更近的峰中心的颜色。
+    - - 紫色虚线
+      - 勾选“叠加”时，两个峰之和。
+    - - Δt、FWHM
+      - 两个峰中心的时间间隔，以及单个峰的半高全宽，单位 ns。
+    - - x 轴
+      - 相对第一种离子的飞行时间 TOF − t₁（ns）。
+    - - 紫色曲线（下图）
+      - 分辨本领 R = t/(2·FWHM) 随圈数的变化；峰宽随圈数增大，所以 R 趋于平缓。
+    - - 橙色点
+      - 当前圈数下的 R。
+    - - 红色虚线
+      - 该离子对所需的分辨本领 m/Δm：((m₁ + m₂)/2)/|Δm|。紫色曲线超过它时两峰分开。
+    - - log R
+      - 勾选后纵轴显示 log₁₀ R。
+  rfq-classic:
+    title: 如何阅读 RFQ 游戏
+    summary: 左：四根杆的截面和模拟离子。右：a–q 稳定图，以及每种离子的工作点。
+    items:
+    - - 红色与蓝色杆
+      - 所示时刻四根杆的极性（+ 红，− 蓝）；每半个射频周期交换一次。
+    - - 虚线圆
+      - 场半径 r₀：轴线到杆表面的距离。
+    - - 点和细线
+      - 离子及其近期轨迹，每种离子一种颜色。
+    - - 火花
+      - 离子撞到杆上而丢失；存活到所选射频周期数的离子计为透过。
+    - - 绿色区域
+      - 在两个平面内运动都有界的 q = 4zeV/(m r₀² Ω²) 与 a = 8zeU/(m r₀² Ω²) 取值。
+    - - 0.908 与顶点
+      - a = 0 时最大的稳定 q，以及稳定区的顶点，那里只有很窄的质量窗口稳定。
+    - - 虚线
+      - 由直流和射频电压决定的扫描线 a/q = 2U/V；U/V 越大，通过的质量窗口越窄。
+    - - 彩色点
+      - 每种离子的工作点 (q, a)；目标离子带圆圈。
+  pi-icr:
+    title: 如何阅读 PI-ICR 图
+    summary: 位置灵敏探测器记录离子在累积时间之后的落点；每个光斑的角度就是运动的相位。
+    items:
+    - - 大圆
+      - 探测器区域；虚线十字为探测器中心。
+    - - 彩色圆环与标签
+      - 累积时间后每种离子的预期光斑：角度为其累积相位，圆环半径为相位宽度 σ 的两倍。
+    - - 点或像素
+      - 模拟的离子击中位置（点，按离子种类着色；深色：中心光斑，灰色：参考光斑）或其二维直方图（像素）。
+    - - 中心小圆
+      - 中心光斑，角度的原点。
+    - - 灰点与标签
+      - 参考位置（第一个磁控管相位），显示时才出现。
+    - - 角度直方图
+      - 击中数随极角（0–360°）的分布；虚线标出各离子的预期角度。
+    - - min Δφ 随 t_acc
+      - “花式”页：任意两种离子之间最小相位差随累积时间的变化；红色虚线为所需分离度（σ 目标 × 事件宽度），竖线为比较的时间点。
+  penning-sim:
+    title: 如何阅读彭宁阱运动图
+    summary: 左：沿磁场方向看（x–y 平面）。右：显示轴向位置的侧视图。
+    items:
+    - - 红点
+      - 离子当前位置。
+    - - 彩色轨迹
+      - 近期路径；由旧（蓝）到新（洋红）渐变。
+    - - 大圆和十字
+      - 显示范围的边界和阱轴。
+    - - 同时两个圆
+      - 快速的修正回旋运动（ν₊，半径 r₊）叠加在缓慢的磁控管运动（ν₋，半径 r₋）上。
+    - - 侧视图
+      - 双曲面电极（曲线）及离子沿磁场方向的轴向位置 z。
+    - - 滑块
+      - r₊、r₋ 和轴向振幅是显示尺度的百分比，不是毫米。
+  penning-3d:
+    title: 如何阅读三维彭宁阱视图
+    summary: 理想彭宁阱中的离子路径，磁场沿竖直轴；拖动旋转，滚轮缩放。
+    items:
+    - - B
+      - 磁场轴（竖线）。
+    - - 橙色和蓝色轮廓
+      - 显示电极时：环电极（橙）和端盖（蓝）。
+    - - 灰色竖线
+      - 显示时为磁力线。
+    - - 彩色轨迹
+      - 每个离子的路径，由旧到新渐变；多个离子时各有自己的颜色。
+    - - 下方红色轮廓
+      - 显示探测器时：类 PI-ICR 探测器平面，点为离子可能的击中位置。
+  laser-cooling-figures:
+    title: 如何阅读激光冷却图
+    summary: 原子系综在两束对射激光之间的一维多普勒冷却。
+    items:
+    - - 云团
+      - 模拟粒子的示意位置，并非真实几何；颜色表示速率（蓝慢，红快）。
+    - - 蓝色柱
+      - 粒子速度的直方图（计数）。
+    - - 玫红曲线
+      - 两束激光产生的归一化光力 F(v)。
+    - - 虚线
+      - v = 0 与俘获速度 ±v_c；更快的粒子不能被有效冷却。
+    - - 温度图
+      - 系综温度随时间的变化，虚线为参考：多普勒极限（绿）、稳态理论值（棕）、反冲温度（紫）。
+  penning-cooling-figures:
+    title: 如何阅读彭宁阱激光冷却图
+    summary: 彭宁阱中离子的激光冷却，只有当力梯度落在磁控管频率与回旋频率之间的窗口内才有效。
+    items:
+    - - 绿色带
+      - 对数频率轴上的窗口 ν₋ … ν₊。
+    - - 箭头
+      - F′/(2π βr)：力梯度除以径向摩擦系数。落在带内时两个径向模都被冷却；低于带则磁控管模被加热，高于带则回旋模被加热。
+    - - γ₋、γ₊、γz
+      - 磁控管、回旋与轴向振幅的变化率（s⁻¹）；负值表示冷却。
+    - - 轨道、轴向和三维图
+      - 径向 x–y 轨道、轴向 z–x 投影，以及实际运动的三维投影；三维坐标轴为红 x、绿 y、蓝 z。
+    - - 振幅图
+      - 回旋、磁控管和轴向运动的振幅随时间变化（双对数）；虚线标出 10 µm 和 0.1 s。
+  neutral-cooling-figures:
+    title: 如何阅读中性原子冷却图
+    summary: 用所选激光冷却方法对中性原子云做数值冷却；每个面板显示同一批模拟原子。
+    items:
+    - - 三维云团
+      - 等比例物理坐标轴（mm）；红、绿、蓝箭头分别是 x、y、z；显示时灰色圆圈标出初始位置；拖动或滚轮可旋转、缩放。
+    - - 二维投影
+      - 同一批原子在视图控件所选平面上的投影。
+    - - 温度
+      - 由去质心速度方差得到的幸存原子温度：总 T（深色）、Tx（红）、Ty（绿）、Tz（蓝）；金色虚线为多普勒温度尺度。
+    - - 均方根尺寸
+      - 云团均方根尺寸 σx、σy、σz（mm）。
+    - - 质心速度
+      - 云团沿 x、y、z 的平均速度（m/s）。
+    - - 光力诊断
+      - 沿所选轴的辐射压力随位置或速度的变化，其余坐标为零（10⁻²¹ N）。
+    - - 相空间
+      - 所选轴上的位置对速度，实验室数值（mm、m/s）。
+  paul-cooling-figures:
+    title: 如何阅读保罗阱激光冷却图
+    summary: 囚禁离子库仑团的数值冷却；每个面板显示同一批模拟离子。
+    items:
+    - - 三维投影
+      - 以 µm 为单位的可旋转三维视图；红、绿、蓝箭头分别是 x、y、z。
+    - - x–y、z–x、y–z
+      - 同一批离子在径向和轴向平面上的投影。
+    - - 温度
+      - 由去质心速度方差得到的平均、x、y、z 温度（mK，对数轴）；虚线为多普勒尺度 ħΓ/(2k_B)。曲线不强制下降：势能释放和微运动会造成加热。
+    - - 相空间
+      - x − mean(x) 对 vₓ − mean(vₓ)（µm、m/s）。
 fi:
   mathieu:
     title: Mathieu-stabiilisuuskuvan lukeminen
@@ -446,6 +770,168 @@ fi:
       - η skaalautuu kuten V/f². Annetulle V:lle f_min on pienin taajuus, jolla η ≤ tavoite; annetulle f:lle V_max on suurin RF-huippujännite.
     - - A₃ₙ/Aₙ
       - Pyöreiden sauvojen potentiaalin ensimmäinen ei-toivottu harmoninen suhteessa haluttuun (ks. sauvasuhteen sääntö).
+  tof-hunt:
+    title: Näin luet TOF-ICR-etsintäkuvaajaa
+    summary: Ilmaisimelle saapuva keskimääräinen lentoaika RF-herätteen taajuuden funktiona; kuoppa osoittaa etsimäsi syklotroniresonanssin.
+    items:
+    - - Siniset pisteet ja virhepalkit
+      - Kyseisellä taajuudella ammuttujen ionien keskimääräinen lentoaika ± keskivirhe.
+    - - Oranssi katkoviiva
+      - Liukusäätimellä asetettu RF-taajuus.
+    - - Vihreä käyrä ja vyöhyke
+      - 'Tähän mennessä kerättyjen laukausten sovite: sovitettu resonanssikäyrä ja vyöhykkeenä sen keskikohta ± epävarmuus.'
+    - - Punainen viiva
+      - Todellinen resonanssitaajuus, piirtyy vasta kun paljastat sen.
+    - - Akselit
+      - 'x: νRF − νc,ref (Hz), poikkeama vertailusyklotronitaajuudesta. y: keskimääräinen lentoaika (µs); pienempi arvo tarkoittaa, että enemmän radiaalienergiaa muuntui, eli ioni oli lähempänä resonanssia.'
+    - - Teksti nurkassa
+      - Ioni, kenttä B, vertailu-νc, herätysaika T_rf ja menetelmä sekä ionien ja laukausten määrä.
+  mr-classic:
+    title: Näin luet MR-TOF-pelin kuvaajia
+    summary: 'Ylempi kuva: kahden ionin simuloidut lentoaikapiikit valitun kierrosmäärän jälkeen. Alempi kuva: erotuskyky kierrosten funktiona verrattuna siihen, mitä ioniparin erottaminen vaatii.'
+    items:
+    - - Siniset ja punaiset piikit
+      - Ensimmäisen (sininen) ja toisen (punainen) ionin laskennat lokeroa kohti; kukin palkki saa lähemmän piikin keskikohdan värin.
+    - - Violetti katkoviiva
+      - Molempien piikkien summa, kun summaruutu on valittu.
+    - - Δt, FWHM
+      - Piikkien keskikohtien aikaero ja yhden piikin puoliarvoleveys, ns.
+    - - x-akseli
+      - Lentoaika suhteessa ensimmäiseen ioniin, TOF − t₁ (ns).
+    - - Violetti käyrä (alempi kuva)
+      - Erotuskyky R = t/(2·FWHM) kierrosmäärän funktiona; leveys kasvaa kierrosten mukana, joten R tasaantuu.
+    - - Oranssi piste
+      - R nykyisellä kierrosmäärällä.
+    - - Punainen katkoviiva
+      - 'Parin vaatima erotuskyky m/Δm: ((m₁ + m₂)/2)/|Δm|. Piikit erottuvat, kun violetti käyrä on sen yläpuolella.'
+    - - log R
+      - Valittuna pystyakselilla on log₁₀ R.
+  rfq-classic:
+    title: Näin luet RFQ-peliä
+    summary: 'Vasemmalla: neljän sauvan poikkileikkaus ja simuloidut ionit. Oikealla: a–q-stabiilisuuskaavio ja kunkin ionilajin työpiste.'
+    items:
+    - - Punaiset ja siniset sauvat
+      - Neljän sauvan napaisuus esitetyllä hetkellä (+ punainen, − sininen); vaihtuu joka puolen RF-jakson välein.
+    - - Katkoviivaympyrä
+      - 'Kenttäsäde r₀: etäisyys akselilta sauvan pintaan.'
+    - - Pisteet ja ohuet viivat
+      - Ionit ja niiden tuore rata, yksi väri lajia kohti.
+    - - Kipinät
+      - Ioni osui sauvaan ja menetettiin; valitun RF-jaksomäärän selviytyvät ionit lasketaan läpäisseiksi.
+    - - Vihreä alue
+      - Arvot q = 4zeV/(m r₀² Ω²) ja a = 8zeU/(m r₀² Ω²), joilla liike on rajoitettua molemmissa tasoissa.
+    - - 0,908 ja kärki
+      - Suurin stabiili q kohdassa a = 0 sekä alueen kärki, jossa vain kapea massaikkuna on stabiili.
+    - - Katkoviiva
+      - Tasa- ja RF-jännitteen asettama skannausviiva a/q = 2U/V; suurempi U/V kaventaa läpäisevää massaikkunaa.
+    - - Värilliset pisteet
+      - Kunkin ionilajin työpiste (q, a); kohdeionilla on rengas.
+  pi-icr:
+    title: Näin luet PI-ICR-kuvaajia
+    summary: Paikkaherkkä ilmaisin tallentaa, mihin ionit osuvat keräysajan jälkeen; kunkin pisteen kulma on liikkeen vaihe.
+    items:
+    - - Suuri ympyrä
+      - Ilmaisimen alue; katkoviivaristi on ilmaisimen keskipiste.
+    - - Värilliset renkaat ja nimet
+      - 'Kunkin lajin odotettu piste keräysajan jälkeen: kulma on kertynyt vaihe, renkaan säde on kaksi kertaa vaiheen leveys σ.'
+    - - Pisteet tai pikselit
+      - 'Simuloidut ionien osumat (pisteet, väri lajin mukaan; tumma: keskipisteen osumat, harmaa: vertailupisteen osumat) tai niiden 2D-histogrammi (pikselit).'
+    - - Pieni ympyrä keskellä
+      - Keskipiste, kulmien origo.
+    - - Harmaa piste ja nimi
+      - Vertailusijainti (ensimmäinen magnetronivaihe), kun näytetään.
+    - - Kulmahistogrammi
+      - Osumat napakulman (0–360°) funktiona; katkoviivat osoittavat lajien odotetut kulmat.
+    - - min Δφ ajan t_acc funktiona
+      - 'Fancier-välilehti: pienin vaihe-ero minkä tahansa kahden lajin välillä keräysajan funktiona; punainen katkoviiva on vaadittu erotus (σ-tavoite × tapahtumaleveys), pystyviivat ovat vertailtavat ajat.'
+  penning-sim:
+    title: Näin luet Penning-loukun liikekuvaa
+    summary: 'Vasemmalla: näkymä magneettikentän suunnasta (x–y-taso). Oikealla: sivukuva, jossa aksiaalinen paikka.'
+    items:
+    - - Punainen piste
+      - Ionin nykyinen paikka.
+    - - Värillinen jälki
+      - Tuore rata; haalenee vanhemmasta (sininen) uudempaan (magenta).
+    - - Suuri ympyrä ja risti
+      - Näyttöalueen reuna ja loukun akseli.
+    - - Kaksi ympyrää yhtä aikaa
+      - Nopea modifioitu syklotroniliike (ν₊, säde r₊) hitaan magnetroniliikkeen (ν₋, säde r₋) päällä.
+    - - Sivukuva
+      - Hyperboliset elektrodit (käyrät) ja ionin aksiaalinen paikka z kentän suunnassa.
+    - - Liukusäätimet
+      - r₊, r₋ ja aksiaaliamplitudi ovat prosentteja näytön mittakaavasta, eivät millimetrejä.
+  penning-3d:
+    title: Näin luet 3D-Penning-loukun näkymää
+    summary: Ionien radat ihanteellisessa Penning-loukussa, magneettikenttä pystyakselin suuntaan; vedä pyörittääksesi, rulla zoomaa.
+    items:
+    - - B
+      - Magneettikentän akseli (pystyviiva).
+    - - Oranssit ja siniset ääriviivat
+      - Rengaselektrodi (oranssi) ja päätyelektrodit (sininen), kun elektrodit näytetään.
+    - - Harmaat pystyviivat
+      - Magneettikentän kenttäviivat, kun ne näytetään.
+    - - Värilliset jäljet
+      - Kunkin ionin rata, haalenee vanhasta uuteen; usealla ionilla kullakin on oma värinsä.
+    - - Punainen ääriviiva alla
+      - PI-ICR:n kaltaisen ilmaisimen taso, jossa pisteet näyttävät ionien osumakohdat, kun ilmaisin näytetään.
+  laser-cooling-figures:
+    title: Näin luet laserjäähdytyksen kuvaajia
+    summary: Atomijoukon yksiulotteinen Doppler-jäähdytys kahden vastakkaissuuntaisen lasersäteen välissä.
+    items:
+    - - Pilvi
+      - Simuloitujen hiukkasten kaaviomaiset paikat, ei todellista geometriaa; väri kertoo nopeuden (sininen hidas, punainen nopea).
+    - - Siniset palkit
+      - Hiukkasnopeuksien histogrammi (laskennat).
+    - - Ruusunpunainen käyrä
+      - Kahden säteen normalisoitu laservoima F(v).
+    - - Katkoviivat
+      - v = 0 ja sieppausnopeudet ±v_c; nopeampia hiukkasia ei jäähdytetä tehokkaasti.
+    - - Lämpötilakuvaaja
+      - 'Joukon lämpötila ajan funktiona; katkoviivat ovat vertailut: Doppler-raja (vihreä), tasapainon teoria-arvo (ruskea) ja rekyylilämpötila (violetti).'
+  penning-cooling-figures:
+    title: Näin luet Penning-loukun laserjäähdytyskuvaajia
+    summary: Ionin laserjäähdytys Penning-loukussa toimii vain, jos voimagradientti on magnetroni- ja syklotronitaajuuden välisessä ikkunassa.
+    items:
+    - - Vihreä vyöhyke
+      - Ikkuna ν₋ … ν₊ logaritmisella taajuusakselilla.
+    - - Nuoli
+      - 'F′/(2π βr): voimagradientti jaettuna radiaalisella kitkakertoimella. Vyöhykkeen sisällä molemmat radiaalimoodit jäähtyvät; sen alapuolella magnetronimoodi lämpenee, yläpuolella syklotronimoodi lämpenee.'
+    - - γ₋, γ₊, γz
+      - Magnetroni-, syklotroni- ja aksiaaliamplitudin muutosnopeudet (s⁻¹); negatiivinen arvo tarkoittaa jäähtymistä.
+    - - Rata-, aksiaali- ja 3D-kuvat
+      - Radiaalinen x–y-rata, aksiaalinen z–x-projektio ja fysikaalisen liikkeen 3D-projektio; 3D-akselit ovat punainen x, vihreä y, sininen z.
+    - - Amplitudikuvaaja
+      - Syklotroni-, magnetroni- ja aksiaaliliikkeen amplitudi ajan funktiona (log–log); katkoviivat merkitsevät 10 µm ja 0,1 s.
+  neutral-cooling-figures:
+    title: Näin luet neutraaliatomien jäähdytyskuvaajia
+    summary: Neutraaliatomipilven numeerinen jäähdytys valitulla laserjäähdytysmenetelmällä; kaikki paneelit näyttävät samat simuloidut atomit.
+    items:
+    - - 3D-pilvi
+      - Atomit yhtä mittakaavaisilla fysikaalisilla akseleilla (mm); punainen, vihreä ja sininen nuoli ovat x, y, z; harmaat ympyrät merkitsevät alkupaikat, kun ne näytetään; vedä tai rullaa pyörittääksesi ja zoomataksesi.
+    - - 2D-projektio
+      - Samat atomit näkymäasetuksissa valitulla tasolla.
+    - - Lämpötila
+      - 'Eloon jääneiden lämpötila keskitetystä nopeusvarianssista: kokonais-T (tumma), Tx (punainen), Ty (vihreä), Tz (sininen); kultainen katkoviiva on Doppler-lämpötilan mittakaava.'
+    - - RMS-koko
+      - Pilven neliökeskiarvokoko σx, σy, σz (mm).
+    - - Keskipisteen nopeus
+      - Pilven keskinopeus x-, y- ja z-suunnassa (m/s).
+    - - Voimadiagnostiikka
+      - Säteilypaineen voima valitulla akselilla paikan tai nopeuden funktiona, muut koordinaatit nollassa (10⁻²¹ N).
+    - - Vaihetila
+      - Paikka nopeuden funktiona valitulla akselilla, laboratorioarvot (mm, m/s).
+  paul-cooling-figures:
+    title: Näin luet Paul-loukun laserjäähdytyskuvaajia
+    summary: Loukutettujen ionien Coulombin pilven numeerinen jäähdytys; kaikki paneelit näyttävät samat simuloidut ionit.
+    items:
+    - - 3D-projektio
+      - Pyöritettävä 3D-näkymä µm-yksiköissä; punainen, vihreä ja sininen nuoli ovat x, y, z.
+    - - x–y, z–x, y–z
+      - Samojen ionien projektiot radiaali- ja aksiaalitasoille.
+    - - Lämpötila
+      - 'Keski-, x-, y- ja z-lämpötila (mK, logaritminen) keskitetyistä nopeusvariansseista; katkoviiva on Doppler-mittakaava ħΓ/(2k_B). Käyriä ei pakoteta laskemaan: potentiaalienergian vapautuminen ja mikroliike voivat lämmittää.'
+    - - Vaihetila
+      - x − keskiarvo(x) vastaan vₓ − keskiarvo(vₓ) (µm, m/s).
 de:
   mathieu:
     title: So liest man das Mathieu-Stabilitätsdiagramm
@@ -595,6 +1081,168 @@ de:
       - η skaliert wie V/f². Für Ihr V ist f_min die niedrigste Frequenz mit η ≤ Ziel; für Ihr f ist V_max die höchste HF-Spitzenspannung.
     - - A₃ₙ/Aₙ
       - Erste unerwünschte Harmonische des Rundstabpotenzials relativ zur gewünschten (siehe Regel für das Stabverhältnis).
+  tof-hunt:
+    title: So lesen Sie das TOF-ICR-Suchdiagramm
+    summary: Mittlere Flugzeit zum Detektor gegen die HF-Anregungsfrequenz; das Minimum markiert die gesuchte Zyklotronresonanz.
+    items:
+    - - Blaue Punkte mit Balken
+      - Mittlere Flugzeit ± Standardfehler der bei dieser Frequenz geschossenen Ionen.
+    - - Orange gestrichelte Linie
+      - Die mit dem Regler eingestellte HF-Frequenz.
+    - - Grüne Kurve und Band
+      - 'Anpassung an die bisherigen Schüsse: die angepasste Resonanzkurve und als Band ihr Zentrum ± Unsicherheit.'
+    - - Rote Linie
+      - Wahre Resonanzfrequenz, wird erst nach dem Aufdecken gezeichnet.
+    - - Achsen
+      - 'x: νRF − νc,ref (Hz), Verstimmung gegenüber der Referenz-Zyklotronfrequenz. y: mittlere Flugzeit (µs); ein kleinerer Wert heißt, mehr Radialenergie wurde umgewandelt, das Ion war näher an der Resonanz.'
+    - - Text in der Ecke
+      - Ion, Feld B, Referenz-νc, Anregungszeit T_rf mit Schema sowie Zahl der Ionen und Schüsse.
+  mr-classic:
+    title: So lesen Sie die Diagramme des MR-TOF-Spiels
+    summary: 'Oberes Diagramm: simulierte Flugzeitpeaks der beiden Ionen nach der gewählten Rundenzahl. Unteres Diagramm: Auflösungsvermögen gegen Runden, verglichen mit dem Auflösungsvermögen, das das Paar braucht.'
+    items:
+    - - Blaue und rote Peaks
+      - Zählungen je Bin des ersten (blau) und zweiten (rot) Ions; jeder Balken erhält die Farbe des näheren Peakzentrums.
+    - - Violette gestrichelte Kurve
+      - Summe beider Peaks, wenn das Summenfeld angekreuzt ist.
+    - - Δt, FWHM
+      - Zeitabstand der beiden Peakzentren und Halbwertsbreite eines Peaks in ns.
+    - - x-Achse
+      - Flugzeit relativ zum ersten Ion, TOF − t₁ (ns).
+    - - Violette Kurve (unten)
+      - Auflösungsvermögen R = t/(2·FWHM) gegen die Rundenzahl; die Breite wächst mit den Runden, daher flacht R ab.
+    - - Oranger Punkt
+      - R bei der aktuellen Rundenzahl.
+    - - Rote gestrichelte Linie
+      - 'Vom Paar benötigtes Auflösungsvermögen m/Δm: ((m₁ + m₂)/2)/|Δm|. Die Peaks trennen sich, sobald die violette Kurve darüber liegt.'
+    - - log R
+      - Angekreuzt zeigt die senkrechte Achse log₁₀ R.
+  rfq-classic:
+    title: So lesen Sie das RFQ-Spiel
+    summary: 'Links: Querschnitt der vier Stäbe mit den simulierten Ionen. Rechts: das a–q-Stabilitätsdiagramm mit dem Arbeitspunkt jeder Ionenspezies.'
+    items:
+    - - Rote und blaue Stäbe
+      - Polarität der vier Stäbe im gezeigten Moment (+ rot, − blau); sie wechselt alle halbe HF-Periode.
+    - - Gestrichelter Kreis
+      - 'Feldradius r₀: Abstand von der Achse zur Staboberfläche.'
+    - - Punkte und dünne Linien
+      - Ionen und ihr jüngster Weg, eine Farbe je Spezies.
+    - - Funken
+      - Ein Ion traf einen Stab und ist verloren; Ionen, die die gewählte Zahl HF-Zyklen überleben, gelten als transmittiert.
+    - - Grüner Bereich
+      - Werte von q = 4zeV/(m r₀² Ω²) und a = 8zeU/(m r₀² Ω²) mit beschränkter Bewegung in beiden Ebenen.
+    - - 0,908 und Spitze
+      - Größtes stabiles q bei a = 0 und die Spitze des Bereichs, wo nur ein schmales Massenfenster stabil ist.
+    - - Gestrichelte Linie
+      - Scanlinie a/q = 2U/V aus Gleich- und HF-Spannung; ein größeres U/V verengt das transmittierte Massenfenster.
+    - - Farbige Punkte
+      - Arbeitspunkt (q, a) jeder Ionenspezies; das Zielion hat einen Ring.
+  pi-icr:
+    title: So lesen Sie die PI-ICR-Diagramme
+    summary: Ein ortsempfindlicher Detektor registriert, wo die Ionen nach der Akkumulationszeit landen; der Winkel jedes Flecks ist die Phase der Bewegung.
+    items:
+    - - Großer Kreis
+      - Detektorfläche; das gestrichelte Kreuz ist die Detektormitte.
+    - - Farbige Ringe und Beschriftungen
+      - 'Erwarteter Fleck jeder Spezies nach der Akkumulationszeit: Der Winkel ist die akkumulierte Phase, der Ringradius das Doppelte der Phasenbreite σ.'
+    - - Punkte oder Pixel
+      - 'Simulierte Ionentreffer (Punkte, nach Spezies gefärbt; dunkel: Mittelpunktfleck, grau: Referenzfleck) oder ihr 2D-Histogramm (Pixel).'
+    - - Kleiner Kreis in der Mitte
+      - Mittelpunktfleck, Ursprung der Winkel.
+    - - Grauer Punkt und Beschriftung
+      - Referenzposition (erste Magnetronphase), wenn angezeigt.
+    - - Winkelhistogramm
+      - Treffer gegen den Polarwinkel (0–360°); gestrichelte Linien markieren den erwarteten Winkel jeder Spezies.
+    - - min Δφ gegen t_acc
+      - 'Fancier-Tab: kleinster Phasenunterschied zwischen zwei Spezies in Abhängigkeit von der Akkumulationszeit; die rote gestrichelte Linie ist die geforderte Trennung (σ-Ziel × Ereignisbreite), senkrechte Linien sind die verglichenen Zeiten.'
+  penning-sim:
+    title: So lesen Sie das Bewegungsbild der Penningfalle
+    summary: 'Links: Blick entlang des Magnetfelds (x–y-Ebene). Rechts: Seitenansicht mit der axialen Position.'
+    items:
+    - - Roter Punkt
+      - Aktuelle Ionenposition.
+    - - Farbige Spur
+      - Jüngster Weg; verblasst von älter (blau) zu neuer (magenta).
+    - - Großer Kreis und Kreuz
+      - Rand des Anzeigebereichs und die Fallenachse.
+    - - Zwei Kreise gleichzeitig
+      - Schnelle modifizierte Zyklotronbewegung (ν₊, Radius r₊) auf der langsamen Magnetronbewegung (ν₋, Radius r₋).
+    - - Seitenansicht
+      - Hyperbolische Elektroden (Kurven) mit der axialen Position z des Ions längs des Felds.
+    - - Regler
+      - r₊, r₋ und die Axialamplitude sind Prozent der Anzeigeskala, nicht Millimeter.
+  penning-3d:
+    title: So lesen Sie die 3D-Ansicht der Penningfalle
+    summary: Ionenbahnen in einer idealen Penningfalle, Magnetfeld entlang der senkrechten Achse; Ziehen dreht, das Rad zoomt.
+    items:
+    - - B
+      - Achse des Magnetfelds (senkrechte Linie).
+    - - Orange und blaue Umrisse
+      - Ringelektrode (orange) und Endkappen (blau), wenn Elektroden angezeigt werden.
+    - - Graue senkrechte Linien
+      - Magnetfeldlinien, wenn angezeigt.
+    - - Farbige Spuren
+      - Weg jedes Ions, von alt zu neu verblassend; bei mehreren Ionen hat jedes seine eigene Farbe.
+    - - Roter Umriss unten
+      - Ebene eines PI-ICR-ähnlichen Detektors mit Punkten, wo die Ionen auftreffen würden, wenn der Detektor angezeigt wird.
+  laser-cooling-figures:
+    title: So lesen Sie die Laserkühlungs-Diagramme
+    summary: Eindimensionale Dopplerkühlung eines Atomensembles zwischen zwei gegenläufigen Laserstrahlen.
+    items:
+    - - Wolke
+      - Schematische Positionen der simulierten Teilchen, keine echte Geometrie; die Farbe zeigt die Geschwindigkeit (blau langsam, rot schnell).
+    - - Blaue Balken
+      - Histogramm der Teilchengeschwindigkeiten (Zählungen).
+    - - Rosa Kurve
+      - Normierte Laserkraft F(v) der beiden Strahlen.
+    - - Gestrichelte Linien
+      - v = 0 und die Einfanggeschwindigkeiten ±v_c; schnellere Teilchen werden nicht effizient gekühlt.
+    - - Temperaturdiagramm
+      - Ensembletemperatur gegen die Zeit mit gestrichelten Referenzlinien für die Doppler-Grenze (grün), den theoretischen Gleichgewichtswert (braun) und die Rückstoßtemperatur (violett).
+  penning-cooling-figures:
+    title: So lesen Sie die Laserkühlungs-Diagramme der Penningfalle
+    summary: Laserkühlung eines Ions in einer Penningfalle funktioniert nur, wenn der Kraftgradient im Fenster zwischen Magnetron- und Zyklotronfrequenz liegt.
+    items:
+    - - Grünes Band
+      - Das Fenster ν₋ … ν₊ auf einer logarithmischen Frequenzachse.
+    - - Pfeil
+      - 'F′/(2π βr): Kraftgradient geteilt durch den radialen Reibungskoeffizienten. Im Band werden beide Radialmoden gekühlt; darunter wird die Magnetronmode geheizt, darüber die Zyklotronmode.'
+    - - γ₋, γ₊, γz
+      - Änderungsraten der Magnetron-, Zyklotron- und Axialamplitude (s⁻¹); ein negativer Wert bedeutet Kühlung.
+    - - Bahn-, Axial- und 3D-Bilder
+      - Radiale x–y-Bahn, axiale z–x-Projektion und 3D-Projektion der physikalischen Bewegung; die 3D-Achsen sind rot x, grün y, blau z.
+    - - Amplitudendiagramm
+      - Amplitude der Zyklotron-, Magnetron- und Axialbewegung gegen die Zeit (doppeltlogarithmisch); gestrichelte Linien markieren 10 µm und 0,1 s.
+  neutral-cooling-figures:
+    title: So lesen Sie die Diagramme zur Kühlung neutraler Atome
+    summary: Numerische Kühlung einer Wolke neutraler Atome mit der gewählten Laserkühlmethode; jedes Feld zeigt dieselben simulierten Atome.
+    items:
+    - - 3D-Wolke
+      - Atome mit gleich skalierten physikalischen Achsen (mm); rote, grüne und blaue Pfeile sind x, y, z; graue Kreise markieren die Anfangspositionen, wenn angezeigt; Ziehen oder Rad dreht und zoomt.
+    - - 2D-Projektion
+      - Dieselben Atome auf der in den Ansichtseinstellungen gewählten Ebene.
+    - - Temperatur
+      - 'Temperatur der Überlebenden aus der zentrierten Geschwindigkeitsvarianz: gesamt T (dunkel), Tx (rot), Ty (grün), Tz (blau); die goldene gestrichelte Linie ist die Doppler-Temperaturskala.'
+    - - RMS-Größe
+      - Quadratisch gemittelte Wolkengröße σx, σy, σz (mm).
+    - - Schwerpunktgeschwindigkeit
+      - Mittlere Geschwindigkeit der Wolke längs x, y, z (m/s).
+    - - Kraftdiagnose
+      - Strahlungsdruckkraft längs der gewählten Achse gegen Ort oder Geschwindigkeit, übrige Koordinaten null (10⁻²¹ N).
+    - - Phasenraum
+      - Ort gegen Geschwindigkeit längs der gewählten Achse, Laborwerte (mm, m/s).
+  paul-cooling-figures:
+    title: So lesen Sie die Laserkühlungs-Diagramme der Paulfalle
+    summary: Numerische Kühlung einer Coulomb-Wolke gespeicherter Ionen; jedes Feld zeigt dieselben simulierten Ionen.
+    items:
+    - - 3D-Projektion
+      - Drehbare 3D-Ansicht in µm; rote, grüne und blaue Pfeile sind x, y, z.
+    - - x–y, z–x, y–z
+      - Projektionen derselben Ionen auf die radiale und die axialen Ebenen.
+    - - Temperatur
+      - 'Mittlere, x-, y- und z-Temperatur (mK, logarithmisch) aus den zentrierten Geschwindigkeitsvarianzen; die gestrichelte Linie ist die Doppler-Skala ħΓ/(2k_B). Die Kurven werden nicht zum Fallen gezwungen: Freisetzung potenzieller Energie und Mikrobewegung können heizen.'
+    - - Phasenraum
+      - x − Mittelwert(x) gegen vₓ − Mittelwert(vₓ) (µm, m/s).
 ja:
   mathieu:
     title: マシュー安定性図の見方
@@ -744,6 +1392,168 @@ ja:
       - η は V/f² に比例します。現在の V で η ≤ 目標となる最低の f が f_min、現在の f での最大の高周波ピーク電圧が V_max です。
     - - A₃ₙ/Aₙ
       - 円形ロッドの電位に含まれる最初の不要な高調波の、所望成分に対する比（ロッド比の規則を参照）。
+  tof-hunt:
+    title: TOF-ICR 探索プロットの見方
+    summary: 検出器への平均飛行時間を高周波励起周波数に対して示します。谷が探しているサイクロトロン共鳴です。
+    items:
+    - - 青い点とエラーバー
+      - その周波数で打ち込んだイオンの平均飛行時間 ± 標準誤差。
+    - - 橙色の破線
+      - スライダーで現在設定している高周波の周波数。
+    - - 緑の曲線と帯
+      - ここまでの測定へのフィット：フィットした共鳴曲線と、帯で示す中心 ± 不確かさ。
+    - - 赤い線
+      - 真の共鳴周波数。答えを表示したときだけ描かれます。
+    - - 軸
+      - x：νRF − νc,ref（Hz）、基準サイクロトロン周波数からのずれ。y：平均飛行時間（µs）。値が小さいほど動径方向エネルギーがよく変換され、共鳴に近いことを意味します。
+    - - 隅の文字
+      - イオン、磁場 B、基準 νc、励起時間 T_rf と方式、イオン数とショット数。
+  mr-classic:
+    title: MR-TOF ゲームのプロットの見方
+    summary: 上：選んだ周回数後の 2 種のイオンの飛行時間ピーク（模擬）。下：周回数に対する分解能と、このペアに必要な分解能の比較。
+    items:
+    - - 青と赤のピーク
+      - 1 つ目（青）と 2 つ目（赤）のイオンのビンごとのカウント。各棒は近い方のピーク中心の色になります。
+    - - 紫の破線
+      - 「合計」を選んだときの両ピークの和。
+    - - Δt, FWHM
+      - 2 つのピーク中心の時間差と、1 つのピークの半値全幅（ns）。
+    - - x 軸
+      - 1 つ目のイオンを基準にした飛行時間 TOF − t₁（ns）。
+    - - 紫の曲線（下）
+      - 分解能 R = t/(2·FWHM) と周回数。幅も周回数とともに増えるので R は頭打ちになります。
+    - - 橙の点
+      - 現在の周回数での R。
+    - - 赤の破線
+      - このペアに必要な分解能 m/Δm：((m₁ + m₂)/2)/|Δm|。紫の曲線がこれを超えるとピークが分離します。
+    - - log R
+      - オンにすると縦軸が log₁₀ R になります。
+  rfq-classic:
+    title: RFQ ゲームの見方
+    summary: 左：4 本のロッドの断面と模擬イオン。右：a–q 安定図と各イオン種の動作点。
+    items:
+    - - 赤と青のロッド
+      - 表示した瞬間の 4 本のロッドの極性（+ 赤、− 青）。高周波の半周期ごとに入れ替わります。
+    - - 破線の円
+      - 場の半径 r₀：軸からロッド表面までの距離。
+    - - 点と細い線
+      - イオンと最近の軌跡。イオン種ごとに 1 色。
+    - - 火花
+      - イオンがロッドに当たって失われた印。選んだ高周波サイクル数を生き延びたイオンは透過とみなします。
+    - - 緑の領域
+      - 両方の面で運動が有界になる q = 4zeV/(m r₀² Ω²) と a = 8zeU/(m r₀² Ω²) の範囲。
+    - - 0.908 と頂点
+      - a = 0 で安定な最大の q と、狭い質量窓だけが安定な領域の頂点。
+    - - 破線
+      - 直流と高周波の電圧で決まる走査線 a/q = 2U/V。U/V が大きいほど通る質量窓が狭くなります。
+    - - 色付きの点
+      - 各イオン種の動作点 (q, a)。ターゲットのイオンには輪が付きます。
+  pi-icr:
+    title: PI-ICR プロットの見方
+    summary: 位置感応型検出器が蓄積時間後のイオンの着地点を記録します。各スポットの角度が運動の位相です。
+    items:
+    - - 大きな円
+      - 検出器の領域。破線の十字が検出器の中心です。
+    - - 色付きの輪とラベル
+      - 蓄積時間後の各イオン種の予想スポット：角度は蓄積した位相、輪の半径は位相幅 σ の 2 倍です。
+    - - 点またはピクセル
+      - 模擬したイオンの着弾（点、イオン種ごとの色。濃色：中心スポット、灰色：基準スポット）またはその 2 次元ヒストグラム（ピクセル）。
+    - - 中心の小さな円
+      - 中心スポット。角度の原点です。
+    - - 灰色の点とラベル
+      - 基準位置（最初のマグネトロン位相）。表示したときのみ。
+    - - 角度ヒストグラム
+      - 極角（0–360°）ごとの着弾数。破線は各イオン種の予想角度です。
+    - - min Δφ と t_acc
+      - Fancier タブ：蓄積時間に対する、任意の 2 種の間の最小位相差。赤の破線は必要な分離（σ 目標 × イベント幅）、縦線は比較した時刻です。
+  penning-sim:
+    title: ペニングトラップの運動プロットの見方
+    summary: 左：磁場方向から見た図（x–y 面）。右：軸方向の位置を示す側面図。
+    items:
+    - - 赤い点
+      - イオンの現在位置。
+    - - 色付きの軌跡
+      - 最近の経路。古い（青）から新しい（マゼンタ）へ色が変わります。
+    - - 大きな円と十字
+      - 表示範囲の縁とトラップの軸。
+    - - 2 つの円を同時に
+      - 速い修正サイクロトロン運動（ν₊、半径 r₊）が遅いマグネトロン運動（ν₋、半径 r₋）に重なっています。
+    - - 側面図
+      - 双曲面電極（曲線）と、磁場方向のイオンの軸方向位置 z。
+    - - スライダー
+      - r₊、r₋、軸方向の振幅は表示スケールに対する百分率で、ミリメートルではありません。
+  penning-3d:
+    title: 3D ペニングトラップ表示の見方
+    summary: 理想的なペニングトラップ内のイオンの経路。磁場は鉛直軸に沿います。ドラッグで回転、ホイールで拡大縮小。
+    items:
+    - - B
+      - 磁場の軸（鉛直の線）。
+    - - 橙と青の輪郭
+      - 電極を表示したとき：リング電極（橙）とエンドキャップ（青）。
+    - - 灰色の鉛直線
+      - 表示したときの磁力線。
+    - - 色付きの軌跡
+      - 各イオンの経路。古いものから新しいものへ薄れていきます。複数のイオンではそれぞれ別の色です。
+    - - 下の赤い輪郭
+      - 検出器を表示したとき：PI-ICR 風の検出器面と、イオンが当たる位置の点。
+  laser-cooling-figures:
+    title: レーザー冷却プロットの見方
+    summary: 互いに逆向きの 2 本のレーザー光の間での、原子集団の 1 次元ドップラー冷却。
+    items:
+    - - 雲
+      - 模擬粒子の模式的な位置で、実際の配置ではありません。色は速さ（青が遅く、赤が速い）。
+    - - 青い棒
+      - 粒子速度のヒストグラム（カウント）。
+    - - ピンクの曲線
+      - 2 本のビームによる規格化したレーザー力 F(v)。
+    - - 破線
+      - v = 0 と捕獲速度 ±v_c。それより速い粒子は効率よく冷却されません。
+    - - 温度のプロット
+      - 集団の温度の時間変化。破線は基準で、ドップラー限界（緑）、定常状態の理論値（茶）、反跳温度（紫）。
+  penning-cooling-figures:
+    title: ペニングトラップのレーザー冷却プロットの見方
+    summary: ペニングトラップ中のイオンのレーザー冷却は、力の勾配がマグネトロン周波数とサイクロトロン周波数の間の窓に入っているときだけ働きます。
+    items:
+    - - 緑の帯
+      - 対数周波数軸上の窓 ν₋ … ν₊。
+    - - 矢印
+      - F′/(2π βr)：力の勾配を動径方向の摩擦係数で割った値。帯の中では両方の動径モードが冷却され、下回るとマグネトロンモードが、上回るとサイクロトロンモードが加熱されます。
+    - - γ₋, γ₊, γz
+      - マグネトロン、サイクロトロン、軸方向の振幅の変化率（s⁻¹）。負の値は冷却を意味します。
+    - - 軌道・軸方向・3D のプロット
+      - 動径方向 x–y 軌道、軸方向 z–x 投影、実際の運動の 3D 投影。3D の軸は赤が x、緑が y、青が z。
+    - - 振幅のプロット
+      - サイクロトロン、マグネトロン、軸方向の運動の振幅の時間変化（両対数）。破線は 10 µm と 0.1 s。
+  neutral-cooling-figures:
+    title: 中性原子冷却プロットの見方
+    summary: 選んだレーザー冷却方式による中性原子雲の数値冷却。どのパネルも同じ模擬原子を表示します。
+    items:
+    - - 3D の雲
+      - 等しい物理スケールの軸（mm）。赤・緑・青の矢印は x・y・z。表示時は灰色の円が初期位置。ドラッグまたはホイールで回転・拡大縮小。
+    - - 2D 投影
+      - 同じ原子を、表示設定で選んだ面に投影したもの。
+    - - 温度
+      - 重心を引いた速度分散から求めた生き残りの温度：全体 T（濃色）、Tx（赤）、Ty（緑）、Tz（青）。金色の破線はドップラー温度の目安です。
+    - - RMS サイズ
+      - 雲の二乗平均サイズ σx、σy、σz（mm）。
+    - - 重心速度
+      - 雲の x、y、z 方向の平均速度（m/s）。
+    - - 力の診断
+      - 選んだ軸に沿った輻射圧力を位置または速度に対して示したもの。他の座標は 0（10⁻²¹ N）。
+    - - 位相空間
+      - 選んだ軸の位置と速度（実験室系の値、mm と m/s）。
+  paul-cooling-figures:
+    title: ポールトラップのレーザー冷却プロットの見方
+    summary: 捕捉イオンのクーロン結晶（雲）の数値冷却。どのパネルも同じ模擬イオンを表示します。
+    items:
+    - - 3D 投影
+      - µm 単位で回転できる 3D 表示。赤・緑・青の矢印は x・y・z。
+    - - x–y, z–x, y–z
+      - 同じイオンを動径面と軸方向の面に投影したもの。
+    - - 温度
+      - 重心を引いた速度分散から求めた平均・x・y・z の温度（mK、対数軸）。破線はドップラーの目安 ħΓ/(2k_B)。曲線は下がるとは限りません。位置エネルギーの解放やマイクロモーションで加熱することがあります。
+    - - 位相空間
+      - x − 平均(x) と vₓ − 平均(vₓ)（µm、m/s）。
 fr:
   mathieu:
     title: Lire le diagramme de stabilité de Mathieu
@@ -893,3 +1703,165 @@ fr:
       - η varie comme V/f². Pour votre V, f_min est la fréquence minimale avec η ≤ cible ; pour votre f, V_max est la tension RF crête maximale.
     - - A₃ₙ/Aₙ
       - Première harmonique indésirable du potentiel de barreaux ronds, relative à l’harmonique utile (voir la règle du rapport de barreau).
+  tof-hunt:
+    title: Lire le graphique de recherche TOF-ICR
+    summary: Temps de vol moyen jusqu’au détecteur en fonction de la fréquence d’excitation RF ; le creux marque la résonance cyclotron recherchée.
+    items:
+    - - Points bleus avec barres
+      - Temps de vol moyen ± erreur standard des ions envoyés à cette fréquence.
+    - - Ligne orange pointillée
+      - La fréquence RF réglée avec le curseur.
+    - - Courbe et bande vertes
+      - 'Ajustement des tirs déjà effectués : la courbe de résonance ajustée et, en bande, son centre ± incertitude.'
+    - - Ligne rouge
+      - Fréquence de résonance réelle, tracée seulement après la révélation.
+    - - Axes
+      - 'x : νRF − νc,ref (Hz), désaccord par rapport à la fréquence cyclotron de référence. y : temps de vol moyen (µs) ; une valeur plus basse signifie plus d’énergie radiale convertie, donc un ion plus proche de la résonance.'
+    - - Texte dans le coin
+      - Ion, champ B, νc de référence, temps d’excitation T_rf et schéma, nombre d’ions et de tirs.
+  mr-classic:
+    title: Lire les graphiques du jeu MR-TOF
+    summary: 'Graphique du haut : pics de temps de vol simulés des deux ions après le nombre de tours choisi. Graphique du bas : pouvoir de résolution en fonction des tours, comparé à celui qu’exige la paire.'
+    items:
+    - - Pics bleu et rouge
+      - Comptages par canal du premier ion (bleu) et du second (rouge) ; chaque barre prend la couleur du centre de pic le plus proche.
+    - - Courbe violette pointillée
+      - Somme des deux pics, quand la case somme est cochée.
+    - - Δt, FWHM
+      - Écart de temps entre les centres des deux pics et largeur à mi-hauteur d’un pic, en ns.
+    - - Axe x
+      - Temps de vol relatif au premier ion, TOF − t₁ (ns).
+    - - Courbe violette (bas)
+      - Pouvoir de résolution R = t/(2·FWHM) selon le nombre de tours ; la largeur croît avec les tours, donc R se stabilise.
+    - - Point orange
+      - R au nombre de tours actuel.
+    - - Ligne rouge pointillée
+      - 'Pouvoir de résolution m/Δm exigé par la paire : ((m₁ + m₂)/2)/|Δm|. Les pics se séparent quand la courbe violette passe au-dessus.'
+    - - log R
+      - Cochée, l’axe vertical montre log₁₀ R.
+  rfq-classic:
+    title: Lire le jeu RFQ
+    summary: 'À gauche : coupe des quatre barreaux avec les ions simulés. À droite : diagramme de stabilité a–q avec le point de fonctionnement de chaque espèce.'
+    items:
+    - - Barreaux rouges et bleus
+      - Polarité des quatre barreaux à l’instant montré (+ rouge, − bleu) ; elle s’inverse toutes les demi-périodes RF.
+    - - Cercle pointillé
+      - 'Rayon de champ r₀ : distance de l’axe à la surface du barreau.'
+    - - Points et traits fins
+      - Ions et leur trajet récent, une couleur par espèce.
+    - - Étincelles
+      - Un ion a heurté un barreau et est perdu ; les ions qui survivent au nombre de cycles RF choisi comptent comme transmis.
+    - - Zone verte
+      - Valeurs de q = 4zeV/(m r₀² Ω²) et a = 8zeU/(m r₀² Ω²) pour lesquelles le mouvement est borné dans les deux plans.
+    - - 0,908 et pointe
+      - Plus grand q stable à a = 0, et pointe de la zone où seule une étroite fenêtre de masse est stable.
+    - - Ligne pointillée
+      - Droite de balayage a/q = 2U/V fixée par les tensions continue et RF ; un U/V plus grand rétrécit la fenêtre de masse transmise.
+    - - Points colorés
+      - Point de fonctionnement (q, a) de chaque espèce ; l’ion cible porte un anneau.
+  pi-icr:
+    title: Lire les graphiques PI-ICR
+    summary: Un détecteur sensible à la position enregistre où les ions arrivent après le temps d’accumulation ; l’angle de chaque tache est la phase du mouvement.
+    items:
+    - - Grand cercle
+      - Surface du détecteur ; la croix pointillée est son centre.
+    - - Anneaux colorés et étiquettes
+      - 'Tache attendue de chaque espèce après le temps d’accumulation : l’angle est la phase accumulée, le rayon de l’anneau vaut deux fois la largeur de phase σ.'
+    - - Points ou pixels
+      - 'Impacts d’ions simulés (points, colorés par espèce ; sombre : tache centrale, gris : tache de référence) ou leur histogramme 2D (pixels).'
+    - - Petit cercle au centre
+      - Tache centrale, origine des angles.
+    - - Point gris et étiquette
+      - Position de référence (première phase magnétron), si affichée.
+    - - Histogramme des angles
+      - Impacts selon l’angle polaire (0–360°) ; les lignes pointillées marquent l’angle attendu de chaque espèce.
+    - - min Δφ selon t_acc
+      - 'Onglet fancier : plus petit écart de phase entre deux espèces selon le temps d’accumulation ; la ligne rouge pointillée est la séparation requise (cible σ × largeur d’événement), les lignes verticales sont les temps comparés.'
+  penning-sim:
+    title: Lire le graphique du mouvement dans le piège de Penning
+    summary: 'À gauche : vue le long du champ magnétique (plan x–y). À droite : vue de côté avec la position axiale.'
+    items:
+    - - Point rouge
+      - Position actuelle de l’ion.
+    - - Traînée colorée
+      - Trajet récent ; elle passe de l’ancien (bleu) au récent (magenta).
+    - - Grand cercle et croix
+      - Bord de la zone affichée et axe du piège.
+    - - Deux cercles à la fois
+      - Mouvement cyclotron modifié rapide (ν₊, rayon r₊) superposé au lent mouvement magnétron (ν₋, rayon r₋).
+    - - Vue de côté
+      - Électrodes hyperboliques (courbes) avec la position axiale z de l’ion le long du champ.
+    - - Curseurs
+      - r₊, r₋ et l’amplitude axiale sont des pourcentages de l’échelle d’affichage, pas des millimètres.
+  penning-3d:
+    title: Lire la vue 3D du piège de Penning
+    summary: Trajectoires d’ions dans un piège de Penning idéal, champ magnétique selon l’axe vertical ; glisser pour tourner, molette pour zoomer.
+    items:
+    - - B
+      - Axe du champ magnétique (ligne verticale).
+    - - Contours orange et bleus
+      - Électrode annulaire (orange) et chapeaux d’extrémité (bleu), quand les électrodes sont affichées.
+    - - Lignes verticales grises
+      - Lignes de champ magnétique, si affichées.
+    - - Traînées colorées
+      - Trajet de chaque ion, de l’ancien au récent ; avec plusieurs ions, chacun a sa couleur.
+    - - Contour rouge en bas
+      - Plan d’un détecteur de type PI-ICR avec des points là où les ions le toucheraient, si le détecteur est affiché.
+  laser-cooling-figures:
+    title: Lire les graphiques de refroidissement laser
+    summary: Refroidissement Doppler à une dimension d’un ensemble d’atomes entre deux faisceaux laser opposés.
+    items:
+    - - Nuage
+      - Positions schématiques des particules simulées, pas une géométrie réelle ; la couleur indique la vitesse (bleu lent, rouge rapide).
+    - - Barres bleues
+      - Histogramme des vitesses des particules (comptages).
+    - - Courbe rose
+      - Force laser normalisée F(v) des deux faisceaux.
+    - - Lignes pointillées
+      - v = 0 et vitesses de capture ±v_c ; les particules plus rapides ne sont pas refroidies efficacement.
+    - - Graphique de température
+      - 'Température de l’ensemble en fonction du temps, avec des lignes de référence pointillées : limite Doppler (vert), valeur théorique stationnaire (brun) et température de recul (violet).'
+  penning-cooling-figures:
+    title: Lire les graphiques de refroidissement laser du piège de Penning
+    summary: Le refroidissement laser d’un ion dans un piège de Penning ne fonctionne que si le gradient de force est dans la fenêtre entre les fréquences magnétron et cyclotron.
+    items:
+    - - Bande verte
+      - La fenêtre ν₋ … ν₊ sur un axe de fréquence logarithmique.
+    - - Flèche
+      - 'F′/(2π βr) : gradient de force divisé par le coefficient de friction radial. Dans la bande, les deux modes radiaux sont refroidis ; en dessous le mode magnétron chauffe, au-dessus le mode cyclotron chauffe.'
+    - - γ₋, γ₊, γz
+      - Taux de variation des amplitudes magnétron, cyclotron et axiale (s⁻¹) ; une valeur négative signifie un refroidissement.
+    - - Orbite, axial et 3D
+      - Orbite radiale x–y, projection axiale z–x et projection 3D du mouvement physique ; les axes 3D sont x rouge, y vert, z bleu.
+    - - Graphique d’amplitude
+      - Amplitude des mouvements cyclotron, magnétron et axial en fonction du temps (log–log) ; les lignes pointillées marquent 10 µm et 0,1 s.
+  neutral-cooling-figures:
+    title: Lire les graphiques de refroidissement d’atomes neutres
+    summary: Refroidissement numérique d’un nuage d’atomes neutres par la méthode de refroidissement laser choisie ; chaque panneau montre les mêmes atomes simulés.
+    items:
+    - - Nuage 3D
+      - Atomes sur des axes physiques à échelle égale (mm) ; les flèches rouge, verte et bleue sont x, y, z ; les cercles gris marquent les positions initiales, si affichées ; glisser ou molette pour tourner et zoomer.
+    - - Projection 2D
+      - Les mêmes atomes sur le plan choisi dans les réglages de vue.
+    - - Température
+      - 'Température des survivants d’après la variance centrée des vitesses : T totale (sombre), Tx (rouge), Ty (vert), Tz (bleu) ; la ligne dorée pointillée est l’échelle de la température Doppler.'
+    - - Taille RMS
+      - Taille quadratique moyenne du nuage σx, σy, σz (mm).
+    - - Vitesse du centroïde
+      - Vitesse moyenne du nuage selon x, y, z (m/s).
+    - - Diagnostic de force
+      - Force de pression de radiation le long de l’axe choisi en fonction de la position ou de la vitesse, autres coordonnées nulles (10⁻²¹ N).
+    - - Espace des phases
+      - Position en fonction de la vitesse selon l’axe choisi, valeurs du laboratoire (mm, m/s).
+  paul-cooling-figures:
+    title: Lire les graphiques de refroidissement laser du piège de Paul
+    summary: Refroidissement numérique d’un nuage coulombien d’ions piégés ; chaque panneau montre les mêmes ions simulés.
+    items:
+    - - Projection 3D
+      - Vue 3D rotative en µm ; les flèches rouge, verte et bleue sont x, y, z.
+    - - x–y, z–x, y–z
+      - Projections des mêmes ions sur les plans radial et axiaux.
+    - - Température
+      - 'Température moyenne, x, y et z (mK, logarithmique) d’après les variances centrées des vitesses ; la ligne pointillée est l’échelle Doppler ħΓ/(2k_B). Les courbes ne sont pas forcées de décroître : la libération d’énergie potentielle et la micro-oscillation peuvent chauffer.'
+    - - Espace des phases
+      - x − moyenne(x) en fonction de vₓ − moyenne(vₓ) (µm, m/s).

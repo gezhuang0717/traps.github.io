@@ -5,6 +5,7 @@
    ZGUI.badge(text, tone)          tone: ok | warn | bad | info
    ZGUI.fold(summary, node, open)  <details> with a triangle; long text goes in here
    ZGUI.autoFold(root)             folds long explanatory paragraphs (class zg-muted / zg-small / sp-note / wb-note / wb-intro)
+   ZGUI.attachNotes(root)          puts the figure explanation after every element marked data-figure-note="id"
    ZGUI.notes(id)                  explanation of one figure (title, summary, items) in the page language, from #zg-figure-notes
    ZGUI.notesBlock(id)             the same as a fold-away block for the page; ZGUI.notesLines(id, max) as plain lines for exported figures */
 (function (host) {
@@ -41,6 +42,21 @@
     if (open) d.open = true;
     d.append(s, node);
     return d;
+  }
+  /* [data-figure-note="id"] on a canvas or its grid: the explanation of that figure follows it as a fold-away block (once). */
+  const NOTE_SELECTOR = '[data-figure-note]';
+  function attachNotes(root) {
+    const scope = root || doc();
+    if (!scope.querySelectorAll) return 0;
+    const found = [...(scope.matches && scope.matches(NOTE_SELECTOR) ? [scope] : []), ...scope.querySelectorAll(NOTE_SELECTOR)];
+    let n = 0;
+    for (const el of found) {
+      if (el.dataset.zgNoted) continue;
+      el.dataset.zgNoted = '1';
+      let anchor = el;
+      for (const id of el.dataset.figureNote.split(/\s+/).filter(Boolean)) { const block = notesBlock(id); if (block) { anchor.after(block); anchor = block; n++; } }
+    }
+    return n;
   }
   /* First sentence (at most 90 characters) as the label of a folded paragraph. */
   function lead(text) {
@@ -90,13 +106,13 @@
     const n = notes(id); if (!n) return [];
     return [n.title, ...(n.items || []).slice(0, max).map(([s, t]) => s + ': ' + t)];
   }
-  const api = { tile, badge, group, readout, fold, lead, autoFold, notes, notesBlock, notesLines, tone, make };
+  const api = { tile, badge, group, readout, fold, lead, autoFold, attachNotes, notes, notesBlock, notesLines, tone, make };
   host.ZGUI = api;
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (host.document && host.document.addEventListener) {
     const run = () => {
-      autoFold(host.document);
-      if (host.MutationObserver) new host.MutationObserver(changes => { for (const c of changes) for (const n of c.addedNodes) if (n.nodeType === 1) autoFold(n); }).observe(host.document.body, { childList: true, subtree: true });
+      attachNotes(host.document); autoFold(host.document);
+      if (host.MutationObserver) new host.MutationObserver(changes => { for (const c of changes) for (const n of c.addedNodes) if (n.nodeType === 1) { attachNotes(n); autoFold(n); } }).observe(host.document.body, { childList: true, subtree: true });
     };
     if (host.document.readyState === 'loading') host.document.addEventListener('DOMContentLoaded', run, { once: true }); else run();
   }

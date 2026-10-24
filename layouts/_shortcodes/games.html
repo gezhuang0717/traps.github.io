@@ -60,7 +60,7 @@
       <label>{{ $t.view }} <select name="view"><option value="pts">{{ $t.v_pts }}</option><option value="pix">{{ $t.v_pix }}</option></select></label>
       <label class="g-chk"><input type="checkbox" name="theory"> {{ $t.theory }}</label>
     </div>
-    <canvas width="720" height="330"></canvas>
+    <canvas width="720" height="330" data-figure-note="tof-hunt"></canvas>
     <label class="g-slider">ν_rf <input type="range" min="-16" max="16" step="0.1" value="0"> <output></output></label>
     <div class="zg-row"><button type="button" class="zg-btn" data-act="shot">{{ $t.shot }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="scan">{{ $t.scan }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="fit">{{ $t.fit }}</button><button type="button" class="zg-btn" data-act="guess">{{ $t.guess }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="new">{{ $t.new }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">⤓ {{ $t.csv }}</button></div>
     <p class="g-msg" aria-live="polite"></p><p class="g-info zg-muted"></p>
@@ -92,7 +92,7 @@
       <label class="g-slider">{{ $t.tlap }} <input type="range" name="tlap" min="1" max="50" step="0.01" value="8"> <input type="number" class="g-num" data-for="tlap" step="0.01"><span class="g-unit">µs</span></label>
       <label class="g-slider">{{ $t.t0 }} <input type="range" name="t0" min="1" max="200" step="0.01" value="10"> <input type="number" class="g-num" data-for="t0" step="0.01"><span class="g-unit">µs</span></label>
     </div>
-    <canvas width="720" height="220"></canvas>
+    <canvas width="720" height="220" data-figure-note="mr-classic"></canvas>
     <div class="zg-row"><button type="button" class="zg-btn" data-act="auto">{{ $t.mr_auto }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="new">{{ $t.new }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (R)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">⤓ {{ $t.csv }}</button></div>
     <p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.mr_h }}</p></details></section>
@@ -111,7 +111,7 @@
     <p class="zg-muted">{{ $t.rfq_convention }} <a href="https://dlmf.nist.gov/28.2">{{ $t.mathieu }}</a></p>
     {{- $rt := index hugo.Data.rfq_results (index (split .Page.Language.Lang "-") 0) -}}
     <div class="g-opts-row"><span class="rfq-leg"></span><button type="button" class="zg-btn zg-btn-ghost" data-act="csv">{{ $rt.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="json">{{ $rt.json }}</button></div>
-    <div class="g-rfq-grid"><canvas width="360" height="360"></canvas><canvas width="420" height="360"></canvas></div>
+    <div class="g-rfq-grid" data-figure-note="rfq-classic"><canvas width="360" height="360"></canvas><canvas width="420" height="360"></canvas></div>
     <div class="g-sliders">
       <label class="g-slider">{{ $t.a }} <input type="range" name="A" min="1" max="300" step="0.01" value="100"> <input type="number" class="g-num" data-for="A" step="0.01"><span class="g-unit"></span></label>
       <label class="g-slider">{{ $t.v }} <input type="range" name="V" min="0" max="3000" step="0.01" value="83"> <input type="number" class="g-num" data-for="V" step="0.01"><span class="g-unit">V</span></label>
@@ -138,7 +138,6 @@
 <script defer src="{{ "js/trap-design.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/trap-design.js")) 0 10 }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/physics.js")) 0 10 }}"></script>
 <script defer src="{{ "js/calibration.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/calibration.js")) 0 10 }}"></script>
-<script defer src="{{ "js/figure-style.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/figure-style.js")) 0 10 }}"></script>
 <script defer src="{{ "js/wb-plot.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/wb-plot.js")) 0 10 }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/workbenches.js")) 0 10 }}"></script>
 <script defer src="{{ "js/games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/games.js")) 0 10 }}"></script>

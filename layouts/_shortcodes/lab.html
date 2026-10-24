@@ -25,7 +25,7 @@
 <section class="zg-card zg-lab-sim" data-trap2d>
   <h2>{{ i18n "zg_lab_sim" | default "Ion motion in a Penning trap" }}</h2>
   <p class="zg-muted">{{ i18n "zg_lab_sim_note" | default "A charged particle in a strong magnetic field plus a weak electric quadrupole field moves on two circles at once — the fast modified-cyclotron motion (ν₊) riding on the slow magnetron motion (ν₋) — while oscillating along the field axis (ν_z). The sum ν₊ + ν₋ = ν_c gives the mass." }}</p>
-  <div class="zg-sim-wrap">
+  <div class="zg-sim-wrap" data-figure-note="penning-sim">
     <canvas id="zg-sim-top" width="420" height="420" aria-label="{{ (index hugo.Data.trap_labels $k).top }}"></canvas>
     <canvas id="zg-sim-side" width="140" height="420" aria-label="{{ (index hugo.Data.trap_labels $k).side }}"></canvas>
   </div>
@@ -104,7 +104,6 @@
 <script defer src="{{ "js/cyclotron-calculator.js" | relURL }}"></script>
 <script defer src="{{ "js/cyclotron-ui.js" | relURL }}"></script>
 <script defer src="{{ "js/calibration.js" | relURL }}"></script>
-<script defer src="{{ "js/figure-style.js" | relURL }}"></script>
 <script defer src="{{ "js/wb-plot.js" | relURL }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}"></script>
 <script defer src="{{ "js/topic-navigation.js" | relURL }}"></script>
