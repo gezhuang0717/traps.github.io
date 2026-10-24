@@ -8,8 +8,6 @@
 <section class="zg-spectroscopy" id="research-spectroscopy" data-spectroscopy data-lang="{{ $lang }}"
   data-values="{{ hugo.Data.spectroscopy | jsonify }}" data-cooling="{{ hugo.Data.laser_cooling.species | jsonify }}" data-example-base="{{ "data/research-examples/" | relURL }}" data-sources="{{ hugo.Data.research_code_examples.sources | jsonify }}" data-props-url="{{ "data/research-cache/nuclear-properties-compact.json" | relURL }}" data-ame-url="{{ "data/research-cache/ame2020-reference.json" | relURL }}">
   <header><p class="sp-eyebrow">CLS · IAEA · NNDC · NIST</p><h2>{{ index $titles $lang | default $titles.en }}</h2></header>
-  {{- $manuals := dict "en" "Manuals & examples" "zh" "手册与示例" "fi" "Oppaat ja esimerkit" "de" "Handbücher und Beispiele" "ja" "手引きと例" "fr" "Manuels et exemples" -}}
-  <p><a href="{{ "manuals/" | relLangURL }}">{{ index $manuals $lang | default $manuals.en }}</a></p>
   <div data-sp-app></div>
   {{- $nojs := dict "en" "Enable JavaScript to explore the saved data and calculators." "zh" "请启用 JavaScript 以浏览保存的数据并使用计算器。" "fi" "Ota JavaScript käyttöön tallennettujen tietojen ja laskinten käyttöä varten." "de" "JavaScript aktivieren, um gespeicherte Daten und Rechner zu nutzen." "ja" "保存データと計算ツールを使うには JavaScript を有効にしてください。" "fr" "Activez JavaScript pour explorer les données enregistrées et utiliser les calculateurs." -}}
   <noscript><p>{{ index $nojs $lang }}</p></noscript>
