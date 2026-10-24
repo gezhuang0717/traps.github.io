@@ -66,6 +66,10 @@ test('one mass input gives one point: a New point equal to its New + AME2020 poi
   assert.equal(out.filter(q => q.series === 'hybrid').length, 5);
   assert.equal(pts.length, 9, 'the input array is not modified');
   assert.equal(CP.mergeDuplicateInputs(pts.filter(q => q.series === 'loaded')).length, 3, 'a New point without a New + AME2020 partner stays');
+  // by composition: S_n of one new mass needs an AME2020 neighbour, so a loaded point with an AME2020 primitive is dropped even without a partner
+  const mixed = { ...p('loaded', 66, 9.5, ['New']), dependencyValue: { terms: { 'loaded:50-66-0:x': { c: 1 }, 'AME2020:50065': { c: -1 }, 'AME2020:1': { c: 1 } } } };
+  const pure = { ...p('loaded', 66, -91.5, ['New']), dependencyValue: { terms: { 'loaded:50-66-0:x': { c: 1 } } } };
+  assert.deepEqual(CP.mergeDuplicateInputs([mixed, pure]), [pure]);
   const html = fs.readFileSync('layouts/_shortcodes/nuclide-chart.html', 'utf8');
   assert.ok(html.includes('name="nc-merge" checked'));
   const yaml = fs.readFileSync('data/nuclide_chart_labels.yaml', 'utf8');

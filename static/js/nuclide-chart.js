@@ -755,8 +755,16 @@
   const hasEstimated=s=>plotPts.concat(modPts,residualPts).some(p=>inSeries(p,s)&&p.est);
   const legendGlyph=s=>markerGlyph(s)+(hasEstimated(s)?' '+(CP.markers[s.shape]?.[1]||'○')+'#':'');
   function wrapFigureText(text,width,size){pg.save();pg.font=size+'px system-ui';const lines=FS.wrapText(text,Math.max(80,width),size,value=>pg.measureText(value).width);pg.restore();return lines;}
+  const hasMeasured=s=>plotPts.concat(modPts,residualPts).some(p=>inSeries(p,s)&&!p.est);
+  /* Legend: one line per series (filled and hollow-# glyphs together) or, with "measured and extrapolated (#) on separate lines", one line for the
+     filled marker (measured) and one for the hollow marker with # (extrapolated) of every series that has both. */
   function seriesLegendLines(w){
-    const out=[];for(const s of visibleSeries.slice(0,16))wrapFigureText(s.short.slice(0,160),w-150,chainStyle().legendSize).forEach((text,i)=>out.push({style:s,first:i===0,text}));
+    const out=[],split=!!chainInput('legendsplit')?.checked;
+    for(const s of visibleSeries.slice(0,16)){
+      const filled=s.shape==='model'?'– –':CP.markers[s.shape][0],hollow=(CP.markers[s.shape]?.[1]||'○')+'#',est=split&&hasEstimated(s),meas=hasMeasured(s);
+      const entries=est?(meas?[{glyph:filled,suffix:' · '+T.leg_measured},{glyph:hollow,suffix:' · '+T.leg_extrapolated}]:[{glyph:hollow,suffix:' · '+T.leg_extrapolated}]):[{glyph:null,suffix:''}];
+      for(const e of entries)wrapFigureText((s.short+e.suffix).slice(0,170),w-150,chainStyle().legendSize).forEach((text,i)=>out.push({style:s,first:i===0,text,glyph:e.glyph}));
+    }
     if(visibleSeries.length>16)out.push({text:T.marker_more.replace('{n}',visibleSeries.length-16)});return out;
   }
   let inputLegend=[];
@@ -1026,7 +1034,7 @@
     c.textAlign='center';c.fillStyle=sc>1?'#222':ink;c.font=st.titleSize*sc+'px system-ui';titleLines(Wd/sc).forEach((text,i)=>c.fillText(text,Wd/2,(st.titleSize+2+i*st.titleSize*1.35)*sc));
     c.textAlign='left';c.font=st.legendSize*sc+'px system-ui';
     const legendLines=seriesLegendLines(Wd/sc);
-    legendLines.forEach((line,i)=>{const y=(titleHeight(Wd/sc)+12+i*legendRow())*sc;if(line.first){c.fillStyle=legendColor(line.style);c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
+    legendLines.forEach((line,i)=>{const y=(titleHeight(Wd/sc)+12+i*legendRow())*sc;if(line.first){c.fillStyle=legendColor(line.style);c.fillText(line.glyph||legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
     c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(titleHeight(Wd/sc)+12+legendRow()*(legendLines.length+i))*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
@@ -1114,13 +1122,13 @@
     else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
   });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); const au = EXPQ.includes(pq.value) && MODES[pq.value].aux; if (au && !AUX[au]) loadAux(au).then(() => plotChain()).catch(() => plotChain()); plotChain(); };
-  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring], [name=nc-linemode], [name=nc-dodge], [name=nc-muteame], [name=nc-merge]").forEach(el => el.addEventListener("input", () => plotChain()));
+  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring], [name=nc-linemode], [name=nc-dodge], [name=nc-muteame], [name=nc-merge], [name=nc-legendsplit]").forEach(el => el.addEventListener("input", () => plotChain()));
   /* One choice that sets the options together: "publication" = revised curve in colour over a grey AME2020 line, markers offset, error bars, no reference ring. */
   chainInput('pubpreset')?.addEventListener('change',e=>{
     const v=e.target.value;if(!v)return;
     const set=(n,x)=>{const el=chainInput(n);if(!el)return;if(el.type==='checkbox')el.checked=!!x;else el.value=x;};
-    if(v==='publication'){set('lines',true);set('linemode','revised');set('dodge',.12);set('muteame',true);set('err',true);set('band',false);set('reference-ring',false);set('merge',true);}
-    else{set('lines',true);set('linemode','series');set('dodge',0);set('muteame',false);set('err',true);set('reference-ring',true);}
+    if(v==='publication'){set('lines',true);set('linemode','revised');set('dodge',.12);set('muteame',true);set('err',true);set('band',false);set('reference-ring',false);set('merge',true);set('legendsplit',true);}
+    else{set('lines',true);set('linemode','series');set('dodge',0);set('muteame',false);set('err',true);set('reference-ring',true);set('legendsplit',false);}
     plotChain();
   });
   root.querySelectorAll('.nc-axes input,.nc-axes select').forEach(el=>el.addEventListener('input',()=>plotChain()));

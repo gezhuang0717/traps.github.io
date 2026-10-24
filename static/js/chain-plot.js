@@ -48,13 +48,15 @@
     }
     return out;
   }
-  /* Drop a "loaded" (New) point when a "hybrid" (New + AME2020) point of the same input labels, chain and N has the same value and uncertainty,
-     so that one mass input gives one point and one legend entry. Returns a new array; other points are untouched. */
+  /* One mass input gives one point and one legend entry: a "loaded" (New) point is dropped when its formula also contains an AME2020 mass (S_n of a
+     single new mass always needs a neighbour, so it is a "New + AME2020" value) or, for plain points, when a "hybrid" point of the same input labels,
+     chain and N has the same value and uncertainty. Returns a new array; other points are untouched. */
   function mergeDuplicateInputs(points) {
     const same = (a, b) => Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
     const hybrids = points.filter(p => p.series === 'hybrid');
     return points.filter(p => {
       if (p.series !== 'loaded') return true;
+      if (composition(p.dependencyValue || p.valueObj).mixed) return false;   // the formula needs an AME2020 mass: its place is "New + AME2020"
       const labels = JSON.stringify(p.labels || []);
       return !hybrids.some(h => h.g === p.g && h.x === p.x && JSON.stringify(h.labels || []) === labels && same(h.y, p.y) && same(h.e ?? 0, p.e ?? 0));
     });
