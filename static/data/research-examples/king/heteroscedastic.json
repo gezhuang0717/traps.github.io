@@ -1,0 +1,65 @@
+{
+  "schema": "traps-king-data-v1",
+  "id": "heteroscedastic",
+  "kind": "synthetic-training",
+  "units": "GHz·u",
+  "rho_units": "1",
+  "provenance": {
+    "generator": "tools/make_king_examples.py",
+    "generator_sha256": "165ca5b656a4421241749b9ddf8205cf6c73215aec504c6b6266eaa1fe8f385f",
+    "source": "deterministic synthetic teaching definitions in the generator; not measurements",
+    "definition": "Linear trend plus fixed teaching offsets; unequal errors, rho=0.",
+    "generated_date": "2026-10-24",
+    "evaluation_date": null,
+    "retrieved_date": null,
+    "calculation_sources": [
+      "static/js/spectroscopy-data.js",
+      "static/js/spectroscopy-uncertainty.js"
+    ],
+    "limits": "Independent rows; supplied rho only correlates x/y within one row. Shared-reference cross-row covariance requires the numerical API. No new-physics inference."
+  },
+  "points": [
+    {
+      "x": 0.0,
+      "y": 1.06,
+      "sx": 0.03,
+      "sy": 0.08,
+      "rho_xy": 0.0
+    },
+    {
+      "x": 1.0,
+      "y": 2.91,
+      "sx": 0.07,
+      "sy": 0.18,
+      "rho_xy": 0.0
+    },
+    {
+      "x": 2.0,
+      "y": 5.12,
+      "sx": 0.04,
+      "sy": 0.1,
+      "rho_xy": 0.0
+    },
+    {
+      "x": 3.0,
+      "y": 6.82,
+      "sx": 0.1,
+      "sy": 0.25,
+      "rho_xy": 0.0
+    },
+    {
+      "x": 4.0,
+      "y": 9.04,
+      "sx": 0.05,
+      "sy": 0.12,
+      "rho_xy": 0.0
+    },
+    {
+      "x": 5.0,
+      "y": 11.17,
+      "sx": 0.08,
+      "sy": 0.2,
+      "rho_xy": 0.0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "traps-king-data-v1",
+  "id": "ols",
+  "kind": "synthetic-training",
+  "units": "GHz·u",
+  "rho_units": "1",
+  "provenance": {
+    "generator": "tools/make_king_examples.py",
+    "generator_sha256": "165ca5b656a4421241749b9ddf8205cf6c73215aec504c6b6266eaa1fe8f385f",
+    "source": "deterministic synthetic teaching definitions in the generator; not measurements",
+    "definition": "Same x,y as correlated example; all input errors intentionally omitted.",
+    "generated_date": "2026-10-24",
+    "evaluation_date": null,
+    "retrieved_date": null,
+    "calculation_sources": [
+      "static/js/spectroscopy-data.js",
+      "static/js/spectroscopy-uncertainty.js"
+    ],
+    "limits": "Independent rows; supplied rho only correlates x/y within one row. Shared-reference cross-row covariance requires the numerical API. No new-physics inference."
+  },
+  "points": [
+    {
+      "x": 0.0,
+      "y": 1.02
+    },
+    {
+      "x": 1.0,
+      "y": 2.95
+    },
+    {
+      "x": 2.0,
+      "y": 5.1
+    },
+    {
+      "x": 3.0,
+      "y": 6.9
+    },
+    {
+      "x": 4.0,
+      "y": 9.05
+    }
+  ]
+}

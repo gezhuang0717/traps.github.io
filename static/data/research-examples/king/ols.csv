@@ -1,0 +1,13 @@
+# dataset_id: ols
+# kind: synthetic-training
+# units: GHz·u
+# generator: tools/make_king_examples.py
+# source: deterministic synthetic teaching inputs; not measurements
+# Same x,y as correlated example; all input errors intentionally omitted.
+# rho is dimensionless; rows independent
+x,y
+0,1.02
+1,2.95
+2,5.10
+3,6.90
+4,9.05

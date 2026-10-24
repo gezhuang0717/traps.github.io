@@ -1,0 +1,270 @@
+{
+  "edition": "2026-10-24",
+  "equations_per_edition": 190,
+  "files": [
+    {
+      "name": "MASS_FILTER_EQUATIONS_EN.md",
+      "bytes": 164137,
+      "sha256": "5a30d7687760f36066b0c6934a07357b8240190ab3adec0957f738c453ef8712",
+      "source_sha256": "f858a87ed961a5e62a4cfe32468744f8fa0f219578702bf1290b65d009cb88a6"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_EN.html",
+      "bytes": 412558,
+      "sha256": "3c74937e5489e6281c20b4839063fe999015394500f1074b9e784ea1edb7ac38",
+      "source_sha256": "f858a87ed961a5e62a4cfe32468744f8fa0f219578702bf1290b65d009cb88a6"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_EN.tex",
+      "bytes": 213943,
+      "sha256": "0ec24bdb9f3035ff0b6f8a40ffa55283ad0c0f90dd4ec98d4ece44d413dacb91",
+      "source_sha256": "f858a87ed961a5e62a4cfe32468744f8fa0f219578702bf1290b65d009cb88a6"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_EN.docx",
+      "bytes": 73665,
+      "sha256": "8ce376ea38acdb1038bdc6de7c1600072e921bd96f04142d3c9bbff834bb9611",
+      "source_sha256": "f858a87ed961a5e62a4cfe32468744f8fa0f219578702bf1290b65d009cb88a6"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_ZH.md",
+      "bytes": 145502,
+      "sha256": "eba1c45137b0c9433a5bc38d647d5cf4e924ce853b2673fdf1b41772d45139c8",
+      "source_sha256": "d8079636dea09e3c6171f80391c861403ff1354d24c560302b34bb9bca3f1ce3"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_ZH.html",
+      "bytes": 390658,
+      "sha256": "1831fe75c0595ae0a8e01b711d57fd9a8dc77b41e440e8d1db1e241003075699",
+      "source_sha256": "d8079636dea09e3c6171f80391c861403ff1354d24c560302b34bb9bca3f1ce3"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_ZH.tex",
+      "bytes": 197454,
+      "sha256": "5222ab7ea38d8ce340a740b722a81fb58185b8163fe4ed908243d14de84d1696",
+      "source_sha256": "d8079636dea09e3c6171f80391c861403ff1354d24c560302b34bb9bca3f1ce3"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_ZH.docx",
+      "bytes": 72863,
+      "sha256": "5d18d1cdcaaa89d169ecfbe3a2c2d72eef6f3c27a1ca30d1ce4bcbf5d92055eb",
+      "source_sha256": "d8079636dea09e3c6171f80391c861403ff1354d24c560302b34bb9bca3f1ce3"
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_EN.pdf",
+      "bytes": 3194243,
+      "sha256": "cd91fb272511071a56d51ac1f726c08f62975561e6af8946d9123b9001a8e4c7",
+      "html_sha256": "3c74937e5489e6281c20b4839063fe999015394500f1074b9e784ea1edb7ac38",
+      "pages": 129,
+      "image_count": 0
+    },
+    {
+      "name": "MASS_FILTER_EQUATIONS_ZH.pdf",
+      "bytes": 4437288,
+      "sha256": "c4c80553ff553b84e17353951939e69d742cdef2bc6cacb8686858b85f34d83a",
+      "html_sha256": "1831fe75c0595ae0a8e01b711d57fd9a8dc77b41e440e8d1db1e241003075699",
+      "pages": 115,
+      "image_count": 0
+    }
+  ],
+  "pdf_pipeline": "Browser vector printing of offline HTML; distinct from compiling TeX. TeX compilation is not claimed here.",
+  "visual_review": "Owner prohibits saved manual screenshots; structural math/font/privacy checks do not establish Word page-layout acceptance.",
+  "math_layout": {
+    "EN": {
+      "wrapped": 16,
+      "original_tex": [
+        "\\delta V_{pn}^{oo}=-M(Z,N)+M(Z,N-1)+M(Z-1,N)-M(Z-1,N-1)",
+        "0.125M(Z-2,N-4)-0.375M(Z-2,N-2)+0.375M(Z-2,N)-0.125M(Z-2,N+2)-0.125M(Z,N-4)+0.375M(Z,N-2)-0.375M(Z,N)+0.125M(Z,N+2)",
+        "0.25M(Z-2,N-3)-0.25M(Z-2,N-2)-0.5M(Z-2,N-1)+0.5M(Z-2,N)+0.25M(Z-2,N+1)-0.25M(Z-2,N+2)-0.25M(Z,N-3)+0.25M(Z,N-2)+0.5M(Z,N-1)-0.5M(Z,N)-0.25M(Z,N+1)+0.25M(Z,N+2)",
+        "0.25M(Z-1,N-4)-0.75M(Z-1,N-2)+0.75M(Z-1,N)-0.25M(Z-1,N+2)-0.25M(Z,N-4)+0.75M(Z,N-2)-0.75M(Z,N)+0.25M(Z,N+2)",
+        "0.5M(Z-1,N-3)-0.5M(Z-1,N-2)-M(Z-1,N-1)+M(Z-1,N)+0.5M(Z-1,N+1)-0.5M(Z-1,N+2)-0.5M(Z,N-3)+0.5M(Z,N-2)+M(Z,N-1)-M(Z,N)-0.5M(Z,N+1)+0.5M(Z,N+2)",
+        "-0.0005M(Z,N-4)+0.002M(Z,N-2)-0.003M(Z,N)+0.002M(Z,N+2)-0.0005M(Z,N+4)",
+        "0.5B(Z,N-2)-1B(Z,N-1)+0.5B(Z,N)-0.5B(Z-1,N-2)+1B(Z-1,N-1)-0.5B(Z-1,N)",
+        "-0.5M(Z,N-2)+1M(Z,N-1)-0.5M(Z,N)+0.5M(Z-1,N-2)-1M(Z-1,N-1)+0.5M(Z-1,N)",
+        "-1B(Z,N-1)+1B(Z,N)+0.25B(Z-1,N-3)+0.75B(Z-1,N-1)-1B(Z-1,N)-0.25B(Z-3,N-3)+0.25B(Z-3,N-1)",
+        "1M(Z,N-1)-1M(Z,N)-0.25M(Z-1,N-3)-0.75M(Z-1,N-1)+1M(Z-1,N)+0.25M(Z-3,N-3)-0.25M(Z-3,N-1)",
+        "-0.25B(Z,N-2)+0.375B(Z,N)-0.125B(Z,N+2)+0.375B(Z-2,N-2)-0.5B(Z-2,N)+0.125B(Z-2,N+2)-0.125B(Z-4,N-2)+0.125B(Z-4,N)",
+        "0.25M(Z,N-2)-0.375M(Z,N)+0.125M(Z,N+2)-0.375M(Z-2,N-2)+0.5M(Z-2,N)-0.125M(Z-2,N+2)+0.125M(Z-4,N-2)-0.125M(Z-4,N)",
+        "-0.125B(Z+1,N-1)+0.125B(Z+1,N+1)-0.125B(Z-1,N-3)+0.5B(Z-1,N-1)-0.375B(Z-1,N+1)+0.125B(Z-3,N-3)-0.375B(Z-3,N-1)+0.25B(Z-3,N+1)",
+        "0.125M(Z+1,N-1)-0.125M(Z+1,N+1)+0.125M(Z-1,N-3)-0.5M(Z-1,N-1)+0.375M(Z-1,N+1)-0.125M(Z-3,N-3)+0.375M(Z-3,N-1)-0.25M(Z-3,N+1)",
+        "-0.25B(Z,N-1)+0.25B(Z,N+1)-0.25B(Z-1,N-2)-0.5B(Z-1,N-1)+0.25B(Z-1,N)+0.5B(Z-1,N+1)+0.25B(Z-2,N-1)-0.25B(Z-2,N+1)+0.25B(Z-3,N-2)+0.5B(Z-3,N-1)-0.25B(Z-3,N)-0.5B(Z-3,N+1)",
+        "0.25M(Z,N-1)-0.25M(Z,N+1)+0.25M(Z-1,N-2)+0.5M(Z-1,N-1)-0.25M(Z-1,N)-0.5M(Z-1,N+1)-0.25M(Z-2,N-1)+0.25M(Z-2,N+1)-0.25M(Z-3,N-2)-0.5M(Z-3,N-1)+0.25M(Z-3,N)+0.5M(Z-3,N+1)"
+      ],
+      "rows": [
+        {
+          "terms": 5,
+          "rows": 2
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 5,
+          "rows": 2
+        },
+        {
+          "terms": 6,
+          "rows": 2
+        },
+        {
+          "terms": 6,
+          "rows": 2
+        },
+        {
+          "terms": 7,
+          "rows": 3
+        },
+        {
+          "terms": 7,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        }
+      ],
+      "tokens_preserved": true,
+      "annotations_preserved": true,
+      "tex": {
+        "wrapped": 16,
+        "tokens_preserved": true,
+        "terms_per_row": 3
+      }
+    },
+    "ZH": {
+      "wrapped": 16,
+      "original_tex": [
+        "\\delta V_{pn}^{oo}=-M(Z,N)+M(Z,N-1)+M(Z-1,N)-M(Z-1,N-1)",
+        "0.125M(Z-2,N-4)-0.375M(Z-2,N-2)+0.375M(Z-2,N)-0.125M(Z-2,N+2)-0.125M(Z,N-4)+0.375M(Z,N-2)-0.375M(Z,N)+0.125M(Z,N+2)",
+        "0.25M(Z-2,N-3)-0.25M(Z-2,N-2)-0.5M(Z-2,N-1)+0.5M(Z-2,N)+0.25M(Z-2,N+1)-0.25M(Z-2,N+2)-0.25M(Z,N-3)+0.25M(Z,N-2)+0.5M(Z,N-1)-0.5M(Z,N)-0.25M(Z,N+1)+0.25M(Z,N+2)",
+        "0.25M(Z-1,N-4)-0.75M(Z-1,N-2)+0.75M(Z-1,N)-0.25M(Z-1,N+2)-0.25M(Z,N-4)+0.75M(Z,N-2)-0.75M(Z,N)+0.25M(Z,N+2)",
+        "0.5M(Z-1,N-3)-0.5M(Z-1,N-2)-M(Z-1,N-1)+M(Z-1,N)+0.5M(Z-1,N+1)-0.5M(Z-1,N+2)-0.5M(Z,N-3)+0.5M(Z,N-2)+M(Z,N-1)-M(Z,N)-0.5M(Z,N+1)+0.5M(Z,N+2)",
+        "-0.0005M(Z,N-4)+0.002M(Z,N-2)-0.003M(Z,N)+0.002M(Z,N+2)-0.0005M(Z,N+4)",
+        "0.5B(Z,N-2)-1B(Z,N-1)+0.5B(Z,N)-0.5B(Z-1,N-2)+1B(Z-1,N-1)-0.5B(Z-1,N)",
+        "-0.5M(Z,N-2)+1M(Z,N-1)-0.5M(Z,N)+0.5M(Z-1,N-2)-1M(Z-1,N-1)+0.5M(Z-1,N)",
+        "-1B(Z,N-1)+1B(Z,N)+0.25B(Z-1,N-3)+0.75B(Z-1,N-1)-1B(Z-1,N)-0.25B(Z-3,N-3)+0.25B(Z-3,N-1)",
+        "1M(Z,N-1)-1M(Z,N)-0.25M(Z-1,N-3)-0.75M(Z-1,N-1)+1M(Z-1,N)+0.25M(Z-3,N-3)-0.25M(Z-3,N-1)",
+        "-0.25B(Z,N-2)+0.375B(Z,N)-0.125B(Z,N+2)+0.375B(Z-2,N-2)-0.5B(Z-2,N)+0.125B(Z-2,N+2)-0.125B(Z-4,N-2)+0.125B(Z-4,N)",
+        "0.25M(Z,N-2)-0.375M(Z,N)+0.125M(Z,N+2)-0.375M(Z-2,N-2)+0.5M(Z-2,N)-0.125M(Z-2,N+2)+0.125M(Z-4,N-2)-0.125M(Z-4,N)",
+        "-0.125B(Z+1,N-1)+0.125B(Z+1,N+1)-0.125B(Z-1,N-3)+0.5B(Z-1,N-1)-0.375B(Z-1,N+1)+0.125B(Z-3,N-3)-0.375B(Z-3,N-1)+0.25B(Z-3,N+1)",
+        "0.125M(Z+1,N-1)-0.125M(Z+1,N+1)+0.125M(Z-1,N-3)-0.5M(Z-1,N-1)+0.375M(Z-1,N+1)-0.125M(Z-3,N-3)+0.375M(Z-3,N-1)-0.25M(Z-3,N+1)",
+        "-0.25B(Z,N-1)+0.25B(Z,N+1)-0.25B(Z-1,N-2)-0.5B(Z-1,N-1)+0.25B(Z-1,N)+0.5B(Z-1,N+1)+0.25B(Z-2,N-1)-0.25B(Z-2,N+1)+0.25B(Z-3,N-2)+0.5B(Z-3,N-1)-0.25B(Z-3,N)-0.5B(Z-3,N+1)",
+        "0.25M(Z,N-1)-0.25M(Z,N+1)+0.25M(Z-1,N-2)+0.5M(Z-1,N-1)-0.25M(Z-1,N)-0.5M(Z-1,N+1)-0.25M(Z-2,N-1)+0.25M(Z-2,N+1)-0.25M(Z-3,N-2)-0.5M(Z-3,N-1)+0.25M(Z-3,N)+0.5M(Z-3,N+1)"
+      ],
+      "rows": [
+        {
+          "terms": 5,
+          "rows": 2
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 5,
+          "rows": 2
+        },
+        {
+          "terms": 6,
+          "rows": 2
+        },
+        {
+          "terms": 6,
+          "rows": 2
+        },
+        {
+          "terms": 7,
+          "rows": 3
+        },
+        {
+          "terms": 7,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 8,
+          "rows": 3
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        },
+        {
+          "terms": 12,
+          "rows": 4
+        }
+      ],
+      "tokens_preserved": true,
+      "annotations_preserved": true,
+      "tex": {
+        "wrapped": 16,
+        "tokens_preserved": true,
+        "terms_per_row": 3
+      }
+    }
+  },
+  "pdf_checks": {
+    "glyph_bounds_all_pages": true,
+    "replacement_characters": 0,
+    "private_path_hits": 0,
+    "images": 0,
+    "manual_page_rasters_saved": 0,
+    "visual_overlap_review": "not established"
+  }
+}

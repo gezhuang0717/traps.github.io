@@ -1,0 +1,13 @@
+# dataset_id: exact-x
+# kind: synthetic-training
+# units: GHz·u
+# generator: tools/make_king_examples.py
+# source: deterministic synthetic teaching inputs; not measurements
+# x is declared exact for this synthetic example: sx=0, known positive sy.
+# rho is dimensionless; rows independent
+# x	y	sx	sy	rho_xy
+0	1.04	0	0.10	0
+1	2.96	0	0.15	0
+2	5.08	0	0.12	0
+3	6.94	0	0.18	0
+4	9.03	0	0.10	0

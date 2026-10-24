@@ -1,0 +1,67 @@
+[
+  {
+    "id": "correlated",
+    "title_key": "king_library_correlated",
+    "kind": "synthetic-training",
+    "rows": 5,
+    "method": "EIV",
+    "units": "GHz\u00b7u",
+    "files": {
+      "csv": "correlated.csv",
+      "txt": "correlated.txt",
+      "json": "correlated.json"
+    }
+  },
+  {
+    "id": "heteroscedastic",
+    "title_key": "king_library_hetero",
+    "kind": "synthetic-training",
+    "rows": 6,
+    "method": "EIV",
+    "units": "GHz\u00b7u",
+    "files": {
+      "csv": "heteroscedastic.csv",
+      "txt": "heteroscedastic.txt",
+      "json": "heteroscedastic.json"
+    }
+  },
+  {
+    "id": "exact-x",
+    "title_key": "king_library_exact_x",
+    "kind": "synthetic-training",
+    "rows": 5,
+    "method": "EIV",
+    "units": "GHz\u00b7u",
+    "files": {
+      "csv": "exact-x.csv",
+      "txt": "exact-x.txt",
+      "json": "exact-x.json"
+    }
+  },
+  {
+    "id": "ols",
+    "title_key": "king_library_ols",
+    "kind": "synthetic-training",
+    "rows": 5,
+    "method": "OLS",
+    "units": "GHz\u00b7u",
+    "files": {
+      "csv": "ols.csv",
+      "txt": "ols.txt",
+      "json": "ols.json"
+    }
+  },
+  {
+    "id": "curved",
+    "title_key": "king_library_curved",
+    "kind": "synthetic-training",
+    "rows": 6,
+    "method": "EIV",
+    "units": "GHz\u00b7u",
+    "files": {
+      "csv": "curved.csv",
+      "txt": "curved.txt",
+      "json": "curved.json"
+    }
+  }
+]

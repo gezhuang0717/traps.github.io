@@ -28,3 +28,18 @@ builds/
 # Manuals stay on the local PSSD only (privacy)
 docs/
 public-gate-report.json
+
+# Explicit public editions; private manuals above remain excluded.
+!static/manuals/
+static/manuals/*
+!static/manuals/MASS_FILTER_EQUATIONS_EN.md
+!static/manuals/MASS_FILTER_EQUATIONS_EN.html
+!static/manuals/MASS_FILTER_EQUATIONS_EN.tex
+!static/manuals/MASS_FILTER_EQUATIONS_EN.pdf
+!static/manuals/MASS_FILTER_EQUATIONS_EN.docx
+!static/manuals/MASS_FILTER_EQUATIONS_ZH.md
+!static/manuals/MASS_FILTER_EQUATIONS_ZH.html
+!static/manuals/MASS_FILTER_EQUATIONS_ZH.tex
+!static/manuals/MASS_FILTER_EQUATIONS_ZH.pdf
+!static/manuals/MASS_FILTER_EQUATIONS_ZH.docx
+!static/manuals/MANIFEST.json
