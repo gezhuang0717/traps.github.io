@@ -33,7 +33,8 @@
       "gain": "Follow one ion-optical design from momentum-sensitive beam transport to repeated circulation for mass spectrometry.",
       "hint": "Follow the red, green and blue paths through F6, then toward the kicker and ring. Read numerical transport properties from the paper rather than measuring pixels.",
       "limits": "This is a static published simulation, not a live solver or a measured beam image. It does not establish a mass resolution or a scale for the entire beam line.",
-      "short_title": "Rare-RI Ring beam optics"
+      "short_title": "Rare-RI Ring beam optics",
+      "short_caption": "Two mass-measurement methods: beam-line Bρ–TOF and isochronous mass spectrometry (IMS) in a storage ring. Beam-transport simulation: ¹⁰⁰Sn at 175 MeV/u; red/green/blue: δp/p = +0.3%/0%/−0.3%."
     },
     "zh": {
       "title": "从高分辨束流线到等时性储存环",
@@ -49,7 +50,8 @@
       "gain": "沿同一个离子光学设计，理解从动量敏感的束流传输到多周循环质量测量的联系。",
       "hint": "沿红、绿、蓝轨迹通过 F6，再观察踢轨磁铁和储存环。传输参数应查阅论文数值，不要按像素量取。",
       "limits": "这是已发表的静态模拟图，不是实时求解器或实测束流图像；不能据此确定质量分辨本领或整条束流线的比例尺。",
-      "short_title": "Rare-RI Ring 束流光学"
+      "short_title": "Rare-RI Ring 束流光学",
+      "short_caption": "两种质量测量方法：束流线 Bρ–TOF 与储存环等时性质谱（IMS）。束流传输模拟：¹⁰⁰Sn，175 MeV/u；红／绿／蓝分别对应 δp/p = +0.3%／0%／−0.3%。"
     },
     "fi": {
       "title": "Tarkan suihkulinjan kautta isokroniseen varastorenkaaseen",
@@ -65,7 +67,8 @@
       "gain": "Seuraa samaa ionioptista suunnitelmaa liikemäärälle herkästä siirrosta toistuviin kierroksiin massamittausta varten.",
       "hint": "Seuraa punaisia, vihreitä ja sinisiä ratoja F6:n kautta kicker-magneetille ja renkaaseen. Lue siirtoparametrit artikkelista, älä mittaa pikseleitä.",
       "limits": "Tämä on julkaistu staattinen simulaatio, ei reaaliaikainen laskin tai mitattu suihkukuva. Se ei osoita massan erotuskykyä eikä koko suihkulinjan mittakaavaa.",
-      "short_title": "Rare-RI Ringin suihkuoptiikka"
+      "short_title": "Rare-RI Ringin suihkuoptiikka",
+      "short_caption": "Kaksi massamittausmenetelmää: suihkulinjan Bρ–TOF ja varastorenkaan isokroninen massaspektrometria (IMS). Suihkunsiirron simulaatio: ¹⁰⁰Sn, 175 MeV/u; punainen/vihreä/sininen: δp/p = +0,3 %/0 %/−0,3 %."
     },
     "de": {
       "title": "Von der hochauflösenden Strahlführung zum isochronen Speicherring",
@@ -81,7 +84,8 @@
       "gain": "Ein ionenoptisches Konzept vom impulssensitiven Strahltransport bis zu wiederholten Umläufen zur Massenspektrometrie nachvollziehen.",
       "hint": "Rote, grüne und blaue Bahnen durch F6 bis zum Kicker und Ring verfolgen. Numerische Transporteigenschaften aus der Arbeit lesen, nicht aus Pixelabständen ableiten.",
       "limits": "Dies ist eine veröffentlichte statische Simulation, kein Live-Rechner oder gemessenes Strahlbild. Sie belegt weder eine Massenauflösung noch einen Maßstab für die gesamte Strahlführung.",
-      "short_title": "Strahloptik des Rare-RI Ring"
+      "short_title": "Strahloptik des Rare-RI Ring",
+      "short_caption": "Zwei Massenmessmethoden: Bρ–TOF in der Strahlführung und isochrone Massenspektrometrie (IMS) im Speicherring. Strahltransportsimulation: ¹⁰⁰Sn bei 175 MeV/u; Rot/Grün/Blau: δp/p = +0,3 %/0 %/−0,3 %."
     },
     "ja": {
       "title": "高分解能ビームラインから等時性蓄積リングへ",
@@ -97,7 +101,8 @@
       "gain": "運動量に敏感なビーム輸送から、多周回を使う質量分析まで、同じ光学設計を追えます。",
       "hint": "赤・緑・青の軌道を F6 からキッカーとリングへたどってください。輸送特性の数値は画素で測らず、論文を参照します。",
       "limits": "公開済みの静的なシミュレーション図であり、実時間の計算機や実測ビーム画像ではありません。質量分解能やビームライン全体の縮尺を示すものではありません。",
-      "short_title": "Rare-RI Ring のビーム光学"
+      "short_title": "Rare-RI Ring のビーム光学",
+      "short_caption": "二つの質量測定法：ビームラインの Bρ–TOF と蓄積リングの等時性質量分析（IMS）。ビーム輸送シミュレーション：¹⁰⁰Sn、175 MeV/u。赤・緑・青はそれぞれ δp/p = +0.3%・0%・−0.3%。"
     },
     "fr": {
       "title": "D’une ligne de faisceau à haute résolution à un anneau isochrone",
@@ -113,7 +118,8 @@
       "gain": "Suivre une même conception optique du transport sensible à la quantité de mouvement aux passages répétés utilisés en spectrométrie de masse.",
       "hint": "Suivre les trajets rouge, vert et bleu par F6 jusqu’au kicker et à l’anneau. Lire les propriétés numériques dans l’article au lieu de mesurer des pixels.",
       "limits": "C’est une simulation publiée et statique, pas un calculateur en direct ni une image mesurée du faisceau. Elle ne démontre ni résolution en masse ni échelle de la ligne entière.",
-      "short_title": "Optique du faisceau du Rare-RI Ring"
+      "short_title": "Optique du faisceau du Rare-RI Ring",
+      "short_caption": "Deux méthodes de mesure de masse : Bρ–TOF en ligne de faisceau et spectrométrie de masse isochrone (IMS) en anneau de stockage. Simulation du transport de ¹⁰⁰Sn à 175 MeV/u ; rouge/vert/bleu : δp/p = +0,3 %/0 %/−0,3 %."
     }
   },
   "conditions": {

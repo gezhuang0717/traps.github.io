@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const path = require('node:path');
 const C = require('../static/js/chart-classes.js');
 const UD = require('../static/js/chart-user-data.js');
+const TD = require('../static/js/chart-typed-data.js');
 const source = fs.readFileSync(path.join(__dirname, '../static/js/nuclide-chart.js'), 'utf8');
 const template = fs.readFileSync(path.join(__dirname, '../layouts/_shortcodes/nuclide-chart.html'), 'utf8');
 const cut = (a,b) => { const i=source.indexOf(a), j=source.indexOf(b,i); assert.ok(i>=0&&j>i,a); return source.slice(i,j); };
@@ -16,17 +17,18 @@ class Control {
   setAttribute(key,v) { this.attrs[key]=v; }
   removeAttribute(key) { delete this.attrs[key]; }
   replaceChildren(...options) { this.options=options;this.value=options[0]?.value||''; }
+  querySelector() { return null; }
 }
 function harness(initial='decay') {
   const controls=new Map(), get=name=>{if(!controls.has(name))controls.set(name,new Control());return controls.get(name);};
-  for(const [name,value] of Object.entries({'nc-colour':initial,'nc-class-n':'9','nc-class-method':'equal','nc-class-scheme':'default','nc-class-edges':'','nc-mine-text':''}))get(name).value=value;
+  for(const [name,value] of Object.entries({'nc-colour':initial,'nc-class-n':'9','nc-class-method':'equal','nc-class-scheme':'default','nc-class-edges':'','nc-mine-text':'','nc-mine-custom-unit':'counts'}))get(name).value=value;
   const legend=new Control(), canvas=new Control();
   const root={querySelector(selector){const m=/^\[name="?([^\]"]+)"?\]$/.exec(selector);return m?get(m[1]):selector==='.nc-legend'?legend:get(selector);}};
   const ctx={root,sel:get('nc-colour'),legend,cv:canvas,mode:initial,manualRange:null,classOn:false,classN:9,classMethod:'equal',classText:'',classScheme:'default',classState:null,isolate:new Set(),isolateMode:'',
     emptyColour:'#e5e7eb',src:'ame',MOD:{frdm:{name:'FRDM'}},AUX:{ed:null},rows:[{value:-10},{value:0},{value:10},{value:90}],extraRows:[],USER:{map:new Map(),parsed:null},EL:[],M:new Map(),CL:C,RNG_UNIT:{dme:'keV'},DC:{},
-    T:{cl_off_mode:'Fixed colours',range_off_mode:'Choose a numerical quantity',range_bad:'min must be smaller than max',range_log:'log10',cl_note_zero:'{n} classes',mine_status:'{m}/{n}/{e}',cl_none:'no edges'},
+    T:{cl_off_mode:'Fixed colours',range_off_mode:'Choose a numerical quantity',range_bad:'min must be smaller than max',range_log:'log10',cl_note_zero:'{n} classes',mine_status:'{m}/{n}/{e}',mine_unknown_count:'{n} unknown sigma',mine_custom:'Custom',mine_duplicates:'{n} duplicate identities',mine_unknown:'unknown',cl_none:'no edges'},
     fill:(t,o)=>String(t||'').replace(/\{(\w+)\}/g,(_,k)=>o[k]??''),escape:s=>String(s),ramp:x=>'hsl('+270*(1-Math.max(0,Math.min(1,x)))+',85%,52%)',modelKey:()=> 'frdm',pass:()=>true,memo:{clear(){}},drawStats(){},modelFailure(){},
-    window:{ZGChartUserData:UD},document:{createElement:()=>({})},key:(z,n)=>z*1000+n,loads:[],allRows(){return ctx.rows.concat(ctx.src==='ame'?[]:ctx.extraRows);},loadModels:()=>Promise.resolve(),loadAux:name=>{ctx.loads.push(name);return Promise.resolve().then(()=>{ctx.AUX[name]=true;ctx.rows=[{value:-800},{value:0},{value:1450}];});}
+    window:{ZGChartUserData:UD,ZGChartTypedData:TD},document:{createElement:()=>({})},key:(z,n)=>z*1000+n,chain:null,chainInput:n=>get('nc-'+n),pq:{value:'mine',onchange(){}},PQ:{mine:['My data',()=>null,'counts']},plotChain(){},loads:[],allRows(){return ctx.rows.concat(ctx.src==='ame'?[]:ctx.extraRows);},loadModels:()=>Promise.resolve(),loadAux:name=>{ctx.loads.push(name);return Promise.resolve().then(()=>{ctx.AUX[name]=true;ctx.rows=[{value:-800},{value:0},{value:1450}];});}
   };
   const numerical={label:'ME',v:r=>r.value,lo:-30,hi:30};
   ctx.MODES={decay:{label:'decay',f:()=> '#111'},me:numerical,dme:{...numerical,label:'precision',rng:['0.001 keV','1 MeV'],lo:-3,hi:3},dame16:{...numerical,label:'edition',v:r=>ctx.AUX.ed?r.value:null,auto:true,div:true,aux:'ed'},beta2:{...numerical,label:'model',div:true,lo:-.3,hi:.4},mine:{...numerical,label:'mine',user:true,lo:0,hi:1}};

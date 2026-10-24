@@ -3,7 +3,7 @@
     5. 3D Penning trap (rotatable hyperbolic electrodes + full 3D ion orbit)
     (6. chart of nuclides moved to {{< nuclide-chart >}}, AME2020/NUBASE2020)
     7. "You are radioactive" — ⁴⁰K and ¹⁴C activity of a human body
-  Labels for all five languages are in the dictionary below.
+  Labels for all six languages are in the dictionary below.
 */ -}}
 {{- $lang := site.Language.Lang -}}
 {{- $k := cond (hasPrefix $lang "zh") "zh" $lang -}}
@@ -23,6 +23,7 @@
  "ja" (dict "t3d" "3D ペニングトラップ" "n3d" "ドラッグで回転、スクロールで拡大。リング電極と2つのエンドキャップは回転双曲面です。イオンは軸方向振動（ν_z）、遅いマグネトロン運動（ν₋）、速い修正サイクロトロン運動（ν₊）を同時に行います。" "auto" "自動回転" "rp" "サイクロトロン半径" "rm" "マグネトロン半径" "az" "軸方向振幅" "pulse" "π パルス（ν₋ → ν₊）" "reset" "視点をリセット" "ratio" "ν₊ / ν₋" "speed" "速度" "trail" "軌跡の長さ" "ions" "イオン数" "spread" "質量差" "cool" "バッファーガス冷却" "dipole" "双極励起（ν₋）" "electrodes" "電極" "field" "磁力線" "detector" "検出器への投影" "top" "上から" "side" "横から" "iso" "3D" "n3d2" "π パルスは基準質量でのみ共鳴します——質量差があると他のイオンは一部しか変換されず、これが PI-ICR と TOF-ICR による同重体分離の原理です。"
    "tchart" "核図表" "nchart" "マスを指すと半減期と崩壊様式を表示、クリックで固定。線は魔法数と N = Z を示します。データ：ICRP-107 崩壊データと天然存在比（約1260核種の抜粋）。" "bymode" "崩壊様式で色分け" "byhl" "半減期で色分け" "stable" "安定" "hl" "半減期"
    "tbody" "あなたも放射性" "nbody" "体内にはカリウム40と炭素14が含まれています。体重を入れると、毎秒いくつ崩壊しているかが分かります。" "mass" "体重（kg）" "k40" "⁴⁰K の毎秒崩壊数" "c14" "¹⁴C の毎秒崩壊数" "total" "合計" "banana" "≈ バナナ本数" "day" "1日あたりの崩壊数" "bnote" "推定値：体重1 kgあたりカリウム 2 g、炭素 230 g；⁴⁰K ≈ 31 Bq/g K、¹⁴C ≈ 0.23 Bq/g C、バナナ1本 ≈ 15 Bq。まったく正常で無害です。")
+ "fr" (dict "t3d" "Piège de Penning 3D" "n3d" "Faites glisser pour tourner et utilisez la molette pour zoomer. L’électrode annulaire et les deux électrodes terminales sont des hyperboloïdes de révolution ; l’ion combine une oscillation axiale (ν_z), un mouvement magnétron lent (ν₋) et un mouvement cyclotron réduit rapide (ν₊)." "auto" "Rotation automatique" "rp" "Rayon cyclotron" "rm" "Rayon magnétron" "az" "Amplitude axiale" "reset" "Réinitialiser la vue" "ratio" "ν₊ / ν₋" "speed" "Vitesse" "trail" "Longueur de la trace" "ions" "Ions" "spread" "Dispersion de masse" "cool" "Refroidissement par gaz tampon" "dipole" "Impulsion dipolaire (ν₋)" "electrodes" "Électrodes" "field" "Lignes de champ" "detector" "Projection sur le détecteur" "top" "Dessus" "side" "Côté" "iso" "3D")
 -}}
 {{- $t := index $L $k | default (index $L "en") -}}
 <section class="zg-card zg-3d" data-trap3d>
@@ -60,5 +61,4 @@
 </section>
 {{/* This Lab-only partial shares the export helper supplied by the lab shortcode. */}}
 <script defer src="{{ "js/trap3d.js" | relURL }}"></script>
-
 

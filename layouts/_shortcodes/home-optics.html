@@ -27,7 +27,7 @@
   {{ else }}
   <figure aria-describedby="beam-line-optics-caption" style="max-width:38rem;margin:1rem auto">
     <a href="{{ $researchURL }}"><img src="{{ $D.image | relURL }}" alt="{{ $t.caption }}" width="{{ $D.width }}" height="{{ $D.height }}" loading="lazy" decoding="async" style="width:100%;height:auto"></a>
-    <figcaption id="beam-line-optics-caption"><a href="{{ $researchURL }}">{{ $t.short_title }}</a></figcaption>
+    <figcaption id="beam-line-optics-caption"><a href="{{ $researchURL }}">{{ $t.short_title }}</a><span style="display:block;margin-top:0.35rem">{{ $t.short_caption }}</span></figcaption>
   </figure>
   {{ end }}
 </section>

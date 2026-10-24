@@ -26,6 +26,13 @@ function ui(){
  return {adapter,policy,panel,click,paste,file,writes,saved,error:()=>panel.querySelector('.nc-mass-error').textContent};
 }
 const value=fixture=>fixture.adapter.table().active.get(state.id);
+test('explicit public append preserves existing rows, metadata and browser saves; replace validates before mutation',()=>{
+ const f=ui();f.paste(JSON.stringify([rows[0]]));
+ f.adapter.append([{nuclide:'116Sn',value:108,uncertainty:null,uncertainty_status:'unknown',input_origin:'typed-chart',unit:'keV',quantity:'me',label:'Typed',reference:'https://example.invalid/paper'}]);
+ assert.equal(f.adapter.rows().length,2);assert.equal(f.adapter.rows()[0].label,'A');assert.equal(value(f).me,108);assert.equal(value(f).e,null);assert.equal(f.adapter.rows()[1].reference,'https://example.invalid/paper');noSave(f);
+ assert.throws(()=>f.adapter.replace([{nuclide:'116Sn',value:10,uncertainty:-1}]),/sigma/);assert.equal(f.adapter.rows().length,2);assert.equal(value(f).me,108);
+ f.adapter.replace([rows[0]]);assert.equal(f.adapter.rows().length,1);assert.equal(value(f).me,100);noSave(f);
+});
 function portable(policy){const source=ui();source.policy.value=policy;source.paste(JSON.stringify(rows));source.click('json');return source.panel.querySelector('[name=nc-mass-json]').value;}
 function noSave(fixture){assert.deepEqual(fixture.writes,[]);assert.equal(fixture.saved['traps.measured-masses.v1'],'preserve existing browser save');}
 

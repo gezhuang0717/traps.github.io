@@ -4,7 +4,7 @@
   const P=host.ZGPhysics || (typeof require==='function'?require('./physics.js'):null);
   const MAX_ROWS=2000, MAX_TEXT=2*1024*1024;
   const fail=code=>{throw new Error(code);};
-  const fields=['use','nuclide','Z','N','state','value','uncertainty','unit','quantity','label','facility','method','year','reference','note','mixture'];
+  const fields=['use','nuclide','Z','N','state','value','uncertainty','unit','quantity','label','facility','method','year','reference','note','mixture','uncertainty_status','input_origin'];
   const flag=x=>x===true||x===1||/^(true|yes|1)$/i.test(String(x));
   function stateFor(row,catalog){
     let text=String(row.nuclide||'').trim().replace(/\s/g,'');
@@ -31,16 +31,17 @@
   function normalize(row,i,catalog){
     const state=stateFor(row,catalog), text=String(row.value??'').trim(), sig=String(row.uncertainty??row.sigma??'').trim();
     if(!text||!Number.isFinite(Number(text.replace(/#$/,''))))fail('value');
-    if(!sig||!Number.isFinite(Number(sig))||Number(sig)<=0)fail('sigma');
+    const unknown=row.uncertainty_status==='unknown'&&sig==='';
+    if(!unknown&&(!sig||!Number.isFinite(Number(sig))||(row.uncertainty_status==='reported'?Number(sig)<0:Number(sig)<=0)))fail('sigma');
     const quantity=String(row.quantity||'me').toLowerCase().replace(/[ _-]/g,'');
-    if(!['me','massexcess','atomic','atomicmass','mass','be','bindingenergy'].includes(quantity))fail('quantity');
+    if(!['me','massexcess','atomic','atomicmass','mass','be','bindingenergy','bea'].includes(quantity))fail('quantity');
     const unit=String(row.unit||'keV').replace(/μ/g,'µ').toLowerCase();
-    const factor={kev:1,mev:1000,u:P.C.uKeV,'µu':P.C.uKeV/1e6,micro_u:P.C.uKeV/1e6}[unit];
+    const factor={ev:.001,kev:1,mev:1000,u:P.C.uKeV,'µu':P.C.uKeV/1e6,micro_u:P.C.uKeV/1e6,'kev/nucleon':state.A,'mev/nucleon':state.A*1000}[unit];
     if(!factor)fail('unit');
-    const value=Number(text.replace(/#$/,''))*factor, atomic=['atomic','atomicmass','mass'].includes(quantity),binding=['be','bindingenergy'].includes(quantity);
-    if(binding&&!['kev','mev'].includes(unit))fail('beunit');
-    const me=binding?(state.Z*(catalog.atom(1,'H').value.v-1)+state.N*(catalog.atom(1,'n').value.v-1))*P.C.uKeV-value:value-(atomic?state.A*P.C.uKeV:0), e=Number(sig)*factor;
-    if(!Number.isFinite(me)||!Number.isFinite(e))fail('value');
+    const value=Number(text.replace(/#$/,''))*factor, atomic=['atomic','atomicmass','mass'].includes(quantity),binding=['be','bindingenergy','bea'].includes(quantity);
+    if(binding&&!(quantity==='bea'?['kev/nucleon','mev/nucleon']:['ev','kev','mev']).includes(unit)||quantity!=='bea'&&unit.endsWith('/nucleon'))fail('beunit');
+    const me=binding?(state.Z*(catalog.atom(1,'H').value.v-1)+state.N*(catalog.atom(1,'n').value.v-1))*P.C.uKeV-value:value-(atomic?state.A*P.C.uKeV:0), e=unknown?null:Number(sig)*factor;
+    if(!Number.isFinite(me)||e!==null&&!Number.isFinite(e))fail('value');
     const mixture=flag(row.mixture), use=row.use===undefined||row.use===''?!mixture:flag(row.use);
     return {state,id:state.id,row:i+1,me,e,est:text.endsWith('#'),use,mixture,
       label:`${state.A}${state.element}[${state.label}]`,raw:row};
@@ -52,6 +53,7 @@
     for(const [id,rs] of groups){
       const last=rs[rs.length-1];let entry={...last,rows:[last.row],birge:null};
       if(policy==='weighted'&&rs.length>1){
+        if(rs.some(r=>r.e===null||r.e<=0)){for(const r of rs)errors.push({row:r.row,code:'weighted_sigma'});continue;}
         const scale=Math.min(...rs.map(r=>r.e)),weights=rs.map(r=>(scale/r.e)**2),sum=weights.reduce((a,b)=>a+b,0);
         const mean=rs.reduce((a,r,i)=>a+weights[i]*r.me,0)/sum,inner=scale/Math.sqrt(sum);
         const chi2=rs.reduce((a,r)=>a+((r.me-mean)/r.e)**2,0),birge=Math.sqrt(chi2/(rs.length-1));
@@ -77,7 +79,8 @@
     return Object.entries(value?.terms||{}).map(([id,t])=>{
       const loaded=id.startsWith('loaded:')?table.active.get(id.split(':')[1]):null;
       return {id,coefficient:t.c,value_keV:t.v,uncertainty_keV:t.e,source:loaded?'loaded':'AME/model',rows:loaded?.rows||[],
-        references:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].reference||'')))]:[],labels:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].label||'New')))]:[]};
+        references:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].reference||'')))]:[],labels:loaded?[...new Set(loaded.rows.map(i=>String(table.raw[i-1].label||'New')))]:[],
+        inputs:loaded?loaded.rows.map(i=>{const r=table.raw[i-1];return {row:i,quantity:r.quantity||'me',value:r.value,uncertainty:r.uncertainty??r.sigma??null,unit:r.unit||'keV',uncertainty_status:r.uncertainty_status||'reported',input_origin:r.input_origin||'mass-table',label:r.label||'New',reference:r.reference||''};}):[]};
     });
   }
   function parseDelimited(text,sep){

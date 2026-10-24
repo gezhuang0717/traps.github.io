@@ -32,7 +32,7 @@ def test_figure_and_source_conditions_are_explicit_and_localized():
     assert d["width"] >= 1400
     assert set(d["text"]) == set(LANGS)
     for lang, values in d["text"].items():
-        for field in ("title", "short_title", "caption", "purpose", "inputs", "outputs", "gain", "hint", "limits"):
+        for field in ("title", "short_title", "short_caption", "caption", "purpose", "inputs", "outputs", "gain", "hint", "limits"):
             assert isinstance(values[field], str) and values[field].strip(), (lang, field)
         assert len(values["paragraphs"]) >= 3
         assert all(isinstance(x, str) and x.strip() for x in values["paragraphs"])
@@ -46,7 +46,8 @@ def test_figure_and_source_conditions_are_explicit_and_localized():
 class OpticsMarkup(HTMLParser):
     def __init__(self, text):
         super().__init__()
-        self.ids, self.images, self.links = [], [], []
+        self.ids, self.images, self.links, self.figcaptions = [], [], [], []
+        self._caption = None
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
@@ -57,6 +58,17 @@ class OpticsMarkup(HTMLParser):
             self.images.append(a)
         if tag == "a":
             self.links.append(a)
+        if tag == "figcaption":
+            self._caption = []
+
+    def handle_data(self, data):
+        if self._caption is not None:
+            self._caption.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "figcaption" and self._caption is not None:
+            self.figcaptions.append("".join(self._caption))
+            self._caption = None
 
 
 def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_assets(tmp_path):
@@ -96,6 +108,8 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         assert parsed.ids.count("beam-line-optics") == 1
         assert parsed.ids.count("beam-line-optics-guide") == 0
         assert parsed.ids.count("beam-line-optics-caption") == 1
+        assert len(parsed.figcaptions) == 1
+        assert parsed.figcaptions[0] == d["text"][lang]["short_title"] + d["text"][lang]["short_caption"]
         assert d["text"][lang]["short_title"] in html
         assert d["text"][lang]["paragraphs"][0] not in html
         assert d["source"]["citation"] not in html
@@ -111,8 +125,29 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         detail = OpticsMarkup(detailed)
         assert len(detail.ids) == len(set(detail.ids))
         assert detail.ids.count("beam-line-optics-guide") == 1
+        assert detail.figcaptions == [d["text"][lang]["caption"]]
+        assert d["text"][lang]["short_caption"] not in detailed
         assert d["text"][lang]["title"] in detailed
         assert d["source"]["citation"] in detailed
         assert any(a.get("href") == d["source"]["url"] for a in detail.links)
         assert not any(".pdf" in a.get("href", "").lower() for a in parsed.links + detail.links)
         assert "114003" not in html + detailed and "adf1f5" not in html + detailed
+
+
+def test_short_home_caption_names_two_methods_and_localized_transport_colour_key():
+    d = json.loads((ROOT / "data/home_optics.json").read_text())
+    localized = {
+        "en": ("beam-line", "storage ring", "Beam-transport simulation", "red/green/blue", "+0.3%/0%/−0.3%"),
+        "zh": ("束流线", "储存环", "束流传输模拟", "红／绿／蓝", "+0.3%／0%／−0.3%"),
+        "fi": ("suihkulinjan", "varastorenkaan", "Suihkunsiirron simulaatio", "punainen/vihreä/sininen", "+0,3 %/0 %/−0,3 %"),
+        "de": ("Strahlführung", "Speicherring", "Strahltransportsimulation", "Rot/Grün/Blau", "+0,3 %/0 %/−0,3 %"),
+        "ja": ("ビームライン", "蓄積リング", "ビーム輸送シミュレーション", "赤・緑・青", "+0.3%・0%・−0.3%"),
+        "fr": ("ligne de faisceau", "anneau de stockage", "Simulation du transport", "rouge/vert/bleu", "+0,3 %/0 %/−0,3 %"),
+    }
+    for lang, tokens in localized.items():
+        caption = d["text"][lang]["short_caption"]
+        assert all(token in caption for token in tokens), lang
+        assert all(token in caption for token in ("Bρ–TOF", "IMS", "¹⁰⁰Sn", "175 MeV/u", "δp/p")), lang
+        assert len(caption) < 300, lang
+        assert "http" not in caption and "2019" not in caption
+    assert len({v["short_caption"] for v in d["text"].values()}) == len(LANGS)

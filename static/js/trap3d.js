@@ -16,11 +16,15 @@
   function makeIons() {
     const n=+q("ions").value,spread=+q("spread").value/100;
     ions=Array.from({length:n},(_,i)=>({m:i===0?1:1+spread*(2*i/n-1),phz:2*Math.PI*i/n,trail:[],plus:[+q("rp").value/100,0],minus:[+q("rm").value/100*Math.cos(2*Math.PI*i/n),+q("rm").value/100*Math.sin(2*Math.PI*i/n)],axial:+q("az").value/100}));
-    t=0;pulse=null;dip=0;
+    t=0;pulse=null;dip=0;last=0;
+    // A restart while paused still shows the actual initial ion positions.
+    ions.forEach(o=>{const f=M.modes(+q('ratio').value,o.m);if(f)o.trail.push(M.point(o,f,0));});
   }
   const control=s=>root.querySelector(s);
+  const pauseButton=control('[data-motion-action="pause"]'),resetButton=control('[data-motion-action="reset"]');
+  const setPaused=value=>{paused=value;pauseButton.setAttribute('aria-pressed',String(paused));};setPaused(paused);
   function liveRadii(){const o=ions[0];if(!o)return;for(const [k,value] of [["rp",100*M.radius(o.plus)],["rm",100*M.radius(o.minus)],["az",100*o.axial]]){const r=q(k);if(value>+r.max){r.max=Math.ceil(value);if(r._number)r._number.max=r.max;}r.value=value;r.parentElement.querySelector('output').textContent=value.toFixed(2);if(r._number)r._number.value=value.toFixed(2);}}
-  function begin(a,T=8){paused=false;if(a==='pulse')pulse={elapsed:0,T};if(a==='dipole')dip=8;}
+  function begin(a,T=8){setPaused(false);if(a==='pulse')pulse={elapsed:0,T};if(a==='dipole')dip=8;}
   function P(x, y, z) {
     const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     const x1 = x * cy - y * sy, y1 = x * sy + y * cy, y2 = y1 * cp - z * sp, z2 = y1 * sp + z * cp;
@@ -104,11 +108,11 @@
       recordText=['r+0='+Number(q('rp').value).toFixed(2)+'; r−0='+Number(q('rm').value).toFixed(2)+'; z0='+Number(q('az').value).toFixed(2)+' (% of display scale)', 'ratio='+q('ratio').value+'; speed='+q('speed').value+'; ions='+q('ions').value+'; '+process];
       if(process!=='current'){makeIons();liveRadii();q('cool').checked=process==='gas'||process==='sideband';control('[data-sideband]').checked=process==='sideband';}
       cv.width=LW()*3;cv.height=LH()*3;draw();
-      zgExport.record(cv,seconds,'penning-3d-'+process,r=>{recording=r;b.disabled=r;b.classList.toggle('is-rec',r);if(r){paused=false;if(process==='pulse')begin('pulse',seconds*(+q('speed').value)*.75);if(process==='kick')begin('dipole');draw();recordingCaption();}else{paused=was;cv.width=w;cv.height=h;draw();}});
+      zgExport.record(cv,seconds,'penning-3d-'+process,r=>{recording=r;b.disabled=r;resetButton.disabled=r;b.classList.toggle('is-rec',r);if(r){setPaused(false);if(process==='pulse')begin('pulse',seconds*(+q('speed').value)*.75);if(process==='kick')begin('dipole');draw();recordingCaption();}else{setPaused(was);cv.width=w;cv.height=h;draw();}});
     }
   });
-  control('[data-motion-action="pause"]').onclick=()=>{paused=!paused;control('[data-motion-action="pause"]').setAttribute('aria-pressed',String(paused));};
-  control('[data-motion-action="reset"]').onclick=()=>{q('rp').value=25;q('rm').value=65;q('az').value=45;makeIons();liveRadii();};
+  pauseButton.onclick=()=>setPaused(!paused);
+  resetButton.onclick=()=>{if(resetButton.disabled)return;q('rp').value=25;q('rm').value=65;q('az').value=45;q('cool').checked=false;control('[data-sideband]').checked=false;makeIons();liveRadii();setPaused(paused);draw();};
   ["ions", "spread", "rp", "rm", "az"].forEach(n => q(n).addEventListener("input", makeIons));
   root.querySelectorAll("input[type=range]").forEach(r => { const o = r.parentElement.querySelector("output"); if (o) { const u = () => (o.textContent = r.step==="1"||["ions","trail"].includes(r.name)?r.value:(+r.value).toFixed(2)); r.addEventListener("input",u);u();const n=document.createElement('input');n.type='number';n.min=r.min;n.max=r.max;n.step=r.step||'1';n.value=o.textContent;n.className='zg-motion-number';n.setAttribute('aria-label',r.parentElement.childNodes[0].textContent.trim());r.after(n);r._number=n;r.addEventListener('input',()=>n.value=o.textContent);n.addEventListener('input',()=>{if(n.value!==''&&n.validity.valid){r.value=n.value;r.dispatchEvent(new Event('input'));}}); } });
   /* logical size follows the card width (height ≤ 80 % of the window); backing store at ≥ 2× for sharp lines */

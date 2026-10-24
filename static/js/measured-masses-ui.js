@@ -27,7 +27,7 @@
       body.innerHTML=raw.slice(page*50,page*50+50).map((r,j)=>{
         const i=page*50+j;
         const options=(f,values)=>{const current=r[f]||({unit:'keV',quantity:'me'}[f]);return `<select data-row="${i}" data-field="${f}" aria-label="${esc(T['loaded_'+f]||f)} ${i+1}">${values.some(([v])=>v===current)?'':`<option value="${esc(current)}" selected>${esc(current)} ⚠</option>`}${values.map(([v,label])=>`<option value="${v}" ${v===current?'selected':''}>${esc(label)}</option>`).join('')}</select>`;};
-        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label><button type="button" class="zg-btn zg-btn-ghost nc-row-impact" data-inspect="${i}" disabled>${esc(T.loaded_impact_row)}</button></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['u','u'],['µu','µu']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['atomic',T.loaded_atomic]])}</td><td>${control(i,'label',r.label||'New')}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
+        return `<tr><td>${i+1} ${control(i,'use',r.use===undefined||r.use===''?!flag(r.mixture):r.use,'checkbox')}</td><td>${control(i,'nuclide',r.nuclide)}<label class="zg-small">${control(i,'mixture',r.mixture,'checkbox')}${esc(T.loaded_mixture)}</label><button type="button" class="zg-btn zg-btn-ghost nc-row-impact" data-inspect="${i}" disabled>${esc(T.loaded_impact_row)}</button></td><td>${control(i,'value',r.value)}</td><td>${control(i,'sigma',r.uncertainty??r.sigma)}</td><td>${options('unit',[['keV','keV'],['MeV','MeV'],['eV','eV'],['u','u'],['µu','µu'],['keV/nucleon','keV/nucleon'],['MeV/nucleon','MeV/nucleon']])}</td><td>${options('quantity',[['me',T.loaded_me],['be',T.loaded_be],['bea',T.m_bea],['atomic',T.loaded_atomic]])}</td><td>${control(i,'label',r.label||'New')}</td><td>${control(i,'reference',r.reference)}<details><summary>${esc(T.loaded_facility)}</summary>${['facility','method','year','note'].map(f=>`<label>${esc(f)}${control(i,f,r[f])}</label>`).join('')}</details></td><td class="nc-row-status" data-row-status="${i}"></td><td><button type="button" class="zg-btn zg-btn-ghost" data-remove="${i}" aria-label="${esc(T.loaded_remove)} ${i+1}">×</button></td></tr>`;
       }).join('');
       pager.innerHTML=raw.length>50?`<button type="button" data-page="-1" ${page===0?'disabled':''}>←</button><span>${page*50+1}–${Math.min(raw.length,page*50+50)} / ${raw.length}</span><button type="button" data-page="1" ${page*50+50>=raw.length?'disabled':''}>→</button>`:'';
       rowStatus();
@@ -42,7 +42,7 @@
         inspect.disabled=!(r?.use&&entry?.rows.includes(r.row));
         inspect.setAttribute('aria-label',T.loaded_impact_row+' · '+(r?.label||raw[i]?.nuclide||String(i+1)));
         inspect.title=inspect.disabled?T.loaded_inactive:T.loaded_impact;
-        if(e){cell.textContent=T.loaded_errors[e.code]||e.code;cell.classList.add('nc-invalid');continue;}
+        if(e){cell.textContent=e.code==='weighted_sigma'?T.mine_weighted_sigma:T.loaded_errors[e.code]||e.code;cell.classList.add('nc-invalid');continue;}
         cell.classList.remove('nc-invalid');if(!r){cell.textContent='';continue;}
         const a=table.active.get(r.id),gs=MM.getter(table,base)(r.state.Z,r.state.N),ame=base(r.state.Z,r.state.N);
         const compare=r.state.source_state_index?gs:ame;
@@ -58,7 +58,7 @@
       if(table.active.size&&previousActive===0){root.querySelector('[data-series=loaded]').checked=true;root.querySelector('[data-series=hybrid]').checked=true;}previousActive=table.active.size;
       onchange(table);
       const seq=++revision;
-      const canonical=raw.map((r,i)=>{const v=table.valid.find(v=>v.row===i+1);return v?{id:v.id,ME_keV:v.me,sigma_keV:v.e,use:v.use,mixture:v.mixture,estimated:v.est,reference:r.reference||'',label:r.label||'New',facility:r.facility||'',method:r.method||'',year:String(r.year||''),note:r.note||''}:r;});
+      const canonical=raw.map((r,i)=>{const v=table.valid.find(v=>v.row===i+1);return v?{id:v.id,ME_keV:v.me,sigma_keV:v.e,use:v.use,mixture:v.mixture,estimated:v.est,reference:r.reference||'',label:r.label||'New',facility:r.facility||'',method:r.method||'',year:String(r.year||''),note:r.note||'',input_quantity:r.quantity||'me',input_unit:r.unit||'keV',input_value:r.value,input_uncertainty:r.uncertainty??r.sigma??null,uncertainty_status:r.uncertainty_status||'reported',input_origin:r.input_origin||'mass-table'}:r;});
       if(host.crypto?.subtle)host.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({rows:canonical,policy:policy.value}))).then(b=>{if(seq!==revision)return;hash=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');rowStatus();}).catch(()=>{});
     }
     function replace(rows){raw=rows.map(r=>{r={...r};try{const st=MM.stateFor(r,catalog);r.nuclide=st.A+st.element+'['+st.label+']';delete r.Z;delete r.N;delete r.state;}catch(_){}r.unit=({kev:'keV',mev:'MeV',u:'u','µu':'µu','μu':'µu'}[String(r.unit||'keV').toLowerCase()]||r.unit);r.quantity=/^(?:atomic(?:[ _-]?mass)?|mass)$/i.test(r.quantity||'')?'atomic':/^(?:be|binding[ _-]?energy)$/i.test(r.quantity||'')?'be':/^(?:me|mass[ _-]?excess)$/i.test(r.quantity||'')?'me':r.quantity||'me';return r;});page=0;update();render();}
@@ -75,6 +75,7 @@
       const input=e.target.closest('[data-field]');if(!input)return;
       const r=raw[+input.dataset.row];if(!r)return;const f=input.dataset.field==='sigma'?'uncertainty':input.dataset.field;
       r[f]=input.type==='checkbox'?input.checked:input.value;
+      if(f==='uncertainty'&&r.input_origin==='typed-chart')r.uncertainty_status=String(r[f]).trim()===''?'unknown':'reported';
       if(f==='nuclide'){delete r.Z;delete r.N;delete r.state;}
       if(f==='mixture'&&input.checked){r.use=false;body.querySelector(`[data-row="${input.dataset.row}"][data-field=use]`).checked=false;}
       clearTimeout(timer);if(e.type==='change')update();else timer=setTimeout(update,120);
@@ -109,7 +110,12 @@
       return `<div class="nc-loaded-card"><strong>★ ${esc(T.loaded_title)}</strong>`+rs.map(r=>{const baseValue=r.state.source_state_index?MM.getter(table,base)(z,n):base(z,n),d=baseValue?P.combine([1,r.value],[-1,baseValue]):null;return `<p>${esc(r.label)}: ME ${fmt(r.me)} ± ${fmt(r.e)} keV; ${r.state.source_state_index?'Eₓ':'Δ(new − AME)'} ${d?fmt(d.v)+' ± '+fmt(d.e):'—'} keV · ${esc(r.rows.map(i=>raw[i-1].reference||'row '+i).join('; '))}</p>`;}).join('')+'</div>';
     }
     render();
-    return {flush:()=>{if(timer)update();},table:()=>table,hash:()=>hash,legend:()=>[...table.active.values()].map(r=>({id:r.id,text:r.rows.map(i=>String(raw[i-1].label||'New')).filter((x,i,a)=>a.indexOf(x)===i).join(' / ')+' · '+r.label+': ME '+fmt(r.me)+' ± '+fmt(r.e)+' keV'})),annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
+    function acceptRows(rows,append){
+      if(timer)update();if(!Array.isArray(rows)||(append?raw.length:0)+rows.length>MM.MAX_ROWS)throw new Error('limit');
+      rows.forEach((row,i)=>MM.normalize(row,i,catalog)); // Validate before changing the working table.
+      replace(append?raw.concat(rows):rows);return table;
+    }
+    return {append:rows=>acceptRows(rows,true),replace:rows=>acceptRows(rows,false),rows:()=>raw.map(r=>({...r})),flush:()=>{if(timer)update();},table:()=>table,hash:()=>hash,legend:()=>[...table.active.values()].map(r=>({id:r.id,text:r.rows.map(i=>String(raw[i-1].label||'New')).filter((x,i,a)=>a.indexOf(x)===i).join(' / ')+' · '+r.label+': ME '+fmt(r.me)+' ± '+fmt(r.e)+' keV'})),annotation,marked:(z,n)=>panel.querySelector('[name=nc-mass-markers]').checked&&[...table.active.values()].some(r=>r.state.Z===z&&r.state.N===n)};
   }
   host.ZGMeasuredMassUI={attach};
 })(typeof window!=='undefined'?window:globalThis);

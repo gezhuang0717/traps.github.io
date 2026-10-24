@@ -102,7 +102,7 @@
     const known = r[4] != null && m[1] != null;
     return { v: r[3] - m[0], e: known ? Math.hypot(r[4], m[1]) : null, est: !!(r[5] || m[2]) };
   };
-  const USER = { map: new Map(), column: "", rows: [], parsed: null };  /* the visitor's own table, drawn as a colour layer */
+  const USER = { map: new Map(), column: "", rows: [], parsed: null, typed: null };  /* independent typed observable; mass adoption is explicit */
   let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
   /* Default scalar colour range: every finite available value, including extrema. The 2–98% window is an explicit opt-in button.
      Do not cache a fallback before an overlay/model table has loaded. Manual bounds always take precedence. */
@@ -664,6 +664,7 @@
   /* ---------- chain plot with error bars ---------- */
   const PQ = {
     me: [T.m_me, d => d.me, "MeV"], be: [T.mf_be, d => d.BE, "MeV"], bea: [T.m_bea, d => d.BEA, "MeV/nucleon"], sn: ["Sₙ", d => d.sn, "MeV"], s2n: ["S₂ₙ", d => d.s2n, "MeV"],
+    atomic: [T.loaded_atomic, d => d.me ? P.combine([1000/P.C.uKeV,d.me],[1000,P.constant(d.A)]) : null, "u"],
     sp: ["Sₚ", d => d.sp, "MeV"], s2p: [T.mf_s2p, d => d.s2p, "MeV"], qbm: ["Q(β⁻)", d => d.qbm, "MeV"], qec: ["Q(EC)", d => d.qec, "MeV"],
     qa: ["Q(α)", d => d.qa, "MeV"], d2n: ["δ₂ₙ = S₂ₙ(N) − S₂ₙ(N+2)", d => d.d2n, "MeV"], dme: [T.m_dme, d => d.me?.e == null ? null : { v: d.me.e * 1000, e: null, est: d.me.est || d.me.sigmaEst, sigmaEst: d.me.sigmaEst, source: d.me.source, uncertainty_model: 'mass standard uncertainty; uncertainty of the uncertainty unavailable' }, "keV"],
     hl: ["log₁₀(T½ / s)", (d, r) => r[6] > -90 && r[6] !== 99 ? { v: r[6] * 1000, e: 0, est: false } : null, ""],
@@ -683,7 +684,7 @@
   PQ.e2p = [linear(T.m_e2p), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.E, a.sE) : null; }, "keV"];
   PQ.be2 = [linear(T.m_be2), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.b, a.sb) : null; }, "e²b²"];
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
-  PQ.mine = [T.m_mine, (d, r) => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : { v: x * 1000, e: null, est: false }; }, ""];
+  PQ.mine = [T.m_mine, () => null, ""]; // Custom values are an independent series, never an evaluated reference.
   for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
   // underlying mass separate for filtering, input labels and CSV provenance.
@@ -707,12 +708,14 @@
     return {key,...labelStyles.get(key)};
   }
   labelStyle();
+  const referenceName=()=>['rms','mu','qmom'].includes(pq.value)?'IAEA LiveChart':['e2p','be2','beta2e'].includes(pq.value)?'NNDC B(E2)':pq.value==='mine'?T.mine_no_reference:'AME2020';
   const seriesMeta=(k,labels)=>{
+    if(k==='mine')return {id:k,key:k,name:USER.typed?.label||T.m_mine,short:USER.typed?.label||T.m_mine,color:'#b41c81',shape:'diamond'};
     if(['loaded','hybrid'].includes(k)){
       const style=labelStyle(labels),name=style.labels.join(' / ')+(k==='hybrid'?' + AME2020':'');
       return {id:k,key:k+':'+style.key,labelKey:style.key,name,short:name,color:style.color,shape:style[k],open:false};
     }
-    return k==='ame'?{id:k,key:k,name:'AME2020',short:'AME2020',color:'#3b5bdb',shape:'circle'}:{id:k,key:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
+    return k==='ame'?{id:k,key:k,name:referenceName(),short:referenceName(),color:'#3b5bdb',shape:'circle'}:{id:k,key:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
   };
   const inSeries=(p,s)=>p.styleKey===s.key;
   const chainColor=group=>{const groups=plotPts.groups||[];return groups.length>1?'hsl('+groups.indexOf(group)/groups.length*300+',75%,45%)':'#3b5bdb';};
@@ -753,6 +756,7 @@
   const legendHeight=w=>16*(seriesLegendLines(w).length+inputLegendLines(w).length);
   const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc));
   function humanInputs(p){
+    if(p.typed_provenance){const r=p.typed_provenance;return r.inputValue+' ± '+(r.inputSigma??T.mine_unknown)+' '+r.inputUnit+' · '+r.quantity+(r.reference?' · '+r.reference:'');}
     return MM.provenance(p.dependencyValue||p.valueObj,inputTable).map(x=>{
       const loaded=x.id.startsWith('loaded:')?inputTable.active.get(x.id.split(':')[1]):null;
       const r=M.get(Number(x.id.split(':').pop()));
@@ -840,6 +844,11 @@
     const belongs=(z,n)=>group(z,n)>=first&&group(z,n)<first+shown;
     const inX=(z,n)=>(xlo==null||xv(z,n)>=xlo)&&(xhi==null||xv(z,n)<=xhi);
     const advanced=shown<=6,filter=chainInput('exp-filter').value,maxSigma=axisNumber('max-sigma');
+    const ownMatches=!!USER.typed&&(USER.typed.quantity==='custom'?'mine':USER.typed.quantity)===pq.value;
+    const ownControl=root.querySelector('[data-series=mine]');ownControl.disabled=!ownMatches;
+    root.querySelector('[data-series-mine-label]').textContent=USER.typed?.label||T.m_mine;
+    root.querySelector('[data-series-reference-label]').textContent='● ○# '+referenceName();
+    root.querySelector('[data-series=ame]').disabled=pq.value==='mine';
     const hasNewGround=!!inputTable&&[...inputTable.active.values()].some(r=>!r.state.source_state_index);
     [...inputTable?.active.values()||[]].filter(r=>!r.state.source_state_index).map(r=>MM.labels(r.value,inputTable)).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b))).forEach(labels=>labelStyle(labels));
     for(const s of ['loaded','hybrid']){
@@ -865,6 +874,7 @@
     plotPts=[];modPts=[];residualPts=[];bands=[];plotHover=null;pointDetail(null);
     const centres=new Map(rows.filter(r=>belongs(r[0],r[1])).map(r=>[key(r[0],r[1]),r]));
     for(const r of inputTable?.active.values()||[])if(!r.state.source_state_index&&belongs(r.state.Z,r.state.N)&&!centres.has(key(r.state.Z,r.state.N)))centres.set(key(r.state.Z,r.state.N),[r.state.Z,r.state.N,r.state.element,null,null,0,-97,'—','',null,'',[]]);
+    if(ownMatches)for(const r of USER.typed.rows)if(belongs(r.Z,r.N)&&!centres.has(key(r.Z,r.N)))centres.set(key(r.Z,r.N),[r.Z,r.N,(EL.find(e=>e[0]===r.Z)||[r.Z,'Z'+r.Z])[1],null,null,0,-97,'—','',null,'',[]]);
     for(const s of ['ame','loaded','hybrid']){
       if(!root.querySelector('[data-series='+s+']').checked||s!=='ame'&&(!advanced||!hasNewGround))continue;
       if(s!=='ame'&&['hl','beta2','dmod',...EXPQ].includes(pq.value))continue;
@@ -872,6 +882,11 @@
         if(!inX(r[0],r[1])||s==='loaded'&&!inputTable?.active.has(r[0]+'-'+r[1]+'-0'))continue;
         const p=makePoint(r,s);if(p)plotPts.push(p);
       }
+    }
+    if(ownMatches&&ownControl.checked)for(const u of USER.typed.rows){
+      if(!belongs(u.Z,u.N)||!inX(u.Z,u.N))continue;
+      const r=centres.get(key(u.Z,u.N)),style=seriesMeta('mine');
+      plotPts.push({r,x:xv(u.Z,u.N),y:u.value,e:u.sigma,est:false,g:group(u.Z,u.N),series:'mine',styleKey:style.key,labels:[u.label||T.m_mine],source:style.name,typed_provenance:u,valueObj:{v:u.value*1000,e:u.sigma===null?null:u.sigma*1000,est:false,uncertainty_model:'user-reported standard uncertainty; unknown stays unknown; no covariance supplied'}});
     }
     const modelKeys=selectedModels();
     const modelReason=modelKeys.length&&!advanced?T.loaded_cap:modelKeys.length&&['dme','hl','dmod',...EXPQ].includes(pq.value)?T.model_quantity:modelKeys.some(k=>modelErrors.has(k))?T.loaded_model_error:modelKeys.some(k=>!MOD[k])?T.loaded_model_loading:'';
@@ -894,8 +909,8 @@
     if(chainInput('band').checked){
       bands=CP.experimentalBands(plotPts);
     }
-    if(chainInput('residual').checked&&!['hl','dme','dmod','beta2',...EXPQ].includes(pq.value)){
-      for(const p of plotPts.concat(modPts).filter(p=>p.series!=='ame')){
+    if(chainInput('residual').checked&&!['hl','dme','dmod','beta2','atomic',...EXPQ].includes(pq.value)){
+      for(const p of plotPts.concat(modPts).filter(p=>!['ame','mine'].includes(p.series))){
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
         if(filter==='measured'&&d.est)continue;
@@ -1121,7 +1136,7 @@
     if(!plotDomain)return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst];}),'chain-'+pq.value);
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst];}),'chain-'+pq.value);
   };
 
   /* ---------- events ---------- */
@@ -1204,7 +1219,7 @@
   /* ---- manual colour range and the visitor's own data layer ---- */
   {
     const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]');
-    const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData;
+    const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData, TD=window.ZGChartTypedData;
     const redraw = () => { memo.clear(); drawLegend(); draw(); };
     const clearValidity = () => { [minI, maxI].forEach(e => { e.setCustomValidity(""); e.removeAttribute("aria-invalid"); }); };
     function syncRange() {
@@ -1236,24 +1251,70 @@
     syncRange();
     // own data
     const symbolMap = () => new Map((EL || []).map(e => [e[1], e[0]]));
-    function build() {
-      const col = colS.value, map = new Map(); let matched = 0;
-      for (const r of USER.parsed.rows) { const v = r.values[col]; if (v === undefined) continue; map.set(key(r.Z, r.N), v); if (M.has(key(r.Z, r.N))) matched++; }
-      USER.map = map; USER.column = col; autoCache.clear();
-      const rg = UD.range([...map.values()]); if (rg) { MODES.mine.lo = rg[0]; MODES.mine.hi = rg[1] > rg[0] ? rg[1] : rg[0] + 1; }
-      status.textContent = (T.mine_status || "{m} of {n} rows are on the chart; {e} skipped").replace("{m}", matched).replace("{n}", map.size).replace("{e}", USER.parsed.errors.length) + (USER.parsed.errors.length ? " — #" + USER.parsed.errors[0].line + " " + USER.parsed.errors[0].message : "");
-      manualRange = null; if (mode !== "mine") { sel.value = "mine"; sel.onchange(); } else { syncRange(); redraw(); }
+    const quantityS=q('nc-mine-quantity'),unitS=q('nc-mine-unit'),sigmaS=q('nc-mine-sigma'),customUnit=q('nc-mine-custom-unit'),labelI=q('nc-mine-label'),referenceI=q('nc-mine-reference');
+    const appendB=root.querySelector('[data-nc=mine-append]'),replaceB=root.querySelector('[data-nc=mine-replace]');
+    const option=(value,text)=>Object.assign(document.createElement('option'),{value,textContent:text});
+    quantityS.replaceChildren(option('custom',T.mine_custom),...Object.keys(TD.specs).filter(k=>PQ[k]).map(k=>option(k,PQ[k][0])));
+    function syncUnits(preferred){
+      unitS.replaceChildren(...TD.units(quantityS.value).map(u=>option(u,u==='custom'?T.mine_custom:u)));
+      if(TD.units(quantityS.value).includes(preferred))unitS.value=preferred;
+      root.querySelector('.nc-mine-custom-unit').hidden=quantityS.value!=='custom';
     }
-    function apply() {
-      try {
-        const parsed = UD.parse(ta.value, { symbolToZ: symbolMap() });
-        if (!parsed.rows.length) { status.textContent = parsed.errors.length ? (T.error_prefix || "Check input: ") + parsed.errors[0].message : (T.mine_empty || "Paste or load a table first"); return; }
-        USER.parsed = parsed; colS.replaceChildren(...parsed.valueColumns.map(c => Object.assign(document.createElement("option"), { value: c, textContent: c }))); build();
-      } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; }
+    syncUnits();
+    const options=()=>({quantity:quantityS.value,unit:unitS.value,customUnit:customUnit.value,valueColumn:colS.value,sigmaColumn:sigmaS.value,label:labelI.value,reference:referenceI.value});
+    function inputError(e){status.textContent=(T.error_prefix||'Check input: ')+(T['mine_error_'+e.message]||e.message);appendB.disabled=replaceB.disabled=true;}
+    function columns(parsed,value=colS.value,sigma=sigmaS.value){
+      colS.replaceChildren(...parsed.valueColumns.map(c=>option(c,c)));if(parsed.valueColumns.includes(value))colS.value=value;
+      sigmaS.replaceChildren(option('',T.mine_unknown),...parsed.valueColumns.map(c=>option(c,c)));if(parsed.valueColumns.includes(sigma)&&sigma!==colS.value)sigmaS.value=sigma;
+    }
+    function build(focus=false){
+      if(!USER.parsed)return false;
+      try{
+        const typed=TD.adapt(USER.parsed,options()),map=new Map(typed.rows.map(r=>[key(r.Z,r.N),r.value]));
+        USER.typed=typed;USER.map=map;USER.column=colS.value;autoCache.clear();
+        const matched=typed.rows.filter(r=>M.has(key(r.Z,r.N))).length,rg=UD.range([...map.values()]);
+        if(rg){MODES.mine.lo=rg[0];MODES.mine.hi=rg[1]>rg[0]?rg[1]:rg[0]+1;}
+        MODES.mine.label=T.m_mine+' ('+typed.unit+')';
+        const colourOption=sel.querySelector('option[value=mine]');if(colourOption)colourOption.textContent=MODES.mine.label;
+        PQ.mine[0]=typed.label||T.m_mine;PQ.mine[2]=typed.unit;
+        appendB.disabled=replaceB.disabled=!typed.massAdoptable;
+        const preview=root.querySelector('.nc-mine-preview');preview.textContent='';
+        if(typed.massAdoptable){
+          try{preview.textContent=T.mine_conversion_preview+' '+TD.massRows(typed).slice(0,3).map((r,i)=>{const normalized=MM.normalize(r,i,catalog);return (r.Z+r.N)+(EL.find(e=>e[0]===r.Z)||[r.Z,'Z'+r.Z])[1]+': '+r.quantity+' = '+r.value+' ± '+(r.uncertainty??T.mine_unknown)+' '+r.unit+(r.quantity==='bea'?' · BE = '+Number((r.value*(r.Z+r.N)).toPrecision(10))+' '+r.unit.replace('/nucleon',''):'')+' → ME = '+Number(normalized.me.toPrecision(10))+' ± '+(normalized.e===null?T.mine_unknown:Number(normalized.e.toPrecision(8)))+' keV';}).join('; ');}catch(e){preview.textContent=T.mine_conversion_preview+' '+(T.loaded_errors[e.message]||e.message);appendB.disabled=replaceB.disabled=true;}
+        }
+        status.textContent=T.mine_status.replace('{m}',matched).replace('{n}',map.size).replace('{e}',USER.parsed.errors.length+typed.errors.length)+' · '+(typed.label||T.m_mine)+' · '+(typed.quantity==='custom'?T.mine_custom:PQ[typed.quantity][0])+' ('+typed.unit+') · '+T.mine_unknown_count.replace('{n}',typed.rows.filter(r=>r.sigma===null).length)+(USER.parsed.duplicates?' · '+T.mine_duplicates.replace('{n}',USER.parsed.duplicates):'');
+        manualRange=null;pq.value=typed.quantity==='custom'?'mine':typed.quantity;
+        if(focus){const u=typed.rows[0];chainInput('range').checked=false;root.querySelector('.nc-prange-in').hidden=true;chainInput('xscale').value='data';chainInput('yscale').value='data';chain=M.get(key(u.Z,u.N))||[u.Z,u.N,(EL.find(e=>e[0]===u.Z)||[u.Z,'Z'+u.Z])[1]];}
+        if(mode!=='mine'){sel.value='mine';sel.onchange();}else{syncRange();redraw();}
+        pq.onchange();return true;
+      }catch(e){inputError(e);return false;}
+    }
+    function apply(){
+      try{
+        let text=ta.value,settings=null;
+        if(/^\s*\{/.test(text)&&JSON.parse(text).schema==='traps.typed-data.v1'){
+          settings=TD.restore(text);text=settings.text;
+          TD.adapt(UD.parse(text,{symbolToZ:symbolMap()}),settings.options); // Reject invalid units/settings before touching the working controls.
+        }
+        const parsed=UD.parse(text,{symbolToZ:symbolMap()});if(!parsed.rows.length)throw Error('rows');
+        if(settings){
+          const o=settings.options;quantityS.value=o.quantity||'custom';syncUnits(o.unit);customUnit.value=o.customUnit||'';labelI.value=o.label||'';referenceI.value=o.reference||'';ta.value=text;
+          columns(parsed,o.valueColumn,o.sigmaColumn);
+          for(const control of root.querySelectorAll('[data-series],[data-model-series]')){const id=control.dataset.series||'model:'+control.dataset.modelSeries;if(typeof settings.series?.[id]==='boolean')control.checked=settings.series[id];}
+        }else columns(parsed);
+        USER.parsed=parsed;build(true);if(settings)Promise.allSettled(selectedModels().map(k=>loadModels(k))).then(()=>plotChain());
+      }catch(e){inputError(e);}
     }
     root.querySelector('[data-nc="mine-apply"]').onclick = apply;
-    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = null; autoCache.clear(); manualRange = null; ta.value = ""; colS.replaceChildren(); status.textContent = ""; if (mode === "mine") { syncRange(); redraw(); } };
-    colS.onchange = () => { if (USER.parsed) build(); };
+    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = USER.typed = null; autoCache.clear(); manualRange = null; ta.value = ""; colS.replaceChildren();sigmaS.replaceChildren(option('',T.mine_unknown));appendB.disabled=replaceB.disabled=true; status.textContent = "";root.querySelector('.nc-mine-preview').textContent=''; if (mode === "mine") { syncRange(); redraw(); }plotChain(); };
+    colS.onchange=()=>{if(sigmaS.value===colS.value)sigmaS.value='';build();};sigmaS.onchange=unitS.onchange=()=>build();
+    quantityS.onchange=()=>{syncUnits();build();};for(const input of [customUnit,labelI,referenceI])input.addEventListener('change',()=>build());
+    for(const [button,method]of [[appendB,'append'],[replaceB,'replace']])button.onclick=()=>{
+      try{if(!build())return;const table=measured[method](TD.massRows(USER.typed));status.textContent+=' · '+T.mine_adopted.replace('{n}',USER.typed.rows.length)+(table.errors.some(e=>e.code==='weighted_sigma')?' · '+T.mine_weighted_sigma:'');}catch(e){inputError(e);}
+    };
+    root.querySelector('[data-nc=mine-save]').onclick=()=>{
+      try{if(!build())return;const checked={};for(const control of root.querySelectorAll('[data-series],[data-model-series]'))checked[control.dataset.series||'model:'+control.dataset.modelSeries]=control.checked;X.save(new Blob([JSON.stringify(TD.portable(ta.value,options(),checked),null,2)],{type:'application/json'}),'typed-chart-input-'+X.stamp()+'.json');}catch(e){inputError(e);}
+    };
     fileI.onchange = async () => { const f = fileI.files[0]; if (!f) return; try { if (f.size > 5000000) throw Error("file larger than 5 MB"); ta.value = await f.text(); apply(); } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; } finally { fileI.value = ""; } };
   }
   if (msel) msel.onchange = () => setSource(msel.value);

@@ -1,4 +1,6 @@
 en:
+  az: Axial amplitude z₀
+  exportaxial: Include axial view in export
   record: Record selected process
   process: Recording process
   current: Current motion
@@ -29,6 +31,8 @@ en:
   originhint: Centre coordinates translate the ideal trap and plotted motion together; they do not simulate
     electrode misalignment. ν₊ and ν₋ follow B, U₀ and d and cannot be varied independently.
 zh:
+  az: 轴向振幅 z₀
+  exportaxial: 导出时包含轴向视图
   record: 录制所选过程
   process: 录制过程
   current: 当前运动
@@ -51,6 +55,8 @@ zh:
   originz: 阱中心 z（mm）
   originhint: 中心坐标同时平移理想阱与绘制的运动，不代表电极错位。ν₊、ν₋ 由 B、U₀、d 决定，不能独立调节。
 fi:
+  az: Aksiaalinen amplitudi z₀
+  exportaxial: Sisällytä aksiaalinäkymä vientiin
   record: Tallenna valittu prosessi
   process: Tallennettava prosessi
   current: Nykyinen liike
@@ -80,6 +86,8 @@ fi:
   originhint: Keskus siirtää ideaaliloukkua ja sen liikettä yhdessä, eikä mallinna elektrodien kohdistusvirhettä.
     ν₊ ja ν₋ määräytyvät arvoista B, U₀ ja d, eikä niitä voi muuttaa riippumattomasti.
 de:
+  az: Axiale Amplitude z₀
+  exportaxial: Axialansicht in Export einschließen
   record: Gewählten Prozess aufnehmen
   process: Aufnahmeprozess
   current: Aktuelle Bewegung
@@ -109,6 +117,8 @@ de:
   originhint: Das Zentrum verschiebt ideale Falle und Bewegung gemeinsam; es simuliert keine Elektrodenfehlstellung.
     ν₊ und ν₋ folgen B, U₀ und d und sind nicht unabhängig einstellbar.
 ja:
+  az: 軸方向振幅 z₀
+  exportaxial: 軸方向ビューも書き出す
   record: 選択した過程を録画
   process: 録画する過程
   current: 現在の運動
@@ -131,6 +141,8 @@ ja:
   originz: トラップ中心 z（mm）
   originhint: 中心座標は理想トラップと運動を一緒に平行移動し、電極のずれを模擬しません。ν₊ と ν₋ は B、U₀、d から決まり、独立には変更できません。
 fr:
+  az: Amplitude axiale z₀
+  exportaxial: Inclure la vue axiale dans l’export
   record: Enregistrer le processus choisi
   process: Processus enregistré
   current: Mouvement actuel

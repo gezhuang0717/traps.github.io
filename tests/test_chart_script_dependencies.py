@@ -1,6 +1,7 @@
 """Render actual chart/Lab compositions; shared dependencies must execute once."""
 from collections import Counter
 from html.parser import HTMLParser
+import json
 import os
 from pathlib import Path
 import re
@@ -17,13 +18,19 @@ LANGS = ("en", "zh", "fi", "de", "ja", "fr")
 class ScriptMarkup(HTMLParser):
     def __init__(self, text):
         super().__init__()
-        self.scripts, self.ids = [], []
+        self.scripts, self.ids, self.names, self.series, self.chart_labels = [], [], [], [], []
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         if attrs.get("id"):
             self.ids.append(attrs["id"])
+        if attrs.get("name"):
+            self.names.append(attrs["name"])
+        if attrs.get("data-series"):
+            self.series.append(attrs["data-series"])
+        if "data-nuclide-chart" in attrs:
+            self.chart_labels.append(json.loads(attrs["data-labels"]))
         if tag == "script" and attrs.get("src"):
             attrs["path"] = urlsplit(attrs["src"]).path
             self.scripts.append(attrs)
@@ -89,11 +96,18 @@ def test_actual_hugo_standalone_and_lab_chart_have_unique_scripts_and_safe_order
         for name in ("standalone", "lab", "plain"):
             rendered = ScriptMarkup((tmp_path / "public" / lang / name / "index.html").read_text())
             assert len(rendered.ids) == len(set(rendered.ids)), (lang, name, "duplicate IDs")
+            assert len(rendered.chart_labels) == 1, (lang, name)
+            for control in ("text", "file", "col", "quantity", "unit", "custom-unit", "sigma", "label", "reference"):
+                assert rendered.names.count("nc-mine-" + control) == 1, (lang, name, control)
+            assert rendered.series.count("mine") == 1 and rendered.series.count("ame") == 1
+            labels = rendered.chart_labels[0]
+            for key in ("mine_typed_help", "mine_global_assignment", "mine_conversion_preview", "mine_quantity", "mine_unit", "mine_unknown", "mine_sigma", "mine_append", "mine_replace", "mine_adopt_help", "mine_weighted_sigma"):
+                assert isinstance(labels[key], str) and labels[key].strip(), (lang, key)
             scripts = rendered.scripts
             counts = Counter(s["path"] for s in scripts)
             assert all(count == 1 for count in counts.values()), (lang, name, counts)
             by_name = {Path(s["path"]).name: (i, s) for i, s in enumerate(scripts)}
-            for dependency in ("zg-export.js", "physics.js", "nuclide-chart.js"):
+            for dependency in ("zg-export.js", "physics.js", "chart-user-data.js", "chart-typed-data.js", "nuclide-chart.js"):
                 assert dependency in by_name, (lang, name, dependency)
             # Normal pages render the embedded comparison partial (which owns its script);
             # independent child pages omit that UI and load the same helper at chart level.
@@ -102,6 +116,8 @@ def test_actual_hugo_standalone_and_lab_chart_have_unique_scripts_and_safe_order
             for dependency, consumers in {
                 "zg-export.js": ("trap3d.js", "lab-calculators.js", "nuclide-chart.js"),
                 "physics.js": ("calibration.js", "workbenches.js", "lab-calculators.js", "nuclide-chart.js"),
+                "chart-user-data.js": ("nuclide-chart.js",),
+                "chart-typed-data.js": ("nuclide-chart.js",),
             }.items():
                 left, attr = by_name[dependency]
                 for consumer in consumers:

@@ -79,14 +79,29 @@
   <p class="nc-hotkeys zg-small zg-muted"><b>{{ $t.hk_title }}:</b> {{ $t.hk_text }} <span class="nc-hotkey-status" role="status" aria-live="polite"></span></p>
   <details class="nc-mine"><summary>{{ $t.mine_title }}</summary>
     <p class="zg-muted">{{ $t.mine_help }}</p>
-    <textarea name="nc-mine-text" rows="6" spellcheck="false" aria-label="{{ $t.mine_title }}" placeholder="Z,N,value&#10;20,28,0.11&#10;50,70,0.08"></textarea>
+    <p class="zg-small">{{ $t.mine_typed_help }}</p>
+    <p class="zg-small"><strong>{{ $t.mine_global_assignment }}</strong></p>
+    <textarea name="nc-mine-text" rows="6" spellcheck="false" aria-label="{{ $t.mine_title }}" placeholder="50,50,8"></textarea>
     <div class="nc-bar">
       <label>{{ $t.mine_file }} <input type="file" name="nc-mine-file" accept=".csv,.tsv,.txt,.json"></label>
       <label>{{ $t.mine_column }} <select name="nc-mine-col"></select></label>
+      <label>{{ $t.mine_quantity }} <select name="nc-mine-quantity"></select></label>
+      <label>{{ $t.mine_unit }} <select name="nc-mine-unit"></select></label>
+      <label class="nc-mine-custom-unit">{{ $t.mine_unit_label }} <input name="nc-mine-custom-unit" value="{{ $t.mine_arbitrary_unit }}" maxlength="80"></label>
+      <label>{{ $t.mine_sigma }} <select name="nc-mine-sigma"><option value="">{{ $t.mine_unknown }}</option></select></label>
+      <label>{{ $t.mine_label }} <input name="nc-mine-label" value="{{ $t.m_mine }}" maxlength="120"></label>
+      <label>{{ $t.mine_reference }} <input name="nc-mine-reference" maxlength="500"></label>
       <button type="button" class="zg-btn" data-nc="mine-apply">{{ $t.mine_apply }}</button>
       <button type="button" class="zg-btn zg-btn-ghost" data-nc="mine-clear">{{ $t.mine_clear }}</button>
     </div>
+    <div class="nc-bar">
+      <button type="button" class="zg-btn zg-btn-ghost" data-nc="mine-save">{{ $t.mine_save }}</button>
+      <button type="button" class="zg-btn zg-btn-ghost" data-nc="mine-append" disabled>{{ $t.mine_append }}</button>
+      <button type="button" class="zg-btn zg-btn-ghost" data-nc="mine-replace" disabled>{{ $t.mine_replace }}</button>
+    </div>
+    <p class="zg-small">{{ $t.mine_adopt_help }}</p>
     <p class="nc-mine-status" role="status"></p>
+    <p class="nc-mine-preview zg-small"></p>
   </details>
   <div class="nc-bar nc-bar2">
     <label>{{ $t.model }} <select name="nc-model"><option value="ame">AME2020 ({{ $t.mod_exp }})</option></select></label>
@@ -128,7 +143,8 @@
   <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>
     <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p class="zg-small">{{ $t.loaded_select_hint }}</p></details>
     <div class="nc-series-choices">
-      <div class="nc-series-option"><label><input type="checkbox" data-series="ame" aria-describedby="nc-ame-hint" checked><span>● ○# AME2020</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-ame-hint">{{ $t.loaded_ame_hint }}</p></details></div>
+      <div class="nc-series-option"><label><input type="checkbox" data-series="ame" aria-describedby="nc-ame-hint" checked><span data-series-reference-label>● ○# AME2020</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-ame-hint">{{ $t.loaded_ame_hint }}</p></details></div>
+      <div class="nc-series-option"><label><input type="checkbox" data-series="mine" checked disabled><span data-series-mine-label>{{ $t.m_mine }}</span></label></div>
       <div class="nc-series-option"><label><input type="checkbox" data-series="loaded" aria-describedby="nc-new-hint"><span>{{ $t.loaded_only }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-new-hint">{{ $t.loaded_new_hint }}</p></details></div>
       <div class="nc-series-option"><label><input type="checkbox" data-series="hybrid" aria-describedby="nc-hybrid-hint"><span>{{ $t.loaded_hybrid }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-hybrid-hint">{{ $t.loaded_hybrid_hint }}</p></details></div>
     </div>
@@ -180,6 +196,7 @@
 {{ if .Page.Params.independentPanel }}<script defer src="{{ "js/independent-panels.js" | relURL }}?v={{ readFile "static/js/independent-panels.js" | sha256 }}"></script>{{ end }}
 <script defer src="{{ "js/measured-masses-ui.js" | relURL }}?v={{ readFile "static/js/measured-masses-ui.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-user-data.js" | relURL }}?v={{ readFile "static/js/chart-user-data.js" | sha256 }}"></script>
+<script defer src="{{ "js/chart-typed-data.js" | relURL }}?v={{ readFile "static/js/chart-typed-data.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-classes.js" | relURL }}?v={{ readFile "static/js/chart-classes.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-stats.js" | relURL }}?v={{ readFile "static/js/chart-stats.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>
