@@ -99,6 +99,8 @@
       if (text.length < 170 || !el.closest('.zg-card, .zg-form, main')) continue;
       el.dataset.zgFolded = '1';
       const label = el.dataset.foldLabel || lead(text), wrapper = fold(label, make('div', 'zg-fold-body'));
+      /* plain text: the label is its first sentence, so the folded part keeps only the rest */
+      if (!el.dataset.foldLabel && !el.children.length && text.startsWith(label) && text.length > label.length + 20) el.textContent = text.slice(label.length).trim();
       el.replaceWith(wrapper);
       wrapper.lastChild.append(el);
       n++;
