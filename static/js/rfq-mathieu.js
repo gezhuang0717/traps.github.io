@@ -4,6 +4,7 @@
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
   const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>+field(n).value,err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
   let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null;
+  const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
   const el=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!=null)e.textContent=txt;return e;};
   const fmt=x=>Number.isFinite(x)?Number(x.toPrecision(7)).toString():'—';
@@ -38,10 +39,12 @@
    const status=d.classification?d.classification.status:null,statusTone=status==='stable'?'ok':status==='unstable'?'bad':'warn';
    if(U){
     const nodes=[];
-    nodes.push(U.group(T.grp_geometry,'info',[t(T.k_rod_radius,fmt(d.rod_radius_mm),'mm'),t(T.k_rod_diameter,fmt(d.rod_diameter_mm),'mm'),t(T.k_ratio,fmt(d.rod_ratio),'',devTone,T.geometry_out,T.n_ratio),t(T.k_deviation,fmt(d.ratio_deviation_percent),'%',devTone,null,T.n_deviation),
+    const geo=U.group(T.grp_geometry,'info',[t(T.k_rod_radius,fmt(d.rod_radius_mm),'mm'),t(T.k_rod_diameter,fmt(d.rod_diameter_mm),'mm'),t(T.k_ratio,fmt(d.rod_ratio),'',devTone,T.geometry_out,T.n_ratio),t(T.k_deviation,fmt(d.ratio_deviation_percent),'%',devTone,null,T.n_deviation),
      t(T.k_outer,fmt(d.outer_radius_mm),'mm',null,T.envelope_out,T.n_outer),t(T.k_aperture,fmt(d.aperture_diameter_mm),'mm',null,null,T.n_aperture),t(T.k_adjacent,fmt(d.adjacent_center_mm),'mm',null,T.gaps,T.n_adjacent),t(T.k_gap,fmt(d.surface_gap_mm),'mm',null,null,T.n_gap),t(T.k_opposite,fmt(d.opposite_center_mm),'mm',null,null,T.n_opposite),
      t(T.k_parasitic,d.parasitic_A_over_An===null?T.parasitic_none:fmt(d.parasitic_A_over_An),'',d.parasitic_A_over_An===null?'warn':Math.abs(d.parasitic_A_over_An)<1e-3?'ok':'warn',T.parasitic_out,T.n_parasitic),
-     ...(d.parasitic_at_radial_fraction===null?[]:[t(T.k_parasitic_x,fmt(d.parasitic_at_radial_fraction),'',null,null,T.n_parasitic_x)]),...(d.ratio_tolerance===null?[]:[t(T.k_tol,'±'+fmt(d.ratio_tolerance),'',null,null,T.n_tol)])]));
+     ...(d.parasitic_at_radial_fraction===null?[]:[t(T.k_parasitic_x,fmt(d.parasitic_at_radial_fraction),'',null,null,T.n_parasitic_x)]),...(d.ratio_tolerance===null?[]:[t(T.k_tol,'±'+fmt(d.ratio_tolerance),'',null,null,T.n_tol)])],[],
+     {fold:true,open:geoOpen.v,summary:[U.make('span','zg-pill',`Ø ${fmt(d.rod_diameter_mm)} mm`),U.make('span','zg-pill',`r/r₀ ${fmt(d.rod_ratio)}`),U.make('span','zg-pill '+(devTone==='bad'?'bad':devTone==='warn'?'warn':'ok'),`${fmt(d.ratio_deviation_percent)} %`)]});
+    geo.addEventListener('toggle',()=>{geoOpen.v=geo.open;});nodes.push(geo);
     nodes.push(U.group(T.grp_rf,status?statusTone:d.eta_target_met?'ok':'warn',[...(status?[t(T.readout,T[status],'',statusTone)]:[]),t(T.k_field,fmt(d.field_RF_V_m),'V/m',null,T.field_depth,T.n_field),t(T.k_pseudo,fmt(d.pseudopotential_eV),'eV',null,null,T.n_pseudo),
      t(T.k_eta,`${fmt(d.eta)} / ${fmt(d.eta_target)}`,'',d.eta_target_met?'ok':'warn',T.eta_readout+' · '+(d.eta_target_met?T.target_met:T.target_above),T.n_eta),t(T.k_fmin,fmt(d.eta_frequency_min_MHz),'MHz',null,T.rf_target,T.n_fmin),t(T.k_vmax,fmt(d.eta_voltage_max_V),'V',null,null,T.n_vmax)]));
     if(d.V_V===0){const n=U.make('p','zg-notice',T.zero_rf);nodes.push(n);}

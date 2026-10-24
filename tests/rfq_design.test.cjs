@@ -110,6 +110,9 @@ test('actual UI: default optimal rule fills the computed radius, shows ratio, pa
  assert.ok(Math.abs(Number(h.fields.get('rod-radius').value)-6.870648)<1e-4,h.fields.get('rod-radius').value);
  for(const label of [h.T.grp_geometry,h.T.k_rod_radius,h.T.k_parasitic,h.T.grp_suggest,h.T.rf_suggest,h.T.k_aperture,h.T.grp_rf,h.T.candidates,h.T.use_btn])assert.ok(text.includes(label),label);
  assert.ok(/q = 0\.4/.test(text)&&/6\.870648/.test(h.fields.get('rod-radius').value));
+ const geometry=h.slots.get('design-readout').children.find(n=>/zg-rfold/.test(n.className));
+ assert.ok(geometry,'the rod-geometry group is a fold-away group');assert.ok(!geometry.open,'closed by default');
+ assert.ok(geometry.children[0].children.some(c=>/Ø/.test(c.textContent)),'its summary line keeps the key numbers');
  h.change('rod-rule','filter');h.change('rod-count','6');assert.equal(h.slots.get('error').textContent,h.T.rule_unavailable);
  h.change('rod-rule','radius');h.change('rod-count','4');h.change('rod-radius','100');assert.ok(h.slots.get('error').textContent.startsWith(h.T.rod_overlap));
 });

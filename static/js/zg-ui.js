@@ -29,9 +29,13 @@
   }
   function badge(text, t) { return make('span', 'zg-badge ' + tone(t), text); }
   /* A coloured group: heading, then tiles; extra nodes (buttons, notes) can follow. */
-  function group(title, t, tiles, extra = []) {
-    const g = make('section', 'zg-rgroup ' + tone(t));
-    g.append(make('h4', '', title));
+  function group(title, t, tiles, extra = [], opts = {}) {
+    /* opts.fold: a <details> group; opts.open its state; opts.summary: nodes (pills) shown next to the heading while it is closed */
+    const g = make(opts.fold ? 'details' : 'section', 'zg-rgroup ' + tone(t) + (opts.fold ? ' zg-rfold' : ''));
+    if (opts.fold) {
+      if (opts.open) g.open = true;
+      const sum = make('summary'); sum.append(make('h4', '', title), ...(opts.summary || [])); g.append(sum);
+    } else g.append(make('h4', '', title));
     const grid = make('div', 'zg-tiles');
     for (const item of tiles) grid.append(item.nodeType ? item : tile(item));
     g.append(grid, ...extra);
