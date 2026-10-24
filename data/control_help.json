@@ -42,13 +42,24 @@
         "Search an ion or enable multiple ions. Other states includes catalogue records beyond the default ground/isomer list. Mass table chooses the evaluated source; B sets the field. Accumulation time sets phase growth; longer time can also wrap the separation around 360°.",
         "Radius is the detector-ring radius; spot width uses the displayed 0.1 mm unit. Ratio and contamination set populations. σ is the spot-width separation target, not mass uncertainty. Phase offsets move reference/ion origins; the clock rounds requested time to achievable time. Detector practice adds an angular floor and centroid counts; the seed repeats noise. Open the phase/timing guide for details. U₀ and d set the ideal trap frequencies."
       ],
-      "workbench": [
-        "Start with ion mass, positive charge, B and trap voltage/size. ν₊, ν₋ and νz are modified-cyclotron, magnetron and axial frequencies; νc = ν₊ + ν₋ in this ideal model.",
-        "Use the existing presets first, then change one parameter at a time and compare the readouts. Radii/phases set initial motion, excitation settings set the applied pulse, and Speed sets playback. Fancier can use separate trap-1/trap-2 calibration; enable it explicitly in the calibration panel."
-      ],
       "calibration": [
         "Trap 1 is purification; trap 2 is precision measurement. Each calibrant row contains a known ion/charge, measured νc and ν₋, and their standard uncertainties σ in Hz. Keep the two traps separate.",
         "Enable Use calibration, choose the source and mode, then edit the rows and check the residuals/effective field. Fixed-minus uses the fitted magnetron term; Ideal uses the ideal trap calculation. Example values are teaching inputs. TOF calibration uses known ions and flight times in μs; do not enter cyclotron frequencies there."
+      ],
+      "workbench-mr": [
+        "Choose the number of species and an example, then type each ion (the fold “How to type a species” lists the accepted notations), pick its nuclear state (ground state or isomer), its charge and its detected population. Mirror laps is the number of round trips between the mirrors.",
+        "Initial bunch FWHM and Broadening per lap set the peak width: FWHM² = Δt₀² + (laps × broadening)². Advanced holds the kinetic energy per charge (default 1 keV, 0.1–100 keV; flight times scale as 1/√(E/q)), the flight and lap times of a 100 u, q = 1 ion at 1 keV, the fixed electronic delay, the number of ions, the random seed and the histogram bin width.",
+        "Reference-ion mass calibration turns one measured time into a mass: one reference ion, its time, the observed time and the offset t₀ give m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². “Fill from the simulated spectrum” shows the round trip."
+      ],
+      "workbench-tof": [
+        "Choose the number of species and an example, then type each ion, pick its nuclear state, charge and detected population. “Target for fit bias” is the species whose true cyclotron frequency the single-species fit is compared with.",
+        "Magnetic field B and Excitation time set the line width and position; the excitation sequence is one rectangular RF pulse or two Ramsey pulses. Advanced holds the number of scan points, ions per point, the half-span of the scan, the random seed and a frequency offset of the whole distribution.",
+        "“Generate synthetic measurements” draws a noisy scan from the mixture, “Fit as one species” fits one resonance to it (the fitted centre minus the target's true frequency is the bias), and “Clear fit” removes the fit."
+      ],
+      "workbench-penning": [
+        "Type the ion, pick its nuclear state and charge, then set the magnetic field B, the quadrupole potential U₀ (the trap voltage) and the characteristic length d. A negative ion needs a negative trap voltage. The readouts below the plot are calculated and cannot be edited.",
+        "ν₊, ν₋ and νz are the modified-cyclotron, magnetron and axial frequencies; νc = ν₊ + ν₋ in this ideal trap. Advanced holds the trap centre, the radii of the cyclotron and magnetron motions, the axial amplitude, the duration and the playback speed.",
+        "Pause, Step and Reset control the animation; the view buttons switch between top, side and 3D views. Speed changes the playback only."
       ]
     }
   },
@@ -95,13 +106,24 @@
         "搜索单个离子或启用多离子。“其他核态”纳入默认基态/异能态列表以外的目录记录；质量表选择评估来源，B 设置磁场。积累时间决定相位增长，时间过长也会使角间隔绕回 360°。",
         "半径是探测器环半径，斑点宽度按标注的 0.1 mm 单位输入；比例及污染比例决定粒子群。σ 是以斑点宽度表示的分离目标，不是质量不确定度。相位偏置移动参考/离子的起点；时钟把请求时间取整为可实现时间。探测器练习设置角度下限与质心计数，随机种子重现噪声。详见相位/时序提示；U₀、d 设置理想阱频率。"
       ],
-      "workbench": [
-        "先设置离子质量、正电荷数、B、阱电压与尺寸。ν₊、ν₋、νz 分别是修正回旋、磁控管及轴向频率；本理想模型中 νc = ν₊ + ν₋。",
-        "先用预设，再每次只改一个参数并比较读数。半径/相位设置初始运动，激发参数设置脉冲，速度设置播放。Fancier 可使用独立的阱 1/阱 2 校准，需在校准面板明确启用。"
-      ],
       "calibration": [
         "阱 1 用于纯化，阱 2 用于精密测量。每行校准离子含已知核素/电荷数、测得的 νc、ν₋ 及标准不确定度 σ（Hz）。两阱参数应分别填写。",
         "启用“使用校准”，选择来源与模式，再编辑各行并检查残差/有效磁场。固定 ν₋ 模式使用拟合的磁控管项，理想模式使用理想阱计算。示例值是教学输入。TOF 校准使用已知离子及飞行时间（μs），不能在该处填回旋频率。"
+      ],
+      "workbench-mr": [
+        "先选择离子种类数和示例，再输入每个离子（折叠块“如何输入离子种类”列出了可用写法），选择其核态（基态或同核异能态）、电荷和探测布居。镜间往返圈数是离子在两面镜子之间往返的次数。",
+        "初始离子束 FWHM 和每圈展宽决定峰宽：FWHM² = Δt₀² +（圈数 × 展宽）²。“高级”中有每电荷动能（默认 1 keV，范围 0.1–100 keV；飞行时间按 1/√(E/q) 缩放）、100 u、q = 1 离子在 1 keV 时的飞行时间与单圈时间、固定电子学延迟、离子数、随机种子和直方图分格宽度。",
+        "参考离子质量标定把一个测得的时间变成质量：一个参考离子、它的时间、观测时间和偏移 t₀ 给出 m/q = (m/q)ref ·((t − t₀)/(tref − t₀))²。“用模拟谱的数值填入”演示一次来回验证。"
+      ],
+      "workbench-tof": [
+        "先选择离子种类数和示例，再输入每个离子，选择核态、电荷和探测布居。“拟合偏差的目标离子”是单离子拟合要与其真实回旋频率比较的那个种类。",
+        "磁场 B 和激发时间决定线宽与位置；激发序列为一个矩形射频脉冲或两个 Ramsey 脉冲。“高级”中有扫描点数、每点离子数、扫描半宽、随机种子和整体分布的频率偏移。",
+        "“生成模拟测量”从混合物抽取带噪声的扫描，“按单组分拟合”对其拟合一条共振（拟合中心减去目标的真实频率即偏差），“清除拟合”去掉拟合。"
+      ],
+      "workbench-penning": [
+        "输入离子，选择核态和电荷，然后设置磁场 B、四极势 U₀（阱电压）和特征长度 d。负离子需要负的阱电压。图下方的读数是计算值，不可编辑。",
+        "ν₊、ν₋、νz 分别是修正回旋、磁控管和轴向频率；在这个理想阱中 νc = ν₊ + ν₋。“高级”中有阱中心、回旋与磁控管运动的半径、轴向振幅、持续时间和回放速度。",
+        "暂停、单步和重置控制动画；视图按钮在俯视、侧视和三维之间切换。速度只改变回放。"
       ]
     }
   },
@@ -148,13 +170,24 @@
         "Hae ioni tai valitse useita. Muut tilat lisäävät luettelon muita tiloja. Massataulu valitsee lähteen, B kentän. Kertymäaika kasvattaa vaihetta, mutta ero voi kiertyä yli 360°.",
         "Säde on ilmaisimen rengassäde; pisteleveys käyttää 0,1 mm yksikköä. Suhde ja epäpuhtaus säätävät määriä. σ on pisteleveyden erotustavoite. Vaiheensiirrot säätävät alkuvaiheita; kello pyöristää ajan. Harjoitus lisää kulmarajan ja sentroidin laskentamäärän; siemen toistaa kohinan. U₀ ja d säätävät ideaalisia loukkutaajuuksia."
       ],
-      "workbench": [
-        "Aloita massasta, varauksesta, B:stä sekä loukun jännitteestä ja koosta. ν₊, ν₋ ja νz ovat muunnettu syklotroni-, magnetroni- ja aksiaalitaajuus.",
-        "Kokeile esiasetusta ja muuta yhtä arvoa kerrallaan. Säteet ja vaiheet määrittävät alkuliikkeen, viritys pulssin, nopeus animaation. Fancier käyttää erillistä loukkujen 1/2 kalibrointia, kun se otetaan käyttöön."
-      ],
       "calibration": [
         "Loukku 1 puhdistaa, loukku 2 mittaa tarkasti. Kalibranttirivillä ovat ioni/varaus, mitatut νc ja ν₋ sekä standardiepävarmuudet σ hertseinä.",
         "Ota kalibrointi käyttöön, valitse lähde ja tila, muokkaa rivejä ja tarkista residuaalit/kenttä. Kiinteä miinus käyttää sovitettua magnetronitermiä; ideaali ideaalista laskentaa. Esimerkit ovat opetusarvoja. TOF käyttää lentoaikoja μs, ei taajuuksia."
+      ],
+      "workbench-mr": [
+        "Valitse lajien määrä ja esimerkki, kirjoita sitten kukin ioni (taitos “Näin kirjoitat lajin” luettelee sallitut kirjoitustavat), valitse ydintila (perustila tai isomeeri), varaus ja havaittu populaatio. Peilikierrokset on peilien välisten edestakaisten matkojen määrä.",
+        "Alkupaketin FWHM ja Levenemä kierrosta kohden määräävät piikin leveyden: FWHM² = Δt₀² + (kierrokset × leveneminen)². Lisäasetuksissa ovat liike-energia varausta kohti (oletus 1 keV, 0,1–100 keV; lentoajat skaalautuvat kuten 1/√(E/q)), 100 u, q = 1 -ionin lento- ja kierrosajat 1 keV:lla, kiinteä elektroninen viive, ionien määrä, satunnaissiemen ja histogrammin lokin leveys.",
+        "Vertailuionin massakalibrointi muuttaa yhden mitatun ajan massaksi: yksi vertailuioni, sen aika, havaittu aika ja siirtymä t₀ antavat m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². “Täytä simuloidusta spektristä” näyttää edestakaisen tarkistuksen."
+      ],
+      "workbench-tof": [
+        "Valitse lajien määrä ja esimerkki, kirjoita sitten kukin ioni ja valitse ydintila, varaus ja havaittu populaatio. “Kohde sovitteen harhalle” on laji, jonka todelliseen syklotronitaajuuteen yhden lajin sovitetta verrataan.",
+        "Magneettikenttä B ja herätysaika määräävät viivan leveyden ja paikan; herätys on yksi suorakulmainen RF-pulssi tai kaksi Ramsey-pulssia. Lisäasetuksissa ovat skannauspisteiden määrä, ionit pistettä kohti, skannauksen puolileveys, satunnaissiemen ja koko jakauman taajuussiirtymä.",
+        "“Luo synteettiset mittaukset” arpoo kohinaisen skannauksen seoksesta, “Sovita yhtenä lajina” sovittaa siihen yhden resonanssin (sovitettu keskikohta miinus kohteen todellinen taajuus on harha) ja “Poista sovitus” poistaa sovitteen."
+      ],
+      "workbench-penning": [
+        "Kirjoita ioni, valitse ydintila ja varaus ja aseta sitten magneettikenttä B, kvadrupoli U₀ (loukkujännite) ja ominaispituus d. Negatiivinen ioni tarvitsee negatiivisen loukkujännitteen. Kuvan alla olevat lukemat on laskettu, eikä niitä voi muokata.",
+        "ν₊, ν₋ ja νz ovat modifioitu syklotroni-, magnetroni- ja aksiaalitaajuus; tässä ideaaliloukussa νc = ν₊ + ν₋. Lisäasetuksissa ovat loukun keskipiste, syklotroni- ja magnetroniliikkeen säteet, aksiaaliamplitudi, kesto ja toistonopeus.",
+        "Tauko, Askel ja Nollaa ohjaavat animaatiota; näkymäpainikkeet vaihtavat ylä-, sivu- ja 3D-näkymän välillä. Nopeus muuttaa vain toistoa."
       ]
     }
   },
@@ -201,13 +234,24 @@
         "Ion suchen oder mehrere wählen. Weitere Zustände ergänzt Katalogeinträge. Massentabelle wählt die Quelle, B das Feld. Akkumulationszeit vergrößert die Phase; der Abstand kann über 360° umlaufen.",
         "Radius: Detektorring; Spotbreite: Einheit 0,1 mm. Verhältnis und Kontamination setzen Populationen. σ ist der Trennabstand in Spotbreiten. Phasenoffsets verschieben Ursprünge; die Uhr rundet Zeiten. Detektorübung ergänzt Winkeluntergrenze und Schwerpunktzählzahl; Seed wiederholt Rauschen. U₀ und d setzen ideale Fallenfrequenzen."
       ],
-      "workbench": [
-        "Mit Masse, Ladung, B, Fallenspannung und Größe beginnen. ν₊, ν₋ und νz sind modifizierte Zyklotron-, Magnetron- und Axialfrequenz.",
-        "Erst Vorgaben verwenden, dann einen Parameter ändern. Radien/Phasen setzen die Anfangsbewegung, Anregung den Puls, Geschwindigkeit die Wiedergabe. Fancier nutzt separate Kalibrierungen der Fallen 1/2, wenn aktiviert."
-      ],
       "calibration": [
         "Falle 1 reinigt, Falle 2 misst präzise. Jede Kalibrantenzeile enthält Ion/Ladung, gemessene νc und ν₋ sowie Standardunsicherheiten σ in Hz.",
         "Kalibrierung aktivieren, Quelle/Modus wählen, Zeilen ändern und Residuen/Feld prüfen. Festes Minus nutzt den angepassten Magnetronterm, Ideal die ideale Rechnung. Beispiele sind Lehrwerte. TOF-Kalibrierung verwendet Flugzeiten in μs statt Frequenzen."
+      ],
+      "workbench-mr": [
+        "Anzahl der Spezies und ein Beispiel wählen, dann jedes Ion eintippen (der Einklappbereich „So geben Sie eine Spezies ein“ listet die Schreibweisen), Kernzustand (Grundzustand oder Isomer), Ladung und detektierte Population wählen. Spiegelrunden ist die Zahl der Hin-und-zurück-Läufe zwischen den Spiegeln.",
+        "FWHM des Anfangspakets und Verbreiterung pro Runde bestimmen die Peakbreite: FWHM² = Δt₀² + (Runden × Verbreiterung)². Unter Erweitert stehen die kinetische Energie pro Ladung (Standard 1 keV, 0,1–100 keV; Flugzeiten skalieren mit 1/√(E/q)), Flug- und Rundenzeit eines Ions mit 100 u, q = 1 bei 1 keV, die feste elektronische Verzögerung, die Ionenzahl, der Zufallsstartwert und die Binbreite des Histogramms.",
+        "Die Massenkalibrierung mit Referenzion macht aus einer gemessenen Zeit eine Masse: ein Referenzion, seine Zeit, die beobachtete Zeit und der Versatz t₀ liefern m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². „Aus dem simulierten Spektrum füllen“ zeigt den Hin-und-zurück-Test."
+      ],
+      "workbench-tof": [
+        "Anzahl der Spezies und ein Beispiel wählen, dann jedes Ion eintippen und Kernzustand, Ladung und detektierte Population wählen. „Ziel für die Fit-Verzerrung“ ist die Spezies, mit deren wahrer Zyklotronfrequenz der Ein-Spezies-Fit verglichen wird.",
+        "Magnetfeld B und Anregungszeit bestimmen Linienbreite und -lage; die Anregung ist ein Rechteckpuls oder zwei Ramsey-Pulse. Unter Erweitert stehen die Zahl der Scanpunkte, Ionen pro Punkt, die halbe Scanbreite, der Zufallsstartwert und ein Frequenzversatz der ganzen Verteilung.",
+        "„Synthetische Messungen erzeugen“ zieht einen verrauschten Scan aus der Mischung, „Als eine Spezies fitten“ passt eine Resonanz daran an (angepasstes Zentrum minus wahre Frequenz des Ziels ist die Abweichung), „Fit löschen“ entfernt den Fit."
+      ],
+      "workbench-penning": [
+        "Das Ion eintippen, Kernzustand und Ladung wählen, dann Magnetfeld B, Quadrupol U₀ (Fallenspannung) und charakteristische Länge d einstellen. Ein negatives Ion braucht eine negative Fallenspannung. Die Anzeigen unter dem Diagramm sind berechnet und nicht editierbar.",
+        "ν₊, ν₋ und νz sind modifizierte Zyklotron-, Magnetron- und Axialfrequenz; in dieser idealen Falle gilt νc = ν₊ + ν₋. Unter Erweitert stehen Fallenmitte, Radien der Zyklotron- und Magnetronbewegung, Axialamplitude, Dauer und Wiedergabegeschwindigkeit.",
+        "Pause, Schritt und Zurücksetzen steuern die Animation; die Ansichtstasten wechseln zwischen Auf-, Seiten- und 3D-Ansicht. Die Geschwindigkeit ändert nur die Wiedergabe."
       ]
     }
   },
@@ -254,13 +298,24 @@
         "イオン検索または複数イオンを選択。他の状態は追加のカタログ状態を含めます。質量表は出典、B は磁場。蓄積時間で位相が増えますが、角度差は 360° で折り返します。",
         "半径は検出リング、スポット幅の単位は 0.1 mm。比率と汚染率は集団数を指定。σ はスポット幅による分離目標。位相オフセットは始点、クロックは実現可能時間への丸めを指定。検出器練習は角度下限と重心カウント、シードは雑音再現。U₀ と d は理想トラップ周波数を設定します。"
       ],
-      "workbench": [
-        "質量・電荷数・B・トラップ電圧と寸法から設定。ν₊・ν₋・νz は修正サイクロトロン・マグネトロン・軸方向周波数。",
-        "プリセットから始め、一度に一項目を変えて読数を比較。半径と位相は初期運動、励起はパルス、速度は再生を指定。Fancier は校正パネルで有効にするとトラップ 1/2 の独立校正を使います。"
-      ],
       "calibration": [
         "トラップ 1 は純化、2 は精密測定。校正行は既知イオン・電荷数、測定 νc・ν₋ と標準不確かさ σ（Hz）です。",
         "校正を有効にし、出典とモードを選び、行を編集して残差と有効磁場を確認。固定マイナスはフィットしたマグネトロン項、理想は理想計算を使用。例は教材入力です。TOF 校正は飛行時間（μs）を使います。"
+      ],
+      "workbench-mr": [
+        "種の数と例を選び、各イオンを入力します（折りたたみ「イオン種の入力方法」に書き方があります）。核状態（基底状態またはアイソマー）、電荷、検出された存在量を選びます。ミラー周回数は 2 枚のミラーの間を往復する回数です。",
+        "初期バンチ幅 (FWHM) と 1 周あたりの広がりがピーク幅を決めます：FWHM² = Δt₀² + (周回数 × 広がり)²。「詳細設定」には、電荷あたりの運動エネルギー（既定 1 keV、0.1–100 keV。飛行時間は 1/√(E/q) に比例）、100 u・q = 1 のイオンの 1 keV での飛行時間と周回時間、固定の電子回路遅延、イオン数、乱数シード、ヒストグラムのビン幅があります。",
+        "参照イオンによる質量校正は測定した 1 つの時間を質量に変えます：参照イオン 1 つ、その時間、観測時間、オフセット t₀ から m/q = (m/q)ref · ((t − t₀)/(tref − t₀))² が得られます。「シミュレートしたスペクトルから入力」で往復の確認ができます。"
+      ],
+      "workbench-tof": [
+        "種の数と例を選び、各イオンを入力して、核状態・電荷・検出された存在量を選びます。「フィットのバイアスの対象」は、単一種フィットの結果を真のサイクロトロン周波数と比べる種です。",
+        "磁場 B と励起時間が線幅と位置を決めます。励起は矩形 RF パルス 1 つか Ramsey パルス 2 つです。「詳細設定」には、走査点数、1 点あたりのイオン数、走査の半幅、乱数シード、分布全体の周波数オフセットがあります。",
+        "「合成測定データを生成」は混合物からノイズのある走査を作り、「1 種としてフィット」は 1 つの共鳴をフィットします（フィット中心から対象の真の周波数を引いたものが偏りです）。「フィットを消去」でフィットを消します。"
+      ],
+      "workbench-penning": [
+        "イオンを入力し、核状態と電荷を選んでから、磁場 B、四重極 U₀（トラップ電圧）、特性長 d を設定します。負イオンには負のトラップ電圧が必要です。プロット下の値は計算結果で、編集できません。",
+        "ν₊、ν₋、νz は修正サイクロトロン・マグネトロン・軸方向の周波数で、この理想トラップでは νc = ν₊ + ν₋ です。「詳細設定」にはトラップ中心、サイクロトロン運動とマグネトロン運動の半径、軸方向振幅、継続時間、再生速度があります。",
+        "一時停止・コマ送り・リセットでアニメーションを操作し、表示ボタンで上面・側面・3D を切り替えます。速度は再生だけを変えます。"
       ]
     }
   },
@@ -307,13 +362,24 @@
         "Recherchez un ion ou activez plusieurs ions. Autres états inclut des enregistrements du catalogue au-delà de la liste par défaut état fondamental/isomère. Table de masses choisit la source évaluée ; B fixe le champ. Le temps d'accumulation fixe la croissance de phase ; un temps plus long peut aussi replier la séparation autour de 360°.",
         "Rayon est le rayon de l'anneau du détecteur ; la largeur de tache utilise l'unité affichée de 0,1 mm. Rapport et contamination fixent les populations. σ est la cible de séparation en largeur de tache, pas une incertitude de masse. Les décalages de phase déplacent les origines de référence/ion ; l'horloge arrondit le temps demandé à un temps réalisable. La pratique de détecteur ajoute un plancher angulaire et des comptages de centroïde ; la graine répète le bruit. Ouvrez le guide de phase/temporisation pour les détails. U₀ et d fixent les fréquences idéales du piège."
       ],
-      "workbench": [
-        "Commencez par la masse de l'ion, la charge positive, B et la tension/taille du piège. ν₊, ν₋ et νz sont les fréquences cyclotron modifiée, magnétron et axiale ; νc = ν₊ + ν₋ dans ce modèle idéal.",
-        "Utilisez d'abord les préréglages existants, puis changez un paramètre à la fois et comparez les lectures. Rayons/phases fixent le mouvement initial, les réglages d'excitation l'impulsion appliquée et Vitesse la lecture. Le mode détaillé peut utiliser un étalonnage séparé piège 1/piège 2 ; activez-le explicitement dans le panneau d'étalonnage."
-      ],
       "calibration": [
         "Le piège 1 sert à la purification ; le piège 2 à la mesure de précision. Chaque ligne d'étalon contient un ion/charge connus, νc et ν₋ mesurés, et leurs incertitudes types σ en Hz. Gardez les deux pièges séparés.",
         "Activez Utiliser l'étalonnage, choisissez la source et le mode, puis modifiez les lignes et vérifiez les résidus/le champ effectif. Fixé-moins utilise le terme magnétron ajusté ; Idéal utilise le calcul idéal du piège. Les valeurs d'exemple sont des entrées pédagogiques. L'étalonnage TOF utilise des ions connus et des temps de vol en μs ; n'y saisissez pas de fréquences cyclotron."
+      ],
+      "workbench-mr": [
+        "Choisissez le nombre d’espèces et un exemple, puis saisissez chaque ion (le volet « Comment saisir une espèce » liste les notations), choisissez son état nucléaire (fondamental ou isomère), sa charge et sa population détectée. Tours entre miroirs est le nombre d’allers-retours entre les miroirs.",
+        "La largeur initiale FWHM et l’élargissement par tour fixent la largeur des pics : FWHM² = Δt₀² + (tours × élargissement)². « Avancé » contient l’énergie cinétique par charge (1 keV par défaut, 0,1–100 keV ; les temps de vol varient comme 1/√(E/q)), les temps de vol et de tour d’un ion de 100 u, q = 1 à 1 keV, le retard électronique fixe, le nombre d’ions, la graine aléatoire et la largeur de classe de l’histogramme.",
+        "L’étalonnage en masse par ion de référence transforme un temps mesuré en masse : un ion de référence, son temps, le temps observé et le décalage t₀ donnent m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². « Remplir depuis le spectre simulé » montre l’aller-retour."
+      ],
+      "workbench-tof": [
+        "Choisissez le nombre d’espèces et un exemple, puis saisissez chaque ion et choisissez état nucléaire, charge et population détectée. « Cible pour le biais d’ajustement » est l’espèce dont la vraie fréquence cyclotron sert de comparaison à l’ajustement à une espèce.",
+        "Le champ B et le temps d’excitation fixent la largeur et la position de la raie ; l’excitation est une impulsion RF rectangulaire ou deux impulsions de Ramsey. « Avancé » contient le nombre de points de balayage, les ions par point, la demi-étendue du balayage, la graine aléatoire et un décalage de fréquence de toute la distribution.",
+        "« Générer des mesures synthétiques » tire un balayage bruité du mélange, « Ajuster comme une seule espèce » y ajuste une résonance (centre ajusté moins vraie fréquence de la cible = biais) et « Effacer l’ajustement » le supprime."
+      ],
+      "workbench-penning": [
+        "Saisissez l’ion, choisissez état nucléaire et charge, puis réglez le champ B, le quadrupôle U₀ (tension de piégeage) et la longueur caractéristique d. Un ion négatif exige une tension négative. Les valeurs sous le graphique sont calculées et non modifiables.",
+        "ν₊, ν₋ et νz sont les fréquences cyclotron modifiée, magnétron et axiale ; dans ce piège idéal νc = ν₊ + ν₋. « Avancé » contient le centre du piège, les rayons des mouvements cyclotron et magnétron, l’amplitude axiale, la durée et la vitesse de lecture.",
+        "Pause, Pas et Réinitialiser pilotent l’animation ; les boutons de vue alternent entre vue de dessus, de côté et 3D. La vitesse ne change que la lecture."
       ]
     }
   }

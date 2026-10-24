@@ -142,7 +142,10 @@
     if (!(p.laps >= 0 && Number.isInteger(p.laps)) || !(p.referenceUs > 0 && p.lapUs > 0 && p.widthNs > 0 && p.broadeningNs >= 0 && p.delayUs >= 0)) throw new Error("Invalid MR-TOF time, width or lap count.");
     const norm = ions.reduce((s, i) => s + i.w, 0); if (!(norm > 0)) throw new Error("At least one population must be positive.");
     const fw = Math.hypot(p.widthNs, p.laps * p.broadeningNs);
-    const species = ions.map(i => { const flight = (p.referenceUs + p.laps * p.lapUs) * 1000 * Math.sqrt(i.ionMassU / i.q / 100), time = p.delayUs * 1000 + flight;
+    /* The flight times at 100 u, q = 1 are those for a kinetic energy per charge of 1 keV; v = sqrt(2 E/m) gives t proportional to 1/sqrt(E/q). */
+    const energy = p.energyKeV ?? 1; if (!(energy >= 0.1 && energy <= 100)) throw new Error("Kinetic energy per charge must be between 0.1 and 100 keV.");
+    const energyScale = Math.sqrt(1 / energy);
+    const species = ions.map(i => { const flight = (p.referenceUs + p.laps * p.lapUs) * 1000 * Math.sqrt(i.ionMassU / i.q / 100) * energyScale, time = p.delayUs * 1000 + flight;
       const life = i.atoms.length === 1 ? i.atoms[0].state.half_life : null;
       const survival = life?.status === "stable" ? 1 : life?.seconds > 0 && !life.qualifier ? Math.exp(-Math.LN2 * flight * 1e-9 / life.seconds) : null;
       return { ...i, w: i.w / norm, time, flight, fwhm: fw, sigma: fw / FWHM, resolvingPower: flight / (2 * fw), survival }; });

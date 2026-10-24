@@ -5,7 +5,8 @@ en:
   label: Research, papers and tools
   research: Research questions
   papers: Find publications
-  lab: Penning trap and nuclear chart
+  chart: Chart of nuclides
+  lab: Penning trap
   facilities: Explore facilities
   title: Try a measurement walkthrough
   text: 'Inspect the ¹³³Xe ground and isomeric states in the chart, including excitation
@@ -24,7 +25,8 @@ zh:
   label: 研究、论文与工具
   research: 研究问题
   papers: 检索论文
-  lab: 彭宁阱与核素图
+  chart: 核素图
+  lab: 彭宁阱
   facilities: 相关设施
   title: 练习：从核态数据到测量结果
   text: 先在核素图查看 ¹³³Xe 的基态和同核异能态，确认激发能及其不确定度。同核异能态是寿命相对较长的原子核激发态。在 MR-TOF 中，离子在静电反射镜之间往返：改变圈数、峰宽和各离子占比。在
@@ -36,7 +38,8 @@ fi:
   label: Tutkimus, julkaisut ja työkalut
   research: Tutkimuskysymykset
   papers: Hae julkaisuja
-  lab: Penning-loukku ja nuklidikartta
+  chart: Nuklidikartta
+  lab: Penning-loukku
   facilities: Tutustu laitoksiin
   title: Kokeile mittauksen vaiheita
   text: 'Tarkastele kartasta ¹³³Xe:n perus- ja isomeerisiä tiloja sekä viritysenergiaa
@@ -54,7 +57,8 @@ de:
   label: Forschung, Veröffentlichungen und Werkzeuge
   research: Forschungsfragen
   papers: Veröffentlichungen finden
-  lab: Penningfalle und Nuklidkarte
+  chart: Nuklidkarte
+  lab: Penningfalle
   facilities: Einrichtungen erkunden
   title: Einen Messablauf ausprobieren
   text: 'Untersuchen Sie die Grund- und isomeren Zustände von ¹³³Xe in der Karte,
@@ -73,7 +77,8 @@ ja:
   label: 研究・論文・ツール
   research: 研究課題
   papers: 論文を検索
-  lab: ペニングトラップと核図表
+  chart: 核図表
+  lab: ペニングトラップ
   facilities: 施設を見る
   title: 測定の流れを試す
   text: 核図表で ¹³³Xe の基底状態と核異性体状態を調べ、励起エネルギーと不確かさを確認してください。核異性体は比較的長寿命の励起核状態です。MR-TOF
@@ -86,7 +91,8 @@ fr:
   label: Recherche, publications et outils
   research: Questions de recherche
   papers: Rechercher des publications
-  lab: Piège de Penning et carte des nucléides
+  chart: Carte des nucléides
+  lab: Piège de Penning
   facilities: Explorer les installations
   title: Suivre les étapes d’une mesure
   text: 'Examinez dans la carte les états fondamental et isomérique de ¹³³Xe, leurs énergies d’excitation et incertitudes.

@@ -276,6 +276,10 @@ en:
       - 'F′/(2π βr): the force gradient divided by the radial friction coefficient. Inside the band both radial modes are cooled; below it the magnetron mode heats, above it the cyclotron mode heats.'
     - - γ₋, γ₊, γz
       - Rates of change of the magnetron, cyclotron and axial amplitudes (s⁻¹); a negative value means cooling.
+    - - "z–y projection"
+      - "The same motion seen from the side along x: axial z against y, with its own axial and radial ranges."
+    - - "Phase-space plots"
+      - "x against its velocity vₓ for the radial motion (last six cyclotron periods) and z against v_z for the axial motion (last three axial periods); the orange dot is the present time. Cooling shrinks the loops towards the centre."
     - - Orbit, axial and 3D plots
       - Radial x–y orbit, axial z–x projection and a 3D projection of the physical motion; the 3D axes are red x, green y, blue z.
     - - Amplitude plot
@@ -645,6 +649,10 @@ zh:
       - F′/(2π βr)：力梯度除以径向摩擦系数。落在带内时两个径向模都被冷却；低于带则磁控管模被加热，高于带则回旋模被加热。
     - - γ₋、γ₊、γz
       - 磁控管、回旋与轴向振幅的变化率（s⁻¹）；负值表示冷却。
+    - - "z–y 投影"
+      - "沿 x 方向侧视同一运动：轴向 z 对 y，轴向与径向范围各自独立。"
+    - - "相空间图"
+      - "径向运动的 x–vₓ（最近六个回旋周期）和轴向运动的 z–v_z（最近三个轴向周期）；橙点为当前时刻。冷却使回路向中心收缩。"
     - - 轨道、轴向和三维图
       - 径向 x–y 轨道、轴向 z–x 投影，以及实际运动的三维投影；三维坐标轴为红 x、绿 y、蓝 z。
     - - 振幅图
@@ -1014,6 +1022,10 @@ fi:
       - 'F′/(2π βr): voimagradientti jaettuna radiaalisella kitkakertoimella. Vyöhykkeen sisällä molemmat radiaalimoodit jäähtyvät; sen alapuolella magnetronimoodi lämpenee, yläpuolella syklotronimoodi lämpenee.'
     - - γ₋, γ₊, γz
       - Magnetroni-, syklotroni- ja aksiaaliamplitudin muutosnopeudet (s⁻¹); negatiivinen arvo tarkoittaa jäähtymistä.
+    - - "z–y-projektio"
+      - "Sama liike sivulta x:n suunnasta: aksiaalinen z y:n funktiona, omilla aksiaali- ja radiaalialueillaan."
+    - - "Vaihetilakuvat"
+      - "x nopeuttaan vₓ vastaan radiaaliliikkeelle (viimeiset kuusi syklotronijaksoa) ja z nopeuttaan v_z vastaan aksiaaliliikkeelle (viimeiset kolme aksiaalijaksoa); oranssi piste on nykyhetki. Jäähdytys kutistaa silmukat kohti keskustaa."
     - - Rata-, aksiaali- ja 3D-kuvat
       - Radiaalinen x–y-rata, aksiaalinen z–x-projektio ja fysikaalisen liikkeen 3D-projektio; 3D-akselit ovat punainen x, vihreä y, sininen z.
     - - Amplitudikuvaaja
@@ -1383,6 +1395,10 @@ de:
       - 'F′/(2π βr): Kraftgradient geteilt durch den radialen Reibungskoeffizienten. Im Band werden beide Radialmoden gekühlt; darunter wird die Magnetronmode geheizt, darüber die Zyklotronmode.'
     - - γ₋, γ₊, γz
       - Änderungsraten der Magnetron-, Zyklotron- und Axialamplitude (s⁻¹); ein negativer Wert bedeutet Kühlung.
+    - - "z–y-Projektion"
+      - "Dieselbe Bewegung von der Seite entlang x gesehen: axiales z gegen y, mit eigenen Axial- und Radialbereichen."
+    - - "Phasenraumbilder"
+      - "x gegen seine Geschwindigkeit vₓ für die Radialbewegung (letzte sechs Zyklotronperioden) und z gegen v_z für die Axialbewegung (letzte drei Axialperioden); der orange Punkt ist die aktuelle Zeit. Kühlung zieht die Schleifen zur Mitte zusammen."
     - - Bahn-, Axial- und 3D-Bilder
       - Radiale x–y-Bahn, axiale z–x-Projektion und 3D-Projektion der physikalischen Bewegung; die 3D-Achsen sind rot x, grün y, blau z.
     - - Amplitudendiagramm
@@ -1752,6 +1768,10 @@ ja:
       - F′/(2π βr)：力の勾配を動径方向の摩擦係数で割った値。帯の中では両方の動径モードが冷却され、下回るとマグネトロンモードが、上回るとサイクロトロンモードが加熱されます。
     - - γ₋, γ₊, γz
       - マグネトロン、サイクロトロン、軸方向の振幅の変化率（s⁻¹）。負の値は冷却を意味します。
+    - - "z–y 投影"
+      - "x 方向から見た同じ運動：軸方向 z 対 y。軸方向と径方向の範囲はそれぞれ独立です。"
+    - - "位相空間のプロット"
+      - "径方向運動の x 対速度 vₓ（直近 6 サイクロトロン周期）と、軸方向運動の z 対 v_z（直近 3 軸方向周期）。橙色の点が現在時刻です。冷却するとループが中心へ縮みます。"
     - - 軌道・軸方向・3D のプロット
       - 動径方向 x–y 軌道、軸方向 z–x 投影、実際の運動の 3D 投影。3D の軸は赤が x、緑が y、青が z。
     - - 振幅のプロット
@@ -2121,6 +2141,10 @@ fr:
       - 'F′/(2π βr) : gradient de force divisé par le coefficient de friction radial. Dans la bande, les deux modes radiaux sont refroidis ; en dessous le mode magnétron chauffe, au-dessus le mode cyclotron chauffe.'
     - - γ₋, γ₊, γz
       - Taux de variation des amplitudes magnétron, cyclotron et axiale (s⁻¹) ; une valeur négative signifie un refroidissement.
+    - - "Projection z–y"
+      - "Le même mouvement vu de côté le long de x : z axial en fonction de y, avec ses propres plages axiale et radiale."
+    - - "Espaces des phases"
+      - "x en fonction de sa vitesse vₓ pour le mouvement radial (six dernières périodes cyclotron) et z en fonction de v_z pour le mouvement axial (trois dernières périodes axiales) ; le point orange est l’instant actuel. Le refroidissement resserre les boucles vers le centre."
     - - Orbite, axial et 3D
       - Orbite radiale x–y, projection axiale z–x et projection 3D du mouvement physique ; les axes 3D sont x rouge, y vert, z bleu.
     - - Graphique d’amplitude

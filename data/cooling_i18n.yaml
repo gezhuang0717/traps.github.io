@@ -1344,3 +1344,24 @@ c194:
   fr: Piège magnéto-optique · MOT
   ja: 磁気光学トラップ · MOT
   zh: 磁光阱 MOT
+c195:
+  de: "Axiale z–y-Projektion (unabhängige Bereiche)"
+  en: "Axial z–y projection (independent ranges)"
+  fi: "Aksiaalinen z–y-projektio (itsenäiset alueet)"
+  fr: "Projection axiale z–y (plages indépendantes)"
+  ja: "軸方向 z–y 投影（独立した範囲）"
+  zh: "轴向 z–y 投影（独立范围）"
+c196:
+  de: "Radialer Phasenraum x–vₓ (letzte sechs Zyklotronperioden)"
+  en: "Radial phase space x–vₓ (last six cyclotron periods)"
+  fi: "Radiaalinen vaihetila x–vₓ (viimeiset kuusi syklotronijaksoa)"
+  fr: "Espace des phases radial x–vₓ (six dernières périodes cyclotron)"
+  ja: "径方向の位相空間 x–vₓ（直近 6 サイクロトロン周期）"
+  zh: "径向相空间 x–vₓ（最近六个回旋周期）"
+c197:
+  de: "Axialer Phasenraum z–v_z (letzte drei Axialperioden)"
+  en: "Axial phase space z–v_z (last three axial periods)"
+  fi: "Aksiaalinen vaihetila z–v_z (viimeiset kolme aksiaalijaksoa)"
+  fr: "Espace des phases axial z–v_z (trois dernières périodes axiales)"
+  ja: "軸方向の位相空間 z–v_z（直近 3 軸方向周期）"
+  zh: "轴向相空间 z–v_z（最近三个轴向周期）"

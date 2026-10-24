@@ -173,7 +173,7 @@
     function compute() { ZGCoolingView.stopRecording(box);res = P.penningLaser(params()); draw(); }
     function draw() {
       const p = params();
-      if (!res.stable) { out.replaceChildren(); msg.textContent = "⚠️ unstable trap (ν_c² < 2ν_z²)"; ["win","orbit","axial","space","amp"].map(cv).forEach(c => crisp(c)); return; }
+      if (!res.stable) { out.replaceChildren(); msg.textContent = "⚠️ unstable trap (ν_c² < 2ν_z²)"; ["win","orbit","axial","axialy","space","phasex","phasez","amp"].map(cv).forEach(c => crisp(c)); return; }
       /* Log frequency scale: F′/βr is compared directly with ω− and ω+. */
       { const {g,W,H}=crisp(cv("win")),br=res.beta*Math.cos(p.theta)**2,low=res.freq.nm,high=res.freq.np,nu=br>0?res.Fy/br/TAU:NaN;
         const l=Math.log10(low)-.45,h=Math.log10(high)+.45,X=v=>40+(W-80)*(Math.log10(Math.max(v,10**l))-l)/(h-l),inside=br>0&&nu>low&&nu<high;
@@ -205,14 +205,27 @@
     function drawOrbit() {
       const p=params(),t=simT||0,[ap,am,az]=amps(t),rr=+q("radialRange").value*1e-6/+q("zoom").value,zr=+q("axialRange").value*1e-6/+q("zoom").value;
       const point=u=>{const[a,b,c]=amps(u),f=res.freq;return[a*Math.cos(TAU*f.np*u)+b*Math.cos(TAU*f.nm*u),-a*Math.sin(TAU*f.np*u)-b*Math.sin(TAU*f.nm*u),c*Math.cos(TAU*f.nz*u)];};const trail=Math.min(t,6/res.freq.np);
-      for(const name of ["orbit","axial","space"]){const{g,W,H}=crisp(cv(name)),extent=Math.max(rr,zr)*1e6,map=ZGCoolingView.frame(g,W,H,{xmin:-(name==='space'?extent:name==='axial'?zr*1e6:rr*1e6),xmax:name==='space'?extent:name==='axial'?zr*1e6:rr*1e6,ymin:-(name==='space'?extent:rr*1e6),ymax:name==='space'?extent:rr*1e6,equal:true,xlabel:name==='space'?'projected horizontal (µm)':name==='axial'?'z (µm)':'x (µm)',ylabel:name==='space'?'projected vertical (µm)':name==='axial'?'x (µm)':'y (µm)',title:'t = '+tmUnit(t)+(name==='space'?' · x / y / z':name==='axial'?' · z–x':' · x–y')});
-        const project=v=>name==='orbit'?[v[0]*1e6,v[1]*1e6]:name==='axial'?[v[2]*1e6,v[0]*1e6]:ZGCoolingView.project(v.map(x=>x*1e6),(+q('camera').value)*Math.PI/180,pitch),coords=v=>{const[x,y]=project(v);return[map.X(x),map.Y(y)];};
+      for(const name of ["orbit","axial","axialy","space"]){const{g,W,H}=crisp(cv(name)),extent=Math.max(rr,zr)*1e6,map=ZGCoolingView.frame(g,W,H,{xmin:-(name==='space'?extent:name==='axial'||name==='axialy'?zr*1e6:rr*1e6),xmax:name==='space'?extent:name==='axial'||name==='axialy'?zr*1e6:rr*1e6,ymin:-(name==='space'?extent:rr*1e6),ymax:name==='space'?extent:rr*1e6,equal:true,xlabel:name==='space'?'projected horizontal (µm)':name==='axial'||name==='axialy'?'z (µm)':'x (µm)',ylabel:name==='space'?'projected vertical (µm)':name==='axial'?'x (µm)':'y (µm)',title:'t = '+tmUnit(t)+(name==='space'?' · x / y / z':name==='axial'?' · z–x':name==='axialy'?' · z–y':' · x–y')});
+        const project=v=>name==='orbit'?[v[0]*1e6,v[1]*1e6]:name==='axial'?[v[2]*1e6,v[0]*1e6]:name==='axialy'?[v[2]*1e6,v[1]*1e6]:ZGCoolingView.project(v.map(x=>x*1e6),(+q('camera').value)*Math.PI/180,pitch),coords=v=>{const[x,y]=project(v);return[map.X(x),map.Y(y)];};
         g.save();g.beginPath();g.rect(map.l,map.t,map.w,map.h);g.clip();
         if(name==='orbit'){const y=map.Y(p.yb*1e6),waist=Math.abs(map.Y(p.w*1e6)-map.Y(0)),grad=g.createLinearGradient(0,y-waist,0,y+waist);grad.addColorStop(0,'#ffffff00');grad.addColorStop(.5,'#7c3aed33');grad.addColorStop(1,'#ffffff00');g.fillStyle=grad;g.fillRect(map.l,y-waist,map.w,2*waist);}
         if(name==='space')ZGCoolingView.cage(g,map,extent*.6,(+q('camera').value)*Math.PI/180,pitch);
         g.strokeStyle='#2563eb';g.lineWidth=1.8;g.beginPath();for(let i=0;i<=360;i++){const[x,y]=coords(point(t-trail+trail*i/360));if(Number.isFinite(x)&&Number.isFinite(y)){i?g.lineTo(x,y):g.moveTo(x,y);}}g.stroke();const[x,y]=coords(point(t));if(Number.isFinite(x)&&Number.isFinite(y)){g.fillStyle='#f59e0b';g.beginPath();g.arc(x,y,5,0,TAU);g.fill();}g.restore();
         if(name==='space'){for(const[k,color]of ['#b91c1c','#15803d','#1d4ed8'].entries()){const basis=[0,0,0];basis[k]=(k===2?zr:rr)*.8;const[x,y]=coords(basis);g.strokeStyle=color;g.fillStyle=color;g.lineWidth=2;g.beginPath();g.moveTo(map.X(0),map.Y(0));g.lineTo(x,y);g.stroke();g.textAlign='left';g.fillText(['x','y','z'][k],x+4,y-4);}}
         if(![ap,am,az].every(Number.isFinite)||ap+am>rr||az>zr){g.fillStyle='#b91c1c';g.textAlign='right';g.fillText(box.dataset.zh==='true'?'超出范围；适应当前轨道':ZGTr('Outside range; Fit current orbit'),W-12,32);}
+      }
+      drawPhase(t,rr,zr);
+    }
+    /* Phase-space projections of the same physical motion: x–vx (radial, last six cyclotron periods) and z–vz (axial, last three axial periods).
+       The envelopes decay slowly compared with the oscillations, so the velocity is the derivative of the oscillating part. */
+    function drawPhase(t,rr,zr){
+      const f=res.freq,wp=TAU*f.np,wm=TAU*f.nm,wz=TAU*f.nz;
+      const state=u=>{const[a,b,c]=amps(u);return{x:a*Math.cos(wp*u)+b*Math.cos(wm*u),vx:-a*wp*Math.sin(wp*u)-b*wm*Math.sin(wm*u),z:c*Math.cos(wz*u),vz:-c*wz*Math.sin(wz*u)};};
+      for(const[name,xk,vk,xr,vr,xl,vl,title,span]of[['phasex','x','vx',rr,rr*wp,'x (µm)','vₓ (m/s)',' · x–vₓ',6/f.np],['phasez','z','vz',zr,zr*wz,'z (µm)','v_z (m/s)',' · z–v_z',3/f.nz]]){
+        const{g,W,H}=crisp(cv(name)),map=ZGCoolingView.frame(g,W,H,{xmin:-xr*1e6,xmax:xr*1e6,ymin:-vr,ymax:vr,xlabel:xl,ylabel:vl,title:'t = '+tmUnit(t)+title}),trail=Math.min(t,span);
+        g.save();g.beginPath();g.rect(map.l,map.t,map.w,map.h);g.clip();g.strokeStyle='#2563eb';g.lineWidth=1.8;g.beginPath();
+        for(let i=0;i<=360;i++){const s=state(t-trail+trail*i/360),X=map.X(s[xk]*1e6),Y=map.Y(s[vk]);if(Number.isFinite(X)&&Number.isFinite(Y)){i?g.lineTo(X,Y):g.moveTo(X,Y);}}g.stroke();
+        const s=state(t),X=map.X(s[xk]*1e6),Y=map.Y(s[vk]);if(Number.isFinite(X)&&Number.isFinite(Y)){g.fillStyle='#f59e0b';g.beginPath();g.arc(X,Y,5,0,TAU);g.fill();}g.restore();
       }
     }
     function conditions(){const p=params();return{parameters:{species:sel.value,trap:'analytic Penning envelopes',B_T:p.B,U0_V:p.U0,d_m:p.d,lambda_nm:p.lambda*1e9,gamma_2pi_MHz:p.gamma/TAU/1e6,delta_over_gamma:p.delta/p.gamma,s0:p.s0,waist_m:p.w,offset_m:p.yb,theta_rad:p.theta,eta:p.eta,initial_amplitudes_um:{r_plus:+q('a0p').value,r_minus:+q('a0m').value,z:+q('a0z').value},observation_ms:+q('span').value},view:{yaw_deg:+q('camera').value,pitch_rad:pitch,radial_half_um:+q('radialRange').value,axial_half_um:+q('axialRange').value,zoom:+q('zoom').value},time_s:simT,playback:play.metadata()};}
@@ -225,9 +238,9 @@
       if(a === "fit"){const a=amps(simT);if(a.every(Number.isFinite)){q("radialRange").value=(+Math.max(.01,1.3*(a[0]+a[1])*1e6).toPrecision(5));q("axialRange").value=(+Math.max(.01,1.3*a[2]*1e6).toPrecision(5));q("zoom").value=1;}draw();}
       if(a === "reset"){ZGCoolingView.stopRecording(box);q("radialRange").value=60;q("axialRange").value=60;q("inspectTime").value=0;cancelAnimationFrame(anim);anim=0;simT=0;phase=0;q("zoom").value=1;draw();}
       if (a === "auto") { const p = params(); let best = null; for (let yb = -150; yb <= 150; yb += 0.5) { const r = P.penningLaser({ ...p, yb: yb * 1e-6 }); if (!r.stable) continue; const sc = Math.min(-r.gp, -r.gm, r.gz < 0 ? -r.gz : Infinity); if (!best || sc > best[1]) best = [yb, sc]; } if (best) { q("yb").value = best[0]; q("yb").dispatchEvent(new Event("input")); } }
-      if (a === "png") zgExport.png(ZGCoolingView.compose(["win", "orbit", "axial", "space", "amp"].map(cv),conditions()),`laser-penning-${sel.value}`);
+      if (a === "png") zgExport.png(ZGCoolingView.compose(["win", "orbit", "axial", "axialy", "space", "phasex", "phasez", "amp"].map(cv),conditions()),`laser-penning-${sel.value}`);
       if(a==='settings')zgExport.save(new Blob([JSON.stringify(conditions(),null,2)],{type:'application/json'}),'analytic-penning-conditions.json');
-      if(a==='video'){ZGCoolingView.recordPanel(box,["win", "orbit", "axial", "space", "amp"].map(cv),'laser-penning-'+sel.value,conditions,()=>{if(!anim){simT=1e-6;last=0;runBtn.textContent=L.pause;anim=requestAnimationFrame(frame);}});}
+      if(a==='video'){ZGCoolingView.recordPanel(box,["win", "orbit", "axial", "axialy", "space", "phasex", "phasez", "amp"].map(cv),'laser-penning-'+sel.value,conditions,()=>{if(!anim){simT=1e-6;last=0;runBtn.textContent=L.pause;anim=requestAnimationFrame(frame);}});}
       if (a === "csv") { const p = params(); const head = `# ion=${sel.value} B_T=${p.B} U0_V=${p.U0} d_m=${p.d} delta_over_gamma=${q("delta").value} s0=${p.s0} w_m=${p.w} yb_m=${p.yb} theta_rad=${p.theta} eta=${p.eta}\n# gamma_plus=${res.gp} gamma_minus=${res.gm} gamma_z=${res.gz} 1/s Fy=${res.Fy} N/m window=${res.window.join("..")}\n`;
         const rows = Array.from({ length: 121 }, (_, i) => { const t = 1e-6 * (+q("span").value/1e-3) ** (i / 120); return [t, ...amps(t)].join(","); }); download(`laser-penning-${sel.value}.csv`, new Blob([head + "t_s,r_plus_m,r_minus_m,z_m\n" + rows.join("\n")], { type: "text/csv" })); }
     });

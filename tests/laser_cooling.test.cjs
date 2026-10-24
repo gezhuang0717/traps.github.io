@@ -33,8 +33,9 @@ test('Penning views retain window, explicit time and independent 2D/3D ranges', 
   const html = fs.readFileSync('layouts/_partials/zg/laser-cooling.html','utf8');
   const ui = fs.readFileSync('static/js/laser-cooling.js','utf8');
   for (const name of ['radialRange','axialRange','inspectTime','camera']) assert.ok(html.includes(`name="${name}"`));
-  for (const name of ['orbit','axial','space','amp','win']) assert.ok(html.includes(`data-cv="${name}"`));
+  for (const name of ['orbit','axial','axialy','space','phasex','phasez','amp','win']) assert.ok(html.includes(`data-cv="${name}"`));
   assert.ok(ui.includes('res.Fy/br/TAU'));
   assert.ok(ui.includes('data-numeric="B"'));
-  assert.ok(ui.includes('["win", "orbit", "axial", "space", "amp"].map(cv)'));
+  assert.ok(ui.includes('["win", "orbit", "axial", "axialy", "space", "phasex", "phasez", "amp"].map(cv)'));
+  assert.ok(ui.includes('function drawPhase('));
 });

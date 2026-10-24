@@ -37,8 +37,8 @@ en:
   laps: Mirror laps
   width: Initial bunch FWHM (ns)
   broadening: Broadening per lap (ps)
-  reference_time: Flight time at 100 u, q = 1 (µs)
-  lap_time: Lap time at 100 u, q = 1 (µs)
+  reference_time: Flight time at 100 u, q = 1, 1 keV (µs)
+  lap_time: Lap time at 100 u, q = 1, 1 keV (µs)
   delay: Fixed electronic delay (µs)
   calibration: Reference-ion mass calibration
   reference_ion: Reference ion
@@ -48,6 +48,17 @@ en:
   reference_sigma: Reference-time uncertainty (ns)
   delay_sigma: Delay uncertainty (ns)
   calibrate: Calculate calibrated mass
+  energy: "Kinetic energy per charge E/q (keV)"
+  energy_hint: "Range 0.1–100 keV, default 1 keV. The two times below are those for 1 keV; flight times scale as 1/√(E/q): 100 keV is 10 times faster, 0.1 keV is 3.16 times slower. Ions with the same E/q keep their time ratios."
+  bin: "Histogram bin width"
+  bin_auto: "automatic (90 bins)"
+  bin_custom: "custom (set below)"
+  bin_custom_value: "Custom bin width (ns)"
+  bin_too_small: "This bin width needs more than 4000 bins; choose a larger width or fewer laps."
+  cal_t0: "Time offset t₀ (µs)"
+  cal_formula: "One reference ion and the time offset t₀ (the electronic delay between the start signal and the flight) fix the scale: m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². The kinetic energy cancels when both ions have the same E/q."
+  cal_fill: "Fill from the simulated spectrum"
+  cal_filled: "Filled with the simulated times of the reference ion and of species 1 at the current laps, energy and delay; “Calculate” should return the mass of species 1."
   magnetic: Magnetic field B (T)
   excitation: Excitation time (ms)
   scheme: Excitation sequence
@@ -171,8 +182,8 @@ zh:
   laps: 镜间往返圈数
   width: 初始离子束 FWHM（ns）
   broadening: 每圈展宽（ps）
-  reference_time: 100 u、q = 1 的飞行时间（µs）
-  lap_time: 100 u、q = 1 的单圈时间（µs）
+  reference_time: 100 u、q = 1、1 keV 的飞行时间（µs）
+  lap_time: 100 u、q = 1、1 keV 的单圈时间（µs）
   delay: 固定电子学延迟（µs）
   calibration: 参考离子质量标定
   reference_ion: 参考离子
@@ -182,6 +193,17 @@ zh:
   reference_sigma: 参考时间不确定度（ns）
   delay_sigma: 延迟不确定度（ns）
   calibrate: 计算标定质量
+  energy: "每电荷动能 E/q（keV）"
+  energy_hint: "范围 0.1–100 keV，默认 1 keV。下面两个时间对应 1 keV；飞行时间按 1/√(E/q) 缩放：100 keV 快 10 倍，0.1 keV 慢 3.16 倍。E/q 相同的离子保持时间比不变。"
+  bin: "直方图的分格宽度"
+  bin_auto: "自动（90 格）"
+  bin_custom: "自定义（见下）"
+  bin_custom_value: "自定义分格宽度（ns）"
+  bin_too_small: "该分格宽度需要超过 4000 格；请选择更大的宽度或减少圈数。"
+  cal_t0: "时间零点偏移 t₀（µs）"
+  cal_formula: "一个参考离子和时间零点偏移 t₀（起始信号与飞行之间的电子学延迟）即可确定标度：m/q = (m/q)ref · ((t − t₀)/(tref − t₀))²。两个离子的 E/q 相同时动能抵消。"
+  cal_fill: "用模拟谱的数值填入"
+  cal_filled: "已填入参考离子与种类 1 在当前圈数、能量和延迟下的模拟时间；点击“计算”应得到种类 1 的质量。"
   magnetic: 磁场 B（T）
   excitation: 激发时间（ms）
   scheme: 激发序列
@@ -310,8 +332,8 @@ fi:
   laps: "Peilikierrokset"
   width: "Alkupaketin FWHM (ns)"
   broadening: "Levenemä kierrosta kohden (ps)"
-  reference_time: "Lentoaika 100 u, q = 1 (µs)"
-  lap_time: "Kierrosaika 100 u, q = 1 (µs)"
+  reference_time: "Lentoaika 100 u, q = 1, 1 keV (µs)"
+  lap_time: "Kierrosaika 100 u, q = 1, 1 keV (µs)"
   delay: "Kiinteä elektroninen viive (µs)"
   calibration: "Vertailuionin massakalibrointi"
   reference_ion: "Vertailuioni"
@@ -321,6 +343,17 @@ fi:
   reference_sigma: "Vertailuajan epävarmuus (ns)"
   delay_sigma: "Viiveen epävarmuus (ns)"
   calibrate: "Laske kalibroitu massa"
+  energy: "Liike-energia varausta kohti E/q (keV)"
+  energy_hint: "Alue 0,1–100 keV, oletus 1 keV. Alla olevat kaksi aikaa vastaavat 1 keV:a; lentoaika skaalautuu kuten 1/√(E/q): 100 keV on 10 kertaa nopeampi, 0,1 keV on 3,16 kertaa hitaampi. Samalla E/q:lla ionien aikasuhteet säilyvät."
+  bin: "Histogrammin lokin leveys"
+  bin_auto: "automaattinen (90 lokeroa)"
+  bin_custom: "oma (asetetaan alla)"
+  bin_custom_value: "Oma lokin leveys (ns)"
+  bin_too_small: "Tämä lokin leveys vaatisi yli 4000 lokeroa; valitse suurempi leveys tai vähemmän kierroksia."
+  cal_t0: "Aikanollan siirtymä t₀ (µs)"
+  cal_formula: "Yksi vertailuioni ja aikanollan siirtymä t₀ (käynnistyssignaalin ja lennon välinen elektroninen viive) määräävät asteikon: m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². Liike-energia supistuu, kun molemmilla ioneilla on sama E/q."
+  cal_fill: "Täytä simuloidusta spektristä"
+  cal_filled: "Täytetty vertailuionin ja lajin 1 simuloiduilla ajoilla nykyisillä kierroksilla, energialla ja viiveellä; “Laske” palauttaa lajin 1 massan."
   magnetic: "Magneettikenttä B (T)"
   excitation: "Virityksen kesto (ms)"
   scheme: "Virityssekvenssi"
@@ -438,8 +471,8 @@ de:
   laps: "Spiegelrunden"
   width: "FWHM des Anfangspakets (ns)"
   broadening: "Verbreiterung pro Runde (ps)"
-  reference_time: "Flugzeit bei 100 u, q = 1 (µs)"
-  lap_time: "Rundenzeit bei 100 u, q = 1 (µs)"
+  reference_time: "Flugzeit bei 100 u, q = 1, 1 keV (µs)"
+  lap_time: "Rundenzeit bei 100 u, q = 1, 1 keV (µs)"
   delay: "Feste elektronische Verzögerung (µs)"
   calibration: "Massenkalibrierung mit Referenzion"
   reference_ion: "Referenzion"
@@ -449,6 +482,17 @@ de:
   reference_sigma: "Unsicherheit der Referenzzeit (ns)"
   delay_sigma: "Unsicherheit der Verzögerung (ns)"
   calibrate: "Kalibrierte Masse berechnen"
+  energy: "Kinetische Energie pro Ladung E/q (keV)"
+  energy_hint: "Bereich 0,1–100 keV, Standard 1 keV. Die beiden Zeiten darunter gelten für 1 keV; Flugzeiten skalieren mit 1/√(E/q): 100 keV ist 10-mal schneller, 0,1 keV 3,16-mal langsamer. Ionen mit gleichem E/q behalten ihre Zeitverhältnisse."
+  bin: "Binbreite des Histogramms"
+  bin_auto: "automatisch (90 Bins)"
+  bin_custom: "eigene (unten einstellen)"
+  bin_custom_value: "Eigene Binbreite (ns)"
+  bin_too_small: "Diese Binbreite bräuchte mehr als 4000 Bins; größere Breite oder weniger Runden wählen."
+  cal_t0: "Zeitnullpunkt-Versatz t₀ (µs)"
+  cal_formula: "Ein Referenzion und der Zeitversatz t₀ (die elektronische Verzögerung zwischen Startsignal und Flug) legen die Skala fest: m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². Die kinetische Energie kürzt sich, wenn beide Ionen dasselbe E/q haben."
+  cal_fill: "Aus dem simulierten Spektrum füllen"
+  cal_filled: "Mit den simulierten Zeiten des Referenzions und der Spezies 1 bei den aktuellen Runden, Energie und Verzögerung gefüllt; „Berechnen“ sollte die Masse der Spezies 1 liefern."
   magnetic: "Magnetfeld B (T)"
   excitation: "Anregungszeit (ms)"
   scheme: "Anregungssequenz"
@@ -561,8 +605,8 @@ ja:
   laps: "ミラー周回数"
   width: "初期バンチの FWHM (ns)"
   broadening: "1 周あたりの広がり (ps)"
-  reference_time: "100 u、q = 1 での飛行時間 (µs)"
-  lap_time: "100 u、q = 1 での周回時間 (µs)"
+  reference_time: "100 u、q = 1、1 keV での飛行時間 (µs)"
+  lap_time: "100 u、q = 1、1 keV での周回時間 (µs)"
   delay: "固定の電子回路遅延 (µs)"
   calibration: "基準イオンによる質量校正"
   reference_ion: "基準イオン"
@@ -572,6 +616,17 @@ ja:
   reference_sigma: "基準時間の不確かさ (ns)"
   delay_sigma: "遅延の不確かさ (ns)"
   calibrate: "校正済みの質量を計算"
+  energy: "電荷あたりの運動エネルギー E/q (keV)"
+  energy_hint: "範囲 0.1–100 keV、既定 1 keV。下の 2 つの時間は 1 keV の値です。飛行時間は 1/√(E/q) に比例し、100 keV では 10 倍速く、0.1 keV では 3.16 倍遅くなります。E/q が同じイオンの時間比は変わりません。"
+  bin: "ヒストグラムのビン幅"
+  bin_auto: "自動（90 ビン）"
+  bin_custom: "任意（下で設定）"
+  bin_custom_value: "任意のビン幅 (ns)"
+  bin_too_small: "このビン幅では 4000 ビンを超えます。幅を大きくするか周回数を減らしてください。"
+  cal_t0: "時間原点のオフセット t₀ (µs)"
+  cal_formula: "参照イオン 1 つと時間オフセット t₀（開始信号と飛行の間の電子回路遅延）でスケールが決まります：m/q = (m/q)ref · ((t − t₀)/(tref − t₀))²。両イオンの E/q が同じなら運動エネルギーは打ち消されます。"
+  cal_fill: "シミュレートしたスペクトルから入力"
+  cal_filled: "現在の周回数・エネルギー・遅延における参照イオンと種 1 のシミュレーション時間を入力しました。「計算」を押すと種 1 の質量が返るはずです。"
   magnetic: "磁場 B (T)"
   excitation: "励起時間 (ms)"
   scheme: "励起シーケンス"
@@ -673,8 +728,8 @@ fr:
   laps: Tours entre miroirs
   width: Largeur initiale FWHM (ns)
   broadening: Élargissement par tour (ps)
-  reference_time: Temps de vol à 100 u, q = 1 (µs)
-  lap_time: Durée d’un tour à 100 u, q = 1 (µs)
+  reference_time: Temps de vol à 100 u, q = 1, 1 keV (µs)
+  lap_time: Durée d’un tour à 100 u, q = 1, 1 keV (µs)
   delay: Retard électronique fixe (µs)
   calibration: Étalonnage de masse par ion de référence
   reference_ion: Ion de référence
@@ -684,6 +739,17 @@ fr:
   reference_sigma: Incertitude du temps de référence (ns)
   delay_sigma: Incertitude du retard (ns)
   calibrate: Calculer la masse étalonnée
+  energy: "Énergie cinétique par charge E/q (keV)"
+  energy_hint: "Plage 0,1–100 keV, 1 keV par défaut. Les deux temps ci-dessous valent pour 1 keV ; les temps de vol varient comme 1/√(E/q) : 100 keV est 10 fois plus rapide, 0,1 keV 3,16 fois plus lent. Des ions de même E/q gardent leurs rapports de temps."
+  bin: "Largeur de classe de l’histogramme"
+  bin_auto: "automatique (90 classes)"
+  bin_custom: "personnalisée (réglage ci-dessous)"
+  bin_custom_value: "Largeur de classe personnalisée (ns)"
+  bin_too_small: "Cette largeur exigerait plus de 4000 classes ; choisissez une largeur plus grande ou moins de tours."
+  cal_t0: "Décalage de l’origine des temps t₀ (µs)"
+  cal_formula: "Un ion de référence et le décalage t₀ (le retard électronique entre le signal de départ et le vol) fixent l’échelle : m/q = (m/q)ref · ((t − t₀)/(tref − t₀))². L’énergie cinétique s’élimine quand les deux ions ont le même E/q."
+  cal_fill: "Remplir depuis le spectre simulé"
+  cal_filled: "Rempli avec les temps simulés de l’ion de référence et de l’espèce 1 aux tours, énergie et retard actuels ; « Calculer » doit redonner la masse de l’espèce 1."
   magnetic: Champ magnétique B (T)
   excitation: Durée d’excitation (ms)
   scheme: Séquence d’excitation
