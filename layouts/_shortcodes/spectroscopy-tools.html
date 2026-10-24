@@ -1,6 +1,10 @@
 {{- $lang := substr site.Language.Lang 0 2 -}}
 {{- $titles := dict "en" "Nuclei & light: data laboratory" "zh" "原子核与光：数据实验室" "fi" "Ytimet ja valo: datalaboratorio" "de" "Kerne und Licht: Datenlabor" "ja" "原子核と光：データ実験室" "fr" "Noyaux et lumière : laboratoire de données" -}}
 <link rel="stylesheet" href="{{ "css/spectroscopy.css" | relURL }}">
+{{ if not (.Page.Store.Get "zg-figure-style-loaded") }}{{ .Page.Store.Set "zg-figure-style-loaded" true }}
+<link rel="stylesheet" href="{{ "css/figure-style.css" | relURL }}">
+<script defer src="{{ "js/figure-style.js" | relURL }}"></script>
+{{ end }}
 <section class="zg-spectroscopy" id="research-spectroscopy" data-spectroscopy data-lang="{{ $lang }}"
   data-values="{{ hugo.Data.spectroscopy | jsonify }}" data-cooling="{{ hugo.Data.laser_cooling.species | jsonify }}" data-example-base="{{ "data/research-examples/" | relURL }}" data-sources="{{ hugo.Data.research_code_examples.sources | jsonify }}" data-props-url="{{ "data/research-cache/nuclear-properties-compact.json" | relURL }}" data-ame-url="{{ "data/research-cache/ame2020-reference.json" | relURL }}">
   <header><p class="sp-eyebrow">CLS · IAEA · NNDC · NIST</p><h2>{{ index $titles $lang | default $titles.en }}</h2></header>
@@ -15,6 +19,7 @@
 <script defer src="{{ "js/spectroscopy-settings.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-uncertainty.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-data.js" | relURL }}"></script>
+<script defer src="{{ "js/research-data.js" | relURL }}"></script>
 <script defer src="{{ "js/ame-reference.js" | relURL }}"></script>
 <script defer src="{{ "js/beta-spectrum.js" | relURL }}"></script>
 <script defer src="{{ "js/spectroscopy-fr.js" | relURL }}"></script>

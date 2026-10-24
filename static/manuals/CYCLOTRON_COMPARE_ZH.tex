@@ -1,0 +1,273 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{space}{xeCJK}
+%
+\documentclass[
+  aps,
+  onecolumn,
+  11pt]{revtex4-2}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Times New Roman}
+  \setmonofont[]{Menlo}
+  \ifXeTeX
+    \usepackage{xeCJK}
+    \setCJKmainfont[]{Songti SC}
+          \fi
+  \ifLuaTeX
+    \usepackage[]{luatexja-fontspec}
+    \setmainjfont[]{Songti SC}
+  \fi
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={回旋频率比较操作手册},
+  pdfauthor={TrapLab documentation},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{回旋频率比较操作手册}
+\author{TrapLab documentation}
+\date{2026-10-24}
+
+\begin{document}
+\maketitle
+
+既有 Lab
+回旋计算器可在同一个磁场下比较一到十个明确指定的离子或同位素分子。每行保留自己的质量约定、不确定度和来源。本工具计算自由回旋频率，不拟合共振、不标定磁场，也不推断未知的原子组成。
+
+\subsection{网页中比较两种离子}\label{ux7f51ux9875ux4e2dux6bd4ux8f83ux4e24ux79cdux79bbux5b50}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  打开 Lab 的回旋计算器，首次比较保留 \(B=7\)
+  T。磁场不确定度留空表示未知；仅当明确将磁场视为固定量时才填写零。
+\item
+  第一行输入 \texttt{133Cs} 并选择评价质量，添加第二行
+  \texttt{85Rb}。电荷留空时读取名称中的电荷或采用默认
+  \(+1\)，也可显式填写一致的非零整数。
+\item
+  为获得可重复的离线比较，选择保存的 AME2020 与
+  NUBASE2020，然后点击计算全部行。各行应显示 Hz
+  频率、电荷、离子质量，以及已知不确定度或明确的未知状态。7 T 下 Cs
+  频率约为 0.81
+  MHz；此值仅作量级检查，实际记录应使用计算结果的完整精度。
+\item
+  展开每行来源，核对评价版本、核态标识、来源路径类型和质量不确定度。优先在线模式可明确回退到保存的
+  2020 版；仅在线模式在请求失败时报告错误。
+\item
+  保存全部行 JSON 并下载结果
+  CSV。改变一行后，旧结果应被标为需要重新计算。重新加载
+  JSON，核对重新计算的结果与来源。文件位于浏览器设置指定的下载位置。
+\end{enumerate}
+
+最多可添加十行，至少保留一行。字段修改会使受影响的结果失效；新输入会取消旧的异步填充。改变输入后，不能在重新计算前复制旧结果。
+
+\subsection{粒子名称与手动质量}\label{ux7c92ux5b50ux540dux79f0ux4e0eux624bux52a8ux8d28ux91cf}
+
+支持示例包括
+\texttt{133Cs}、\texttt{Cs-133}、\texttt{cesium-133}、\texttt{133Xe{[}m1{]}}、\texttt{12C:16O*2}
+与 \texttt{{[}133Cs+1H{]}+}。分子每个组分都必须指定同位素。单独的
+\texttt{Cs}、\texttt{H2O}、未收录核态和电荷冲突会被拒绝。末尾数字可能同时表示数量或电荷时，应使用带括号的明确电荷或电荷字段。
+
+手动输入时取消评价质量，填写质量与可选不确定度，并明确选择中性原子或组分质量之和，或已经校正的离子质量。单位为
+u 或 keV/\(c^2\)。keV/\(c^2\)
+字段是完整质量，不是质量过剩。切换单位会同时转换质量与已知误差。编辑自动填充的质量会清除原评价误差并切换到手动输入，防止新数值沿用旧误差。
+
+电荷数须为 −100 到 100
+的非零整数，磁场与校正后离子质量必须为正。界面频率为绝对值，导出数据另保留有符号频率。
+
+\subsection{方程与单位}\label{ux65b9ux7a0bux4e0eux5355ux4f4d}
+
+设 \(M\)、\(m_e\) 为以 u 表示的质量数值，\(u\) 为以 kg
+表示的原子质量常数。根据输入约定，
+
+\[m_{\mathrm{ion}}=M-qm_e\quad\text{中性质量输入},\]
+
+\[m_{\mathrm{ion}}=M\quad\text{已校正离子质量输入}.\]
+
+正离子扣除电子质量，负离子增加电子质量；模型省略电离能、电子亲和能和分子结合能。已经校正的离子质量不会重复扣除电子。
+
+\[\nu_c=\frac{|q|eB}{2\pi m_{\mathrm{ion}}u},\qquad \nu_{\mathrm{signed}}=\frac{qeB}{2\pi m_{\mathrm{ion}}u}.\]
+
+\(B\) 使用 T，频率输出 Hz。实现保留的质量能量转换为
+
+\[C_u=uc^2=931494.10242\ {\mathrm{keV}},\]
+
+\[M=\frac{E_{\mathrm{mass}}}{C_u},\qquad M=A+\frac{ME}{C_u}.\]
+
+前式转换以 keV/\(c^2\) 输入的完整质量；后式说明评价原子质量过剩 \(ME\)
+的转换。二者是不同的输入，不能混用。
+
+\subsection{不确定度与关联}\label{ux4e0dux786eux5b9aux5ea6ux4e0eux5173ux8054}
+
+质量和磁场误差均已知时，单行边际误差为
+
+\[\sigma_{\nu}=\nu_c\sqrt{\left(\frac{\sigma_B}{B}\right)^2+\left(\frac{\sigma_M}{m_{\mathrm{ion}}}\right)^2}.\]
+
+常数视为固定。空白误差表示未知，数值零表示已知的固定输入。任一必需误差未知时，频率误差保持未知。分子中重复的同位素先合并原始变量系数，再传播：
+
+\[M_{\mathrm{sum}}=\sum_i n_iM_i,\qquad \sigma_{M_{\mathrm{sum}}}^2=\sum_i n_i^2\sigma_{M_i}^2.\]
+
+这采用原始变量对角协方差，不是完整 AME
+协方差。所有行共享磁场，其协方差贡献为
+
+\[\operatorname{Cov}_B(\nu_j,\nu_k)=\frac{\nu_j\nu_k}{B^2}\sigma_B^2.\]
+
+共享同位素还会产生行间关联。本工具提供单行边际结果，不执行联合频率比拟合，也不支持将所有行自动当作相互独立。
+
+\subsection{来源与网页本地差异}\label{ux6765ux6e90ux4e0eux7f51ux9875ux672cux5730ux5deeux5f02}
+
+保存的基态质量来自 AME2020，精确核态标识与激发信息来自
+NUBASE2020。网页采用
+
+\[M^*=M_{g,\mathrm{AME2020}}+\frac{E_{x,\mathrm{NUBASE2020}}}{C_u}.\]
+
+网页在线选项查询 IAEA LiveChart 基态质量过剩，同时保留明确的 2020
+版来源约定与保存副本回退。评价日期和请求获取日期不同。本地
+\texttt{ame2020} 策略对基态使用 AME，对选定激发态使用 NUBASE
+直接列出的质量，不用上式重新组合。本地 \texttt{nubase2020}
+明确选择该保存评价。这可能改变同核异能态结果，因此导出时必须保留核态与来源策略。
+
+网页常数保留 CODATA2018 与 AME2020
+配置，\(m_e=5.48579909065\times10^{-4}\)
+u、\(u=1.66053906660\times10^{-27}\)
+kg。本地兼容配置保留同一质量能量转换，但采用
+\(m_e=5.485799090441\times10^{-4}\) u、\(u=1.66053906892\times10^{-27}\)
+kg。两者小的数值差异不一定表示错误。
+
+\subsection{运行已安装配套应用}\label{ux8fd0ux884cux5df2ux5b89ux88c5ux914dux5957ux5e94ux7528}
+
+在单独安装的配套应用目录打开终端，执行保存来源的命令行比较：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{./Run\_private.command} \AttributeTok{{-}m}\NormalTok{ traplab\_qt.cyclotron\_compare 133Cs 85Rb }\AttributeTok{{-}{-}B}\NormalTok{ 7 }\AttributeTok{{-}{-}sigma{-}B}\NormalTok{ 0 }\AttributeTok{{-}{-}policy}\NormalTok{ ame2020}
+\end{Highlighting}
+\end{Shaded}
+
+添加 \texttt{-\/-output\ cyclotron-example} 可创建新输出目录，内含
+\texttt{cyclotron\_rows.json} 与
+\texttt{cyclotron\_results.csv}。若目录已存在则拒绝写入，以保留旧结果。使用
+\texttt{-\/-settings\ cyclotron-example/cyclotron\_rows.json}
+可读取输入并重新计算。本地服务离线运行，不实现浏览器的在线来源策略。图形入口为
+\texttt{Individual\_tools/14\_Cyclotron\_comparison.command}，独立页为
+\texttt{cyclotron\_compare}。模块和启动器名称用于已安装应用，不是私有源码下载链接。
+
+也可运行
+\texttt{./Run\_private.command\ traplab.py\ gui\ -\/-standalone\ -\/-page\ cyclotron\_compare}
+打开图形页面。它提供英中文切换、一到十行、逐行频率图、可展开来源，以及
+Auto、TrapLab、Cloudberry、MRS legacy 名称规则。本地示例为
+\texttt{133Cs}、\texttt{133Xe{[}m1{]}}、\texttt{12C:16O2}；本地页面不宣传完整元素名称别名。保存会新建
+\texttt{outputs/cyclotron\_compare/run-N/} 输出包，打开行 JSON
+则先完整校验，再替换输入并重新计算。专用输出包包含 CSV 与
+JSON；图像保存使用既有 Plot style 和 Export
+plots，不能将它称为自动包含所有图像格式的输出包。
+
+\subsection{故障处理与证据}\label{ux6545ux969cux5904ux7406ux4e0eux8bc1ux636e}
+
+名称不明确时逐项指定同位素；选择实际收录的核态，修正电荷冲突，再计算。来源请求失败时可明确选择保存副本或重试，已有输入会保留。手动质量须有限且为正，并选对约定。不要为得到误差棒而把空白误差改成零。
+
+网页已有 43 项解析、计算和界面专项测试。本地十一项核心与实际 BasePage
+测试通过，覆盖正负电荷、核态错误、重复同位素误差、单位、未知与零误差、设置重开和无效输入保留。离屏构建不等于本地
+Cocoa
+导出、实际浏览器下载、硬件或精密质量测量验收。结果以所选质量来源和省略的结合修正为条件。
+
+\subsection{主要文献}\label{ux4e3bux8981ux6587ux732e}
+
+\begin{itemize}
+\tightlist
+\item
+  M. Wang 等，AME2020 原子质量评价 II，Chinese Physics C
+  45，030003（2021）；\href{https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt}{官方未舍入质量表}。表中标志区分系统学估计和缺失量。
+\item
+  F. G. Kondev 等，NUBASE2020 核性质评价，Chinese Physics C
+  45，030001（2021），\href{https://doi.org/10.1088/1674-1137/abddae}{DOI
+  10.1088/1674-1137/abddae}；\href{https://www-nds.iaea.org/amdc/ame2020/nubase_4.mas20.txt}{官方核态表}。
+\item
+  IAEA Nuclear Data
+  Services，\href{https://www-nds.iaea.org/relnsd/vcharthtml/api_v0_guide.html}{LiveChart
+  数据下载 API 指南}，核对日期 2026 年 10 月 24 日。API
+  字段说明不改变所选 AME 与 NUBASE 评价版本。
+\end{itemize}
+
+\end{document}

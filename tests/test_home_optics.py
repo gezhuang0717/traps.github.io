@@ -1,11 +1,13 @@
 """Primary-source figure and actual six-language homepage shortcode contract."""
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import struct
 import subprocess
 from html.parser import HTMLParser
+from urllib.parse import urljoin
 
 import pytest
 
@@ -32,8 +34,9 @@ def test_figure_and_source_conditions_are_explicit_and_localized():
     assert d["width"] >= 1400
     assert set(d["text"]) == set(LANGS)
     for lang, values in d["text"].items():
-        for field in ("title", "short_title", "short_caption", "caption", "purpose", "inputs", "outputs", "gain", "hint", "limits"):
+        for field in ("title", "short_title", "short_caption", "caption"):
             assert isinstance(values[field], str) and values[field].strip(), (lang, field)
+        assert not set(values).intersection({"purpose", "inputs", "outputs", "gain", "hint", "limits"})
         assert len(values["paragraphs"]) >= 3
         assert all(isinstance(x, str) and x.strip() for x in values["paragraphs"])
     for lang in LANGS:
@@ -92,7 +95,11 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         folder = tmp_path / "content" / lang
         folder.mkdir(parents=True)
         (folder / "_index.md").write_text('---\ntitle: Home\n---\n{{< home-optics >}}\n')
-        (folder / "research.md").write_text('---\ntitle: Research\n---\n{{< home-optics detail="true" >}}\n')
+        research = (ROOT / "content" / lang / "research.md").read_text()
+        jump = re.findall(r"\[[^\]]+\]\(#beam-line-optics\)", research)
+        assert len(jump) == 1
+        assert research.index(jump[0]) < research.index("{{< gallery >}}")
+        (folder / "research.md").write_text('---\ntitle: Research\n---\n' + jump[0] + '\n\n{{< home-optics detail="true" >}}\n')
         config += [f"[languages.{lang}]", f'contentDir="content/{lang}"']
     (tmp_path / "hugo.toml").write_text("\n".join(config))
     result = subprocess.run([hugo, "--source", str(tmp_path), "--destination", str(tmp_path / "public"),
@@ -125,10 +132,14 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         detail = OpticsMarkup(detailed)
         assert len(detail.ids) == len(set(detail.ids))
         assert detail.ids.count("beam-line-optics-guide") == 1
+        research_url = "https://example.test/traps.github.io/" + ("" if lang == "en" else lang + "/") + "research/"
+        assert any(urljoin(research_url, a.get("href", "")) == research_url + "#beam-line-optics" for a in detail.links)
         assert detail.figcaptions == [d["text"][lang]["caption"]]
         assert d["text"][lang]["short_caption"] not in detailed
         assert d["text"][lang]["title"] in detailed
         assert d["source"]["citation"] in detailed
+        assert all(paragraph in detailed for paragraph in d["text"][lang]["paragraphs"])
+        assert '<dl' not in detailed and 'class="zg-control-help"' not in detailed
         assert any(a.get("href") == d["source"]["url"] for a in detail.links)
         assert not any(".pdf" in a.get("href", "").lower() for a in parsed.links + detail.links)
         assert "114003" not in html + detailed and "adf1f5" not in html + detailed

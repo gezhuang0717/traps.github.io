@@ -57,6 +57,8 @@ labels:
     k_network: network
     k_portal: portal
     k_journal: journal
+    lookup_wiki: "Wikipedia"
+    lookup_api: "IAEA LiveChart API (CSV)"
   zh:
     chart_link: 本站核素图
     title_note: 核物理数据库、评价数据、数据库库、国际网络与工具汇总——每张卡片都有简短指南（ⓘ）：数据内容、适用场合与使用方法。
@@ -110,6 +112,8 @@ labels:
     k_network: 网络
     k_portal: 门户
     k_journal: 期刊
+    lookup_wiki: "维基百科"
+    lookup_api: "IAEA LiveChart 接口（CSV）"
   fi:
     chart_link: Sivuston nuklidikartta
     title_note: Ydinfysiikan tietokannat, evaluoinnit, kirjastot, verkostot ja työkalut yhdessä paikassa — jokaisessa
@@ -168,6 +172,8 @@ labels:
     k_network: verkosto
     k_portal: portaali
     k_journal: lehti
+    lookup_wiki: "Wikipedia"
+    lookup_api: "IAEA LiveChart -rajapinta (CSV)"
   de:
     chart_link: Nuklidkarte dieser Seite
     title_note: Kernphysik-Datenbanken, Evaluierungen, Bibliotheken, Netzwerke und Werkzeuge an einem Ort — jede
@@ -226,6 +232,8 @@ labels:
     k_network: Netzwerk
     k_portal: Portal
     k_journal: Zeitschrift
+    lookup_wiki: "Wikipedia"
+    lookup_api: "IAEA-LiveChart-API (CSV)"
   ja:
     chart_link: 本サイトの核図表
     title_note: 核物理のデータベース・評価値・ライブラリ・国際ネットワーク・ツールをまとめました。各カードに簡単なガイド（ⓘ）があります。
@@ -279,6 +287,8 @@ labels:
     k_network: ネットワーク
     k_portal: ポータル
     k_journal: 学術誌
+    lookup_wiki: "ウィキペディア"
+    lookup_api: "IAEA LiveChart API（CSV）"
   fr:
     chart_link: Carte de ce site
     title_note: Bases, évaluations, bibliothèques, réseaux et outils de physique nucléaire. Chaque fiche possède
@@ -336,6 +346,8 @@ labels:
     k_network: réseau
     k_portal: portail
     k_journal: revue
+    lookup_wiki: "Wikipédia"
+    lookup_api: "API IAEA LiveChart (CSV)"
 categories:
 - key: structure
   icon: 🧩
@@ -345,6 +357,7 @@ categories:
     fi: Ydinrakenne ja hajoaminen
     de: Kernstruktur & Zerfall
     ja: 核構造と崩壊
+    fr: "Structure nucléaire et désintégration"
 - key: masses
   icon: ⚖️
   name:
@@ -353,6 +366,7 @@ categories:
     fi: Massat ja perustilan ominaisuudet
     de: Massen & Grundzustandseigenschaften
     ja: 質量と基底状態の性質
+    fr: "Masses et propriétés fondamentales"
 - key: reactions
   icon: 💥
   name:
@@ -361,6 +375,7 @@ categories:
     fi: Reaktiot ja evaluoidut kirjastot
     de: Reaktionen & evaluierte Bibliotheken
     ja: 核反応と評価済みライブラリ
+    fr: "Réactions et bibliothèques évaluées"
 - key: astro
   icon: ✨
   name:
@@ -369,6 +384,7 @@ categories:
     fi: Ydinastrofysiikka
     de: Nukleare Astrophysik
     ja: 原子核宇宙物理
+    fr: "Astrophysique nucléaire"
 - key: atomic
   icon: ⚛️
   name:
@@ -377,6 +393,7 @@ categories:
     fi: Atomitiedot ja vakiot
     de: Atomdaten & Konstanten
     ja: 原子データと物理定数
+    fr: "Données atomiques et constantes"
 - key: tools
   icon: 🛠️
   name:
@@ -385,6 +402,7 @@ categories:
     fi: Laskurit ja simulointityökalut
     de: Rechner & Simulationswerkzeuge
     ja: 計算ツールとシミュレーション
+    fr: "Calculateurs et outils de simulation"
 - key: literature
   icon: 📖
   name:
@@ -393,6 +411,7 @@ categories:
     fi: Kirjallisuus ja bibliografia
     de: Literatur & Bibliografie
     ja: 文献と書誌
+    fr: "Articles et bibliographie"
 - key: networks
   icon: 🌐
   name:
@@ -401,6 +420,7 @@ categories:
     fi: Tietokeskukset ja verkostot
     de: Datenzentren & Netzwerke
     ja: データセンターとネットワーク
+    fr: "Centres et réseaux de données"
 items:
 - id: be2
   name: B(E2; 0⁺ → 2⁺) database
@@ -411,10 +431,12 @@ items:
   short:
     en: Adopted, experimental and predicted electric quadrupole transition strengths for even-even nuclei.
     zh: 偶偶核电四极跃迁强度：推荐值、实验值与预测值。
+    fr: "Forces de transition quadrupolaire électrique recommandées, mesurées et prédites pour les noyaux pairs-pairs."
   what:
     en: First-2⁺ E2 strengths and associated evaluation references; separate tabs distinguish recommendations from
       individual measurements and predictions.
     zh: 第一 2⁺ 态的 E2 强度及评价文献；不同选项区分推荐值、单次测量与预测。
+    fr: "Forces E2 du premier état 2⁺ et références des évaluations ; les onglets distinguent les recommandations des mesures individuelles et des prédictions."
   use:
     en:
     - Choose Adopted or Experimental, then enter a nuclide or Z/N/A range.
@@ -422,10 +444,14 @@ items:
     zh:
     - 先选 Adopted 或 Experimental，再输入核素或 Z/N/A 范围。
     - 比较集体性前，核对跃迁方向、单位、不确定度与来源。
+    fr: ["Choisissez les valeurs recommandées ou expérimentales, puis un nucléide ou une plage de Z/N/A.", "Vérifiez le sens de la transition, les unités, l’incertitude et la source avant de comparer la collectivité."]
   tips:
     en: Upward B(E2; 0→2) and downward B(E2; 2→0) differ by a factor of five; Weisskopf units also depend on A.
     zh: 向上 B(E2; 0→2) 与向下 B(E2; 2→0) 相差五倍；Weisskopf 单位还依赖质量数 A。
-  cite: B. Pritychenko et al., At. Data Nucl. Data Tables 107, 1 (2016), and the selected measurement/evaluation.
+    fr: "B(E2; 0→2) et B(E2; 2→0) diffèrent d’un facteur cinq ; les unités de Weisskopf dépendent aussi de A."
+  cite:
+    en: "B. Pritychenko et al., At. Data Nucl. Data Tables 107, 1 (2016), and the selected measurement/evaluation."
+    fr: "B. Pritychenko et al., At. Data Nucl. Data Tables 107, 1 (2016), et la mesure ou l’évaluation sélectionnée."
 - id: livechart-api
   name: LiveChart CSV API and notebooks
   org: IAEA Nuclear Data Section
@@ -436,10 +462,12 @@ items:
   short:
     en: 'Programmatic companion to LiveChart: documented CSV fields, state identifiers and reproducible examples.'
     zh: LiveChart 的程序接口：CSV 字段、核态编号及可复现实例。
+    fr: "Interface programmable de LiveChart : champs CSV documentés, identifiants des états et exemples reproductibles."
   what:
     en: Ground states, levels, gamma transitions, decay radiations and fission yields. The service documents its
       data sources and extraction-date fields.
     zh: 基态、能级、γ 跃迁、衰变辐射和裂变产额；文档说明底层数据源及提取日期字段。
+    fr: "États fondamentaux, niveaux, transitions gamma, rayonnements de désintégration et rendements de fission. Le service documente ses sources et les champs de date d’extraction."
   use:
     en:
     - Request fields=levels&nuclides=12c or fields=gammas&nuclides=12c from the documented service.
@@ -447,10 +475,12 @@ items:
     zh:
     - 按文档请求 fields=levels&nuclides=12c 或 fields=gammas&nuclides=12c。
     - 用 γ 起末能级编号关联 levels 的 idx，并保留评价截止日与提取日期。
+    fr: ["Demandez fields=levels&nuclides=12c ou fields=gammas&nuclides=12c au service documenté.", "Reliez les indices des niveaux de départ et d’arrivée gamma au champ idx des niveaux ; conservez les dates de clôture de l’évaluation et d’extraction."]
   tips:
     en: Gamma transitions and decay gamma radiations are different datasets. Blank uncertainty is unknown. The official
       guide describes a User-Agent header for HTTP 403 responses.
     zh: γ 能级跃迁与核衰变 γ 辐射属于不同数据集；空白误差表示未知。官方指南说明 HTTP 403 时如何添加 User-Agent。
+    fr: "Les transitions gamma et les rayonnements gamma de désintégration sont des jeux distincts. Une incertitude vide est inconnue. Le guide officiel explique l’en-tête User-Agent pour les réponses HTTP 403."
 - id: ensdf-tools
   name: ENSDF analysis and utility codes
   org: IAEA / NSDD network
@@ -460,10 +490,12 @@ items:
   short:
     en: Official gateway to the NSDD-maintained analysis and checking programs used with ENSDF.
     zh: NSDD 维护的 ENSDF 分析与检查程序官方入口。
+    fr: "Accès officiel aux programmes d’analyse et de vérification ENSDF entretenus par le réseau NSDD."
   what:
     en: A maintained-code repository and references to individual packages, alongside a clearly separated legacy-code
       collection.
     zh: 维护中的代码仓库、各程序入口，以及单独列出的旧版代码集合。
+    fr: "Dépôt de code maintenu et liens vers les programmes individuels, avec une collection distincte de logiciels anciens."
   use:
     en:
     - Follow the NSDD repository link and choose the program for the required evaluation task.
@@ -471,9 +503,11 @@ items:
     zh:
     - 进入 NSDD 仓库，按评价任务选择程序。
     - 阅读该程序的手册、输入、单位与维护状态，并随结果保存版本。
+    fr: ["Suivez le lien du dépôt NSDD et choisissez le programme adapté à l’évaluation souhaitée.", "Lisez son manuel, ses entrées, ses unités et son état de maintenance ; conservez la version avec les résultats."]
   tips:
     en: A format or consistency check is not a new nuclear-data evaluation; legacy tools may require older compilers.
     zh: 格式或一致性检查不等于完成新的核数据评价；旧工具可能需要较早的编译器。
+    fr: "Une vérification du format ou de la cohérence ne constitue pas une nouvelle évaluation nucléaire ; les outils anciens peuvent exiger des compilateurs antérieurs."
 - id: steck-alkali
   name: Steck Alkali D Line Data
   org: Daniel A. Steck, University of Oregon
@@ -483,10 +517,12 @@ items:
   short:
     en: Consistent D-line, hyperfine and optical reference sheets for Rb, Cs and Na cooling experiments.
     zh: Rb、Cs、Na 冷却实验的 D 线、超精细与光学参数参考表。
+    fr: "Fiches de référence cohérentes sur les raies D, la structure hyperfine et les paramètres optiques de Rb, Cs et Na."
   what:
     en: Atomic and optical parameters, hyperfine conventions and resonance-fluorescence notes. The author describes
       these as useful compilations rather than critical reviews.
     zh: 原子与光学参数、超精细约定及共振荧光说明；作者将其定位为实用汇编而非严格评价。
+    fr: "Paramètres atomiques et optiques, conventions hyperfines et notes sur la fluorescence résonante. L’auteur présente ces fiches comme des compilations utiles, sans prétendre à une revue critique."
   use:
     en:
     - Choose the isotope-specific PDF and record its revision date.
@@ -494,10 +530,12 @@ items:
     zh:
     - 选择对应同位素的 PDF，并记录修订日期。
     - 传入预设前，核对线宽指 Γ 还是 Γ/2π，以及波长是否为真空值。
+    fr: ["Choisissez le PDF de l’isotope et notez sa date de révision.", "Vérifiez si la largeur désigne Γ ou Γ/2π et si la longueur d’onde est dans le vide avant de transférer un préréglage."]
   tips:
     en: The four D-line sheets list revision 2.3.4 (8 August 2025) at this check; cite the exact sheet and underlying
       measurement when needed.
     zh: 本次核对时四份 D 线表为 2.3.4 版（2025-08-08）；应引用具体表格，必要时追溯原始测量。
+    fr: "Lors de cette vérification, les quatre fiches des raies D portent la révision 2.3.4 du 8 août 2025 ; citez la fiche exacte et, si nécessaire, la mesure d’origine."
 - id: satlas2
   name: SATLAS2
   org: IKS Nuclear Moments collaboration
@@ -508,10 +546,12 @@ items:
   short:
     en: Statistical Analysis Toolbox for Laser Spectroscopy, with shared parameters and simultaneous spectrum fitting.
     zh: 激光谱统计分析工具箱：共享参数及多个谱的联合拟合。
+    fr: "Outils statistiques pour la spectroscopie laser, avec paramètres partagés et ajustement simultané de spectres."
   what:
     en: Python models and fitting machinery intended for laser-spectroscopy analysis; source, examples and tests
       are available in the maintained repository.
     zh: 面向激光谱分析的 Python 模型与拟合框架；仓库提供源代码、实例与测试。
+    fr: "Modèles Python et méthodes d’ajustement pour l’analyse spectroscopique laser ; sources, exemples et tests sont disponibles dans le dépôt maintenu."
   use:
     en:
     - Start from an example matching the counting statistics and hyperfine model.
@@ -519,10 +559,12 @@ items:
     zh:
     - 先选与计数统计和超精细模型相符的实例。
     - 跨谱一致地拟合共享 A/B 常数与质心，并检查相关性与残差。
+    fr: ["Partez d’un exemple adapté à la statistique de comptage et au modèle hyperfin.", "Ajustez les constantes A/B partagées et les centroïdes de façon cohérente entre spectres ; examinez les corrélations et les résidus."]
   tips:
     en: Pin the version and report constraints, likelihood and frequency calibration; a converged fit alone does
       not establish correct spin or moments.
     zh: 固定版本，报告约束、似然与频率刻度；拟合收敛本身不能证明自旋或核矩正确。
+    fr: "Fixez la version et indiquez contraintes, vraisemblance et étalonnage des fréquences ; la seule convergence d’un ajustement ne valide pas le spin ou les moments."
 - id: satlas-legacy
   name: SATLAS original documentation
   org: W. Gins, R. P. de Groote and K. M. Lynch
@@ -532,10 +574,12 @@ items:
   short:
     en: Original SATLAS documentation for reproducing analyses that cite the earlier laser-spectroscopy fitter.
     zh: 原版 SATLAS 文档，用于复现采用早期激光谱拟合器的分析。
+    fr: "Documentation de SATLAS d’origine pour reproduire les analyses utilisant cet ancien logiciel de spectroscopie laser."
   what:
     en: The original package's spectrum models, χ² and maximum-likelihood fitting interfaces and tutorials; distinct
       from SATLAS2.
     zh: 原版谱模型、χ² 与最大似然拟合接口及教程；与 SATLAS2 分开。
+    fr: "Modèles spectraux, interfaces d’ajustement par χ² et maximum de vraisemblance, et tutoriels du logiciel d’origine, distinct de SATLAS2."
   use:
     en:
     - Check the cited paper's software version before following its original example.
@@ -543,10 +587,12 @@ items:
     zh:
     - 按原始实例操作前，核对论文使用的软件版本。
     - 记录可复现环境；迁移到 SATLAS2 时与原有已保存拟合比较。
+    fr: ["Vérifiez la version du logiciel citée dans l’article avant de suivre son exemple d’origine.", "Consignez un environnement reproductible et comparez toute migration vers SATLAS2 à l’ajustement ancien sauvegardé."]
   tips:
     en: Keep old and new APIs separate when reproducing the uranium CLS analysis; this card is for version lineage,
       not a second copy of SATLAS2.
     zh: 复现铀共线激光谱分析时，区分新旧 API；此入口用于版本溯源。
+    fr: "Distinguez les anciennes et nouvelles API pour reproduire l’analyse CLS de l’uranium ; cette fiche décrit la filiation des versions, sans dupliquer SATLAS2."
 - id: qspec
   name: qspec
   org: Patrick Müller and contributors
@@ -557,10 +603,12 @@ items:
   short:
     en: Laser-spectroscopy toolbox for angular-momentum algebra, fit models, King plots and laser–atom dynamics.
     zh: 激光谱工具箱：角动量代数、拟合模型、King 图及激光—原子动力学。
+    fr: "Outils de spectroscopie laser pour le moment angulaire, les ajustements, les diagrammes de King et la dynamique laser–atome."
   what:
     en: Documented modules cover physical functions, statistical analysis, modular spectra and coherent/dissipative
       interactions.
     zh: 文档模块涵盖物理函数、统计分析、模块化谱和相干/耗散相互作用。
+    fr: "Modules documentés de fonctions physiques, d’analyse statistique, de spectres modulaires et d’interactions cohérentes ou dissipatives."
   use:
     en:
     - Choose a tutorial for the intended King-plot, hyperfine-fit or simulation task.
@@ -568,12 +616,15 @@ items:
     zh:
     - 按 King 图、超精细拟合或模拟任务选择教程。
     - 随分析保留单位、参考同位素、输入协方差及安装版本。
+    fr: ["Choisissez un tutoriel adapté au diagramme de King, à l’ajustement hyperfin ou à la simulation souhaitée.", "Conservez unités, isotopes de référence, covariance d’entrée et version installée avec l’analyse."]
   tips:
     en: A King-plot line requires consistent isotope-shift signs and mass conventions; software cannot supply missing
       atomic field/mass-shift factors.
     zh: King 图需要一致的同位素移位符号和质量约定；软件不能补齐缺失的原子场移位或质量移位因子。
-  cite: P. Müller and W. Nörtershäuser, Computer Physics Communications 311, 109550 (2025); doi:10.1016/j.cpc.2025.109550;
-    cite the version used.
+    fr: "Une droite de King exige des conventions cohérentes pour le signe des déplacements isotopiques et les masses ; le logiciel ne fournit pas les facteurs atomiques de champ ou de masse manquants."
+  cite:
+    en: "P. Müller and W. Nörtershäuser, Computer Physics Communications 311, 109550 (2025); doi:10.1016/j.cpc.2025.109550; cite the version used."
+    fr: "P. Müller and W. Nörtershäuser, Computer Physics Communications 311, 109550 (2025); doi:10.1016/j.cpc.2025.109550 ; citez la version utilisée."
 - id: pylcp
   name: PyLCP — Python laser cooling physics
   org: S. Eckel, D. Barker, E. Norrgard and collaborators
@@ -583,10 +634,12 @@ items:
   short:
     en: Optical Bloch, rate-equation and related models built from atomic/molecular Hamiltonians and laser fields.
     zh: 由原子/分子哈密顿量与激光场构造光学 Bloch、速率方程等模型。
+    fr: "Modèles de Bloch optique, équations de taux et modèles connexes construits à partir d’hamiltoniens et de champs laser."
   what:
     en: Examples include optical molasses, magneto-optical traps, Hamiltonians, beams, magnetic fields and governing
       equations.
     zh: 实例包括光学黏团、磁光阱、哈密顿量、光束、磁场与演化方程。
+    fr: "Exemples de mélasses optiques, pièges magnéto-optiques, hamiltoniens, faisceaux, champs magnétiques et équations d’évolution."
   use:
     en:
     - Start with a documented Hamiltonian and one reproduced force or trajectory example.
@@ -594,10 +647,12 @@ items:
     zh:
     - 从文档哈密顿量和一个已复现的力或轨迹实例开始。
     - 解释温度或俘获前，应检查时间步长、内态基组与求解容差的收敛。
+    fr: ["Partez d’un hamiltonien documenté et reproduisez un exemple de force ou de trajectoire.", "Vérifiez la convergence en pas de temps, base d’états et tolérance du solveur avant d’interpréter température ou capture."]
   tips:
     en: Choose the equation model explicitly; a rate-equation force calculation is not automatically a full coherent
       sub-Doppler simulation.
     zh: 明确选择演化模型；速率方程力计算不会自动成为完整相干亚多普勒模拟。
+    fr: "Choisissez explicitement le modèle d’équations ; un calcul de force par équations de taux ne constitue pas automatiquement une simulation cohérente complète du refroidissement sous-Doppler."
   cite: S. Eckel et al., Computer Physics Communications 270, 108166; doi:10.1016/j.cpc.2021.108166.
 - id: arc
   name: ARC — Alkali Rydberg Calculator
@@ -608,10 +663,12 @@ items:
   short:
     en: Atomic level diagrams, transition strengths and interactions for alkali and divalent atoms.
     zh: 碱金属与二价原子的能级图、跃迁强度和相互作用。
+    fr: "Diagrammes de niveaux, forces de transition et interactions pour atomes alcalins et divalents."
   what:
     en: Python routines and atomic data for single-atom and pair-state calculations, including supported Stark and
       polarizability workflows.
     zh: 单原子与双原子态计算的 Python 程序及原子数据，含适用的 Stark 和极化率计算。
+    fr: "Routines Python et données atomiques pour les calculs d’atomes isolés ou de paires d’états, notamment l’effet Stark et la polarisabilité."
   use:
     en:
     - Select a supported species and start from the level or transition notebook.
@@ -619,10 +676,12 @@ items:
     zh:
     - 选择支持的元素，从能级或跃迁笔记本开始。
     - 阅读方法适用原子态范围及单位；用 getCitationForARC() 获取实际所用方法的引用。
+    fr: ["Choisissez une espèce prise en charge et commencez par le carnet sur les niveaux ou les transitions.", "Vérifiez les domaines d’états et les unités de chaque méthode ; utilisez getCitationForARC() pour les méthodes réellement employées."]
   tips:
     en: Calculated atomic states are separate from evaluated nuclear levels; compare predicted quantities with their
       measured references.
     zh: 计算原子态与评价核能级是不同层次；预测量应与相应测量参考比较。
+    fr: "Les états atomiques calculés sont distincts des niveaux nucléaires évalués ; comparez les prédictions à leurs références mesurées."
 - id: elecsus
   name: ElecSus
   org: Durham Quantum Light and Matter group
@@ -632,10 +691,12 @@ items:
   short:
     en: Weak-probe alkali-vapour D-line spectra and magneto-optical susceptibility, with fitting examples.
     zh: 弱探测碱金属蒸气 D 线谱与磁光极化率，附拟合实例。
+    fr: "Spectres des raies D de vapeurs alcalines en sonde faible et susceptibilité magnéto-optique, avec exemples d’ajustement."
   what:
     en: Calculates propagation and spectral response with temperature, magnetic-field geometry and polarization;
       includes experimental-data fitting interfaces.
     zh: 计算温度、磁场几何和偏振条件下的传播及谱响应，并提供实验数据拟合接口。
+    fr: "Calcul de propagation et de réponse spectrale selon température, géométrie du champ magnétique et polarisation ; interfaces d’ajustement aux mesures."
   use:
     en:
     - Run the documented Basic Calculations notebook with a supported alkali atom.
@@ -643,10 +704,12 @@ items:
     zh:
     - 使用支持的碱金属运行 Basic Calculations 笔记本。
     - 比较实验透射谱时，记录磁场几何、偏振和版本。
+    fr: ["Exécutez le carnet documenté de calculs de base pour un atome alcalin pris en charge.", "Conservez la géométrie magnétique, la polarisation et la version choisie pour comparer la transmission expérimentale."]
   tips:
     en: The weak-probe model is not a saturated-cooling model. Read release-specific Python/GUI compatibility notes
       before installation.
     zh: 弱探测模型不等于饱和冷却模型；安装前应阅读该版本的 Python/GUI 兼容说明。
+    fr: "Le modèle de sonde faible ne décrit pas un refroidissement saturé. Lisez les notes de compatibilité Python/interface graphique de la version avant installation."
 - id: atomphys
   name: atomphys
   org: M. Grau and contributors
@@ -656,10 +719,12 @@ items:
   short:
     en: Unit-aware Python access to atomic states, transitions and quantities derived from NIST ASD data.
     zh: 带单位的 Python 原子态、跃迁及基于 NIST ASD 的导出量接口。
+    fr: "Accès Python avec gestion des unités aux états, transitions et grandeurs dérivées des données NIST ASD."
   what:
     en: Fetches atomic levels and transitions and computes quantities such as lifetimes, polarizabilities and saturation
       intensities.
     zh: 读取原子能级与跃迁，计算寿命、极化率和饱和光强等量。
+    fr: "Récupération des niveaux et transitions atomiques, et calcul des durées de vie, polarisabilités ou intensités de saturation."
   use:
     en:
     - Follow the Atom/State/Transition example for a selected atom.
@@ -667,10 +732,12 @@ items:
     zh:
     - 按 Atom/State/Transition 实例选择原子。
     - 使用导出寿命或饱和光强前，检查哪些实验跃迁速率已被收录。
+    fr: ["Suivez l’exemple Atom/State/Transition pour l’atome choisi.", "Vérifiez quelles probabilités de transition mesurées sont présentes avant de calculer durée de vie ou intensité de saturation."]
   tips:
     en: Missing transitions can make a derived lifetime incomplete. Follow NIST data-use terms; the catalogue links
       to the service without mirroring its database.
     zh: 缺失跃迁可能使导出寿命不完整；遵守 NIST 数据条款，本目录仅链接服务，不镜像其数据库。
+    fr: "Des transitions manquantes peuvent rendre une durée de vie calculée incomplète. Respectez les conditions d’utilisation NIST ; ce catalogue renvoie au service sans recopier sa base."
 - id: qutip
   name: QuTiP — Quantum Toolbox in Python
   org: QuTiP project
@@ -681,10 +748,12 @@ items:
   short:
     en: Open-system quantum dynamics and quantum-optics tutorials for constructing explicit laser–atom models.
     zh: 开放量子系统动力学与量子光学教程，可构建明确的激光—原子模型。
+    fr: "Dynamique quantique des systèmes ouverts et tutoriels d’optique quantique pour construire des modèles laser–atome explicites."
   what:
     en: Solvers and examples for Hamiltonian evolution, dissipation and quantum states; a general numerical framework
       rather than an evaluated atomic database.
     zh: 哈密顿演化、耗散与量子态的求解器和实例；属于通用数值框架。
+    fr: "Solveurs et exemples d’évolution hamiltonienne, dissipation et états quantiques ; cadre numérique général plutôt que base atomique évaluée."
   use:
     en:
     - Specify the basis, Hamiltonian and collapse operators before running a quantum-optics tutorial.
@@ -692,10 +761,12 @@ items:
     zh:
     - 运行量子光学教程前，明确基组、哈密顿量与塌缩算符。
     - 检查归一化、极限情形以及基组/容差收敛，再记录版本。
+    fr: ["Définissez la base, l’hamiltonien et les opérateurs de saut avant d’exécuter un tutoriel d’optique quantique.", "Vérifiez normalisation, cas limites et convergence de la base et des tolérances, puis notez la version."]
   tips:
     en: Physical frequencies, decay conventions and truncation are supplied by the user; numerical output is not
       experimental validation.
     zh: 频率、衰变约定与截断由使用者提供；数值输出不等于实验验证。
+    fr: "Fréquences physiques, conventions de désintégration et troncature sont définies par l’utilisateur ; un résultat numérique ne constitue pas une validation expérimentale."
 - id: chianti
   name: CHIANTI atomic database
   org: CHIANTI collaboration
@@ -705,10 +776,12 @@ items:
   short:
     en: Atomic data and Python/IDL tools for spectroscopic diagnostics of astrophysical plasmas.
     zh: 用于天体等离子体谱学诊断的原子数据及 Python/IDL 工具。
+    fr: "Données atomiques et outils Python/IDL pour le diagnostic spectroscopique des plasmas astrophysiques."
   what:
     en: Evaluated atomic inputs and programs for plasma spectra, line lists and diagnostic calculations with documented
       versions.
     zh: 评价原子输入及等离子体谱、谱线列表和诊断程序，提供版本说明。
+    fr: "Données atomiques évaluées et programmes de spectres, listes de raies et diagnostics de plasma, avec versions documentées."
   use:
     en:
     - Choose the ion and database version, then follow a line-emission or diagnostic example.
@@ -716,10 +789,12 @@ items:
     zh:
     - 选择离子与数据库版本，再按谱线发射或诊断实例操作。
     - 记录温度/密度假设，并核对关键跃迁的原子数据文献。
+    fr: ["Choisissez l’ion et la version de la base, puis suivez un exemple d’émission de raie ou de diagnostic.", "Consignez les hypothèses de température et de densité, et vérifiez les références atomiques des transitions importantes."]
   tips:
     en: Plasma excitation and ionization conditions differ from a cold trapped atom; do not transfer plasma emissivities
       into cooling presets.
     zh: 等离子体激发与电离条件不同于阱中冷原子，不能把等离子体发射率直接作为冷却预设。
+    fr: "Les conditions d’excitation et d’ionisation d’un plasma diffèrent de celles d’un atome froid piégé ; ne transposez pas les émissivités du plasma aux préréglages de refroidissement."
 - id: nist-handbook
   name: NIST basic atomic spectroscopy handbook
   org: NIST Physical Measurement Laboratory
@@ -729,10 +804,12 @@ items:
   short:
     en: Compact reference tables of strong lines and levels for neutral and singly ionized atoms.
     zh: 中性原子与一价离子的强线及能级简明参考表。
+    fr: "Tables de référence compactes des raies intenses et des niveaux des atomes neutres ou simplement ionisés."
   what:
     en: An intentionally selected handbook for H through Es, with persistent/strong lines, classifications and selected
       level tables; data-content update is November 2013.
     zh: 从 H 至 Es 的选编手册，含持久线/强线、归属与部分能级表；数据内容更新日期为 2013 年 11 月。
+    fr: "Recueil sélectif de H à Es : raies persistantes ou intenses, classifications et tables choisies de niveaux ; contenu actualisé en novembre 2013."
   use:
     en:
     - Open an element table or the wavelength finding list for a first identification.
@@ -740,9 +817,11 @@ items:
     zh:
     - 打开元素表或按波长排序的查找表进行初步识别。
     - 精密工作应追溯原始文献，并比较当前 ASD 条目。
+    fr: ["Ouvrez la table de l’élément ou l’index des longueurs d’onde pour une première identification.", "Pour un travail précis, consultez les références d’origine et comparez à l’entrée ASD actuelle."]
   tips:
     en: A selected handbook is not a complete line list. This card links to NIST; it does not redistribute SRD tables.
     zh: 选编手册不是完整谱线表。本卡仅链接 NIST，不重新发布其 SRD 表格。
+    fr: "Un recueil sélectif n’est pas une liste complète de raies. Cette fiche renvoie au NIST sans redistribuer ses tables SRD."
 - id: nist-asbib
   name: NIST atomic-spectra bibliographies
   org: NIST Atomic Spectroscopy Group
@@ -752,10 +831,12 @@ items:
   short:
     en: Find original papers on atomic energies, wavelengths, transition probabilities and line broadening.
     zh: 检索原子能量、波长、跃迁概率与谱线展宽的原始文献。
+    fr: "Recherche des articles d’origine sur les énergies atomiques, longueurs d’onde, probabilités de transition et élargissements de raies."
   what:
     en: Three distinct bibliographic services cover energy levels/spectra, radiative probabilities/lifetimes, and
       broadening/shifts.
     zh: 三个不同文献服务分别涵盖能级/谱、辐射跃迁概率/寿命和展宽/移位。
+    fr: "Trois services bibliographiques distincts couvrent niveaux et spectres, probabilités radiatives et durées de vie, puis élargissements et déplacements."
   use:
     en:
     - Select the database matching the quantity and search the atom/ion.
@@ -763,10 +844,12 @@ items:
     zh:
     - 按所需物理量选择文献库，再检索原子或离子。
     - 将数值用于谱学模型前，阅读论文中的方法和不确定度。
+    fr: ["Choisissez la base adaptée à la grandeur et recherchez l’atome ou l’ion.", "Lisez la méthode et l’incertitude de l’article cité avant d’employer une valeur dans un modèle spectroscopique."]
   tips:
     en: A bibliography entry is a reference, not a recommended numerical value; distinguish theoretical and experimental
       papers.
     zh: 文献条目是参考来源，并非数值推荐；应区分理论与实验论文。
+    fr: "Une référence bibliographique n’est pas une valeur numérique recommandée ; distinguez travaux théoriques et expérimentaux."
 - id: uranium-cls-paper
   name: U⁺ collinear laser spectroscopy at IGISOL
   org: A. Raggio and collaborators / Scientific Reports
@@ -776,10 +859,12 @@ items:
   short:
     en: Original ten-transition study of 234,235,238U⁺ isotope shifts and 235U hyperfine parameters.
     zh: 234、235、238U⁺ 的十条跃迁同位素移位及 235U 超精细参数原始研究。
+    fr: "Étude d’origine de dix transitions : déplacements isotopiques de 234,235,238U⁺ et paramètres hyperfins de 235U."
   what:
     en: A concrete CLS example connecting scan voltage, relativistic Doppler conversion, shared hyperfine fits and
       statistical/systematic uncertainties.
     zh: 具体共线激光谱实例：扫描电压、相对论多普勒变换、共享超精细拟合及统计/系统误差。
+    fr: "Exemple CLS reliant tension de balayage, conversion Doppler relativiste, ajustements hyperfins partagés et incertitudes statistiques ou systématiques."
   use:
     en:
     - Read the beam/voltage convention and Tables 1–3 before reproducing a transition.
@@ -787,10 +872,12 @@ items:
     zh:
     - 复现跃迁前先阅读束流/电压约定与表 1–3。
     - 保留同位素移位方向及分开的统计/系统误差，并查看对应原始数据记录。
+    fr: ["Lisez la convention de faisceau et de tension ainsi que les tableaux 1–3 avant de reproduire une transition.", "Conservez le sens du déplacement isotopique et séparez les erreurs statistiques et systématiques ; consultez le dépôt de données associé."]
   tips:
     en: 'The paper does not extract new absolute radii through a King plot: too few isotopes were studied and atomic
       factors remain necessary.'
     zh: 该文未通过 King 图提取新的绝对半径：研究同位素数量不足，且仍需原子因子。
+    fr: "L’article ne déduit pas de nouveaux rayons absolus par un diagramme de King : trop peu d’isotopes ont été étudiés et les facteurs atomiques restent nécessaires."
   cite: A. Raggio et al., Scientific Reports 14, 25621 (2024); doi:10.1038/s41598-024-76975-w.
 - id: uranium-cls-data
   name: IGISOL U⁺ CLS raw-data record
@@ -802,10 +889,12 @@ items:
   short:
     en: Public metadata and data-deposit link for the ten-transition 234,235,238U⁺ CLS experiment.
     zh: 234、235、238U⁺ 十条跃迁共线激光谱实验的公开元数据及数据存储链接。
+    fr: "Métadonnées publiques et lien de dépôt des mesures CLS sur dix transitions de 234,235,238U⁺."
   what:
     en: The GSI record identifies the original experiment and its Zenodo dataset DOI, connecting a publication to
       deposited raw measurements.
     zh: GSI 记录标明原始实验与 Zenodo 数据 DOI，将论文与存储的原始测量关联。
+    fr: "La notice GSI identifie l’expérience d’origine et le DOI du jeu Zenodo, reliant l’article aux mesures brutes déposées."
   use:
     en:
     - Check authors, dataset DOI and associated article, then read file metadata before downloading.
@@ -813,10 +902,12 @@ items:
     zh:
     - 核对作者、数据 DOI 和关联论文，下载前阅读文件元数据。
     - 重新分析时保留存储版本、刻度信息与许可条款。
+    fr: ["Vérifiez auteurs, DOI des données et article associé, puis lisez les métadonnées des fichiers avant téléchargement.", "Conservez version du dépôt, informations d’étalonnage et licence avec toute nouvelle analyse."]
   tips:
     en: Catalogue metadata was verified; the data files were not downloaded or refitted here. Availability does
       not establish a completed reproduction.
     zh: 本目录已核对元数据，未下载或重新拟合数据文件；可获取不表示已完成复现。
+    fr: "Les métadonnées du catalogue ont été vérifiées ; les fichiers n’ont été ni téléchargés ni réajustés ici. Leur disponibilité ne prouve pas qu’une reproduction a été achevée."
 - id: cris
   name: CRIS — collinear resonance ionization spectroscopy
   org: CERN-ISOLDE CRIS collaboration
@@ -827,10 +918,12 @@ items:
   short:
     en: Experiment, technique and publication links for high-resolution spectroscopy with sensitive ion detection.
     zh: 高分辨谱与灵敏离子探测结合的实验、技术及论文入口。
+    fr: "Liens vers l’expérience, la technique et les publications de spectroscopie à haute résolution avec détection ionique sensible."
   what:
     en: Public technique explanations, isotope/molecule projects and articles on extracting nuclear properties from
       hyperfine spectroscopy.
     zh: 公开技术说明、同位素/分子项目，以及通过超精细谱提取核性质的论文。
+    fr: "Explications publiques de la technique, projets sur les isotopes et molécules, et articles sur l’extraction des propriétés nucléaires par spectroscopie hyperfine."
   use:
     en:
     - Read the CRIS technique page, then choose a project and its original article.
@@ -839,10 +932,12 @@ items:
     zh:
     - 先读 CRIS 技术页，再选择项目及原始论文。
     - 定量值应取自公开论文，并与提取核性质所需的实验系统误差一起保存。
+    fr: ["Lisez la page décrivant la technique CRIS, puis choisissez un projet et son article d’origine.", "Utilisez les publications publiques pour les valeurs quantitatives ; conservez les effets systématiques propres à l’expérience avec les propriétés extraites."]
   tips:
     en: This is an experiment portal, not a complete evaluated moments/radii database; internal collaboration links
       may require access.
     zh: 这是实验门户，不是完整评价核矩/半径数据库；合作组内部链接可能需要权限。
+    fr: "Il s’agit d’un portail expérimental, pas d’une base complète évaluée de moments ou de rayons ; les liens internes de collaboration peuvent exiger un accès."
 - id: nudat
   name: NuDat 3
   org: NNDC, Brookhaven National Laboratory
@@ -853,11 +948,13 @@ items:
   short:
     en: Interactive chart of nuclides with levels, γ rays, decay radiation and ground-state properties from ENSDF.
     zh: 交互式核素图：能级、γ 射线、衰变辐射和基态性质（数据来自 ENSDF）。
+    fr: "Carte interactive des nucléides : niveaux, rayons γ, rayonnements de désintégration et propriétés fondamentales issus d’ENSDF."
   what:
     en: Evaluated level energies, spins/parities, half-lives, γ-ray energies and intensities, decay radiations,
       and ground- and isomeric-state properties for about 3 200 nuclides, derived from ENSDF; plus a level-scheme
       plotter and search forms.
     zh: 约 3200 个核素的评价能级、自旋宇称、半衰期、γ 射线能量与强度、衰变辐射及基态和同核异能态性质（取自 ENSDF），并带能级图绘制与检索表单。
+    fr: "Énergies des niveaux, spins/parités, demi-vies, énergies et intensités γ, rayonnements de désintégration et propriétés fondamentales ou isomériques évalués pour environ 3 200 nucléides, issus d’ENSDF ; tracé de schémas de niveaux et formulaires de recherche."
   use:
     en:
     - Click a square on the chart or type a nuclide (e.g. 100Sn) in the search box.
@@ -869,9 +966,11 @@ items:
     - 选择 Levels and Gammas、Decay Radiation 或 Ground and Isomeric States。
     - 用绘图工具画能级图或系统学（如同位素链的 E(2⁺)）。
     - 将表格下载为文本/CSV 进行分析。
+    fr: ["Cliquez sur une case de la carte ou saisissez un nucléide, par exemple 100Sn.", "Choisissez les niveaux et rayons gamma, les rayonnements de désintégration ou les états fondamentaux et isomériques.", "Utilisez les outils graphiques pour tracer les schémas de niveaux ou les tendances, par exemple E(2⁺) le long d’une chaîne.", "Téléchargez les tables en texte ou CSV pour l’analyse."]
   tips:
     en: NuDat is a convenient front end; for the full evaluated dataset with comments and references open ENSDF.
     zh: NuDat 是便捷的前端；需要带注释和参考文献的完整评价数据时请打开 ENSDF。
+    fr: "NuDat offre une interface pratique ; ouvrez ENSDF pour l’évaluation complète avec commentaires et références."
   cite: NuDat 3, National Nuclear Data Center, Brookhaven National Laboratory, https://www.nndc.bnl.gov/nudat3/
 - id: ensdf
   name: ENSDF
@@ -883,11 +982,13 @@ items:
     en: Evaluated Nuclear Structure Data File — the reference evaluation of levels, γ rays and decays for every
       nuclide.
     zh: 评价核结构数据文件——各核素能级、γ 射线与衰变的权威评价。
+    fr: "ENSDF : évaluation de référence des niveaux, rayons γ et désintégrations de chaque nucléide."
   what:
     en: Recommended values with uncertainties for level energies, Jπ, half-lives, moments, γ-ray and particle transitions,
       branching ratios, log ft values and reaction data sets, with the evaluator's comments and references. Published
       as the Nuclear Data Sheets.
     zh: 能级能量、Jπ、半衰期、电磁矩、γ 与粒子跃迁、分支比、log ft 及反应数据集的推荐值与不确定度，附评价者注释与参考文献；以 Nuclear Data Sheets 形式出版。
+    fr: "Valeurs recommandées avec incertitudes pour énergies, Jπ, demi-vies, moments, transitions γ et particules, branchements, log ft et réactions, avec commentaires et références des évaluateurs. Publication dans Nuclear Data Sheets."
   use:
     en:
     - Search by nuclide or by mass chain A.
@@ -899,9 +1000,11 @@ items:
     - 选择 “Adopted Levels, Gammas” 获取推荐值，或选择单个衰变/反应数据集。
     - 阅读注释：说明每个数值的来源。
     - 下载 ENSDF（80 列）或 JSON 格式供程序使用。
+    fr: ["Recherchez un nucléide ou une chaîne de masse A.", "Choisissez le jeu « Adopted Levels, Gammas » pour les valeurs recommandées, ou un jeu individuel de désintégration ou de réaction.", "Lisez les commentaires expliquant l’origine de chaque valeur.", "Téléchargez le format ENSDF à 80 colonnes ou JSON pour vos programmes."]
   tips:
     en: Cite the Nuclear Data Sheets evaluation of the mass chain (the reference is shown in the data set header).
     zh: 引用相应质量链的 Nuclear Data Sheets 评价（数据集表头给出文献）。
+    fr: "Citez l’évaluation Nuclear Data Sheets de la chaîne de masse ; sa référence figure dans l’en-tête du jeu de données."
 - id: xundl
   name: XUNDL
   org: NNDC
@@ -911,10 +1014,12 @@ items:
   short:
     en: Experimental Unevaluated Nuclear Data List — recent results compiled quickly, before they enter ENSDF.
     zh: 实验未评价核数据列表——在进入 ENSDF 之前快速汇编的最新实验结果。
+    fr: "XUNDL : résultats expérimentaux récents compilés rapidement avant leur intégration à ENSDF, sans évaluation."
   what:
     en: Level schemes, γ rays and decay data from individual recent papers, compiled in ENSDF format but not evaluated
       (no averaging or recommendation).
     zh: 来自单篇最新论文的能级纲图、γ 射线与衰变数据，按 ENSDF 格式汇编，但未经评价（不做平均与推荐）。
+    fr: "Schémas de niveaux, rayons γ et désintégrations d’articles récents, compilés au format ENSDF sans moyenne critique ni recommandation."
   use:
     en:
     - Search XUNDL through the ENSDF search page (data-set type XUNDL).
@@ -924,9 +1029,11 @@ items:
     - 通过 ENSDF 检索页面查询（数据集类型选 XUNDL）。
     - 与 ENSDF 推荐值比较，找出新结果。
     - 根据文献编号查看原始论文。
+    fr: ["Recherchez XUNDL depuis la recherche ENSDF en choisissant le type de jeu XUNDL.", "Comparez aux valeurs ENSDF recommandées pour identifier les nouveautés.", "Suivez l’identifiant bibliographique jusqu’à l’article d’origine."]
   tips:
     en: Use it to follow the newest spectroscopy; always cite the original article.
     zh: 适合追踪最新谱学结果；引用时请引原始论文。
+    fr: "Utile pour suivre la spectroscopie récente ; citez toujours l’article d’origine."
 - id: livechart
   name: LiveChart of Nuclides
   org: IAEA Nuclear Data Section
@@ -937,10 +1044,12 @@ items:
   short:
     en: IAEA interactive chart with ENSDF and NUBASE data, plots of systematics and a free CSV download API.
     zh: IAEA 交互式核素图：ENSDF 与 NUBASE 数据、系统学作图，并提供免费 CSV 下载 API。
+    fr: "Carte interactive de l’IAEA avec ENSDF et NUBASE, tendances systématiques et API gratuite de téléchargement CSV."
   what:
     en: Ground- and excited-state properties, decay radiations, charge radii, fission yields and more, with colour-coded
       charts of any property and links to the original evaluations.
     zh: 基态与激发态性质、衰变辐射、电荷半径、裂变产额等；可对任意性质着色作图，并链接到原始评价。
+    fr: "Propriétés des états fondamentaux et excités, désintégrations, rayons de charge, rendements de fission et autres grandeurs, avec cartes colorées et liens vers les évaluations d’origine."
   use:
     en:
     - Choose a colour scheme (half-life, decay mode, Q values, radii…) and click a nuclide.
@@ -952,10 +1061,12 @@ items:
     - 侧栏查看能级、γ 射线和衰变辐射。
     - 程序调用请用 API，例如 https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=100sn（CSV）。
     - 其他字段：levels、gammas、decay_rads（rad_types=g、e、a、bp、bm……）。
+    fr: ["Choisissez la grandeur de couleur : demi-vie, mode de désintégration, valeur Q, rayon… puis cliquez sur un nucléide.", "Utilisez les panneaux latéraux pour les niveaux, rayons γ et rayonnements de désintégration.", "Pour un programme, utilisez l’API, par exemple https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=100sn (CSV).", "Autres champs : levels, gammas, decay_rads avec rad_types=g, e, a, bp, bm…"]
   tips:
     en: The API sometimes refuses requests without a browser-like User-Agent header; the official Jupyter notebook
       shows how to use it from Python/pandas.
     zh: API 有时拒绝没有浏览器式 User-Agent 的请求；官方 Jupyter 笔记本演示了 Python/pandas 的用法。
+    fr: "L’API refuse parfois les requêtes sans en-tête User-Agent de navigateur ; le carnet Jupyter officiel montre son utilisation avec Python/pandas."
   lookup: https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides={A}{sym}
 - id: mird
   name: MIRD decay data
@@ -966,9 +1077,11 @@ items:
   short:
     en: Radiation spectra (energies, intensities, dose per decay) of ~2 100 radionuclides for medical dosimetry.
     zh: 约 2100 个放射性核素的辐射谱（能量、强度、每次衰变剂量），用于医学剂量学。
+    fr: "Spectres de rayonnement d’environ 2 100 radionucléides pour la dosimétrie médicale : énergies, intensités et dose par désintégration."
   what:
     en: Evaluated decay radiations derived from ENSDF, tabulated as needed for Medical Internal Radiation Dose calculations.
     zh: 由 ENSDF 推导的评价衰变辐射，按医学内照射剂量（MIRD）计算所需格式列表。
+    fr: "Rayonnements de désintégration évalués issus d’ENSDF, présentés pour les calculs de dose interne en médecine nucléaire."
   use:
     en:
     - Enter the radionuclide.
@@ -978,9 +1091,11 @@ items:
     - 输入放射性核素。
     - 查看发射辐射表：能量、强度及每次衰变的能量。
     - 导出用于剂量或探测效率计算。
+    fr: ["Saisissez le radionucléide.", "Lisez la table des rayonnements émis avec énergie, intensité et énergie par désintégration.", "Exportez pour calculer les doses ou l’efficacité du détecteur."]
   tips:
     en: Quick way to see all X-rays, Auger electrons and β spectra of a source in one table.
     zh: 可在一张表里快速查看放射源的全部 X 射线、俄歇电子和 β 谱。
+    fr: "Permet de consulter dans une seule table les rayons X, électrons Auger et spectres β d’une source."
 - id: ddep
   name: DDEP recommended data (LNHB)
   org: Decay Data Evaluation Project / LNHB
@@ -991,10 +1106,12 @@ items:
   short:
     en: 'High-precision decay-data evaluations for metrology: half-lives, γ intensities, X-rays, Auger electrons.'
     zh: 面向计量学的高精度衰变数据评价：半衰期、γ 强度、X 射线、俄歇电子。
+    fr: "Évaluations de désintégration de haute précision pour la métrologie : demi-vies, intensités γ, rayons X et électrons Auger."
   what:
     en: Recommended decay data for about 200 radionuclides important for detector calibration, metrology and applications,
       with full uncertainty analyses.
     zh: 约 200 个对探测器刻度、计量与应用重要的放射性核素推荐衰变数据，附完整不确定度分析。
+    fr: "Données recommandées pour environ 200 radionucléides importants pour l’étalonnage des détecteurs, la métrologie et les applications, avec analyses complètes des incertitudes."
   use:
     en:
     - Open the nuclide table and choose the radionuclide.
@@ -1004,9 +1121,11 @@ items:
     - 打开核素表并选择放射性核素。
     - 下载数据表（PDF）及评价报告（注释）。
     - 刻度源（如 ¹³³Ba、¹⁵²Eu、²⁴¹Am）的效率刻度建议使用这些数值。
+    fr: ["Ouvrez la table des nucléides et choisissez le radionucléide.", "Téléchargez les tables PDF et le rapport commenté d’évaluation.", "Employez ces valeurs pour les sources d’étalonnage en efficacité, par exemple ¹³³Ba, ¹⁵²Eu ou ²⁴¹Am."]
   tips:
     en: For calibration standards DDEP values are often preferred over ENSDF.
     zh: 刻度标准源通常优先采用 DDEP 数值而非 ENSDF。
+    fr: "Pour les étalons, les valeurs DDEP sont souvent préférées à celles d’ENSDF."
 - id: kaeri
   name: KAERI Table of Nuclides
   org: Korea Atomic Energy Research Institute
@@ -1016,10 +1135,12 @@ items:
   short:
     en: Lightweight table of nuclides with decay data, cross sections and isotope abundances.
     zh: 轻量级核素表：衰变数据、截面与同位素丰度。
+    fr: "Table légère des nucléides : désintégrations, sections efficaces et abondances isotopiques."
   what:
     en: Element and nuclide pages with half-lives, decay modes, γ lines, thermal cross sections and natural abundances,
       compiled from evaluated sources.
     zh: 元素与核素页面：半衰期、衰变方式、γ 线、热中子截面和天然丰度（取自评价数据）。
+    fr: "Pages d’éléments et de nucléides avec demi-vies, modes de désintégration, raies γ, sections efficaces thermiques et abondances naturelles issues de sources évaluées."
   use:
     en:
     - Pick an element from the periodic table.
@@ -1029,9 +1150,11 @@ items:
     - 在元素周期表中选择元素。
     - 选择同位素查看衰变数据与图表。
     - 核对页面注明的评价数据来源。
+    fr: ["Choisissez un élément dans le tableau périodique.", "Sélectionnez l’isotope pour les données de désintégration et les graphiques.", "Vérifiez la source d’évaluation indiquée sur la page."]
   tips:
     en: Handy for a quick look; quote the underlying evaluation (ENSDF/ENDF) in publications.
     zh: 适合快速查看；发表时请引用其底层评价数据（ENSDF/ENDF）。
+    fr: "Pratique pour une consultation rapide ; citez l’évaluation d’origine ENSDF/ENDF dans une publication."
 - id: amdc
   name: AMDC — AME2020 & NUBASE2020
   org: Atomic Mass Data Center (IAEA / IMP-CAS)
@@ -1041,11 +1164,13 @@ items:
   short:
     en: 'The Atomic Mass Evaluation and NUBASE: recommended masses, Q values and ground/isomer properties.'
     zh: 原子质量评价 AME 与 NUBASE：推荐质量、Q 值以及基态/同核异能态性质。
+    fr: "Évaluation des masses atomiques et NUBASE : masses, valeurs Q et propriétés fondamentales ou isomériques recommandées."
   what:
     en: 'AME2020: atomic masses (mass excesses), binding energies, separation energies and reaction/decay Q values
       for ~3 500 nuclides with uncertainties and the input-data network. NUBASE2020: half-lives, spins, decay modes
       and excitation energies of ground and isomeric states.'
     zh: AME2020：约 3500 个核素的原子质量（质量过剩）、结合能、分离能、反应/衰变 Q 值及不确定度和输入数据网络。NUBASE2020：基态与同核异能态的半衰期、自旋、衰变方式与激发能。
+    fr: "AME2020 : masses atomiques et excès de masse, énergies de liaison et de séparation, valeurs Q de réaction ou de désintégration pour environ 3 500 nucléides, avec incertitudes et réseau des données d’entrée. NUBASE2020 : demi-vies, spins, modes de désintégration et énergies d’excitation des états fondamentaux et isomériques."
   use:
     en:
     - Download mass_1.mas20.txt (ME, binding energy/A, beta Q), rct1.mas20.txt and rct2_1.mas20.txt (reactions),
@@ -1061,10 +1186,12 @@ items:
     - 先阅读列说明：“#” 在外推数值中代替小数点；“*” 表示无数据。数值和不确定度的标记应分别保留。
     - 优先采用直接发表的反应不确定度：评价质量之间存在相关性，单个质量误差的平方和无法重现这些不确定度。
     - 没有直接反应列的物理量，应在适用时采用协方差文件，或明确注明独立误差传播近似。
+    fr: ["Téléchargez mass_1.mas20.txt pour les excès de masse, énergies de liaison/A et Q bêta, rct1.mas20.txt et rct2_1.mas20.txt pour les réactions, et nubase_4.mas20.txt pour les états, en texte à colonnes fixes.", "Lisez la description des colonnes : « # » remplace le point décimal pour une estimation ; « * » signifie indisponible. Conservez séparément les indicateurs des valeurs et des incertitudes.", "Utilisez les incertitudes de réaction publiées : les masses évaluées sont corrélées. Additionner leurs erreurs individuelles en quadrature ne reproduit pas ces incertitudes.", "Pour une grandeur sans colonne de réaction publiée, utilisez la covariance si applicable ou indiquez explicitement la propagation d’erreurs indépendantes."]
   tips:
     en: The chart's AME reference uses published energies and evaluated uncertainties where tabulated. New-mass
       and model calculations remain separate. Cite the original AME/NUBASE papers.
     zh: 核素图的 AME 参考在有直接数据时采用已发表能量与评价不确定度；新质量和模型的计算另行区分。请引用 AME/NUBASE 原始论文。
+    fr: "La référence AME de la carte utilise les énergies et incertitudes évaluées publiées lorsqu’elles sont tabulées. Les calculs de nouvelles masses et de modèles restent distincts. Citez les articles AME/NUBASE d’origine."
   cite: W.J. Huang et al., Chin. Phys. C 45, 030002 (2021); M. Wang et al., Chin. Phys. C 45, 030003 (2021); F.G.
     Kondev et al., Chin. Phys. C 45, 030001 (2021)
 - id: amdc-imp
@@ -1076,9 +1203,11 @@ items:
   short:
     en: Chinese home of the Atomic Mass Data Center with the AME/NUBASE files and evaluation tools.
     zh: 原子质量数据中心在兰州近代物理研究所的主页，提供 AME/NUBASE 文件与评价工具。
+    fr: "Site chinois du centre AMDC, avec fichiers AME/NUBASE et outils d’évaluation."
   what:
     en: The same AME and NUBASE tables, historical evaluations and documentation.
     zh: 相同的 AME 与 NUBASE 数据表、历史版本与文档。
+    fr: "Mêmes tables AME et NUBASE, évaluations historiques et documentation."
   use:
     en:
     - Use as an alternative download site for the mass tables.
@@ -1086,9 +1215,11 @@ items:
     zh:
     - 作为质量表的备用下载站点。
     - 浏览早期评价（AME2016、AME2012……）进行版本比较。
+    fr: ["Utilisez ce site alternatif pour télécharger les tables de masses.", "Consultez les évaluations précédentes, AME2016 ou AME2012 par exemple, pour comparer les versions."]
   tips:
     en: Keep the version (AME2020) in file names and papers — values change between evaluations.
     zh: 在文件名和论文中注明版本（AME2020）——不同评价之间数值会变化。
+    fr: "Gardez la version, par exemple AME2020, dans les noms de fichiers et les articles : les valeurs changent entre évaluations."
 - id: amdc-anl
   name: AMDC at Argonne — atomic mass data resources
   org: Argonne National Laboratory
@@ -1098,10 +1229,12 @@ items:
   short:
     en: Official AMDC collaboration entry at Argonne, with atomic-mass evaluation resources.
     zh: AMDC 合作组在阿贡国家实验室的官方入口，提供原子质量评价资源。
+    fr: "Site officiel de la collaboration AMDC à Argonne, avec ressources sur l’évaluation des masses atomiques."
   what:
     en: One of the collaboration websites named by the IMP and IAEA AMDC pages. Use the IAEA or IMP mirrors if access
       is restricted.
     zh: IMP 和 IAEA 的 AMDC 主页列出的合作组站点之一；如访问受限，可使用 IAEA 或 IMP 镜像。
+    fr: "Un des sites de collaboration indiqués par l’IMP et l’IAEA. Utilisez leurs miroirs si l’accès est restreint."
   use:
     en:
     - Choose an evaluation edition before downloading.
@@ -1111,9 +1244,11 @@ items:
     - 下载前先选择评价版本。
     - 质量、反应与协方差文件应来自同一评价版本。
     - 阅读原始论文以及各文件的定宽列说明。
+    fr: ["Choisissez l’édition de l’évaluation avant téléchargement.", "Conservez les fichiers de masses, réactions et covariances de la même édition.", "Lisez les articles d’origine et l’en-tête à colonnes fixes de chaque fichier."]
   tips:
     en: Do not mix AME2016, AME2020 and rounded exports without labelling the edition and precision.
     zh: 不要混用 AME2016、AME2020 和舍入导出文件而不注明版本与精度。
+    fr: "Ne mélangez pas AME2016, AME2020 et des exports arrondis sans préciser édition et précision."
 - id: nubase-min
   name: NUBASE2020 browser (IAEA)
   org: IAEA Nuclear Data Section
@@ -1123,9 +1258,11 @@ items:
   short:
     en: 'Searchable web version of NUBASE2020: states, half-lives, spins and decay modes.'
     zh: NUBASE2020 网页检索版：核态、半衰期、自旋与衰变方式。
+    fr: "Version web interrogeable de NUBASE2020 : états, demi-vies, spins et modes de désintégration."
   what:
     en: All NUBASE2020 ground and isomeric states with excitation energies, half-lives, Jπ and decay branches.
     zh: NUBASE2020 全部基态与同核异能态：激发能、半衰期、Jπ 与衰变分支。
+    fr: "Tous les états fondamentaux et isomériques NUBASE2020 avec énergies d’excitation, demi-vies, Jπ et branchements."
   use:
     en:
     - Filter by Z, N or A.
@@ -1133,9 +1270,11 @@ items:
     zh:
     - 按 Z、N 或 A 筛选。
     - 按激发能或半衰期排序，查找长寿命同核异能态（PI-ICR 测量很有用）。
+    fr: ["Filtrez par Z, N ou A.", "Triez par énergie d’excitation ou demi-vie pour trouver les isomères de longue durée, utiles en PI-ICR."]
   tips:
     en: Isomer energies marked '#' are estimates; measured energies have no '#'.
     zh: 标 “#” 的同核异能态能量为估计值；测量值不带 “#”。
+    fr: "Une énergie isomérique marquée « # » est estimée ; les énergies mesurées n’ont pas ce signe."
 - id: radii
   name: Nuclear charge radii (IAEA)
   org: IAEA Nuclear Data Section
@@ -1145,9 +1284,11 @@ items:
   short:
     en: Compilation of experimental ground-state charge radii (Angeli & Marinova and updates).
     zh: 实验基态电荷半径汇编（Angeli & Marinova 及更新）。
+    fr: "Compilation des rayons de charge fondamentaux expérimentaux : Angeli et Marinova et mises à jour."
   what:
     en: rms charge radii from electron scattering, muonic atoms and laser spectroscopy (isotope shifts), with uncertainties.
     zh: 来自电子散射、μ 原子与激光谱（同位素移位）的均方根电荷半径及不确定度。
+    fr: "Rayons de charge quadratiques moyens issus de diffusion électronique, d’atomes muoniques et de spectroscopie laser par déplacements isotopiques, avec incertitudes."
   use:
     en:
     - Choose the element and download the table.
@@ -1155,9 +1296,11 @@ items:
     zh:
     - 选择元素并下载数据表。
     - 沿同位素链画 δ⟨r²⟩，观察壳闭合和形状变化。
+    fr: ["Choisissez l’élément et téléchargez la table.", "Tracez δ⟨r²⟩ le long d’une chaîne isotopique pour observer fermetures de couches et changements de forme."]
   tips:
     en: Laser spectroscopy gives differences δ⟨r²⟩; absolute radii need a reference isotope.
     zh: 激光谱给出差值 δ⟨r²⟩；绝对半径需要参考同位素。
+    fr: "La spectroscopie laser fournit des différences δ⟨r²⟩ ; un rayon absolu exige un isotope de référence."
   cite: I. Angeli, K.P. Marinova, At. Data Nucl. Data Tables 99, 69 (2013)
 - id: moments
   name: Nuclear moments (IAEA)
@@ -1169,9 +1312,11 @@ items:
   short:
     en: Magnetic dipole and electric quadrupole moments of ground and excited states (N.J. Stone tables).
     zh: 基态与激发态的磁偶极矩和电四极矩（N.J. Stone 表）。
+    fr: "Moments dipolaires magnétiques et quadrupolaires électriques des états fondamentaux et excités : tables de N.J. Stone."
   what:
     en: Measured and recommended μ and Q values with method and reference.
     zh: 测量与推荐的 μ 与 Q 值，附测量方法和参考文献。
+    fr: "Valeurs μ et Q mesurées ou recommandées, avec méthode et référence."
   use:
     en:
     - Search by nuclide or state.
@@ -1181,9 +1326,11 @@ items:
     - 按核素或核态检索。
     - 查看方法列（激光、NMR、β-NMR……）与文献。
     - 有推荐表（INDC(NDS)-0794、-0816）时优先使用。
+    fr: ["Recherchez un nucléide ou un état.", "Vérifiez la méthode, par exemple laser, RMN ou β-RMN, et la référence.", "Utilisez les tables recommandées INDC(NDS)-0794 et -0816 lorsqu’elles sont disponibles."]
   tips:
     en: Mind the sign conventions and the diamagnetic/Sternheimer corrections quoted in the tables.
     zh: 注意表中给出的符号约定及抗磁/Sternheimer 修正。
+    fr: "Respectez les conventions de signe et les corrections diamagnétiques ou de Sternheimer indiquées dans les tables."
 - id: frdm2012
   name: FRDM2012 mass model
   org: Los Alamos National Laboratory
@@ -1194,10 +1341,12 @@ items:
     en: 'Finite-range droplet model: masses, deformations and shell corrections for 9 318 nuclei up to the drip
       lines.'
     zh: 有限力程液滴模型：直至滴线的 9318 个核的质量、形变与壳修正。
+    fr: "Modèle de goutte à portée finie : masses, déformations et corrections de couches de 9 318 noyaux jusqu’aux limites de stabilité."
   what:
     en: Calculated ground-state masses, β₂…β₆ deformations, shell and pairing corrections; rms deviation ≈ 0.56
       MeV from AME masses.
     zh: 计算的基态质量、β₂…β₆ 形变、壳修正与对修正；与 AME 质量的均方根偏差约 0.56 MeV。
+    fr: "Masses fondamentales calculées, déformations β₂…β₆ et corrections de couches et d’appariement ; écart quadratique moyen d’environ 0,56 MeV aux masses AME."
   use:
     en:
     - Download the table from the journal supplement (ADNDT 109–110, 1 (2016)).
@@ -1207,9 +1356,11 @@ items:
     - 从期刊补充材料下载数据表（ADNDT 109–110, 1 (2016)）。
     - 在没有测量质量的区域（r 过程、滴线）使用——有数据处与 AME 比较。
     - 本站：核素图 → 质量模型 → FRDM (2012)。
+    fr: ["Téléchargez la table du supplément de la revue ADNDT 109–110, 1 (2016).", "Utilisez-la sans masse mesurée, par exemple pour le processus r ou les limites de stabilité, et comparez à AME là où des données existent.", "Sur ce site : carte → modèle de masse → FRDM (2012)."]
   tips:
     en: Model-to-model spread far from stability is a useful estimate of the true uncertainty.
     zh: 远离稳定线处不同模型间的差异可作为真实不确定度的估计。
+    fr: "L’écart entre modèles loin de la stabilité fournit une estimation utile de l’incertitude réelle."
   cite: P. Möller, A.J. Sierk, T. Ichikawa, H. Sagawa, At. Data Nucl. Data Tables 109–110, 1 (2016)
 - id: ws4
   name: WS4 / WS-type mass models
@@ -1220,9 +1371,11 @@ items:
   short:
     en: Weizsäcker–Skyrme mass formula (rms ≈ 0.3 MeV) with RBF-corrected and DZ variants, downloadable tables.
     zh: Weizsäcker–Skyrme 质量公式（均方根约 0.3 MeV），含 RBF 修正与 DZ 变体，可下载数据表。
+    fr: "Formule de masses Weizsäcker–Skyrme, écart quadratique moyen d’environ 0,3 MeV, avec variantes corrigées RBF et DZ et tables téléchargeables."
   what:
     en: WS4, WS4+RBF and DZ28+RBF masses, deformations and shell energies as plain text tables.
     zh: 以纯文本表提供 WS4、WS4+RBF 与 DZ28+RBF 的质量、形变和壳能。
+    fr: "Masses, déformations et énergies de couches WS4, WS4+RBF et DZ28+RBF en tables de texte."
   use:
     en:
     - Download WS4.txt; columns are A, Z, β₂, β₄, β₆, E_sh, E_def, E_exp, E_th, M_exp, M_th (MeV).
@@ -1230,10 +1383,12 @@ items:
     zh:
     - 下载 WS4.txt；列依次为 A、Z、β₂、β₄、β₆、E_sh、E_def、E_exp、E_th、M_exp、M_th（MeV）。
     - 未知核的质量过剩取 M_th。
+    fr: ["Téléchargez WS4.txt ; colonnes : A, Z, β₂, β₄, β₆, E_sh, E_def, E_exp, E_th, M_exp, M_th (MeV).", "Utilisez M_th comme excès de masse des noyaux inconnus."]
   tips:
     en: One of the most accurate global models near known nuclei; extrapolations still differ by MeV at the drip
       lines.
     zh: 在已知核附近是精度最高的全局模型之一；在滴线附近外推仍可相差数 MeV。
+    fr: "Un des modèles globaux les plus précis près des noyaux connus ; les extrapolations diffèrent encore de plusieurs MeV aux limites de stabilité."
   cite: N. Wang, M. Liu, X. Wu, J. Meng, Phys. Lett. B 734, 215 (2014)
 - id: bruslib
   name: BRUSLIB (HFB mass tables)
@@ -1244,9 +1399,11 @@ items:
   short:
     en: 'Brussels nuclear library: HFB-21…31 masses, fission barriers, level densities and astrophysical rates.'
     zh: 布鲁塞尔核库：HFB-21…31 质量、裂变位垒、能级密度与天体物理反应率。
+    fr: "Bibliothèque nucléaire de Bruxelles : masses HFB-21…31, barrières de fission, densités de niveaux et taux astrophysiques."
   what:
     en: Skyrme/Gogny Hartree–Fock–Bogoliubov mass tables and derived nuclear inputs for nucleosynthesis.
     zh: Skyrme/Gogny Hartree–Fock–Bogoliubov 质量表及核合成所需的派生核输入。
+    fr: "Tables de masses Hartree–Fock–Bogoliubov de Skyrme/Gogny et données nucléaires dérivées pour la nucléosynthèse."
   use:
     en:
     - Choose 'Nuclear masses' and the model (e.g. HFB-24).
@@ -1254,9 +1411,11 @@ items:
     zh:
     - 选择 “Nuclear masses” 及模型（如 HFB-24）。
     - 选择 Z/A 范围并下载数据表。
+    fr: ["Choisissez les masses nucléaires et le modèle, par exemple HFB-24.", "Sélectionnez la plage de Z/A et téléchargez la table."]
   tips:
     en: HFB tables are the standard choice for r-process network calculations.
     zh: HFB 质量表是 r 过程网络计算的常用选择。
+    fr: "Les tables HFB sont couramment utilisées dans les réseaux du processus r."
 - id: exfor
   name: EXFOR (experimental reaction data)
   org: IAEA NDS / NRDC network
@@ -1267,10 +1426,12 @@ items:
   short:
     en: Experimental nuclear reaction data — cross sections, yields, spectra — from more than 25 000 experiments.
     zh: 实验核反应数据——截面、产额、能谱——来自超过 25 000 项实验。
+    fr: "Données expérimentales de réactions nucléaires : sections efficaces, rendements et spectres de plus de 25 000 expériences."
   what:
     en: Numerical data as published (or supplied by authors) for neutron-, charged-particle- and photon-induced
       reactions, with the experimental details.
     zh: 中子、带电粒子和光子诱发反应的原始数值数据（发表或作者提供），附实验细节。
+    fr: "Données numériques publiées ou fournies par les auteurs pour les réactions induites par neutrons, particules chargées et photons, avec détails expérimentaux."
   use:
     en:
     - Search by target, reaction (e.g. 58Ni(p,γ)) and quantity (CS = cross section).
@@ -1280,9 +1441,11 @@ items:
     - 按靶核、反应（如 58Ni(p,γ)）与物理量（CS = 截面）检索。
     - 将多个数据集与评价曲线一起作图。
     - 导出为 EXFOR、X4+ 或 C5 表格式。
+    fr: ["Recherchez cible, réaction, par exemple 58Ni(p,γ), et grandeur ; CS signifie section efficace.", "Superposez plusieurs jeux expérimentaux et courbes évaluées.", "Exportez en EXFOR, X4+ ou tables C5."]
   tips:
     en: Use the EXFOR entry number (e.g. 12345.002) when you cite a data set together with the paper.
     zh: 引用数据集时同时给出论文与 EXFOR 条目号（如 12345.002）。
+    fr: "Pour citer un jeu avec son article, indiquez le numéro d’entrée EXFOR, par exemple 12345.002."
 - id: exfor-nndc
   name: EXFOR at NNDC
   org: NNDC
@@ -1292,9 +1455,11 @@ items:
   short:
     en: US interface to the same EXFOR database, with its own search and plotting.
     zh: EXFOR 数据库的美国访问界面，自带检索与作图。
+    fr: "Interface américaine de la même base EXFOR, avec ses propres outils de recherche et de tracé."
   what:
     en: The EXFOR experimental reaction library (also called CSISRS in the US).
     zh: EXFOR 实验反应数据库（在美国也称 CSISRS）。
+    fr: "Bibliothèque expérimentale EXFOR, également appelée CSISRS aux États-Unis."
   use:
     en:
     - Enter target, reaction and quantity.
@@ -1302,9 +1467,11 @@ items:
     zh:
     - 输入靶核、反应与物理量。
     - 选择数据集作图或下载。
+    fr: ["Saisissez cible, réaction et grandeur.", "Sélectionnez les jeux, puis tracez ou téléchargez."]
   tips:
     en: Same content as the IAEA site; choose the faster interface for you.
     zh: 内容与 IAEA 站点相同；选择对你更快的界面即可。
+    fr: "Contenu identique au site de l’IAEA ; choisissez l’interface la plus rapide pour vous."
 - id: endf
   name: ENDF (evaluated libraries)
   org: NNDC / CSEWG
@@ -1314,10 +1481,12 @@ items:
   short:
     en: 'Evaluated Nuclear Data File: ENDF/B and other libraries in ENDF-6 format for transport codes.'
     zh: 评价核数据文件：ENDF/B 等 ENDF-6 格式数据库，用于输运程序。
+    fr: "ENDF : ENDF/B et autres bibliothèques évaluées au format ENDF-6 pour les codes de transport."
   what:
     en: Complete evaluated cross sections, angular and energy distributions, fission yields, decay and covariance
       data for neutron, proton, photon and other sublibraries.
     zh: 中子、质子、光子等子库的完整评价截面、角分布与能量分布、裂变产额、衰变与协方差数据。
+    fr: "Sections efficaces évaluées, distributions angulaires et énergétiques, rendements de fission, désintégrations et covariances des sous-bibliothèques neutron, proton, photon et autres."
   use:
     en:
     - Choose library (ENDF/B-VIII, JEFF, JENDL, TENDL…) and sublibrary.
@@ -1327,9 +1496,11 @@ items:
     - 选择数据库（ENDF/B-VIII、JEFF、JENDL、TENDL……）与子库。
     - 选择材料及 MF/MT 段（如 MF3 MT102 = (n,γ) 截面）。
     - 作图或下载；用 NJOY/FRENDY 处理后供输运程序使用。
+    fr: ["Choisissez la bibliothèque, par exemple ENDF/B-VIII, JEFF, JENDL ou TENDL, puis la sous-bibliothèque.", "Choisissez le matériau et la section MF/MT ; par exemple MF3 MT102 désigne la section efficace (n,γ).", "Tracez ou téléchargez ; traitez avec NJOY/FRENDY pour les codes de transport."]
   tips:
     en: MF = data type, MT = reaction channel; the ENDF-6 manual lists all numbers.
     zh: MF = 数据类型，MT = 反应道；ENDF-6 手册列出所有编号。
+    fr: "MF désigne le type de données et MT le canal de réaction ; le manuel ENDF-6 décrit les codes."
 - id: sigma
   name: Sigma
   org: NNDC
@@ -1339,9 +1510,11 @@ items:
   short:
     en: Retrieve and plot evaluated cross sections and decay data from several national libraries.
     zh: 检索并绘制多个国家数据库的评价截面与衰变数据。
+    fr: "Consultez et tracez sections efficaces et désintégrations évaluées de plusieurs bibliothèques nationales."
   what:
     en: Web plotting of ENDF-format libraries, with comparison to EXFOR points.
     zh: ENDF 格式数据库的网页作图，可与 EXFOR 实验点比较。
+    fr: "Tracé web des bibliothèques au format ENDF avec comparaison aux points EXFOR."
   use:
     en:
     - Click the target on the mini chart.
@@ -1351,9 +1524,11 @@ items:
     - 在小核素图上点击靶核。
     - 选择数据库与反应；可叠加多个数据库。
     - 加入 EXFOR 数据进行比较。
+    fr: ["Cliquez sur la cible dans la petite carte.", "Choisissez bibliothèque et réaction, puis superposez plusieurs bibliothèques.", "Ajoutez les données EXFOR pour comparaison."]
   tips:
     en: Quick way to compare ENDF/B, JEFF and JENDL for the same reaction.
     zh: 快速比较同一反应在 ENDF/B、JEFF 与 JENDL 中的差异。
+    fr: "Permet de comparer rapidement ENDF/B, JEFF et JENDL pour une même réaction."
 - id: janis
   name: JANIS
   org: OECD Nuclear Energy Agency
@@ -1363,9 +1538,11 @@ items:
   short:
     en: Java/web display program for evaluated libraries, EXFOR and decay data.
     zh: 评价数据库、EXFOR 与衰变数据的 Java/网页显示程序。
+    fr: "Outil Java ou web de consultation des bibliothèques évaluées, d’EXFOR et des désintégrations."
   what:
     en: Browser for ENDF-6, PENDF/GENDF, EXFOR and CINDA with plotting and comparison tools.
     zh: ENDF-6、PENDF/GENDF、EXFOR 与 CINDA 浏览器，带作图与比较工具。
+    fr: "Consultation d’ENDF-6, PENDF/GENDF, EXFOR et CINDA, avec tracés et comparaisons."
   use:
     en:
     - Use JANIS Web or download the desktop program.
@@ -1375,9 +1552,11 @@ items:
     - 使用 JANIS 网页版或下载桌面程序。
     - 选择数据库 → 材料 → 反应并作图。
     - 在一张图中比较评价与实验数据。
+    fr: ["Utilisez JANIS Web ou téléchargez le logiciel de bureau.", "Choisissez base → matériau → réaction, puis tracez.", "Comparez évaluations et mesures dans une même figure."]
   tips:
     en: Good for preparing publication-quality comparison plots.
     zh: 适合制作出版质量的比较图。
+    fr: "Utile pour préparer des graphiques comparatifs destinés à la publication."
 - id: tendl
   name: TENDL
   org: PSI / IAEA (TALYS-based)
@@ -1387,10 +1566,12 @@ items:
   short:
     en: TALYS-based evaluated library covering all targets and projectiles up to 200 MeV.
     zh: 基于 TALYS 的评价数据库，覆盖全部靶核与入射粒子，能量至 200 MeV。
+    fr: "Bibliothèque évaluée fondée sur TALYS couvrant cibles et projectiles jusqu’à 200 MeV."
   what:
     en: Complete ENDF-6 files with covariances for n, p, d, t, ³He, α and γ on ~2 800 targets, including unstable
       ones.
     zh: 约 2800 个靶核（含不稳定核）的 n、p、d、t、³He、α、γ 完整 ENDF-6 文件及协方差。
+    fr: "Fichiers ENDF-6 complets avec covariances pour n, p, d, t, ³He, α et γ sur environ 2 800 cibles, y compris instables."
   use:
     en:
     - Choose the release (e.g. TENDL-2023), projectile and target.
@@ -1400,9 +1581,11 @@ items:
     - 选择版本（如 TENDL-2023）、入射粒子与靶核。
     - 下载 ENDF 文件或查看图表。
     - 在没有其他评价时（如奇特靶核）很有用。
+    fr: ["Choisissez la version, par exemple TENDL-2023, le projectile et la cible.", "Téléchargez les fichiers ENDF ou utilisez les graphiques.", "Utile sans autre évaluation disponible, notamment pour les cibles exotiques."]
   tips:
     en: 'Model-based: check against EXFOR where data exist.'
     zh: 基于模型：有实验数据处请与 EXFOR 核对。
+    fr: "Résultats fondés sur un modèle : comparez à EXFOR là où des mesures existent."
 - id: jeff
   name: JEFF
   org: OECD-NEA Data Bank
@@ -1412,9 +1595,11 @@ items:
   short:
     en: Joint Evaluated Fission and Fusion library (European evaluation).
     zh: 联合评价裂变与聚变数据库（欧洲评价）。
+    fr: "Bibliothèque européenne évaluée JEFF pour la fission et la fusion."
   what:
     en: Neutron, decay, fission-yield and activation sublibraries in ENDF-6 format.
     zh: 中子、衰变、裂变产额与活化子库（ENDF-6 格式）。
+    fr: "Sous-bibliothèques neutron, désintégration, rendements de fission et activation au format ENDF-6."
   use:
     en:
     - Choose the latest release and sublibrary.
@@ -1422,9 +1607,11 @@ items:
     zh:
     - 选择最新版本与子库。
     - 下载文件或在 JANIS 中查看。
+    fr: ["Choisissez la dernière version et la sous-bibliothèque.", "Téléchargez les fichiers ou consultez-les dans JANIS."]
   tips:
     en: Decay and fission-yield sublibraries are widely used in Europe.
     zh: 衰变与裂变产额子库在欧洲广泛使用。
+    fr: "Les sous-bibliothèques de désintégration et de rendements de fission sont largement utilisées en Europe."
 - id: jendl
   name: JENDL
   org: Japan Atomic Energy Agency
@@ -1434,9 +1621,11 @@ items:
   short:
     en: Japanese Evaluated Nuclear Data Library (JENDL-5 and special-purpose files).
     zh: 日本评价核数据库（JENDL-5 及专用文件）。
+    fr: "Bibliothèque japonaise évaluée JENDL-5 et fichiers spécialisés."
   what:
     en: General-purpose neutron data plus proton, deuteron, photonuclear, decay and fission-yield sublibraries.
     zh: 通用中子数据以及质子、氘、光核、衰变和裂变产额子库。
+    fr: "Données neutroniques générales et sous-bibliothèques proton, deutéron, photon, désintégration et rendements de fission."
   use:
     en:
     - Open the JENDL-5 page and choose the sublibrary.
@@ -1444,9 +1633,11 @@ items:
     zh:
     - 打开 JENDL-5 页面选择子库。
     - 下载 ENDF-6 文件或使用作图页面。
+    fr: ["Ouvrez la page JENDL-5 et choisissez la sous-bibliothèque.", "Téléchargez les fichiers ENDF-6 ou utilisez les pages de tracé."]
   tips:
     en: JAEA also provides the FRENDY processing code.
     zh: JAEA 还提供 FRENDY 数据处理程序。
+    fr: "La JAEA fournit également le code de traitement FRENDY."
 - id: ripl
   name: RIPL-3
   org: IAEA Nuclear Data Section
@@ -1456,10 +1647,12 @@ items:
   short:
     en: 'Reference Input Parameter Library: masses, levels, level densities, optical potentials, γ strength functions.'
     zh: 参考输入参数库：质量、能级、能级密度、光学势、γ 强度函数。
+    fr: "Bibliothèque de paramètres de référence : masses, niveaux, densités de niveaux, potentiels optiques et fonctions de force γ."
   what:
     en: Input parameters for statistical-model reaction codes (TALYS, EMPIRE, CoH), including theoretical mass tables
       and discrete level schemes.
     zh: 统计模型反应程序（TALYS、EMPIRE、CoH）的输入参数，包括理论质量表与分立能级纲图。
+    fr: "Paramètres d’entrée des codes de réactions statistiques TALYS, EMPIRE et CoH, dont tables de masses théoriques et schémas de niveaux discrets."
   use:
     en:
     - Choose the segment (MASSES, LEVELS, OPTICAL, DENSITIES, GAMMA, FISSION).
@@ -1467,9 +1660,11 @@ items:
     zh:
     - 选择数据段（MASSES、LEVELS、OPTICAL、DENSITIES、GAMMA、FISSION）。
     - 下载文件并阅读该段 README。
+    fr: ["Choisissez le segment MASSES, LEVELS, OPTICAL, DENSITIES, GAMMA ou FISSION.", "Téléchargez les fichiers et lisez le README du segment."]
   tips:
     en: The LEVELS segment is the discrete-level input used by TALYS.
     zh: LEVELS 段即 TALYS 使用的分立能级输入。
+    fr: "Le segment LEVELS fournit les niveaux discrets utilisés par TALYS."
 - id: isotopia
   name: Isotopia (IAEA)
   org: IAEA Nuclear Data Section
@@ -1479,10 +1674,12 @@ items:
   short:
     en: Production yields and decay data for medical and industrial radioisotopes.
     zh: 医用与工业放射性同位素的生产产额与衰变数据。
+    fr: "Rendements de production et données de désintégration des radioisotopes médicaux ou industriels."
   what:
     en: Recommended cross sections, thick-target yields and decay data for isotope production with cyclotrons and
       reactors.
     zh: 回旋加速器与反应堆生产同位素的推荐截面、厚靶产额与衰变数据。
+    fr: "Sections efficaces recommandées, rendements de cibles épaisses et désintégrations pour la production en cyclotron ou réacteur."
   use:
     en:
     - Choose the product isotope.
@@ -1492,9 +1689,11 @@ items:
     - 选择目标产物同位素。
     - 比较生产路线与产额。
     - 检查竞争反应产生的杂质。
+    fr: ["Choisissez l’isotope produit.", "Comparez les voies de production et leurs rendements.", "Vérifiez les impuretés issues des réactions concurrentes."]
   tips:
     en: Complements the IAEA medical-isotope cross-section evaluations.
     zh: 可与 IAEA 医用同位素截面评价配合使用。
+    fr: "Complète les évaluations IAEA des sections efficaces de production d’isotopes médicaux."
 - id: reaclib
   name: JINA REACLIB
   org: JINA-CEE
@@ -1504,10 +1703,12 @@ items:
   short:
     en: Thermonuclear reaction-rate library in the 7-parameter REACLIB format for network codes.
     zh: 热核反应率库，采用 7 参数 REACLIB 格式，供网络计算程序使用。
+    fr: "Bibliothèque de taux de réactions thermonucléaires au format REACLIB à sept paramètres pour les codes de réseau."
   what:
     en: Experimental and theoretical rates (and weak rates) for ~80 000 reactions, versioned snapshots, with the
       source label of every rate.
     zh: 约 80 000 个反应的实验与理论反应率（及弱反应率），带版本快照与每条反应率的来源标签。
+    fr: "Taux expérimentaux et théoriques, dont les taux faibles, pour environ 80 000 réactions, avec versions et étiquette de source de chaque taux."
   use:
     en:
     - Search a reaction or download a full snapshot.
@@ -1517,9 +1718,11 @@ items:
     - 检索单个反应或下载完整快照。
     - 每个反应率为 λ = exp(a₀ + a₁/T₉ + a₂T₉^(−1/3) + a₃T₉^(1/3) + a₄T₉ + a₅T₉^(5/3) + a₆ ln T₉)。
     - 可用新反应率（如新质量得到的）替换并记录标签。
+    fr: ["Recherchez une réaction ou téléchargez un état complet de la bibliothèque.", "Chaque taux est λ = exp(a₀ + a₁/T₉ + a₂T₉^(−1/3) + a₃T₉^(1/3) + a₄T₉ + a₅T₉^(5/3) + a₆ ln T₉).", "Remplacez les taux individuels par de nouveaux, par exemple issus de nouvelles masses, et conservez leur étiquette."]
   tips:
     en: New masses change rp- and r-process rates through Q values — reverse rates depend exponentially on Q.
     zh: 新质量通过 Q 值改变 rp 与 r 过程反应率——逆反应率随 Q 指数变化。
+    fr: "Les nouvelles masses modifient les taux des processus rp et r par les valeurs Q ; les taux inverses dépendent exponentiellement de Q."
   cite: R.H. Cyburt et al., Astrophys. J. Suppl. 189, 240 (2010)
 - id: kadonis
   name: KADoNiS
@@ -1530,9 +1733,11 @@ items:
   short:
     en: 'Karlsruhe Astrophysical Database of Nucleosynthesis in Stars: s-process (n,γ) and p-process data.'
     zh: 卡尔斯鲁厄恒星核合成天体物理数据库：s 过程 (n,γ) 与 p 过程数据。
+    fr: "Base astrophysique de Karlsruhe sur la nucléosynthèse stellaire : données (n,γ) du processus s et données du processus p."
   what:
     en: Recommended Maxwellian-averaged cross sections (MACS) at kT = 5–100 keV and p-process reaction data.
     zh: kT = 5–100 keV 的推荐麦克斯韦平均截面（MACS）及 p 过程反应数据。
+    fr: "Sections efficaces recommandées moyennées sur une distribution de Maxwell, MACS, pour kT = 5–100 keV et données de réactions du processus p."
   use:
     en:
     - Select the isotope.
@@ -1540,9 +1745,11 @@ items:
     zh:
     - 选择同位素。
     - 查看 MACS(30 keV) 及其能量依赖与文献。
+    fr: ["Choisissez l’isotope.", "Consultez MACS(30 keV), la dépendance en énergie et les références."]
   tips:
     en: Standard reference for s-process network inputs.
     zh: s 过程网络输入的标准参考。
+    fr: "Référence usuelle des données d’entrée des réseaux du processus s."
 - id: starlib
   name: STARLIB
   org: Sallaska, Iliadis et al.
@@ -1552,9 +1759,11 @@ items:
   short:
     en: Tabulated reaction rates with statistical uncertainties (log-normal factors) for Monte-Carlo nucleosynthesis.
     zh: 带统计不确定度（对数正态因子）的反应率表，供蒙特卡罗核合成计算。
+    fr: "Taux tabulés avec incertitudes statistiques log-normales pour les calculs Monte-Carlo de nucléosynthèse."
   what:
     en: Rates on a temperature grid with recommended values and factor uncertainties.
     zh: 温度网格上的反应率推荐值与因子不确定度。
+    fr: "Taux sur une grille de températures avec valeurs recommandées et facteurs d’incertitude."
   use:
     en:
     - Download the library file.
@@ -1562,9 +1771,11 @@ items:
     zh:
     - 下载数据库文件。
     - 按对数正态分布抽样反应率以传递不确定度。
+    fr: ["Téléchargez le fichier de la bibliothèque.", "Échantillonnez les taux selon une loi log-normale pour propager les incertitudes."]
   tips:
     en: Pairs naturally with Monte-Carlo network studies of rp-process sensitivity.
     zh: 适合 rp 过程敏感度的蒙特卡罗网络研究。
+    fr: "Adapté aux études Monte-Carlo de sensibilité des réseaux du processus rp."
 - id: nist-asd
   name: NIST Atomic Spectra Database
   org: NIST
@@ -1574,9 +1785,11 @@ items:
   short:
     en: Evaluated atomic energy levels, spectral lines and ionization energies.
     zh: 评价原子能级、谱线与电离能。
+    fr: "Niveaux d’énergie atomique, raies spectrales et énergies d’ionisation évalués."
   what:
     en: Line wavelengths, transition probabilities, level energies and ionization energies for atoms and ions.
     zh: 原子与离子的谱线波长、跃迁概率、能级能量与电离能。
+    fr: "Longueurs d’onde, probabilités de transition, niveaux d’énergie et énergies d’ionisation des atomes et ions."
   use:
     en:
     - Enter the spectrum (e.g. 'Sn I' or 'Cs II') and wavelength range.
@@ -1586,10 +1799,12 @@ items:
     - 输入光谱（如 “Sn I” 或 “Cs II”）与波长范围。
     - 离子的电子结合能请用电离能表单。
     - 激光谱和离子质量修正时需要这些数据。
+    fr: ["Saisissez le spectre, par exemple Sn I ou Cs II, et la plage de longueurs d’onde.", "Pour les énergies de liaison électroniques des ions, utilisez le formulaire des énergies d’ionisation.", "Nécessaire à la spectroscopie laser et aux corrections de masses ioniques."]
   tips:
     en: 'Ion mass for Penning-trap work: m_ion = M_atom − q·mₑ + B_e/c² (B_e = total binding energy of the removed
       electrons).'
     zh: 彭宁阱离子质量：m_ion = M_atom − q·mₑ + B_e/c²（B_e 为移去电子的总结合能）。
+    fr: "Masse ionique en piège de Penning : m_ion = M_atom − q·mₑ + B_e/c², où B_e est l’énergie de liaison totale des électrons retirés."
 - id: nist-ion
   name: NIST ionization energies
   org: NIST
@@ -1599,9 +1814,11 @@ items:
   short:
     en: Ionization energies of all charge states — needed for highly charged ion masses.
     zh: 全部电荷态的电离能——高电荷态离子质量所需。
+    fr: "Énergies d’ionisation de tous les états de charge, nécessaires aux masses des ions multichargés."
   what:
     en: Sequential ionization energies and total binding energies of atoms and ions.
     zh: 原子与离子的逐级电离能和总结合能。
+    fr: "Énergies d’ionisation successives et énergies de liaison totales des atomes et ions."
   use:
     en:
     - Select element and charge-state range.
@@ -1609,10 +1826,12 @@ items:
     zh:
     - 选择元素与电荷态范围。
     - 求和得到移去电子的结合能。
+    fr: ["Choisissez l’élément et la plage d’états de charge.", "Sommez les énergies pour obtenir l’énergie de liaison des électrons retirés."]
   tips:
     en: For singly charged ions the correction is a few eV — below most uncertainties but not for PENTATRAP-level
       work.
     zh: 对单电荷离子修正为几 eV——低于多数不确定度，但对 PENTATRAP 级测量不可忽略。
+    fr: "Pour un ion simplement chargé, la correction est de quelques eV, souvent sous les incertitudes, mais pertinente à la précision de PENTATRAP."
 - id: codata
   name: CODATA fundamental constants
   org: NIST
@@ -1622,9 +1841,11 @@ items:
   short:
     en: Recommended values of the fundamental physical constants (mₑ, u, e, h…).
     zh: 基本物理常数推荐值（mₑ、u、e、h……）。
+    fr: "Valeurs recommandées des constantes physiques fondamentales : mₑ, u, e, h…"
   what:
     en: The CODATA adjustment with uncertainties and correlations.
     zh: CODATA 平差的常数值、不确定度与相关性。
+    fr: "Ajustement CODATA avec incertitudes et corrélations."
   use:
     en:
     - Search a constant by name.
@@ -1632,9 +1853,11 @@ items:
     zh:
     - 按名称检索常数。
     - 与所比较的质量评价使用同一 CODATA 版本（AME2020 采用 CODATA 2018）。
+    fr: ["Recherchez une constante par son nom.", "Utilisez la même version CODATA que l’évaluation de masses comparée ; AME2020 utilise CODATA 2018."]
   tips:
     en: 1 u = 931 494.10242(28) keV/c² (CODATA 2018).
     zh: 1 u = 931 494.10242(28) keV/c²（CODATA 2018）。
+    fr: "1 u = 931 494.10242(28) keV/c² (CODATA 2018)."
 - id: ciaaw
   name: CIAAW atomic weights & isotopic abundances
   org: IUPAC
@@ -1644,9 +1867,11 @@ items:
   short:
     en: Standard atomic weights and isotopic compositions of the elements.
     zh: 元素标准原子量与同位素组成。
+    fr: "Masses atomiques relatives standard et compositions isotopiques des éléments."
   what:
     en: Recommended atomic weights and natural isotopic abundances with their variations.
     zh: 推荐原子量与天然同位素丰度及其变化范围。
+    fr: "Masses atomiques relatives et abondances isotopiques naturelles recommandées, avec leurs variations."
   use:
     en:
     - Open the element page.
@@ -1654,9 +1879,11 @@ items:
     zh:
     - 打开元素页面。
     - 用同位素丰度估算天然靶产额或选择参考离子。
+    fr: ["Ouvrez la page de l’élément.", "Utilisez les abondances isotopiques pour les rendements sur cible naturelle ou le choix d’un ion de référence."]
   tips:
     en: NIST also offers a combined table of atomic weights and isotopic compositions.
     zh: NIST 也提供原子量与同位素组成的综合表。
+    fr: "Le NIST propose aussi une table combinant masses atomiques relatives et compositions isotopiques."
 - id: qcalc
   name: QCalc (Q-value calculator)
   org: NNDC
@@ -1666,9 +1893,11 @@ items:
   short:
     en: Q values and thresholds for any reaction or decay from AME masses.
     zh: 基于 AME 质量计算任意反应或衰变的 Q 值与阈能。
+    fr: "Valeurs Q et seuils de réaction ou de désintégration à partir des masses AME."
   what:
     en: Calculates reaction Q values, thresholds and separation energies.
     zh: 计算反应 Q 值、阈能与分离能。
+    fr: "Calcul des valeurs Q, seuils et énergies de séparation."
   use:
     en:
     - Enter target, projectile and ejectile.
@@ -1676,9 +1905,11 @@ items:
     zh:
     - 输入靶核、入射与出射粒子。
     - 读取 Q 值、阈能及不确定度。
+    fr: ["Saisissez cible, projectile et particule émise.", "Consultez Q, le seuil et leurs incertitudes."]
   tips:
     en: Check which mass evaluation the calculator uses.
     zh: 注意计算器所用的质量评价版本。
+    fr: "Vérifiez quelle évaluation de masses est utilisée par le calculateur."
 - id: logft
   name: LOGFT
   org: NNDC
@@ -1688,9 +1919,11 @@ items:
   short:
     en: log ft values for β decay and electron capture.
     zh: β 衰变与电子俘获的 log ft 值计算。
+    fr: "Valeurs log ft des désintégrations β et captures électroniques."
   what:
     en: Computes f, log ft and EC/β⁺ ratios for allowed and unique-forbidden transitions.
     zh: 计算容许与唯一禁戒跃迁的 f、log ft 及 EC/β⁺ 比。
+    fr: "Calcul de f, log ft et des rapports EC/β⁺ pour les transitions permises ou interdites uniques."
   use:
     en:
     - Enter Z, Q value, level energy, half-life and branching.
@@ -1698,9 +1931,11 @@ items:
     zh:
     - 输入 Z、Q 值、能级能量、半衰期和分支比。
     - 选择跃迁类型并读取 log ft。
+    fr: ["Saisissez Z, valeur Q, énergie du niveau, demi-vie et branchement.", "Choisissez le type de transition et consultez log ft."]
   tips:
     en: A new mass changes Q and therefore log ft — useful for low-Q decay studies.
     zh: 新质量会改变 Q 值从而改变 log ft——对低 Q 值衰变研究很有用。
+    fr: "Une nouvelle masse modifie Q, donc log ft ; utile aux études des désintégrations à faible Q."
 - id: bricc
   name: BrIcc
   org: Australian National University
@@ -1710,9 +1945,11 @@ items:
   short:
     en: Internal-conversion coefficients and E0 factors.
     zh: 内转换系数与 E0 因子计算。
+    fr: "Coefficients de conversion interne et facteurs E0."
   what:
     en: Calculated conversion coefficients (K, L, M… shells) and pair-conversion coefficients for any multipolarity.
     zh: 任意多极性的各壳层（K、L、M……）内转换系数与电子对转换系数。
+    fr: "Coefficients calculés de conversion des couches K, L, M… et de création de paires pour toute multipolarité."
   use:
     en:
     - Enter Z, γ energy and multipolarity (and mixing ratio).
@@ -1720,9 +1957,11 @@ items:
     zh:
     - 输入 Z、γ 能量与多极性（及混合比）。
     - 读取 α_total 与各壳层系数。
+    fr: ["Saisissez Z, énergie γ, multipolarité et rapport de mélange.", "Consultez α_total et les coefficients par couche."]
   tips:
     en: Low-energy isomeric transitions decay mostly by conversion — important for isomer half-lives.
     zh: 低能同核异能跃迁主要通过内转换衰变——对同核异能态寿命很重要。
+    fr: "Les transitions isomériques de faible énergie se font surtout par conversion, ce qui compte pour les demi-vies des isomères."
 - id: lise
   name: LISE++
   org: FRIB / Michigan State University
@@ -1732,10 +1971,12 @@ items:
   short:
     en: Fragment-separator and RI-beam simulation with production cross sections and charge states.
     zh: 碎片分离器与放射性束模拟，含产生截面与电荷态。
+    fr: "Simulation des séparateurs de fragments et faisceaux radioactifs : sections efficaces de production et états de charge."
   what:
     en: Calculates rates, purity, energy loss and charge states for in-flight facilities; includes many utilities
       (masses, kinematics).
     zh: 计算飞行分离装置的束流强度、纯度、能损与电荷态；包含众多工具（质量、运动学）。
+    fr: "Calcul des taux, puretés, pertes d’énergie et états de charge des installations en vol ; nombreux outils de masses et de cinématique."
   use:
     en:
     - Load a facility configuration (FRS, BigRIPS, ARIS…).
@@ -1743,9 +1984,11 @@ items:
     zh:
     - 载入装置配置（FRS、BigRIPS、ARIS……）。
     - 设置初级束与靶，调节分离器，读取产额。
+    fr: ["Chargez une configuration d’installation, par exemple FRS, BigRIPS ou ARIS.", "Réglez faisceau primaire, cible et séparateur, puis consultez les taux."]
   tips:
     en: Free download; Windows program (runs on macOS/Linux with Wine).
     zh: 免费下载；Windows 程序（macOS/Linux 可用 Wine 运行）。
+    fr: "Téléchargement gratuit ; logiciel Windows utilisable sous macOS/Linux avec Wine."
 - id: srim
   name: SRIM
   org: J.F. Ziegler
@@ -1755,9 +1998,11 @@ items:
   short:
     en: Stopping powers and ranges of ions in matter.
     zh: 离子在物质中的阻止本领与射程。
+    fr: "Pouvoirs d’arrêt et parcours des ions dans la matière."
   what:
     en: 'Stopping and Range of Ions in Matter: tables and TRIM Monte-Carlo for energy loss, straggling and implantation.'
     zh: 离子在物质中的阻止与射程：能损、歧离与注入的表格和 TRIM 蒙特卡罗。
+    fr: "Tables SRIM et simulation Monte-Carlo TRIM des pertes d’énergie, dispersions et implantations."
   use:
     en:
     - Use 'Stopping/Range Tables' for quick values.
@@ -1765,9 +2010,11 @@ items:
     zh:
     - 快速数值用 “Stopping/Range Tables”。
     - 降能片、气体室与注入分布用 TRIM。
+    fr: ["Utilisez les tables d’arrêt et de parcours pour une première valeur.", "Utilisez TRIM pour les ralentisseurs, cellules de gaz et profils d’implantation."]
   tips:
     en: Essential for designing degraders before gas cells (IGISOL, CSC).
     zh: 设计气体室（IGISOL、CSC）前的降能片时必不可少。
+    fr: "Essentiel à la conception des ralentisseurs avant les cellules de gaz, notamment IGISOL et CSC."
 - id: simion
   name: SIMION
   org: Scientific Instrument Services
@@ -1777,9 +2024,11 @@ items:
   short:
     en: 'Ion-optics simulation: electric/magnetic fields and ion trajectories.'
     zh: 离子光学模拟：电场/磁场与离子轨迹。
+    fr: "Simulation d’optique ionique : champs électriques ou magnétiques et trajectoires."
   what:
     en: Potential-array field solver with Lua user programs for time-dependent voltages (RFQ, traps, MR-TOF).
     zh: 势阵列场求解器，可用 Lua 用户程序施加时变电压（RFQ、离子阱、MR-TOF）。
+    fr: "Solveur de champs sur réseaux de potentiel, avec programmes Lua pour les tensions variables dans le temps : RFQ, pièges et MR-TOF."
   use:
     en:
     - Define electrodes (GEM files), refine the arrays.
@@ -1789,9 +2038,11 @@ items:
     - 定义电极（GEM 文件）并求解势阵列。
     - 飞行离子组；用 Lua 加入射频、缓冲气体或切换。
     - 导出轨迹与飞行时间进行分析。
+    fr: ["Définissez les électrodes en fichiers GEM et affinez les réseaux.", "Simulez des groupes d’ions ; ajoutez Lua pour la radiofréquence, le gaz tampon ou les commutations.", "Exportez trajectoires et temps de vol pour l’analyse."]
   tips:
     en: Commercial licence; the user manual and example workbenches are on the website.
     zh: 商业许可；用户手册与示例工作台见官网。
+    fr: "Licence commerciale ; manuel et exemples de projets disponibles sur le site."
 - id: nsr
   name: NSR — Nuclear Science References
   org: NNDC / NSDD
@@ -1801,10 +2052,12 @@ items:
   short:
     en: Bibliography of >250 000 nuclear-physics papers indexed by nuclide, reaction and measured quantity.
     zh: 超过 25 万篇核物理文献的书目，按核素、反应与测量量索引。
+    fr: "Bibliographie de plus de 250 000 articles de physique nucléaire, indexés par nucléide, réaction et grandeur mesurée."
   what:
     en: Every paper with keywords such as 'NUCLEUS 100Sn; measured mass' — the fastest way to find all measurements
       on a nuclide.
     zh: 每篇文献带关键词，例如 “NUCLEUS 100Sn; measured mass”——查找某核素全部测量的最快方式。
+    fr: "Articles indexés par mots-clés, par exemple « NUCLEUS 100Sn; measured mass » : accès rapide aux mesures d’un nucléide."
   use:
     en:
     - Use 'Indexed search' → Nuclide = 100Sn, Topic = measured, Quantity = mass.
@@ -1814,9 +2067,11 @@ items:
     - 使用 “Indexed search” → Nuclide = 100Sn，Topic = measured，Quantity = mass。
     - 或按作者、年份、期刊或文献编号（如 2021Ge05）检索。
     - 将选中文献导出为 BibTeX。
+    fr: ["Dans la recherche indexée, choisissez Nuclide = 100Sn, Topic = measured et Quantity = mass.", "Vous pouvez aussi rechercher auteur, année, revue ou identifiant bibliographique, par exemple 2021Ge05.", "Exportez les références sélectionnées en BibTeX."]
   tips:
     en: Keynumbers (YYYYAuNN) are used in ENSDF and XUNDL references.
     zh: 文献编号（YYYYAuNN）在 ENSDF 与 XUNDL 中用作引用。
+    fr: "Les identifiants YYYYAuNN sont employés dans les références ENSDF et XUNDL."
 - id: cinda
   name: CINDA
   org: IAEA / NRDC
@@ -1826,9 +2081,11 @@ items:
   short:
     en: Computer Index of Neutron Data — bibliography of neutron-reaction measurements and evaluations.
     zh: 中子数据计算机索引——中子反应测量与评价的书目。
+    fr: "Index bibliographique des mesures et évaluations de réactions neutroniques."
   what:
     en: References to ~275 000 neutron-induced reaction works, linked to EXFOR entries.
     zh: 约 27.5 万项中子诱发反应工作的文献，链接至 EXFOR 条目。
+    fr: "Références d’environ 275 000 travaux de réactions induites par neutrons, reliées aux entrées EXFOR."
   use:
     en:
     - Search by target and reaction.
@@ -1836,9 +2093,11 @@ items:
     zh:
     - 按靶核和反应检索。
     - 通过链接查看 EXFOR 数值数据。
+    fr: ["Recherchez la cible et la réaction.", "Suivez les liens vers les données numériques EXFOR."]
   tips:
     en: For charged-particle reactions use NSR instead.
     zh: 带电粒子反应请改用 NSR。
+    fr: "Pour les réactions avec particules chargées, utilisez plutôt NSR."
 - id: inspire
   name: INSPIRE-HEP
   org: CERN, DESY, Fermilab, IHEP, SLAC
@@ -1848,9 +2107,11 @@ items:
   short:
     en: Literature, authors, conferences and jobs in high-energy and nuclear physics.
     zh: 高能与核物理的文献、作者、会议与职位。
+    fr: "Articles, auteurs, conférences et emplois en physique des hautes énergies et physique nucléaire."
   what:
     en: Citation-linked records of papers and preprints, author profiles, conference and job listings.
     zh: 带引用关系的论文与预印本记录、作者档案、会议与职位信息。
+    fr: "Notices d’articles et prépublications reliées par citations, profils d’auteurs, conférences et offres d’emploi."
   use:
     en:
     - Search with SPIRES syntax, e.g. 'a Ge, Zhuang and t Penning'.
@@ -1858,9 +2119,11 @@ items:
     zh:
     - 使用 SPIRES 语法检索，例如 “a Ge, Zhuang and t Penning”。
     - 导出 BibTeX；设置引用提醒。
+    fr: ["Recherchez avec la syntaxe SPIRES, par exemple « a Ge, Zhuang and t Penning ».", "Exportez en BibTeX et configurez des alertes de citations."]
   tips:
     en: The Jobs section is one of the best sources for nuclear-physics positions.
     zh: 其 Jobs 栏目是核物理职位的最佳来源之一。
+    fr: "La rubrique des emplois est une source utile de postes en physique nucléaire."
 - id: arxiv-nuclex
   name: arXiv nucl-ex / nucl-th
   org: Cornell University
@@ -1870,9 +2133,11 @@ items:
   short:
     en: Daily preprints in experimental and theoretical nuclear physics.
     zh: 每日实验与理论核物理预印本。
+    fr: "Prépublications quotidiennes en physique nucléaire expérimentale et théorique."
   what:
     en: Open-access preprints, often months before journal publication.
     zh: 开放获取预印本，常比期刊发表早数月。
+    fr: "Prépublications en accès libre, souvent plusieurs mois avant la publication en revue."
   use:
     en:
     - Read 'new' daily, or subscribe to e-mail alerts.
@@ -1880,9 +2145,11 @@ items:
     zh:
     - 每天浏览 “new”，或订阅邮件提醒。
     - 仪器方法（离子阱、MR-TOF）请看 physics.ins-det。
+    fr: ["Consultez les nouveautés chaque jour ou abonnez-vous aux alertes par courriel.", "Utilisez physics.ins-det pour l’instrumentation, notamment pièges et MR-TOF."]
   tips:
     en: The Daily page of this site collects relevant new preprints automatically.
     zh: 本站“每日”页面会自动收集相关新预印本。
+    fr: "La page quotidienne de ce site rassemble automatiquement les nouvelles prépublications pertinentes."
 - id: nds-journal
   name: Nuclear Data Sheets
   org: Elsevier (for NSDD)
@@ -1892,17 +2159,21 @@ items:
   short:
     en: Journal publishing the ENSDF mass-chain evaluations and major data reviews.
     zh: 发表 ENSDF 质量链评价与重要数据综述的期刊。
+    fr: "Revue publiant les évaluations ENSDF par chaîne de masse et les grandes synthèses de données."
   what:
     en: Evaluations of nuclear structure and decay data by mass chain, plus ENDF/B library descriptions.
     zh: 按质量链的核结构与衰变数据评价，以及 ENDF/B 数据库说明。
+    fr: "Évaluations de structure et désintégration nucléaires par chaîne de masse, et descriptions des bibliothèques ENDF/B."
   use:
     en:
     - Find the latest evaluation of your mass chain and cite it with ENSDF values.
     zh:
     - 查找相应质量链的最新评价，并在引用 ENSDF 数值时引用它。
+    fr: ["Trouvez la dernière évaluation de votre chaîne de masse et citez-la avec les valeurs ENSDF."]
   tips:
     en: The mass-chain reference is printed in the ENSDF data-set header.
     zh: 质量链文献在 ENSDF 数据集表头中给出。
+    fr: "La référence de la chaîne de masse figure dans l’en-tête du jeu ENSDF."
 - id: adndt
   name: Atomic Data and Nuclear Data Tables
   org: Elsevier
@@ -1912,17 +2183,21 @@ items:
   short:
     en: 'Journal of large compilations: mass models (FRDM), radii, moments, half-lives.'
     zh: 大型数据汇编期刊：质量模型（FRDM）、半径、电磁矩、半衰期。
+    fr: "Revue des grandes compilations : modèles de masse FRDM, rayons, moments et demi-vies."
   what:
     en: Tabulations with supplementary data files.
     zh: 附补充数据文件的数据表。
+    fr: "Tables accompagnées de fichiers de données supplémentaires."
   use:
     en:
     - Download the supplementary tables for machine-readable data.
     zh:
     - 下载补充材料以获得机器可读数据。
+    fr: ["Téléchargez les tables supplémentaires pour disposer de données lisibles par machine."]
   tips:
     en: FRDM2012 and the charge-radius table were published here.
     zh: FRDM2012 与电荷半径表均发表于此。
+    fr: "FRDM2012 et la table des rayons de charge y ont été publiés."
 - id: nndc
   name: NNDC — National Nuclear Data Center
   org: Brookhaven National Laboratory
@@ -1933,9 +2208,11 @@ items:
   short:
     en: US data centre hosting ENSDF, NuDat, XUNDL, NSR, ENDF, EXFOR, Sigma and calculators.
     zh: 美国核数据中心：ENSDF、NuDat、XUNDL、NSR、ENDF、EXFOR、Sigma 及各类计算器。
+    fr: "Centre américain hébergeant ENSDF, NuDat, XUNDL, NSR, ENDF, EXFOR, Sigma et des calculateurs."
   what:
     en: Databases for nuclear structure and decay, reactions and bibliography, plus utility codes.
     zh: 核结构与衰变、核反应与文献数据库，以及实用程序。
+    fr: "Bases de structure et désintégration nucléaires, réactions et bibliographie, avec programmes utilitaires."
   use:
     en:
     - Start at the Databases page to choose the right database.
@@ -1943,9 +2220,11 @@ items:
     zh:
     - 从 Databases 页面选择合适的数据库。
     - 通过 Networks 页面了解各数据由哪个合作组产生。
+    fr: ["Partez de la page des bases de données pour choisir la ressource adaptée.", "Consultez la page des réseaux pour savoir quelle collaboration produit les données."]
   tips:
     en: Most NNDC databases have a help page linked at the top of the search form.
     zh: 多数 NNDC 数据库在检索表单顶部有帮助链接。
+    fr: "La plupart des bases NNDC proposent une aide en haut du formulaire de recherche."
 - id: nndc-networks
   name: NNDC Networks
   org: NNDC
@@ -1955,9 +2234,11 @@ items:
   short:
     en: 'Overview of the US and international nuclear-data networks: USNDP, CSEWG, NDWG, DDEP, NSDD, NRDC, WPEC.'
     zh: 美国与国际核数据网络概览：USNDP、CSEWG、NDWG、DDEP、NSDD、NRDC、WPEC。
+    fr: "Présentation des réseaux américains et internationaux de données nucléaires : USNDP, CSEWG, NDWG, DDEP, NSDD, NRDC et WPEC."
   what:
     en: Who evaluates, compiles and disseminates nuclear data, and how the networks connect.
     zh: 谁在评价、汇编与发布核数据，以及各网络之间的联系。
+    fr: "Répartition de l’évaluation, de la compilation et de la diffusion des données nucléaires, et liens entre réseaux."
   use:
     en:
     - Open the network that maintains the data you use (e.g. NSDD for ENSDF, NRDC for EXFOR).
@@ -1965,9 +2246,11 @@ items:
     zh:
     - 打开维护你所用数据的网络（如 ENSDF 对应 NSDD，EXFOR 对应 NRDC）。
     - 可联系该网络报告错误或贡献数据。
+    fr: ["Ouvrez le réseau responsable des données utilisées, par exemple NSDD pour ENSDF ou NRDC pour EXFOR.", "Contactez ce réseau pour signaler une erreur ou proposer des données."]
   tips:
     en: Sending your new results to the compilers gets them into the databases faster.
     zh: 主动将新结果发送给汇编者，可更快进入数据库。
+    fr: "Envoyer vos nouveaux résultats aux compilateurs accélère leur intégration aux bases."
 - id: iaea-nds
   name: IAEA Nuclear Data Services
   org: International Atomic Energy Agency
@@ -1977,9 +2260,11 @@ items:
   short:
     en: 'IAEA portal: LiveChart, EXFOR, ENDF, RIPL, AMDC, medical isotopes, atomic data and training.'
     zh: IAEA 门户：LiveChart、EXFOR、ENDF、RIPL、AMDC、医用同位素、原子数据与培训。
+    fr: "Portail IAEA : LiveChart, EXFOR, ENDF, RIPL, AMDC, isotopes médicaux, données atomiques et formation."
   what:
     en: International databases, coordinated research projects and data-network coordination.
     zh: 国际数据库、协调研究项目以及数据网络的协调工作。
+    fr: "Bases internationales, projets de recherche coordonnés et coordination des réseaux de données."
   use:
     en:
     - Use the menu by topic (structure, reactions, atomic, medical).
@@ -1987,9 +2272,11 @@ items:
     zh:
     - 按主题菜单使用（结构、反应、原子、医学）。
     - 关注评价方法的研讨会与培训班。
+    fr: ["Utilisez le menu par thème : structure, réactions, atomique ou médical.", "Consultez ateliers et écoles pour vous former à l’évaluation."]
   tips:
     en: Mirror sites exist (e.g. nds.iaea.org); use whichever loads faster.
     zh: 有镜像站点（如 nds.iaea.org），选更快的即可。
+    fr: "Des sites miroirs existent, notamment nds.iaea.org ; utilisez le plus rapide."
 - id: usndp
   name: USNDP
   org: US Nuclear Data Program
@@ -1999,17 +2286,21 @@ items:
   short:
     en: Collects, evaluates and disseminates nuclear data for basic physics and applications in the US.
     zh: 为美国基础物理与应用收集、评价并发布核数据。
+    fr: "Collecte, évalue et diffuse les données nucléaires pour la recherche fondamentale et les applications aux États-Unis."
   what:
     en: Programme coordinating US data centres and evaluators (ENSDF, XUNDL, NSR, ENDF/B).
     zh: 协调美国数据中心与评价者的计划（ENSDF、XUNDL、NSR、ENDF/B）。
+    fr: "Programme coordonnant centres et évaluateurs américains pour ENSDF, XUNDL, NSR et ENDF/B."
   use:
     en:
     - See annual reports and meeting pages for current priorities.
     zh:
     - 查看年度报告与会议页面了解当前重点。
+    fr: ["Consultez les rapports annuels et les réunions pour connaître les priorités actuelles."]
   tips:
     en: Data needs for basic science are collected through USNDP and NDWG.
     zh: 基础科学的数据需求通过 USNDP 与 NDWG 收集。
+    fr: "Les besoins en données de la recherche fondamentale sont recueillis par USNDP et NDWG."
 - id: csewg
   name: CSEWG
   org: Cross Section Evaluation Working Group
@@ -2019,17 +2310,21 @@ items:
   short:
     en: US collaboration of laboratories, industry and universities that produces ENDF/B.
     zh: 美国实验室、工业界与大学的合作组，负责制作 ENDF/B。
+    fr: "Collaboration américaine de laboratoires, d’industriels et d’universités produisant ENDF/B."
   what:
     en: Evaluation, validation and release of the ENDF/B library and the ENDF-6 format manual.
     zh: ENDF/B 数据库的评价、验证与发布，以及 ENDF-6 格式手册。
+    fr: "Évaluation, validation et publication de la bibliothèque ENDF/B et du manuel ENDF-6."
   use:
     en:
     - Find the ENDF-6 format manual and release notes here.
     zh:
     - 可在此找到 ENDF-6 格式手册与版本说明。
+    fr: ["Consultez le manuel du format ENDF-6 et les notes de version."]
   tips:
     en: Cite the ENDF/B release paper (Nuclear Data Sheets) when using the library.
     zh: 使用该库时请引用 ENDF/B 版本论文（Nuclear Data Sheets）。
+    fr: "Citez l’article de la version ENDF/B dans Nuclear Data Sheets lors de son utilisation."
 - id: ndwg
   name: NDWG
   org: Nuclear Data Working Group
@@ -2039,17 +2334,21 @@ items:
   short:
     en: Coordinates and prioritizes US nuclear-data needs across programme offices; organizes WANDA.
     zh: 协调并排序美国各计划办公室的核数据需求；组织 WANDA 研讨会。
+    fr: "Coordination et hiérarchisation des besoins américains en données nucléaires ; organisation de WANDA."
   what:
     en: Interagency coordination, the WANDA workshops and their proceedings.
     zh: 跨机构协调、WANDA 研讨会及其会议文集。
+    fr: "Coordination interagences, ateliers WANDA et actes associés."
   use:
     en:
     - Read the WANDA proceedings for current data needs and funding opportunities.
     zh:
     - 阅读 WANDA 文集了解当前数据需求与资助机会。
+    fr: ["Lisez les actes WANDA pour connaître besoins actuels et possibilités de financement."]
   tips:
     en: Good overview of where new measurements make the most impact.
     zh: 可了解新测量在哪些方面影响最大。
+    fr: "Bonne vue d’ensemble des domaines où de nouvelles mesures auraient le plus d’impact."
 - id: ddep-wg
   name: DDEP (collaboration)
   org: Decay Data Evaluation Project
@@ -2059,17 +2358,21 @@ items:
   short:
     en: International collaboration evaluating decay data for metrology and applications.
     zh: 评价计量与应用所需衰变数据的国际合作。
+    fr: "Collaboration internationale évaluant les désintégrations pour la métrologie et les applications."
   what:
     en: Evaluators, methods (e.g. LWEIGHT averaging) and the list of evaluated nuclides.
     zh: 评价者、方法（如 LWEIGHT 平均）以及已评价核素列表。
+    fr: "Évaluateurs, méthodes telles que les moyennes LWEIGHT et liste des nucléides évalués."
   use:
     en:
     - Use with the LNHB data table (Structure & decay above).
     zh:
     - 与上方“核结构与衰变”中的 LNHB 数据表配合使用。
+    fr: ["À utiliser avec les tables LNHB de la catégorie Structure et désintégration ci-dessus."]
   tips:
     en: Evaluation reports describe the treatment of discrepant data.
     zh: 评价报告说明了对矛盾数据的处理方法。
+    fr: "Les rapports d’évaluation expliquent le traitement des données discordantes."
 - id: nsdd
   name: NSDD network
   org: IAEA-coordinated
@@ -2079,17 +2382,21 @@ items:
   short:
     en: International Network of Nuclear Structure and Decay Data evaluators — maintains ENSDF.
     zh: 国际核结构与衰变数据评价者网络——维护 ENSDF。
+    fr: "Réseau international des évaluateurs de structure et désintégration nucléaires, responsable d’ENSDF."
   what:
     en: Evaluation centres, mass-chain responsibilities, meetings and evaluator training.
     zh: 评价中心、质量链分工、会议与评价者培训。
+    fr: "Centres d’évaluation, attribution des chaînes de masse, réunions et formation des évaluateurs."
   use:
     en:
     - Find which centre evaluates your mass chain and how to contribute.
     zh:
     - 查看由哪个中心负责你的质量链以及如何参与。
+    fr: ["Trouvez le centre responsable de votre chaîne de masse et la manière de contribuer."]
   tips:
     en: The NSDD workshops are open to young researchers interested in evaluation.
     zh: NSDD 研讨班向对评价感兴趣的青年研究者开放。
+    fr: "Les ateliers NSDD accueillent les jeunes chercheurs intéressés par l’évaluation."
 - id: nrdc
   name: NRDC network
   org: IAEA-coordinated
@@ -2099,17 +2406,21 @@ items:
   short:
     en: International Network of Nuclear Reaction Data Centres — compiles EXFOR.
     zh: 国际核反应数据中心网络——汇编 EXFOR。
+    fr: "Réseau international des centres de données de réactions nucléaires, responsable de la compilation EXFOR."
   what:
     en: Data centres sharing compilation of experimental reaction data, format rules and the EXFOR manual.
     zh: 共同汇编实验反应数据的数据中心、格式规则与 EXFOR 手册。
+    fr: "Centres partageant la compilation des réactions expérimentales, les règles de format et le manuel EXFOR."
   use:
     en:
     - Send your new cross-section data to the responsible centre for compilation.
     zh:
     - 将新的截面数据发送给负责中心进行汇编。
+    fr: ["Envoyez vos nouvelles sections efficaces au centre responsable pour compilation."]
   tips:
     en: Japan (JCPRG), China (CNDC), Russia and others compile charged-particle data.
     zh: 日本（JCPRG）、中国（CNDC）、俄罗斯等负责带电粒子数据汇编。
+    fr: "JCPRG au Japon, CNDC en Chine, des centres russes et d’autres compilent les réactions avec particules chargées."
 - id: wpec
   name: WPEC
   org: OECD Nuclear Energy Agency
@@ -2120,88 +2431,110 @@ items:
     en: Working Party on International Nuclear Data Evaluation Co-operation — subgroups and the High Priority Request
       List.
     zh: 国际核数据评价合作工作组——各子组及高优先级需求清单。
+    fr: "Groupe de coopération internationale pour l’évaluation des données nucléaires : sous-groupes et liste des demandes prioritaires."
   what:
     en: Expert groups on evaluation methods, covariances, formats (GNDS) and validation; the HPRL of data needs.
     zh: 关于评价方法、协方差、格式（GNDS）与验证的专家组；数据需求高优先级清单（HPRL）。
+    fr: "Groupes d’experts sur méthodes d’évaluation, covariances, formats GNDS et validation ; liste HPRL des besoins en données."
   use:
     en:
     - Read subgroup reports; check the HPRL for measurements in demand.
     zh:
     - 阅读子组报告；查看 HPRL 了解急需的测量。
+    fr: ["Lisez les rapports des sous-groupes et consultez la HPRL pour les mesures recherchées."]
   tips:
     en: GNDS is the new XML/JSON-based successor of the ENDF-6 format.
     zh: GNDS 是 ENDF-6 格式基于 XML/JSON 的新一代格式。
+    fr: "GNDS est le successeur du format ENDF-6, fondé sur XML/JSON."
 terms:
 - key: evaluated
   name:
     en: Evaluated vs. experimental data
     zh: 评价数据与实验数据
+    fr: "Données évaluées et données expérimentales"
   text:
     en: Experimental (compiled) data are the published numbers of single measurements (EXFOR, XUNDL). Evaluated
       data are recommended values obtained by critically averaging all measurements, resolving discrepancies and
       filling gaps with theory (ENSDF, AME, ENDF). Use evaluated values for applications; cite the original measurement
       when you compare with one experiment.
     zh: 实验（汇编）数据是单次测量的发表数值（EXFOR、XUNDL）。评价数据是对所有测量进行批判性平均、处理矛盾并用理论补缺后得到的推荐值（ENSDF、AME、ENDF）。应用中使用评价值；与某一实验比较时引用原始测量。
+    fr: "Les données expérimentales compilées sont les valeurs publiées de mesures individuelles, notamment EXFOR et XUNDL. Les données évaluées sont des valeurs recommandées obtenues par examen critique des mesures, résolution des désaccords et recours à la théorie pour les lacunes, notamment ENSDF, AME et ENDF. Utilisez les valeurs évaluées pour les applications ; citez la mesure d’origine pour comparer à une expérience."
 - key: mass-excess
   name:
     en: Mass excess Δ
     zh: 质量过剩 Δ
+    fr: "Excès de masse Δ"
   text:
     en: Δ = (M − A·u)c², the difference between the atomic mass and A atomic mass units, in keV. AME tables give
       Δ; the atomic mass is M = A + Δ/931 494.10242 keV (in u).
     zh: Δ = (M − A·u)c²，原子质量与 A 个原子质量单位之差，单位 keV。AME 给出 Δ；原子质量 M = A + Δ/931 494.10242 keV（单位 u）。
+    fr: "Δ = (M − A·u)c² est la différence entre la masse atomique et A unités de masse atomique, exprimée en keV. Les tables AME donnent Δ ; la masse atomique exprimée en u vérifie M/u = A + Δ/(931 494.10242 keV)."
 - key: hash
   name:
     en: '''#'' in AME / NUBASE'
     zh: AME / NUBASE 中的 “#”
+    fr: "Le signe « # » dans AME / NUBASE"
   text:
     en: A '#' marks a value estimated from the smooth trends of the mass surface (systematics), not a measurement.
       Its uncertainty is the evaluators' estimate.
     zh: “#” 表示由质量面平滑趋势（系统学）估计的值，而非测量值；其不确定度为评价者的估计。
+    fr: "Le signe « # » indique une valeur estimée par les tendances régulières de la surface des masses, et non une mesure. Son incertitude est estimée par les évaluateurs."
 - key: jpi
   name:
     en: Jπ notation
     zh: Jπ 记号
+    fr: "Notation Jπ"
   text:
     en: Spin and parity, e.g. 0+, 9/2−. Values in parentheses are tentative, '#' values come from systematics, several
       values separated by commas are possible assignments.
     zh: 自旋与宇称，如 0+、9/2−。括号内为暂定值，带 “#” 为系统学值，逗号分隔的多个值表示可能的指定。
+    fr: "Spin et parité, par exemple 0+ ou 9/2−. Les valeurs entre parenthèses sont provisoires ; « # » indique une estimation systématique ; plusieurs valeurs séparées par des virgules désignent des attributions possibles."
 - key: ensdf-format
   name:
     en: ENSDF 80-column format
     zh: ENSDF 80 列格式
+    fr: "Format ENSDF à 80 colonnes"
   text:
     en: 'Fixed-width records: identification (ID), level (L), gamma (G), beta (B), EC (E), alpha (A) and comment
       (C) records. Modern access via JSON exports and the LiveChart API is easier for programs.'
     zh: 定宽记录：标识（ID）、能级（L）、γ（G）、β（B）、EC（E）、α（A）与注释（C）记录。程序使用时 JSON 导出和 LiveChart API 更方便。
+    fr: "Enregistrements à largeur fixe : identification ID, niveau L, gamma G, bêta B, capture électronique E, alpha A et commentaire C. Les exports JSON et l’API LiveChart facilitent l’accès par programme."
 - key: endf-format
   name:
     en: ENDF-6 MF/MT numbers
     zh: ENDF-6 的 MF/MT 编号
+    fr: "Codes MF/MT du format ENDF-6"
   text:
     en: 'MF is the file (data type: 1 general, 2 resonances, 3 cross sections, 4 angular, 5 energy distributions,
       8 decay, 33 covariances); MT is the reaction (1 total, 2 elastic, 16 (n,2n), 18 fission, 102 (n,γ), 103 (n,p)…).'
     zh: MF 为文件（数据类型：1 总信息，2 共振，3 截面，4 角分布，5 能谱，8 衰变，33 协方差）；MT 为反应（1 总截面，2 弹性，16 (n,2n)，18 裂变，102 (n,γ)，103 (n,p)……）。
+    fr: "MF désigne le type de données : 1 général, 2 résonances, 3 sections efficaces, 4 distributions angulaires, 5 distributions énergétiques, 8 désintégration, 33 covariances. MT désigne la réaction : 1 totale, 2 élastique, 16 (n,2n), 18 fission, 102 (n,γ), 103 (n,p)…"
 - key: exfor-entry
   name:
     en: EXFOR entry / subentry
     zh: EXFOR 条目 / 子条目
+    fr: "Entrée et sous-entrée EXFOR"
   text:
     en: An entry (5 characters, e.g. 14523) is one experiment/paper; subentries (.002, .003…) hold individual data
       tables. The first character tells which data centre compiled it.
     zh: 条目（5 个字符，如 14523）对应一项实验/论文；子条目（.002、.003……）为各数据表。首字符表示负责汇编的数据中心。
+    fr: "Une entrée à cinq caractères, par exemple 14523, correspond à une expérience ou un article ; les sous-entrées .002, .003… contiennent les tables individuelles. Le premier caractère identifie le centre compilateur."
 - key: keynumber
   name:
     en: NSR keynumber
     zh: NSR 文献编号
+    fr: "Identifiant bibliographique NSR"
   text:
     en: YYYYAaNN — year, first-author code and running number (e.g. 2021Ge05). Used as references in ENSDF/XUNDL.
     zh: YYYYAaNN——年份、第一作者代码与序号（如 2021Ge05），在 ENSDF/XUNDL 中用作文献引用。
+    fr: "YYYYAaNN combine année, code du premier auteur et numéro séquentiel, par exemple 2021Ge05. Ces identifiants servent aux références ENSDF/XUNDL."
 - key: uncertainty
   name:
     en: Uncertainty notation
     zh: 不确定度记法
+    fr: "Notation des incertitudes"
   text:
     en: 1.234(12) means 1.234 ± 0.012 (one standard deviation, in the last digits). Evaluations add uncertainties
       in quadrature and may inflate them (Birge ratio) when data disagree.
     zh: 1.234(12) 表示 1.234 ± 0.012（一个标准差，作用于末位）。评价中不确定度按平方和合成，数据不一致时可能按 Birge 比放大。
+    fr: "1.234(12) signifie 1.234 ± 0.012, soit un écart-type portant sur les derniers chiffres. Les évaluations combinent les incertitudes en quadrature et peuvent les élargir par le rapport de Birge en cas de désaccord."

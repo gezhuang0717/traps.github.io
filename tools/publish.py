@@ -28,7 +28,10 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
+import html
 import html.parser
+import ipaddress
 import json
 import os
 import re
@@ -37,6 +40,8 @@ import subprocess
 import sys
 import tempfile
 import urllib.parse
+import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +71,203 @@ WEB_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".geojson", ".txt", ".c
 FORBIDDEN_NAMES = re.compile(r"(?i)(manual|handoff|changelog|audit|snapshot|\.bundle$|\.docx$|\.tex$|\.py$|\.ya?ml$|\.toml$|\.md$|\.env$|\.git/)")
 MAX_FILE_MB, MAX_SITE_MB = 50, 900
 TEXT_SUFFIXES = {".html", ".xml", ".css", ".js", ".json", ".txt", ".csv", ".tsv", ".svg", ".webmanifest"}
+
+# Owner-approved public editions, 24 October 2026. This is an exact asset
+# allowlist, not an exception to privacy checks or the general source-file ban.
+MANUAL_FAMILIES = ("MASS_FILTER_EQUATIONS", "CYCLOTRON_COMPARE", "MATHIEU_STABILITY")
+MANUAL_FORMATS = ("md", "html", "tex", "docx", "pdf")
+MANUAL_FILES = {f"{family}_{lang}.{ext}" for family in MANUAL_FAMILIES
+                for lang in ("EN", "ZH") for ext in MANUAL_FORMATS}
+MANUAL_MANIFESTS = {"MANIFEST.json": {"MASS_FILTER_EQUATIONS"},
+                    "MODULE_GUIDES_MANIFEST.json": {"CYCLOTRON_COMPARE", "MATHIEU_STABILITY"}}
+MANUAL_NAMES = MANUAL_FILES | MANUAL_MANIFESTS.keys()
+# Separate exact owner approval for the public synthetic King-example guide.
+PUBLIC_TEXT_FILES = {"data/research-examples/king/README.md"}
+MANUAL_PAGE = re.compile(r"^(?:(?:en|zh|zh-hans|fi|de|ja|fr)/)?manuals/index\.html$")
+MANUAL_PRIVATE = {
+    r"(?i)\b(?:file|smb|codex|plugin)://|/(?:private|root|mnt|var|tmp)/|[A-Z]:[\\/]Users[\\/]|/home/[^\s/]+/": "private path / local URI",
+    r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----|\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|(?:AKIA|ASIA)[A-Z0-9]{16})\b": "credential material",
+    r"(?i)\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)\s*[:=]\s*[\"']?[A-Za-z0-9_./+\-=]{12,}": "credential assignment",
+}
+
+
+def approved_manual(rel):
+    """Only direct files in public/manuals; translated index pages are separate."""
+    return rel.startswith("manuals/") and rel.count("/") == 1 and rel[8:] in MANUAL_NAMES
+
+
+def manual_text(path, text, rel, hits):
+    # Decode entity/URL escapes as well as visible text, including XML rel targets.
+    text = html.unescape(text)
+    for _ in range(2):
+        text = urllib.parse.unquote(text)
+    scan_text(path, text, rel, hits)
+    for pattern, reason in MANUAL_PRIVATE.items():
+        if re.search(pattern, text):
+            hits.append(f"{rel}: {reason}")
+    for url in re.findall(r"https?://[^\s<>\"']+", text, re.I):
+        try:
+            parsed = urllib.parse.urlsplit(url)
+            host = parsed.hostname or ""
+            private = host.lower() in ("localhost", "localhost.localdomain") or host.lower().endswith(".local")
+            try:
+                private = private or not ipaddress.ip_address(host).is_global
+            except ValueError:
+                pass
+            if parsed.username is not None or parsed.password is not None or private:
+                hits.append(f"{rel}: private or credential-bearing URL")
+        except ValueError:
+            hits.append(f"{rel}: malformed URL")
+
+
+def public_readme(path, rel, hits):
+    try:
+        if path.is_symlink() or path.stat().st_size > 8_000_000:
+            raise ValueError("README is symlinked or exceeds bounded text inspection")
+        manual_text(path, path.read_text(encoding="utf-8"), rel, hits)
+    except (OSError, UnicodeError, ValueError) as exc:
+        hits.append(f"{rel}: public README inspection failed: {exc}")
+
+
+def manual_docx(path, rel, hits):
+    """Inspect all text, metadata and relationships, not just visible paragraphs."""
+    try:
+        with zipfile.ZipFile(path) as archive:
+            entries = archive.infolist()
+            if len(entries) > 2000 or sum(e.file_size for e in entries) > 64 * 2**20:
+                raise ValueError("DOCX expansion exceeds bounded text package")
+            names = [e.filename for e in entries]
+            if len(names) != len(set(names)) or "word/document.xml" not in names or "[Content_Types].xml" not in names:
+                raise ValueError("DOCX package structure is invalid")
+            for entry in entries:
+                name = entry.filename
+                if entry.is_dir():
+                    continue
+                if entry.flag_bits & 1 or name.startswith("/") or ".." in Path(name).parts or not name.endswith((".xml", ".rels")):
+                    raise ValueError("DOCX contains encrypted, binary, embedded or unknown content")
+                raw = archive.read(entry).decode("utf-8")
+                if "<!DOCTYPE" in raw.upper() or "<!ENTITY" in raw.upper():
+                    raise ValueError("DOCX XML entity declarations are not allowed")
+                tree = ET.fromstring(raw)
+                manual_text(path, raw, f"{rel}!{name}", hits)
+                manual_text(path, "".join(tree.itertext()), f"{rel}!{name} text", hits)
+                for node in tree.iter():
+                    for attribute in node.attrib.values():
+                        manual_text(path, attribute, f"{rel}!{name} attribute", hits)
+                if re.search(r"macroEnabled|vbaProject|attachedTemplate|oleObject|externalLink", raw, re.I):
+                    raise ValueError("DOCX active or external embedded content is not allowed")
+    except Exception as exc:
+        hits.append(f"{rel}: DOCX inspection failed: {type(exc).__name__}: {exc}")
+
+
+def manual_pdf(path, rel, hits):
+    """Fail closed on unreadable/image-only PDFs; inspect text and the object graph.
+
+    Current approved editions are vector text, with no raster pages/attachments.
+    This privacy check is separate from the recorded all-page glyph/layout QA.
+    """
+    try:
+        from pypdf import PdfReader
+        from pypdf.generic import IndirectObject, StreamObject, TextStringObject, ByteStringObject
+        reader = PdfReader(str(path), strict=True)
+        if reader.is_encrypted or not 1 <= len(reader.pages) <= 500:
+            raise ValueError("PDF is encrypted, empty or exceeds 500 pages")
+        extracted = []
+        for index, page in enumerate(reader.pages, 1):
+            text = page.extract_text() or ""
+            extracted.append(text)
+            manual_text(path, text, f"{rel} page {index}", hits)
+        if not "".join(extracted).strip():
+            raise ValueError("PDF has no inspectable text")
+        visited, budget = set(), [0]
+        def walk(obj):
+            budget[0] += 1
+            if budget[0] > 500000:
+                raise ValueError("PDF object graph exceeds bounded inspection")
+            if isinstance(obj, IndirectObject):
+                key = (obj.idnum, obj.generation)
+                if key in visited:
+                    return
+                visited.add(key); return walk(obj.get_object())
+            if isinstance(obj, (TextStringObject, ByteStringObject, str, bytes)):
+                text = obj.decode("utf-8", errors="replace") if isinstance(obj, bytes) else str(obj)
+                manual_text(path, text, f"{rel} metadata/object", hits)
+            elif isinstance(obj, dict):
+                if any(k in obj for k in ("/JavaScript", "/JS", "/AA", "/OpenAction", "/EmbeddedFiles", "/EF", "/AcroForm")):
+                    raise ValueError("PDF active content or attachments are not allowed")
+                if str(obj.get("/S", "")) in ("/JavaScript", "/Launch", "/GoToR", "/SubmitForm", "/ImportData", "/Rendition"):
+                    raise ValueError("PDF external/active action is not allowed")
+                if str(obj.get("/Subtype", "")) == "/Image":
+                    raise ValueError("PDF raster content requires separate reviewed approval")
+                for key, value in obj.items():
+                    walk(key); walk(value)
+                if isinstance(obj, StreamObject) and (str(obj.get("/Type", "")) == "/Metadata" or str(obj.get("/Subtype", "")) == "/XML"):
+                    data = obj.get_data()
+                    if len(data) > 8_000_000:
+                        raise ValueError("PDF metadata exceeds bounded inspection")
+                    manual_text(path, data.decode("utf-8", errors="replace"), f"{rel} XMP metadata", hits)
+            elif isinstance(obj, (list, tuple)):
+                for value in obj:
+                    walk(value)
+        walk(reader.trailer)
+    except Exception as exc:
+        hits.append(f"{rel}: PDF inspection failed: {type(exc).__name__}: {exc}")
+
+
+def check_manual_directory(directory, rel_prefix, hits, source=False):
+    """Exact approved names plus privacy and manifest identity, without a build."""
+    if not directory.exists():
+        return
+    if directory.is_symlink():
+        hits.append(f"{rel_prefix}: symlinked manual directory is not allowed"); return
+    files, listed = {}, set()
+    for path in directory.rglob("*"):
+        if source and (path.name.startswith("._") or path.name == ".DS_Store"):
+            continue  # ExFAT metadata is not a published asset; inspect_public rejects it.
+        if path.is_symlink():
+            hits.append(f"{rel_prefix}: symlinked manual asset is not allowed"); continue
+        if path.is_dir():
+            continue
+        if not source and path.parent == directory and path.name == "index.html":
+            continue  # Hugo's public manual access page, scanned by the general gate.
+        rel = f"{rel_prefix}/{path.relative_to(directory).as_posix()}"
+        if path.is_symlink() or path.parent != directory or path.name not in MANUAL_NAMES:
+            hits.append(f"{rel}: unapproved public manual asset"); continue
+        files[path.name] = path
+        if path.stat().st_size > MAX_FILE_MB * 2**20:
+            hits.append(f"{rel}: manual exceeds file-size limit"); continue
+        if path.suffix == ".docx":
+            manual_docx(path, rel, hits)
+        elif path.suffix == ".pdf":
+            manual_pdf(path, rel, hits)
+        else:
+            try:
+                manual_text(path, path.read_text(encoding="utf-8"), rel, hits)
+            except (UnicodeError, OSError) as exc:
+                hits.append(f"{rel}: text manual is unreadable: {exc}")
+    for name, families in MANUAL_MANIFESTS.items():
+        path = files.get(name)
+        if path is None:
+            continue
+        try:
+            doc = json.loads(path.read_text())
+            entries = doc.get("files", []) if name == "MANIFEST.json" else [f for guide in doc["guides"] for f in guide["files"]]
+            if not entries:
+                raise ValueError("manifest is empty")
+            for item in entries:
+                asset = item["name"]
+                if asset not in MANUAL_FILES or not any(asset.startswith(family + "_") for family in families) or asset in listed:
+                    raise ValueError("manifest has unknown, duplicate or wrong-family asset")
+                listed.add(asset)
+                if asset not in files:
+                    raise ValueError("manifest names a missing asset: " + asset)
+                payload = files[asset].read_bytes()
+                if item["bytes"] != len(payload) or item["sha256"] != hashlib.sha256(payload).hexdigest():
+                    raise ValueError("manifest hash/bytes mismatch: " + asset)
+        except (ValueError, TypeError, KeyError, OSError) as exc:
+            hits.append(f"{rel_prefix}/{name}: invalid manual manifest: {exc}")
+    for name in files.keys() - MANUAL_MANIFESTS.keys() - listed:
+        hits.append(f"{rel_prefix}/{name}: manual is not listed in its approved manifest")
 
 
 class Gate:
@@ -116,10 +318,13 @@ def scan_text(path: Path, text: str, rel: str, hits: list):
 
 def check_privacy_sources(g):
     hits = []
+    check_manual_directory(ROOT / "static/manuals", "static/manuals", hits, source=True)
     for base in ("content", "data", "static", "layouts", "site.yaml"):
         p = ROOT / base
         files = [p] if p.is_file() else [f for f in p.rglob("*") if f.is_file()]
         for f in files:
+            if f.is_relative_to(ROOT / "static/manuals"):
+                continue  # exact allowlist and all approved formats checked above
             if f.suffix.lower() not in {".md", ".yaml", ".yml", ".json", ".html", ".js", ".css", ".toml", ".txt", ".csv", ".tsv", ".gotmpl"}:
                 continue
             if f.stat().st_size > 8_000_000:
@@ -127,7 +332,10 @@ def check_privacy_sources(g):
             rel = str(f.relative_to(ROOT))
             if rel.startswith(("data/facilities/", "static/data/facilities", "static/vendor/")):
                 continue  # third-party / source-registry records: checked in the built site instead
-            scan_text(f, f.read_text(errors="ignore"), rel, hits)
+            if rel.removeprefix("static/") in PUBLIC_TEXT_FILES and rel.startswith("static/"):
+                public_readme(f, rel, hits)
+            else:
+                scan_text(f, f.read_text(errors="ignore"), rel, hits)
     return g.record("privacy/public-content check (sources)", not hits, f"{len(hits)} finding(s)", hits)
 
 
@@ -222,19 +430,26 @@ def check_links(g, base_url):
 def inspect_public(g):
     bad, total = [], 0
     hits = []
+    check_manual_directory(PUBLIC / "manuals", "public/manuals", hits)
     for f in PUBLIC.rglob("*"):
         if not f.is_file():
             continue
         rel = str(f.relative_to(PUBLIC))
         size = f.stat().st_size
         total += size
-        if f.suffix.lower() not in WEB_SUFFIXES:
+        approved = approved_manual(rel)
+        text_approved = rel in PUBLIC_TEXT_FILES
+        if "manuals" in Path(rel).parts and not approved and not MANUAL_PAGE.fullmatch(rel):
+            bad.append(f"{rel}: unapproved public manual asset")
+        if not approved and not text_approved and f.suffix.lower() not in WEB_SUFFIXES:
             bad.append(f"{rel}: unexpected file type")
-        if FORBIDDEN_NAMES.search(rel) and not rel.endswith(".html"):
+        if not approved and not text_approved and FORBIDDEN_NAMES.search(rel) and not rel.endswith(".html"):
             bad.append(f"{rel}: source or private file name")
         if size > MAX_FILE_MB * 2**20:
             bad.append(f"{rel}: {size / 2**20:.0f} MB > {MAX_FILE_MB} MB")
-        if f.suffix.lower() in TEXT_SUFFIXES and size < 8_000_000 and not rel.startswith("vendor/"):
+        if text_approved:
+            public_readme(f, "public/" + rel, hits)
+        elif not approved and f.suffix.lower() in TEXT_SUFFIXES and size < 8_000_000 and not rel.startswith("vendor/"):
             scan_text(f, f.read_text(errors="ignore"), "public/" + rel, hits)
     if total > MAX_SITE_MB * 2**20:
         bad.append(f"site is {total / 2**20:.0f} MB > {MAX_SITE_MB} MB")
@@ -304,6 +519,7 @@ def main():
     sub = p.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("check"); c.add_argument("--base-url", default=SITE_URL)
     c = sub.add_parser("links"); c.add_argument("--base-url", default=SITE_URL)
+    sub.add_parser("manuals", help="inspect approved static/manuals assets and manifests without building")
     s = sub.add_parser("push")
     s.add_argument("--approve", action="store_true"); s.add_argument("--dry-run", action="store_true")
     s.add_argument("--fresh", action="store_true"); s.add_argument("--repo", default=PUBLIC_REPO)
@@ -311,6 +527,15 @@ def main():
     a = p.parse_args()
     if a.cmd == "check":
         sys.exit(0 if run_gate(a.base_url).ok else 1)
+    if a.cmd == "manuals":
+        g = Gate(); hits = []
+        check_manual_directory(ROOT / "static/manuals", "static/manuals", hits, source=True)
+        for rel in PUBLIC_TEXT_FILES:
+            path = ROOT / "static" / rel
+            if path.exists():
+                public_readme(path, "static/" + rel, hits)
+        g.record("approved public manuals (all present formats)", not hits, f"{len(hits)} finding(s)", hits)
+        sys.exit(0 if g.ok else 1)
     if a.cmd == "links":
         g = Gate(); check_links(g, a.base_url)
         sys.exit(0 if g.ok else 1)

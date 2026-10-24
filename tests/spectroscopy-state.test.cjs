@@ -1,5 +1,6 @@
 const test = require('node:test'), assert = require('node:assert/strict'), fs = require('node:fs'), vm = require('node:vm');
 const S = require('../static/js/spectroscopy-settings.js'), DS = require('../static/js/spectroscopy-data.js');
+const FS = require('../static/js/figure-style.js');
 const source = fs.readFileSync('static/js/spectroscopy.js', 'utf8');
 const start = source.indexOf('    async function applySettings(value){'), end = source.indexOf('\n    file.onchange=', start);
 
@@ -29,7 +30,7 @@ function page() {
   fields.get('radius-element').change = () => setOptions('radius-reference', radii().filter(r => r.element === fields.get('radius-element').value).map(r => String(r.A)));
   fields.get('moment-dataset').change = () => { const rows = fields.get('moment-dataset').value === 'user' ? DS.parseTable(fields.get('moment-user').value, 'moments').rows : data.moments; setOptions('moment-element', [...new Set(rows.map(r => r.element))]); };
   fields.get('levels-dataset').change = () => { fields.get('max-energy').value = '99999'; };
-  const context = { S, DS, data, iaea: null, iaeaReady: Promise.resolve(), snapshot, Event: class { constructor(type) { this.type = type; } },
+  const context = { S, DS, FS, data, iaea: null, iaeaReady: Promise.resolve(), snapshot, Event: class { constructor(type) { this.type = type; } },
     root: { querySelectorAll: () => [...fields.values()] }, tabs: { children: buttons }, methods: { querySelectorAll: () => [{ querySelector: selector => selector === '[data-sp-calculate]' ? { click() { calculations++; } } : null }] } };
   vm.createContext(context); vm.runInContext(source.slice(start, end) + '\nthis.restore = applySettings;', context);
   return { fields, events, snapshot, restore: context.restore, get calculations() { return calculations; } };

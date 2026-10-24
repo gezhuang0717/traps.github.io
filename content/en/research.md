@@ -10,6 +10,8 @@ showDate: false
 
 I use high-precision ion-trap and storage-ring mass spectrometry to answer questions in neutrino physics, nuclear structure and nuclear astrophysics. Papers under each theme come from the shared publication database; the full list is on the [Publications](../publications/) page.
 
+[Storage-ring ion-optics figure](#beam-line-optics)
+
 ## Techniques in pictures
 
 {{< gallery >}}

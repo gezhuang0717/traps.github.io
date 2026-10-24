@@ -136,9 +136,9 @@
         ${iso ? `<p><b>${escH(L.isomers)} (${escH(L.nubase)})</b></p><ul>${iso}</ul>` : ""}
         ${r[5] ? `<p class="zg-db-est">${escH(L.est)}</p>` : ""}
         <p class="zg-db-ext">
-          <a class="zg-db-btn" href="${api}" target="_blank" rel="noopener">IAEA LiveChart API (CSV) ↗</a>
+          <a class="zg-db-btn" href="${api}" target="_blank" rel="noopener">${escH(L.lookup_api)} ↗</a>
           <a class="zg-db-btn" href="https://www-nds.iaea.org/livechart/" target="_blank" rel="noopener">IAEA LiveChart ↗</a>
-          <a class="zg-db-btn" href="${wiki}" target="_blank" rel="noopener">Wikipedia ↗</a>
+          <a class="zg-db-btn" href="${wiki}" target="_blank" rel="noopener">${escH(L.lookup_wiki)} ↗</a>
           <a class="zg-db-btn" href="${chart}">${escH(L.chart_link || "Chart")} →</a>
         </p></div>`;
     }).catch(() => { out.textContent = "—"; });

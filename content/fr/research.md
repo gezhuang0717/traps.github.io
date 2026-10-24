@@ -10,6 +10,8 @@ showDate: false
 
 J’étudie la physique du neutrino, la structure nucléaire et l’astrophysique nucléaire par des mesures de masse de haute précision dans les pièges à ions et les anneaux de stockage. Les références ci-dessous proviennent de la bibliographie commune ; la liste complète est disponible dans [Publications](../publications/).
 
+[Figure de l’optique ionique de l’anneau de stockage](#beam-line-optics)
+
 ## Les méthodes en images
 
 {{< gallery >}}

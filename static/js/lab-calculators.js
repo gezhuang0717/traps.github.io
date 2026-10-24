@@ -40,8 +40,10 @@
       root.textContent=L.fc+': '+fmt(f.Hz,9)+' Hz · m_ion = '+fmt(f.ionU,12)+' u · m_atom/q = '+fmt(f.atomicMassPerCharge,9)+' u';
     }catch(_){root.textContent=L.invalid_cyclotron;}
   }
-  $('zg-c-preset').addEventListener('change',function(){if(this.value){$('zg-c-m').value=this.value;nuc();}});
-  ['zg-c-m','zg-c-q','zg-c-b'].forEach(id=>$(id).addEventListener('input',nuc));nuc();
+  if(!root.hasAttribute('data-cyclotron-multi')){
+    $('zg-c-preset').addEventListener('change',function(){if(this.value){$('zg-c-m').value=this.value;nuc();}});
+    ['zg-c-m','zg-c-q','zg-c-b'].forEach(id=>$(id).addEventListener('input',nuc));nuc();
+  }
   function res(){
     const out=$('zg-r-out'),meter=$('zg-r-meter');meter.replaceChildren();
     try{

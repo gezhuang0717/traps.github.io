@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="TrapLab documentation" />
+  <meta name="dcterms.date" content="2026-10-24" />
+  <title>Mathieu 稳定性操作手册</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  
+<style>
+@page{size:Letter;margin:.8in}html{font:11pt/1.35 'Times New Roman','Songti SC',serif;color:#111;background:#fff}body{max-width:50rem;margin:1rem auto;padding:0 1rem}h1,h2,h3{font-weight:bold;color:#111;break-after:avoid}h1{font-size:19pt;text-align:center}h2{font-size:13pt;margin-top:1.2em}p{text-align:justify}pre,code{font-family:Menlo,monospace;font-size:9pt;overflow-wrap:anywhere}pre{white-space:pre-wrap}a{color:#222;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse}td,th{padding:.3em;vertical-align:top}math{font-size:1em}.math.display{display:block;margin:.8em 0;overflow-x:auto}li{margin:.25em 0}@media print{body{max-width:none;margin:0;padding:0}a{text-decoration:none}.math.display{overflow:visible}}
+</style></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Mathieu 稳定性操作手册</h1>
+<p class="author">TrapLab documentation</p>
+<p class="date">2026-10-24</p>
+</header>
+<p>本手册说明网页与已安装配套应用中的独立 Mathieu
+稳定带工具。它计算理想场中解的有界性；稳定点不等于实测传输率、冷却效率或电极通行率。原有
+Keep the ions 轨迹游戏仍为独立演示。</p>
+<h2 id="第一次计算">第一次计算</h2>
+<ol type="1">
+<li>打开 Games 中的 Keep the ions，选择 Mathieu bands；Lab
+也提供同一独立工具。选择线性 RFQ、直接参数、三个稳定带，横轴上限 2，纵轴
+−1 到 1。</li>
+<li>输入
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">q=0.4</annotation></semantics></math>。两个横向平面均应显示第一带稳定。改变参数后分别读取各平面的状态，不要只凭填色判断。</li>
+<li>切换到电压模式。设置离子质量 100 u、电荷数
+1、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">U=0</annotation></semantics></math>
+V、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>122</mn></mrow><annotation encoding="application/x-tex">V=122</annotation></semantics></math>
+V、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>0</mn></msub><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">r_0=10</annotation></semantics></math>
+mm、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><mn>1.3</mn></mrow><annotation encoding="application/x-tex">f=1.3</annotation></semantics></math>
+MHz。应得到
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>、<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≃</mo><mn>0.07057237</mn></mrow><annotation encoding="application/x-tex">q\simeq0.07057237</annotation></semantics></math>。出厂电压输入的
+DC 为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">U=3</annotation></semantics></math>
+V，对应
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≃</mo><mn>0.00347077</mn></mrow><annotation encoding="application/x-tex">a\simeq0.00347077</annotation></semantics></math>；不能假定默认点在两个平面都稳定。</li>
+<li>分别修改三段 RFQ 的参数。冷却段默认值为 3 V、122 V、10 mm、1.3
+MHz；质量过滤段与聚束段各为 3 V、244 V、3.75 mm、3
+MHz。读取各自的运行线与离子点。这些叠加只适用于线性 RFQ。</li>
+<li>打开图形样式，调整文字、参考点直径、线宽、位图宽度与文件名前缀。它们只改变显示。保存设置
+JSON，改变输入，再读取该文件，核对输入、坐标轴与样式已恢复。</li>
+</ol>
+<p>Species 与 Fill ion mass
+按钮显式调用既有核素目录填入离子质量；仅输入粒子名称不会自动填充。质量和电荷仍可手动编辑。采用评价质量时，应保留返回的来源记录。</p>
+<h2 id="方程与电压约定">方程与电压约定</h2>
+<p>独立变量和标准方程为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>=</mo><mfrac><mrow><mi>Ω</mi><mi>t</mi></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Ω</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>f</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\tau=\frac{\Omega t}{2},\qquad \Omega=2\pi f,</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msup><mi>d</mi><mn>2</mn></msup><mi>w</mi></mrow><mrow><mi>d</mi><msup><mi>τ</mi><mn>2</mn></msup></mrow></mfrac><mo>+</mo><mrow><mo stretchy="true" form="prefix">[</mo><mi>a</mi><mo>−</mo><mn>2</mn><mi>q</mi><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mi>w</mi><mo>=</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d^2w}{d\tau^2}+\left[a-2q\cos(2\tau)\right]w=0.</annotation></semantics></math></p>
+<p>本线性杆电极工具采用</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mfrac><mrow><mn>8</mn><mi>z</mi><mi>e</mi><mi>U</mi></mrow><mrow><mi>m</mi><msubsup><mi>r</mi><mn>0</mn><mn>2</mn></msubsup><msup><mi>Ω</mi><mn>2</mn></msup></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>q</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>z</mi><mi>e</mi><mi>V</mi></mrow><mrow><mi>m</mi><msubsup><mi>r</mi><mn>0</mn><mn>2</mn></msubsup><msup><mi>Ω</mi><mn>2</mn></msup></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">a=\frac{8zeU}{m r_0^2\Omega^2},\qquad q=\frac{4zeV}{m r_0^2\Omega^2}.</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
+为正整数电荷数，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
+为元电荷，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+为以 kg 表示的实际离子质量。界面输入 u、mm、MHz，并转换到
+SI。<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+是有符号 DC
+电压，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+是单根电极对地 RF 峰值；两组电极间的差分 RF 峰值为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>V</mi></mrow><annotation encoding="application/x-tex">2V</annotation></semantics></math>。有效值或峰峰值必须先转换，不能直接代入。</p>
+<p>另一横向平面的参数为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>y</mi></msub><mo>=</mo><mo>−</mo><msub><mi>a</mi><mi>x</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>q</mi><mi>y</mi></msub><mo>=</mo><mo>−</mo><msub><mi>q</mi><mi>x</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">a_y=-a_x,\qquad q_y=-q_x.</annotation></semantics></math></p>
+<p>理想横向约束要求两个平面均稳定。半径或频率减小会使参数按平方比例增大。电荷数范围为
+1 到 100 的整数；质量、半径和频率必须有限且为正，RF 峰值不得为负。</p>
+<h2 id="多稳定带与独立三维视图">多稳定带与独立三维视图</h2>
+<p>对于非零实数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>，一维稳定带编号为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=0,\ldots,N-1</annotation></semantics></math>，并满足</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>&lt;</mo><mi>a</mi><mo>&lt;</mo><msub><mi>b</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">a_n(|q|)&lt;a&lt;b_{n+1}(|q|).</annotation></semantics></math></p>
+<p>界面支持一到六个稳定带以及
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>q</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">|q|\leq12</annotation></semantics></math>，边界单独标识。高于已计算稳定带或超出参数范围时显示覆盖范围之外，而不是已证明不稳定。在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=0</annotation></semantics></math>
+时，正
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+采用解析稳定判断；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,0)</annotation></semantics></math>
+为边界。</p>
+<p>三维 Paul 视图仅接受直接轴向参数，并使用</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>r</mi></msub><mo>=</mo><mo>−</mo><mfrac><msub><mi>a</mi><mi>z</mi></msub><mn>2</mn></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>q</mi><mi>r</mi></msub><mo>=</mo><mo>−</mo><mfrac><msub><mi>q</mi><mi>z</mi></msub><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">a_r=-\frac{a_z}{2},\qquad q_r=-\frac{q_z}{2}.</annotation></semantics></math></p>
+<p>因此在轴向坐标中，径向边界写为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn><msub><mi>a</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>q</mi><mi>z</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mo>−</mo><mn>2</mn><msub><mi>b</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>q</mi><mi>z</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">-2a_n(|q_z|/2),\qquad -2b_{n+1}(|q_z|/2).</annotation></semantics></math></p>
+<p>该视图不反推电极电压几何；线性三段运行线与离子点会隐藏。不能将上述线性杆电极公式直接用于任意三维电极结构。</p>
+<h2 id="数值诊断与保存">数值诊断与保存</h2>
+<p>浏览器使用按宇称构造的对称 Hill 矩阵与 Sturm
+二分法计算特征值；本地应用使用已安装的 SciPy 特征函数。独立 RK4
+计算在一个系数周期内构造单周期矩阵
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>，显示</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>det</mo><mi>M</mi><mo>≃</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">|</mo><mo>tr</mo><mi>M</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>2</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\det M\simeq1,\qquad |\operatorname{tr}M|&lt;2,</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mo>tr</mo><msub><mi>M</mi><mn>1024</mn></msub><mo>−</mo><mo>tr</mo><msub><mi>M</mi><mn>512</mn></msub><mo stretchy="true" form="postfix">|</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\Delta_{\mathrm{tr}}=|\operatorname{tr}M_{1024}-\operatorname{tr}M_{512}|.</annotation></semantics></math></p>
+<p>严格迹不等式对应稳定区内部。边界附近应结合特征值分类与收敛诊断；数值检查未收敛时为未解决状态。填色使用
+241
+个横向采样点，高阶窄带可能漏显；选定点直接使用特征值判断，不依赖填色采样。</p>
+<p>SVG 保存矢量曲线和文字；PNG 使用所选位图宽度；CSV
+保存稳定带采样表；设置 JSON
+保存几何、输入、三段参数、坐标轴和样式，可重新打开。浏览器输出位于其下载设置指定的位置。既有共享图像
+PDF 功能若出现，保存的是位图 PDF，与矢量 SVG 和本手册 TeX
+的编译不同。</p>
+<h2 id="已安装配套应用">已安装配套应用</h2>
+<p>在单独安装的配套应用目录打开
+<code>Individual_tools/13_Mathieu_stability.command</code>，或执行</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./Run_private.command</span> traplab.py gui <span class="at">--standalone</span> <span class="at">--page</span> mathieu_stability</span></code></pre></div>
+<p>集成入口位于 Paul trap and RFQ 分组，页面名为 Mathieu stability
+multiple bands。默认选择 133Cs
+离子；新页面显示一条选定运行线，并提供直接参数、电压输入、本页坐标轴字体与点直径、正常页面状态保存，以及既有
+Plot style 和 Export plots。原有 <code>rfq_sections</code>
+保留本地三段工作流，不能将新页面描述为新增三条独立本地运行线。模块名是本地入口标签，不是网页下载链接。</p>
+<p>网页保留 CODATA2018 的
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mn>1.66053906660</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>27</mn></mrow></msup></mrow><annotation encoding="application/x-tex">u=1.66053906660\times10^{-27}</annotation></semantics></math>
+kg；本地配置使用 CODATA2022 的
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mn>1.66053906892</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>27</mn></mrow></msup></mrow><annotation encoding="application/x-tex">u=1.66053906892\times10^{-27}</annotation></semantics></math>
+kg。因此小的参数差异是预期现象。模型不传播输入不确定度，也不包括碰撞、边缘场、空间电荷、电极损失或硬件验收。</p>
+<h2 id="故障处理与证据">故障处理与证据</h2>
+<p>空白或越界输入应改为范围内的有限值。覆盖范围之外的点可通过减小参数范围或在允许范围内增加稳定带数重新检查，不能强行标为稳定。粒子填充失败时保留精确同位素与核态，或明确手动输入离子质量。请读取本工具保存的设置，而不是旧版图表文件。</p>
+<p>离线检查在六个选定
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>、阶数不超过
+12 的 150 个特征值上与 SciPy 1.10.1 比较，最大绝对差
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.85</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>14</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.85\times10^{-14}</annotation></semantics></math>。九项网页专项测试和五项本地离屏测试通过。它们不代表实际浏览器下载、本地
+Cocoa 导出或实验性能已通过验收。</p>
+<h2 id="主要文献">主要文献</h2>
+<ul>
+<li>NIST DLMF 1.2.8：<a href="https://dlmf.nist.gov/28.2">28.2
+定义与基本性质</a>、<a href="https://dlmf.nist.gov/28.17">28.17
+稳定性</a>，核对日期 2026 年 10 月 24 日。</li>
+<li>SciPy 官方 <a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.mathieu_a.html">mathieu_a</a>、<a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.mathieu_b.html">mathieu_b</a>。本地验证版本为
+1.10.1，在线文档可能对应更新版本。</li>
+<li>质量填充的评价来源：<a
+href="https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt">AME2020</a>、<a
+href="https://www-nds.iaea.org/amdc/ame2020/nubase_4.mas20.txt">NUBASE2020</a>。数值约定复用既有配套应用的
+<code>paul_mathieu</code> 与 <code>rfq_sections</code> 实现。</li>
+</ul>
+</body>
+</html>

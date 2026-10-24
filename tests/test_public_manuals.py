@@ -13,7 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUALS = ROOT / "static/manuals"
-BAD = re.compile(rb"/(?:Volumes|Users)/|file://")
+BAD = re.compile(rb"/(?:Volumes|Users)/|file://|github\.com/gezhuang0717", re.I)
 M = "{http://schemas.openxmlformats.org/officeDocument/2006/math}"
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 

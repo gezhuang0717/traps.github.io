@@ -24,7 +24,16 @@
   let rows = [], M = new Map(), EL = [], view = { s: 4, x: 10, y: 0 }, pin = null, hover = null, mode = "decay", filt = "all", anim = null;
   let chain = null, plotPts = [], modPts = [], plotHover = null, plotDomain = null, bands = [], residualPts = [], visibleSeries = [], residualDomain = null;
   const rc=root.querySelector("canvas.nc-residual"),rg=rc.getContext("2d");
-  const CP = window.ZGChainPlot, rangeMemory = {};
+  // Cached standalone HTML may predate the optional figure-style asset/host.
+  // Keep the scientific chart and existing exports usable at baseline settings.
+  const CP = window.ZGChainPlot, FS=typeof window.ZGFigureStyle?.controls==='function'?window.ZGFigureStyle:{
+    controls:(_parent,{baseline})=>({get:()=>({...baseline}),valid:()=>true}),
+    exportName:(_style,name)=>name,
+    wrapText:(value,width,size,measure)=>{const lines=[];let part='';for(const char of String(value)){if(part&&(measure?measure(part+char):(part.length+1)*size*.62)>width){lines.push(part);part='';}part+=char;}if(part)lines.push(part);return lines.length?lines:[''];}
+  }, rangeMemory = {};
+  const chainStyleBase={titleSize:11,axisSize:11,tickSize:11,legendSize:10.5,markerDiameter:7.2,lineWidth:1,rasterWidth:5760,filename:''};
+  let chainFigureStyle;
+  const chainStyle=()=>chainFigureStyle?.get()||chainStyleBase;
   let activeChainType = pchain.value;
   const chainInput = name => root.querySelector(`[name=nc-${name}]`);
   const axisNumber = name => { const v = chainInput(name).value; return v === '' ? null : Number(v); };
@@ -739,22 +748,28 @@
   const markerGlyph=s=>s.shape==='model'?'– –':CP.markers[s.shape][s.open?1:0];
   const hasEstimated=s=>plotPts.concat(modPts,residualPts).some(p=>inSeries(p,s)&&p.est);
   const legendGlyph=s=>markerGlyph(s)+(hasEstimated(s)?' '+(CP.markers[s.shape]?.[1]||'○')+'#':'');
+  function wrapFigureText(text,width,size){pg.save();pg.font=size+'px system-ui';const lines=FS.wrapText(text,Math.max(80,width),size,value=>pg.measureText(value).width);pg.restore();return lines;}
   function seriesLegendLines(w){
-    const max=Math.max(12,Math.floor((w-120)/6.2)),out=[];
-    for(const s of visibleSeries.slice(0,16)){
-      const name=s.short.slice(0,160);for(let i=0;i<name.length;i+=max)out.push({style:s,first:i===0,text:name.slice(i,i+max)});
-    }
+    const out=[];for(const s of visibleSeries.slice(0,16))wrapFigureText(s.short.slice(0,160),w-150,chainStyle().legendSize).forEach((text,i)=>out.push({style:s,first:i===0,text}));
     if(visibleSeries.length>16)out.push({text:T.marker_more.replace('{n}',visibleSeries.length-16)});return out;
   }
   let inputLegend=[];
   function inputLegendLines(w){
-    const max=Math.max(15,Math.floor((w-80)/6.2)),lines=[];
-    for(const entry of inputLegend.slice(0,8)){
-      const words=entry.text.slice(0,400).split(/\s+/);let line='';for(const word of words){if(line&&(line+' '+word).length>max){lines.push(line);line='';}if(word.length>max){if(line){lines.push(line);line='';}for(let i=0;i<word.length;i+=max)lines.push(word.slice(i,i+max));}else line=line?line+' '+word:word;}if(line)lines.push(line);
-    }if(inputLegend.length>8)lines.push('+ '+(inputLegend.length-8)+' · '+T.loaded_details);return lines;
+    const lines=inputLegend.slice(0,8).flatMap(entry=>wrapFigureText(entry.text.slice(0,400),w-100,chainStyle().legendSize));
+    if(inputLegend.length>8)lines.push('+ '+(inputLegend.length-8)+' · '+T.loaded_details);return lines;
   }
-  const legendHeight=w=>16*(seriesLegendLines(w).length+inputLegendLines(w).length);
-  const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc));
+  const legendRow=()=>Math.max(16,chainStyle().legendSize*1.5);
+  const titleLines=w=>wrapFigureText((pchain.value+' = '+(chain?(pchain.value==='Z'?chain[0]:pchain.value==='N'?chain[1]:chain[0]+chain[1]):'')+' · '+(PQ[pq.value]?.[0]||'')).trim(),Math.max(100,w-100),chainStyle().titleSize);
+  const titleHeight=w=>titleLines(w).length*chainStyle().titleSize*1.35+5;
+  const legendHeight=w=>titleHeight(w)+legendRow()*(seriesLegendLines(w).length+inputLegendLines(w).length);
+  function plotPadding(domain,multiple){
+    const st=chainStyle();pg.save();pg.font=st.tickSize+'px system-ui';const measured=Math.max(...niceTicks(domain.y0,domain.y1,6).map(y=>pg.measureText(fmtTick(y)).width),0);pg.restore();
+    return {left:Math.max(62,Math.min(160,measured+st.axisSize+20)),right:multiple?78:Math.max(18,st.tickSize),bottom:Math.max(42,st.axisSize+st.tickSize+20)};
+  }
+  const plotGeom=(domain,w,h,sc=1)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,sc,legendHeight(w/sc),plotPadding(domain,(plotPts.groups||[]).length>1));
+  const residualGeom=(domain,w,h)=>CP.geometry(domain,w,h,(plotPts.groups||[]).length>1,1,Math.max(0,chainStyle().titleSize-11)*1.5,plotPadding(domain,(plotPts.groups||[]).length>1));
+  const figureStyleHost=root.querySelector('[data-chain-figure-style]');
+  chainFigureStyle=figureStyleHost?FS.controls(figureStyleHost,{lang:(document.documentElement.lang||'en').split('-')[0],prefix:'chain',baseline:chainStyleBase,onChange:()=>{resize();drawPlot();drawResidual();}}):{get:()=>({...chainStyleBase}),valid:()=>true};
   function humanInputs(p){
     if(p.typed_provenance){const r=p.typed_provenance;return r.inputValue+' ± '+(r.inputSigma??T.mine_unknown)+' '+r.inputUnit+' · '+r.quantity+(r.reference?' · '+r.reference:'');}
     return MM.provenance(p.dependencyValue||p.valueObj,inputTable).map(x=>{
@@ -944,18 +959,20 @@
     }c.restore();
   }
   function drawPlot(c = pg, Wd = pc._cw, Hd = pc._ch, sc = 1) {
+    const st=chainStyle(),lw=lineWidth()*st.lineWidth,mark=st.markerDiameter/7.2;
     if (c === pg) pg.setTransform(pc.width / pc._cw, 0, 0, pc.height / pc._ch, 0, 0);
     c.clearRect(0, 0, Wd, Hd); c.fillStyle = sc > 1 ? "#fff" : "transparent"; if (sc > 1) c.fillRect(0, 0, Wd, Hd);
-    if (!plotPts.length && !modPts.length) { c.fillStyle = "#888"; c.font = `${13 * sc}px system-ui`; c.fillText(chain ? T.loaded_no_points : T.p_hint, 20 * sc, 30 * sc); return; }
+    if (!plotPts.length && !modPts.length) { c.fillStyle = "#888"; c.font = `${st.axisSize * sc}px system-ui`; c.fillText(chain ? T.loaded_no_points : T.p_hint, 20 * sc, 30 * sc); return; }
     const { x0,x1,y0,y1 } = plotDomain, geom = plotGeom(plotDomain,Wd,Hd,sc);
     const { L,R,T:Tp,B,px,py } = geom;
-    c.strokeStyle = "rgba(127,127,160,.45)"; c.lineWidth = 0.45 * lineWidth() * sc; c.strokeRect(L, Tp, Wd - L - R, Hd - B - Tp);
-    c.fillStyle = sc > 1 ? "#222" : ink; c.font = `${11 * sc}px system-ui`; c.textAlign = "center";
+    c.strokeStyle = "rgba(127,127,160,.45)"; c.lineWidth = 0.45 * lw * sc; c.strokeRect(L, Tp, Wd - L - R, Hd - B - Tp);
+    c.fillStyle = sc > 1 ? "#222" : ink; c.font = `${st.tickSize * sc}px system-ui`; c.textAlign = "center";
     const xTicks = Math.max(2, Math.min(12, Math.floor((Wd - L - R) / (45 * sc))));
     niceTicks(x0, x1, xTicks).filter(x => Number.isInteger(x)).forEach(x => { c.fillText(x, px(x), Hd - B + 15 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(px(x), Tp); c.lineTo(px(x), Hd - B); c.stroke(); c.restore(); });
+    c.font=`${st.axisSize * sc}px system-ui`;
     const ch = pchain.value; c.fillText(ch === "Z" ? "N" : "Z", (L + Wd - R) / 2, Hd - 8 * sc);
-    c.textAlign = "right"; niceTicks(y0, y1, 6).forEach(y => { c.fillText(fmtTick(y), L - 6 * sc, py(y) + 4 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(L, py(y)); c.lineTo(Wd - R, py(y)); c.stroke(); c.restore(); });
-    c.save(); c.translate(14 * sc, (Tp + Hd - B) / 2); c.rotate(-Math.PI / 2); c.textAlign = "center"; c.fillText(`${PQ[pq.value][0]}${PQ[pq.value][2] ? " (" + PQ[pq.value][2] + ")" : ""}`, 0, 0); c.restore();
+    c.font=`${st.tickSize * sc}px system-ui`;c.textAlign = "right"; niceTicks(y0, y1, 6).forEach(y => { c.fillText(fmtTick(y), L - 6 * sc, py(y) + 4 * sc); c.save(); c.strokeStyle = "rgba(127,127,160,.15)"; c.beginPath(); c.moveTo(L, py(y)); c.lineTo(Wd - R, py(y)); c.stroke(); c.restore(); });
+    c.font=`${st.axisSize * sc}px system-ui`;c.save(); c.translate((st.axisSize+3) * sc, (Tp + Hd - B) / 2); c.rotate(-Math.PI / 2); c.textAlign = "center"; c.fillText(`${PQ[pq.value][0]}${PQ[pq.value][2] ? " (" + PQ[pq.value][2] + ")" : ""}`, 0, 0); c.restore();
     c.strokeStyle = "rgba(229,72,77,.35)"; c.setLineDash([4 * sc, 4 * sc]);
     MAGIC.forEach(m => { if (m > x0 && m < x1) { c.beginPath(); c.moveTo(px(m), Tp); c.lineTo(px(m), Hd - B); c.stroke(); } }); c.setLineDash([]);
     c.save(); c.beginPath(); c.rect(L,Tp,Wd-L-R,Hd-B-Tp); c.clip();
@@ -968,28 +985,29 @@
     for(const s of paintOrder)for(const group of groups){
       const ps=plotPts.concat(modPts).filter(p=>inSeries(p,s)&&p.g===group);if(!ps.length)continue;
       const col=pointColor(ps[0],s);
-      c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lineWidth()*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
+      c.strokeStyle=col;c.lineWidth=(s.shape==='model'?1:1.2)*lw*sc;c.setLineDash(s.shape==='model'?[6*sc,4*sc]:s.id==='hybrid'?[2*sc,3*sc]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       for(const p of ps){
         if(p.x<x0||p.x>x1)continue;
         const xx=px(p.x),yy=py(p.y),color=col;c.strokeStyle=color;c.fillStyle=color;
         if(p.y<y0||p.y>y1){const y=geom.clampY(p.y),sign=p.y>y1?1:-1;c.beginPath();c.moveTo(xx,y);c.lineTo(xx-4*sc,y+sign*7*sc);c.lineTo(xx+4*sc,y+sign*7*sc);c.closePath();c.fill();continue;}
         if(showErr&&p.e>0){c.beginPath();c.moveTo(xx,py(p.y-p.e));c.lineTo(xx,py(p.y+p.e));for(const ey of [p.y-p.e,p.y+p.e]){c.moveTo(xx-3*sc,py(ey));c.lineTo(xx+3*sc,py(ey));}c.stroke();}
-        const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*sc;
+        const radius=(s.shape==='model'?1.8:multi?2.8:3.6)*mark*sc;
         const background=sc>1?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';
         CP.paintMarker(c,s.shape,xx,yy,radius,color,p.est||s.open,background);
         if(chainInput('reference-ring').checked&&chain&&p.r[0]===chain[0]&&p.r[1]===chain[1]){c.strokeStyle='#e5484d';c.lineWidth=1.5*sc;c.beginPath();c.arc(xx,yy,7*sc,0,6.283);c.stroke();}
       }
     }
     c.restore();
-    if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=10*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
-    c.textAlign='left';c.font=10.5*sc+'px system-ui';
+    if(multi)groups.forEach(gk=>{const ps=plotPts.filter(p=>p.series==='ame'&&p.g===gk&&p.x>=x0&&p.x<=x1);if(!ps.length)return;const p=ps[ps.length-1];c.fillStyle=gcol(gk);c.font=st.tickSize*10/11*sc+'px system-ui';c.textAlign='left';c.fillText(ch+'='+gk,Math.min(px(p.x)+5*sc,Wd-R+4*sc),geom.clampY(p.y)+3*sc);});
+    c.textAlign='center';c.fillStyle=sc>1?'#222':ink;c.font=st.titleSize*sc+'px system-ui';titleLines(Wd/sc).forEach((text,i)=>c.fillText(text,Wd/2,(st.titleSize+2+i*st.titleSize*1.35)*sc));
+    c.textAlign='left';c.font=st.legendSize*sc+'px system-ui';
     const legendLines=seriesLegendLines(Wd/sc);
-    legendLines.forEach((line,i)=>{const y=(12+i*16)*sc;if(line.first){c.fillStyle=line.style.color;c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
-    c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(12+16*(legendLines.length+i))*sc));
+    legendLines.forEach((line,i)=>{const y=(titleHeight(Wd/sc)+12+i*legendRow())*sc;if(line.first){c.fillStyle=line.style.color;c.fillText(legendGlyph(line.style),L,y);}c.fillStyle=sc>1?'#222':ink;c.fillText(line.text,L+40*sc,y);});
+    c.fillStyle=sc>1?'#222':ink;inputLegendLines(Wd/sc).forEach((text,i)=>c.fillText(text,L,(titleHeight(Wd/sc)+12+legendRow()*(legendLines.length+i))*sc));
     if (plotHover && sc === 1 && plotHover.r) {
       const p = plotHover, value = p.e == null ? Number(p.y.toPrecision(7)).toString() : (([a,b])=>p.e>0?a+(p.est?'#':'')+' ± '+b:a)(fmtU(p.y,p.e));
-      c.fillStyle=ink;c.textAlign='left';c.font='12px system-ui';
+      c.fillStyle=ink;c.textAlign='left';c.font=st.tickSize*12/11+'px system-ui';
       const width=Wd-L-R-8, text=`${sup(p.r[0]+p.r[1])}${p.r[2]}: ${value}${p.source?' ('+p.source+')':''}`, lines=[];
       let line='';for(const word of text.split(' ')){const next=line?line+' '+word:word;if(line&&c.measureText(next).width>width){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);
       const left=Math.max(L+4,Math.min(px(p.x)+8,Wd-R-width)), top=Math.max(Tp+16,Math.min(geom.clampY(p.y)-10,Hd-B-lines.length*14));
@@ -997,10 +1015,11 @@
     }
   }
   function drawResidual(c=rg,width=pc._cw,height=Math.max(230,Math.min(320,width*.45)),exporting=false){
+    const st=chainStyle(),mark=st.markerDiameter/7.2;
     if(!plotDomain||root.querySelector('.nc-residual-panel').hidden)return;
     if(c===rg){sizeCanvas(rc,width,height);c.setTransform(rc.width/width,0,0,rc.height/height,0,0);}c.clearRect(0,0,width,height);if(exporting){c.fillStyle='#fff';c.fillRect(0,0,width,height);}
     if(!residualPts.length){
-      residualDomain=null;c.fillStyle=exporting?'#222':ink;c.font='12px system-ui';c.textAlign='left';
+      residualDomain=null;c.fillStyle=exporting?'#222':ink;c.font=st.tickSize*12/11+'px system-ui';c.textAlign='left';
       const words=T.loaded_residual_empty.split(/\s+/);let line='',y=28;
       for(const word of words){
         const next=line?line+' '+word:word;
@@ -1012,22 +1031,22 @@
     }
     const domain={...CP.chainExtent(residualPts,[],{errors:chainInput('axis-errors').checked}),x0:plotDomain.x0,x1:plotDomain.x1};
     domain.y0=Math.min(domain.y0,0);domain.y1=Math.max(domain.y1,0);residualDomain=domain;
-    const geom=CP.geometry(domain,width,height,(plotPts.groups||[]).length>1),{L,R,T:top,B,px,py}=geom;
-    c.lineWidth=lineWidth();c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font='11px system-ui';
+    const geom=residualGeom(domain,width,height),{L,R,T:top,B,px,py}=geom;
+    c.lineWidth=lineWidth()*st.lineWidth;c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font=st.tickSize+'px system-ui';
     c.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>c.fillText(fmtTick(y),L-5,py(y)+3));c.textAlign='center';
     niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>c.fillText(x,px(x),height-B+15));
-    c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,12);c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
+    c.font=st.titleSize+'px system-ui';c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,Math.max(12,st.titleSize+1));c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     drawBands(c,residualPts,px,py);
     for(const s of visibleSeries.filter(s=>s.id!=='ame'))for(const group of plotPts.groups||[]){
       const ps=residualPts.filter(p=>inSeries(p,s)&&p.g===group);c.strokeStyle=s.color;c.fillStyle=s.color;c.setLineDash(s.shape==='model'?[5,3]:s.id==='hybrid'?[2,3]:[]);
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
-      ps.forEach(p=>{const x=px(p.x),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
+      ps.forEach(p=>{const x=px(p.x),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5*mark,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
     c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
-  rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=CP.geometry(residualDomain,rc._cw,rc._ch,(plotPts.groups||[]).length>1);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
+  rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=residualGeom(residualDomain,rc._cw,rc._ch);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
   function plotAt(e) {
     if(!plotDomain)return null;const b=pc.getBoundingClientRect(),x=(e.clientX-b.left)*pc._cw/b.width,y=(e.clientY-b.top)*pc._ch/b.height,geom=plotGeom(plotDomain,pc._cw,pc._ch);
     if(x<geom.L||x>geom.right||y<geom.T||y>geom.bottom)return null;
@@ -1124,19 +1143,19 @@
     X.record(cv, 9, "chart-of-nuclides-tour", on => { b.disabled = on; b.classList.toggle("is-rec", on); if (!on) { sizeCanvas(cv, keep[0], keep[1]); draw(); } });
     fit(); let i = 0; const next = () => { if (i < tour.length) { const r = tour[i++]; pin = r; zoomTo(r, 30, () => setTimeout(next, 900)); } else setTimeout(fit, 400); }; setTimeout(next, 600);
   };
-  root.querySelector("[data-nc=ppng]").onclick = () => X.png(sc => {
+  root.querySelector("[data-nc=ppng]").onclick = () => {if(!chainFigureStyle.valid())return;return X.png(sc => {
     const o=document.createElement('canvas'),includeResidual=!root.querySelector('.nc-residual-panel').hidden;
     const residualHeight=includeResidual?Math.max(230,Math.min(320,pc._cw*.45)):0,gap=includeResidual?18:0;
     o.width=pc._cw*sc;o.height=(pc._ch+gap+residualHeight)*sc;
     const ctx=o.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,o.width,o.height);drawPlot(ctx,o.width,pc._ch*sc,sc);
     if(includeResidual){ctx.save();ctx.setTransform(sc,0,0,sc,0,(pc._ch+gap)*sc);drawResidual(ctx,pc._cw,residualHeight,true);ctx.restore();}
     return o;
-  },"chain-"+pq.value,6);
+  },FS.exportName(chainStyle(),"chain-"+pq.value),chainStyle().rasterWidth/pc._cw);};
   root.querySelector("[data-nc=pcsv]").onclick = () => {
-    if(!plotDomain)return;
+    if(!plotDomain||!chainFigureStyle.valid())return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
-    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst];}),'chain-'+pq.value);
+    X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated','figure_style_json'],
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst,JSON.stringify(chainStyle())];}),FS.exportName(chainStyle(),'chain-'+pq.value));
   };
 
   /* ---------- events ---------- */

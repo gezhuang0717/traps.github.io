@@ -19,7 +19,7 @@ To study neutron binding along the tin isotopes, choose s2n and fix Z at 50. The
 
 Open the website Lab page and its chart of nuclides. Select a key from the chain-plot quantity menu, choose a fixed-Z, fixed-N or fixed-A chain, and select the reference nuclide and range. Colour layers, classed legends, manual colour limits, magic lines and N = Z are display controls; they do not change masses. When choosing AME, new inputs, mixed stencils or models, inspect the series source and uncertainty basis together.
 
-[Website Lab](https://gezhuang0717.github.io/traps.github.io/lab/) · [Public source](https://github.com/gezhuang0717/traps.github.io)
+[Website Lab](https://gezhuang0717.github.io/traps.github.io/lab/)
 
 Current website source: `layouts/_shortcodes/nuclide-chart.html`; `static/js/nuclide-chart.js`.
 

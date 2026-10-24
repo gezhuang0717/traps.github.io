@@ -51,25 +51,22 @@
 
 {{ partial "zg/legacy-penning3d.html" . }}
 </div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion") }}</div><div data-local-panel="fancier" hidden><section class="zg-card" id="calibrated-frequencies">{{ partial "zg/calibration-panel.html" (dict "scope" "lab" "full" true "on" true) }}</section>{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion-fancier" "cal" true) }}</div></section>
-<section class="zg-card">
+<section class="zg-card" data-cyclotron data-lang="{{ $k }}" data-states-url="{{ "data/nuclear-states.json" | relURL }}" data-ame-url="{{ "data/ame2020.json" | relURL }}" data-elements-url="{{ "data/periodic-table.json" | relURL }}">
   <h2>{{ i18n "zg_lab_nuc" | default "Cyclotron-frequency calculator" }}</h2>
-  {{ partial "zg/control-help.html" "cyclotron" }}
-  <div class="zg-form">
+  <div class="zg-form" data-cyclotron-controls>
     <label>{{ i18n "zg_lab_preset" | default "Preset" }}
       <select id="zg-c-preset">
         <option value="">—</option>
-        <option value="132.905451961">¹³³Cs⁺</option>
-        <option value="84.911789738">⁸⁵Rb⁺</option>
-        <option value="12">¹²C⁺</option>
-        <option value="99.9385">¹⁰⁰Sn⁺</option>
-        <option value="238.0507884">²³⁸U⁺</option>
+        <option value="133Cs">¹³³Cs⁺</option>
+        <option value="85Rb">⁸⁵Rb⁺</option>
+        <option value="12C">¹²C⁺</option>
+        <option value="100Sn">¹⁰⁰Sn⁺</option>
+        <option value="238U">²³⁸U⁺</option>
       </select></label>
-    <label>{{ i18n "zg_lab_mass" | default "Atomic mass (u)" }} <input type="number" id="zg-c-m" value="132.905451961" step="any"></label>
-    <label>{{ i18n "zg_lab_charge" | default "Charge state q" }} <input type="number" id="zg-c-q" value="1" min="1" max="100" step="1"></label>
     <label>B (T) <input type="number" id="zg-c-b" value="7.0000000000" step="any" min="0" data-decimal-places="10"></label>
   </div>
-  <p class="zg-result" id="zg-c-out" role="status" data-labels="{{ $CalculatorLabels | jsonify }}"></p>
-  <p class="zg-muted zg-small">ν_c = qB / (2π m<sub>ion</sub>), m<sub>ion</sub> = m<sub>atom</sub> − q·m<sub>e</sub> {{ i18n "zg_lab_nuc_note" | default "(electron binding energies neglected). JYFLTRAP runs at about 7 T." }}</p>
+  <div data-cyclotron-rows></div>
+  <p class="zg-result" id="zg-c-out" data-cyclotron-multi role="status" data-labels="{{ $CalculatorLabels | jsonify }}"></p>
 </section>
 
 <section class="zg-card">
@@ -103,6 +100,9 @@
 
 </div>
 <script defer src="{{ "js/physics.js" | relURL }}?v=state-links-2"></script>
+<script defer src="{{ "js/research-data.js" | relURL }}"></script>
+<script defer src="{{ "js/cyclotron-calculator.js" | relURL }}"></script>
+<script defer src="{{ "js/cyclotron-ui.js" | relURL }}"></script>
 <script defer src="{{ "js/calibration.js" | relURL }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}"></script>
 <script defer src="{{ "js/topic-navigation.js" | relURL }}"></script>

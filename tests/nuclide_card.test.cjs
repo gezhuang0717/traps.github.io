@@ -1,4 +1,5 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const FS=require('../static/js/figure-style.js');
 const source=fs.readFileSync('static/js/nuclide-chart.js','utf8');
 const catalogue=JSON.parse(fs.readFileSync('static/data/nuclear-states.json'));
 const chart=JSON.parse(fs.readFileSync('static/data/nubase2020.json'));
@@ -97,12 +98,14 @@ test('actual chart CSV keeps asymmetric # flags, absent quantities and tabulated
 });
 test('chain CSV keeps evaluated and independent uncertainty provenance distinct',()=>{
  const button={},saved=[],base={r:[63,92,'Eu'],g:63,x:92,y:.2519612,e:.0008682,est:false,series:'ame',source:'AME2020',valueObj:{uncertainty_model:'AME2020 evaluated table; mass correlations retained',source:'AME2020 published table',sigmaEst:true}};
- const context={root:{querySelector:()=>button},plotDomain:{x0:90,x1:94,y0:0,y1:1},plotPts:[base],modPts:[],residualPts:[],PQ:{qbm:['Q(β⁻)',null,'MeV']},pq:{value:'qbm'},pchain:{value:'Z'},MOD:{},seriesMeta:()=>({shape:'circle'}),MM:{provenance:()=>[]},inputTable:null,measured:{hash:()=>''},residualDomain:null,pointColor:()=>'blue',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)}};
+ const style=FS.normalize();
+ const context={root:{querySelector:()=>button},plotDomain:{x0:90,x1:94,y0:0,y1:1},plotPts:[base],modPts:[],residualPts:[],PQ:{qbm:['Q(β⁻)',null,'MeV']},pq:{value:'qbm'},pchain:{value:'Z'},MOD:{},seriesMeta:()=>({shape:'circle'}),MM:{provenance:()=>[]},inputTable:null,measured:{hash:()=>''},residualDomain:null,pointColor:()=>'blue',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},FS,chainStyle:()=>style,chainFigureStyle:{valid:()=>true}};
  const start=source.indexOf('  root.querySelector("[data-nc=pcsv]").onclick'),end=source.indexOf('  /* ---------- events',start);
  vm.runInNewContext(source.slice(start,end),context);button.onclick();
  let [header,rows]=saved[0];assert.equal(rows[0][header.indexOf('uncertainty_basis')],base.valueObj.uncertainty_model);
  assert.equal(rows[0][header.indexOf('uncertainty')],.0008682);
  assert.equal(rows[0].length,header.length);assert.equal(rows[0][header.indexOf('source')],'AME2020 published table');
+ assert.deepEqual(JSON.parse(rows[0][header.indexOf('figure_style_json')]),style);assert.equal(saved[0][2],'chain-qbm');
  assert.equal(rows[0][header.indexOf('flag')],'');assert.equal(rows[0][header.indexOf('value_extrapolated')],false);assert.equal(rows[0][header.indexOf('uncertainty_extrapolated')],true);
  base.est=true;base.valueObj={uncertainty_model:'diagonal primitive covariance; repeated inputs combined',sigmaEst:false};button.onclick();
  [header,rows]=saved[1];assert.match(rows[0][header.indexOf('uncertainty_basis')],/^diagonal primitive covariance/);

@@ -72,10 +72,31 @@
 
   /* King-plot lines: x,y[,sx,sy[,rho]]. Points with both sx and sy use the errors-in-variables fit. */
   function parseKing(text) {
-    const lines = String(text || '').trim().split(/\r?\n/).filter(s => s.trim() && !s.trim().startsWith('#'));
+    text=String(text||'').trim();if(text.length>131072)throw Error('maximum 128 KiB of King data');
+    let provenance=null,rows;
+    if(/^[\[{]/.test(text)){
+      const data=JSON.parse(text);
+      if(!Array.isArray(data)&&data.schema!==undefined&&data.schema!=='traps-king-data-v1')throw Error('unsupported King data schema');
+      if(!Array.isArray(data)&&data.units!==undefined&&data.units!=='GHz·u')throw Error('King x,y,sx,sy units must be GHz·u');
+      rows=Array.isArray(data)?data:data.points;if(!Array.isArray(rows))throw Error('King JSON requires a points array');
+      provenance=Array.isArray(data)?null:{dataset_id:data.id||null,kind:data.kind||null,...(data.provenance&&typeof data.provenance==='object'&&!Array.isArray(data.provenance)?data.provenance:{})};
+      rows=rows.map((r,i)=>{if(Array.isArray(r))return r;if(!r||typeof r!=='object')throw Error('King point object required at line '+(i+1));if((r.sx!=null)!==(r.sy!=null))throw Error('sx and sy must both be given at line '+(i+1));const v=[r.x,r.y];if(r.sx!=null||r.sy!=null)v.push(r.sx,r.sy);if(r.rho_xy!=null){if(v.length!==4)throw Error('rho requires sx and sy at line '+(i+1));v.push(r.rho_xy);}return v;});
+    }else{
+      const all=text.split(/\r?\n/),unit=all.find(s=>/^\s*#\s*units:/i.test(s));
+      if(unit&&unit.replace(/^\s*#\s*units:\s*/i,'').trim()!=='GHz·u')throw Error('King x,y,sx,sy units must be GHz·u');
+      const metadata=Object.fromEntries(all.filter(s=>/^\s*#\s*(dataset_id|kind|generator|source):/i.test(s)).map(s=>{const m=s.match(/^\s*#\s*(\w+):\s*(.*)$/);return[m[1],m[2]];}));
+      if(Object.keys(metadata).length)provenance=metadata;
+      const lines=all.filter(s=>s.trim()&&!s.trim().startsWith('#'));
+      if(lines.length&&/^x\s*[,;\t ]\s*y(?:\s*[,;\t ]|$)/i.test(lines[0].trim())){
+        const header=lines.shift().trim().split(/[\s,;]+/).map(s=>s.toLowerCase());
+        if(!['x,y','x,y,sx,sy','x,y,sx,sy,rho_xy','x,y,sx,sy,rho'].includes(header.join(',')))throw Error('King header must be x,y[,sx,sy[,rho_xy]]');
+      }
+      rows=lines.map(s=>s.trim().split(/[\s,;]+/));
+    }
+    const lines=rows;
     if (lines.length > 2000) throw Error('maximum 2000 points');
     const points = lines.map((s, i) => {
-      const v = s.trim().split(/[\s,;]+/);
+      const v = s.map(x=>String(x??''));
       if (v.length < 2 || v.length > 5 || v.some(x => x === '' || !Number.isFinite(Number(x)))) throw Error('x,y[,sx,sy[,rho]] required at line ' + (i + 1));
       const [x, y, sx, sy, rho] = v.map(Number), p = { x, y };
       if (v.length >= 3) { if (v.length < 4) throw Error('sx and sy must both be given at line ' + (i + 1)); if (sx < 0 || sy < 0) throw Error('negative uncertainty at line ' + (i + 1)); p.sx = sx; p.sy = sy; }
@@ -88,7 +109,7 @@
     if (supplied.some(Boolean) && !supplied.every(Boolean)) {
       throw Object.assign(Error('Every King point must supply sx and sy, or all points must omit uncertainties'), { code: 'KING_MIXED_UNCERTAINTY' });
     }
-    return { points, weighted: points.length >= 3 && supplied.every(Boolean) };
+    return { points, weighted: points.length >= 3 && supplied.every(Boolean), units:'GHz·u', provenance };
   }
 
   /* ±1σ band of the line y = a + b x from the parameter covariance [[var a, cov],[cov, var b]] (order intercept, slope). */

@@ -1,7 +1,6 @@
 {{- $D := hugo.Data.home_optics -}}
 {{- $lang := index (split .Page.Language.Lang "-") 0 -}}
 {{- $t := index $D.text $lang -}}
-{{- $labels := index hugo.Data.game_workflows.labels $lang -}}
 {{- $source := index (dict "en" "Source" "zh" "来源" "fi" "Lähde" "de" "Quelle" "ja" "出典" "fr" "Source") $lang -}}
 {{- $detail := eq (.Get "detail") "true" -}}
 {{- $researchURL := printf "%s#beam-line-optics" ("research/" | relLangURL) -}}
@@ -9,7 +8,6 @@
 <section class="zg-card zg-home-optics" id="beam-line-optics" data-workflow-guide-ref="{{ if $detail }}beam-line-optics-guide{{ else }}beam-line-optics-caption{{ end }}">
   {{ if $detail }}
   <h2>{{ $t.title }}</h2>
-  <p>{{ $t.purpose }}</p>
   <figure aria-describedby="beam-line-optics-guide">
     <a href="{{ $D.image | relURL }}" target="_blank" rel="noopener">
       <img src="{{ $D.image | relURL }}" alt="{{ $t.caption }}" width="{{ $D.width }}" height="{{ $D.height }}" loading="lazy" decoding="async" style="width:100%;height:auto">
@@ -18,10 +16,6 @@
   </figure>
   <div id="beam-line-optics-guide">
     {{ range $t.paragraphs }}<p>{{ . }}</p>{{ end }}
-    <details class="zg-control-help">
-      <summary>{{ $labels.title }}</summary>
-      <dl class="zg-workflow-fields">{{ range slice "inputs" "outputs" "gain" "hint" "limits" }}<dt>{{ index $labels . }}</dt><dd>{{ index $t . }}</dd>{{ end }}</dl>
-    </details>
   </div>
   <p class="zg-muted zg-small">{{ $source }}: <a href="{{ $D.source.url }}">{{ $D.source.citation }}</a></p>
   {{ else }}

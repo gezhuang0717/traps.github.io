@@ -144,8 +144,8 @@ def test_actual_shortcode_build_retains_json_nulls_languages_and_usable_assets(t
     hugo = os.environ.get("HUGO_TEST_BIN") or shutil.which("hugo")
     if not hugo:
         pytest.skip("Pinned Hugo required; installed in CI before tests")
-    assets = ["static/js/zg-export.js", "static/js/spectroscopy-core.js", "static/js/spectroscopy.js",
-              "static/css/spectroscopy.css", "static/js/spectroscopy-settings.js", "static/js/spectroscopy-uncertainty.js", "static/js/spectroscopy-fr.js"]
+    assets = ["static/js/zg-export.js", "static/js/figure-style.js", "static/css/figure-style.css", "static/js/spectroscopy-core.js", "static/js/spectroscopy.js",
+              "static/css/spectroscopy.css", "static/js/spectroscopy-settings.js", "static/js/spectroscopy-uncertainty.js", "static/js/spectroscopy-fr.js", "static/js/research-data.js"]
     for relative in ["layouts/_shortcodes/spectroscopy-tools.html", "data/spectroscopy.yaml",
                      "data/laser_cooling.yaml"] + assets:
         target = tmp_path / relative
@@ -178,6 +178,8 @@ def test_actual_shortcode_build_retains_json_nulls_languages_and_usable_assets(t
         assert json.loads(widget["data-cooling"]) == cooling, lang
         script_names = [Path(urlparse(script["src"]).path).name for script in markup.scripts]
         assert script_names.index("spectroscopy-core.js") < script_names.index("spectroscopy.js")
+        assert script_names.count("research-data.js") == 1
+        assert script_names.index("research-data.js") < script_names.index("spectroscopy.js")
         assert all("defer" in script for script in markup.scripts)
         assert "zg-export.js" in script_names
         for asset in assets:

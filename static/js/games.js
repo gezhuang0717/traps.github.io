@@ -309,7 +309,10 @@
      and has its tip at q = 0.705996, a = 0.236994.                                                          */
   const MA0=P.mathieuA0, MB1=P.mathieuB1, mathieuStable=P.mathieuStable, Q_EDGE=.908046, Q_TIP=.705996, A_TIP=.236994;
   function rfqGame() {
-    const box = $("#g-rfq"); if (!box) return;
+    const container = $("#g-rfq"); if (!container) return;
+    // The separate Mathieu subtab owns its controls and SVG. Keep the original
+    // simulation's selectors and event delegation inside its classic panel.
+    const box = container.querySelector(':scope > [data-local-panel="classic"]') || container;
     const TL = T, RT=JSON.parse(box.querySelector("[data-rfq-labels]").dataset.rfqLabels);
     const [cv, cvd] = box.querySelectorAll("canvas"), sel = n => box.querySelector(`[name=${n}]`), V = n => +sel(n).value;
     const U_KG = P.C.uKg, QE = P.C.e, ME_U = 5.48579909065e-4, rho = 1.145, Rc = 1 + rho;

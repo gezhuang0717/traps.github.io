@@ -19,7 +19,7 @@ lang: "zh-CN"
 
 从网站的 Lab 页面进入核素图，在链图的物理量选择框中选取本手册的键；选择固定 Z、固定 N 或固定 A 的链，再指定核素与范围。颜色图层、分级色条、手动色域、幻数线和 N = Z 线是显示选项，不会改变质量值。选择 AME、新输入、混合模板或理论模型时，要同时核对曲线来源与误差说明。
 
-[网站 Lab](https://gezhuang0717.github.io/traps.github.io/zh-hans/lab/) · [公共源代码](https://github.com/gezhuang0717/traps.github.io)
+[网站 Lab](https://gezhuang0717.github.io/traps.github.io/zh-hans/lab/)
 
 当前网站源文件: `layouts/_shortcodes/nuclide-chart.html`; `static/js/nuclide-chart.js`.
 

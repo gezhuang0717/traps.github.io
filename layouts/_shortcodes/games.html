@@ -97,7 +97,9 @@
     <p class="g-msg" aria-live="polite"></p>
     <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.mr_h }}</p></details></section>
 </div><div data-local-panel="advanced" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "mr" "id" "g-mr-workbench") }}</div></section>
-  <section class="zg-card g-box" id="g-rfq"><h2>🧲 {{ $t.rfq }}</h2><p class="zg-muted">{{ $t.rfq_n }}</p>
+  <section class="zg-card g-box" id="g-rfq" data-local-tabs><h2>🧲 {{ $t.rfq }}</h2>
+    {{ partial "zg/local-tabs.html" (dict "id" "rfq" "advanced" false "extra" (slice (dict "name" "mathieu" "label" (index hugo.Data.mathieu_labels $k).tab))) }}
+    <div data-local-panel="classic"><p class="zg-muted">{{ $t.rfq_n }}</p>
     {{ partial "zg/control-help.html" "rfq" }}
     <div class="g-opts-row">
       <label>{{ $t.set }} <select name="set"><option value="near">{{ $t.set_near }}</option><option value="far">{{ $t.set_far }}</option><option value="one">{{ $t.set_one }}</option></select></label>
@@ -123,7 +125,8 @@
     <div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-act="cool">{{ $t.cool }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="tip">{{ $t.tip }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="edge">q = 0.90</button><button type="button" class="zg-btn zg-btn-ghost" data-act="pause">⏯ {{ $t.pause }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png">⤓ {{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-act="png2">⤓ {{ $t.png }} (a–q)</button><button type="button" class="zg-btn zg-btn-ghost" data-act="video">⏺ {{ $t.video }}</button></div>
     {{ partial "zg/rfq-design.html" . }}
 <section class="rfq-cutoffs" data-rfq-labels="{{ $rt | jsonify }}" aria-live="polite"><h3>{{ $rt.results }}</h3><dl data-rfq-cutoff-values></dl><p>{{ $rt.limits }}</p></section><div class="rfq-out"></div><p class="g-msg" aria-live="polite"></p>
-    <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.rfq_h }}</p></details></section>
+    <details class="g-hints"><summary>💡 {{ $t.hints }}</summary><p>{{ $t.rfq_h }}</p></details></div>
+    <div data-local-panel="mathieu" hidden>{{ partial "zg/rfq-mathieu.html" . }}</div></section>
   {{ partial "zg/laser-cooling.html" . }}
   {{ partial "zg/periodic-table.html" . }}
   <section class="zg-card g-box" id="g-quiz"><h2>🧩 {{ $t.quiz }}</h2><p class="zg-muted">{{ $t.quiz_n }}</p>

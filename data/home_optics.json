@@ -27,12 +27,6 @@
         "High-resolution ion optics connects magnetic-rigidity analysis with timing. Bρ = p/q gives momentum per charge, while v = L/TOF gives average flight speed. Together they support Bρ–TOF mass-to-charge analysis. The paper quotes an approximately 84 m flight path specifically from F3 to S0: a timing baseline within the longer transport system, rather than the total length shown in the figure.",
         "The study matches the beam line’s momentum dispersion to the ring’s isochronous optics. Its simulation follows 1,900 revolutions before extraction (Fig. 5), accumulating timing information over many turns in the roughly 60 m ring. Under isochronous conditions, revolution time supplies mass-to-charge information."
       ],
-      "purpose": "Show how high-resolution momentum analysis and matched transport connect beam-line timing with storage-ring mass measurements.",
-      "inputs": "Published reference case: ¹⁰⁰Sn at 175 MeV/u; momentum offsets +0.3%, 0% and −0.3%; the designed magnet lattice.",
-      "outputs": "The published simulated trajectories, focal-plane locations and injection-to-extraction layout in Figure 2.",
-      "gain": "Follow one ion-optical design from momentum-sensitive beam transport to repeated circulation for mass spectrometry.",
-      "hint": "Follow the red, green and blue paths through F6, then toward the kicker and ring. Read numerical transport properties from the paper rather than measuring pixels.",
-      "limits": "This is a static published simulation, not a live solver or a measured beam image. It does not establish a mass resolution or a scale for the entire beam line.",
       "short_title": "Rare-RI Ring beam optics",
       "short_caption": "Two mass-measurement methods: beam-line Bρ–TOF and isochronous mass spectrometry (IMS) in a storage ring. Beam-transport simulation: ¹⁰⁰Sn at 175 MeV/u; red/green/blue: δp/p = +0.3%/0%/−0.3%."
     },
@@ -44,12 +38,6 @@
         "高分辨离子光学将磁刚度分析与定时结合。Bρ = p/q 给出单位电荷的动量，v = L/TOF 给出平均飞行速度，两者支持 Bρ–TOF 质荷比分析。论文所述约 84 m 专指 F3 至 S0 的飞行距离，是较长传输系统中的一段定时基线，并非图中整条束流线的总长。",
         "研究将束流线的动量色散与储存环的等时性光学匹配。模拟中离子循环1,900圈后引出（图5），在周长约60m的环内通过多圈积累计时信息。在等时性条件下，回旋时间可提供质荷比信息。"
       ],
-      "purpose": "展示高分辨动量分析与匹配传输如何连接束流线定时和储存环质量测量。",
-      "inputs": "论文参考设置：¹⁰⁰Sn、175 MeV/u；+0.3%、0% 和 −0.3% 三种动量偏移；设计的磁铁晶格。",
-      "outputs": "论文图 2 所示的模拟轨迹、焦平面位置及注入到引出的布局。",
-      "gain": "沿同一个离子光学设计，理解从动量敏感的束流传输到多周循环质量测量的联系。",
-      "hint": "沿红、绿、蓝轨迹通过 F6，再观察踢轨磁铁和储存环。传输参数应查阅论文数值，不要按像素量取。",
-      "limits": "这是已发表的静态模拟图，不是实时求解器或实测束流图像；不能据此确定质量分辨本领或整条束流线的比例尺。",
       "short_title": "Rare-RI Ring 束流光学",
       "short_caption": "两种质量测量方法：束流线 Bρ–TOF 与储存环等时性质谱（IMS）。束流传输模拟：¹⁰⁰Sn，175 MeV/u；红／绿／蓝分别对应 δp/p = +0.3%／0%／−0.3%。"
     },
@@ -61,12 +49,6 @@
         "Tarkka ionioptiikka yhdistää magneettisen jäykkyyden analyysin ja ajoituksen. Bρ = p/q antaa liikemäärän varausta kohti ja v = L/TOF keskimääräisen lentonopeuden. Yhdessä ne tukevat Bρ–TOF-menetelmän massa-varaussuhteen analyysiä. Noin 84 m:n lentomatka koskee nimenomaan väliä F3–S0: se on pidemmän siirtolinjan ajoitusväli eikä koko kuvan linjan pituus.",
         "Tutkimus sovittaa suihkulinjan liikemäärädispersion renkaan isokroniseen optiikkaan. Simulaatio seuraa 1 900 kierrosta ennen ulosottoa (kuva 5), jolloin noin 60 metrin renkaassa kertyy ajoitustietoa monilta kierroksilta. Isokronisissa oloissa kierrosaika antaa tietoa massa-varaussuhteesta."
       ],
-      "purpose": "Näytä, miten tarkka liikemääräanalyysi ja sovitettu siirto yhdistävät suihkulinjan ajoituksen varastorenkaan massamittauksiin.",
-      "inputs": "Julkaistu vertailutapaus: ¹⁰⁰Sn, 175 MeV/u; liikemääräpoikkeamat +0,3 %, 0 % ja −0,3 % sekä suunniteltu magneettihila.",
-      "outputs": "Kuvan 2 julkaistut simuloidut radat, polttotasojen paikat ja injektiosta ulosohjaukseen ulottuva rakenne.",
-      "gain": "Seuraa samaa ionioptista suunnitelmaa liikemäärälle herkästä siirrosta toistuviin kierroksiin massamittausta varten.",
-      "hint": "Seuraa punaisia, vihreitä ja sinisiä ratoja F6:n kautta kicker-magneetille ja renkaaseen. Lue siirtoparametrit artikkelista, älä mittaa pikseleitä.",
-      "limits": "Tämä on julkaistu staattinen simulaatio, ei reaaliaikainen laskin tai mitattu suihkukuva. Se ei osoita massan erotuskykyä eikä koko suihkulinjan mittakaavaa.",
       "short_title": "Rare-RI Ringin suihkuoptiikka",
       "short_caption": "Kaksi massamittausmenetelmää: suihkulinjan Bρ–TOF ja varastorenkaan isokroninen massaspektrometria (IMS). Suihkunsiirron simulaatio: ¹⁰⁰Sn, 175 MeV/u; punainen/vihreä/sininen: δp/p = +0,3 %/0 %/−0,3 %."
     },
@@ -78,12 +60,6 @@
         "Hochauflösende Ionenoptik verbindet magnetische Steifigkeitsanalyse mit Zeitmessung. Bρ = p/q liefert den Impuls pro Ladung, v = L/TOF die mittlere Fluggeschwindigkeit. Zusammen ermöglichen sie die Bρ–TOF-Analyse des Masse-Ladungs-Verhältnisses. Die etwa 84 m beziehen sich ausschließlich auf F3 bis S0: eine Zeitmessbasis innerhalb des längeren Transportsystems, nicht die Gesamtlänge der Abbildung.",
         "Die Studie passt die Impulsdispersion der Strahlführung an die isochrone Ringoptik an. Die Simulation verfolgt 1.900 Umläufe vor der Extraktion (Abb. 5); im Ring mit etwa 60 m Umfang wird dadurch Zeitinformation über viele Umläufe gesammelt. Unter isochronen Bedingungen liefert die Umlaufzeit Information über das Masse-Ladungs-Verhältnis."
       ],
-      "purpose": "Zeigen, wie hochauflösende Impulsanalyse und angepasster Transport Strahlzeitmessung und Speicherring-Massenmessung verbinden.",
-      "inputs": "Veröffentlichter Referenzfall: ¹⁰⁰Sn bei 175 MeV/u; Impulsabweichungen +0,3 %, 0 % und −0,3 % sowie das entworfene Magnetgitter.",
-      "outputs": "Die veröffentlichten simulierten Bahnen, Fokalebenen und das Layout von Injektion bis Extraktion aus Abbildung 2.",
-      "gain": "Ein ionenoptisches Konzept vom impulssensitiven Strahltransport bis zu wiederholten Umläufen zur Massenspektrometrie nachvollziehen.",
-      "hint": "Rote, grüne und blaue Bahnen durch F6 bis zum Kicker und Ring verfolgen. Numerische Transporteigenschaften aus der Arbeit lesen, nicht aus Pixelabständen ableiten.",
-      "limits": "Dies ist eine veröffentlichte statische Simulation, kein Live-Rechner oder gemessenes Strahlbild. Sie belegt weder eine Massenauflösung noch einen Maßstab für die gesamte Strahlführung.",
       "short_title": "Strahloptik des Rare-RI Ring",
       "short_caption": "Zwei Massenmessmethoden: Bρ–TOF in der Strahlführung und isochrone Massenspektrometrie (IMS) im Speicherring. Strahltransportsimulation: ¹⁰⁰Sn bei 175 MeV/u; Rot/Grün/Blau: δp/p = +0,3 %/0 %/−0,3 %."
     },
@@ -95,12 +71,6 @@
         "高分解能イオン光学は磁気剛性の分析と時間計測を結びます。Bρ = p/q は電荷あたりの運動量、v = L/TOF は平均飛行速度を与え、両者は Bρ–TOF による質量電荷比の分析に使えます。約 84 m は F3–S0 間の飛行距離であり、長い輸送系の一部の時間計測区間です。図全体のビームライン長ではありません。",
         "研究ではビームラインの運動量分散をリングの等時性光学に整合させます。シミュレーションでは取り出しまで1,900周を追跡し（図5）、周長約60mのリングで多数周回の時間情報を蓄積します。等時性条件では周回時間から質量電荷比の情報が得られます。"
       ],
-      "purpose": "高分解能の運動量分析と整合した輸送が、ビームラインの時間計測とリングの質量測定をどう結ぶか示します。",
-      "inputs": "論文の基準設定：¹⁰⁰Sn、175 MeV/u、運動量偏差 +0.3%・0%・−0.3%、設計された磁石格子。",
-      "outputs": "論文図 2 の模擬軌道、焦点面の位置、入射から引き出しまでの配置。",
-      "gain": "運動量に敏感なビーム輸送から、多周回を使う質量分析まで、同じ光学設計を追えます。",
-      "hint": "赤・緑・青の軌道を F6 からキッカーとリングへたどってください。輸送特性の数値は画素で測らず、論文を参照します。",
-      "limits": "公開済みの静的なシミュレーション図であり、実時間の計算機や実測ビーム画像ではありません。質量分解能やビームライン全体の縮尺を示すものではありません。",
       "short_title": "Rare-RI Ring のビーム光学",
       "short_caption": "二つの質量測定法：ビームラインの Bρ–TOF と蓄積リングの等時性質量分析（IMS）。ビーム輸送シミュレーション：¹⁰⁰Sn、175 MeV/u。赤・緑・青はそれぞれ δp/p = +0.3%・0%・−0.3%。"
     },
@@ -112,12 +82,6 @@
         "L’optique ionique à haute résolution relie l’analyse de rigidité magnétique au chronométrage. Bρ = p/q donne la quantité de mouvement par charge, et v = L/TOF la vitesse moyenne de vol. Ensemble, elles permettent une analyse du rapport masse/charge par Bρ–TOF. Les quelque 84 m désignent précisément le trajet F3–S0 : une base de chronométrage au sein du transport, pas la longueur totale représentée.",
         "L’étude adapte la dispersion en quantité de mouvement de la ligne à l’optique isochrone de l’anneau. La simulation suit 1 900 tours avant extraction (fig. 5), accumulant des informations temporelles dans l’anneau d’environ 60 m de circonférence. En conditions isochrones, le temps de révolution renseigne sur le rapport masse sur charge."
       ],
-      "purpose": "Montrer comment analyse précise de la quantité de mouvement et transport adapté relient chronométrage de ligne et mesures de masse en anneau.",
-      "inputs": "Cas publié : ¹⁰⁰Sn à 175 MeV/u ; écarts de quantité de mouvement +0,3 %, 0 % et −0,3 % ; réseau magnétique conçu pour l’étude.",
-      "outputs": "Les trajectoires simulées, plans focaux et disposition de l’injection à l’extraction publiés en figure 2.",
-      "gain": "Suivre une même conception optique du transport sensible à la quantité de mouvement aux passages répétés utilisés en spectrométrie de masse.",
-      "hint": "Suivre les trajets rouge, vert et bleu par F6 jusqu’au kicker et à l’anneau. Lire les propriétés numériques dans l’article au lieu de mesurer des pixels.",
-      "limits": "C’est une simulation publiée et statique, pas un calculateur en direct ni une image mesurée du faisceau. Elle ne démontre ni résolution en masse ni échelle de la ligne entière.",
       "short_title": "Optique du faisceau du Rare-RI Ring",
       "short_caption": "Deux méthodes de mesure de masse : Bρ–TOF en ligne de faisceau et spectrométrie de masse isochrone (IMS) en anneau de stockage. Simulation du transport de ¹⁰⁰Sn à 175 MeV/u ; rouge/vert/bleu : δp/p = +0,3 %/0 %/−0,3 %."
     }

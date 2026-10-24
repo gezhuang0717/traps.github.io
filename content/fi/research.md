@@ -10,6 +10,8 @@ showDate: false
 
 Käytän tarkkaa ioniloukku- ja varastorengasmassaspektrometriaa neutriinofysiikan, ydinrakenteen ja ydinastrofysiikan kysymyksiin. Kunkin aiheen julkaisut tulevat yhteisestä julkaisutietokannasta; koko luettelo on [Julkaisut](../publications/)-sivulla.
 
+[Varastorenkaan ionioptiikan kuva](#beam-line-optics)
+
 ## Menetelmät kuvina
 
 {{< gallery >}}

@@ -1,0 +1,47 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- $t := index hugo.Data.mathieu_labels $k -}}
+<section class="zg-card zg-mathieu" data-mathieu data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
+<h3>{{ $t.title }}</h3><p>{{ $t.lead }}</p>
+<div class="zg-form">
+<label>{{ $t.geometry }} <select name="ms-geometry"><option value="linear">{{ $t.linear }}</option><option value="paul3d">{{ $t.paul3d }}</option></select></label>
+<label>{{ $t.mode }} <select name="ms-mode"><option value="voltage">{{ $t.voltage }}</option><option value="direct">{{ $t.direct }}</option></select></label>
+<label>{{ $t.bands }} <input name="ms-bands" type="number" min="1" max="6" step="1" value="3"></label>
+<label>{{ $t.qmax }} <input name="ms-qmax" type="number" min="0.05" max="12" step="0.05" value="2"></label>
+<label>{{ $t.amin }} <input name="ms-amin" type="number" min="-60" max="59" step="0.01" value="-1"></label>
+<label>{{ $t.amax }} <input name="ms-amax" type="number" min="-59" max="60" step="0.01" value="1"></label>
+</div>
+<fieldset><legend>{{ $t.point }}</legend>
+<div class="zg-form">
+<label>{{ $t.species }} <input name="ms-species" type="text" value="133Cs+" maxlength="100"></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
+<label>{{ $t.mass }} (u) <input name="ms-mass" type="number" min="0.000001" step="any" value="100"></label>
+<label>{{ $t.charge }} z <input name="ms-charge" type="number" min="1" max="100" step="1" value="1"></label>
+<label data-ms-voltage>{{ $t.dc }} U (V) <input name="ms-U" type="number" step="any" value="3"></label>
+<label data-ms-voltage>{{ $t.ac }} V (V) <input name="ms-V" type="number" min="0" step="any" value="122"></label>
+<label data-ms-voltage>{{ $t.radius }} r₀ (mm) <input name="ms-r0" type="number" min="0.001" step="any" value="10"></label>
+<label data-ms-voltage>{{ $t.rf }} (MHz) <input name="ms-f" type="number" min="0.000001" step="any" value="1.3"></label>
+<label data-ms-direct hidden>a <input name="ms-a" type="number" step="any" value="0"></label>
+<label data-ms-direct hidden>q <input name="ms-q" type="number" min="-12" max="12" step="any" value="0.4"></label>
+</div><p class="zg-muted" data-ms-source>{{ $t.manual }}</p></fieldset>
+<details data-ms-sections><summary>{{ $t.sections }}</summary><p class="zg-muted">{{ $t.section_note }}</p>
+{{ range $i, $s := slice (dict "key" "cooler" "r0" 10 "V" 122 "f" 1.3) (dict "key" "mf" "r0" 3.75 "V" 244 "f" 3) (dict "key" "bun" "r0" 3.75 "V" 244 "f" 3) }}
+<fieldset data-ms-section="{{ $s.key }}"><legend><label><input name="ms-{{ $s.key }}-on" type="checkbox" checked> {{ index $t $s.key }}</label></legend><div class="zg-form">
+<label>U (V) <input name="ms-{{ $s.key }}-U" type="number" step="any" value="3"></label>
+<label>V (V) <input name="ms-{{ $s.key }}-V" type="number" min="0" step="any" value="{{ $s.V }}"></label>
+<label>r₀ (mm) <input name="ms-{{ $s.key }}-r0" type="number" min="0.001" step="any" value="{{ $s.r0 }}"></label>
+<label>f (MHz) <input name="ms-{{ $s.key }}-f" type="number" min="0.000001" step="any" value="{{ $s.f }}"></label>
+</div></fieldset>{{ end }}
+</details>
+<p data-ms-mapping></p><p>τ = Ωt/2; w″ + (a − 2q cos 2τ)w = 0. <span data-ms-formula>a = 8zeU/(mr₀²Ω²); q = 4zeV/(mr₀²Ω²).</span></p>
+<div data-ms-figure style="width:100%;min-width:0;overflow:auto"></div>
+<div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="svg">{{ $t.svg }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="csv">{{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="save">{{ $t.save }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="load">{{ $t.load }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="reset">{{ $t.reset }}</button><input type="file" accept="application/json,.json" data-ms-file hidden></div>
+<div data-ms-style></div><p data-ms-error role="alert"></p><div data-ms-readout aria-live="polite"></div>
+<details><summary>{{ $t.hint }}</summary><p>{{ $t.limits }}</p><p>{{ $t.sigma }}</p><p><a href="https://dlmf.nist.gov/28.2">{{ $t.source }}</a> · <a href="https://dlmf.nist.gov/28.17">DLMF 28.17</a></p></details>
+</section>
+{{- if not (.Page.Store.Get "zg-mathieu-loaded") -}}{{ .Page.Store.Set "zg-mathieu-loaded" true }}
+<script defer src="{{ "js/mathieu-core.js" | relURL }}"></script>
+{{- if not (.Page.Store.Get "zg-figure-style-loaded") -}}{{ .Page.Store.Set "zg-figure-style-loaded" true }}
+<link rel="stylesheet" href="{{ "css/figure-style.css" | relURL }}">
+<script defer src="{{ "js/figure-style.js" | relURL }}"></script>
+{{- end -}}
+<script defer src="{{ "js/rfq-mathieu.js" | relURL }}"></script>
+{{- end -}}

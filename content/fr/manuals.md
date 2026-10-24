@@ -10,6 +10,18 @@ Anglais: {{< manual-download "manuals/MASS_FILTER_EQUATIONS_EN.html" "HTML" >}} 
 
 Chinois: {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.html" "HTML" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.md" "MD" >}}
 
+## Stabilité de Mathieu
+
+Anglais: {{< manual-download "manuals/MATHIEU_STABILITY_EN.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.md" "MD" >}}
+
+Chinois: {{< manual-download "manuals/MATHIEU_STABILITY_ZH.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.md" "MD" >}}
+
+## Comparaison des fréquences cyclotron
+
+Anglais: {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.md" "MD" >}}
+
+Chinois: {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.md" "MD" >}}
+
 ## Exemples de diagrammes de King
 
 Les cinq jeux de données sont des exemples synthétiques d’apprentissage, pas des mesures.

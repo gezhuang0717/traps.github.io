@@ -10,6 +10,18 @@ title: "手引きと例"
 
 中国語: {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.html" "HTML" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.md" "MD" >}}
 
+## Mathieu 安定性
+
+英語: {{< manual-download "manuals/MATHIEU_STABILITY_EN.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.md" "MD" >}}
+
+中国語: {{< manual-download "manuals/MATHIEU_STABILITY_ZH.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.md" "MD" >}}
+
+## サイクロトロン周波数の比較
+
+英語: {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.md" "MD" >}}
+
+中国語: {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.md" "MD" >}}
+
 ## King プロットの例
 
 5組すべてが学習用の合成データで、実測値ではありません。

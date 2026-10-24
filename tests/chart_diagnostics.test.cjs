@@ -1,6 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const P=require('../static/js/physics.js'),CP=require('../static/js/chain-plot.js'),MM=require('../static/js/measured-masses.js');
+const FS=require('../static/js/figure-style.js');
 const source=fs.readFileSync('static/js/nuclide-chart.js','utf8');
 function slice(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
 function chartFixture({filter='all',sigmaEst=false,quantity='dme'}={}){
@@ -41,12 +42,14 @@ test('ordinary mass plots retain the quantity itself as the dependency and exact
 });
 test('actual chain CSV uses mass provenance for the sigma diagnostic and residual terms for residual rows',()=>{
  const f=chartFixture(),p=f.makePoint([50,66,'Sn'],'loaded'),saved=[];
+ const style=FS.normalize({filename:'diagnostic',markerDiameter:10});
  const residual=P.combine([1,f.input],[-1,f.ame]);
  const residualPoint={...p,valueObj:residual,dependencyValue:residual,panel:'residual',unit:'keV',y:10,e:residual.e};
  const button={},context={root:{querySelector:()=>button},plotDomain:{x0:60,x1:70,y0:0,y1:2},residualDomain:null,
   plotPts:[p],modPts:[],residualPts:[residualPoint],pq:{value:'dme'},PQ:f.PQ,pchain:{value:'Z'},
   MOD:{},MM,inputTable:f.context.inputTable,measured:{hash:()=>''},seriesMeta:()=>({shape:'diamond'}),
-  pointColor:()=> 'magenta',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)}};
+  pointColor:()=> 'magenta',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},
+  FS,chainStyle:()=>style,chainFigureStyle:{valid:()=>true}};
  const a=source.indexOf('  root.querySelector("[data-nc=pcsv]").onclick'),b=source.indexOf('\n\n  /* ---------- events',a);
  vm.runInNewContext(source.slice(a,b),context);button.onclick();
  const [head,rows]=saved[0],i=head.indexOf('input_provenance');
@@ -54,6 +57,8 @@ test('actual chain CSV uses mass provenance for the sigma diagnostic and residua
  assert.equal(JSON.parse(rows[0][i])[0].id,'loaded:50-66-0:test');
  assert.deepEqual(JSON.parse(rows[1][i]).map(x=>x.id).sort(),['AME2020:50066','loaded:50-66-0:test']);
  assert.equal(rows[0][head.indexOf('uncertainty')],'');
+ assert.deepEqual(JSON.parse(rows[0][head.indexOf('figure_style_json')]),style);
+ assert.equal(saved[0][2],'diagnostic-chain-dme');
 });
 test('chart parity filters and their legend share translated labels',()=>{
  const labels={fl_ee:'偶 Z · 偶 N',fl_eo:'偶 Z · 奇 N',fl_oe:'奇 Z · 偶 N',fl_oo:'奇 Z · 奇 N'};

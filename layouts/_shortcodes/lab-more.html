@@ -7,6 +7,7 @@
 */ -}}
 {{- $lang := site.Language.Lang -}}
 {{- $k := cond (hasPrefix $lang "zh") "zh" $lang -}}
+{{ partial "zg/rfq-mathieu.html" . }}
 {{- $L := dict
  "en" (dict "t3d" "3D Penning trap" "n3d" "Drag to rotate, scroll to zoom. Ring electrode and two end caps are hyperboloids of revolution; the ion combines axial oscillation (ν_z), slow magnetron (ν₋) and fast reduced-cyclotron (ν₊) motion." "auto" "Auto-rotate" "rp" "Cyclotron radius" "rm" "Magnetron radius" "az" "Axial amplitude" "pulse" "π pulse (ν₋ → ν₊)" "reset" "Reset view" "ratio" "ν₊ / ν₋" "speed" "Speed" "trail" "Trail length" "ions" "Ions" "spread" "Mass spread" "cool" "Buffer-gas cooling" "dipole" "Dipole kick (ν₋)" "electrodes" "Electrodes" "field" "Field lines" "detector" "Detector projection" "top" "Top" "side" "Side" "iso" "3D" "n3d2" "The π pulse is resonant only at the reference mass — with a mass spread, other ions convert only partly, which is how PI-ICR and TOF-ICR separate isobars."
    "tchart" "Chart of nuclides" "nchart" "Hover a square for its half-life and decay mode; click to pin it. Lines mark the magic numbers and N = Z. Data: ICRP-107 decay data and natural abundances (a selection of about 1 260 nuclides)." "bymode" "Colour by decay mode" "byhl" "Colour by half-life" "stable" "stable" "hl" "half-life"

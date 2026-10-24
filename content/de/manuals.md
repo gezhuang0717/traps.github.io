@@ -10,6 +10,18 @@ Englisch: {{< manual-download "manuals/MASS_FILTER_EQUATIONS_EN.html" "HTML" >}}
 
 Chinesisch: {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.html" "HTML" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MASS_FILTER_EQUATIONS_ZH.md" "MD" >}}
 
+## Mathieu-Stabilität
+
+Englisch: {{< manual-download "manuals/MATHIEU_STABILITY_EN.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_EN.md" "MD" >}}
+
+Chinesisch: {{< manual-download "manuals/MATHIEU_STABILITY_ZH.html" "HTML" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.tex" "TEX" >}} · {{< manual-download "manuals/MATHIEU_STABILITY_ZH.md" "MD" >}}
+
+## Vergleich der Zyklotronfrequenzen
+
+Englisch: {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_EN.md" "MD" >}}
+
+Chinesisch: {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.html" "HTML" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.pdf" "PDF" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.docx" "DOCX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.tex" "TEX" >}} · {{< manual-download "manuals/CYCLOTRON_COMPARE_ZH.md" "MD" >}}
+
 ## King-Diagramm Beispiele
 
 Alle fünf Datensätze sind synthetische Übungsbeispiele, keine Messungen.

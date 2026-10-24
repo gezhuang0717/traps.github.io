@@ -141,6 +141,18 @@ def math_tokens(text):
 
 
 def portable(text, lang, source_hash):
+    repository_url = r"https?://(?:www\.)?github\.com/gezhuang0717(?:/[^\s)]*)?"
+    # Portable module labels below retain implementation identity; a personal
+    # repository profile is not a public scientific-data citation.
+    text = re.sub(r"\s*·\s*\[[^\]]+\]\(" + repository_url + r"\)", "", text, flags=re.I)
+    text = re.sub(r"\[([^\]]+)\]\(" + repository_url + r"\)", lambda m: m[1], text, flags=re.I)
+    def repository_label(match):
+        parts = match[0].split("github.com/", 1)[-1].split("/")
+        for kind in ("blob", "tree"):
+            if kind in parts:
+                return "/".join(parts[parts.index(kind)+2:]) or "website modules"
+        return "website modules"
+    text = re.sub(repository_url, repository_label, text, flags=re.I)
     text = re.sub(r"\[([^\]]+)\]\((?:file://|/(?:Volumes|Users)/)[^)]*\)", lambda m: m[1], text)
     def path_label(match):
         path = match[0]
@@ -157,7 +169,7 @@ def portable(text, lang, source_hash):
     end = text.find("\n---", 4) if text.startswith("---\n") else -1
     pos = text.find("\n", end + 1) + 1 if end >= 0 else 0
     text = text[:pos] + note + text[pos:]
-    if re.search(r"/Volumes|/Users|file://", text):
+    if re.search(r"/Volumes|/Users|file://|github\.com/gezhuang0717", text, re.I):
         raise ValueError("Private path remains")
     return text
 
@@ -197,6 +209,7 @@ def pages():
       "ja": ("手引きと例", "質量フィルターの方程式", "英語版と中国語版で方程式、単位、不確かさ、出典、ウェブ操作を説明します。関連アプリはローカルで実行します。", "King プロットの例"),
       "fr": ("Manuels et exemples", "Équations des filtres de masse", "Les éditions anglaise et chinoise décrivent équations, unités, incertitudes, sources et utilisation du site. L’application associée fonctionne localement.", "Exemples de diagrammes de King")}
     edition_names = {"en": ("English", "Chinese"), "zh": ("英文", "中文"), "fi": ("Englanti", "Kiina"), "de": ("Englisch", "Chinesisch"), "ja": ("英語", "中国語"), "fr": ("Anglais", "Chinois")}
+    module_titles = {"en": ("Mathieu stability", "Cyclotron frequency comparison"), "zh": ("Mathieu 稳定性", "回旋频率比较"), "fi": ("Mathieu-vakaus", "Syklotronitaajuuksien vertailu"), "de": ("Mathieu-Stabilität", "Vergleich der Zyklotronfrequenzen"), "ja": ("Mathieu 安定性", "サイクロトロン周波数の比較"), "fr": ("Stabilité de Mathieu", "Comparaison des fréquences cyclotron")}
     example_notes = {
       "en": "All five datasets are synthetic training examples, not measurements.",
       "zh": "以下五组数据均为合成练习示例，不是实验测量。",
@@ -213,6 +226,16 @@ def pages():
                 if (OUT / file).is_file():
                     links.append('{{< manual-download "manuals/' + file + '" "' + ext.upper() + '" >}}')
             text += name + ': ' + ' · '.join(links) + '\n\n'
+        for kind, module_title in zip(("MATHIEU_STABILITY", "CYCLOTRON_COMPARE"), module_titles[lang]):
+            rows = []
+            for code, name in zip(("EN", "ZH"), edition_names[lang]):
+                links = []
+                for ext in ("html", "pdf", "docx", "tex", "md"):
+                    filename = kind + "_" + code + "." + ext
+                    if (OUT / filename).is_file():
+                        links.append('{{< manual-download "manuals/' + filename + '" "' + ext.upper() + '" >}}')
+                if links: rows.append(name + ': ' + ' · '.join(links))
+            if rows: text += '## ' + module_title + '\n\n' + '\n\n'.join(rows) + '\n\n'
         text += '## ' + king + '\n\n' + example_notes[lang] + '\n\n'
         for case in ["correlated", "heteroscedastic", "exact-x", "ols", "curved"]:
             text += case + ': ' + ' · '.join('{{< manual-download "data/research-examples/king/' + case + '.' + ext + '" "' + ext.upper() + '" >}}' for ext in ['csv', 'txt', 'json']) + '\n\n'
@@ -227,6 +250,7 @@ def main():
     parser.add_argument("--data-dir", type=Path)
     parser.add_argument("--reference-doc", type=Path)
     parser.add_argument("--pages-only", action="store_true")
+    parser.add_argument("--formats-only", action="store_true", help="Preserve separately maintained manual landing pages")
     args = parser.parse_args()
     if args.pages_only:
         pages(); return
@@ -271,10 +295,11 @@ def main():
                     payload = b'\n'.join(archive.read(n) for n in archive.namelist() if n.endswith('.xml') or n.endswith('.rels'))
                     assert payload.count(b'<m:oMath>') == 190
             else: payload = path.read_bytes()
-            assert not re.search(rb'/Volumes|/Users|file://', payload)
+            assert not re.search(rb'/Volumes|/Users|file://|github\.com/gezhuang0717', payload, re.I)
             manifest['files'].append({'name':path.name,'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'source_sha256':sha})
     (OUT / 'MANIFEST.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
-    pages()
+    if not args.formats_only:
+        pages()
 
 
 if __name__ == "__main__": main()
