@@ -51,7 +51,12 @@
     if(d.suggested_RF){const chips=U.make('div','zg-chips');d.suggested_RF.forEach(x=>{const row=U.make('span','zg-chip-row'),use=U.make('button','',T.use_btn);use.type='button';use.dataset.msUse=String(Number(x.V_rod_peak_V.toPrecision(7)));row.append(U.make('b','','q = '+x.q),U.make('span','',`${fmt(x.V_rod_peak_V)} V · ${x.f_MHz_at_current_V===null?'—':fmt(x.f_MHz_at_current_V)} MHz`),use);chips.append(row);});nodes.push(U.group(T.grp_suggest,'ok',[],[U.make('p','zg-muted',T.rf_suggest),chips]));}
     const cand=U.make('div','zg-chips');log.candidates.forEach(c=>{const row=U.make('span','zg-chip-row'),st=c.classification?c.classification.status:null,tone=c.classification?(st==='stable'?'ok':st==='unstable'?'bad':'warn'):(c.eta_target_met?'ok':'warn');row.append(U.make('b','',fmt(c.V_V)+' V'),U.badge(c.classification?T[st]:c.eta_target_met?T.target_met:T.target_above,tone),U.make('span','',`η=${fmt(c.eta)} · ${fmt(c.pseudopotential_eV)} eV`));cand.append(row);});
     nodes.push(U.group(T.candidates,'info',[],[cand]));
-    const pre=document.createElement('pre');pre.textContent=d.rod_coordinates.map(q=>`${q.index}: (${fmt(q.x_mm)}, ${fmt(q.y_mm)}) · ${q.phase>0?'+':'−'}V`).join('\n');nodes.push(U.fold(T.coordinates,pre));
+    {const clean=v=>Math.abs(v)<1e-9*Math.max(1,d.center_radius_mm)?0:v,tb=U.make('tbody'),th=U.make('tr'),body=U.make('div');
+     for(const h of [T.coord_rod,'x (mm)','y (mm)',T.coord_angle,T.coord_phase])th.append(U.make('th','',h));
+     for(const q of d.rod_coordinates){const x=clean(q.x_mm),y=clean(q.y_mm),angle=((Math.atan2(y,x)*180/Math.PI)%360+360)%360,row=U.make('tr'),cells=[U.make('b','',String(q.index)),fmt(x),fmt(y),fmt(angle)+'°',U.badge(q.phase>0?'+V':'−V',q.phase>0?'info':'bad')];
+      for(const c of cells){const td=U.make('td');if(c&&c.nodeType)td.append(c);else td.textContent=c;row.append(td);}tb.append(row);}
+     const table=U.make('table','zg-table'),head=U.make('thead');head.append(th);table.append(head,tb);const wrap=U.make('div','wb-table-wrap');wrap.append(table);
+     body.append(U.make('p','zg-muted zg-small',`${T.coord_note} R_c = ${fmt(d.center_radius_mm)} mm, ρ = ${fmt(d.rod_radius_mm)} mm.`),wrap);nodes.push(U.fold(T.coordinates,body));}
     box.replaceChildren(...nodes);
    }else{
     add(`${T.geometry_out}: ${fmt(d.rod_radius_mm)} / ${fmt(d.rod_diameter_mm)} · ${fmt(d.rod_ratio)} · ${fmt(d.ratio_deviation_percent)}`);add(`${T.envelope_out}: ${fmt(d.outer_radius_mm)} / ${fmt(d.aperture_diameter_mm)}`);add(`${T.gaps}: ${fmt(d.adjacent_center_mm)} / ${fmt(d.surface_gap_mm)} / ${fmt(d.opposite_center_mm)}`);

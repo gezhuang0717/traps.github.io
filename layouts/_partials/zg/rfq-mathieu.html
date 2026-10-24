@@ -11,7 +11,7 @@
 <label>{{ $t.amin }} <input name="ms-amin" type="number" min="-60" max="59" step="0.01" value="-1"></label>
 <label>{{ $t.amax }} <input name="ms-amax" type="number" min="-59" max="60" step="0.01" value="1"></label>
 </div>
-<fieldset><legend>{{ $t.point }}</legend>
+<fieldset data-figure-note="mathieu-inputs"><legend>{{ $t.point }}</legend>
 <div class="zg-form">
 <label>{{ $t.species }} <input name="ms-species" type="text" value="133Cs+" maxlength="100"></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
 <label>{{ $t.mass }} (u) <input name="ms-mass" type="number" min="0.000001" step="any" value="100"></label>
@@ -23,7 +23,7 @@
 <label data-ms-direct hidden>a <input name="ms-a" type="number" step="any" value="0"></label>
 <label data-ms-direct hidden>q <input name="ms-q" type="number" min="-12" max="12" step="any" value="0.4"></label>
 </div><p class="zg-muted" data-ms-source>{{ $t.manual }}</p></fieldset>
-<fieldset data-ms-design><legend>{{ $t.design_title }}</legend><p>{{ $t.design_note }}</p><div class="zg-form">
+<fieldset data-ms-design><legend>{{ $t.design_title }}</legend><p>{{ $t.design_note }}</p><div class="zg-form" data-figure-note="rfq-design-inputs">
 <label>{{ $t.rod_count }} <select name="ms-rod-count">{{ range seq 4 2 24 }}<option value="{{ . }}">{{ . }}</option>{{ end }}</select></label>
 <label>{{ $t.rod_rule }} <select name="ms-rod-rule"><option value="optimal">{{ $t.rule_optimal }}</option><option value="curvature">{{ $t.rule_curvature }}</option><option value="filter">{{ $t.rule_filter }}</option><option value="ratio">{{ $t.rule_ratio }}</option><option value="radius">{{ $t.rule_radius }}</option></select></label>
 <label>{{ $t.rod_ratio }} <input name="ms-rod-ratio" type="number" min="0.001" step="any" value="1.145108"></label>

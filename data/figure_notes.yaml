@@ -310,6 +310,48 @@ en:
       - 'Mean, x, y and z temperature (mK, logarithmic) from the centred velocity variances; the dashed line is the Doppler scale ħΓ/(2k_B). Curves are not forced to fall: release of potential energy and micromotion can heat.'
     - - Phase space
       - x − mean(x) against vₓ − mean(vₓ) (µm, m/s).
+  rfq-design-inputs:
+    title: What the design inputs mean
+    summary: These fields set the rod geometry and the RF drive that the readout below evaluates. Values are in the units of the labels (mm, V, MHz).
+    items:
+    - - Rod count
+      - Number of round rods N, even, 4–24. Four rods are a quadrupole (mass filter, cooler, buncher). More rods give a flatter pseudopotential well and have no Mathieu stability diagram.
+    - - Rod-radius rule
+      - 'How the rod radius ρ is chosen. Optimal: the first unwanted field harmonic A₃ₙ vanishes. Curvature: ρ = r₀/(n−1), the rod follows the curvature of the ideal field line at its apex. Mass filter 1.128: the usual compromise for four-rod filters. Own ratio / own radius: your value (there is no default radius).'
+    - - Ratio r/r₀, radius
+      - Rod radius divided by the field radius r₀, and the same radius in mm. They are editable only for the own-ratio and own-radius rules; with the other rules they are computed from r₀.
+    - - Rod-diameter tolerance
+      - Optional machining tolerance of the rod diameter (mm). It only adds the corresponding ± change of r/r₀ to the readout.
+    - - Evaluation radius r/r₀
+      - 'Distance from the axis, in units of r₀, at which the RF field, the pseudopotential, η and the unwanted harmonic are evaluated: 0.5 is half way to the rod surface, 1 is at the aperture edge.'
+    - - η target
+      - Design limit for the adiabaticity parameter η (0.3 is usual; η = q for four rods). The readout says whether η at the evaluation radius is below it and gives the lowest frequency and the highest RF voltage that still meet it.
+    - - Candidate RF peaks
+      - RF peak voltages V in volts (one rod to ground), separated by commas. Each is listed with its η, its pseudopotential and, for four rods, its Mathieu classification.
+  mathieu-inputs:
+    title: What the explorer inputs mean
+    summary: The map shows where bounded motion exists in the plane of the dimensionless parameters a (DC) and q (RF). The point is the operating point of the ion typed below.
+    items:
+    - - Geometry
+      - 'Linear RFQ: radial motion of a four-rod quadrupole, plane (a, q) and its mirror image (−a, −q). 3D Paul trap: axial coordinates of a ring-and-endcap trap.'
+    - - Selected point
+      - 'From RFQ voltages: a and q are computed from U, V, r₀, f and the ion. Direct a, q: type the dimensionless values yourself.'
+    - - Number of bands
+      - How many stability bands (n = 0, 1, … up to 6) are shaded; higher bands lie at larger q.
+    - - q and a limits
+      - Plot limits of the map. The zoom buttons, the mouse wheel and dragging change them.
+    - - Ion mass, charge z
+      - Mass in u of the ion and its charge number z. “Fill ion mass” takes the mass from the catalogue (AME2020 + NUBASE2020) for the species typed in the field above.
+    - - Rod DC U
+      - 'Signed DC voltage of the rod pair (V): a = 8zeU/(m r₀² Ω²). U = 0 is RF-only operation, a = 0.'
+    - - Rod RF peak V
+      - 'Zero-to-peak RF voltage of one rod relative to ground (adjacent rods carry ±V): q = 4zeV/(m r₀² Ω²). The peak difference between adjacent rods is 2V.'
+    - - Inscribed radius r₀
+      - 'Field radius: distance from the axis to the rod surface.'
+    - - RF frequency f
+      - Drive frequency in MHz; Ω = 2πf.
+    - - Independent RFQ sections
+      - Cooler, mass filter and buncher can each have their own U, V, r₀ and f; their operating lines a = (2U/V)·q and points are drawn on the same map.
 zh:
   mathieu:
     title: 如何阅读 Mathieu 稳定性图
@@ -621,6 +663,48 @@ zh:
       - 由去质心速度方差得到的平均、x、y、z 温度（mK，对数轴）；虚线为多普勒尺度 ħΓ/(2k_B)。曲线不强制下降：势能释放和微运动会造成加热。
     - - 相空间
       - x − mean(x) 对 vₓ − mean(vₓ)（µm、m/s）。
+  rfq-design-inputs:
+    title: 设计输入项的含义
+    summary: 这些输入决定下方读数所评估的杆几何与射频驱动。数值单位见标签（mm、V、MHz）。
+    items:
+    - - 电极杆数
+      - 圆杆数 N，偶数，4–24。四根杆是四极场（质量过滤器、冷却器、聚束器）；杆数更多时赝势阱更平，且没有 Mathieu 稳定图。
+    - - 杆半径规则
+      - 杆半径 ρ 的选取方式。最优：第一个不需要的场谐波 A₃ₙ 为零。曲率：ρ = r₀/(n−1)，杆顶与理想场线的曲率一致。质量过滤器 1.128：四杆过滤器常用的折中值。自定比值/自定半径：使用你输入的数值（没有默认半径）。
+    - - 比值 r/r₀、半径
+      - 杆半径除以场半径 r₀，以及同一半径的毫米值。只有“自定比值”和“自定半径”规则下可以编辑；其他规则由 r₀ 计算得出。
+    - - 杆直径公差
+      - 杆直径的可选加工公差（mm）。它只在读数中加上对应的 r/r₀ 的 ± 变化。
+    - - 计算半径 r/r₀
+      - 射频场、赝势、η 和不需要的谐波所计算的位置，离轴线的距离以 r₀ 为单位：0.5 是到杆表面的一半，1 是孔径边缘。
+    - - η 目标
+      - 绝热参数 η 的设计上限（常用 0.3；四根杆时 η = q）。读数会说明计算半径处的 η 是否低于它，并给出仍满足它的最低频率和最高射频电压。
+    - - 候选射频峰值
+      - 射频峰值电压 V（单位 V，一根杆对地），用逗号分隔。每个值都会列出其 η、赝势，四根杆时还有 Mathieu 分类。
+  mathieu-inputs:
+    title: 探索器输入项的含义
+    summary: 图中显示在无量纲参数 a（直流）与 q（射频）平面内哪里存在有界运动。图中的点是下面所填离子的工作点。
+    items:
+    - - 几何
+      - 线性 RFQ：四杆四极场的径向运动，平面 (a, q) 及其镜像 (−a, −q)。三维保罗阱：环电极加端盖阱的轴向坐标。
+    - - 选定点
+      - 由 RFQ 电压计算：由 U、V、r₀、f 和离子算出 a 与 q。直接输入 a、q：自己填写无量纲数值。
+    - - 稳定带数量
+      - 着色的稳定带个数（n = 0, 1, …，最多 6）；更高的带位于更大的 q。
+    - - q 与 a 的范围
+      - 图的坐标范围。缩放按钮、鼠标滚轮和拖动都会改变它们。
+    - - 离子质量、电荷数 z
+      - 离子质量（u）和电荷数 z。“填入离子质量”会按上面输入的离子从目录（AME2020 + NUBASE2020）取质量。
+    - - 杆直流电压 U
+      - 杆对的带符号直流电压（V）：a = 8zeU/(m r₀² Ω²)。U = 0 为仅射频运行，a = 0。
+    - - 杆射频峰值 V
+      - 一根杆相对地的零到峰射频电压（相邻杆为 ±V）：q = 4zeV/(m r₀² Ω²)。相邻杆之间的峰值电压差为 2V。
+    - - 内切半径 r₀
+      - 场半径：轴线到杆表面的距离。
+    - - 射频频率 f
+      - 驱动频率，单位 MHz；Ω = 2πf。
+    - - 独立 RFQ 节
+      - 冷却器、质量过滤器和聚束器各自可以有自己的 U、V、r₀ 和 f；它们的工作线 a = (2U/V)·q 和工作点画在同一张图上。
 fi:
   mathieu:
     title: Mathieu-stabiilisuuskuvan lukeminen
@@ -932,6 +1016,48 @@ fi:
       - 'Keski-, x-, y- ja z-lämpötila (mK, logaritminen) keskitetyistä nopeusvariansseista; katkoviiva on Doppler-mittakaava ħΓ/(2k_B). Käyriä ei pakoteta laskemaan: potentiaalienergian vapautuminen ja mikroliike voivat lämmittää.'
     - - Vaihetila
       - x − keskiarvo(x) vastaan vₓ − keskiarvo(vₓ) (µm, m/s).
+  rfq-design-inputs:
+    title: Mitä suunnittelun syötteet tarkoittavat
+    summary: Nämä kentät asettavat sauvojen geometrian ja RF-herätteen, jota alla oleva lukema arvioi. Arvot ovat otsikoiden yksiköissä (mm, V, MHz).
+    items:
+    - - Sauvoja
+      - Pyöreiden sauvojen lukumäärä N, parillinen, 4–24. Neljä sauvaa on kvadrupoli (massasuodatin, jäähdytin, paketoija). Useampi sauva antaa tasaisemman pseudopotentiaalikuopan eikä Mathieun stabiilisuuskaaviota.
+    - - Sauvan säteen sääntö
+      - 'Miten sauvan säde ρ valitaan. Optimi: ensimmäinen ei-toivottu kenttäharmoninen A₃ₙ häviää. Kaarevuus: ρ = r₀/(n−1), sauva seuraa ihanteellisen kenttäviivan kaarevuutta kärjessään. Massasuodatin 1,128: neljän sauvan suodattimien tavallinen kompromissi. Oma suhde / oma säde: oma arvosi (oletussädettä ei ole).'
+    - - Suhde r/r₀, säde
+      - Sauvan säde jaettuna kenttäsäteellä r₀ ja sama säde millimetreinä. Muokattavissa vain omalla suhteella tai omalla säteellä; muilla säännöillä ne lasketaan r₀:sta.
+    - - Sauvan halkaisijan toleranssi
+      - Valinnainen sauvan halkaisijan valmistustoleranssi (mm). Se lisää lukemaan vain vastaavan ± muutoksen suhteeseen r/r₀.
+    - - Arviointisäde r/r₀
+      - 'Etäisyys akselilta r₀:n yksiköissä, jossa RF-kenttä, pseudopotentiaali, η ja ei-toivottu harmoninen arvioidaan: 0,5 on puolivälissä sauvan pintaan, 1 aukon reunalla.'
+    - - η-tavoite
+      - Adiabaattisuusparametrin η suunnitteluraja (tavallisesti 0,3; neljällä sauvalla η = q). Lukema kertoo, onko η arviointisäteellä sen alapuolella, ja antaa pienimmän taajuuden ja suurimman RF-jännitteen, jotka vielä täyttävät sen.
+    - - RF-huippuehdokkaat
+      - RF-huippujännitteet V voltteina (yksi sauva maahan), pilkuilla erotettuina. Jokaiselle luetellaan η, pseudopotentiaali ja neljällä sauvalla Mathieu-luokitus.
+  mathieu-inputs:
+    title: Mitä tutkijan syötteet tarkoittavat
+    summary: Kartta näyttää, missä rajoitettu liike on olemassa dimensiottomien parametrien a (DC) ja q (RF) tasossa. Piste on alle kirjoitetun ionin toimintapiste.
+    items:
+    - - Geometria
+      - 'Lineaarinen RFQ: nelisauvaisen kvadrupolin radiaaliliike, taso (a, q) ja sen peilikuva (−a, −q). 3D Paul-loukku: rengas- ja päätyelektrodiloukun aksiaaliset koordinaatit.'
+    - - Valittu piste
+      - 'RFQ-jännitteistä: a ja q lasketaan arvoista U, V, r₀, f ja ioni. Suorat a- ja q-arvot: kirjoita dimensiottomat arvot itse.'
+    - - Vyöhykkeiden määrä
+      - Kuinka monta stabiilisuusvyöhykettä (n = 0, 1, … enintään 6) väritetään; korkeammat vyöhykkeet ovat suuremmalla q:lla.
+    - - q:n ja a:n rajat
+      - Kartan rajat. Zoomipainikkeet, hiiren rulla ja vetäminen muuttavat niitä.
+    - - Ionin massa, varausluku z
+      - Ionin massa u-yksikössä ja varausluku z. “Täytä ionimassa” hakee massan luettelosta (AME2020 + NUBASE2020) yllä kirjoitetulle lajille.
+    - - Sauvan DC-jännite U
+      - 'Sauvaparin etumerkillinen DC-jännite (V): a = 8zeU/(m r₀² Ω²). U = 0 on pelkkää RF-käyttöä, a = 0.'
+    - - Sauvan RF-huippu V
+      - 'Yhden sauvan nollasta huippuun RF-jännite maahan nähden (viereisillä sauvoilla ±V): q = 4zeV/(m r₀² Ω²). Viereisten sauvojen huippuero on 2V.'
+    - - Sisäsäde r₀
+      - 'Kenttäsäde: etäisyys akselilta sauvan pintaan.'
+    - - RF-taajuus f
+      - Herätetaajuus MHz:nä; Ω = 2πf.
+    - - Riippumattomat RFQ-osat
+      - Jäähdyttimellä, massasuodattimella ja paketoijalla voi kullakin olla omat U, V, r₀ ja f; niiden toimintasuorat a = (2U/V)·q ja pisteet piirretään samaan karttaan.
 de:
   mathieu:
     title: So liest man das Mathieu-Stabilitätsdiagramm
@@ -1243,6 +1369,48 @@ de:
       - 'Mittlere, x-, y- und z-Temperatur (mK, logarithmisch) aus den zentrierten Geschwindigkeitsvarianzen; die gestrichelte Linie ist die Doppler-Skala ħΓ/(2k_B). Die Kurven werden nicht zum Fallen gezwungen: Freisetzung potenzieller Energie und Mikrobewegung können heizen.'
     - - Phasenraum
       - x − Mittelwert(x) gegen vₓ − Mittelwert(vₓ) (µm, m/s).
+  rfq-design-inputs:
+    title: Was die Auslegungseingaben bedeuten
+    summary: Diese Felder legen die Stabgeometrie und den HF-Antrieb fest, die die Anzeige darunter auswertet. Werte stehen in den Einheiten der Beschriftungen (mm, V, MHz).
+    items:
+    - - Stabzahl
+      - Zahl der Rundstäbe N, gerade, 4–24. Vier Stäbe sind ein Quadrupol (Massenfilter, Cooler, Buncher). Mehr Stäbe geben eine flachere Pseudopotenzialmulde und kein Mathieu-Stabilitätsdiagramm.
+    - - Regel für den Stabradius
+      - 'Wie der Stabradius ρ gewählt wird. Optimal: die erste unerwünschte Feldharmonische A₃ₙ verschwindet. Krümmung: ρ = r₀/(n−1), der Stab folgt am Scheitel der Krümmung der idealen Feldlinie. Massenfilter 1,128: der übliche Kompromiss für Vierstabfilter. Eigenes Verhältnis / eigener Radius: Ihr Wert (es gibt keinen Standardradius).'
+    - - Verhältnis r/r₀, Radius
+      - Stabradius geteilt durch den Feldradius r₀ und derselbe Radius in mm. Nur bei eigenem Verhältnis oder eigenem Radius editierbar; sonst werden sie aus r₀ berechnet.
+    - - Toleranz des Stabdurchmessers
+      - Optionale Fertigungstoleranz des Stabdurchmessers (mm). Sie fügt der Anzeige nur die entsprechende ±-Änderung von r/r₀ hinzu.
+    - - Auswerteradius r/r₀
+      - 'Abstand von der Achse in Einheiten von r₀, bei dem HF-Feld, Pseudopotenzial, η und die unerwünschte Harmonische ausgewertet werden: 0,5 ist halbe Strecke zur Staboberfläche, 1 der Rand der Apertur.'
+    - - η-Ziel
+      - Auslegungsgrenze für den Adiabasieparameter η (üblich 0,3; bei vier Stäben η = q). Die Anzeige sagt, ob η am Auswerteradius darunter liegt, und nennt die niedrigste Frequenz und höchste HF-Spannung, die es noch erfüllen.
+    - - Kandidaten für die HF-Spitze
+      - HF-Spitzenspannungen V in Volt (ein Stab gegen Masse), durch Kommas getrennt. Jede wird mit η, Pseudopotenzial und bei vier Stäben mit ihrer Mathieu-Klassifikation aufgeführt.
+  mathieu-inputs:
+    title: Was die Eingaben des Explorers bedeuten
+    summary: Die Karte zeigt, wo beschränkte Bewegung in der Ebene der dimensionslosen Parameter a (Gleichspannung) und q (HF) existiert. Der Punkt ist der Arbeitspunkt des unten eingetragenen Ions.
+    items:
+    - - Geometrie
+      - 'Linearer RFQ: Radialbewegung eines Vierstab-Quadrupols, Ebene (a, q) und ihr Spiegelbild (−a, −q). 3D-Paul-Falle: axiale Koordinaten einer Ring-Endkappen-Falle.'
+    - - Ausgewählter Punkt
+      - 'Aus RFQ-Spannungen: a und q werden aus U, V, r₀, f und dem Ion berechnet. a und q direkt: dimensionslose Werte selbst eintragen.'
+    - - Anzahl der Bänder
+      - Wie viele Stabilitätsbänder (n = 0, 1, … bis 6) schattiert werden; höhere Bänder liegen bei größerem q.
+    - - Grenzen von q und a
+      - Plotgrenzen der Karte. Zoomtasten, Mausrad und Ziehen ändern sie.
+    - - Ionenmasse, Ladungszahl z
+      - Masse des Ions in u und seine Ladungszahl z. „Ionenmasse eintragen“ holt die Masse aus dem Katalog (AME2020 + NUBASE2020) für die oben eingetragene Spezies.
+    - - Stab-Gleichspannung U
+      - 'Vorzeichenbehaftete Gleichspannung des Stabpaars (V): a = 8zeU/(m r₀² Ω²). U = 0 ist reiner HF-Betrieb, a = 0.'
+    - - Stab-HF-Spitze V
+      - 'Null-Spitze-HF-Spannung eines Stabs gegen Masse (Nachbarstäbe tragen ±V): q = 4zeV/(m r₀² Ω²). Die Spitzendifferenz zwischen Nachbarstäben ist 2V.'
+    - - Innenradius r₀
+      - 'Feldradius: Abstand von der Achse zur Staboberfläche.'
+    - - RF-Frequenz f
+      - Antriebsfrequenz in MHz; Ω = 2πf.
+    - - Unabhängige RFQ-Abschnitte
+      - Cooler, Massenfilter und Buncher können je eigene U, V, r₀ und f haben; ihre Betriebsgeraden a = (2U/V)·q und Punkte werden in dieselbe Karte gezeichnet.
 ja:
   mathieu:
     title: マシュー安定性図の見方
@@ -1554,6 +1722,48 @@ ja:
       - 重心を引いた速度分散から求めた平均・x・y・z の温度（mK、対数軸）。破線はドップラーの目安 ħΓ/(2k_B)。曲線は下がるとは限りません。位置エネルギーの解放やマイクロモーションで加熱することがあります。
     - - 位相空間
       - x − 平均(x) と vₓ − 平均(vₓ)（µm、m/s）。
+  rfq-design-inputs:
+    title: 設計の入力項目の意味
+    summary: これらの項目は、下の表示が評価するロッドの形状と高周波の駆動条件を決めます。値は各ラベルの単位（mm、V、MHz）です。
+    items:
+    - - ロッド数
+      - 円形ロッドの本数 N（偶数、4–24）。4 本は四重極（質量フィルター、クーラー、バンチャー）。本数が多いほど擬ポテンシャルの井戸は平らになり、Mathieu の安定図はありません。
+    - - ロッド半径の規則
+      - ロッド半径 ρ の決め方。最適：最初の不要な場の高調波 A₃ₙ が 0 になる。曲率：ρ = r₀/(n−1)、先端で理想的な場の線の曲率に合わせる。質量フィルター 1.128：4 本フィルターで一般的な妥協値。自分の比／半径：入力した値を使います（既定の半径はありません）。
+    - - 比 r/r₀、半径
+      - ロッド半径を場の半径 r₀ で割った値と、同じ半径の mm 値。「自分の比」「自分の半径」の規則でのみ編集でき、他の規則では r₀ から計算されます。
+    - - ロッド直径の公差
+      - ロッド直径の任意の加工公差（mm）。表示に、対応する r/r₀ の ± の変化を加えるだけです。
+    - - 評価半径 r/r₀
+      - 高周波の場、擬ポテンシャル、η、不要な高調波を評価する軸からの距離（r₀ 単位）。0.5 はロッド表面までの半分、1 は開口の縁です。
+    - - η の目標値
+      - 断熱パラメータ η の設計上限（通常 0.3、4 本では η = q）。評価半径での η がそれ以下かどうかを示し、それを満たす最低周波数と最大の高周波電圧を表示します。
+    - - 候補 RF ピーク
+      - RF ピーク電圧 V（V、ロッド 1 本の対地）をカンマ区切りで入力。各値について η、擬ポテンシャル、4 本の場合は Mathieu 分類を表示します。
+  mathieu-inputs:
+    title: エクスプローラーの入力項目の意味
+    summary: マップは、無次元パラメータ a（直流）と q（高周波）の平面で有界な運動が存在する場所を示します。点は下で指定したイオンの動作点です。
+    items:
+    - - 形状
+      - 線形 RFQ：4 本ロッド四重極の動径方向の運動。平面 (a, q) とその鏡像 (−a, −q)。3次元パウルトラップ：リングとエンドキャップのトラップの軸方向座標。
+    - - 選択点
+      - RFQ 電圧から計算：U、V、r₀、f とイオンから a と q を求めます。a、q を直接入力：無次元の値を自分で入力します。
+    - - 安定帯の数
+      - 塗り分ける安定帯の数（n = 0, 1, …、最大 6）。高い帯ほど大きな q にあります。
+    - - q と a の範囲
+      - マップの表示範囲。ズームボタン、マウスホイール、ドラッグで変わります。
+    - - イオン質量、電荷数 z
+      - イオンの質量（u）と電荷数 z。「イオン質量を入力」は、上の欄のイオン種の質量をカタログ（AME2020 + NUBASE2020）から取得します。
+    - - ロッドの直流電圧 U
+      - ロッド対の符号付き直流電圧（V）：a = 8zeU/(m r₀² Ω²)。U = 0 は高周波のみの運転で a = 0。
+    - - ロッドの RF ピーク V
+      - ロッド 1 本の対地ゼロ・ピーク高周波電圧（隣り合うロッドは ±V）：q = 4zeV/(m r₀² Ω²)。隣り合うロッド間のピーク差は 2V です。
+    - - 内接半径 r₀
+      - 場の半径：軸からロッド表面までの距離。
+    - - RF 周波数 f
+      - 駆動周波数（MHz）。Ω = 2πf。
+    - - 独立した RFQ 区間
+      - クーラー、質量フィルター、バンチャーはそれぞれ独自の U、V、r₀、f を持てます。動作直線 a = (2U/V)·q と点は同じマップに描かれます。
 fr:
   mathieu:
     title: Lire le diagramme de stabilité de Mathieu
@@ -1865,3 +2075,45 @@ fr:
       - 'Température moyenne, x, y et z (mK, logarithmique) d’après les variances centrées des vitesses ; la ligne pointillée est l’échelle Doppler ħΓ/(2k_B). Les courbes ne sont pas forcées de décroître : la libération d’énergie potentielle et la micro-oscillation peuvent chauffer.'
     - - Espace des phases
       - x − moyenne(x) en fonction de vₓ − moyenne(vₓ) (µm, m/s).
+  rfq-design-inputs:
+    title: Signification des entrées de conception
+    summary: Ces champs fixent la géométrie des barreaux et l’excitation RF que l’affichage ci-dessous évalue. Les valeurs sont dans les unités des libellés (mm, V, MHz).
+    items:
+    - - Nombre de barres
+      - Nombre de barreaux ronds N, pair, 4–24. Quatre barreaux forment un quadrupôle (filtre de masse, refroidisseur, groupeur). Plus de barreaux donnent un puits de pseudo-potentiel plus plat et pas de diagramme de stabilité de Mathieu.
+    - - Règle du rayon des barreaux
+      - 'Comment le rayon ρ est choisi. Optimal : la première harmonique de champ indésirable A₃ₙ s’annule. Courbure : ρ = r₀/(n−1), le barreau épouse au sommet la courbure de la ligne de champ idéale. Filtre de masse 1,128 : compromis usuel des filtres à quatre barreaux. Rapport / rayon propre : votre valeur (pas de rayon par défaut).'
+    - - Rapport r/r₀, rayon
+      - Rayon du barreau divisé par le rayon de champ r₀, et le même rayon en mm. Modifiables seulement avec les règles de rapport ou de rayon propres ; sinon calculés à partir de r₀.
+    - - Tolérance du diamètre des barreaux
+      - Tolérance d’usinage facultative du diamètre (mm). Elle ajoute seulement la variation ± correspondante de r/r₀ à l’affichage.
+    - - Rayon évalué r/r₀
+      - 'Distance à l’axe, en unités de r₀, où le champ RF, le pseudo-potentiel, η et l’harmonique indésirable sont évalués : 0,5 est à mi-chemin de la surface du barreau, 1 au bord de l’ouverture.'
+    - - Cible de η
+      - Limite de conception du paramètre d’adiabaticité η (0,3 usuel ; η = q pour quatre barreaux). L’affichage indique si η au rayon évalué est en dessous et donne la fréquence minimale et la tension RF maximale qui la respectent encore.
+    - - Crêtes RF candidates
+      - Tensions RF crête V en volts (un barreau par rapport à la masse), séparées par des virgules. Chacune est listée avec son η, son pseudo-potentiel et, pour quatre barreaux, sa classification de Mathieu.
+  mathieu-inputs:
+    title: Signification des entrées de l’explorateur
+    summary: La carte montre où un mouvement borné existe dans le plan des paramètres sans dimension a (continu) et q (RF). Le point est le point de fonctionnement de l’ion saisi ci-dessous.
+    items:
+    - - Géométrie
+      - 'RFQ linéaire : mouvement radial d’un quadrupôle à quatre barreaux, plan (a, q) et son image miroir (−a, −q). Piège de Paul 3D : coordonnées axiales d’un piège anneau et chapeaux.'
+    - - Point choisi
+      - 'À partir des tensions RFQ : a et q sont calculés d’après U, V, r₀, f et l’ion. a et q directs : saisissez vous-même les valeurs sans dimension.'
+    - - Nombre de bandes
+      - Combien de bandes de stabilité (n = 0, 1, … jusqu’à 6) sont colorées ; les bandes supérieures se trouvent à q plus grand.
+    - - Limites de q et de a
+      - Limites du tracé. Les boutons de zoom, la molette et le glissement les modifient.
+    - - Masse ionique, nombre de charges z
+      - Masse de l’ion en u et son nombre de charges z. « Renseigner la masse ionique » prend la masse dans le catalogue (AME2020 + NUBASE2020) pour l’espèce saisie ci-dessus.
+    - - Tension continue U des tiges
+      - 'Tension continue signée de la paire de tiges (V) : a = 8zeU/(m r₀² Ω²). U = 0 correspond au fonctionnement RF seul, a = 0.'
+    - - Crête RF V des tiges
+      - 'Tension RF de zéro à la crête d’une tige par rapport à la masse (les tiges voisines portent ±V) : q = 4zeV/(m r₀² Ω²). L’écart crête entre tiges voisines est 2V.'
+    - - Rayon inscrit r₀
+      - 'Rayon de champ : distance de l’axe à la surface du barreau.'
+    - - Fréquence RF f
+      - Fréquence d’excitation en MHz ; Ω = 2πf.
+    - - Sections RFQ indépendantes
+      - Refroidisseur, filtre de masse et groupeur peuvent avoir leurs propres U, V, r₀ et f ; leurs droites de fonctionnement a = (2U/V)·q et leurs points sont tracés sur la même carte.

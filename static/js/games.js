@@ -395,10 +395,32 @@
     let inversePreview=null;
     function designFor(sp){const[a,q]=aq(sp),bx=ZGTrapDesign.beta(a,q),by=ZGTrapDesign.beta(-a,q);return{label:sp.label,a,q,beta_x:bx,beta_y:by,nu_x_Hz:bx*V('f')*1e6/2,nu_y_Hz:by*V('f')*1e6/2,nominal_rf_only_depth_eV:sp.z*q*V('V')/4,dt_s:.05/(Math.PI*V('f')*1e6),rf_cycles:V('cycles'),residence_s:V('cycles')/(V('f')*1e6),convention:'RFQ rod peak; differential peak = 2V'};}
     function report() {
-      const td=designFor(species[target]),text=box.querySelector('[data-rfq-design]'),value=v=>Number.isFinite(v)?v.toPrecision(8):'—';text.textContent=td.label+' · βx='+value(td.beta_x)+' · βy='+value(td.beta_y)+' · νx='+value(td.nu_x_Hz/1000)+' kHz · νy='+value(td.nu_y_Hz/1000)+' kHz · nominal RF-only depth='+value(td.nominal_rf_only_depth_eV)+' eV · RF dt='+value(td.dt_s*1e9)+' ns · RF cycles='+td.rf_cycles+' · residence='+value(td.residence_s*1e6)+' µs';
+      const td=designFor(species[target]),text=box.querySelector('[data-rfq-design]'),value=v=>Number.isFinite(v)?v.toPrecision(8):'—';text.textContent=F(td.label)+' · βx='+value(td.beta_x)+' · βy='+value(td.beta_y)+' · νx='+value(td.nu_x_Hz/1000)+' kHz · νy='+value(td.nu_y_Hz/1000)+' kHz · nominal RF-only depth='+value(td.nominal_rf_only_depth_eV)+' eV · RF dt='+value(td.dt_s*1e9)+' ns · RF cycles='+td.rf_cycles+' · residence='+value(td.residence_s*1e6)+' µs';window.ZGUI?.pills(text);
       box.querySelector("[data-rfq-residence]").textContent = (V("cycles") / V("f")).toFixed(2) + " µs";
       const c=currentCutoffs(),fmt=x=>Number.isFinite(x)?x.toPrecision(8):'∞',out=box.querySelector('[data-rfq-cutoff-values]');
-      if(c.status==='window'||c.status==='rf-only')out.innerHTML=`<dt>${RT.line}</dt><dd>a = ${fmt(c.slope)} q = (2|U|/V) q</dd><dt>${RT.low}</dt><dd>${fmt(c.lowMassU)} u/e · (q, a) = (${fmt(c.qHigh)}, ${fmt(c.aHigh)})</dd><dt>${RT.high}</dt><dd>${Number.isFinite(c.highMassU)?`${fmt(c.highMassU)} u/e · (q, a) = (${fmt(c.qLow)}, ${fmt(c.aLow)})`:RT.rfonly}</dd><dt>${RT.range}</dt><dd>${fmt(c.lowMassU)} &lt; m/z &lt; ${fmt(c.highMassU)} u/e</dd>`;
+      const Z=window.ZGUI;
+      if(Z){
+        const num=x=>Number.isFinite(x)?+x.toPrecision(7):'∞',tg=species[target],mz=tg.m/tg.z,td=designFor(tg),st=c.status,nodes=[];
+        const lo=c.lowMassU,hi=c.highMassU,finite=Number.isFinite(lo)&&Number.isFinite(hi),inside=(st==='window'||st==='rf-only')&&mz>lo&&mz<hi;
+        const stateTone=st==='window'?'ok':st==='rf-only'?'info':'bad',stateText=st==='window'?RT.state_window:st==='rf-only'?RT.state_rfonly:st==='rf-off'?RT.state_off:RT.state_none;
+        nodes.push(Z.group(RT.line,stateTone,[{k:RT.status,v:stateText,tone:stateTone,hint:st==='rf-off'?RT.off:st==='no-window'||st==='invalid'?RT.none:st==='rf-only'?RT.rfonly:RT.range},...(c.slope!=null?[{k:RT.slope,v:num(c.slope),note:RT.slope_note},{k:RT.u_over_v,v:V('V')>0?num(V('U')/V('V')):'—',note:RT.u_over_v_note}]:[])]));
+        if(st==='window'||st==='rf-only'){
+          const mid=finite?(lo+hi)/2:NaN,width=finite?hi-lo:NaN;
+          nodes.push(Z.group(RT.grp_window,inside?'ok':'warn',[
+            {k:'LMCO',v:num(lo),u:'u/e',note:`${RT.low.replace(/^LMCO · /,'')} · (q, a) = (${num(c.qHigh)}, ${num(c.aHigh)})`},
+            {k:'HMCO',v:num(hi),u:'u/e',note:Number.isFinite(hi)?`${RT.high.replace(/^HMCO · /,'')} · (q, a) = (${num(c.qLow)}, ${num(c.aLow)})`:RT.rfonly},
+            {k:RT.width,v:finite?num(width):'—',u:finite?'u/e':'',note:RT.width_note},
+            {k:RT.resolving,v:finite?Math.round(mid/width).toLocaleString():'—',note:RT.resolving_note},
+            {k:RT.target_mz,v:num(mz),u:'u/e',tone:inside?'ok':'bad',note:inside?RT.inside:RT.outside}],[Z.make('p','zg-muted zg-small',RT.range)]));
+        }else nodes.push(Z.make('p','zg-notice',st==='rf-off'?RT.off:RT.none));
+        const stable=mathieuStable(td.a,td.q),startFraction=V('emit')/100,depth=td.nominal_rf_only_depth_eV;
+        nodes.push(Z.group(`${RT.grp_target}: ${F(tg.label)}`,stable?'ok':'bad',[
+          {k:'q',v:num(td.q)},{k:'a',v:num(td.a)},{k:'βx',v:Number.isFinite(td.beta_x)?+td.beta_x.toPrecision(6):'—',tone:stable?'ok':'bad',note:stable?RT.is_stable:RT.is_unstable},{k:'βy',v:Number.isFinite(td.beta_y)?+td.beta_y.toPrecision(6):'—',tone:stable?'ok':'bad'},
+          {k:RT.secular+' νx',v:Number.isFinite(td.nu_x_Hz)?+(td.nu_x_Hz/1000).toPrecision(6):'—',u:'kHz',note:RT.secular_note},{k:RT.secular+' νy',v:Number.isFinite(td.nu_y_Hz)?+(td.nu_y_Hz/1000).toPrecision(6):'—',u:'kHz'},
+          {k:RT.pseudo_depth,v:num(depth),u:'eV',note:RT.pseudo_depth_note},{k:RT.pseudo_start,v:num(depth*startFraction*startFraction),u:'eV',note:RT.pseudo_start_note},
+          {k:RT.rf_period,v:+(1000/V('f')).toPrecision(6),u:'ns'},{k:RT.residence,v:+td.residence_s*1e6>0?+(td.residence_s*1e6).toPrecision(6):'—',u:'µs',note:`${td.rf_cycles} ${RT.residence_note}`}]));
+        out.replaceChildren(...nodes);
+      }else if(c.status==='window'||c.status==='rf-only')out.innerHTML=`<dt>${RT.line}</dt><dd>a = ${fmt(c.slope)} q = (2|U|/V) q</dd><dt>${RT.low}</dt><dd>${fmt(c.lowMassU)} u/e · (q, a) = (${fmt(c.qHigh)}, ${fmt(c.aHigh)})</dd><dt>${RT.high}</dt><dd>${Number.isFinite(c.highMassU)?`${fmt(c.highMassU)} u/e · (q, a) = (${fmt(c.qLow)}, ${fmt(c.aLow)})`:RT.rfonly}</dd><dt>${RT.range}</dt><dd>${fmt(c.lowMassU)} &lt; m/z &lt; ${fmt(c.highMassU)} u/e</dd>`;
       else out.innerHTML=`<dd>${c.status==='rf-off'?RT.off:RT.none}</dd>`;
       box.querySelector(".rfq-out").innerHTML = species.map((sp, i) => { const n = sp.t + sp.l, [a, q] = aq(sp);
         return `<span style="color:${sp.c}">${F(sp.label)} (m = ${sp.m.toFixed(sp.m % 1 ? 4 : 0)} u${sp.z > 1 ? ", z = " + sp.z : ""}): q = ${q.toFixed(4)}, a = ${a.toFixed(4)} → ${mathieuStable(a, q) ? "✔" : "✘"} ${n ? (100 * sp.t / n).toFixed(0) + " %" : "–"}</span>`; }).join("");

@@ -80,7 +80,7 @@
     "design_json": "Design log JSON",
     "design_svg": "Geometry SVG",
     "design_note": "Four rods: DC+RF Mathieu test. Six or more: ideal RF estimates only. r₀ is the distance from the axis to the rod surface; the rod radius follows a published rule. Rod voltage alternates ±V; differential peak is 2V.",
-    "coordinates": "Rod coordinates (mm)",
+    "coordinates": "Rod centre coordinates (mm)",
     "old_design": "Existing settings omitted the newer rod-design fields; design defaults restored.",
     "zero_rf": "Zero RF: η=0 satisfies this target, but RF confinement energy is zero.",
     "rod_overlap": "Rods overlap or touch. Positive surface clearance requires",
@@ -150,7 +150,11 @@
     "n_adjacent": "Centre-to-centre distance of neighbouring rods (opposite voltages).",
     "n_gap": "Surface-to-surface gap between neighbouring rods; check it against the breakdown limit.",
     "n_opposite": "Centre-to-centre distance of opposite rods.",
-    "n_tol": "Ratio change caused by the rod-diameter tolerance: tolerance / (2 r₀)."
+    "n_tol": "Ratio change caused by the rod-diameter tolerance: tolerance / (2 r₀).",
+    "coord_note": "Centres of the rod cross-sections. Origin: beam axis; x to the right, y up; rod numbers as in the drawing. +V / −V: polarity of the rod voltage when rod 1 is positive; neighbouring rods are opposite. Every centre lies at R_c = r₀ + ρ from the axis.",
+    "coord_rod": "Rod",
+    "coord_angle": "Angle",
+    "coord_phase": "Polarity"
   },
   "zh": {
     "title": "Mathieu 稳定性探索",
@@ -233,7 +237,7 @@
     "design_json": "设计日志JSON",
     "design_svg": "几何图SVG",
     "design_note": "4 杆：DC+RF 马蒂厄检验；6 杆及以上：仅理想 RF 估计。r₀ 为轴线到杆表面的距离，杆半径按文献规则确定。相邻杆电压交替 ±V，差分峰值为 2V。",
-    "coordinates": "杆中心坐标（mm）",
+    "coordinates": "杆中心坐标 (mm)",
     "old_design": "旧设置未含新增杆设计字段；已恢复设计默认值。",
     "zero_rf": "射频为零：η=0虽达到目标，射频约束势能也为零。",
     "rod_overlap": "电极杆重叠或相切。正表面间隙要求",
@@ -303,7 +307,11 @@
     "n_adjacent": "相邻杆（电压相反）的中心距。",
     "n_gap": "相邻杆表面之间的间隙；请对照击穿极限检查。",
     "n_opposite": "相对杆的中心距。",
-    "n_tol": "杆直径公差引起的比值变化：公差 / (2 r₀)。"
+    "n_tol": "杆直径公差引起的比值变化：公差 / (2 r₀)。",
+    "coord_note": "杆截面圆心的坐标。原点为束流轴线，x 向右，y 向上，杆编号与图中一致。+V / −V：杆 1 为正时各杆的电压极性，相邻杆相反。所有圆心到轴线的距离均为 R_c = r₀ + ρ。",
+    "coord_rod": "杆",
+    "coord_angle": "角度",
+    "coord_phase": "极性"
   },
   "fi": {
     "title": "Mathieu-vakauden tutkiminen",
@@ -386,7 +394,7 @@
     "design_json": "Suunnitteluloki JSON",
     "design_svg": "Geometria SVG",
     "design_note": "Neljä sauvaa: DC+RF-Mathieu-testi. Kuusi tai enemmän: vain ideaaliset RF-arviot. r₀ on etäisyys akselilta sauvan pintaan; sauvan säde noudattaa julkaistua sääntöä. Sauvojen jännite vaihtelee ±V; erotuksen huippu on 2V.",
-    "coordinates": "Sauvojen keskukset (mm)",
+    "coordinates": "Sauvojen keskipisteiden koordinaatit (mm)",
     "old_design": "Vanhoista asetuksista puuttuivat sauvageometrian kentät; käytössä oletukset.",
     "zero_rf": "RF on nolla: η=0 täyttää tavoitteen, mutta RF-sidontaenergia on nolla.",
     "rod_overlap": "Sauvat koskettavat tai menevät päällekkäin. Positiivinen pintaväli vaatii",
@@ -456,7 +464,11 @@
     "n_adjacent": "Vierekkäisten sauvojen (vastakkaiset jännitteet) keskipisteiden etäisyys.",
     "n_gap": "Vierekkäisten sauvojen pintojen väli; tarkista läpilyöntirajaa vasten.",
     "n_opposite": "Vastakkaisten sauvojen keskipisteiden etäisyys.",
-    "n_tol": "Sauvan halkaisijan toleranssin aiheuttama suhteen muutos: toleranssi / (2 r₀)."
+    "n_tol": "Sauvan halkaisijan toleranssin aiheuttama suhteen muutos: toleranssi / (2 r₀).",
+    "coord_note": "Sauvojen poikkileikkausten keskipisteet. Origo on keilan akseli; x oikealle, y ylös; sauvojen numerot kuten piirroksessa. +V / −V: sauvan jännitteen napaisuus, kun sauva 1 on positiivinen; vierekkäiset sauvat ovat vastakkaisia. Jokainen keskipiste on etäisyydellä R_c = r₀ + ρ akselista.",
+    "coord_rod": "Sauva",
+    "coord_angle": "Kulma",
+    "coord_phase": "Napaisuus"
   },
   "de": {
     "title": "Mathieu-Stabilität erkunden",
@@ -539,7 +551,7 @@
     "design_json": "Auslegungsprotokoll JSON",
     "design_svg": "Geometrie SVG",
     "design_note": "Vier Stäbe: DC+RF-Mathieu-Test. Sechs oder mehr: nur ideale RF-Abschätzungen. r₀ ist der Abstand von der Achse zur Stabfläche; der Stabradius folgt einer veröffentlichten Regel. Die Stabspannung wechselt ±V; die Differenzspitze ist 2V.",
-    "coordinates": "Stabmitten (mm)",
+    "coordinates": "Koordinaten der Stabmittelpunkte (mm)",
     "old_design": "In älteren Einstellungen fehlen neue Geometriefelder; Standardwerte eingesetzt.",
     "zero_rf": "Ohne HF erfüllt η=0 das Ziel; die HF-Einschlussenergie ist jedoch null.",
     "rod_overlap": "Stäbe überlappen oder berühren sich. Ein positiver Spalt erfordert",
@@ -609,7 +621,11 @@
     "n_adjacent": "Mittelpunktsabstand benachbarter Stäbe (entgegengesetzte Spannung).",
     "n_gap": "Oberflächenabstand benachbarter Stäbe; gegen die Durchschlagsgrenze prüfen.",
     "n_opposite": "Mittelpunktsabstand gegenüberliegender Stäbe.",
-    "n_tol": "Verhältnisänderung durch die Durchmessertoleranz: Toleranz / (2 r₀)."
+    "n_tol": "Verhältnisänderung durch die Durchmessertoleranz: Toleranz / (2 r₀).",
+    "coord_note": "Mittelpunkte der Stabquerschnitte. Ursprung: Strahlachse; x nach rechts, y nach oben; Stabnummern wie in der Zeichnung. +V / −V: Polarität der Stabspannung, wenn Stab 1 positiv ist; benachbarte Stäbe sind entgegengesetzt. Jeder Mittelpunkt liegt im Abstand R_c = r₀ + ρ von der Achse.",
+    "coord_rod": "Stab",
+    "coord_angle": "Winkel",
+    "coord_phase": "Polarität"
   },
   "ja": {
     "title": "Mathieu 安定性エクスプローラー",
@@ -692,7 +708,7 @@
     "design_json": "設計ログJSON",
     "design_svg": "形状SVG",
     "design_note": "4 本：DC+RF のマシュー検査。6 本以上：理想 RF の見積りのみ。r₀ は軸からロッド表面までの距離で、ロッド半径は文献の規則に従います。ロッド電圧は ±V で交互、差の波高は 2V です。",
-    "coordinates": "ロッド中心座標（mm）",
+    "coordinates": "ロッド中心の座標 (mm)",
     "old_design": "旧設定に新しい形状項目がないため、設計の既定値を使用しました。",
     "zero_rf": "RFがゼロの場合、η=0は目標内でもRF閉じ込めエネルギーはゼロです。",
     "rod_overlap": "ロッドが重なるか接触しています。正の表面間隔には次の条件が必要です：",
@@ -762,7 +778,11 @@
     "n_adjacent": "隣り合うロッド（逆電圧）の中心間距離。",
     "n_gap": "隣り合うロッド表面の間隔。放電限界と照らして確認してください。",
     "n_opposite": "向かい合うロッドの中心間距離。",
-    "n_tol": "ロッド直径の公差による比の変化：公差 / (2 r₀)。"
+    "n_tol": "ロッド直径の公差による比の変化：公差 / (2 r₀)。",
+    "coord_note": "ロッド断面の中心座標。原点はビーム軸、x は右、y は上、ロッド番号は図と同じです。+V / −V：ロッド 1 が正のときの各ロッドの電圧の極性で、隣り合うロッドは逆です。どの中心も軸から R_c = r₀ + ρ の距離にあります。",
+    "coord_rod": "ロッド",
+    "coord_angle": "角度",
+    "coord_phase": "極性"
   },
   "fr": {
     "title": "Explorer la stabilité de Mathieu",
@@ -845,7 +865,7 @@
     "design_json": "Journal de calcul JSON",
     "design_svg": "Géométrie SVG",
     "design_note": "Quatre barreaux : test de Mathieu DC+RF. Six ou plus : estimations RF idéales seulement. r₀ est la distance de l’axe à la surface du barreau ; le rayon suit une règle publiée. La tension des barreaux alterne ±V ; la crête différentielle vaut 2V.",
-    "coordinates": "Coordonnées des barres (mm)",
+    "coordinates": "Coordonnées des centres des barreaux (mm)",
     "old_design": "Les anciens réglages omettent les nouveaux champs géométriques ; valeurs par défaut rétablies.",
     "zero_rf": "Sans RF, η=0 respecte la cible mais l’énergie de confinement RF est nulle.",
     "rod_overlap": "Les barres se chevauchent ou se touchent. Un intervalle positif exige",
@@ -915,6 +935,10 @@
     "n_adjacent": "Distance entre centres de barreaux voisins (tensions opposées).",
     "n_gap": "Intervalle entre surfaces de barreaux voisins ; à comparer à la limite de claquage.",
     "n_opposite": "Distance entre centres de barreaux opposés.",
-    "n_tol": "Variation du rapport due à la tolérance du diamètre : tolérance / (2 r₀)."
+    "n_tol": "Variation du rapport due à la tolérance du diamètre : tolérance / (2 r₀).",
+    "coord_note": "Centres des sections des barreaux. Origine : axe du faisceau ; x vers la droite, y vers le haut ; numéros comme sur le dessin. +V / −V : polarité de la tension du barreau quand le barreau 1 est positif ; les barreaux voisins sont opposés. Chaque centre est à R_c = r₀ + ρ de l’axe.",
+    "coord_rod": "Barreau",
+    "coord_angle": "Angle",
+    "coord_phase": "Polarité"
   }
 }

@@ -9,8 +9,9 @@ test('isotope labels in the usual spellings', () => {
 test('published AME2020 values, not marginal combinations: 48Ca and the 155Eu beta-minus Q value with its published uncertainty', () => {
   const ca = ref.info('Ca', 48);
   assert.equal(ca.massExcessKeV.v, -44224.868); assert.equal(ca.massExcessKeV.s, 0.018);
-  assert.ok(Math.abs(ca.atomicMassU.v - (48 - 44224.868 / R.U_KEV)) < 1e-12);               // 47.952252…
-  assert.ok(Math.abs(ca.atomicMassU.v - 47.952522654) < 1e-9);   // AME2020 atomic mass of 48Ca in u
+  assert.ok(Math.abs(ca.atomicMassU.v - 47.952522654) < 1e-14);                              // the published atomic mass 47 952522.654 micro-u, as tabulated
+  assert.ok(Math.abs(ca.atomicMassU.v - (48 - 44224.868 / R.U_KEV)) < 1e-9);                 // consistent with A + ME/u within the published precision
+  assert.equal(R.valueText(ca.atomicMassU, 12), '47.952522654 ± 0.000000018');               // value and uncertainty with the table's digits
   assert.equal(ca.bindingPerNucleonKeV.v, 8666.6916); assert.ok(Math.abs(ca.bindingKeV.v - 416001.1968) < 1e-6);
   const eu = ref.info('Eu', 155); assert.equal(eu.qbm.v, 251.9612); assert.equal(eu.qbm.s, 0.8682);
 });
@@ -115,7 +116,7 @@ test('every label has all six languages, long texts are real translations, and n
 test('rows lists mass, binding energy, separation energies and Q values with published uncertainties and the # flag', () => {
   const t = R.translator('en'), r = R.rows(ref.info('Ca', 48), t), by = Object.fromEntries(r);
   assert.equal(r.length, 12); assert.equal(by['Mass excess / keV'], '-44224.868 ± 0.018'); assert.equal(by['Binding energy per nucleon / keV'], '8666.6916 ± 0.0004');
-  assert.equal(by['Q(β⁻) / keV'], '279.2155 ± 4.9');
+  assert.equal(by['Q(β⁻) / keV'], '279.2155 ± 4.9499');    // the uncertainty is printed as published, not rounded to two digits
   assert.match(R.rows(ref.info('He', 3), t).find(x => x[0] === 'Q(β⁻) / keV')[1], / #$/);          // extrapolated value is marked
   assert.equal(R.rows(ref.info('He', 3), t).find(x => x[0] === 'S(n) / keV')[1], '—');             // not published
 });

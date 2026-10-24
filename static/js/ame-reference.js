@@ -19,7 +19,7 @@
   function fromJson(json) {
     const c = Object.fromEntries(json.columns.map((n, i) => [n, i])), byKey = new Map(), bySymbol = new Map();
     for (const r of json.rows) { byKey.set(r[0] + ',' + r[1], r); if (!bySymbol.has(r[2]) || r[2] === 'n' || r[0] > 0) bySymbol.set(r[2], r[0]); }
-    const q = (row, name) => !row || row[c[name]] == null ? null : { v: row[c[name]], s: row[c[name + '_s']], est: row[c[name + '_x']] === 1 };
+    const q = (row, name) => !row || row[c[name]] == null ? null : { v: row[c[name]], s: row[c[name + '_s']], est: row[c[name + '_x']] === 1, d: c[name + '_d'] === undefined ? null : row[c[name + '_d']] };
     const rowOf = (Z, A) => byKey.get(Z + ',' + (A - Z)) || null;
     function lookup(symbol, A) {
       const Z = bySymbol.get(norm(symbol)); if (Z === undefined) return null;
@@ -33,12 +33,14 @@
       return {
         label: A + rec.symbol, symbol: rec.symbol, Z, N: rec.N, A,
         massExcessKeV: me,
-        atomicMassU: me && { v: A + me.v / U_KEV, s: me.s == null ? null : me.s / U_KEV, est: me.est },
+        /* the published atomic mass (micro-u, with its own rounded uncertainty) when the table has it; otherwise A + ME/u */
+        atomicMassU: row[c.amu] != null ? { v: row[c.amu] / 1e6, s: row[c.amu_s] == null ? null : row[c.amu_s] / 1e6, est: row[c.amu_x] === 1, d: row[c.amu_d] + 6 }
+          : me && { v: A + me.v / U_KEV, s: me.s == null ? null : me.s / U_KEV, est: me.est, d: null },
         bindingPerNucleonKeV: bea,
-        bindingKeV: bea && { v: A * bea.v, s: bea.s == null ? null : A * bea.s, est: bea.est },   // A x published B/A, as in the reactions file
+        bindingKeV: bea && { v: A * bea.v, s: bea.s == null ? null : A * bea.s, est: bea.est, d: bea.d },   // A x published B/A, as in the reactions file
         sn: q(row, 'sn'), s2n: q(row, 's2n'), sp: q(row, 'sp'), s2p: q(row, 's2p'),
         qbm: q(row, 'qbm'), qa: q(row, 'qa'), q2bm: q(row, 'q2bm'),
-        qec: qbmBelow && { v: -qbmBelow.v, s: qbmBelow.s, est: qbmBelow.est },                  // Q(EC) of (Z, A) = -Q(beta-) of (Z-1, A), published
+        qec: qbmBelow && { v: qbmBelow.v === 0 ? 0 : -qbmBelow.v, s: qbmBelow.s, est: qbmBelow.est, d: qbmBelow.d },                  // Q(EC) of (Z, A) = -Q(beta-) of (Z-1, A), published
       };
     }
     return { lookup, info, count: json.rows.length, meta: json.meta };
@@ -131,7 +133,13 @@
 
   /* Value ± published uncertainty as text; '#' marks an extrapolated AME2020 value. */
   const sig = (v, n) => String(Number(Number(v).toPrecision(n)));
-  const valueText = (x, n) => !x || x.v == null ? '—' : sig(x.v, n) + (x.s != null ? ' ± ' + sig(x.s, 2) : '') + (x.est ? ' #' : '');
+  /* Exactly as the AME2020 table prints it: value and uncertainty with the same number of decimals (x.d). Without x.d (user-typed or derived numbers)
+     the value keeps n significant digits and the uncertainty two. */
+  const valueText = (x, n) => {
+    if (!x || x.v == null) return '—';
+    const fixed = v => (Object.is(Number(v), -0) ? '-' : '') + Number(v).toFixed(x.d), text = x.d != null ? fixed(x.v) + (x.s != null ? ' ± ' + fixed(x.s) : '') : sig(x.v, n) + (x.s != null ? ' ± ' + sig(x.s, 2) : '');
+    return text + (x.est ? ' #' : '');
+  };
   /* Table rows [quantity, "value ± uncertainty"] for one isotope info(); t(key) translates the quantity names. */
   const rows = (i, t) => [
     [t('ame_atomic_mass'), valueText(i.atomicMassU, 12)], [t('ame_me'), valueText(i.massExcessKeV, 10)], [t('ame_be'), valueText(i.bindingKeV, 10)],

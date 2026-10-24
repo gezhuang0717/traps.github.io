@@ -90,3 +90,12 @@ test('actual chain canvas uses selected title/tick/legend fonts and relative dis
  const context={chainStyle:()=>style,lineWidth:()=>1,pg:canvas,pc:{width:900,height:500,_cw:900,_ch:500},plotPts:points,modPts:[],plotDomain:{x0:48,x1:52,y0:7,y1:9},plotGeom:(d,w,h,s)=>CP.geometry(d,w,h,false,s),plotHover:null,ink:'#222',niceTicks:(a,b)=>[a,b],fmtTick:String,pchain:{value:'Z'},pq:{value:'bea'},PQ:{bea:['BE/A',null,'MeV/nucleon']},MAGIC:[],chainColor:()=> '#123',chainInput:()=>({checked:false}),drawBands(){},visibleSeries:[{id:'ame',key:'ame',shape:'circle'}],inSeries:(p,s)=>p.styleKey===s.key,pointColor:()=> '#123',CP,chain:null,getComputedStyle:()=>({getPropertyValue:()=> '#fff'}),document:{documentElement:{}},titleLines:()=>['title'],titleHeight:()=>30,legendRow:()=>24,seriesLegendLines:()=>[{text:'AME',first:false}],inputLegendLines:()=>[]};
  vm.runInNewContext(chain.slice(start,end)+';drawPlot();',context);assert.ok(arcs.includes(7.2));assert.ok(texts.some(([text,font])=>text==='title'&&font==='22px system-ui'));assert.ok(texts.some(([text,font])=>text==='AME'&&font==='17px system-ui'));assert.ok(texts.some(([,font])=>font==='18px system-ui'));
 });
+
+test('every language explains every setting of the style widget (tooltips and fold-away list)', () => {
+  for (const lang of ['en', 'zh', 'fi', 'de', 'ja', 'fr']) {
+    const h = F.helpTexts[lang];
+    assert.ok(h && h.summary.trim() && h.items.length === Object.keys(F.defaults).length + 1, lang);
+    assert.ok(h.items.every(x => x.trim().length > 6), lang);
+    if (lang !== 'en') assert.ok(h.items.every((x, i) => x !== F.helpTexts.en.items[i]), lang);
+  }
+});

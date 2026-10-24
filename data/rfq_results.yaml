@@ -13,6 +13,36 @@ en:
   csv: Inputs and results · CSV
   json: Inputs and results · JSON
   badseed: Invalid RFQ seed.
+  slope: "Slope a/q"
+  slope_note: "a = (2U/V)·q; a steeper line gives a narrower mass window."
+  u_over_v: "U / V"
+  u_over_v_note: "DC voltage divided by RF peak voltage of a rod."
+  state_window: "Window open"
+  state_rfonly: "RF only (U = 0)"
+  state_none: "No window"
+  state_off: "RF off"
+  grp_window: "Ideal transmitted m/z window"
+  width: "Window width"
+  width_note: "HMCO − LMCO, in u/e."
+  resolving: "Ideal m/Δm"
+  resolving_note: "Centre of the window divided by its width."
+  target_mz: "Target m/z"
+  inside: "inside the window"
+  outside: "outside the window"
+  grp_target: "Target ion"
+  is_stable: "stable (both planes)"
+  is_unstable: "unstable"
+  secular: "Secular frequency"
+  secular_note: "ν = β·f/2 from the Mathieu equation (β solved numerically)."
+  pseudo_depth: "Pseudopotential depth at r₀"
+  pseudo_depth_note: "z·q·V/4: transverse energy that the RF-only well can hold at the rods."
+  pseudo_start: "Pseudopotential at the start radius"
+  pseudo_start_note: "Depth × (start radius / r₀)²; the start radius is the emittance setting in % of r₀."
+  rf_period: "RF period"
+  residence: "Residence time"
+  residence_note: "RF cycles ÷ frequency: how long each ion is followed."
+  status: "Window"
+
 zh:
   results: 工作线与质量截止
   line: 工作线
@@ -26,6 +56,36 @@ zh:
   csv: 输入与结果 · CSV
   json: 输入与结果 · JSON
   badseed: RFQ 随机种子无效。
+  slope: "斜率 a/q"
+  slope_note: "a = (2U/V)·q；直线越陡，质量窗口越窄。"
+  u_over_v: "U / V"
+  u_over_v_note: "直流电压除以杆的射频峰值电压。"
+  state_window: "窗口开启"
+  state_rfonly: "仅射频（U = 0）"
+  state_none: "无窗口"
+  state_off: "射频关闭"
+  grp_window: "理想透过的 m/z 窗口"
+  width: "窗口宽度"
+  width_note: "HMCO − LMCO，单位 u/e。"
+  resolving: "理想 m/Δm"
+  resolving_note: "窗口中心除以窗口宽度。"
+  target_mz: "目标 m/z"
+  inside: "在窗口内"
+  outside: "在窗口外"
+  grp_target: "目标离子"
+  is_stable: "稳定（两个平面）"
+  is_unstable: "不稳定"
+  secular: "久期频率"
+  secular_note: "ν = β·f/2，β 由 Mathieu 方程数值求得。"
+  pseudo_depth: "r₀ 处的赝势深度"
+  pseudo_depth_note: "z·q·V/4：仅射频势阱在杆处能容纳的横向能量。"
+  pseudo_start: "起始半径处的赝势"
+  pseudo_start_note: "深度 × (起始半径 / r₀)²；起始半径是以 r₀ 的百分比设置的发射度。"
+  rf_period: "射频周期"
+  residence: "停留时间"
+  residence_note: "射频周期数 ÷ 频率：每个离子被跟踪的时间。"
+  status: "窗口"
+
 fi:
   results: Toimintasuora ja massarajat
   line: Toimintasuora
@@ -42,6 +102,36 @@ fi:
   csv: Syötteet ja tulokset · CSV
   json: Syötteet ja tulokset · JSON
   badseed: Virheellinen RFQ-siemen.
+  slope: "Kulmakerroin a/q"
+  slope_note: "a = (2U/V)·q; jyrkempi suora antaa kapeamman massaikkunan."
+  u_over_v: "U / V"
+  u_over_v_note: "Tasajännite jaettuna sauvan RF-huippujännitteellä."
+  state_window: "Ikkuna auki"
+  state_rfonly: "Vain RF (U = 0)"
+  state_none: "Ei ikkunaa"
+  state_off: "RF pois"
+  grp_window: "Ihanteellinen läpäisevä m/z-ikkuna"
+  width: "Ikkunan leveys"
+  width_note: "HMCO − LMCO, yksikkö u/e."
+  resolving: "Ihanteellinen m/Δm"
+  resolving_note: "Ikkunan keskikohta jaettuna sen leveydellä."
+  target_mz: "Kohteen m/z"
+  inside: "ikkunan sisällä"
+  outside: "ikkunan ulkopuolella"
+  grp_target: "Kohdeioni"
+  is_stable: "stabiili (molemmat tasot)"
+  is_unstable: "epästabiili"
+  secular: "Sekulaarinen taajuus"
+  secular_note: "ν = β·f/2 Mathieun yhtälöstä (β ratkaistu numeerisesti)."
+  pseudo_depth: "Pseudopotentiaalin syvyys säteellä r₀"
+  pseudo_depth_note: "z·q·V/4: poikittaisenergia, jonka pelkkä RF-kuoppa pitää sauvojen kohdalla."
+  pseudo_start: "Pseudopotentiaali aloitussäteellä"
+  pseudo_start_note: "Syvyys × (aloitussäde / r₀)²; aloitussäde on emittanssiasetus prosentteina r₀:sta."
+  rf_period: "RF-jakso"
+  residence: "Viipymisaika"
+  residence_note: "RF-jaksoja ÷ taajuus: kuinka kauan kutakin ionia seurataan."
+  status: "Ikkuna"
+
 de:
   results: Betriebsgerade und Massengrenzen
   line: Betriebsgerade
@@ -58,6 +148,36 @@ de:
   csv: Eingaben und Ergebnisse · CSV
   json: Eingaben und Ergebnisse · JSON
   badseed: Ungültiger RFQ-Zufallsstartwert.
+  slope: "Steigung a/q"
+  slope_note: "a = (2U/V)·q; eine steilere Gerade ergibt ein engeres Massenfenster."
+  u_over_v: "U / V"
+  u_over_v_note: "Gleichspannung geteilt durch die HF-Spitzenspannung eines Stabs."
+  state_window: "Fenster offen"
+  state_rfonly: "Nur HF (U = 0)"
+  state_none: "Kein Fenster"
+  state_off: "HF aus"
+  grp_window: "Ideales transmittiertes m/z-Fenster"
+  width: "Fensterbreite"
+  width_note: "HMCO − LMCO, in u/e."
+  resolving: "Ideales m/Δm"
+  resolving_note: "Fenstermitte geteilt durch die Breite."
+  target_mz: "Ziel-m/z"
+  inside: "im Fenster"
+  outside: "außerhalb des Fensters"
+  grp_target: "Zielion"
+  is_stable: "stabil (beide Ebenen)"
+  is_unstable: "instabil"
+  secular: "Säkularfrequenz"
+  secular_note: "ν = β·f/2 aus der Mathieu-Gleichung (β numerisch gelöst)."
+  pseudo_depth: "Pseudopotenzialtiefe bei r₀"
+  pseudo_depth_note: "z·q·V/4: Transversalenergie, die die reine HF-Mulde an den Stäben halten kann."
+  pseudo_start: "Pseudopotenzial beim Startradius"
+  pseudo_start_note: "Tiefe × (Startradius / r₀)²; der Startradius ist die Emittanz-Einstellung in % von r₀."
+  rf_period: "HF-Periode"
+  residence: "Verweilzeit"
+  residence_note: "HF-Zyklen ÷ Frequenz: wie lange jedes Ion verfolgt wird."
+  status: "Fenster"
+
 ja:
   results: 動作直線と質量カットオフ
   line: 動作直線
@@ -72,6 +192,36 @@ ja:
   csv: 入力と結果 · CSV
   json: 入力と結果 · JSON
   badseed: RFQ の乱数シードが無効です。
+  slope: "傾き a/q"
+  slope_note: "a = (2U/V)·q。傾きが大きいほど質量窓は狭くなります。"
+  u_over_v: "U / V"
+  u_over_v_note: "直流電圧をロッドの高周波ピーク電圧で割った値。"
+  state_window: "窓あり"
+  state_rfonly: "高周波のみ (U = 0)"
+  state_none: "窓なし"
+  state_off: "高周波オフ"
+  grp_window: "理想的に透過する m/z の窓"
+  width: "窓の幅"
+  width_note: "HMCO − LMCO（u/e）。"
+  resolving: "理想的な m/Δm"
+  resolving_note: "窓の中心を幅で割った値。"
+  target_mz: "ターゲットの m/z"
+  inside: "窓の内側"
+  outside: "窓の外側"
+  grp_target: "ターゲットイオン"
+  is_stable: "安定（両方の面）"
+  is_unstable: "不安定"
+  secular: "永年周波数"
+  secular_note: "ν = β·f/2。β は Mathieu 方程式から数値的に求めます。"
+  pseudo_depth: "r₀ での擬ポテンシャルの深さ"
+  pseudo_depth_note: "z·q·V/4：高周波のみの井戸がロッド位置で保持できる横方向エネルギー。"
+  pseudo_start: "開始半径での擬ポテンシャル"
+  pseudo_start_note: "深さ × (開始半径 / r₀)²。開始半径は r₀ に対する百分率のエミッタンス設定です。"
+  rf_period: "高周波の周期"
+  residence: "滞在時間"
+  residence_note: "高周波サイクル数 ÷ 周波数：各イオンを追跡する時間。"
+  status: "窓"
+
 fr:
   results: Droite de fonctionnement et limites de masse
   line: Droite de fonctionnement
@@ -86,3 +236,32 @@ fr:
   csv: Entrées et résultats · CSV
   json: Entrées et résultats · JSON
   badseed: Graine aléatoire RFQ invalide.
+  slope: "Pente a/q"
+  slope_note: "a = (2U/V)·q ; une droite plus raide donne une fenêtre de masse plus étroite."
+  u_over_v: "U / V"
+  u_over_v_note: "Tension continue divisée par la tension RF crête d’un barreau."
+  state_window: "Fenêtre ouverte"
+  state_rfonly: "RF seule (U = 0)"
+  state_none: "Pas de fenêtre"
+  state_off: "RF coupée"
+  grp_window: "Fenêtre m/z idéalement transmise"
+  width: "Largeur de la fenêtre"
+  width_note: "HMCO − LMCO, en u/e."
+  resolving: "m/Δm idéal"
+  resolving_note: "Centre de la fenêtre divisé par sa largeur."
+  target_mz: "m/z de la cible"
+  inside: "dans la fenêtre"
+  outside: "hors de la fenêtre"
+  grp_target: "Ion cible"
+  is_stable: "stable (deux plans)"
+  is_unstable: "instable"
+  secular: "Fréquence séculaire"
+  secular_note: "ν = β·f/2 d’après l’équation de Mathieu (β résolu numériquement)."
+  pseudo_depth: "Profondeur du pseudo-potentiel en r₀"
+  pseudo_depth_note: "z·q·V/4 : énergie transverse que le puits RF seul retient au niveau des barreaux."
+  pseudo_start: "Pseudo-potentiel au rayon de départ"
+  pseudo_start_note: "Profondeur × (rayon de départ / r₀)² ; le rayon de départ est le réglage d’émittance en % de r₀."
+  rf_period: "Période RF"
+  residence: "Temps de séjour"
+  residence_note: "Cycles RF ÷ fréquence : durée de suivi de chaque ion."
+  status: "Fenêtre"
