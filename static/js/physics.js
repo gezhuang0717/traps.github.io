@@ -44,16 +44,35 @@
       if (state) value = combine([1, value], [1 / C.uKeV, primitive(`NUBASE2020:Ex:${st.id}`, st.excitation.value, st.excitation.uncertainty, st.excitation.value_extrapolated, st.excitation.uncertainty_extrapolated)]);
       return { value, state: st, A, Z: gs.Z, label: `${A}${gs.element}${state ? `[${st.label}]` : ""}`, source: src + (state ? " + NUBASE2020 excitation" : "") };
     }
+    /* Charge written as a suffix. With the letter e the sign is that of the electron change: 133Cs-e removes one electron (Cs+), 133Cs-2e two (Cs2+),
+       133Cs+e adds one (Cs-, a negative ion). Without e the sign is that of the ion: 2+, +, 3-, -, +2, -2. Returns { q: magnitude, sign } or null. */
+    const SUPDIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+    function chargeSpec(t) {
+      let m;
+      if ((m = t.match(/^([+-])(\d*)e$/))) return { q: +(m[2] || 1), sign: m[1] === "-" ? 1 : -1 };
+      if ((m = t.match(/^(\d*)([+-])$/))) return { q: +(m[1] || 1), sign: m[2] === "+" ? 1 : -1 };
+      if ((m = t.match(/^([+-])(\d+)$/))) return { q: +m[2], sign: m[1] === "+" ? 1 : -1 };
+      return null;
+    }
+    const FIELD = /^(\d+)(m\d*)?([A-Za-z]{1,2})(m)?(\d+)$/;     // 2O16, 1Cs133, 1mXe133, 1m2Xe133, 1Xem133: count, element, mass number
     function resolve(text, options = {}) {
-      let s = String(text).trim().replace(/\s/g, ""), q = options.q ?? 1, w = options.w ?? 1, m;
+      let s = String(text).trim().replace(/\s/g, ""), q = options.q ?? 1, sign = options.sign ?? 1, w = options.w ?? 1, m, colon = null;
       if ((m = s.match(/:([\d.]+)$/))) { w = +m[1]; s = s.slice(0, m.index); }
-      if ((m = s.match(/\+(\d+)$/))) { q = +m[1]; s = s.slice(0, m.index); }
-      else if ((m = s.match(/^(\d+(?:m\d*)?[A-Za-z]{1,2}(?:m\d*|\*)?)(\d+)\+$/))) { q = +m[2]; s = m[1]; }
+      if (s.includes(":")) {                                  // 1H1:2O16:1Cs133:-e  = count, element, mass number; optional last field = charge
+        colon = s.split(":");
+        const last = colon[colon.length - 1], spec = !FIELD.test(last) && chargeSpec(last);
+        if (spec) { q = spec.q; sign = spec.sign; colon.pop(); }
+        if (colon.length === 1 && !FIELD.test(colon[0])) { s = colon[0]; colon = null; }   // 133Xe:+  is the single nuclide with its charge
+      } else if ((m = s.match(/([+-])(\d*)e$/))) { q = +(m[2] || 1); sign = m[1] === "-" ? 1 : -1; s = s.slice(0, m.index); }
+      else if ((m = s.match(/\+(\d+)$/))) { q = +m[1]; sign = 1; s = s.slice(0, m.index); }
+      else if ((m = s.match(/^(\d+(?:m\d*)?[A-Za-z]{1,2}(?:m\d*|\*)?)(\d+)([+-])$/))) { q = +m[2]; sign = m[3] === "+" ? 1 : -1; s = m[1]; }
+      else if ((m = s.match(/([A-Za-z\]*])-$/)) && /[A-Za-z\]*]$/.test(s.slice(0, -1))) { q = 1; sign = -1; s = s.slice(0, -1); }   // 133Cs-  = negative ion
       else s = s.replace(/\+$/, "");
       if (!Number.isInteger(q) || q < 1 || q > 100 || !numeric(w) || w < 0) throw new Error("Charge must be an integer 1–100; population must be nonnegative.");
-      if ((m = s.match(/^([A-Za-z]{1,2})-?(\d+)$/))) s = m[2] + m[1];
+      if (!colon && (m = s.match(/^([A-Za-z]{1,2})-?(\d+)$/))) s = m[2] + m[1];
       let explicit = 0;
-      if ((m = s.match(/^(\d+)m(\d*)([A-Za-z]{1,2})$/))) { explicit = +(m[2] || 1); s = m[1] + m[3]; }
+      if (colon) { /* each field carries its own isomer marker */ }
+      else if ((m = s.match(/^(\d+)m(\d*)([A-Za-z]{1,2})$/))) { explicit = +(m[2] || 1); s = m[1] + m[3]; }
       else if ((m = s.match(/^(\d+[A-Za-z]{1,2})(?:m(\d*)|\*)$/))) { explicit = +(m[2] || 1); s = m[1]; }
       else if ((m = s.match(/^(\d+)([A-Za-z]{1,2})\[([gmnpqrxij]|\d+)\]$/))) { const labels = { g: 0, m: 1, n: 2, p: 3, q: 4, r: 5, x: 6, i: 8, j: 9 }; explicit = m[3] in labels ? labels[m[3]] : +m[3]; s = m[1] + m[2]; }
       function readings(t) {
@@ -69,17 +88,33 @@
         }
         return out;
       }
-      const variants = readings(s);
+      const variants = colon ? [colon.map(f => {
+        const g = f.match(FIELD); if (!g) throw new Error(`Unknown molecular field: ${f} (use count, element, mass number: 2O16)`);
+        const count = +g[1]; if (count < 1 || count > 1000) throw new Error(`Atom count out of range: ${f}`);
+        const state = g[2] ? +(g[2].slice(1) || 1) : g[4] ? 1 : 0, cap = x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase();
+        try { return { ...atom(+g[5], cap(g[3]), state, options.massSource), count }; }
+        catch (e) {                                  // 1Ym90: the final m of a two-letter symbol may be the isomer marker (Y + m)
+          if (g[3].length === 2 && g[3][1].toLowerCase() === "m" && !g[2] && !g[4]) return { ...atom(+g[5], cap(g[3][0]), 1, options.massSource), count };
+          throw e;
+        }
+      })] : readings(s);
       if (!variants.length) throw new Error(`Unknown, unavailable or nonnumeric ion/state: ${text}`);
       if (variants.length > 1) throw new Error(`Ambiguous molecular input: ${text}; use an explicit isotope composition.`);
       const atoms = variants[0], value = combine(...atoms.map(a => [a.count, a.value]));
-      const M = value.v, ionMassU = M - q * C.electronU;
-      if (!(ionMassU > 0) || q > atoms.reduce((z, a) => z + a.count * a.Z, 0)) throw new Error("Charge exceeds the ion's electron count.");
-      return { M, e: value.e == null ? null : value.e * C.uKeV, value, est: value.est, uncertainty_extrapolated:value.sigmaEst, q, w, ionMassU,
+      const M = value.v, ionMassU = M - sign * q * C.electronU;
+      if (!(ionMassU > 0) || (sign > 0 && q > atoms.reduce((z, a) => z + a.count * a.Z, 0))) throw new Error("Charge exceeds the ion's electron count.");
+      /* display: one nuclide -> 133Xem⁺ / 133Cs²⁺ / 133Cs⁻; molecule or several atoms -> 1H1:2O16:1Xem133:+ (count, element, mass number; charge last) */
+      const sup = n => String(n).split("").map(c => SUPDIGITS[+c]).join(""), mark = a => a.state.source_state_index ? String(a.state.label) : "";
+      /* name = the normalised input in the style it was typed (133Cs-e -> 133Cs+, 16O133Cs-e -> 16O133Cs+, 1O16:1Cs133:-e -> 1O16:1Cs133:+); display = the same with a superscript charge for plots */
+      const single = atoms.length === 1 && atoms[0].count === 1, plain = single || (!colon && atoms.every(a => a.count === 1));
+      const ascii = (q > 1 ? q : "") + (sign > 0 ? "+" : "-"), superscript = (q > 1 ? sup(q) : "") + (sign > 0 ? "⁺" : "⁻");
+      const body = plain ? atoms.map(a => `${a.A}${a.state.element}${mark(a)}`).join("") : atoms.map(a => `${a.count}${a.state.element}${mark(a)}${a.A}`).join(":");
+      const name = body + (plain ? "" : ":") + ascii, display = plain ? body + superscript : name;
+      return { M, e: value.e == null ? null : value.e * C.uKeV, value, est: value.est, uncertainty_extrapolated:value.sigmaEst, q, sign, charge: sign * q, w, ionMassU, name, display,
         A: atoms.reduce((a, x) => a + x.A * x.count, 0), atoms,
-        label: atoms.map(a => a.label + (a.count > 1 ? `×${a.count}` : "")).join("·") + ` +${q}`,
+        label: atoms.map(a => a.label + (a.count > 1 ? `×${a.count}` : "")).join("·") + (sign > 0 ? ` +${q}` : ` -${q}`),
         source: [...new Set(atoms.map(a => a.source))].join("; "), txt: text,
-        mass_convention: "atomic mass minus q electron masses; ionization and molecular binding energies omitted" };
+        mass_convention: sign > 0 ? "atomic mass minus q electron masses; ionization and molecular binding energies omitted" : "atomic mass plus |q| electron masses (negative ion); electron affinity and molecular binding energies omitted" };
     }
     // Display/bookmark lookup must not require a calculable ion mass or excitation.
     function lookupState(text,index=0){
@@ -97,7 +132,7 @@
   }
   function frequency(ion, B) { if (!(B > 0)) throw new Error("B must be positive"); return ion.q * C.e * B / (2 * Math.PI * ion.ionMassU * C.uKg); }
   function penning(ion, B, voltage, d) {
-    const nc = frequency(ion, B), nz = voltage >= 0 && d > 0 ? Math.sqrt(ion.q * C.e * voltage / (ion.ionMassU * C.uKg * d * d)) / (2 * Math.PI) : NaN;
+    const nc = frequency(ion, B), sv = (ion.sign || 1) * voltage, nz = sv >= 0 && d > 0 ? Math.sqrt(ion.q * C.e * sv / (ion.ionMassU * C.uKg * d * d)) / (2 * Math.PI) : NaN;
     const D = nc * nc - 2 * nz * nz, stable = D > 0 && nz > 0;
     const np = D >= 0 ? (nc + Math.sqrt(D)) / 2 : null;
     const nm = np > 0 ? nz * nz / (2 * np) : null;
@@ -197,7 +232,7 @@
   const mathieuStable = (a, q) => q > 0 && q < Q_EDGE && a < MB1(q) && a > MA0(q) && -a < MB1(q) && -a > MA0(q);
 
 
-  function mathieuParameters(ion,U,V,r0,frequencyMHz) { const k=C.e*ion.q/(ion.ionMassU*C.uKg*(r0/1000)**2*(2*Math.PI*frequencyMHz*1e6)**2);return {a:8*k*U,q:4*k*V}; }
+  function mathieuParameters(ion,U,V,r0,frequencyMHz) { const k=C.e*(ion.sign||1)*ion.q/(ion.ionMassU*C.uKg*(r0/1000)**2*(2*Math.PI*frequencyMHz*1e6)**2);return {a:8*k*U,q:4*k*V}; }
   // First simultaneous x/y stability region. Cutoffs are in m/z (u per elementary charge).
   function rfqCutoffs(U,V,r0,frequencyMHz) {
     if(![U,V,r0,frequencyMHz].every(Number.isFinite)||!(r0>0&&frequencyMHz>0&&V>=0))return {status:'invalid'};

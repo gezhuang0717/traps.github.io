@@ -68,9 +68,9 @@
   /* Display form of an ion label: 133Xe[m] +1 -> 133Xem⁺, 133Cs +2 -> 133Cs²⁺ (state letter after the element, charge as a superscript). */
   const SUPD = '⁰¹²³⁴⁵⁶⁷⁸⁹';
   function ionText(label) {
-    const m = /^(.*?)\s*\+(\d+)$/.exec(String(label)), q = m ? +m[2] : 0;
+    const m = /^(.*?)\s*([+-])(\d+)$/.exec(String(label)), q = m ? +m[3] : 0, minus = !!m && m[2] === '-';
     const base = (m ? m[1] : String(label)).replace(/(\d+[A-Za-z]{1,2})\[([A-Za-z0-9]+)\]/g, '$1$2');
-    return base + (q === 1 ? '⁺' : q > 1 ? [...String(q)].map(c => SUPD[c]).join('') + '⁺' : '');
+    return base + (q > 1 ? [...String(q)].map(c => SUPD[c]).join('') : '') + (q >= 1 ? (minus ? '⁻' : '⁺') : '');
   }
   /* [data-figure-note="id"] on a canvas or its grid: the explanation of that figure follows it as a fold-away block (once). */
   const NOTE_SELECTOR = '[data-figure-note]';

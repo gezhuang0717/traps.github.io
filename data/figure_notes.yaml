@@ -352,6 +352,22 @@ en:
       - Drive frequency in MHz; Ω = 2πf.
     - - Independent RFQ sections
       - Cooler, mass filter and buncher can each have their own U, V, r₀ and f; their operating lines a = (2U/V)·q and points are drawn on the same map.
+  wb-species-input:
+    title: How to type a species
+    summary: 'Each species is an ion: nuclide, nuclear state and charge, or a molecule. The “Nuclear state” menu lists the ground state and every isomer of a typed nuclide.'
+    items:
+    - - Nuclide
+      - 'Mass number and element symbol: 133Xe (also Xe133, Xe-133). The ion mass is the AME2020 atomic mass minus the electron masses.'
+    - - Isomer
+      - Pick it in “Nuclear state”, or type 133mXe or 133Xem (both mean the first isomer of 133Xe), 133Xe*, 133Xe[m], 133Xe[2]; m2Xe style numbers and the letters g m n p q r x i j also work. It is shown as 133Xem and its excitation energy E* is added to the mass.
+    - - Molecule
+      - 'Isotopes one after another: 16O133Cs, 1H16O133Cs; 12C11 is eleven 12C atoms. Colon form with explicit counts (count, element, mass number): 1O16:1Cs133, 1H1:2O16:1Cs133 = H + 2 ¹⁶O + ¹³³Cs, and an isomer per constituent: 1H1:2O16:1mXe133 or 1H1:2O16:1Xem133. The mass is the sum of the atomic masses (molecular binding energies omitted).'
+    - - Charge
+      - 'Charge field, or typed: 133Cs+2, 133Cs2+. By electrons: 133Cs-e removes one electron (shown as 133Cs+), 133Cs-2e two (133Cs2+); in colon form 1O16:1Cs133:-e becomes 1O16:1Cs133:+. Negative ions add electrons: 133Cs+e or 133Cs- (shown as 133Cs-). Penning traps then need a negative trap voltage. Integer 1–100; a positive charge cannot exceed the electron count.'
+    - - Population
+      - 'Detected population: relative weight of the species in the sample; can also be typed as 133Xe:30.'
+    - - Masses
+      - 'AME2020 ground-state atomic masses plus NUBASE2020 excitation energies; # marks extrapolated values. Open “AME2020 masses and energies” under a species to see every tabulated number.'
 zh:
   mathieu:
     title: 如何阅读 Mathieu 稳定性图
@@ -705,6 +721,22 @@ zh:
       - 驱动频率，单位 MHz；Ω = 2πf。
     - - 独立 RFQ 节
       - 冷却器、质量过滤器和聚束器各自可以有自己的 U、V、r₀ 和 f；它们的工作线 a = (2U/V)·q 和工作点画在同一张图上。
+  wb-species-input:
+    title: 如何输入离子种类
+    summary: 每个种类是一个离子：核素、核态和电荷，或一个分子。“核态”菜单列出所输入核素的基态和全部同核异能态。
+    items:
+    - - 核素
+      - 质量数加元素符号：133Xe（也可写 Xe133、Xe-133）。离子质量为 AME2020 原子质量减去电子质量。
+    - - 同核异能态
+      - 在“核态”中选择，或输入 133mXe 或 133Xem（二者都表示 133Xe 的第一个同核异能态）、133Xe*、133Xe[m]、133Xe[2]；也可用 m2Xe 形式的编号及字母 g m n p q r x i j。显示为 133Xem，激发能 E* 会加到质量上。
+    - - 分子
+      - 依次写出同位素：16O133Cs、1H16O133Cs；12C11 是 11 个 12C 原子。也可用带明确个数的冒号形式（个数、元素、质量数）：1O16:1Cs133、1H1:2O16:1Cs133 = H + 2 个 ¹⁶O + ¹³³Cs，并可为每个组成原子指定同核异能态：1H1:2O16:1mXe133 或 1H1:2O16:1Xem133。质量为原子质量之和（不含分子结合能）。
+    - - 电荷
+      - 在“电荷”栏设置，或直接输入：133Cs+2、133Cs2+。按电子数：133Cs-e 去掉一个电子（显示为 133Cs+），133Cs-2e 去掉两个（133Cs2+）；冒号形式 1O16:1Cs133:-e 显示为 1O16:1Cs133:+。负离子是增加电子：133Cs+e 或 133Cs-（显示为 133Cs-），此时彭宁阱需要负的阱电压。整数 1–100；正电荷不能超过电子数。
+    - - 布居
+      - 探测到的布居：该种类在样品中的相对权重，也可写成 133Xe:30。
+    - - 质量
+      - AME2020 基态原子质量加 NUBASE2020 激发能；# 表示外推值。展开某个种类下的“AME2020 质量与能量”可看到所有表中数值。
 fi:
   mathieu:
     title: Mathieu-stabiilisuuskuvan lukeminen
@@ -1058,6 +1090,22 @@ fi:
       - Herätetaajuus MHz:nä; Ω = 2πf.
     - - Riippumattomat RFQ-osat
       - Jäähdyttimellä, massasuodattimella ja paketoijalla voi kullakin olla omat U, V, r₀ ja f; niiden toimintasuorat a = (2U/V)·q ja pisteet piirretään samaan karttaan.
+  wb-species-input:
+    title: Näin kirjoitat lajin
+    summary: 'Jokainen laji on ioni: nuklidi, ydintila ja varaus, tai molekyyli. “Ydintila”-valikko luettelee kirjoitetun nuklidin perustilan ja kaikki isomeerit.'
+    items:
+    - - Nuklidi
+      - 'Massaluku ja alkuaineen symboli: 133Xe (myös Xe133, Xe-133). Ionin massa on AME2020:n atomimassa miinus elektronien massat.'
+    - - Isomeeri
+      - Valitse “Ydintila”-valikosta tai kirjoita 133mXe tai 133Xem (molemmat tarkoittavat 133Xe:n ensimmäistä isomeeriä), 133Xe*, 133Xe[m], 133Xe[2]; myös m2Xe-tyyppiset numerot ja kirjaimet g m n p q r x i j käyvät. Näytetään muodossa 133Xem; virityksen energia E* lisätään massaan.
+    - - Molekyyli
+      - 'Isotoopit peräkkäin: 16O133Cs, 1H16O133Cs; 12C11 on yksitoista 12C-atomia. Kaksoispistemuoto tarkoilla lukumäärillä (lukumäärä, alkuaine, massaluku): 1O16:1Cs133, 1H1:2O16:1Cs133 = H + 2 ¹⁶O + ¹³³Cs, ja isomeeri jokaiselle osalle: 1H1:2O16:1mXe133 tai 1H1:2O16:1Xem133. Massa on atomimassojen summa (molekyylin sidosenergiat jätetty pois).'
+    - - Varaus
+      - 'Varauskenttä tai kirjoitettuna: 133Cs+2, 133Cs2+. Elektroneina: 133Cs-e poistaa yhden elektronin (näytetään 133Cs+), 133Cs-2e kaksi (133Cs2+); kaksoispistemuodossa 1O16:1Cs133:-e on 1O16:1Cs133:+. Negatiivinen ioni lisää elektroneja: 133Cs+e tai 133Cs- (näytetään 133Cs-); silloin Penning-loukku tarvitsee negatiivisen loukkujännitteen. Kokonaisluku 1–100; positiivinen varaus ei voi ylittää elektronien määrää.'
+    - - Populaatio
+      - 'Havaittu populaatio: lajin suhteellinen paino näytteessä; voi kirjoittaa myös 133Xe:30.'
+    - - Massat
+      - 'AME2020:n perustilan atomimassat ja NUBASE2020:n virityksen energiat; # merkitsee ekstrapoloitua arvoa. Avaa lajin alta “AME2020-massat ja energiat” nähdäksesi kaikki taulukoidut luvut.'
 de:
   mathieu:
     title: So liest man das Mathieu-Stabilitätsdiagramm
@@ -1411,6 +1459,22 @@ de:
       - Antriebsfrequenz in MHz; Ω = 2πf.
     - - Unabhängige RFQ-Abschnitte
       - Cooler, Massenfilter und Buncher können je eigene U, V, r₀ und f haben; ihre Betriebsgeraden a = (2U/V)·q und Punkte werden in dieselbe Karte gezeichnet.
+  wb-species-input:
+    title: So geben Sie eine Spezies ein
+    summary: 'Jede Spezies ist ein Ion: Nuklid, Kernzustand und Ladung, oder ein Molekül. Das Menü „Kernzustand“ listet Grundzustand und alle Isomere des eingegebenen Nuklids.'
+    items:
+    - - Nuklid
+      - 'Massenzahl und Elementsymbol: 133Xe (auch Xe133, Xe-133). Die Ionenmasse ist die AME2020-Atommasse minus die Elektronenmassen.'
+    - - Isomer
+      - In „Kernzustand“ wählen oder 133mXe bzw. 133Xem (beides das erste Isomer von 133Xe), 133Xe*, 133Xe[m], 133Xe[2] eingeben; auch Nummern wie m2Xe und die Buchstaben g m n p q r x i j funktionieren. Angezeigt als 133Xem; die Anregungsenergie E* wird zur Masse addiert.
+    - - Molekül
+      - 'Isotope nacheinander: 16O133Cs, 1H16O133Cs; 12C11 sind elf 12C-Atome. Doppelpunktform mit expliziten Anzahlen (Anzahl, Element, Massenzahl): 1O16:1Cs133, 1H1:2O16:1Cs133 = H + 2 ¹⁶O + ¹³³Cs, und ein Isomer je Bestandteil: 1H1:2O16:1mXe133 oder 1H1:2O16:1Xem133. Die Masse ist die Summe der Atommassen (molekulare Bindungsenergien weggelassen).'
+    - - Ladung
+      - 'Feld Ladung oder eingetippt: 133Cs+2, 133Cs2+. Per Elektronen: 133Cs-e entfernt ein Elektron (angezeigt als 133Cs+), 133Cs-2e zwei (133Cs2+); in Doppelpunktform wird 1O16:1Cs133:-e zu 1O16:1Cs133:+. Negative Ionen nehmen Elektronen auf: 133Cs+e oder 133Cs- (angezeigt als 133Cs-); eine Penningfalle braucht dann eine negative Fallenspannung. Ganzzahl 1–100; eine positive Ladung kann die Elektronenzahl nicht überschreiten.'
+    - - Population
+      - 'Detektierte Population: relatives Gewicht der Spezies in der Probe; auch als 133Xe:30 eintippbar.'
+    - - Massen
+      - 'AME2020-Grundzustandsmassen plus NUBASE2020-Anregungsenergien; # kennzeichnet extrapolierte Werte. Unter einer Spezies „AME2020-Massen und Energien“ öffnen, um alle tabellierten Zahlen zu sehen.'
 ja:
   mathieu:
     title: マシュー安定性図の見方
@@ -1764,6 +1828,22 @@ ja:
       - 駆動周波数（MHz）。Ω = 2πf。
     - - 独立した RFQ 区間
       - クーラー、質量フィルター、バンチャーはそれぞれ独自の U、V、r₀、f を持てます。動作直線 a = (2U/V)·q と点は同じマップに描かれます。
+  wb-species-input:
+    title: イオン種の入力方法
+    summary: 各イオン種は、核種・核状態・電荷、または分子で指定します。「核状態」メニューには、入力した核種の基底状態とすべてのアイソマーが並びます。
+    items:
+    - - 核種
+      - 質量数と元素記号：133Xe（Xe133、Xe-133 も可）。イオン質量は AME2020 の原子質量から電子質量を引いたものです。
+    - - アイソマー
+      - 「核状態」で選ぶか、133mXe または 133Xem（どちらも 133Xe の最初のアイソマー）、133Xe*、133Xe[m]、133Xe[2] と入力します。m2Xe のような番号や文字 g m n p q r x i j も使えます。133Xem と表示され、励起エネルギー E* が質量に加わります。
+    - - 分子
+      - 同位体を続けて書きます：16O133Cs、1H16O133Cs。12C11 は 12C が 11 個。個数を明示するコロン形式（個数・元素・質量数）：1O16:1Cs133、1H1:2O16:1Cs133 = H + 2 個の ¹⁶O + ¹³³Cs、構成要素ごとのアイソマーも指定できます：1H1:2O16:1mXe133 または 1H1:2O16:1Xem133。質量は原子質量の和（分子の結合エネルギーは省略）。
+    - - 電荷
+      - 「電荷」欄で設定するか入力します：133Cs+2、133Cs2+。電子数で：133Cs-e は電子 1 個を取り除く（133Cs+ と表示）、133Cs-2e は 2 個（133Cs2+）。コロン形式では 1O16:1Cs133:-e が 1O16:1Cs133:+ になります。負イオンは電子を加えます：133Cs+e または 133Cs-（133Cs- と表示）。このときペニングトラップには負のトラップ電圧が必要です。1–100 の整数で、正の電荷は電子数を超えられません。
+    - - 存在量
+      - 検出される存在量：試料中のそのイオン種の相対的な重み。133Xe:30 のように入力することもできます。
+    - - 質量
+      - AME2020 の基底状態の原子質量に NUBASE2020 の励起エネルギーを加えたもの。# は外挿値。各イオン種の下の「AME2020 の質量とエネルギー」を開くと、表のすべての数値が見られます。
 fr:
   mathieu:
     title: Lire le diagramme de stabilité de Mathieu
@@ -2117,3 +2197,19 @@ fr:
       - Fréquence d’excitation en MHz ; Ω = 2πf.
     - - Sections RFQ indépendantes
       - Refroidisseur, filtre de masse et groupeur peuvent avoir leurs propres U, V, r₀ et f ; leurs droites de fonctionnement a = (2U/V)·q et leurs points sont tracés sur la même carte.
+  wb-species-input:
+    title: Comment saisir une espèce
+    summary: 'Chaque espèce est un ion : nucléide, état nucléaire et charge, ou une molécule. Le menu « État nucléaire » liste l’état fondamental et tous les isomères du nucléide saisi.'
+    items:
+    - - Nucléide
+      - 'Nombre de masse et symbole : 133Xe (aussi Xe133, Xe-133). La masse de l’ion est la masse atomique AME2020 moins les masses des électrons.'
+    - - Isomère
+      - Choisissez-le dans « État nucléaire » ou saisissez 133mXe ou 133Xem (les deux désignent le premier isomère de 133Xe), 133Xe*, 133Xe[m], 133Xe[2] ; les numéros du type m2Xe et les lettres g m n p q r x i j fonctionnent aussi. Affiché 133Xem ; l’énergie d’excitation E* s’ajoute à la masse.
+    - - Molécule
+      - 'Isotopes à la suite : 16O133Cs, 1H16O133Cs ; 12C11 est onze atomes 12C. Forme à deux-points avec nombres explicites (nombre, élément, nombre de masse) : 1O16:1Cs133, 1H1:2O16:1Cs133 = H + 2 ¹⁶O + ¹³³Cs, et un isomère par constituant : 1H1:2O16:1mXe133 ou 1H1:2O16:1Xem133. La masse est la somme des masses atomiques (énergies de liaison moléculaires omises).'
+    - - Charge
+      - 'Champ Charge ou saisie : 133Cs+2, 133Cs2+. Par électrons : 133Cs-e retire un électron (affiché 133Cs+), 133Cs-2e deux (133Cs2+) ; en forme à deux-points 1O16:1Cs133:-e devient 1O16:1Cs133:+. Un ion négatif ajoute des électrons : 133Cs+e ou 133Cs- (affiché 133Cs-) ; un piège de Penning exige alors une tension de piégeage négative. Entier 1–100 ; une charge positive ne peut dépasser le nombre d’électrons.'
+    - - Population
+      - 'Population détectée : poids relatif de l’espèce dans l’échantillon ; peut aussi s’écrire 133Xe:30.'
+    - - Masses
+      - 'Masses atomiques de l’état fondamental AME2020 plus énergies d’excitation NUBASE2020 ; # marque une valeur extrapolée. Ouvrez « Masses et énergies AME2020 » sous une espèce pour voir tous les nombres tabulés.'

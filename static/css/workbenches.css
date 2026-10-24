@@ -41,3 +41,10 @@
 .wb-sw{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}.wb-sw i{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:var(--species-colour)}
 .wb-ion legend .zg-badge{font-size:.62rem;vertical-align:middle}
 .wb-summary .wb-table-wrap{margin:.6rem 0}.wb-summary table{font-size:.85rem}
+.wb-controls .zg-defs{grid-template-columns:1fr}.wb-controls .zg-defs dd{margin-bottom:.4rem}.wb-controls .zg-fig-fold{margin:.5rem 0}
+.wb-ame{margin-top:.4rem;font-size:.85rem}.wb-ame summary{cursor:pointer;font-weight:650}.wb-ame-head{margin:.6rem 0 .2rem;font-size:.85rem}.wb-ame-body table{font-size:.8rem;width:100%}.wb-ame-body td:last-child{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+
+/* Labelled data tables (static/js/data-table.js): one row per point, column heads with units, optional columns marked. */
+.zg-dtable{margin:.6rem 0}.zg-dtable table{width:100%;font-size:.85rem;border-collapse:collapse}.zg-dtable th{font-size:.78rem;text-align:left;white-space:nowrap;padding:.25rem .35rem}.zg-dtable td{padding:.15rem .25rem}
+.zg-dtable td input{width:100%;min-width:7.6rem;font:inherit;font-variant-numeric:tabular-nums;padding:.25rem .4rem;border:1px solid var(--zg-line,#aab);border-radius:.4rem;background:transparent;color:inherit}
+.zg-dtable-bar{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0}.zg-dtable td:first-child{color:var(--zg-muted,#667);font-size:.78rem}

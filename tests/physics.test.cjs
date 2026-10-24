@@ -25,3 +25,28 @@ test('RFQ cutoff intersections bracket the independently tested stability region
 
 test('PI time target honors widths, wrapping, coincidences and search domain',()=>{near(P.shortestPhaseTime([1000,1001],.02,3),9.55,1e-12);assert.equal(P.shortestPhaseTime([1,1],.02,1),null);assert.equal(P.shortestPhaseTime([1,2],1,4),null);const t=P.shortestPhaseTime([1000,1001,1009],.05,10);assert.ok(t>0);for(const delta of [1,8,9]){const phase=P.wrapPhase(2*Math.PI*delta*t/1000);assert.ok(Math.min(phase,2*Math.PI-phase)>=.5-1e-12);}assert.ok(P.shortestPhaseTime([1000,1001],.02,6)>P.shortestPhaseTime([1000,1001],.02,.5));});
 test('mass-energy angle agrees with inverse-mass frequency and common origin cancels',()=>{const ref=ion('133Xe'),r=P.phaseEnergyStep(ref,7,.05);const heavy={...ref,ionMassU:ref.ionMassU+1/P.C.uKeV};near(r.deltaHz,P.frequency(heavy,7)-P.frequency(ref,7),1e-9);assert.ok(r.angleDeg<0);near(P.phaseEnergyStep(ref,7,.1).angleDeg,2*r.angleDeg);near(P.phaseEnergyStep({...ref,q:2},7,.05).angleDeg,2*r.angleDeg);const f=[1000,1001.5],t=.5/(f[1]-f[0]);for(const origin of [0,Math.PI/2,Math.PI,2*Math.PI]){const a=P.wrapPhase(2*Math.PI*f[0]*t+origin),b=P.wrapPhase(2*Math.PI*f[1]*t+origin);near(Math.abs(P.wrapPhase(b-a+Math.PI)-Math.PI),Math.PI,1e-10);}assert.equal(P.phaseEnergyStep(ref,7,0).angleDeg,0);});
+test('charge by electron count, negative ions and colon-separated molecules with per-constituent isomers',()=>{
+ const a=ion('133Cs-e'),b=ion('133Cs-2e'),c=ion('133Cs+e'),d=ion('133Cs2-');
+ assert.equal([a.q,a.sign,b.q,b.sign,c.q,c.sign,d.q,d.sign].join(),'1,1,2,1,1,-1,2,-1');
+ near(a.ionMassU,a.M-P.C.electronU,1e-12);near(b.ionMassU,b.M-2*P.C.electronU,1e-12);near(c.ionMassU,c.M+P.C.electronU,1e-12);near(d.ionMassU,d.M+2*P.C.electronU,1e-12);
+ assert.deepEqual([a.name,b.name,c.name,d.name],['133Cs+','133Cs2+','133Cs-','133Cs2-']);
+ assert.deepEqual([a.display,b.display,c.display],['133Cs⁺','133Cs²⁺','133Cs⁻']);
+ for(const same of ['133Cs+','133Cs+1','133Cs','133Cs:+'])assert.equal(ion(same).name,'133Cs+');
+ // concatenated and colon molecules keep their style when the charge is normalised
+ assert.equal(ion('16O133Cs-e').name,'16O133Cs+');assert.equal(ion('1H16O133Cs-e').name,'1H16O133Cs+');
+ assert.equal(ion('1O16:1Cs133:-e').name,'1O16:1Cs133:+');assert.equal(ion('1H1:2O16:1Cs133:-e').name,'1H1:2O16:1Cs133:+');
+ assert.equal(ion('1H1:2O16:1Cs133:2+').q,2);assert.equal(ion('1H1:2O16:1Cs133:+e').sign,-1);
+ near(ion('1H1:2O16:1Cs133:-e').M,ion('1H').M+2*ion('16O').M+ion('133Cs').M,1e-9);near(ion('16O133Cs-e').M,ion('16O').M+ion('133Cs').M,1e-9);
+ // isomers: mXe and Xem are the same first isomer, also inside a colon molecule
+ const m1=ion('133mXe'),m2=ion('133Xem');assert.equal(m1.atoms[0].state.id,m2.atoms[0].state.id);assert.equal(m1.display,'133Xem⁺');
+ const x1=ion('1H1:2O16:1mXe133:-e'),x2=ion('1H1:2O16:1Xem133:-e'),g=ion('1H1:2O16:1Xe133:-e');
+ assert.equal(x1.name,'1H1:2O16:1Xem133:+');assert.equal(x2.name,x1.name);near(x1.M,x2.M,1e-15);near((x1.M-g.M)*P.C.uKeV,233.221,1e-6);
+ assert.equal(ion('1H1:2O16:1m2Xe133:-e').atoms[2].state.source_state_index,2);
+ assert.equal(ion('Xe-133').name,'133Xe+');assert.equal(ion('133Xe:30').w,30);assert.equal(ion('1H1:2O16:1Cs133:-e:40').w,40);
+ assert.equal(ion('1Cm244:+').atoms[0].state.element,'Cm');                                      // two-letter symbol ending in m is not read as isomer + element
+ assert.throws(()=>ion('133Cs-60e'),/electron count/);assert.throws(()=>ion('1O16:1Qq133:-e'),/Unavailable|Unknown/);assert.throws(()=>ion('1O16:bad:-e'),/molecular field/);
+ // Penning: the axial well needs a trap voltage with the sign of the charge
+ const fp=P.penning(a,7,100,.026),fn=P.penning(c,7,100,.026),fneg=P.penning(c,7,-100,.026);
+ assert.ok(fp.stable&&!fn.stable&&fneg.stable);near(fneg.nz,fp.nz*Math.sqrt(a.ionMassU/c.ionMassU),1e-6);
+ near(P.frequency(c,7)/P.frequency(a,7),a.ionMassU/c.ionMassU,1e-12);
+});

@@ -47,10 +47,13 @@
     const FS = window.ZGFigureStyle;   /* loaded by the chart / spectroscopy scripts of the same page; looked up after the data arrived */
     if (!FS) { error.hidden = false; error.textContent = "figure-style.js is not loaded on this page"; return; }
     const ionRows = kind === "penning" ? 1 : MAXN;
+    /* AME2020 table of one species, loaded on first use (781 kB) and shown as a fold-away card under the species */
+    let ameTable = null;
+    const loadAme = () => ameTable ||= fetch(root.dataset.ameReference).then(r => { if (!r.ok) throw new Error(T.ame_unavailable); return r.json(); }).then(j => window.TrapsAmeReference.fromJson(j));
     const DEFAULT_ION = kind === "mr" ? ["133Xe", "133Xe", "133Cs", "132Xe", "134Xe", "131Xe", "135Xe", "130Xe", "136Xe", "129Xe"] : ["133Cs", "133Xe", "133Ba", "132Xe", "134Xe", "131Xe", "135Xe", "130Xe", "136Xe", "129Xe"];
     const defaultWeight = i => kind === "mr" ? (i === 0 ? 70 : i < 3 ? 30 : 10) : 50;
     controls.innerHTML = (kind !== "penning" ? select("number", T.number, Array.from({ length: MAXN }, (_, i) => [i + 1, String(i + 1)]), 2) + select("preset", T.preset, [["isomer", T.isomers], ["overlap", T.overlapping], ["separate", T.separated], ["unequal", T.unequal], ["three", T.three], ["many", T.many], ["molecular", T.molecular]], kind === "mr" ? "isomer" : "overlap") + check("allpairs", T.pairs_all, false) + `<p class="zg-muted zg-small">${esc(T.pairs_note)}</p>` : "") +
-      `<div class="wb-species-list">${Array.from({ length: ionRows }, (_, i) => `<fieldset class="wb-ion" data-ion-row="${i}" style="--species-colour:${COL[i]}"><legend>${T.species} ${i + 1} <span data-ion-kind="${i}"></span></legend><label>${T.species}<input name="ion-${i}" type="text" value="${DEFAULT_ION[i]}" spellcheck="false"></label><label>${T.state}<select name="state-${i}"></select></label><div class="wb-pair">${field(`charge-${i}`, T.charge, 1, 1, 100, 1)}${kind !== "penning" ? field(`weight-${i}`, T.population, defaultWeight(i), 0, 1000) : ""}</div><small data-ion-info="${i}"></small></fieldset>`).join("")}</div>`;
+      `<div data-figure-note="wb-species-input"></div><div class="wb-species-list">${Array.from({ length: ionRows }, (_, i) => `<fieldset class="wb-ion" data-ion-row="${i}" style="--species-colour:${COL[i]}"><legend>${T.species} ${i + 1} <span data-ion-kind="${i}"></span></legend><label>${T.species}<input name="ion-${i}" type="text" value="${DEFAULT_ION[i]}" spellcheck="false"></label><label>${T.state}<select name="state-${i}"></select></label><div class="wb-pair">${field(`charge-${i}`, T.charge, 1, 1, 100, 1)}${kind !== "penning" ? field(`weight-${i}`, T.population, defaultWeight(i), 0, 1000) : ""}</div><small data-ion-info="${i}"></small><details class="wb-ame" data-ion-ame="${i}"><summary>${esc(T.ame_species_card)}</summary><div class="wb-ame-body"></div></details></fieldset>`).join("")}</div>`;
     if (kind === "mr") {
       controls.insertAdjacentHTML("beforeend", field("laps", T.laps, 1000, 0, 100000, 1) + field("width", T.width, 20, .1, 10000) + field("broadening", T.broadening, 20, 0, 10000) + check("histogram", T.histogram) +
         `<details><summary>${T.advanced}</summary>${field("reference-time", T.reference_time, 10, .001)}${field("lap-time", T.lap_time, 8, .001)}${field("delay", T.delay, 0)}${field("counts", T.counts, 400, 2, 50000, 1)}${field("seed", T.seed, 20261007, 0, 4294967295, 1)}</details>` +
@@ -100,13 +103,34 @@
     function describe(ion) {
       const atom = ion.atoms.length === 1 && ion.atoms[0].count === 1 ? ion.atoms[0] : null, st = atom && atom.state;
       const isomer = !!(st && st.source_state_index), E = isomer && P.numeric(st.excitation.value) ? st.excitation.value : null;
-      return { kind: atom ? (isomer ? "isomer" : "ground") : "molecule", nuclide: atom ? `${atom.A}${st.element}` : ion.label, state: isomer ? String(st.label) : atom ? "g" : "", excitation_keV: E, charge: ion.q };
+      return { kind: atom ? (isomer ? "isomer" : "ground") : "molecule", nuclide: atom ? `${atom.A}${st.element}` : ion.name, state: isomer ? String(st.label) : atom ? "g" : "", excitation_keV: E, charge: ion.sign * ion.q };
     }
     /* 133Xe, 133Xem (isomer letter directly after the element), 133Xe⁺, 133Xem²⁺; molecules keep their formula */
-    const ionText = (ion, d) => (d.kind === "molecule" ? ion.label.replace(/\s*\+\d+$/, "") : d.nuclide + d.state.replace(/^g$/, "")) + chargeText(ion.q);
+    const ionText = ion => ion.display;
     const tagText = d => d.kind === "isomer" ? `${T.isomer_tag}${d.excitation_keV != null ? ` E* ${fmt(d.excitation_keV, 6)} keV` : ""}` : d.kind === "ground" ? T.ground_tag : T.molecule_tag;
-    const legendName = (ion, d) => `${ionText(ion, d)} · ${tagText(d)}`;
+    const legendName = (ion, d) => `${ionText(ion)} · ${tagText(d)}`;
     const meta = j => ({ ...descs[j] });
+    async function fillAme(i) {
+      const holder = controls.querySelector(`[data-ion-ame="${i}"]`), body = holder?.querySelector(".wb-ame-body"), ion = ions[i];
+      if (!body || !holder.open) return;
+      const R = window.TrapsAmeReference;
+      if (!ion || !R || !root.dataset.ameReference) { body.textContent = T.ame_unavailable; return; }
+      body.textContent = T.ame_loading;
+      let ref; try { ref = await loadAme(); } catch (e) { body.textContent = e.message || T.ame_unavailable; return; }
+      if (ions[i] !== ion) return;   // the species changed while the table loaded
+      const t = R.translator(lang), nodes = [];
+      for (const a of ion.atoms) {
+        const st = a.state, info = ref.info(st.element, a.A), name = `${a.A}${st.element}${a.count > 1 ? " × " + a.count : ""}`;
+        nodes.push(node("h5", "wb-ame-head", ion.atoms.length > 1 ? `${T.ame_constituent}: ${name}` : name));
+        if (!info) { nodes.push(node("p", "zg-muted", T.ame_missing_nuclide)); continue; }
+        const rows = R.rows(info, t);
+        if (st.source_state_index && st.excitation) rows.push([T.ame_excitation, `${st.excitation.raw} ± ${st.excitation.raw_uncertainty || "?"}${st.excitation.value_extrapolated ? " #" : ""}`]);
+        nodes.push(table([T.ame_quantity, t("ame_value")], rows));
+      }
+      nodes.push(node("p", "zg-muted zg-small", T.ame_ground_note), node("p", "zg-muted zg-small", t("ame_card_note")));
+      body.replaceChildren(...nodes);
+    }
+    controls.addEventListener("toggle", e => { const d = e.target.closest?.("[data-ion-ame]"); if (d && d.open) fillAme(+d.dataset.ionAme); }, true);
     function readIons() {
       const count = kind === "penning" ? 1 : val("number"), parsed = [];
       for (let i = 0; i < ionRows; i++) {
@@ -114,13 +138,14 @@
         let text = $(`ion-${i}`).value;
         let q = val(`charge-${i}`), w = kind === "penning" ? 1 : val(`weight-${i}`), base = cat.resolve(text, { q, w }), state = $(`state-${i}`); q = base.q; w = base.w;
         if (!state.disabled && state.value !== "") text = `${base.atoms[0].A}${base.atoms[0].state.element}[${state.value}]`;
-        const ion = cat.resolve(text, { q, w }); $(`charge-${i}`).value = ion.q; if ($(`weight-${i}`)) $(`weight-${i}`).value = ion.w; parsed.push(ion);
+        const ion = cat.resolve(text, { q, w, sign: base.sign }); $(`charge-${i}`).value = ion.q; if ($(`weight-${i}`)) $(`weight-${i}`).value = ion.w; parsed.push(ion);
         const a = ion.atoms[0], ex = a.state.excitation, d = describe(ion), badge = controls.querySelector(`[data-ion-kind="${i}"]`);
         badge.replaceChildren(U.badge(tagText(d), d.kind === "isomer" ? "warn" : d.kind === "ground" ? "ok" : "info"));
-        controls.querySelector(`[data-ion-info="${i}"]`).textContent = `${ion.label}: ${fmt(ion.M, 11)} u; σ = ${ion.e == null ? T.unknown : fmt(ion.e) + (ion.uncertainty_extrapolated ? "#" : "") + " keV"}${ion.est ? " (#)" : ""}. ${ion.source}${a.state.source_state_index ? `; Eₓ = ${ex.raw} ± ${ex.raw_uncertainty || T.unknown} keV` : ""}`;
+        controls.querySelector(`[data-ion-info="${i}"]`).textContent = `${ion.name}: ${fmt(ion.M, 11)} u; σ = ${ion.e == null ? T.unknown : fmt(ion.e) + (ion.uncertainty_extrapolated ? "#" : "") + " keV"}${ion.est ? " (#)" : ""}. ${ion.source}${a.state.source_state_index ? `; Eₓ = ${ex.raw} ± ${ex.raw_uncertainty || T.unknown} keV` : ""}`;
       }
       if (!parsed.some(i => i.w > 0)) throw new Error("At least one detected population must be positive.");
-      descs = parsed.map(describe); labels = parsed.map((ion, i) => ionText(ion, descs[i])); names = parsed.map((ion, i) => legendName(ion, descs[i]));
+      descs = parsed.map(describe); labels = parsed.map(ion => ionText(ion)); names = parsed.map((ion, i) => legendName(ion, descs[i]));
+      queueMicrotask(() => parsed.forEach((_, i) => fillAme(i)));
       return parsed;
     }
     /* neighbouring pairs in the order of `key` (flight time or frequency); every pair when ticked */
@@ -212,7 +237,7 @@
     function renderPenning() {
       parameters = { B: val("B"), voltage: val("voltage"), d: val("d") / 1000, rp: val("rp"), rm: val("rm"), axial: val("axial"), duration: val("duration") * 1e-6, x0: val("x0"), y0: val("y0"), z0: val("z0") };
       { const c = calOf(); if (c) { parameters.B = c.B; parameters.calibrated = c.list.map(x => x.label).join(", ") + " · " + c.mode; } model = c ? P.calibratedPenning(ions[0], c) : P.penning(ions[0], parameters.B, parameters.voltage, parameters.d); }
-      if (!model.stable) { orbit = []; displayRows = []; draw("trajectory", [], { x: [-1, 1], y: [-1, 1], xlabel: "x (mm)", ylabel: "y (mm)" }); summary.replaceChildren(U.group(model.marginal ? "Marginal confinement" : "Unconfined / invalid ideal-trap parameters", "bad", [], [node("p", "", "νc² − 2νz² > 0, U₀ > 0")])); return; }
+      if (!model.stable) { orbit = []; displayRows = []; draw("trajectory", [], { x: [-1, 1], y: [-1, 1], xlabel: "x (mm)", ylabel: "y (mm)" }); summary.replaceChildren(U.group(model.marginal ? "Marginal confinement" : "Unconfined / invalid ideal-trap parameters", "bad", [], [node("p", "", "νc² − 2νz² > 0, U₀·sign(q) > 0")])); return; }
       const count = Math.max(200, Math.ceil(model.np * parameters.duration * 24)); if (count > 60000) throw new Error("Shorten the trajectory duration: at least 24 samples per cyclotron cycle are required.");
       orbit = Array.from({ length: count + 1 }, (_, i) => { const time = parameters.duration * i / count; return [time, parameters.x0 + parameters.rp * Math.cos(2 * Math.PI * model.np * time) + parameters.rm * Math.cos(2 * Math.PI * model.nm * time), parameters.y0 - parameters.rp * Math.sin(2 * Math.PI * model.np * time) - parameters.rm * Math.sin(2 * Math.PI * model.nm * time), parameters.z0 + parameters.axial * Math.cos(2 * Math.PI * model.nz * time)]; });
       const nodes = []; if (parameters.calibrated) { const holder = node("div"); holder.innerHTML = calibrationNote(ions[0]); nodes.push(holder); }

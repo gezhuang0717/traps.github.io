@@ -125,6 +125,14 @@ en:
   explain_fig: "Print the explanation of the symbols below saved figures"
   many: "Ten xenon isotopes (ten species)"
   hist_series: "Synthetic histogram"
+  ame_species_card: "AME2020 masses and energies of this species"
+  ame_loading: "Loading AME2020 …"
+  ame_unavailable: "The AME2020 table could not be loaded."
+  ame_missing_nuclide: "not in AME2020"
+  ame_excitation: "Excitation energy E* (NUBASE2020) / keV"
+  ame_ground_note: "AME2020 tabulates ground states. For an isomer the excitation energy E* from NUBASE2020 is added to the ground-state mass; the ion mass subtracts the electron masses."
+  ame_constituent: "Constituent"
+  ame_quantity: "Quantity"
 
 zh:
   mr_title: MR-TOF：离子种类与同核异能态分离
@@ -240,6 +248,14 @@ zh:
   explain_fig: "在保存的图片下方写出符号说明"
   many: "十种氙同位素（十个种类）"
   hist_series: "模拟直方图"
+  ame_species_card: "该离子种类的 AME2020 质量与能量"
+  ame_loading: "正在载入 AME2020 …"
+  ame_unavailable: "无法载入 AME2020 表。"
+  ame_missing_nuclide: "AME2020 中没有"
+  ame_excitation: "激发能 E*（NUBASE2020）/ keV"
+  ame_ground_note: "AME2020 给出基态数据。对于同核异能态，在基态质量上加 NUBASE2020 的激发能 E*；离子质量再减去电子质量。"
+  ame_constituent: "组成"
+  ame_quantity: "物理量"
 
 fi:
   mr_title: 'MR-TOF: ionien ja isomeerien erottelu'
@@ -358,6 +374,14 @@ fi:
   explain_fig: "Tulosta symbolien selitys tallennettujen kuvien alle"
   many: "Kymmenen ksenonisotooppia (kymmenen lajia)"
   hist_series: "Synteettinen histogrammi"
+  ame_species_card: "Tämän lajin AME2020-massat ja energiat"
+  ame_loading: "Ladataan AME2020 …"
+  ame_unavailable: "AME2020-taulukkoa ei voitu ladata."
+  ame_missing_nuclide: "ei AME2020:ssä"
+  ame_excitation: "Virityksen energia E* (NUBASE2020) / keV"
+  ame_ground_note: "AME2020 taulukoi perustilat. Isomeerille NUBASE2020:n virityksen energia E* lisätään perustilan massaan; ionin massasta vähennetään elektronien massat."
+  ame_constituent: "Osa"
+  ame_quantity: "Suure"
 
 de:
   mr_title: 'MR-TOF: Ionenspezies und Isomere trennen'
@@ -478,6 +502,14 @@ de:
   explain_fig: "Symbolerklärung unter gespeicherten Abbildungen drucken"
   many: "Zehn Xenon-Isotope (zehn Spezies)"
   hist_series: "Synthetisches Histogramm"
+  ame_species_card: "AME2020-Massen und Energien dieser Spezies"
+  ame_loading: "AME2020 wird geladen …"
+  ame_unavailable: "Die AME2020-Tabelle konnte nicht geladen werden."
+  ame_missing_nuclide: "nicht in AME2020"
+  ame_excitation: "Anregungsenergie E* (NUBASE2020) / keV"
+  ame_ground_note: "AME2020 tabelliert Grundzustände. Bei einem Isomer wird die Anregungsenergie E* aus NUBASE2020 zur Grundzustandsmasse addiert; die Ionenmasse zieht die Elektronenmassen ab."
+  ame_constituent: "Bestandteil"
+  ame_quantity: "Größe"
 
 ja:
   mr_title: MR-TOF：イオン種と核異性体の分離
@@ -593,6 +625,14 @@ ja:
   explain_fig: "保存した図の下に記号の説明を入れる"
   many: "キセノン同位体 10 種（10 種類）"
   hist_series: "模擬ヒストグラム"
+  ame_species_card: "このイオン種の AME2020 の質量とエネルギー"
+  ame_loading: "AME2020 を読み込み中 …"
+  ame_unavailable: "AME2020 表を読み込めませんでした。"
+  ame_missing_nuclide: "AME2020 にありません"
+  ame_excitation: "励起エネルギー E*（NUBASE2020）/ keV"
+  ame_ground_note: "AME2020 は基底状態を表にしています。アイソマーでは NUBASE2020 の励起エネルギー E* を基底状態の質量に加え、イオン質量は電子の質量を引きます。"
+  ame_constituent: "構成要素"
+  ame_quantity: "量"
 
 fr:
   mr_title: 'MR-TOF : séparer espèces et isomères'
@@ -718,3 +758,11 @@ fr:
   explain_fig: "Imprimer l’explication des symboles sous les figures enregistrées"
   many: "Dix isotopes du xénon (dix espèces)"
   hist_series: "Histogramme synthétique"
+  ame_species_card: "Masses et énergies AME2020 de cette espèce"
+  ame_loading: "Chargement d’AME2020 …"
+  ame_unavailable: "Impossible de charger la table AME2020."
+  ame_missing_nuclide: "absent d’AME2020"
+  ame_excitation: "Énergie d’excitation E* (NUBASE2020) / keV"
+  ame_ground_note: "AME2020 tabule les états fondamentaux. Pour un isomère, l’énergie d’excitation E* de NUBASE2020 s’ajoute à la masse de l’état fondamental ; la masse de l’ion retranche les masses des électrons."
+  ame_constituent: "Constituant"
+  ame_quantity: "Grandeur"
