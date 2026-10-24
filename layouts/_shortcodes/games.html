@@ -138,6 +138,8 @@
 <script defer src="{{ "js/trap-design.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/trap-design.js")) 0 10 }}"></script>
 <script defer src="{{ "js/physics.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/physics.js")) 0 10 }}"></script>
 <script defer src="{{ "js/calibration.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/calibration.js")) 0 10 }}"></script>
+<script defer src="{{ "js/figure-style.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/figure-style.js")) 0 10 }}"></script>
+<script defer src="{{ "js/wb-plot.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/wb-plot.js")) 0 10 }}"></script>
 <script defer src="{{ "js/workbenches.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/workbenches.js")) 0 10 }}"></script>
 <script defer src="{{ "js/games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/games.js")) 0 10 }}"></script>
 <div id="zg-cooling-i18n" hidden data-dict="{{ (index hugo.Data.cooling_js_i18n $k | default dict) | jsonify }}"></div>

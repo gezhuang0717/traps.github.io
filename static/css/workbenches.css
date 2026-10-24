@@ -32,3 +32,12 @@
 .zg-country [hidden]{display:none!important}.zg-country-all{display:flex;align-items:center;gap:.45rem;font-size:.86rem;margin-top:.5rem}
 
 .zg-paper-topic-guide{width:100%;flex-basis:100%;min-width:0}.zg-paper-topic-guide summary{cursor:pointer;overflow-wrap:anywhere}.zg-paper-topic-guide h3{margin-top:1rem}.zg-paper-topic{padding:.55rem 0;border-bottom:1px solid #8893a844}.zg-paper-topic p{line-height:1.55;overflow-wrap:anywhere}.zg-paper-topic button{margin:.4rem 0;padding:.35rem .65rem;border:1px solid #8893a888;border-radius:6px}.zg-publication-search [name=pub-topic]{width:100%;text-overflow:ellipsis}.zg-publication-search [data-pub-topic-description]{font-size:.92em;line-height:1.5}
+
+/* Workbench figures: one display-options bar, in-figure legends, hover values, species swatches. */
+.wb-figbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:end;margin:.2rem 0 .9rem;padding:.6rem .8rem;border-radius:.6rem;background:rgba(127,127,160,.1)}
+.wb-figbar label{display:grid;gap:.2rem;font-size:.85rem}.wb-figbar .wb-check{display:flex;align-items:center;gap:.4rem}.wb-figbar .zg-small{flex:1 1 100%;margin:0}.wb-figbar [data-wb-style]{flex:1 1 100%}
+.wb-canvas{position:relative}.wb-canvas canvas{width:100%;display:block;touch-action:pan-y;cursor:crosshair}
+.wb-tip{position:absolute;z-index:3;pointer-events:none;padding:.15rem .45rem;border-radius:.35rem;background:rgba(20,26,40,.92);color:#fff;font-size:.75rem;white-space:nowrap}
+.wb-sw{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}.wb-sw i{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:var(--species-colour)}
+.wb-ion legend .zg-badge{font-size:.62rem;vertical-align:middle}
+.wb-summary .wb-table-wrap{margin:.6rem 0}.wb-summary table{font-size:.85rem}

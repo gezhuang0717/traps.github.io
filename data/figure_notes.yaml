@@ -37,8 +37,8 @@ en:
     summary: Simulated time-of-flight peaks after the chosen number of laps, for each species and isomer and for their sum.
     items:
     - - Coloured curves
-      - Expected counts per bin of each species; isomers are marked [m]. The area follows the population weight.
-    - - Violet curve
+      - Expected counts per bin of each species; isomers carry their state letter (133Xem). The area follows the population weight.
+    - - Black curve
       - 'Combined sample: sum of all species.'
     - - Grey bars
       - One random sample of ions drawn from the same distribution (optional histogram).
@@ -48,6 +48,9 @@ en:
       - Time of flight relative to the first species, t − t₁ (ns).
     - - FWHM
       - Full width at half maximum of a peak, from the peak width and the broadening per lap.
+    - &id001
+      - Legend
+      - 'Nuclide + state letter, charge as a superscript: 133Xe⁺ is the ground state, 133Xem⁺ the isomer m (its excitation energy E* is listed), 133Xe²⁺ a doubly charged ion.'
   mr-power:
     title: How to read the resolving-power plot
     summary: Resolving power of each species against the number of laps, compared with the value needed to separate each pair.
@@ -77,8 +80,8 @@ en:
     - - x axis
       - 'νRF − νc of the target species (Hz): detuning of the excitation from its cyclotron frequency.'
     - - Coloured curves
-      - Expected mean TOF of each species (isomers marked [m]); the width of a dip is about 1/T (Fourier limit) for excitation time T.
-    - - Violet curve
+      - Expected mean TOF of each species (isomers carry their state letter, 133Xem); the width of a dip is about 1/T (Fourier limit) for excitation time T.
+    - - Black curve
       - 'Mixture: population-weighted mean TOF of the whole sample.'
     - - Dots with bars
       - 'Simulated measurement: mean TOF ± standard error at each scanned frequency.'
@@ -86,6 +89,7 @@ en:
       - Single-species fit to the simulated data; its centre minus the true frequency is the bias.
     - - Dashed vertical lines
       - Cyclotron frequency of each species relative to the target.
+    - *id001
   tof-residuals:
     title: How to read the residual plot
     summary: Data minus single-species fit at each scanned frequency.
@@ -100,7 +104,7 @@ en:
     items:
     - - Coloured curves
       - Probability density of each species, scaled by its population weight; a species on resonance arrives earlier.
-    - - Violet curve
+    - - Black curve
       - Sum over all species.
     - - x axis
       - Time of flight of a detected ion (µs).
@@ -110,7 +114,7 @@ en:
     items:
     - - ν₊, ν₋, νz
       - Modified cyclotron, magnetron and axial frequencies; ν₊ + ν₋ = νc = qB/(2πm).
-    - - Violet line
+    - - Black line
       - 'Ion path so far (view: top x–y, side x–z or a 3D projection).'
     - - Red dot
       - Current ion position.
@@ -182,8 +186,8 @@ zh:
     summary: 在所选圈数后，各核素/同质异能态及其总和的模拟飞行时间峰。
     items:
     - - 彩色曲线
-      - 各核素的每道期望计数；同质异能态标记为 [m]。面积正比于布居权重。
-    - - 紫色曲线
+      - 各核素的每道期望计数；同质异能态带有状态字母（如 133Xem）。面积正比于布居权重。
+    - - 黑色曲线
       - 合成样品：所有核素之和。
     - - 灰色柱
       - 从同一分布抽取的一组随机离子样本（可选直方图）。
@@ -193,6 +197,9 @@ zh:
       - 相对第一种核素的飞行时间 t − t₁（ns）。
     - - FWHM
       - 峰的半高全宽，由峰宽和每圈展宽得到。
+    - &id002
+      - 图例
+      - 核素 + 状态字母，电荷为上标：133Xe⁺ 是基态，133Xem⁺ 是同质异能态 m（并列出激发能 E*），133Xe²⁺ 是二价离子。
   mr-power:
     title: 如何阅读分辨本领图
     summary: 各核素的分辨本领随圈数变化，并与分离每对核素所需的值比较。
@@ -222,8 +229,8 @@ zh:
     - - 横轴
       - νRF − νc（目标核素，Hz）：激发频率相对其回旋频率的失谐。
     - - 彩色曲线
-      - 各核素的期望平均 TOF（同质异能态标 [m]）；激发时间 T 时，凹陷宽度约为 1/T（傅里叶极限）。
-    - - 紫色曲线
+      - 各核素的期望平均 TOF（同质异能态带状态字母，如 133Xem）；激发时间 T 时，凹陷宽度约为 1/T（傅里叶极限）。
+    - - 黑色曲线
       - 混合样品：按布居加权的平均 TOF。
     - - 带误差棒的点
       - 模拟测量：每个扫描频率处的平均 TOF ± 标准误差。
@@ -231,6 +238,7 @@ zh:
       - 对模拟数据的单核素拟合；其中心减去真实频率即为偏差。
     - - 垂直虚线
       - 各核素相对目标的回旋频率。
+    - *id002
   tof-residuals:
     title: 如何阅读残差图
     summary: 每个扫描频率处的数据减去单核素拟合。
@@ -245,7 +253,7 @@ zh:
     items:
     - - 彩色曲线
       - 各核素的概率密度，按布居权重缩放；处于共振的核素到达更早。
-    - - 紫色曲线
+    - - 黑色曲线
       - 所有核素之和。
     - - 横轴
       - 被探测离子的飞行时间（µs）。
@@ -255,7 +263,7 @@ zh:
     items:
     - - ν₊, ν₋, νz
       - 修正回旋、磁控和轴向频率；ν₊ + ν₋ = νc = qB/(2πm)。
-    - - 紫色线
+    - - 黑色线
       - 迄今的离子路径（视图：俯视 x–y、侧视 x–z 或 3D 投影）。
     - - 红点
       - 离子当前位置。
@@ -327,8 +335,8 @@ fi:
     summary: Simuloidut lentoaikapiikit valitun kierrosmäärän jälkeen kullekin lajille ja isomeerille sekä niiden summalle.
     items:
     - - Värilliset käyrät
-      - Kunkin lajin odotetut laskennat lokeroa kohti; isomeerit merkitty [m]. Pinta-ala seuraa populaatiopainoa.
-    - - Violetti käyrä
+      - Kunkin lajin odotetut laskennat lokeroa kohti; isomeereillä on tilakirjain (133Xem). Pinta-ala seuraa populaatiopainoa.
+    - - Musta käyrä
       - 'Yhdistetty näyte: kaikkien lajien summa.'
     - - Harmaat palkit
       - Yksi samasta jakaumasta arvottu ionien satunnaisotos (valinnainen histogrammi).
@@ -338,6 +346,9 @@ fi:
       - Lentoaika suhteessa ensimmäiseen lajiin, t − t₁ (ns).
     - - FWHM
       - Piikin täysi leveys puolikorkeudella, piikin leveydestä ja kierroskohtaisesta levenemisestä.
+    - &id003
+      - Selite
+      - 'Nuklidi + tilakirjain, varaus yläindeksinä: 133Xe⁺ on perustila, 133Xem⁺ on isomeeri m (virityksen energia E* mainitaan), 133Xe²⁺ on kaksinkertaisesti varautunut ioni.'
   mr-power:
     title: Erotuskyvyn kuvaajan lukeminen
     summary: Kunkin lajin erotuskyky kierrosten funktiona verrattuna parin erottamiseen tarvittavaan arvoon.
@@ -367,8 +378,8 @@ fi:
     - - x-akseli
       - 'νRF − νc (kohdelaji, Hz): herätteen poikkeama sen syklotronitaajuudesta.'
     - - Värilliset käyrät
-      - Kunkin lajin odotettu keski-TOF (isomeerit [m]); kuopan leveys on noin 1/T herätysajalla T (Fourier-raja).
-    - - Violetti käyrä
+      - Kunkin lajin odotettu keski-TOF (isomeereillä tilakirjain, 133Xem); kuopan leveys on noin 1/T herätysajalla T (Fourier-raja).
+    - - Musta käyrä
       - 'Seos: koko näytteen populaatiopainotettu keski-TOF.'
     - - Pisteet virhepalkeilla
       - 'Simuloitu mittaus: keski-TOF ± keskivirhe jokaisella skannatulla taajuudella.'
@@ -376,6 +387,7 @@ fi:
       - Yhden lajin sovite simuloituun dataan; sen keskipiste miinus todellinen taajuus on harha.
     - - Pystysuuntaiset katkoviivat
       - Kunkin lajin syklotronitaajuus suhteessa kohteeseen.
+    - *id003
   tof-residuals:
     title: Residuaalikuvan lukeminen
     summary: Data miinus yhden lajin sovite jokaisella skannatulla taajuudella.
@@ -390,7 +402,7 @@ fi:
     items:
     - - Värilliset käyrät
       - Kunkin lajin todennäköisyystiheys populaatiopainolla skaalattuna; resonanssissa oleva laji saapuu aiemmin.
-    - - Violetti käyrä
+    - - Musta käyrä
       - Kaikkien lajien summa.
     - - x-akseli
       - Havaitun ionin lentoaika (µs).
@@ -400,7 +412,7 @@ fi:
     items:
     - - ν₊, ν₋, νz
       - Muunneltu syklotroni-, magnetroni- ja aksiaalitaajuus; ν₊ + ν₋ = νc = qB/(2πm).
-    - - Violetti viiva
+    - - Musta viiva
       - 'Ionin rata tähän asti (näkymä: päältä x–y, sivulta x–z tai 3D-projektio).'
     - - Punainen piste
       - Ionin nykyinen paikka.
@@ -472,8 +484,8 @@ de:
     summary: Simulierte Flugzeitpeaks nach der gewählten Rundenzahl für jede Spezies und jedes Isomer sowie ihre Summe.
     items:
     - - Farbige Kurven
-      - Erwartete Zählungen je Bin für jede Spezies; Isomere sind mit [m] markiert. Die Fläche folgt dem Populationsgewicht.
-    - - Violette Kurve
+      - Erwartete Zählungen je Bin für jede Spezies; Isomere tragen ihren Zustandsbuchstaben (133Xem). Die Fläche folgt dem Populationsgewicht.
+    - - Schwarze Kurve
       - 'Gesamtprobe: Summe aller Spezies.'
     - - Graue Balken
       - Eine Zufallsstichprobe von Ionen aus derselben Verteilung (optionales Histogramm).
@@ -483,6 +495,9 @@ de:
       - Flugzeit relativ zur ersten Spezies, t − t₁ (ns).
     - - FWHM
       - Volle Breite auf halber Höhe eines Peaks, aus Peakbreite und Verbreiterung pro Runde.
+    - &id004
+      - Legende
+      - 'Nuklid + Zustandsbuchstabe, Ladung hochgestellt: 133Xe⁺ ist der Grundzustand, 133Xem⁺ das Isomer m (seine Anregungsenergie E* steht dabei), 133Xe²⁺ ein zweifach geladenes Ion.'
   mr-power:
     title: So liest man das Auflösungsdiagramm
     summary: Auflösungsvermögen jeder Spezies gegen die Rundenzahl, verglichen mit dem zur Trennung jedes Paars nötigen Wert.
@@ -512,8 +527,8 @@ de:
     - - x-Achse
       - 'νRF − νc der Zielspezies (Hz): Verstimmung der Anregung gegenüber ihrer Zyklotronfrequenz.'
     - - Farbige Kurven
-      - Erwartete mittlere TOF jeder Spezies (Isomere [m]); die Breite des Minimums beträgt etwa 1/T bei Anregungszeit T (Fourier-Grenze).
-    - - Violette Kurve
+      - Erwartete mittlere TOF jeder Spezies (Isomere mit Zustandsbuchstabe, 133Xem); die Breite des Minimums beträgt etwa 1/T bei Anregungszeit T (Fourier-Grenze).
+    - - Schwarze Kurve
       - 'Mischung: populationsgewichtete mittlere TOF der gesamten Probe.'
     - - Punkte mit Fehlerbalken
       - 'Simulierte Messung: mittlere TOF ± Standardfehler bei jeder gescannten Frequenz.'
@@ -521,6 +536,7 @@ de:
       - Ein-Spezies-Fit an die simulierten Daten; Mitte minus wahre Frequenz ist die Verschiebung.
     - - Gestrichelte senkrechte Linien
       - Zyklotronfrequenz jeder Spezies relativ zum Ziel.
+    - *id004
   tof-residuals:
     title: So liest man das Residuendiagramm
     summary: Daten minus Ein-Spezies-Fit bei jeder gescannten Frequenz.
@@ -535,7 +551,7 @@ de:
     items:
     - - Farbige Kurven
       - Wahrscheinlichkeitsdichte jeder Spezies, mit dem Populationsgewicht skaliert; eine resonante Spezies kommt früher an.
-    - - Violette Kurve
+    - - Schwarze Kurve
       - Summe über alle Spezies.
     - - x-Achse
       - Flugzeit eines detektierten Ions (µs).
@@ -545,7 +561,7 @@ de:
     items:
     - - ν₊, ν₋, νz
       - Modifizierte Zyklotron-, Magnetron- und Axialfrequenz; ν₊ + ν₋ = νc = qB/(2πm).
-    - - Violette Linie
+    - - Schwarze Linie
       - 'Bisheriger Ionenweg (Ansicht: x–y von oben, x–z von der Seite oder 3D-Projektion).'
     - - Roter Punkt
       - Aktuelle Ionenposition.
@@ -617,8 +633,8 @@ ja:
     summary: 選んだ周回数後の、各核種・アイソマーとその合計のシミュレーション飛行時間ピーク。
     items:
     - - 色付きの曲線
-      - 各核種のビンあたり期待カウント。アイソマーは [m]。面積は存在比に比例。
-    - - 紫の曲線
+      - 各核種のビンあたり期待カウント。アイソマーは状態の文字を付けて表します（133Xem）。面積は存在比に比例。
+    - - 黒い曲線
       - 合成試料：全核種の和。
     - - 灰色の棒
       - 同じ分布から抽出した乱数イオン標本（任意のヒストグラム）。
@@ -628,6 +644,9 @@ ja:
       - 最初の核種に対する飛行時間 t − t₁（ns）。
     - - FWHM
       - ピークの半値全幅。ピーク幅と周回あたりの広がりから求めます。
+    - &id005
+      - 凡例
+      - 核種 + 状態の文字、電荷は上付き：133Xe⁺ は基底状態、133Xem⁺ はアイソマー m（励起エネルギー E* を併記）、133Xe²⁺ は 2 価のイオンです。
   mr-power:
     title: 分解能プロットの見方
     summary: 周回数に対する各核種の分解能と、各ペアの分離に必要な値。
@@ -657,8 +676,8 @@ ja:
     - - 横軸
       - νRF − νc（対象核種、Hz）：励起周波数のサイクロトロン周波数からのずれ。
     - - 色付きの曲線
-      - 各核種の期待平均 TOF（アイソマーは [m]）。谷の幅は励起時間 T に対し約 1/T（フーリエ限界）。
-    - - 紫の曲線
+      - 各核種の期待平均 TOF（アイソマーは状態の文字付き、133Xem）。谷の幅は励起時間 T に対し約 1/T（フーリエ限界）。
+    - - 黒い曲線
       - 混合：存在比で重み付けした試料全体の平均 TOF。
     - - 誤差棒付きの点
       - 模擬測定：各走査周波数での平均 TOF ± 標準誤差。
@@ -666,6 +685,7 @@ ja:
       - 模擬データへの単一核種フィット。中心と真の周波数の差がバイアス。
     - - 縦の破線
       - 目標に対する各核種のサイクロトロン周波数。
+    - *id005
   tof-residuals:
     title: 残差プロットの見方
     summary: 各走査周波数でのデータ − 単一核種フィット。
@@ -680,7 +700,7 @@ ja:
     items:
     - - 色付きの曲線
       - 存在比で重み付けした各核種の確率密度。共鳴している核種は早く到達します。
-    - - 紫の曲線
+    - - 黒い曲線
       - 全核種の和。
     - - 横軸
       - 検出イオンの飛行時間（µs）。
@@ -690,7 +710,7 @@ ja:
     items:
     - - ν₊, ν₋, νz
       - 修正サイクロトロン・マグネトロン・軸方向周波数。ν₊ + ν₋ = νc = qB/(2πm)。
-    - - 紫の線
+    - - 黒い線
       - これまでのイオン経路（上面 x–y、側面 x–z、3D 射影）。
     - - 赤い点
       - 現在のイオン位置。
@@ -762,8 +782,8 @@ fr:
     summary: Pics de temps de vol simulés après le nombre de tours choisi, pour chaque espèce et isomère et pour leur somme.
     items:
     - - Courbes colorées
-      - Comptages attendus par canal pour chaque espèce ; les isomères sont marqués [m]. L’aire suit le poids de population.
-    - - Courbe violette
+      - Comptages attendus par canal pour chaque espèce ; les isomères portent leur lettre d’état (133Xem). L’aire suit le poids de population.
+    - - Courbe noire
       - 'Échantillon combiné : somme de toutes les espèces.'
     - - Barres grises
       - Un échantillon aléatoire d’ions tiré de la même distribution (histogramme facultatif).
@@ -773,6 +793,9 @@ fr:
       - Temps de vol par rapport à la première espèce, t − t₁ (ns).
     - - FWHM
       - Largeur totale à mi-hauteur d’un pic, d’après la largeur du pic et l’élargissement par tour.
+    - &id006
+      - Légende
+      - 'Nucléide + lettre d’état, charge en exposant : 133Xe⁺ est l’état fondamental, 133Xem⁺ l’isomère m (son énergie d’excitation E* est indiquée), 133Xe²⁺ un ion doublement chargé.'
   mr-power:
     title: Lire le graphique du pouvoir de résolution
     summary: Pouvoir de résolution de chaque espèce en fonction du nombre de tours, comparé à la valeur requise pour séparer chaque paire.
@@ -802,8 +825,8 @@ fr:
     - - Axe x
       - 'νRF − νc de l’espèce cible (Hz) : désaccord de l’excitation par rapport à sa fréquence cyclotron.'
     - - Courbes colorées
-      - TOF moyen attendu de chaque espèce (isomères [m]) ; la largeur du creux vaut environ 1/T pour le temps d’excitation T (limite de Fourier).
-    - - Courbe violette
+      - TOF moyen attendu de chaque espèce (isomères avec leur lettre d’état, 133Xem) ; la largeur du creux vaut environ 1/T pour le temps d’excitation T (limite de Fourier).
+    - - Courbe noire
       - 'Mélange : TOF moyen pondéré par les populations de tout l’échantillon.'
     - - Points avec barres
       - 'Mesure simulée : TOF moyen ± erreur standard à chaque fréquence balayée.'
@@ -811,6 +834,7 @@ fr:
       - Ajustement à une espèce des données simulées ; son centre moins la fréquence vraie est le biais.
     - - Lignes verticales pointillées
       - Fréquence cyclotron de chaque espèce relative à la cible.
+    - *id006
   tof-residuals:
     title: Lire le graphique des résidus
     summary: Données moins ajustement à une espèce à chaque fréquence balayée.
@@ -825,7 +849,7 @@ fr:
     items:
     - - Courbes colorées
       - Densité de probabilité de chaque espèce, pondérée par sa population ; une espèce résonnante arrive plus tôt.
-    - - Courbe violette
+    - - Courbe noire
       - Somme sur toutes les espèces.
     - - Axe x
       - Temps de vol d’un ion détecté (µs).
@@ -835,7 +859,7 @@ fr:
     items:
     - - ν₊, ν₋, νz
       - Fréquences cyclotron modifiée, magnétron et axiale ; ν₊ + ν₋ = νc = qB/(2πm).
-    - - Ligne violette
+    - - Ligne noire
       - 'Trajet de l’ion jusqu’ici (vue : x–y de dessus, x–z de côté ou projection 3D).'
     - - Point rouge
       - Position actuelle de l’ion.

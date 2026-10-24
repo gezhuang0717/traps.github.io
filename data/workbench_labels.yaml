@@ -1,7 +1,6 @@
 en:
   mr_title: 'MR-TOF: separate species and isomers'
-  mr_intro: Choose up to three ion species. Compare individual peaks with their combined
-    spectrum, then see how separation changes with lap count.
+  mr_intro: "Choose up to ten ion species; ground states and isomers are listed separately in every legend and saved figure. Compare individual peaks with their combined spectrum, then see how separation changes with lap count."
   tof_title: 'TOF-ICR: overlapping resonances and fit bias'
   tof_intro: Compare individual resonances with a mixed sample. A single-species fit
     can give a precise-looking centre that differs from the target ion’s resonance.
@@ -107,9 +106,29 @@ en:
   observations: Synthetic observations
   seed_hint: The seed fixes the random sequence for reproducibility. 20261007 is an
     editable starting value, not a physical parameter or today’s date.
+  legend_position: "Legend"
+  legend_bottom: "below the plot"
+  legend_inside: "inside the plot"
+  legend_off: "hidden"
+  zoom_in: "Zoom in"
+  zoom_out: "Zoom out"
+  reset_view: "Reset view"
+  view_hint: "Drag to pan, Ctrl/⌘ + wheel or the buttons to zoom, double-click to reset. Saved figures show the current view; hover a point for its values."
+  ground_tag: "ground state"
+  isomer_tag: "isomer"
+  molecule_tag: "molecule"
+  pairs_all: "Show every pair (otherwise only neighbouring peaks)"
+  pairs_note: "Neighbouring = next in flight-time order."
+  save_figure: "Save figure"
+  species_total: "Species"
+  time_us: "t (µs)"
+  explain_fig: "Print the explanation of the symbols below saved figures"
+  many: "Ten xenon isotopes (ten species)"
+  hist_series: "Synthetic histogram"
+
 zh:
   mr_title: MR-TOF：离子种类与同核异能态分离
-  mr_intro: 选择最多三种离子，比较各自的峰与叠加谱，并观察分离随圈数的变化。
+  mr_intro: "最多选择十种离子；基态与同核异能态在每张图的图例和保存的图片中分别列出。比较各自的峰与叠加谱，并观察分离随圈数的变化。"
   tof_title: TOF-ICR：重叠共振与拟合偏差
   tof_intro: 比较单独共振与混合样品。单组分拟合可能给出看似精确、却偏离目标离子共振的位置。
   penning_title: 彭宁阱：场、频率与运动
@@ -202,6 +221,26 @@ zh:
   residual_tof: 飞行时间残差（µs）
   observations: 合成观测
   seed_hint: 种子固定随机序列以便复现。20261007 是可修改的初始值，不是物理参数，也不表示今天的日期。
+  legend_position: "图例"
+  legend_bottom: "在图下方"
+  legend_inside: "在图内"
+  legend_off: "隐藏"
+  zoom_in: "放大"
+  zoom_out: "缩小"
+  reset_view: "重置视图"
+  view_hint: "拖动平移，Ctrl/⌘ + 滚轮或按钮缩放，双击重置。保存的图片即当前视图；悬停在点上可看到数值。"
+  ground_tag: "基态"
+  isomer_tag: "同核异能态"
+  molecule_tag: "分子"
+  pairs_all: "显示所有两两组合（否则只显示相邻峰）"
+  pairs_note: "相邻 = 按飞行时间排序的下一个。"
+  save_figure: "保存图片"
+  species_total: "种类"
+  time_us: "t (µs)"
+  explain_fig: "在保存的图片下方写出符号说明"
+  many: "十种氙同位素（十个种类）"
+  hist_series: "模拟直方图"
+
 fi:
   mr_title: 'MR-TOF: ionien ja isomeerien erottelu'
   tof_title: 'TOF-ICR: päällekkäiset resonanssit ja sovituksen harha'
@@ -229,7 +268,7 @@ fi:
     1,876; muuntumaton tausta 8 %, tapahtumaleveydet σ = 7 ja 9 µs. Seoksen keskiarvo
     ja esitetyt tapahtumatiheydet painotetaan populaatioilla. Kohina on havainnollistavaa.
     Paikalliset Δχ² = 1 -välit eivät sisällä seoksen harhaa.'
-  mr_intro: "Valitse enintään kolme ionilajia. Vertaa yksittäisiä piikkejä niiden yhdistettyyn spektriin ja katso sitten, miten erottuminen muuttuu kierrosmäärän mukana."
+  mr_intro: "Valitse enintään kymmenen ionilajia; perustilat ja isomeerit luetellaan erikseen jokaisessa selitteessä ja tallennetussa kuvassa. Vertaa yksittäisiä piikkejä niiden yhdistettyyn spektriin ja katso, miten erottuminen muuttuu kierrosmäärän mukana."
   tof_intro: "Vertaa yksittäisiä resonansseja seosnäytteeseen. Yhden lajin sovite voi antaa tarkalta näyttävän keskipisteen, joka poikkeaa kohdeionin resonanssista."
   penning_intro: "Muuta ionia, magneettikenttää tai vangitsemista. Ylä-, sivu- ja 3D-näkymät käyttävät samoja ideaaliloukun taajuuksia ja fysikaalisia koordinaatteja."
   loading: "Ladataan arvioituja ydindatoja…"
@@ -300,6 +339,26 @@ fi:
   reset: "Nollaa"
   step: "Askel"
   penning_note: "Ideaalinen potentiaali Φ = U₀(2z² − x² − y²)/(4d²). Taajuudet ovat fysikaalisia; toisto muuttaa vain sitä, kuinka nopeasti otettu rata paljastuu. Muualla olevat pulssi-/jäähdytysilmiöiden havainnollistukset eivät ole instrumenttiennusteita."
+  legend_position: "Selite"
+  legend_bottom: "kuvaajan alla"
+  legend_inside: "kuvaajan sisällä"
+  legend_off: "piilotettu"
+  zoom_in: "Lähennä"
+  zoom_out: "Loitonna"
+  reset_view: "Palauta näkymä"
+  view_hint: "Vedä siirtääksesi, Ctrl/⌘ + rulla tai painikkeet zoomaavat, kaksoisnapsautus palauttaa. Tallennettu kuva näyttää nykyisen näkymän; pisteen arvot näkyvät osoittamalla sitä."
+  ground_tag: "perustila"
+  isomer_tag: "isomeeri"
+  molecule_tag: "molekyyli"
+  pairs_all: "Näytä kaikki parit (muuten vain vierekkäiset piikit)"
+  pairs_note: "Vierekkäinen = seuraava lentoajan järjestyksessä."
+  save_figure: "Tallenna kuva"
+  species_total: "Lajit"
+  time_us: "t (µs)"
+  explain_fig: "Tulosta symbolien selitys tallennettujen kuvien alle"
+  many: "Kymmenen ksenonisotooppia (kymmenen lajia)"
+  hist_series: "Synteettinen histogrammi"
+
 de:
   mr_title: 'MR-TOF: Ionenspezies und Isomere trennen'
   tof_title: 'TOF-ICR: überlappende Resonanzen und Fit-Verzerrung'
@@ -329,7 +388,7 @@ de:
     Mischungsmittelwerte und dargestellte Ereignisdichten sind populationsgewichtet.
     Das Rauschen dient der Veranschaulichung. Lokale Δχ² = 1-Intervalle enthalten
     den Mischungsbias nicht.'
-  mr_intro: "Bis zu drei Ionenspezies wählen. Einzelne Peaks mit ihrem Summenspektrum vergleichen und dann sehen, wie sich die Trennung mit der Rundenzahl ändert."
+  mr_intro: "Bis zu zehn Ionenspezies wählen; Grundzustände und Isomere stehen in jeder Legende und jeder gespeicherten Abbildung getrennt. Einzelne Peaks mit ihrem Summenspektrum vergleichen und dann sehen, wie sich die Trennung mit der Rundenzahl ändert."
   tof_intro: "Einzelne Resonanzen mit einer Mischprobe vergleichen. Ein Ein-Spezies-Fit kann ein präzise wirkendes Zentrum liefern, das von der Resonanz des Zielions abweicht."
   penning_intro: "Ion, Magnetfeld oder Einschluss ändern. Die Ansichten von oben, von der Seite und in 3D verwenden dieselben Frequenzen der idealen Falle und dieselben physikalischen Koordinaten."
   loading: "Evaluierte Kerndaten werden geladen …"
@@ -400,6 +459,26 @@ de:
   reset: "Zurücksetzen"
   step: "Schritt"
   penning_note: "Ideales Potential Φ = U₀(2z² − x² − y²)/(4d²). Die Frequenzen sind physikalisch; die Wiedergabe ändert nur, wie schnell die abgetastete Trajektorie sichtbar wird. Puls-/Kühlillustrationen an anderer Stelle sind keine Instrumentenvorhersagen."
+  legend_position: "Legende"
+  legend_bottom: "unter dem Diagramm"
+  legend_inside: "im Diagramm"
+  legend_off: "ausgeblendet"
+  zoom_in: "Vergrößern"
+  zoom_out: "Verkleinern"
+  reset_view: "Ansicht zurücksetzen"
+  view_hint: "Ziehen verschiebt, Strg/⌘ + Rad oder die Tasten zoomen, Doppelklick setzt zurück. Gespeicherte Abbildungen zeigen die aktuelle Ansicht; über einem Punkt erscheinen seine Werte."
+  ground_tag: "Grundzustand"
+  isomer_tag: "Isomer"
+  molecule_tag: "Molekül"
+  pairs_all: "Alle Paare zeigen (sonst nur benachbarte Peaks)"
+  pairs_note: "Benachbart = nächster in der Flugzeitreihenfolge."
+  save_figure: "Abbildung speichern"
+  species_total: "Spezies"
+  time_us: "t (µs)"
+  explain_fig: "Symbolerklärung unter gespeicherten Abbildungen drucken"
+  many: "Zehn Xenon-Isotope (zehn Spezies)"
+  hist_series: "Synthetisches Histogramm"
+
 ja:
   mr_title: MR-TOF：イオン種と核異性体の分離
   tof_title: TOF-ICR：重なる共鳴とフィットの偏り
@@ -424,7 +503,7 @@ ja:
   tof_note: 教材の応答：t(F) = t_offset + t_scale / √(1 + κF)。F は無次元のモード変換割合で、範囲は 0–1 です。既定値は
     t_offset = 62 µs、t_scale = 193 µs、κ = 1.876。未変換背景は 8%、イベント幅 σ は 7 と 9 µs です。混合平均と表示する各成分のイベント密度は存在比で重み付けします。ノイズは例示用です。局所的な
     Δχ² = 1 区間には混合による偏りを含みません。
-  mr_intro: "最大 3 種類のイオンを選びます。個々のピークと合成スペクトルを比較し、周回数によって分離がどう変わるかを見ます。"
+  mr_intro: "最大 10 種類のイオンを選びます。基底状態とアイソマーは、すべての凡例と保存した図の中で別々に表示されます。個々のピークと合成スペクトルを比較し、周回数によって分離がどう変わるかを見ます。"
   tof_intro: "個々の共鳴を混合試料と比較します。単一種のフィットは精密に見える中心を与えても、目的イオンの共鳴とは異なることがあります。"
   penning_intro: "イオン、磁場、閉じ込めを変更します。上面・側面・3D のビューは、理想トラップの同じ周波数と物理座標を使います。"
   loading: "評価済みの核データを読み込み中…"
@@ -495,10 +574,29 @@ ja:
   reset: "リセット"
   step: "ステップ"
   penning_note: "理想ポテンシャル Φ = U₀(2z² − x² − y²)/(4d²)。周波数は物理的な値で、再生はサンプルした軌道の表示速度だけを変えます。他の場所にあるパルスや冷却の図は装置の予測ではありません。"
+  legend_position: "凡例"
+  legend_bottom: "プロットの下"
+  legend_inside: "プロット内"
+  legend_off: "非表示"
+  zoom_in: "拡大"
+  zoom_out: "縮小"
+  reset_view: "表示をリセット"
+  view_hint: "ドラッグで移動、Ctrl/⌘ + ホイールまたはボタンで拡大縮小、ダブルクリックでリセット。保存される図は現在の表示で、点にカーソルを置くと値が出ます。"
+  ground_tag: "基底状態"
+  isomer_tag: "アイソマー"
+  molecule_tag: "分子"
+  pairs_all: "すべての組を表示（オフなら隣り合うピークのみ）"
+  pairs_note: "隣り合う = 飛行時間順で次のもの。"
+  save_figure: "図を保存"
+  species_total: "種類"
+  time_us: "t (µs)"
+  explain_fig: "保存した図の下に記号の説明を入れる"
+  many: "キセノン同位体 10 種（10 種類）"
+  hist_series: "模擬ヒストグラム"
+
 fr:
   mr_title: 'MR-TOF : séparer espèces et isomères'
-  mr_intro: Choisissez jusqu’à trois espèces. Comparez leurs pics au spectre combiné et examinez l’effet du nombre
-    de tours.
+  mr_intro: "Choisissez jusqu’à dix espèces ; fondamentaux et isomères figurent séparément dans chaque légende et chaque figure enregistrée. Comparez leurs pics au spectre combiné et examinez l’effet du nombre de tours."
   tof_title: 'TOF-ICR : résonances superposées et biais d’ajustement'
   tof_intro: Comparez les résonances individuelles au mélange. L’ajustement d’une seule espèce peut sembler précis
     tout en étant décalé de la cible.
@@ -601,3 +699,22 @@ fr:
   observations: Observations synthétiques
   seed_hint: La graine fixe la séquence aléatoire. 20261007 est une valeur initiale modifiable, pas un paramètre
     physique ni la date du jour.
+  legend_position: "Légende"
+  legend_bottom: "sous la figure"
+  legend_inside: "dans la figure"
+  legend_off: "masquée"
+  zoom_in: "Agrandir"
+  zoom_out: "Réduire"
+  reset_view: "Réinitialiser la vue"
+  view_hint: "Glisser pour déplacer, Ctrl/⌘ + molette ou les boutons pour zoomer, double-clic pour réinitialiser. La figure enregistrée montre la vue actuelle ; survolez un point pour ses valeurs."
+  ground_tag: "état fondamental"
+  isomer_tag: "isomère"
+  molecule_tag: "molécule"
+  pairs_all: "Afficher toutes les paires (sinon seulement les pics voisins)"
+  pairs_note: "Voisin = suivant dans l’ordre des temps de vol."
+  save_figure: "Enregistrer la figure"
+  species_total: "Espèces"
+  time_us: "t (µs)"
+  explain_fig: "Imprimer l’explication des symboles sous les figures enregistrées"
+  many: "Dix isotopes du xénon (dix espèces)"
+  hist_series: "Histogramme synthétique"
