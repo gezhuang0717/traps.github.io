@@ -29,7 +29,37 @@
       "published": "2026-10-23",
       "collected_at": "2026-10-24",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "Single X-ray pulse reveals plasma nanostructures across scales with one camera",
+      "summary": "Understanding instabilities and turbulence in plasmas is one of the key challenges across a wide range of plasma research fields, including nuclear fusion, astrophysics and laser-plasma physics. In plasmas, slight disturbances can grow due to instabilities, and energy is…",
+      "url": "https://phys.org/news/2026-10-ray-pulse-reveals-plasma-nanostructures.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-24",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "'One-positron cyclotron' could test a key prediction of the Standard Model",
+      "summary": "The positron is the antimatter counterpart of the electron, identical in mass but carrying an equal and opposite electric charge. Like the electron, it also behaves like a tiny bar magnet, and according to a key prediction of the Standard Model of particle physics, its magnetic…",
+      "url": "https://phys.org/news/2026-10-positron-cyclotron-key-standard.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-24",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-24T06:28:30+00:00"
+  "fetched": "2026-10-24T22:49:33+00:00"
 }
