@@ -6,7 +6,7 @@ function ui(){
  const fs=require('node:fs'),vm=require('node:vm'),T=JSON.parse(fs.readFileSync('data/mathieu_labels.json')).en;
  class E{constructor(tag='div'){this.tag=tag;this.children=[];this.value='';this.dataset={};this.textContent='';this.hidden=false;}setAttribute(k,v){this[k]=v;}append(...x){this.children.push(...x);}replaceChildren(...x){this.children=x;this.textContent='';}addEventListener(k,fn){this[k]=fn;}querySelectorAll(){return [];} }
  const fields=new Map(),slots=new Map(),buttons=new Map(),root=new E(),saved=[];
- const vals={geometry:'linear',mode:'voltage',bands:'3',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+'};
+ const vals={geometry:'linear',mode:'voltage',bands:'3',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+'};
  for(const[k,v]of Object.entries(vals)){const e=new E('input');e.name='ms-'+k;e.value=v;e.type='text';fields.set(k,e);}
  for(const k of ['cooler','mf','bun']){const e=new E('input');e.name='ms-'+k+'-on';e.type='checkbox';e.checked=false;fields.set(k+'-on',e);}
  for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style'])slots.set(k,new E());
@@ -60,7 +60,61 @@ test('actual UI draws geometry, suppresses higher-pole Mathieu output, and saves
 });
 test('actual settings loader accepts the earlier schema without rod fields and restores design defaults',async()=>{
  const h=ui();await h.click('save');const settings=JSON.parse(await h.saved[0].blob.text());
- for(const k of ['rod-count','rod-radius','radial-fraction','eta-target','vscan'])delete settings.inputs['ms-'+k];
+ for(const k of ['rod-count','rod-rule','rod-ratio','diameter-tolerance','rod-radius','radial-fraction','eta-target','vscan'])delete settings.inputs['ms-'+k];
  h.change('rod-count','8');const file={size:5000,text:async()=>JSON.stringify(settings)},input=h.slots.get('file');input.files=[file];await input.change({target:input,stopPropagation(){}});
  assert.equal(h.fields.get('rod-count').value,'4');assert.equal(h.slots.get('figure').hidden,false);assert.equal(h.slots.get('error').textContent,'');
+});
+
+// ---- rod size and distance follow published design rules (owner textbook ch. 1 and 7; free-space round-rod multipole solution) ----
+const R=require('../static/js/rfq-rod-ratios.js'),design={mass_u:133,charge:1,U_V:0,V_V:200,r0_mm:6,f_MHz:1,rod_count:4};
+test('four rods: the optimal ratio is Denison\'s dodecapole condition 1.14511 and the textbook worked example 6 mm gives 6.87 mm',()=>{
+ assert.ok(Math.abs(R.rows[4].optimal-1.14511)<1e-5,String(R.rows[4].optimal));
+ const d=M.rodDesign({...design,rod_rule:'optimal'});
+ assert.ok(Math.abs(d.rod_radius_mm-6.87)<5e-3);assert.ok(Math.abs(d.rod_diameter_mm-13.74)<1e-2);
+ close(d.center_radius_mm,6+d.rod_radius_mm);close(d.outer_radius_mm,d.center_radius_mm+d.rod_radius_mm);close(d.aperture_diameter_mm,12);
+ close(d.adjacent_center_mm,Math.SQRT2*d.center_radius_mm);close(d.surface_gap_mm,d.adjacent_center_mm-2*d.rod_radius_mm);
+ assert.equal(d.rod_rule,'optimal');assert.ok(Math.abs(d.ratio_deviation_percent)<1e-9);
+});
+test('eight rods: 0.37216 reproduces the published numerical optimum (0.372159) and the table is monotonic and below the touching ratio',()=>{
+ assert.ok(Math.abs(R.rows[8].optimal-0.372159)<2e-5,String(R.rows[8].optimal));
+ let last=Infinity;for(let N=4;N<=24;N+=2){const row=R.rows[N];assert.equal(row.n,N/2);assert.ok(row.optimal<last,N);last=row.optimal;assert.ok(row.optimal<row.touching,N);assert.ok(Math.abs(row.curvature-1/(N/2-1))<1e-8);assert.ok(row.optimal>row.curvature,N);
+  assert.ok(row.residual_max<1e-8,`${N}: ${row.residual_max}`);assert.ok(row.optimal_change_with_larger_series<1e-6,N);
+  const c=row.curve;assert.ok(c.ratio.every((x,i)=>i===0||x>c.ratio[i-1]));assert.ok(c.ratio[0]<row.optimal&&row.optimal<c.ratio.at(-1));
+  assert.ok(c.A3n_over_An[0]>0&&c.A3n_over_An.at(-1)<0,`A_3n changes sign at the optimum for ${N} rods`);}
+});
+test('the parasitic harmonic changes sign across the optimum and grows away from it (interpolated from the solved curve)',()=>{
+ const at=ratio=>M.rodDesign({...design,rod_rule:'ratio',rod_ratio:ratio}).parasitic_A_over_An;
+ assert.ok(at(1.12)>0&&at(1.17)<0&&Math.abs(at(1.145108))<5e-5);assert.ok(Math.abs(at(1.0))>Math.abs(at(1.12)));
+ const d=M.rodDesign({...design,rod_rule:'ratio',rod_ratio:1.0});close(d.parasitic_at_radial_fraction,d.parasitic_A_over_An*.5**4);
+ assert.equal(M.rodDesign({...design,rod_rule:'ratio',rod_ratio:2.2}).parasitic_A_over_An,null);       // outside the solved range: no invented number
+});
+test('curvature rule, mass-filter compromise and own radius; unavailable or undefined rules fail loudly',()=>{
+ close(M.rodDesign({...design,rod_count:8,rod_rule:'curvature'}).rod_ratio,1/3);close(M.rodDesign({...design,rod_rule:'curvature'}).rod_ratio,1);
+ close(M.rodDesign({...design,rod_rule:'filter'}).rod_ratio,1.128);assert.throws(()=>M.rodDesign({...design,rod_count:6,rod_rule:'filter'}),/rod rule/);
+ const own=M.rodDesign({...design,rod_radius_mm:7});assert.equal(own.rod_rule,'radius');close(own.rod_ratio,7/6);close(own.ratio_deviation_percent,100*(7/6/R.rows[4].optimal-1));
+ for(const bad of [{},{rod_rule:'other'},{rod_rule:'ratio'},{rod_rule:'ratio',rod_ratio:-1},{rod_rule:'radius'}])assert.throws(()=>M.rodDesign({...design,...bad}),/rod/);   // no silent default radius any more
+ assert.throws(()=>M.rodDesign({...design,rod_rule:'ratio',rod_ratio:3}),/rod overlap/);
+});
+test('tolerance and RF suggestions: ratio tolerance from the diameter tolerance; suggested peaks give the target q and the book range 0.3-0.5',()=>{
+ const d=M.rodDesign({...design,rod_rule:'optimal',diameter_tolerance_mm:.05});close(d.ratio_tolerance,.05/12);assert.equal(M.rodDesign({...design,rod_rule:'optimal'}).ratio_tolerance,null);
+ assert.deepEqual(M.Q_RANGE,[.3,.4,.5]);
+ for(const s of d.suggested_RF){const q=M.parameters(133,1,0,s.V_rod_peak_V,6,1).q;close(q,s.q);const q2=M.parameters(133,1,0,200,6,s.f_MHz_at_current_V).q;close(q2,s.q);}
+ assert.equal(M.rodDesign({...design,rod_count:6,rod_rule:'optimal'}).suggested_RF,null);
+ // textbook worked example 2: 133Cs+, r0 = 5 mm, f = 1 MHz, V = 200 V gives q = 0.588 (the book's "design from scratch" chapter claims 0.37 for 10 mm / 0.5 MHz / 200 V: the correct value is 0.588)
+ assert.ok(Math.abs(M.parameters(133,1,0,200,5,1).q-.588)<2e-3);assert.ok(Math.abs(M.parameters(133,1,0,200,10,.5).q-.588)<2e-3);
+});
+test('actual UI: default optimal rule fills the computed radius, shows ratio, parasitic harmonic and RF suggestions; own radius still overlaps loudly',async()=>{
+ const h=ui();h.change('rod-rule','optimal');h.change('r0','6');
+ const text=h.slots.get('design-readout').children.map(e=>e.textContent||'').join('\n');
+ assert.equal(h.fields.get('rod-radius').disabled,true);assert.equal(h.fields.get('rod-ratio').disabled,true);
+ assert.ok(Math.abs(Number(h.fields.get('rod-radius').value)-6.870648)<1e-4,h.fields.get('rod-radius').value);
+ for(const label of [h.T.geometry_out,h.T.parasitic_out,h.T.rf_suggest,h.T.envelope_out])assert.ok(text.includes(label),label);
+ h.change('rod-rule','filter');h.change('rod-count','6');assert.equal(h.slots.get('error').textContent,h.T.rule_unavailable);
+ h.change('rod-rule','radius');h.change('rod-count','4');h.change('rod-radius','100');assert.ok(h.slots.get('error').textContent.startsWith(h.T.rod_overlap));
+});
+test('older saved settings with only a rod radius keep meaning "own radius"',async()=>{
+ const h=ui();await h.click('save');const settings=JSON.parse(await h.saved[0].blob.text());
+ for(const k of ['rod-rule','rod-ratio','diameter-tolerance'])delete settings.inputs['ms-'+k];settings.inputs['ms-rod-radius']='2.5';
+ const file={size:5000,text:async()=>JSON.stringify(settings)},input=h.slots.get('file');input.files=[file];await input.change({target:input,stopPropagation(){}});
+ assert.equal(h.fields.get('rod-rule').value,'radius');assert.equal(h.fields.get('rod-radius').value,'2.5');assert.equal(h.slots.get('error').textContent,'');
 });

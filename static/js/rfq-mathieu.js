@@ -17,11 +17,14 @@
    if(geometry==='linear'&&!higher())for(const key of ['cooler','mf','bun'])if(field(key+'-on').checked){const x=M.parameters(value('mass'),value('charge'),value(key+'-U'),value(key+'-V'),value(key+'-r0'),value(key+'-f'));sections.push({key,...x});}
    return{geometry,mode,count,qmax,amin,amax,p,sections};
   }
-  const designNames=['rod-count','rod-radius','radial-fraction','eta-target','vscan'];
+  const designNames=['rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan'];
   function higher(){return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4;}
   function designInputs(){
    const numeric=n=>{if(!field(n).value.trim())throw Error('blank');const x=Number(field(n).value);if(!Number.isFinite(x))throw Error('finite');return x;};
-   return{mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:numeric('V'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_radius_mm:numeric('rod-radius'),radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:numeric('bands')};
+   const rule=field('rod-rule').value,input={mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:numeric('V'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_rule:rule,radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:numeric('bands')};
+   if(rule==='ratio')input.rod_ratio=numeric('rod-ratio');if(rule==='radius')input.rod_radius_mm=numeric('rod-radius');
+   if(field('diameter-tolerance').value.trim()!=='')input.diameter_tolerance_mm=numeric('diameter-tolerance');
+   return input;
   }
   function renderDesign(){
    const box=root.querySelector('[data-ms-design-readout]'),holder=root.querySelector('[data-ms-design-figure]');if(!box||!holder)return;box.replaceChildren();holder.replaceChildren();lastDesign=null;designSVG=null;
@@ -29,7 +32,14 @@
    const voltages=field('vscan').value.split(',').map(v=>{if(!v.trim())throw Error('RF scan');return Number(v);});
    const log=M.designLog(designInputs(),voltages),d=log.result,S=styleControl?.get()||{titleSize:18,tickSize:13,lineWidth:1};lastDesign=log;
    const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
+   const rule=field('rod-rule').value;field('rod-ratio').disabled=rule!=='ratio';field('rod-radius').disabled=rule!=='radius';
+   if(rule!=='ratio')field('rod-ratio').value=String(Number(d.rod_ratio.toPrecision(7)));if(rule!=='radius')field('rod-radius').value=String(Number(d.rod_radius_mm.toPrecision(7)));
+   add(`${T.geometry_out}: ${fmt(d.rod_radius_mm)} / ${fmt(d.rod_diameter_mm)} · ${fmt(d.rod_ratio)} · ${fmt(d.ratio_deviation_percent)}`);
+   add(`${T.envelope_out}: ${fmt(d.outer_radius_mm)} / ${fmt(d.aperture_diameter_mm)}`);
    add(`${T.gaps}: ${fmt(d.adjacent_center_mm)} / ${fmt(d.surface_gap_mm)} / ${fmt(d.opposite_center_mm)}`);
+   add(`${T.parasitic_out}: ${d.parasitic_A_over_An===null?T.parasitic_none:fmt(d.parasitic_A_over_An)+' / '+fmt(d.parasitic_at_radial_fraction)}`);
+   if(d.ratio_tolerance!==null)add(`${T.tol_out}: ±${fmt(d.ratio_tolerance)}`);
+   if(d.suggested_RF)add(`${T.rf_suggest}: ${d.suggested_RF.map(x=>fmt(x.V_rod_peak_V)).join(' / ')} · ${d.suggested_RF.map(x=>x.f_MHz_at_current_V===null?'—':fmt(x.f_MHz_at_current_V)).join(' / ')}`);
    add(`${T.field_depth}: ${fmt(d.field_RF_V_m)} / ${fmt(d.pseudopotential_eV)}`);
    if(d.V_V===0)add(T.zero_rf);add(`${T.eta_readout}: ${fmt(d.eta)} / ${fmt(d.eta_target)} · ${d.eta_target_met?T.target_met:T.target_above}`);
    add(`${T.rf_target}: ${fmt(d.eta_frequency_min_MHz)} / ${fmt(d.eta_voltage_max_V)}`);
@@ -39,7 +49,7 @@
    const svg=el('svg',{xmlns:NS,viewBox:'0 0 460 410',role:'img','aria-label':T.design_title,style:'display:block;width:100%;max-width:520px;height:auto;background:#fff;font-family:Arial,sans-serif'});
    svg.append(el('rect',{width:460,height:410,fill:'#fff'}),el('text',{x:230,y:25,'text-anchor':'middle','font-size':S.titleSize},T.design_title),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}));
    for(const p of d.rod_coordinates){svg.append(el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth}),el('text',{x:cx+p.x_mm*scale,y:cy-p.y_mm*scale+4,'text-anchor':'middle','font-size':S.tickSize},String(p.index)));}
-   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('text',{x:cx+10,y:cy-8,'font-size':S.tickSize},`r₀=${fmt(d.r0_mm)} mm`),el('text',{x:230,y:390,'text-anchor':'middle','font-size':S.tickSize},`2n=${d.rod_count}; rᵣ=${fmt(d.rod_radius_mm)} mm; ±V`));holder.append(svg);designSVG=svg;
+   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('text',{x:cx+10,y:cy-8,'font-size':S.tickSize},`r₀=${fmt(d.r0_mm)} mm`),el('text',{x:230,y:390,'text-anchor':'middle','font-size':S.tickSize},`2n=${d.rod_count}; r=${fmt(d.rod_radius_mm)} mm (r/r₀=${fmt(d.rod_ratio)}); ±V`));holder.append(svg);designSVG=svg;
   }
   function sync(){const three=field('geometry').value==='paul3d',multi=higher();if(three)field('mode').value='direct';else if(multi)field('mode').value='voltage';field('mode').disabled=three||multi;const direct=three||field('mode').value==='direct';root.querySelectorAll('[data-ms-voltage]').forEach(e=>{e.hidden=direct;});root.querySelectorAll('[data-ms-direct]').forEach(e=>{e.hidden=!direct;});root.querySelector('[data-ms-sections]').hidden=three||multi;const designBox=root.querySelector('[data-ms-design]'),formulaBox=root.querySelector('[data-ms-band-formula]');if(designBox)designBox.hidden=three||direct;if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;}
   function draw(d){
@@ -68,7 +78,7 @@
     const box=root.querySelector('[data-ms-readout]');box.replaceChildren();const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
     if(multi){add(T.multipole);return;}add(`${T.readout}: ${T[c.status]} · a=${fmt(d.p.a)}, q=${fmt(d.p.q)}`);
     [c.first,c.second].forEach((p,i)=>{let diag;try{diag=M.diagnostic(p.a,p.q);}catch(_){diag={status:'unresolved',trace:NaN,det:NaN,trace_delta:NaN};}add(`${i?T.second:T.first}: ${T[p.status]} · ${T.band} ${p.band??'—'} · ${T.trace}=${fmt(diag.trace)}, ${T.det}=${fmt(diag.det)}, Δ=${fmt(diag.trace_delta)} · ${T[diag.status]}`);});add(T.diagnostic);
-   }catch(e){last=null;lastDesign=null;designSVG=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' rᵣ < '+fmt(value('r0')*sine/(1-sine))+' mm':T.bad;}
+   }catch(e){last=null;lastDesign=null;designSVG=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   }
   function queue(){clearTimeout(timer);timer=setTimeout(refresh,100);}
   if(window.ZGFigureStyle)styleControl=ZGFigureStyle.controls(root.querySelector('[data-ms-style]'),{lang:root.dataset.lang,prefix:'mathieu',baseline:{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10},onChange:queue});
@@ -89,7 +99,7 @@
    if(action==='csv'){const rows=[['plane','band_n','q','a_low','a_high','geometry']];last.rows.forEach(r=>{for(const k of ['first','second'])r[k].forEach(b=>rows.push([k,b.n,r.q,b.lo,b.hi,last.geometry]));});rows.push(['point','',last.p.q,last.p.a,last.classification.status,last.geometry]);save(new Blob([rows.map(r=>r.join(',')).join('\n')+'\n'],{type:'text/csv'}),'mathieu-bands.csv');return;}
    if(['svg','png'].includes(action)){if(styleControl?.valid&&!styleControl.valid())return;try{if(window.ZGFigureStyle){await ZGFigureStyle.exportSVG(last.svg,action.toUpperCase(),'mathieu-stability',styleControl?.get(),{inputs:state(),model:'ideal Mathieu characteristic bands',source:'https://dlmf.nist.gov/28.17'});}else if(action==='svg')save(new Blob([new XMLSerializer().serializeToString(last.svg)],{type:'image/svg+xml'}),'mathieu-stability.svg');}catch(_){err.textContent=T.badfile;}}
   });
-  root.querySelector('[data-ms-file]').addEventListener('change',async e=>{e.stopPropagation();const file=e.target.files[0];if(!file)return;const before=state();try{if(file.size>300000)throw Error('size');const s=JSON.parse(await file.text());if(s.schema!=='traps-mathieu-v1'||!s.inputs||Object.keys(defaults).filter(k=>!designNames.includes(k.slice(3))).some(k=>!(k in s.inputs)))throw Error('schema');for(const key of designNames){const name='ms-'+key;if(!(name in s.inputs)&&field(key))field(key).value=defaults[name];}for(const [n,v]of Object.entries(s.inputs)){const el=root.querySelector('[name="'+n+'"]');if(!el||n.includes('"'))throw Error('key');if(el.type==='checkbox'){if(typeof v!=='boolean')throw Error('type');el.checked=v;}else el.value=String(v);}inputs();source=s.source&&typeof s.source==='object'?s.source:{label:T.manual};root.querySelector('[data-ms-source]').textContent=typeof source.label==='string'?source.label:T.manual;if(s.style)styleControl?.set(s.style);refresh();}catch(_){Object.entries(before.inputs).forEach(([n,v])=>{const el=root.querySelector('[name="'+n+'"]');if(el.type==='checkbox')el.checked=v;else el.value=v;});source=before.source;refresh();err.textContent=T.badfile;}finally{e.target.value='';}});
+  root.querySelector('[data-ms-file]').addEventListener('change',async e=>{e.stopPropagation();const file=e.target.files[0];if(!file)return;const before=state();try{if(file.size>300000)throw Error('size');const s=JSON.parse(await file.text());if(s.schema!=='traps-mathieu-v1'||!s.inputs||Object.keys(defaults).filter(k=>!designNames.includes(k.slice(3))).some(k=>!(k in s.inputs)))throw Error('schema');for(const key of designNames){const name='ms-'+key;if(!(name in s.inputs)&&field(key))field(key).value=defaults[name];}if(!('ms-rod-rule' in s.inputs)&&'ms-rod-radius' in s.inputs)field('rod-rule').value='radius';for(const [n,v]of Object.entries(s.inputs)){const el=root.querySelector('[name="'+n+'"]');if(!el||n.includes('"'))throw Error('key');if(el.type==='checkbox'){if(typeof v!=='boolean')throw Error('type');el.checked=v;}else el.value=String(v);}inputs();source=s.source&&typeof s.source==='object'?s.source:{label:T.manual};root.querySelector('[data-ms-source]').textContent=typeof source.label==='string'?source.label:T.manual;if(s.style)styleControl?.set(s.style);refresh();}catch(_){Object.entries(before.inputs).forEach(([n,v])=>{const el=root.querySelector('[name="'+n+'"]');if(el.type==='checkbox')el.checked=v;else el.value=v;});source=before.source;refresh();err.textContent=T.badfile;}finally{e.target.value='';}});
   refresh();
  });
 })();

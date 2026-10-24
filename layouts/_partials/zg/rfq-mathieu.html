@@ -24,7 +24,10 @@
 </div><p class="zg-muted" data-ms-source>{{ $t.manual }}</p></fieldset>
 <fieldset data-ms-design><legend>{{ $t.design_title }}</legend><p>{{ $t.design_note }}</p><div class="zg-form">
 <label>{{ $t.rod_count }} <select name="ms-rod-count">{{ range seq 4 2 24 }}<option value="{{ . }}">{{ . }}</option>{{ end }}</select></label>
-<label>{{ $t.rod_radius }} <input name="ms-rod-radius" type="number" min="0.001" step="any" value="3"></label>
+<label>{{ $t.rod_rule }} <select name="ms-rod-rule"><option value="optimal">{{ $t.rule_optimal }}</option><option value="curvature">{{ $t.rule_curvature }}</option><option value="filter">{{ $t.rule_filter }}</option><option value="ratio">{{ $t.rule_ratio }}</option><option value="radius">{{ $t.rule_radius }}</option></select></label>
+<label>{{ $t.rod_ratio }} <input name="ms-rod-ratio" type="number" min="0.001" step="any" value="1.145108"></label>
+<label>{{ $t.rod_radius }} <input name="ms-rod-radius" type="number" min="0.001" step="any" value="11.45108"></label>
+<label>{{ $t.tolerance }} <input name="ms-diameter-tolerance" type="number" min="0" step="any" value="0.05"></label>
 <label>{{ $t.radial_fraction }} <input name="ms-radial-fraction" type="number" min="0.001" max="1" step="any" value="0.5"></label>
 <label>{{ $t.eta_target }} <input name="ms-eta-target" type="number" min="0.001" step="any" value="0.3"></label>
 <label>{{ $t.vscan }} <input name="ms-vscan" type="text" value="50,100,150,200" maxlength="160"></label>
@@ -48,6 +51,7 @@
 <details><summary>{{ $t.hint }}</summary><p>{{ $t.limits }}</p><p>{{ $t.sigma }}</p><p><a href="https://dlmf.nist.gov/28.2">{{ $t.source }}</a> · <a href="https://dlmf.nist.gov/28.17">DLMF 28.17</a></p></details>
 </section>
 {{- if not (.Page.Store.Get "zg-mathieu-loaded") -}}{{ .Page.Store.Set "zg-mathieu-loaded" true }}
+<script defer src="{{ "js/rfq-rod-ratios.js" | relURL }}"></script>
 <script defer src="{{ "js/mathieu-core.js" | relURL }}"></script>
 {{- if not (.Page.Store.Get "zg-figure-style-loaded") -}}{{ .Page.Store.Set "zg-figure-style-loaded" true }}
 <link rel="stylesheet" href="{{ "css/figure-style.css" | relURL }}">
