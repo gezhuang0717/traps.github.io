@@ -48,6 +48,17 @@
     }
     return out;
   }
+  /* Drop a "loaded" (New) point when a "hybrid" (New + AME2020) point of the same input labels, chain and N has the same value and uncertainty,
+     so that one mass input gives one point and one legend entry. Returns a new array; other points are untouched. */
+  function mergeDuplicateInputs(points) {
+    const same = (a, b) => Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
+    const hybrids = points.filter(p => p.series === 'hybrid');
+    return points.filter(p => {
+      if (p.series !== 'loaded') return true;
+      const labels = JSON.stringify(p.labels || []);
+      return !hybrids.some(h => h.g === p.g && h.x === p.x && JSON.stringify(h.labels || []) === labels && same(h.y, p.y) && same(h.e ?? 0, p.e ?? 0));
+    });
+  }
   /* Horizontal marker offset (in N) of a series, so that markers with the same value do not hide each other. */
   const seriesShift = (series, dodge) => series === 'loaded' ? -dodge : series === 'hybrid' ? dodge : series === 'mine' ? -2 * dodge : 0;
   function rangeFor(memory, type, own) {
@@ -110,7 +121,7 @@
   function paintMarker(c,shape,x,y,r,color,open=false,background='#fff'){
     markerPath(c,shape,x,y,r);c.fillStyle=open?background:color;c.strokeStyle=color;c.fill();c.stroke();
   }
-  const api = { chainExtent, geometry, nearest, connects, revisedSegments, seriesShift, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, experimentalBands, residualStyle, markers, markerPath, paintMarker };
+  const api = { chainExtent, geometry, nearest, connects, revisedSegments, seriesShift, mergeDuplicateInputs, rangeFor, zoomExtent, panExtent, chartFit, composition, experimentalFilter, experimentalBands, residualStyle, markers, markerPath, paintMarker };
   host.ZGChainPlot = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

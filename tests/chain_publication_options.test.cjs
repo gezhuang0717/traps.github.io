@@ -55,3 +55,19 @@ test('the visible-points table has a row-count box (initial 300) and a list-all 
   const measured = JSON.parse(fs.readFileSync('data/measured_labels.json', 'utf8'));
   for (const lang of Object.keys(measured)) assert.ok(!/300/.test(measured[lang].loaded_details), lang + ' heading still names 300');
 });
+
+test('one mass input gives one point: a New point equal to its New + AME2020 point is merged, unequal ones stay', () => {
+  const p = (series, x, y, labels, e = 1) => ({ series, x, y, e, g: 50, labels });
+  const pts = [p('ame', 66, 9.563), p('loaded', 66, 9.5534510, ['New']), p('hybrid', 66, 9.5534510, ['New']), p('hybrid', 67, 6.9530, ['New']),
+    p('loaded', 50, 18.04, ['JYFLTRAP']), p('hybrid', 50, 18.04, ['JYFLTRAP']), p('hybrid', 51, 10.43, ['JYFLTRAP']), p('loaded', 70, 8.0, ['New']), p('hybrid', 70, 8.2, ['New'])];
+  const out = CP.mergeDuplicateInputs(pts);
+  assert.equal(out.length, pts.length - 2);
+  assert.deepEqual(out.filter(q => q.series === 'loaded').map(q => q.x), [70]);                      // different value at N = 70: both kept
+  assert.equal(out.filter(q => q.series === 'hybrid').length, 5);
+  assert.equal(pts.length, 9, 'the input array is not modified');
+  assert.equal(CP.mergeDuplicateInputs(pts.filter(q => q.series === 'loaded')).length, 3, 'a New point without a New + AME2020 partner stays');
+  const html = fs.readFileSync('layouts/_shortcodes/nuclide-chart.html', 'utf8');
+  assert.ok(html.includes('name="nc-merge" checked'));
+  const yaml = fs.readFileSync('data/nuclide_chart_labels.yaml', 'utf8');
+  for (const key of ['p_merge', 'p_merge_hint']) assert.equal((yaml.match(new RegExp('^  ' + key + ':', 'gm')) || []).length, 6, key);
+});

@@ -138,11 +138,12 @@
     <label>{{ $t.p_linemode }} <select name="nc-linemode"><option value="series">{{ $t.lm_series }}</option><option value="revised">{{ $t.lm_revised }}</option><option value="changed">{{ $t.lm_changed }}</option></select></label>
     <label>{{ $t.p_dodge }} <input type="number" name="nc-dodge" class="nc-num" min="0" max="0.4" step="0.02" value="0"></label>
     <label class="nc-chk"><input type="checkbox" name="nc-muteame"> {{ $t.p_muteame }}</label>
+    <label class="nc-chk"><input type="checkbox" name="nc-merge" checked> {{ $t.p_merge }}</label>
     <label>{{ $t.p_preset }} <select name="nc-pubpreset"><option value="">—</option><option value="publication">{{ $t.pp_publication }}</option><option value="default">{{ $t.pp_default }}</option></select></label>
     <span class="nc-prange"><label class="nc-chk"><input type="checkbox" name="nc-range"> {{ $t.p_range }}</label>
       <span class="nc-prange-in" hidden>{{ $t.p_chains }} <input type="number" name="nc-c0" class="nc-num"> – <input type="number" name="nc-c1" class="nc-num"> · {{ $t.p_x }} <input type="number" name="nc-x0" class="nc-num" placeholder="min"> – <input type="number" name="nc-x1" class="nc-num" placeholder="max"></span></span>
   </div>
-  <details class="nc-explanation nc-pub-help"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.p_pub_title }}</summary><p class="zg-small">{{ $t.p_pub_hint }}</p></details>
+  <details class="nc-explanation nc-pub-help"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.p_pub_title }}</summary><p class="zg-small">{{ $t.p_pub_hint }}</p><p class="zg-small">{{ $t.p_merge_hint }}</p></details>
   <p id="nc-filter-formula" class="nc-filter-formula zg-small" hidden></p>
   <details class="nc-mass-filter-help nc-explanation"><summary>{{ $t.mf_title }}</summary><p>{{ $t.mf_intro }}</p><div class="nc-table-scroll nc-filter-definitions"></div><p>{{ $t.mf_pn_note }}</p><p>{{ $t.mf_convention }}</p><p>{{ $t.mf_missing }}</p><p><a href="https://doi.org/10.1103/PhysRevC.99.064313">Ayet San Andrés et al. (2019) · S₂ₙ</a> · <a href="https://doi.org/10.1103/PhysRevC.107.029901">Erratum (2023)</a> · <a href="https://doi.org/10.1103/PhysRevLett.94.092501">Cakirli et al. (2005) · δVpn</a></p></details>
   <fieldset class="nc-series"><legend>{{ $t.loaded_series }}</legend>

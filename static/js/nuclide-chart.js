@@ -924,6 +924,9 @@
         const p=makePoint(r,mk);if(p)modPts.push(p);
       }
     }
+    /* One point per mass input: the "New" value of an input nucleus and its "New + AME2020" value are the same number when the quantity needs no neighbour that is not new,
+       so the duplicate New marker (and its legend line) is dropped; unequal values are both kept. */
+    if(chainInput('merge')?.checked){const kept=CP.mergeDuplicateInputs(plotPts);plotPts.length=0;plotPts.push(...kept);}
     const sort=(a,b)=>a.series.localeCompare(b.series)||a.g-b.g||a.x-b.x;plotPts.sort(sort);modPts.sort(sort);
     plotPts.groups=[...new Set(plotPts.concat(modPts).map(p=>p.g))];
     const seriesRank=s=>s.id==='ame'?0:s.id==='loaded'?1:s.id==='hybrid'?2:3;
@@ -1111,12 +1114,12 @@
     else if(e.key.startsWith('Arrow'))applyPlotView(CP.panExtent(plotDomain,e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0));
   });
   pq.onchange = () => { if (["beta2", "dmod"].includes(pq.value) && !Object.keys(MOD).length) loadModels().then(() => plotChain()); const au = EXPQ.includes(pq.value) && MODES[pq.value].aux; if (au && !AUX[au]) loadAux(au).then(() => plotChain()).catch(() => plotChain()); plotChain(); };
-  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring], [name=nc-linemode], [name=nc-dodge], [name=nc-muteame]").forEach(el => el.addEventListener("input", () => plotChain()));
+  root.querySelectorAll(".nc-prange input, [name=nc-lines], [name=nc-err], [name=nc-reference-ring], [name=nc-linemode], [name=nc-dodge], [name=nc-muteame], [name=nc-merge]").forEach(el => el.addEventListener("input", () => plotChain()));
   /* One choice that sets the options together: "publication" = revised curve in colour over a grey AME2020 line, markers offset, error bars, no reference ring. */
   chainInput('pubpreset')?.addEventListener('change',e=>{
     const v=e.target.value;if(!v)return;
     const set=(n,x)=>{const el=chainInput(n);if(!el)return;if(el.type==='checkbox')el.checked=!!x;else el.value=x;};
-    if(v==='publication'){set('lines',true);set('linemode','revised');set('dodge',.12);set('muteame',true);set('err',true);set('band',false);set('reference-ring',false);}
+    if(v==='publication'){set('lines',true);set('linemode','revised');set('dodge',.12);set('muteame',true);set('err',true);set('band',false);set('reference-ring',false);set('merge',true);}
     else{set('lines',true);set('linemode','series');set('dodge',0);set('muteame',false);set('err',true);set('reference-ring',true);}
     plotChain();
   });
