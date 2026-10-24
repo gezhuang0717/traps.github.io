@@ -74,7 +74,7 @@
     const i = Math.min(3, Math.floor(t * 4)), f = t * 4 - i, a = c[i], b = c[i + 1]; return `rgb(${a.map((v, j) => Math.round(v + (b[j] - v) * f)).join(",")})`; };
   /* value ± uncertainty with the uncertainty rounded to 2 significant digits and the value to the same decimal */
   const fmtU = (v, e, h = "") => { if (!(e > 0)) return v.toFixed(3) + h; const d = Math.max(0, 1 - Math.floor(Math.log10(e))); return `${v.toFixed(d)}${h} ± ${e.toFixed(d)}${h}`; };
-  const msg = (box, html) => (box.querySelector(".g-msg").innerHTML = html);
+  const msg = (box, html) => { const el = box.querySelector(".g-msg"); el.innerHTML = html; window.ZGUI?.pills(el); };
 
   /* ── 2. TOF-ICR resonance hunt ─────────────────────────────────────────
      ¹³³Cs⁺ in B = 7 T: ν_c = qB/(2πm) = 808 795.0 Hz (reference). The true ν_c is hidden near it.
@@ -165,6 +165,7 @@
       const fw = fwhm(), R = NU_REF / fw;
       box.querySelector(".g-info").innerHTML = `FWHM ≈ ${fw.toFixed(2)} Hz (≈ ${(fw * Trf).toFixed(2)}/T_rf) · R = ν_c/FWHM ≈ ${Math.round(R).toLocaleString()} · ` +
         `δν = 0.1 Hz ↔ δm/m = ${(0.1 / NU_REF).toExponential(2)} ≈ ${(0.1 / NU_REF * M_CS * 931494.10242).toFixed(2)} keV`;
+      window.ZGUI?.pills(box.querySelector(".g-info"));
     }
     function reset() {
       if (!setIon()) return; Trf = +sel("trf").value; scheme = sel("scheme").value; Wd = (scheme === "rect" ? 3.6 : 4.0) / Trf;   /* rectangular: central dip + 3 side minima each side; Ramsey (fringe spacing 1/T_wait = 1.25/T_rf): central + 3 fringes each side */ step = +(Wd / 160).toPrecision(2);
@@ -478,7 +479,7 @@
     function filterList(preferred) {
       const query = sel("iso-search").value.trim().toLowerCase(), prior = preferred || sel("iso").value;
       const matches = list.filter(s=>s.label.toLowerCase().includes(query));
-      sel("iso").innerHTML = matches.map(x=>`<option value="${x.id}">${x.label} (Eₓ = ${x.ex}${x.exFlag ? "#" : ""} ± ${x.exError == null ? "?" : x.exError}${x.exErrorFlag ? "#" : ""} keV, T½ = ${x.it})</option>`).join("");
+      sel("iso").innerHTML = matches.map(x=>`<option value="${x.id}">${F(x.label)} (Eₓ = ${x.ex}${x.exFlag ? "#" : ""} ± ${x.exError == null ? "?" : x.exError}${x.exErrorFlag ? "#" : ""} keV, T½ = ${x.it})</option>`).join("");
       if (matches.some(x=>x.id === prior)) sel("iso").value=prior;
       pick();
     }
@@ -629,7 +630,7 @@
         return;
       }
       const g = p.sp[0], m = p.sp[1], dnu = g.nc - m.nc;
-      msg(box, `${S.label}: Eₓ = ${S.ex}${S.exFlag ? "#" : ""} ± ${S.exError == null ? "?" : S.exError}${S.exErrorFlag ? "#" : ""} keV → Δν_c = ${dnu.toExponential(3)} Hz · Δφ = ${(p.d * 180 / Math.PI).toFixed(1)}° · σ_φ = ${(p.sig * 180 / Math.PI).toFixed(1)}° · ` +
+      msg(box, `${F(S.label)}: Eₓ = ${S.ex}${S.exFlag ? "#" : ""} ± ${S.exError == null ? "?" : S.exError}${S.exErrorFlag ? "#" : ""} keV → Δν_c = ${dnu.toExponential(3)} Hz · Δφ = ${(p.d * 180 / Math.PI).toFixed(1)}° · σ_φ = ${(p.sig * 180 / Math.PI).toFixed(1)}° · ` +
         `Δφ/σ_φ = ${p.sep.toFixed(1)} · R ≈ ${p.R.toExponential(2)} (${TL.need} m/Δm = ${((S.A + S.me / UKEV) * UKEV / S.ex).toExponential(2)}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}`);
     }
     box.addEventListener("input",e=>{if(["compare-times","compare-t2","compare-t3"].includes(e.target.name))draw();});

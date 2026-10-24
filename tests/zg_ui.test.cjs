@@ -7,6 +7,7 @@ const vm = require('node:vm');
 class E {
   constructor(tag) { this.tag = tag; this.children = []; this.className = ''; this.textContent = ''; this.attrs = {}; this.nodeType = 1; this.dataset = {}; this.after_ = []; }
   after(...n) { this.after_.push(...n); }
+  replaceChildren(...n) { this.children = n; }
   append(...n) { this.children.push(...n); }
   setAttribute(k, v) { this.attrs[k] = v; }
 }
@@ -73,4 +74,18 @@ test('ionText: state letter after the element, charge as superscript', () => {
   assert.equal(U.ionText('133Xe[m]'), '133Xem');
   assert.equal(U.ionText('12C11 +1'), '12C11⁺');
   assert.equal(U.ionText('A = 100'), 'A = 100');
+  assert.equal(U.ionText('133Xe / 133Xe[m]'), '133Xe / 133Xem');
+});
+
+test('pills turn a status line into pills, keep the separators in the text, and leave short or marked-up text alone', () => {
+  const U = load();
+  const el = new E('p'); el.textContent = '133Xe / 133Xe[m]: Eₓ = 233 keV · Δφ = 27.4° · R ≈ 1.8e6 · ✔ separated';
+  assert.equal(U.pills(el), true);
+  const row = el.children[0]; assert.equal(row.className, 'zg-pillrow');
+  const pillsOnly = row.children.filter(c => /zg-pill/.test(c.className) && c.className !== 'zg-pillrow');
+  assert.equal(pillsOnly.length, 4);
+  assert.match(pillsOnly[3].className, /ok/);
+  assert.equal(row.children.filter(c => c.className === 'zg-sep').length, 3);
+  const short = new E('p'); short.textContent = 'one · two'; assert.equal(U.pills(short), false);
+  const marked = new E('p'); marked.textContent = 'a · b · c'; marked.children.push(new E('b')); assert.equal(U.pills(marked), false);
 });
