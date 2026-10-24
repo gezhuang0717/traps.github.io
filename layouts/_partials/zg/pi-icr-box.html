@@ -1,7 +1,7 @@
 {{- /* PI-ICR game box (original markup of the Games page, moved unchanged into a partial so the double-trap "fancier"
        tab can show a second, independent instance). Params: id, t (games labels), cal (bool: double-trap calibration panel). */ -}}
 {{- $t := .t -}}
-  <section class="zg-card g-box" id="{{ .id }}"><h2>🌀 {{ $t.pi }}</h2><p class="zg-muted">{{ $t.pi_n }}</p>{{ if .cal }}
+  <section class="zg-card g-box" id="{{ .id }}" data-tool-steps="pi-icr"><h2>🌀 {{ $t.pi }}</h2><p class="zg-muted">{{ $t.pi_n }}</p>{{ if .cal }}
     {{ partial "zg/calibration-panel.html" (dict "scope" "pi-fancier" "trap" "2" "on" true) }}{{ end }}
     {{ partial "zg/control-help.html" "pi" }}
     <div class="g-opts-row">

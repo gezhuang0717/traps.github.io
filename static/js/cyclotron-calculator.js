@@ -10,7 +10,10 @@
   function aliases(table){const map=new Map();for(const e of table?.elements||[]){for(const n of [e.sym,...Object.values(e.names||{})])map.set(normalize(n).toLowerCase(),e.sym);}if(map.has('caesium'))map.set('cesium',map.get('caesium'));if(map.has('aluminium'))map.set('aluminum',map.get('aluminium'));return map;}
   function chargeText(input,override){let text=normalize(input),q=null,m;if(text.length>160||!text)fail('SPECIES');
     if((m=/:([+-]?\d+)e$/i.exec(text))){q=-Number(m[1]);text=text.slice(0,m.index);}
+    else if((m=/:([+-])(\d*)e$/.exec(text))){q=(m[1]==='-'?1:-1)*Number(m[2]||1);text=text.slice(0,m.index);}                 // 1O16:1Cs133:-e  removes one electron (q = +1); :+e adds one (q = -1)
+    else if((m=/([+-])(\d*)e$/.exec(text))&&!/:/.test(text.slice(m.index))){q=(m[1]==='-'?1:-1)*Number(m[2]||1);text=text.slice(0,m.index);}   // 133Cs-e, 133Cs-2e, 133Cs+e, 16O133Cs-e
     else if((m=/:([+-]?\d+)$/.exec(text))){q=Number(m[1]);text=text.slice(0,m.index);}
+    else if((m=/:(\d*)([+-])$/.exec(text))&&/^\d+(?:m\d*)?[A-Za-z]{1,2}m?\d+$/.test(text.slice(0,m.index).split(':').pop())){q=Number(m[1]||1)*(m[2]==='-'?-1:1);text=text.slice(0,m.index);}   // ...:+  ...:2+  ...:-
     else if((m=/\^(?:(\d+)([+-])|([+-])(\d*)|([+-]))$/.exec(text))){q=Number(m[1]||m[4]||1)*((m[2]||m[3]||m[5])==='-'?-1:1);text=text.slice(0,m.index);}
     else if((m=/\](\d+)([+-])$/.exec(text))){q=Number(m[1])*(m[2]==='-'?-1:1);text=text.slice(0,m.index+1);}
     else if((m=/([+-])(\d+)$/.exec(text))&&(/\d/.test(text.slice(0,m.index))||m[1]==='+')){q=Number(m[2])*(m[1]==='-'?-1:1);text=text.slice(0,m.index);}
@@ -21,6 +24,9 @@
   }
   function parse(input,override,cat,nameMap=new Map()){
     const parsed=chargeText(input,override);let text=parsed.text;if(text.startsWith('[')&&text.endsWith(']'))text=text.slice(1,-1);
+    /* count-element-mass fields, e.g. 1H1:2O16:1Xem133 (isomer letter m before or after the element) become the component syntax 1H*1:16O*2:133Xe[m1]*1 */
+    const COUNT_FIELD=/^(\d+)(m\d*)?([A-Za-z]{1,2})(m)?(\d+)$/,fields=text.split(':');
+    if(fields.every(f=>COUNT_FIELD.test(f)))text=fields.map(f=>{const g=COUNT_FIELD.exec(f),state=g[2]?(g[2].slice(1)||'1'):g[4]?'1':null;return g[5]+g[3]+(state?'[m'+state+']':'')+'*'+g[1];}).join(':');
     function atomToken(token){let count=1,m;if((m=/^(\d+)\*(.+)$/.exec(token))){count=Number(m[1]);token=m[2];}else if((m=/^(.+)\*(\d+)$/.exec(token))){token=m[1];count=Number(m[2]);}if(!Number.isInteger(count)||count<1||count>1000)fail('COUNT');
       let state=0;if((m=/\[([gmnpqrxij]|m\d+|\d+)\]$/i.exec(token))){const labels={g:0,m:1,n:2,p:3,q:4,r:5,x:6,i:8,j:9};state=m[1].toLowerCase().startsWith('m')&&m[1].length>1?Number(m[1].slice(1)):labels[m[1].toLowerCase()]??Number(m[1]);token=token.slice(0,m.index);}
       else if((m=/^(\d+)m(\d*)([^\d]+)$/.exec(token))){state=Number(m[2]||1);token=m[1]+m[3];}

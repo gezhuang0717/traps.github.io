@@ -2,7 +2,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const DS=require('../static/js/spectroscopy-data.js'),U=require('../static/js/spectroscopy-uncertainty.js');
 const source=fs.readFileSync('static/js/spectroscopy.js','utf8');
-const start=source.indexOf("    {\n      const box=el('section',null,{class:'sp-method'});box.append(el('h3',t('king')))");
+const start=source.indexOf("    {\n      const box=el('section',null,{class:'sp-method','data-tool-steps':'king'});box.append(el('h3',t('king')))");
 const end=source.indexOf("    {\n      const p=panels.cooling",start);assert.ok(start>=0&&end>start);
 // Exercise the actual King UI handlers with real parsing/EIV/OLS kernels.
 // Figure arguments are retained to test the error bars and fit-band data;

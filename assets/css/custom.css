@@ -601,6 +601,13 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .zg-fold[open]>summary::before{transform:rotate(90deg)}
 .zg-fold>summary:hover{background:rgba(62,99,221,.07);border-radius:.6rem}
 .zg-fold-body{padding:0 .8rem .6rem}.zg-fold-body>p{margin:.3rem 0}
+/* numbered "How to use" steps at the top of a tool (ZGUI.attachSteps); the controls they name are shown in bold */
+.zg-steps{border-left:4px solid var(--zg-green);background:rgba(48,164,108,.07)}
+.zg-steps>summary::before{color:var(--zg-green)}
+.zg-steps-list{counter-reset:zgstep;list-style:none;margin:0;padding:.1rem .8rem .6rem .7rem;display:grid;gap:.4rem}
+.zg-steps-list>li{counter-increment:zgstep;position:relative;padding-left:2rem;line-height:1.5;font-size:.9rem;min-height:1.5rem}
+.zg-steps-list>li::before{content:counter(zgstep);position:absolute;left:0;top:.05rem;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--zg-green);color:#fff;font-size:.78rem;font-weight:750;display:flex;align-items:center;justify-content:center}
+.zg-ref{font-weight:700;color:var(--zg-ink);background:rgba(62,99,221,.1);border:1px solid rgba(62,99,221,.28);border-radius:.35rem;padding:0 .3rem;white-space:normal;overflow-wrap:anywhere}
 .zg-fig-fold{border-left:4px solid var(--zg-violet)}
 .zg-fig-fold>summary::before{content:"▸";color:var(--zg-violet)}
 .zg-defs{display:grid;grid-template-columns:minmax(6rem,max-content) 1fr;gap:.25rem .8rem;margin:.4rem 0 0;font-size:.85rem}

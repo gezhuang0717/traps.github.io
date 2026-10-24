@@ -5,7 +5,7 @@
 {{- $t := index $D.labels $k | default (index $D.labels "en") -}}
 <section id="g-laser" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "laser" "fancier" true "fancierLabel" (partial "zg/ct.html" "c192") "extra" (slice (dict "name" "molasses3d" "label" (partial "zg/ct.html" "c193")) (dict "name" "mot" "label" (partial "zg/ct.html" "c194")))) }}
 <div data-local-panel="classic">
-<section class="zg-card g-box g-laser" data-full-precision id="g-laser-m" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
+<section class="zg-card g-box g-laser" data-full-precision id="g-laser-m" data-tool-steps="laser-molasses" data-laser="molasses" data-species="{{ $D.species | jsonify }}" data-labels="{{ $t | jsonify }}">
   <h2>❄️ {{ $t.title }} — {{ $t.m_title }}</h2><p class="zg-muted">{{ $t.intro }}</p><p class="zg-muted">{{ $t.m_intro }}</p>
   <div class="g-opts-row">
     <label>{{ $t.species }} <select name="species"></select></label>

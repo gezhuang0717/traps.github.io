@@ -65,3 +65,18 @@ test('six locales and original route have one calculator and dependency-ordered 
  for(const [key,texts]of Object.entries(UI.labels)){assert.equal(texts.length,6,key);assert.ok(texts.every(x=>typeof x==='string'&&x.length>0),key);}
  const html=fs.readFileSync(path.join(__dirname,'../layouts/_shortcodes/lab.html'),'utf8');assert.equal((html.match(/data-cyclotron data-lang/g)||[]).length,1);assert.equal((html.match(/id="zg-c-out"/g)||[]).length,1);assert.ok(!html.includes('id="zg-c-m"'));const scripts=['js/physics.js','js/research-data.js','js/cyclotron-calculator.js','js/cyclotron-ui.js'];assert.ok(scripts.every((s,i)=>i===0||html.indexOf(s)>html.indexOf(scripts[i-1])));
 });
+test('electron-count charges, negative ions and count-element-mass molecules (same notation as the workbenches)',async()=>{
+ const r=C.create(cat,{periodic}),q=async s=>(await r.resolve(row(s),'saved-only')),hz=async s=>{const v=await q(s);return C.frequency(v.mass_u,v.q,7,0,0);};
+ assert.equal((await q('133Cs-e')).q,1);assert.equal((await q('133Cs-2e')).q,2);assert.equal((await q('133Cs+e')).q,-1);
+ const a=await hz('133Cs-e'),c=await hz('133Cs+e'),plain=await hz('133Cs');near(a.Hz,plain.Hz);assert.ok(c.signed_frequency_Hz<0);near(c.ion_mass_u-a.ion_mass_u,2*P.C.electronU,1e-12);
+ for(const [same,other] of [['16O133Cs-e','1O16:1Cs133:-e'],['1H16O133Cs-e','1H1:1O16:1Cs133:-e'],['1H1:2O16:1mXe133:-e','1H1:2O16:1Xem133:-e'],['1H1:2O16:1Cs133:-e','1H1:2O16:1Cs133:+']]){
+  const x=await q(same),y=await q(other);near(x.mass_u,y.mass_u,1e-12);assert.equal(x.q,y.q);}
+ assert.equal((await q('1H1:2O16:1Cs133:2+')).q,2);assert.equal((await q('1H1:2O16:1Cs133:-')).q,-1);
+ near((await q('1O16:1Cs133:-e')).mass_u,cat.atom(16,'O').value.v+cat.atom(133,'Cs').value.v,1e-9);
+ assert.throws(()=>C.parse('16O2+','',cat,new Map()));                                           // still ambiguous: O2+ or O 2+
+});
+test('actual UI explains the source in plain language: steps, read-only result, no JSON, no hashes',async()=>{
+ const {controller:h}=harness();h.controls.policy.value='saved-only';h.controls.sigmaB.value='0';await h.run();
+ const text=h.rows[0].provenance.textContent;assert.match(text,/AME2020/);assert.match(text,/νc = \|q\| e B/);assert.doesNotMatch(text,/[{}"]|sha256|schema|provenance|components/);
+ assert.ok(h.rows[0].output.className.includes('zg-readout'));
+});

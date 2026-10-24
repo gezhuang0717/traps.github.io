@@ -22,7 +22,7 @@
 <datalist id="trap-phase-presets"><option value="0"><option value="45"><option value="90"><option value="180"><option value="270"></datalist>
 
 <section id="penning-tools" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "penning" "fancier" true) }}<div data-local-panel="classic">
-<section class="zg-card zg-lab-sim" data-trap2d>
+<section class="zg-card zg-lab-sim" data-trap2d data-tool-steps="penning-sim">
   <h2>{{ i18n "zg_lab_sim" | default "Ion motion in a Penning trap" }}</h2>
   <p class="zg-muted">{{ i18n "zg_lab_sim_note" | default "A charged particle in a strong magnetic field plus a weak electric quadrupole field moves on two circles at once — the fast modified-cyclotron motion (ν₊) riding on the slow magnetron motion (ν₋) — while oscillating along the field axis (ν_z). The sum ν₊ + ν₋ = ν_c gives the mass." }}</p>
   <div class="zg-sim-wrap" data-figure-note="penning-sim">

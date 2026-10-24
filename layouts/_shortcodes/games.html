@@ -47,7 +47,7 @@
     <div class="zg-row"><button type="button" class="zg-btn" data-pick="a">◀ A</button><button type="button" class="zg-btn" data-pick="b">B ▶</button></div>
     <p class="g-msg" aria-live="polite"></p></section>
   <section id="g-tof" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "tof" "fancier" true) }}<div data-local-panel="classic">
-  <section class="zg-card g-box" id="g-tof-hunt"><h2>🎯 {{ $t.tof }}</h2><p class="zg-muted">{{ $t.tof_n }}</p>
+  <section class="zg-card g-box" id="g-tof-hunt" data-tool-steps="tof-hunt"><h2>🎯 {{ $t.tof }}</h2><p class="zg-muted">{{ $t.tof_n }}</p>
     {{ partial "zg/control-help.html" "tof" }}
     <div class="g-opts-row">
       <label>{{ $t.ion }} <input type="text" name="ion" class="g-text g-short" value="133Cs" aria-label="{{ $t.ion }}"></label>
@@ -69,7 +69,7 @@
   <section id="g-pi" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "pi" "advanced" false "fancier" true) }}<div data-local-panel="classic">
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-classic" "t" $t) }}</div><div data-local-panel="fancier" hidden>
 {{ partial "zg/pi-icr-box.html" (dict "id" "g-pi-fancier" "t" $t "cal" true) }}</div></section>
-  <section id="g-mr" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "mr") }}<div data-local-panel="classic">  <section class="zg-card g-box" id="g-mr-classic"><h2>🪞 {{ $t.mr }}</h2><p class="zg-muted">{{ $t.mr_n }}</p>
+  <section id="g-mr" data-local-tabs class="zg-tool">{{ partial "zg/local-tabs.html" (dict "id" "mr") }}<div data-local-panel="classic">  <section class="zg-card g-box" id="g-mr-classic" data-tool-steps="mr-classic"><h2>🪞 {{ $t.mr }}</h2><p class="zg-muted">{{ $t.mr_n }}</p>
     {{ partial "zg/control-help.html" "mr" }}
     <div class="g-opts-row">
       <label>{{ $t.pair }} <select name="pair"></select></label>
@@ -99,7 +99,7 @@
 </div><div data-local-panel="advanced" hidden>{{ partial "zg/measurement-workbench.html" (dict "kind" "mr" "id" "g-mr-workbench") }}</div></section>
   <section class="zg-card g-box" id="g-rfq" data-local-tabs><h2>🧲 {{ $t.rfq }}</h2>
     {{ partial "zg/local-tabs.html" (dict "id" "rfq" "advanced" false "extra" (slice (dict "name" "mathieu" "label" (index hugo.Data.mathieu_labels $k).tab))) }}
-    <div data-local-panel="classic"><p class="zg-muted">{{ $t.rfq_n }}</p>
+    <div data-local-panel="classic" data-tool-steps="rfq-game"><p class="zg-muted">{{ $t.rfq_n }}</p>
     {{ partial "zg/control-help.html" "rfq" }}
     <div class="g-opts-row">
       <label>{{ $t.set }} <select name="set"><option value="near">{{ $t.set_near }}</option><option value="far">{{ $t.set_far }}</option><option value="one">{{ $t.set_one }}</option></select></label>

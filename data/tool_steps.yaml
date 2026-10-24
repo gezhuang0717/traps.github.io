@@ -1,0 +1,512 @@
+# Step-by-step "How to use" lists of the main tools, one block per language (static/js/zg-ui.js, ZGUI.attachSteps; element marker data-tool-steps="id").
+# {name:X} / {act:X} / {sel:CSS} are replaced in the page by the visible label of that control, so the text quotes the real button or field in the page language.
+en:
+  tof-hunt:
+    title: How to use this tool
+    steps:
+    - Choose the ion {name:ion}, the field {name:bfield}, the excitation time {name:trf} and the excitation scheme {name:scheme}. They fix where the dip lies and how wide and deep it is.
+    - 'Move the ν_rf slider (the frequency offset from the reference, in Hz) and press {act:shot}: ions are sent at that frequency and one point (mean time of flight) appears. {act:scan} takes 15 points at once.'
+    - The ions arrive earliest on resonance. Once you have at least three frequencies, press {act:fit} to fit the dip.
+    - 'Press {act:guess} when you think you have found the resonance: the true value is shown and you score points (fewer shots and a closer guess score more). {act:new} starts a new round.'
+  mr-classic:
+    title: How to use this tool
+    steps:
+    - Choose an isobar pair {name:pair} (the dice button gives a random pair; tick {name:manual} to type the nuclei yourself) and the {name:ratio} of the two ions.
+    - 'Raise {name:laps}: the two peaks move apart, but each peak also gets wider. {act:auto} finds the number of laps needed.'
+    - In the lower plot the violet curve is the resolving power R you reach and the red dashed line the resolving power the pair needs. The peaks are separated when the violet curve lies above the red line.
+    - Change {name:dt0}, {name:dlap} and {name:tlap} to see what limits the separation. {act:new} starts a new round.
+  pi-icr:
+    title: How to use this tool
+    steps:
+    - Find the ion with {name:iso-search} (for example 133Xe) and pick its state in {name:iso}; tick {name:multi} to type several species yourself. Choose the field {name:B-preset}.
+    - Set the accumulation time {name:tacc}. The spot of each species turns around the centre at its own cyclotron frequency, so after t_acc the spots sit at different angles.
+    - The result line says whether the spots are separated by the chosen {name:separation-preset}, a multiple of the spot width σ.
+    - '{act:auto} finds the shortest t_acc that reaches the target; {act:shot} simulates the detector hits; {act:clear} starts a new round. Save the plots with the buttons below them.'
+  rfq-game:
+    title: How to use this tool
+    steps:
+    - Choose the beam in {name:set} and the mass you want to let through in {name:A}.
+    - Set {name:V} and {name:U}. The diagram on the right shows the working point (q, a) of every ion, the green region of stable motion and the scan line a/q = 2U/V.
+    - 'On the left the four rods are drawn with the ions between them: ions that stay between the rods are transmitted, ions that hit a rod are lost (sparks).'
+    - 'The aim: the target passes, the others hit the rods. The score line shows how well you did. {act:tip} sets the mass-filter tip and {act:cool} the cooler mode as a starting point.'
+  mathieu:
+    title: How to use this tool
+    steps:
+    - 'Choose the {name:ms-geometry} and how the point is given in {name:ms-mode}: from the RFQ voltages (ion, rod voltages, r₀ and frequency) or directly as a and q.'
+    - Pick or type the ion in {name:ms-species}; you can also enter {name:ms-mass} and {name:ms-charge} yourself. The black dot on the map is your operating point.
+    - 'Read the three result groups under the map (read-only): operating point, first plane and second plane. The point is confined when it lies in the stable region of both planes.'
+    - Zoom the map, change {name:ms-bands} and the axis ranges, or open “Independent RFQ sections” (cooler, mass filter, buncher) to add their operating lines. Save the figure with the buttons below it.
+  rfq-design:
+    title: How to use this tool
+    steps:
+    - Set {name:ms-rod-count} and the rod-radius rule {name:ms-rod-rule} (the optimal rule cancels the first unwanted field harmonic). r₀, the frequency and the RF peak voltage are the fields {name:ms-r0}, {name:ms-f} and {name:ms-V} of the point form above.
+    - Set the {name:ms-eta-target} (0.3 is usual) and the {name:ms-radial-fraction}; list voltages in {name:ms-vscan} to compare several.
+    - 'Read the results (read-only): the rod-geometry group opens with its triangle; the RF group says whether η is within the target and gives the lowest frequency and the highest RF peak that still meet it. For four rods the suggested-RF rows have a button that copies a voltage into the form.'
+    - The folds “What the design inputs mean” and “Symbols and formulas” give the definitions. Save the geometry as SVG or the design log as CSV or JSON.
+  wb-mr:
+    title: How to use this tool
+    steps:
+    - Set {name:number} (up to ten) and pick an {name:preset}. Type each ion in “Ion species” (the fold “How to type a species” lists the accepted notations), choose its nuclear state (ground state or isomer) and give each species its {name:weight-0}.
+    - Set {name:laps}, {name:width} and {name:broadening}. The spectrum, the resolving power and the separation plots update at once.
+    - 'Read the tables under the plots (read-only): flight time, width and population of each species and the time difference of neighbouring peaks. To turn a flight time into a mass, open the reference-ion calibration and press {sel:[data-wb=calibrate]}.'
+    - Zoom into a figure with the buttons, Ctrl/⌘ + wheel or by dragging; change legend and sizes under “Figure style”; save PNG, PDF, SVG or CSV.
+  wb-tof:
+    title: How to use this tool
+    steps:
+    - Set {name:number} and pick an {name:preset}, type each ion (see “How to type a species”), choose its nuclear state and give it a {name:weight-0}. {name:target} chooses the species the frequency axis is centred on.
+    - Set the field {name:B}, the excitation time {name:T} and the {name:scheme} (rectangular pulse or Ramsey). The plots show each species’ resonance and their sum.
+    - 'Press {sel:[data-wb=generate]} and then {sel:[data-wb=fit]}: the summary (read-only) gives the fitted centre and its bias from the true frequency of the target. {sel:[data-wb=clear-fit]} removes the fit.'
+    - Zoom and save the figures as in the MR-TOF workbench.
+  wb-penning:
+    title: How to use this tool
+    steps:
+    - Type the ion in “Ion species” (see “How to type a species”; negative ions need a negative trap voltage), choose its nuclear state and the charge.
+    - Set the field {name:B}, the trap voltage {name:voltage} and the {name:d}.
+    - Open “Advanced parameters and assumptions” for the starting point, the radii of the cyclotron and magnetron motions, the axial amplitude, the duration and the playback speed. The results groups (read-only) give the frequencies νc, ν₊, ν₋ and νz.
+    - Switch the plot between top, side and 3D view; use {sel:[data-wb=pause]}, {sel:[data-wb=step]} and {sel:[data-wb=reset]} for the animation; record a video or save the plot.
+  penning-sim:
+    title: How to use this tool
+    steps:
+    - 'Watch the red ion: a fast small circle (modified cyclotron motion, ν₊) rides on a slow large circle (magnetron motion, ν₋). The right-hand view shows the axial oscillation.'
+    - Change {sel:#zg-ratio}, {sel:#zg-rp}, {sel:#zg-rm} and {sel:#zg-az} with the sliders or by typing numbers; the radii are percentages of the display scale, not millimetres.
+    - '{sel:#zg-convert} turns the magnetron motion into cyclotron motion (a π pulse of quadrupole excitation at νc). {sel:#zg-clear} erases the trail.'
+    - Save a PNG, or choose the recording process and press {sel:#zg-sim-video} to save a short video.
+  king:
+    title: How to use this tool
+    steps:
+    - 'Fill the table: one row per isotope pair, with the modified isotope shifts of two transitions (x and y) in GHz·u. The uncertainties σx, σy and the correlation ρ are optional, but give σx and σy on every row or on none.'
+    - No data at hand? Load the example with the button under the table, or open the calcium builder (“Build the input from published masses and radii”) and press {sel:[data-king-build]}.
+    - Press {sel:[data-sp-calculate]}. The text (read-only) gives slope, intercept and χ² of the straight-line fit, and the plot shows the points, the fit and its ±1σ band.
+    - Save the figure or the numbers. The text form of the table is folded away under “Paste or edit as text”.
+  laser-molasses:
+    title: How to use this tool
+    steps:
+    - Choose the atom or ion in {name:species} (or type your own ion by hand).
+    - Set the {name:delta} (negative values are red-detuned, which cools) and the {name:s0}. {name:n} is the size of the cloud.
+    - 'Press {act:run}: the plots show the cloud (colour = velocity), the velocity distribution with the force curve F(v), and the temperature against time. The goal is T below 1.2 × the Doppler limit.'
+    - '{act:best} sets the detuning with the lowest Doppler temperature, {act:reset} makes a new cloud; the speed buttons slow the playback down. Save PNG, PDF, CSV or a video.'
+zh:
+  tof-hunt:
+    title: 使用步骤
+    steps:
+    - 选择离子 {name:ion}、磁场 {name:bfield}、激发时间 {name:trf} 和激发方案 {name:scheme}。它们决定凹陷的位置、宽度和深度。
+    - 移动 ν_rf 滑块（相对参考频率的偏移，单位 Hz）并点击 {act:shot}：以该频率发射离子，图上出现一个点（平均飞行时间）。{act:scan} 一次取 15 个点。
+    - 共振时离子最早到达。至少测得三个频率后，点击 {act:fit} 拟合凹陷。
+    - 认为找到共振时点击 {act:guess}：显示真实值并计分（次数越少、猜得越准得分越高）。{act:new} 开始新一轮。
+  mr-classic:
+    title: 使用步骤
+    steps:
+    - 选择同量异位素对 {name:pair}（骰子按钮给出随机一对；勾选 {name:manual} 可自己输入核素）和两种离子的 {name:ratio}。
+    - 增加 {name:laps}：两个峰分得更开，但每个峰也变得更宽。点击 {act:auto}，自动算出分开两峰所需的圈数。
+    - 下图中紫色曲线是你达到的分辨本领 R，红色虚线是这对离子所需的分辨本领。紫线高于红线时两个峰分开。
+    - 改变 {name:dt0}、{name:dlap} 和 {name:tlap}，看看是什么限制了分离。{act:new} 开始新一轮。
+  pi-icr:
+    title: 使用步骤
+    steps:
+    - 用 {name:iso-search} 找到离子（例如 133Xe），在 {name:iso} 中选择其状态；勾选 {name:multi} 可自己输入多种离子。选择磁场 {name:B-preset}。
+    - 设置累积时间 {name:tacc}。每种离子的光斑以各自的回旋频率绕中心转动，所以 t_acc 之后光斑位于不同角度。
+    - 结果行说明光斑是否达到所选的 {name:separation-preset}（光斑宽度 σ 的倍数）。
+    - '{act:auto} 找出达到目标的最短 t_acc；{act:shot} 模拟探测器击中；{act:clear} 开始新一轮。图下方的按钮可保存图形。'
+  rfq-game:
+    title: 使用步骤
+    steps:
+    - 在 {name:set} 中选择离子束，在 {name:A} 中选择要放行的质量。
+    - 设置 {name:V} 和 {name:U}。右图显示每种离子的工作点 (q, a)、绿色稳定运动区和扫描线 a/q = 2U/V。
+    - 左图画出四根杆和其间的离子：留在杆之间的离子被透过，撞到杆的离子丢失（火花）。
+    - 目标：让目标离子通过、其他离子撞杆。得分行显示你做得如何。{act:tip} 设为质量过滤器的尖端，{act:cool} 设为冷却器模式，可作为起点。
+  mathieu:
+    title: 使用步骤
+    steps:
+    - 选择 {name:ms-geometry}，并在 {name:ms-mode} 中选择工作点的给定方式：由 RFQ 电压（离子、杆电压、r₀ 和频率）计算，或直接给出 a 和 q。
+    - 在 {name:ms-species} 中选择或输入离子；也可自己输入 {name:ms-mass} 和 {name:ms-charge}。图上的黑点就是你的工作点。
+    - 阅读图下方的三个结果组（只读）：工作点、第一平面和第二平面。该点同时落在两个平面的稳定区内时，离子被约束。
+    - 缩放图形，改变 {name:ms-bands} 和坐标范围，或展开“独立的 RFQ 段”（冷却器、质量过滤器、聚束器）加入它们的工作线。用图下方按钮保存图形。
+  rfq-design:
+    title: 使用步骤
+    steps:
+    - 设置 {name:ms-rod-count} 和杆半径规则 {name:ms-rod-rule}（最优规则抵消第一个不需要的场谐波）。r₀、频率和射频峰值电压是上方点表单中的 {name:ms-r0}、{name:ms-f} 和 {name:ms-V}。
+    - 设置 {name:ms-eta-target}（常用 0.3）和 {name:ms-radial-fraction}；在 {name:ms-vscan} 中列出多个电压以便比较。
+    - 阅读结果（只读）：杆几何组可用三角展开；射频组说明 η 是否在目标内，并给出仍满足目标的最低频率和最高射频峰值。四根杆时，建议射频行有按钮把电压复制到表单。
+    - “设计输入项的含义”和“符号与公式”折叠块给出定义。可将几何保存为 SVG，将设计记录保存为 CSV 或 JSON。
+  wb-mr:
+    title: 使用步骤
+    steps:
+    - 设置 {name:number}（最多十种）并选择 {name:preset}。在“离子种类”中输入每个离子（折叠块“如何输入离子种类”列出了可用写法），选择核态（基态或同核异能态），并给每种离子设置 {name:weight-0}。
+    - 设置 {name:laps}、{name:width} 和 {name:broadening}。谱、分辨本领和分离图会立即更新。
+    - 阅读图下方的表格（只读）：每种离子的飞行时间、宽度和布居，以及相邻峰的时间差。要把飞行时间换算为质量，打开参考离子校准并点击 {sel:[data-wb=calibrate]}。
+    - 用按钮、Ctrl/⌘ + 滚轮或拖动缩放图形；在“图形样式”中改变图例和字号；保存 PNG、PDF、SVG 或 CSV。
+  wb-tof:
+    title: 使用步骤
+    steps:
+    - 设置 {name:number} 并选择 {name:preset}，输入每个离子（见“如何输入离子种类”），选择核态并给出 {name:weight-0}。{name:target} 决定频率轴以哪种离子为中心。
+    - 设置磁场 {name:B}、激发时间 {name:T} 和 {name:scheme}（矩形脉冲或 Ramsey）。图中显示每种离子的共振及其总和。
+    - 点击 {sel:[data-wb=generate]}，再点击 {sel:[data-wb=fit]}：（只读）摘要给出拟合中心及其相对目标真实频率的偏差。{sel:[data-wb=clear-fit]} 清除拟合。
+    - 图形的缩放和保存与 MR-TOF 工作台相同。
+  wb-penning:
+    title: 使用步骤
+    steps:
+    - 在“离子种类”中输入离子（见“如何输入离子种类”；负离子需要负的阱电压），选择核态和电荷。
+    - 设置磁场 {name:B}、阱电压 {name:voltage} 和 {name:d}。
+    - 在“高级参数与假设”中设置起点、回旋与磁控管运动的半径、轴向振幅、持续时间和回放速度。（只读）结果组给出频率 νc、ν₊、ν₋ 和 νz。
+    - 在俯视、侧视和三维视图之间切换；用 {sel:[data-wb=pause]}、{sel:[data-wb=step]} 和 {sel:[data-wb=reset]} 控制动画；录制视频或保存图形。
+  penning-sim:
+    title: 使用步骤
+    steps:
+    - 观察红色离子：快速的小圆（修正回旋运动，ν₊）叠加在缓慢的大圆（磁控管运动，ν₋）上。右侧视图显示轴向振荡。
+    - 用滑块或直接输入数字改变 {sel:#zg-ratio}、{sel:#zg-rp}、{sel:#zg-rm} 和 {sel:#zg-az}；半径是显示尺度的百分比，不是毫米。
+    - '{sel:#zg-convert} 把磁控管运动转换为回旋运动（νc 处的 π 脉冲四极激发）。{sel:#zg-clear} 擦除轨迹。'
+    - 保存 PNG，或选择录制过程并点击 {sel:#zg-sim-video} 保存短视频。
+  king:
+    title: 使用步骤
+    steps:
+    - 填写表格：每个同位素对一行，给出两条跃迁的修正同位素位移（x 和 y），单位 GHz·u。不确定度 σx、σy 与相关系数 ρ 可不填，但要么每行都给出 σx 和 σy，要么都不给。
+    - 手头没有数据？用表格下方的按钮载入示例，或打开钙的生成器（“由已发表的质量和半径生成输入”）并点击 {sel:[data-king-build]}。
+    - 点击 {sel:[data-sp-calculate]}。文字（只读）给出直线拟合的斜率、截距和 χ²，图中显示数据点、拟合线及其 ±1σ 带。
+    - 保存图形或数值。表格的文本形式折叠在“粘贴或以文本编辑”下面。
+  laser-molasses:
+    title: 使用步骤
+    steps:
+    - 在 {name:species} 中选择原子或离子（或手动输入自己的离子）。
+    - 设置 {name:delta}（负值为红失谐，会产生冷却）和 {name:s0}。{name:n} 是云团的大小。
+    - 点击 {act:run}：图中显示云团（颜色表示速度）、带力曲线 F(v) 的速度分布和温度随时间的变化。目标是温度低于多普勒极限的 1.2 倍。
+    - '{act:best} 设为多普勒温度最低的失谐，{act:reset} 生成新的云团；速度按钮可放慢回放。可保存 PNG、PDF、CSV 或视频。'
+fi:
+  tof-hunt:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Valitse ioni {name:ion}, kenttä {name:bfield}, herätysaika {name:trf} ja herätystapa {name:scheme}. Ne määräävät kuopan paikan, leveyden ja syvyyden.
+    - 'Siirrä ν_rf-liukusäädintä (taajuuspoikkeama vertailutaajuudesta, Hz) ja paina {act:shot}: ioneja lähetetään kyseisellä taajuudella ja kuvaan tulee yksi piste (keskimääräinen lentoaika). {act:scan} ottaa 15 pistettä kerralla.'
+    - Ionit saapuvat aikaisimmin resonanssissa. Kun taajuuksia on vähintään kolme, paina {act:fit} sovittaaksesi kuopan.
+    - 'Paina {act:guess}, kun uskot löytäneesi resonanssin: todellinen arvo näytetään ja saat pisteitä (vähemmän laukauksia ja tarkempi arvaus antavat enemmän). {act:new} aloittaa uuden kierroksen.'
+  mr-classic:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Valitse isobaaripari {name:pair} (noppapainike antaa satunnaisen parin; rastita {name:manual} kirjoittaaksesi ytimet itse) ja kahden ionin {name:ratio}.
+    - 'Lisää arvoa {name:laps}: piikit etääntyvät toisistaan, mutta myös levenevät. {act:auto} löytää tarvittavan kierrosmäärän.'
+    - Alemmassa kuvassa violetti käyrä on saavutettu erotuskyky R ja punainen katkoviiva parin vaatima erotuskyky. Piikit erottuvat, kun violetti käyrä on punaisen viivan yläpuolella.
+    - Muuta arvoja {name:dt0}, {name:dlap} ja {name:tlap} nähdäksesi, mikä erottumista rajoittaa. {act:new} aloittaa uuden kierroksen.
+  pi-icr:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Etsi ioni kentällä {name:iso-search} (esimerkiksi 133Xe) ja valitse sen tila kohdassa {name:iso}; rastita {name:multi} kirjoittaaksesi useita lajeja itse. Valitse kenttä {name:B-preset}.
+    - Aseta keräysaika {name:tacc}. Kunkin lajin piste kiertää keskipistettä omalla syklotronitaajuudellaan, joten t_acc:n jälkeen pisteet ovat eri kulmissa.
+    - Tulosrivi kertoo, ovatko pisteet erillään valitun {name:separation-preset} verran (pisteen leveyden σ monikerta).
+    - '{act:auto} etsii lyhimmän t_acc:n, joka täyttää tavoitteen; {act:shot} simuloi ilmaisimen osumat; {act:clear} aloittaa uuden kierroksen. Tallenna kuvat niiden alla olevilla painikkeilla.'
+  rfq-game:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Valitse keila kohdassa {name:set} ja läpäistävä massa kohdassa {name:A}.
+    - Aseta {name:V} ja {name:U}. Oikea kuva näyttää jokaisen ionin toimintapisteen (q, a), vihreän stabiilin liikkeen alueen ja skannausviivan a/q = 2U/V.
+    - 'Vasemmalla neljä sauvaa ja niiden välissä olevat ionit: sauvojen väliin jäävät ionit läpäisevät, sauvaan osuvat menetetään (kipinät).'
+    - 'Tavoite: kohde läpäisee, muut osuvat sauvoihin. Pistejärjestys kertoo, miten onnistuit. {act:tip} asettaa massasuodattimen kärjen ja {act:cool} jäähdytystilan lähtökohdaksi.'
+  mathieu:
+    title: Näin käytät tätä työkalua
+    steps:
+    - 'Valitse {name:ms-geometry} ja kohdassa {name:ms-mode} miten toimintapiste annetaan: RFQ-jännitteistä (ioni, sauvajännitteet, r₀ ja taajuus) tai suoraan arvoina a ja q.'
+    - Valitse tai kirjoita ioni kohdassa {name:ms-species}; voit myös antaa {name:ms-mass} ja {name:ms-charge} itse. Kartan musta piste on toimintapisteesi.
+    - 'Lue kartan alla olevat kolme tulosryhmää (vain luku): toimintapiste, ensimmäinen taso ja toinen taso. Piste on rajoitettu, kun se on molempien tasojen stabiilissa alueessa.'
+    - Zoomaa karttaa, muuta {name:ms-bands} ja akselialueita tai avaa “Riippumattomat RFQ-osat” (jäähdytin, massasuodatin, paketoija) lisätäksesi niiden toimintasuorat. Tallenna kuva sen alla olevilla painikkeilla.
+  rfq-design:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Aseta {name:ms-rod-count} ja sauvan säteen sääntö {name:ms-rod-rule} (optimaalinen sääntö kumoaa ensimmäisen ei-toivotun kenttäharmonisen). r₀, taajuus ja RF-huippujännite ovat yllä olevan pistelomakkeen kentät {name:ms-r0}, {name:ms-f} ja {name:ms-V}.
+    - Aseta {name:ms-eta-target} (tavallisesti 0,3) ja {name:ms-radial-fraction}; luettele jännitteet kentässä {name:ms-vscan} vertaillaksesi useita.
+    - 'Lue tulokset (vain luku): sauvageometriaryhmä aukeaa kolmiosta; RF-ryhmä kertoo, onko η tavoitteessa, ja antaa pienimmän taajuuden ja suurimman RF-huipun, jotka sen vielä täyttävät. Neljällä sauvalla ehdotetuilla RF-riveillä on painike, joka kopioi jännitteen lomakkeelle.'
+    - Taitokset “Mitä suunnittelun syötteet tarkoittavat” ja “Symbolit ja kaavat” antavat määritelmät. Tallenna geometria SVG:nä tai suunnittelulokki CSV:nä tai JSON:na.
+  wb-mr:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Aseta {name:number} (enintään kymmenen) ja valitse {name:preset}. Kirjoita kukin ioni kohtaan “Ionilaji” (taitos “Näin kirjoitat lajin” luettelee sallitut kirjoitustavat), valitse ydintila (perustila tai isomeeri) ja anna kullekin lajille {name:weight-0}.
+    - Aseta {name:laps}, {name:width} ja {name:broadening}. Spektri, erotuskyky ja erottumiskuvat päivittyvät heti.
+    - 'Lue kuvien alla olevat taulukot (vain luku): kunkin lajin lentoaika, leveys ja populaatio sekä vierekkäisten piikkien aikaero. Muuntaaksesi lentoajan massaksi avaa vertailuionin kalibrointi ja paina {sel:[data-wb=calibrate]}.'
+    - Zoomaa kuvaan painikkeilla, Ctrl/⌘ + rullalla tai vetämällä; muuta selitettä ja kokoja kohdassa “Kuvan tyyli”; tallenna PNG, PDF, SVG tai CSV.
+  wb-tof:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Aseta {name:number} ja valitse {name:preset}, kirjoita kukin ioni (ks. “Näin kirjoitat lajin”), valitse ydintila ja anna {name:weight-0}. {name:target} valitsee lajin, jonka ympärille taajuusakseli keskitetään.
+    - Aseta kenttä {name:B}, herätysaika {name:T} ja {name:scheme} (suorakulmapulssi tai Ramsey). Kuvat näyttävät kunkin lajin resonanssin ja niiden summan.
+    - 'Paina {sel:[data-wb=generate]} ja sitten {sel:[data-wb=fit]}: yhteenveto (vain luku) kertoo sovitetun keskikohdan ja sen poikkeaman kohteen todellisesta taajuudesta. {sel:[data-wb=clear-fit]} poistaa sovitteen.'
+    - Zoomaa ja tallenna kuvat kuten MR-TOF-työpöydällä.
+  wb-penning:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Kirjoita ioni kohtaan “Ionilaji” (ks. “Näin kirjoitat lajin”; negatiiviset ionit tarvitsevat negatiivisen loukkujännitteen), valitse ydintila ja varaus.
+    - Aseta kenttä {name:B}, loukkujännite {name:voltage} ja {name:d}.
+    - Avaa “Lisäasetukset ja oletukset” lähtöpistettä, syklotroni- ja magnetroniliikkeen säteitä, aksiaaliamplitudia, kestoa ja toistonopeutta varten. Tulosryhmät (vain luku) antavat taajuudet νc, ν₊, ν₋ ja νz.
+    - Vaihda kuva ylä-, sivu- ja 3D-näkymän välillä; käytä painikkeita {sel:[data-wb=pause]}, {sel:[data-wb=step]} ja {sel:[data-wb=reset]}; nauhoita video tai tallenna kuva.
+  penning-sim:
+    title: Näin käytät tätä työkalua
+    steps:
+    - 'Seuraa punaista ionia: nopea pieni ympyrä (modifioitu syklotroniliike, ν₊) kulkee hitaan ison ympyrän (magnetroniliike, ν₋) päällä. Oikea näkymä näyttää aksiaalisen värähtelyn.'
+    - Muuta kohtia {sel:#zg-ratio}, {sel:#zg-rp}, {sel:#zg-rm} ja {sel:#zg-az} liukusäätimillä tai kirjoittamalla lukuja; säteet ovat prosentteja näytön mittakaavasta, eivät millimetrejä.
+    - '{sel:#zg-convert} muuttaa magnetroniliikkeen syklotroniliikkeeksi (π-pulssi kvadrupolivirityksestä taajuudella νc). {sel:#zg-clear} pyyhkii jäljen.'
+    - Tallenna PNG tai valitse tallennettava prosessi ja paina {sel:#zg-sim-video} tallentaaksesi lyhyen videon.
+  king:
+    title: Näin käytät tätä työkalua
+    steps:
+    - 'Täytä taulukko: yksi rivi isotooppiparia kohti, kahden siirtymän muokatut isotooppisiirtymät (x ja y) yksikössä GHz·u. Epävarmuudet σx, σy ja korrelaatio ρ ovat valinnaisia, mutta anna σx ja σy joka rivillä tai ei millään.'
+    - Ei dataa? Lataa esimerkki taulukon alla olevalla painikkeella tai avaa kalsiumin muodostin (“Muodosta syöte julkaistuista massoista ja säteistä”) ja paina {sel:[data-king-build]}.
+    - Paina {sel:[data-sp-calculate]}. Teksti (vain luku) kertoo suoran sovitteen kulmakertoimen, vakiotermin ja χ²:n; kuvassa ovat pisteet, sovite ja sen ±1σ-vyöhyke.
+    - Tallenna kuva tai luvut. Taulukon tekstimuoto on piilossa kohdassa “Liitä tai muokkaa tekstinä”.
+  laser-molasses:
+    title: Näin käytät tätä työkalua
+    steps:
+    - Valitse atomi tai ioni kohdassa {name:species} (tai kirjoita oma ionisi käsin).
+    - Aseta {name:delta} (negatiiviset arvot ovat punapoikkeamaa, joka jäähdyttää) ja {name:s0}. {name:n} on pilven koko.
+    - 'Paina {act:run}: kuvat näyttävät pilven (väri = nopeus), nopeusjakauman voimakäyrineen F(v) ja lämpötilan ajan funktiona. Tavoite on lämpötila alle 1,2 × Doppler-raja.'
+    - '{act:best} asettaa poikkeaman, jolla Doppler-lämpötila on pienin, {act:reset} luo uuden pilven; nopeuspainikkeet hidastavat toistoa. Tallenna PNG, PDF, CSV tai video.'
+de:
+  tof-hunt:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Ion {name:ion}, Feld {name:bfield}, Anregungszeit {name:trf} und Anregungsschema {name:scheme} wählen. Sie legen Lage, Breite und Tiefe des Minimums fest.
+    - 'Den ν_rf-Regler bewegen (Frequenzabstand zur Referenz, in Hz) und {act:shot} drücken: Ionen werden bei dieser Frequenz geschickt, und ein Punkt (mittlere Flugzeit) erscheint. {act:scan} nimmt 15 Punkte auf einmal auf.'
+    - Bei Resonanz kommen die Ionen am frühesten an. Mit mindestens drei Frequenzen {act:fit} drücken, um das Minimum anzupassen.
+    - '{act:guess} drücken, wenn Sie die Resonanz gefunden zu haben glauben: der wahre Wert wird gezeigt und Sie erhalten Punkte (weniger Schüsse und ein näherer Tipp bringen mehr). {act:new} startet eine neue Runde.'
+  mr-classic:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Ein Isobarenpaar {name:pair} wählen (die Würfeltaste liefert ein zufälliges Paar; {name:manual} ankreuzen, um die Kerne selbst einzutippen) und das {name:ratio} der beiden Ionen.
+    - '{name:laps} erhöhen: die beiden Peaks rücken auseinander, werden aber auch breiter. {act:auto} findet die nötige Rundenzahl.'
+    - Im unteren Diagramm ist die violette Kurve das erreichte Auflösungsvermögen R, die rote gestrichelte Linie das vom Paar benötigte. Die Peaks sind getrennt, wenn die violette Kurve über der roten Linie liegt.
+    - '{name:dt0}, {name:dlap} und {name:tlap} ändern, um zu sehen, was die Trennung begrenzt. {act:new} startet eine neue Runde.'
+  pi-icr:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Das Ion mit {name:iso-search} finden (z. B. 133Xe) und seinen Zustand unter {name:iso} wählen; {name:multi} ankreuzen, um mehrere Spezies selbst einzutippen. Das Feld {name:B-preset} wählen.
+    - Die Akkumulationszeit {name:tacc} einstellen. Der Fleck jeder Spezies kreist mit ihrer eigenen Zyklotronfrequenz um die Mitte, daher liegen die Flecken nach t_acc bei verschiedenen Winkeln.
+    - Die Ergebniszeile sagt, ob die Flecken um das gewählte {name:separation-preset} getrennt sind (ein Vielfaches der Fleckbreite σ).
+    - '{act:auto} findet das kürzeste t_acc, das das Ziel erreicht; {act:shot} simuliert die Detektortreffer; {act:clear} startet eine neue Runde. Die Diagramme mit den Tasten darunter speichern.'
+  rfq-game:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Den Strahl unter {name:set} und die durchzulassende Masse unter {name:A} wählen.
+    - '{name:V} und {name:U} einstellen. Das Diagramm rechts zeigt den Arbeitspunkt (q, a) jedes Ions, den grünen Bereich stabiler Bewegung und die Scanlinie a/q = 2U/V.'
+    - 'Links sind die vier Stäbe mit den Ionen dazwischen gezeichnet: Ionen zwischen den Stäben werden transmittiert, Ionen, die einen Stab treffen, gehen verloren (Funken).'
+    - 'Ziel: das Zielion passiert, die anderen treffen die Stäbe. Die Punktzeile zeigt, wie gut es gelang. {act:tip} setzt die Spitze des Massenfilters, {act:cool} den Coolermodus als Ausgangspunkt.'
+  mathieu:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - '{name:ms-geometry} wählen und unter {name:ms-mode}, wie der Arbeitspunkt angegeben wird: aus den RFQ-Spannungen (Ion, Stabspannungen, r₀ und Frequenz) oder direkt als a und q.'
+    - Das Ion unter {name:ms-species} wählen oder eintippen; {name:ms-mass} und {name:ms-charge} können Sie auch selbst eingeben. Der schwarze Punkt in der Karte ist Ihr Arbeitspunkt.
+    - 'Die drei Ergebnisgruppen unter der Karte lesen (nur lesbar): Arbeitspunkt, erste Ebene und zweite Ebene. Der Punkt ist eingeschlossen, wenn er im stabilen Bereich beider Ebenen liegt.'
+    - Die Karte zoomen, {name:ms-bands} und die Achsenbereiche ändern oder „Unabhängige RFQ-Abschnitte“ (Cooler, Massenfilter, Buncher) öffnen, um deren Betriebsgeraden hinzuzufügen. Die Abbildung mit den Tasten darunter speichern.
+  rfq-design:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - '{name:ms-rod-count} und die Regel für den Stabradius {name:ms-rod-rule} einstellen (die optimale Regel hebt die erste unerwünschte Feldharmonische auf). r₀, Frequenz und HF-Spitzenspannung sind die Felder {name:ms-r0}, {name:ms-f} und {name:ms-V} des Punktformulars oben.'
+    - Das {name:ms-eta-target} (üblich 0,3) und den {name:ms-radial-fraction} einstellen; Spannungen in {name:ms-vscan} auflisten, um mehrere zu vergleichen.
+    - 'Die Ergebnisse lesen (nur lesbar): die Gruppe Stabgeometrie öffnet sich mit dem Dreieck; die HF-Gruppe sagt, ob η im Ziel liegt, und nennt die niedrigste Frequenz und die höchste HF-Spitze, die es noch erfüllen. Bei vier Stäben haben die Zeilen der vorgeschlagenen HF eine Taste, die eine Spannung ins Formular kopiert.'
+    - Die Einklappbereiche „Was die Auslegungseingaben bedeuten“ und „Symbole und Formeln“ geben die Definitionen. Die Geometrie als SVG oder das Auslegungsprotokoll als CSV oder JSON speichern.
+  wb-mr:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - '{name:number} einstellen (bis zehn) und ein {name:preset} wählen. Jedes Ion unter „Ionenspezies“ eintippen (der Einklappbereich „So geben Sie eine Spezies ein“ listet die zulässigen Schreibweisen), den Kernzustand wählen (Grundzustand oder Isomer) und jeder Spezies ihre {name:weight-0} geben.'
+    - '{name:laps}, {name:width} und {name:broadening} einstellen. Spektrum, Auflösungsvermögen und Trennungsdiagramme aktualisieren sich sofort.'
+    - 'Die Tabellen unter den Diagrammen lesen (nur lesbar): Flugzeit, Breite und Population jeder Spezies sowie der Zeitabstand benachbarter Peaks. Um eine Flugzeit in eine Masse umzurechnen, die Referenzionen-Kalibrierung öffnen und {sel:[data-wb=calibrate]} drücken.'
+    - Mit den Tasten, Strg/⌘ + Rad oder Ziehen in eine Abbildung zoomen; Legende und Größen unter „Abbildungsstil“ ändern; PNG, PDF, SVG oder CSV speichern.
+  wb-tof:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - '{name:number} einstellen und ein {name:preset} wählen, jedes Ion eintippen (siehe „So geben Sie eine Spezies ein“), den Kernzustand wählen und eine {name:weight-0} angeben. {name:target} wählt die Spezies, um die die Frequenzachse zentriert wird.'
+    - Das Feld {name:B}, die Anregungszeit {name:T} und die {name:scheme} (Rechteckpuls oder Ramsey) einstellen. Die Diagramme zeigen die Resonanz jeder Spezies und ihre Summe.
+    - '{sel:[data-wb=generate]} und danach {sel:[data-wb=fit]} drücken: die Zusammenfassung (nur lesbar) nennt das angepasste Zentrum und seine Abweichung von der wahren Frequenz des Ziels. {sel:[data-wb=clear-fit]} entfernt die Anpassung.'
+    - Zoomen und Speichern der Abbildungen wie im MR-TOF-Arbeitsplatz.
+  wb-penning:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Das Ion unter „Ionenspezies“ eintippen (siehe „So geben Sie eine Spezies ein“; negative Ionen brauchen eine negative Fallenspannung), den Kernzustand und die Ladung wählen.
+    - Das Feld {name:B}, die Fallenspannung {name:voltage} und die {name:d} einstellen.
+    - Unter „Erweiterte Parameter und Annahmen“ stehen Startpunkt, Radien der Zyklotron- und Magnetronbewegung, Axialamplitude, Dauer und Wiedergabegeschwindigkeit. Die Ergebnisgruppen (nur lesbar) geben die Frequenzen νc, ν₊, ν₋ und νz.
+    - Das Diagramm zwischen Auf-, Seiten- und 3D-Ansicht umschalten; {sel:[data-wb=pause]}, {sel:[data-wb=step]} und {sel:[data-wb=reset]} steuern die Animation; ein Video aufnehmen oder das Diagramm speichern.
+  penning-sim:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - 'Das rote Ion beobachten: ein schneller kleiner Kreis (modifizierte Zyklotronbewegung, ν₊) läuft auf einem langsamen großen (Magnetronbewegung, ν₋). Die rechte Ansicht zeigt die axiale Schwingung.'
+    - '{sel:#zg-ratio}, {sel:#zg-rp}, {sel:#zg-rm} und {sel:#zg-az} mit den Reglern oder durch Zahleneingabe ändern; die Radien sind Prozent der Anzeigeskala, nicht Millimeter.'
+    - '{sel:#zg-convert} wandelt Magnetron- in Zyklotronbewegung um (π-Puls der Quadrupolanregung bei νc). {sel:#zg-clear} löscht die Spur.'
+    - Ein PNG speichern oder den aufzunehmenden Vorgang wählen und {sel:#zg-sim-video} drücken, um ein kurzes Video zu speichern.
+  king:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - 'Die Tabelle füllen: eine Zeile je Isotopenpaar mit den modifizierten Isotopieverschiebungen zweier Übergänge (x und y) in GHz·u. Die Unsicherheiten σx, σy und die Korrelation ρ sind optional, aber σx und σy in jeder Zeile oder in keiner angeben.'
+    - Keine Daten zur Hand? Das Beispiel mit der Taste unter der Tabelle laden oder den Calcium-Generator („Eingabe aus veröffentlichten Massen und Radien erzeugen“) öffnen und {sel:[data-king-build]} drücken.
+    - '{sel:[data-sp-calculate]} drücken. Der Text (nur lesbar) nennt Steigung, Achsenabschnitt und χ² der Geradenanpassung; das Diagramm zeigt die Punkte, die Anpassung und ihr ±1σ-Band.'
+    - Abbildung oder Zahlen speichern. Die Textform der Tabelle ist unter „Als Text einfügen oder bearbeiten“ eingeklappt.
+  laser-molasses:
+    title: So benutzen Sie dieses Werkzeug
+    steps:
+    - Das Atom oder Ion unter {name:species} wählen (oder ein eigenes Ion von Hand eintippen).
+    - '{name:delta} (negative Werte sind rotverstimmt und kühlen) und {name:s0} einstellen. {name:n} ist die Größe der Wolke.'
+    - '{act:run} drücken: die Diagramme zeigen die Wolke (Farbe = Geschwindigkeit), die Geschwindigkeitsverteilung mit der Kraftkurve F(v) und die Temperatur über der Zeit. Ziel ist eine Temperatur unter dem 1,2-Fachen der Doppler-Grenze.'
+    - '{act:best} setzt die Verstimmung mit der niedrigsten Doppler-Temperatur, {act:reset} erzeugt eine neue Wolke; die Geschwindigkeitstasten verlangsamen die Wiedergabe. PNG, PDF, CSV oder ein Video speichern.'
+ja:
+  tof-hunt:
+    title: このツールの使い方
+    steps:
+    - イオン {name:ion}、磁場 {name:bfield}、励起時間 {name:trf}、励起方式 {name:scheme} を選びます。谷の位置・幅・深さが決まります。
+    - ν_rf スライダー（基準周波数からのずれ、Hz）を動かして {act:shot} を押すと、その周波数でイオンが送られ、点（平均飛行時間）が 1 つ加わります。{act:scan} は 15 点を一度に取ります。
+    - 共鳴でイオンが最も早く到着します。周波数が 3 つ以上たまったら {act:fit} で谷をフィットします。
+    - 共鳴を見つけたと思ったら {act:guess} を押します。真の値が表示され、得点が付きます（ショット数が少なく推定が近いほど高得点）。{act:new} で新しいラウンドを始めます。
+  mr-classic:
+    title: このツールの使い方
+    steps:
+    - アイソバーのペア {name:pair} を選びます（サイコロのボタンでランダムなペア、{name:manual} にチェックで核種を手入力）。2 つのイオンの {name:ratio} も設定します。
+    - '{name:laps} を増やすと 2 つのピークは離れますが、各ピークも広がります。{act:auto} は必要な周回数を探します。'
+    - 下のプロットで紫の曲線は達成した分解能 R、赤い破線はこのペアに必要な分解能です。紫が赤より上ならピークは分離しています。
+    - '{name:dt0}、{name:dlap}、{name:tlap} を変えて、分離を制限するものを確かめます。{act:new} で新しいラウンドを始めます。'
+  pi-icr:
+    title: このツールの使い方
+    steps:
+    - '{name:iso-search} でイオンを探し（例：133Xe）、{name:iso} で状態を選びます。{name:multi} にチェックすると複数種を手入力できます。磁場 {name:B-preset} を選びます。'
+    - 蓄積時間 {name:tacc} を設定します。各種のスポットは固有のサイクロトロン周波数で中心の周りを回るので、t_acc 後には異なる角度に並びます。
+    - 結果行は、スポットが選んだ {name:separation-preset}（スポット幅 σ の倍数）だけ離れているかを示します。
+    - '{act:auto} は目標を満たす最短の t_acc を探し、{act:shot} は検出器の着弾を模擬し、{act:clear} は新しいラウンドを始めます。プロットは下のボタンで保存します。'
+  rfq-game:
+    title: このツールの使い方
+    steps:
+    - '{name:set} でビームを、{name:A} で通したい質量を選びます。'
+    - '{name:V} と {name:U} を設定します。右の図には各イオンの動作点 (q, a)、緑の安定領域、走査線 a/q = 2U/V が表示されます。'
+    - 左には 4 本のロッドとその間のイオンが描かれます：ロッドの間に留まるイオンは透過、ロッドに当たるイオンは失われます（火花）。
+    - 目標：ターゲットを通し、他はロッドに当てること。スコア行が出来を示します。{act:tip} は質量フィルターの先端、{act:cool} はクーラーモードを出発点として設定します。
+  mathieu:
+    title: このツールの使い方
+    steps:
+    - '{name:ms-geometry} を選び、{name:ms-mode} で動作点の与え方を選びます：RFQ 電圧（イオン、ロッド電圧、r₀、周波数）から計算、または a と q を直接入力。'
+    - '{name:ms-species} でイオンを選ぶか入力します。{name:ms-mass} と {name:ms-charge} を自分で入力することもできます。マップ上の黒い点が動作点です。'
+    - マップ下の 3 つの結果グループ（読み取り専用）を読みます：動作点、第 1 面、第 2 面。両方の面の安定領域にあるとき、点は閉じ込められます。
+    - マップを拡大し、{name:ms-bands} や軸範囲を変え、「独立した RFQ 区間」（クーラー、質量フィルター、バンチャー）を開いてその動作直線を加えます。図は下のボタンで保存します。
+  rfq-design:
+    title: このツールの使い方
+    steps:
+    - '{name:ms-rod-count} とロッド半径の規則 {name:ms-rod-rule} を設定します（最適の規則は最初の不要な場の高調波を打ち消します）。r₀、周波数、RF ピーク電圧は、上の点フォームの {name:ms-r0}、{name:ms-f}、{name:ms-V} です。'
+    - '{name:ms-eta-target}（通常 0.3）と {name:ms-radial-fraction} を設定し、複数を比べるときは {name:ms-vscan} に電圧を並べます。'
+    - 結果（読み取り専用）を読みます：ロッド形状のグループは三角で開き、RF のグループは η が目標内かどうかと、なお満たす最低周波数・最大 RF ピークを示します。4 本ロッドでは、提案 RF の行のボタンが電圧をフォームに写します。
+    - 「設計の入力項目の意味」と「記号と式」の折りたたみに定義があります。形状は SVG、設計記録は CSV または JSON で保存します。
+  wb-mr:
+    title: このツールの使い方
+    steps:
+    - '{name:number}（最大 10）を設定し、{name:preset} を選びます。「イオン種」に各イオンを入力し（折りたたみ「イオン種の入力方法」に使える書き方があります）、核状態（基底状態またはアイソマー）を選び、各種に {name:weight-0} を与えます。'
+    - '{name:laps}、{name:width}、{name:broadening} を設定します。スペクトル、分解能、分離のプロットがすぐ更新されます。'
+    - プロット下の表（読み取り専用）を読みます：各イオン種の飛行時間・幅・存在量と、隣り合うピークの時間差。飛行時間を質量に換算するには、参照イオンの較正を開いて {sel:[data-wb=calibrate]} を押します。
+    - ボタン、Ctrl/⌘ + ホイール、ドラッグで図を拡大し、「図のスタイル」で凡例とサイズを変え、PNG・PDF・SVG・CSV で保存します。
+  wb-tof:
+    title: このツールの使い方
+    steps:
+    - '{name:number} を設定して {name:preset} を選び、各イオンを入力し（「イオン種の入力方法」参照）、核状態を選び、{name:weight-0} を与えます。{name:target} は周波数軸の中心にする種を選びます。'
+    - 磁場 {name:B}、励起時間 {name:T}、{name:scheme}（矩形パルスまたは Ramsey）を設定します。プロットには各種の共鳴とその合計が表示されます。
+    - '{sel:[data-wb=generate]} を押し、続いて {sel:[data-wb=fit]} を押します。（読み取り専用の）まとめにフィット中心と、ターゲットの真の周波数からのずれが示されます。{sel:[data-wb=clear-fit]} でフィットを消します。'
+    - 図の拡大と保存は MR-TOF のワークベンチと同じです。
+  wb-penning:
+    title: このツールの使い方
+    steps:
+    - 「イオン種」にイオンを入力し（「イオン種の入力方法」参照、負イオンには負のトラップ電圧が必要）、核状態と電荷を選びます。
+    - 磁場 {name:B}、トラップ電圧 {name:voltage}、{name:d} を設定します。
+    - 「詳細パラメータと仮定」で開始点、サイクロトロン運動とマグネトロン運動の半径、軸方向の振幅、継続時間、再生速度を設定します。結果グループ（読み取り専用）に周波数 νc、ν₊、ν₋、νz が表示されます。
+    - プロットを上面・側面・3D で切り替え、{sel:[data-wb=pause]}、{sel:[data-wb=step]}、{sel:[data-wb=reset]} でアニメーションを操作し、動画を録画するか図を保存します。
+  penning-sim:
+    title: このツールの使い方
+    steps:
+    - 赤いイオンを見ます：速い小さな円（修正サイクロトロン運動、ν₊）が遅い大きな円（マグネトロン運動、ν₋）の上を動きます。右の図は軸方向の振動を示します。
+    - スライダーまたは数値入力で {sel:#zg-ratio}、{sel:#zg-rp}、{sel:#zg-rm}、{sel:#zg-az} を変えます。半径は表示スケールの百分率で、ミリメートルではありません。
+    - '{sel:#zg-convert} はマグネトロン運動をサイクロトロン運動に変えます（νc での四重極励起の π パルス）。{sel:#zg-clear} は軌跡を消します。'
+    - PNG を保存するか、録画する過程を選んで {sel:#zg-sim-video} を押し、短い動画を保存します。
+  king:
+    title: このツールの使い方
+    steps:
+    - 表を埋めます：同位体対ごとに 1 行で、2 つの遷移の修正同位体シフト（x と y）を GHz·u で入力します。不確かさ σx、σy と相関 ρ は任意ですが、σx と σy は全行で与えるか全行で省略します。
+    - データがないときは、表の下のボタンで例を読み込むか、カルシウムの作成機能（「公表された質量と半径から入力を作る」）を開いて {sel:[data-king-build]} を押します。
+    - '{sel:[data-sp-calculate]} を押します。テキスト（読み取り専用）に直線フィットの傾き・切片・χ² が表示され、プロットには点、フィット、±1σ の帯が表示されます。'
+    - 図や数値を保存します。表のテキスト形式は「テキストとして貼り付け・編集」の下に折りたたまれています。
+  laser-molasses:
+    title: このツールの使い方
+    steps:
+    - '{name:species} で原子またはイオンを選びます（または自分のイオンを手入力）。'
+    - '{name:delta}（負の値は赤方離調で冷却します）と {name:s0} を設定します。{name:n} は雲の大きさです。'
+    - '{act:run} を押すと、雲（色＝速度）、力の曲線 F(v) 付きの速度分布、温度の時間変化が表示されます。目標は温度をドップラー限界の 1.2 倍未満にすることです。'
+    - '{act:best} はドップラー温度が最も低い離調を設定し、{act:reset} は新しい雲を作ります。速度ボタンで再生を遅くできます。PNG・PDF・CSV・動画を保存できます。'
+fr:
+  tof-hunt:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Choisissez l’ion {name:ion}, le champ {name:bfield}, le temps d’excitation {name:trf} et le schéma {name:scheme}. Ils fixent la position, la largeur et la profondeur du creux.
+    - 'Déplacez le curseur ν_rf (écart de fréquence par rapport à la référence, en Hz) et appuyez sur {act:shot} : des ions sont envoyés à cette fréquence et un point (temps de vol moyen) apparaît. {act:scan} prend 15 points d’un coup.'
+    - Les ions arrivent le plus tôt à la résonance. Avec au moins trois fréquences, appuyez sur {act:fit} pour ajuster le creux.
+    - 'Appuyez sur {act:guess} quand vous pensez avoir trouvé la résonance : la vraie valeur s’affiche et vous marquez des points (moins de tirs et un meilleur essai rapportent plus). {act:new} lance une nouvelle manche.'
+  mr-classic:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Choisissez une paire d’isobares {name:pair} (le bouton dé donne une paire au hasard ; cochez {name:manual} pour saisir les noyaux vous-même) et le {name:ratio} des deux ions.
+    - 'Augmentez {name:laps} : les deux pics s’écartent, mais chaque pic s’élargit aussi. {act:auto} trouve le nombre de tours nécessaire.'
+    - Sur le graphique du bas, la courbe violette est le pouvoir de résolution R atteint, la ligne rouge pointillée celui qu’exige la paire. Les pics sont séparés quand la courbe violette dépasse la ligne rouge.
+    - Changez {name:dt0}, {name:dlap} et {name:tlap} pour voir ce qui limite la séparation. {act:new} lance une nouvelle manche.
+  pi-icr:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Trouvez l’ion avec {name:iso-search} (par ex. 133Xe) et choisissez son état dans {name:iso} ; cochez {name:multi} pour saisir plusieurs espèces vous-même. Choisissez le champ {name:B-preset}.
+    - Réglez le temps d’accumulation {name:tacc}. La tache de chaque espèce tourne autour du centre à sa propre fréquence cyclotron ; après t_acc, les taches sont à des angles différents.
+    - La ligne de résultat dit si les taches sont séparées de la {name:separation-preset} choisie (un multiple de la largeur σ de la tache).
+    - '{act:auto} trouve le t_acc le plus court qui atteint l’objectif ; {act:shot} simule les impacts sur le détecteur ; {act:clear} lance une nouvelle manche. Enregistrez les graphiques avec les boutons en dessous.'
+  rfq-game:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Choisissez le faisceau dans {name:set} et la masse à laisser passer dans {name:A}.
+    - Réglez {name:V} et {name:U}. Le diagramme de droite montre le point de fonctionnement (q, a) de chaque ion, la zone verte de mouvement stable et la droite de balayage a/q = 2U/V.
+    - 'À gauche, les quatre barreaux et les ions entre eux : les ions qui restent entre les barreaux sont transmis, ceux qui touchent un barreau sont perdus (étincelles).'
+    - 'But : la cible passe, les autres frappent les barreaux. La ligne de score montre votre réussite. {act:tip} règle la pointe du filtre de masse et {act:cool} le mode refroidisseur comme point de départ.'
+  mathieu:
+    title: Mode d’emploi de cet outil
+    steps:
+    - 'Choisissez la {name:ms-geometry} et, dans {name:ms-mode}, la façon de donner le point : à partir des tensions RFQ (ion, tensions des barreaux, r₀ et fréquence) ou directement par a et q.'
+    - Choisissez ou saisissez l’ion dans {name:ms-species} ; vous pouvez aussi saisir vous-même {name:ms-mass} et {name:ms-charge}. Le point noir sur la carte est votre point de fonctionnement.
+    - 'Lisez les trois groupes de résultats sous la carte (lecture seule) : point de fonctionnement, premier plan et second plan. Le point est confiné quand il est dans la zone stable des deux plans.'
+    - Zoomez la carte, changez {name:ms-bands} et les plages des axes, ou ouvrez « Sections RFQ indépendantes » (refroidisseur, filtre de masse, groupeur) pour ajouter leurs droites de fonctionnement. Enregistrez la figure avec les boutons en dessous.
+  rfq-design:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Réglez {name:ms-rod-count} et la règle du rayon {name:ms-rod-rule} (la règle optimale annule la première harmonique de champ indésirable). r₀, la fréquence et la tension RF crête sont les champs {name:ms-r0}, {name:ms-f} et {name:ms-V} du formulaire de point ci-dessus.
+    - Réglez {name:ms-eta-target} (0,3 usuel) et {name:ms-radial-fraction} ; listez des tensions dans {name:ms-vscan} pour en comparer plusieurs.
+    - 'Lisez les résultats (lecture seule) : le groupe géométrie des barreaux s’ouvre avec le triangle ; le groupe RF dit si η est dans la cible et donne la fréquence minimale et la crête RF maximale qui la respectent encore. Pour quatre barreaux, les lignes de RF suggérée ont un bouton qui copie une tension dans le formulaire.'
+    - Les volets « Signification des entrées de conception » et « Symboles et formules » donnent les définitions. Enregistrez la géométrie en SVG ou le journal de conception en CSV ou JSON.
+  wb-mr:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Réglez {name:number} (jusqu’à dix) et choisissez un {name:preset}. Saisissez chaque ion sous « Espèce d’ion » (le volet « Comment saisir une espèce » liste les notations acceptées), choisissez l’état nucléaire (fondamental ou isomère) et donnez à chaque espèce sa {name:weight-0}.
+    - Réglez {name:laps}, {name:width} et {name:broadening}. Le spectre, le pouvoir de résolution et les graphiques de séparation se mettent à jour aussitôt.
+    - 'Lisez les tableaux sous les graphiques (lecture seule) : temps de vol, largeur et population de chaque espèce et écart de temps entre pics voisins. Pour convertir un temps de vol en masse, ouvrez l’étalonnage par ion de référence et appuyez sur {sel:[data-wb=calibrate]}.'
+    - Zoomez sur une figure avec les boutons, Ctrl/⌘ + molette ou en glissant ; changez la légende et les tailles sous « Style de figure » ; enregistrez PNG, PDF, SVG ou CSV.
+  wb-tof:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Réglez {name:number} et choisissez un {name:preset}, saisissez chaque ion (voir « Comment saisir une espèce »), choisissez l’état nucléaire et donnez une {name:weight-0}. {name:target} choisit l’espèce autour de laquelle l’axe des fréquences est centré.
+    - Réglez le champ {name:B}, le temps d’excitation {name:T} et le {name:scheme} (impulsion rectangulaire ou Ramsey). Les graphiques montrent la résonance de chaque espèce et leur somme.
+    - 'Appuyez sur {sel:[data-wb=generate]} puis sur {sel:[data-wb=fit]} : le résumé (lecture seule) donne le centre ajusté et son écart par rapport à la vraie fréquence de la cible. {sel:[data-wb=clear-fit]} supprime l’ajustement.'
+    - Zoom et enregistrement des figures comme dans l’atelier MR-TOF.
+  wb-penning:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Saisissez l’ion sous « Espèce d’ion » (voir « Comment saisir une espèce » ; les ions négatifs exigent une tension de piégeage négative), choisissez l’état nucléaire et la charge.
+    - Réglez le champ {name:B}, la tension de piégeage {name:voltage} et {name:d}.
+    - Ouvrez « Paramètres avancés et hypothèses » pour le point de départ, les rayons des mouvements cyclotron et magnétron, l’amplitude axiale, la durée et la vitesse de lecture. Les groupes de résultats (lecture seule) donnent les fréquences νc, ν₊, ν₋ et νz.
+    - Basculez le graphique entre vue de dessus, de côté et 3D ; {sel:[data-wb=pause]}, {sel:[data-wb=step]} et {sel:[data-wb=reset]} pilotent l’animation ; enregistrez une vidéo ou le graphique.
+  penning-sim:
+    title: Mode d’emploi de cet outil
+    steps:
+    - 'Observez l’ion rouge : un petit cercle rapide (mouvement cyclotron modifié, ν₊) se déplace sur un grand cercle lent (mouvement magnétron, ν₋). La vue de droite montre l’oscillation axiale.'
+    - Changez {sel:#zg-ratio}, {sel:#zg-rp}, {sel:#zg-rm} et {sel:#zg-az} avec les curseurs ou en tapant des nombres ; les rayons sont des pourcentages de l’échelle d’affichage, pas des millimètres.
+    - '{sel:#zg-convert} convertit le mouvement magnétron en mouvement cyclotron (impulsion π d’excitation quadrupolaire à νc). {sel:#zg-clear} efface la trace.'
+    - Enregistrez un PNG, ou choisissez le processus à enregistrer et appuyez sur {sel:#zg-sim-video} pour une courte vidéo.
+  king:
+    title: Mode d’emploi de cet outil
+    steps:
+    - 'Remplissez le tableau : une ligne par paire d’isotopes, avec les déplacements isotopiques modifiés de deux transitions (x et y) en GHz·u. Les incertitudes σx, σy et la corrélation ρ sont facultatives, mais donnez σx et σy à chaque ligne ou à aucune.'
+    - Pas de données ? Chargez l’exemple avec le bouton sous le tableau, ou ouvrez le constructeur du calcium (« Construire l’entrée à partir de masses et de rayons publiés ») et appuyez sur {sel:[data-king-build]}.
+    - Appuyez sur {sel:[data-sp-calculate]}. Le texte (lecture seule) donne pente, ordonnée et χ² de l’ajustement linéaire, et le graphique montre les points, l’ajustement et sa bande ±1σ.
+    - Enregistrez la figure ou les nombres. La forme texte du tableau est repliée sous « Coller ou modifier en texte ».
+  laser-molasses:
+    title: Mode d’emploi de cet outil
+    steps:
+    - Choisissez l’atome ou l’ion dans {name:species} (ou saisissez votre propre ion à la main).
+    - Réglez {name:delta} (les valeurs négatives sont désaccordées vers le rouge et refroidissent) et {name:s0}. {name:n} est la taille du nuage.
+    - 'Appuyez sur {act:run} : les graphiques montrent le nuage (couleur = vitesse), la distribution des vitesses avec la courbe de force F(v) et la température en fonction du temps. Le but est une température inférieure à 1,2 × la limite Doppler.'
+    - '{act:best} règle le désaccord de plus basse température Doppler, {act:reset} crée un nouveau nuage ; les boutons de vitesse ralentissent la lecture. Enregistrez PNG, PDF, CSV ou une vidéo.'

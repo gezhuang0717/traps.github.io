@@ -89,3 +89,26 @@ test('pills turn a status line into pills, keep the separators in the text, and 
   const short = new E('p'); short.textContent = 'one · two'; assert.equal(U.pills(short), false);
   const marked = new E('p'); marked.textContent = 'a · b · c'; marked.children.push(new E('b')); assert.equal(U.pills(marked), false);
 });
+
+test('step placeholders split into text and control references', () => {
+  const U = load();
+  const parts = text => JSON.stringify(U.splitRefs(text));  // the helper runs in another realm: compare as JSON
+  assert.equal(parts('Press {act:shot}, then {sel:[data-wb=fit]}.'),
+    JSON.stringify([{ text: 'Press ' }, { ref: 'act:shot' }, { text: ', then ' }, { ref: 'sel:[data-wb=fit]' }, { text: '.' }]));
+  assert.equal(parts('no controls here'), JSON.stringify([{ text: 'no controls here' }]));
+  assert.equal(parts('{name:laps}'), JSON.stringify([{ ref: 'name:laps' }]));
+});
+
+test('a control is named by its label text without the control, a button by its own text', () => {
+  const U = load();
+  const own = { nodeType: 3, textContent: ' Excitation time T_rf ' }, unit = { nodeType: 1, textContent: 'ms' };
+  const label = { childNodes: [own, unit], cloneNode: () => label };
+  const input = { tagName: 'INPUT', closest: sel => (sel === 'label' ? label : null), getAttribute: () => '' };
+  assert.equal(U.labelOf(input), 'Excitation time T_rf');
+  const onlyControl = { childNodes: [{ nodeType: 1 }], querySelectorAll: () => [], textContent: ' Detuning δ/Γ ', cloneNode() { return this; } };
+  const select = { tagName: 'SELECT', closest: () => onlyControl, getAttribute: () => '' };
+  assert.equal(U.labelOf(select), 'Detuning δ/Γ');
+  assert.equal(U.labelOf({ tagName: 'BUTTON', textContent: '  Take a shot ' }), 'Take a shot');
+  assert.equal(U.labelOf({ tagName: 'INPUT', closest: () => null, getAttribute: () => 'Seed' }), 'Seed');
+  assert.equal(U.labelOf(null), '');
+});

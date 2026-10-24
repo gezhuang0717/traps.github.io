@@ -382,7 +382,7 @@
       hbox.append(el('p',t('hf_source'),{class:'sp-source'}));
     }
     {
-      const box=el('section',null,{class:'sp-method'});box.append(el('h3',t('king')));methods.append(box);
+      const box=el('section',null,{class:'sp-method','data-tool-steps':'king'});box.append(el('h3',t('king')));methods.append(box);
       const examples={errors:'0,1.02,0.05,0.10,0.2\n1,2.95,0.06,0.12,-0.1\n2,5.10,0.05,0.10,0.15\n3,6.90,0.07,0.14,0\n4,9.05,0.06,0.12,0.25',plain:'0,1.02\n1,2.95\n2,5.10\n3,6.90\n4,9.05'};
       box.append(el('p',t('king_training'),{class:'sp-note'}));const examplesBar=group(box);
       const label=el('label',t('kingInput')),input=el('textarea',null,{name:'king-points','aria-label':t('kingInput'),rows:'6'});input.value=examples.errors;label.append(input);box.append(label);box.append(el('p',t('king_help'),{class:'sp-note'}),el('p',t('king_assumptions'),{class:'sp-note'}));
