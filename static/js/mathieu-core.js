@@ -48,6 +48,36 @@
   const scale=charge*C.e/(massU*C.u*(r0mm/1000)**2*(2*Math.PI*fMHz*1e6)**2);
   return{a:8*scale*U,q:4*scale*V,mass_u:massU,charge,U_V:U,V_rod_peak_V:V,r0_mm:r0mm,f_MHz:fMHz};
  }
+ // Ideal 2n-pole model; round rods below specify geometry, not a field solution.
+ function rodDesign(input){
+  const {mass_u,charge,U_V,V_V,r0_mm,f_MHz,rod_count=4,rod_radius_mm=3,radial_fraction=.5,eta_target=.3,bands:count=6}=input;
+  if(![mass_u,charge,U_V,V_V,r0_mm,f_MHz,rod_count,rod_radius_mm,radial_fraction,eta_target].every(finite)||mass_u<=0||!Number.isInteger(charge)||charge<1||charge>100||V_V<0||r0_mm<=0||f_MHz<=0||!Number.isInteger(rod_count)||rod_count<4||rod_count>24||rod_count%2||rod_radius_mm<=0||radial_fraction<=0||radial_fraction>1||eta_target<=0)throw Error('rod inputs');
+  const n=rod_count/2,R=r0_mm+rod_radius_mm,adjacent=2*R*Math.sin(Math.PI/rod_count),gap=adjacent-2*rod_radius_mm;
+  if(![R,adjacent,gap].every(finite)||gap<=0)throw Error('rod overlap');
+  const mass=mass_u*C.u,Q=charge*C.e,r0=r0_mm/1000,omega=2*Math.PI*f_MHz*1e6,x=radial_fraction;
+  const etaPerV=2*Q*n*(n-1)/(mass*omega**2*r0**2)*x**(n-2),eta=etaPerV*V_V;
+  const p=rod_count===4?parameters(mass_u,charge,U_V,V_V,r0_mm,f_MHz):null;
+  const result={mass_u,charge,U_V,V_V,r0_mm,f_MHz,rod_count,rod_radius_mm,radial_fraction,eta_target,order_n:n,
+   center_radius_mm:R,adjacent_center_mm:adjacent,surface_gap_mm:gap,opposite_center_mm:2*R,
+   rod_coordinates:Array.from({length:rod_count},(_,i)=>({index:i+1,x_mm:R*Math.cos(2*Math.PI*i/rod_count),y_mm:R*Math.sin(2*Math.PI*i/rod_count),phase:i%2?-1:1})),
+   field_RF_V_m:n*V_V/r0*x**(n-1),dc_potential_at_theta0_V:U_V*x**n,
+   pseudopotential_eV:Q**2*n**2*V_V**2/(4*mass*omega**2*r0**2)*x**(2*n-2)/C.e,
+   eta,eta_target_met:eta<=eta_target,eta_frequency_min_MHz:f_MHz*Math.sqrt(eta/eta_target),eta_voltage_max_V:eta_target/etaPerV,
+   classification:p?classify(p.a,p.q,'linear',count):null,parameters:p,model:p?'quadrupole-Mathieu':'ideal-multipole-adiabatic'};
+  if(Object.values(result).some(v=>typeof v==='number'&&!finite(v)))throw Error('inputs range');return result;
+ }
+ function voltageCandidates(input,values){
+  if(!Array.isArray(values)||!values.length||values.length>12||!values.every(v=>finite(v)&&v>=0))throw Error('RF scan');
+  return values.map(V_V=>rodDesign({...input,V_V}));
+ }
+ function designLog(input,values,date=new Date().toISOString()){
+  return{schema:'traps-rfq-design-v1',timestamp_UTC:date,inputs:{...input},result:rodDesign(input),candidates:voltageCandidates(input,values),
+   constants:{elementary_charge_C:C.e,atomic_mass_kg:C.u,edition:'CODATA2018; fixed constants'},
+   units:{length:'mm',mass:'u',frequency:'MHz',voltage:'V rod peak; differential peak=2V',field:'V/m',energy:'eV',eta:'dimensionless'},
+   equations:{potential:'Phi=(U+V cos(Omega t))(r/r0)^n cos(n theta); 2n rods',geometry:'Rc=r0+rr; Dadj=2Rc sin(pi/rod_count); gap=Dadj-2rr',phase:'Positive Mathieu q uses a half-period RF phase-origin shift relative to Phi with +V cos(Omega t); stability is invariant',field:'E_RF=n V/r0 (r/r0)^(n-1)',pseudopotential:'Ueff=Q^2 n^2 V^2/(4m Omega^2 r0^2)(r/r0)^(2n-2)',eta:'eta=2|Q| n(n-1)V/(m Omega^2 r0^2)(r/r0)^(n-2)'},
+   sources:['https://dlmf.nist.gov/28.17','https://doi.org/10.3390/physics1030028','https://arxiv.org/abs/0902.2746'],
+   limits:'Ideal infinite multipole, not a round-rod field solution. Eta target is user-selected, not a stability guarantee. Higher poles have no Mathieu classification; DC is excluded from pseudopotential/eta. Zero RF gives zero pseudopotential even when the eta target is met. No end fields, collisions, space charge, uncertainty propagation or hardware acceptance.'};
+ }
  function monodromy(a,q,steps=512){
   if(!finite(a)||!finite(q)||Math.abs(q)>MAX_Q||Math.abs(a)>100||!Number.isInteger(steps)||steps<64||steps>4096)throw Error('domain');
   let y=[1,0,0,1];const h=Math.PI/steps;
@@ -59,5 +89,5 @@
   const low=monodromy(a,q,512),high=monodromy(a,q,1024),delta=Math.abs(high.trace-low.trace),reliable=finite(high.trace)&&Math.abs(high.det-1)<1e-5&&delta<1e-5;
   return{...high,trace_delta:delta,reliable,status:!reliable?'unresolved':Math.abs(Math.abs(high.trace)-2)<1e-6?'boundary':Math.abs(high.trace)<2?'stable':'unstable'};
  }
- const api={C,MAX_Q,MAX_BANDS,characteristic,bands,plane,classify,parameters,monodromy,diagnostic};host.ZGMathieu=api;if(typeof module!=='undefined')module.exports=api;
+ const api={C,MAX_Q,MAX_BANDS,characteristic,bands,plane,classify,parameters,rodDesign,voltageCandidates,designLog,monodromy,diagnostic};host.ZGMathieu=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

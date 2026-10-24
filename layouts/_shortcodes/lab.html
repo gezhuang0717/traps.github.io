@@ -51,7 +51,7 @@
 
 {{ partial "zg/legacy-penning3d.html" . }}
 </div><div data-local-panel="advanced">{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion") }}</div><div data-local-panel="fancier" hidden><section class="zg-card" id="calibrated-frequencies">{{ partial "zg/calibration-panel.html" (dict "scope" "lab" "full" true "on" true) }}</section>{{ partial "zg/measurement-workbench.html" (dict "kind" "penning" "id" "penning-motion-fancier" "cal" true) }}</div></section>
-<section class="zg-card" data-cyclotron data-lang="{{ $k }}" data-states-url="{{ "data/nuclear-states.json" | relURL }}" data-ame-url="{{ "data/ame2020.json" | relURL }}" data-elements-url="{{ "data/periodic-table.json" | relURL }}">
+<section class="zg-card" data-cyclotron data-lang="{{ $k }}" data-full-precision data-states-url="{{ "data/nuclear-states.json" | relURL }}" data-ame-url="{{ "data/ame2020.json" | relURL }}" data-elements-url="{{ "data/periodic-table.json" | relURL }}">
   <h2>{{ i18n "zg_lab_nuc" | default "Cyclotron-frequency calculator" }}</h2>
   <div class="zg-form" data-cyclotron-controls>
     <label>{{ i18n "zg_lab_preset" | default "Preset" }}

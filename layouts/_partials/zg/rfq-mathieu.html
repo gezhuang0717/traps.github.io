@@ -22,6 +22,16 @@
 <label data-ms-direct hidden>a <input name="ms-a" type="number" step="any" value="0"></label>
 <label data-ms-direct hidden>q <input name="ms-q" type="number" min="-12" max="12" step="any" value="0.4"></label>
 </div><p class="zg-muted" data-ms-source>{{ $t.manual }}</p></fieldset>
+<fieldset data-ms-design><legend>{{ $t.design_title }}</legend><p>{{ $t.design_note }}</p><div class="zg-form">
+<label>{{ $t.rod_count }} <select name="ms-rod-count">{{ range seq 4 2 24 }}<option value="{{ . }}">{{ . }}</option>{{ end }}</select></label>
+<label>{{ $t.rod_radius }} <input name="ms-rod-radius" type="number" min="0.001" step="any" value="3"></label>
+<label>{{ $t.radial_fraction }} <input name="ms-radial-fraction" type="number" min="0.001" max="1" step="any" value="0.5"></label>
+<label>{{ $t.eta_target }} <input name="ms-eta-target" type="number" min="0.001" step="any" value="0.3"></label>
+<label>{{ $t.vscan }} <input name="ms-vscan" type="text" value="50,100,150,200" maxlength="160"></label>
+</div><p>Φ = (U + V cos Ωt)(r/r₀)ⁿ cos(nθ); n = Nrod / 2.<br>Ueff = Q²n²V²/(4mΩ²r₀²) (r/r₀)²ⁿ⁻²; η = 2|Q|n(n−1)V/(mΩ²r₀²) (r/r₀)ⁿ⁻².</p>
+<div data-ms-design-figure></div><div data-ms-design-readout aria-live="polite"></div><p class="zg-muted">{{ $t.design_limit }}</p>
+<div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="design-csv">{{ $t.design_csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="design-json">{{ $t.design_json }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="design-svg">{{ $t.design_svg }}</button></div>
+<p><a href="https://doi.org/10.3390/physics1030028">Hicks, Bowman &amp; Godden (2019), Physics 1, 392–401</a> · <a href="https://arxiv.org/abs/0902.2746">Champenois (2009), J. Phys. B 42, 154002</a></p></fieldset>
 <details data-ms-sections><summary>{{ $t.sections }}</summary><p class="zg-muted">{{ $t.section_note }}</p>
 {{ range $i, $s := slice (dict "key" "cooler" "r0" 10 "V" 122 "f" 1.3) (dict "key" "mf" "r0" 3.75 "V" 244 "f" 3) (dict "key" "bun" "r0" 3.75 "V" 244 "f" 3) }}
 <fieldset data-ms-section="{{ $s.key }}"><legend><label><input name="ms-{{ $s.key }}-on" type="checkbox" checked> {{ index $t $s.key }}</label></legend><div class="zg-form">
@@ -31,7 +41,7 @@
 <label>f (MHz) <input name="ms-{{ $s.key }}-f" type="number" min="0.000001" step="any" value="{{ $s.f }}"></label>
 </div></fieldset>{{ end }}
 </details>
-<p data-ms-mapping></p><p>τ = Ωt/2; w″ + (a − 2q cos 2τ)w = 0. <span data-ms-formula>a = 8zeU/(mr₀²Ω²); q = 4zeV/(mr₀²Ω²).</span></p>
+<div data-ms-band-formula><p data-ms-mapping></p><p>τ = Ωt/2; w″ + (a − 2q cos 2τ)w = 0. <span data-ms-formula>a = 8zeU/(mr₀²Ω²); q = 4zeV/(mr₀²Ω²).</span></p></div>
 <div data-ms-figure style="width:100%;min-width:0;overflow:auto"></div>
 <div class="zg-row"><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="svg">{{ $t.svg }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="png">{{ $t.png }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="csv">{{ $t.csv }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="save">{{ $t.save }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="load">{{ $t.load }}</button><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="reset">{{ $t.reset }}</button><input type="file" accept="application/json,.json" data-ms-file hidden></div>
 <div data-ms-style></div><p data-ms-error role="alert"></p><div data-ms-readout aria-live="polite"></div>
