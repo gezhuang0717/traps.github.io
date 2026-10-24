@@ -21,6 +21,8 @@ J’enseigne le cours doctoral *Lasers et pièges pour l’étude de la physique
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 MASSPASS se déroule du **1er septembre 2023 au 31 août 2027**, avec le financement du Research Council of Finland. Les fonctions et le calendrier proviennent du [profil universitaire](https://www.jyu.fi/en/people/zhuang-ge) et de la [page du projet](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), vérifiés le 3 octobre 2026.

@@ -22,6 +22,8 @@ Ich unterrichte den Doktorandenkurs *Laser und Fallen in der kernphysikalischen 
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 

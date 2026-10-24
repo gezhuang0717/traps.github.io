@@ -22,6 +22,8 @@ description: "芬兰于韦斯屈莱大学芬兰科学院研究员——利用彭
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 

@@ -6,7 +6,7 @@
    Theory masses (FRDM 1995, HFB-17, HFB-D1M from static/data/massmodels.json, built by tools/make_mass_models.py):
    mass source select, drip lines (Sn, S2n, Sp, S2p = 0), r-/rp-process paths, model curves in chain plots,
    β2 deformation and ME(AME) − ME(model) colour modes. Pairing / p-n quantities: δVpn, Wigner indicator W, Δ(3)n, Δ(3)p.
-   Labels: data-labels JSON (five languages) from layouts/_shortcodes/nuclide-chart.html + data/nuclide_chart_labels.yaml. */
+   Labels: data-labels JSON (six languages) from layouts/_shortcodes/nuclide-chart.html + data/nuclide_chart_labels.yaml. */
 (() => {
   const root = document.querySelector("[data-nuclide-chart]");
   if (!root) return;
@@ -93,7 +93,7 @@
   }
   function loadAux(name) {
     if (AUX[name]) return Promise.resolve();
-    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); if (name === "ed") titleEditionOptions(); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
+    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); autoCache.clear(); if (name === "ed") titleEditionOptions(); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
   }
   const auxGet = (name, r) => AUX[name] && AUX[name].get(key(r[0], r[1]));
   const edDiff = (ed, r) => {
@@ -104,8 +104,8 @@
   };
   const USER = { map: new Map(), column: "", rows: [], parsed: null };  /* the visitor's own table, drawn as a colour layer */
   let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
-  /* Colour range of a mode flagged `auto` (the AME edition differences): the minimum and maximum of every plotted value, independent of the
-     filter, instead of a fixed window. Not cached until the overlay table is loaded, so the first draw never freezes a fallback range. */
+  /* Default scalar colour range: every finite available value, including extrema. The 2–98% window is an explicit opt-in button.
+     Do not cache a fallback before an overlay/model table has loaded. Manual bounds always take precedence. */
   const autoCache = new Map();
   function autoBounds(m) {
     const id = src + "|" + m.label, hit = autoCache.get(id); if (hit) return hit;
@@ -115,7 +115,15 @@
     if (hi === lo) { lo -= 0.5; hi += 0.5; }
     const b = { lo, hi }; autoCache.set(id, b); return b;
   }
-  const bounds = m => manualRange || (m.auto && autoBounds(m)) || { lo: m.lo, hi: m.hi };
+  const bounds = m => manualRange || (m.v && autoBounds(m)) || { lo: m.lo, hi: m.hi };
+  /* Display/prefill limits outwards, so checking Manual never clips a rounded data extremum. */
+  function rangeLabel(value, upper = false) {
+    if (!Number.isFinite(value) || value === 0) return String(value);
+    const step = Math.pow(10, Math.floor(Math.log10(Math.abs(value))) - 5);
+    if (!(step > 0) || !Number.isFinite(step)) return String(value);
+    const rounded = (upper ? Math.ceil(value / step) : Math.floor(value / step)) * step;
+    return String(Number(rounded.toPrecision(7)));
+  }
   const pick = (name, f) => r => { const a = auxGet(name, r); const v = a ? f(a) : null; return v == null || Number.isNaN(v) ? null : v; };
   const logPos = x => x > 0 ? Math.log10(x) : null;
   /* discrete classes with a fixed legend (ground-state spin, mass precision, model deviation), parity filters and view options */
@@ -123,6 +131,8 @@
   let emptyColour = "#e5e7eb", zpar = "all", npar = "all", isoMark = false;
   let classOn = false, classN = 9, classMethod = "equal", classText = "", classScheme = "default", classState = null, isolateMode = "";  /* divided colour bar (off = the continuous bar) */
   const isolate = new Set();
+  let syncClassControls = () => {}, syncRangeControls = () => {};
+  const syncColourControls = () => { syncClassControls(); syncRangeControls(); };
   const binMode = (label, of, list, none, extra = {}) => ({ label, f: r => { const k = of(r); return k == null ? (none ? none[0] : "#e5e7eb") : list[k][0]; }, bins: { of, list, none }, ...extra });
   const reactionDefinitions={
     q2bm:{label:'Q(2β⁻)',formula:'ME(Z,N) − ME(Z+2,N−2)',terms:[[0,0,1],[2,-2,-1]]},
@@ -209,6 +219,11 @@
     if (m.div) { const t = Math.max(0, Math.min(1, x)), a = t < zero ? (zero > 0 ? (zero - t) / zero : 0) : (zero < 1 ? (t - zero) / (1 - zero) : 0); return t < zero ? `hsl(220,80%,${96 - 50 * Math.min(1, a)}%)` : `hsl(0,80%,${96 - 50 * Math.min(1, a)}%)`; }
     return classOn && classScheme === "viridis" ? CL.viridis(x) : ramp(x);
   }
+  function colourGradient(m) {
+    const bd = bounds(m), steps = Array.from({ length: 17 }, (_, i) => i / 16);
+    if (m.div && bd.lo < 0 && bd.hi > 0) steps.push(-bd.lo / (bd.hi - bd.lo));
+    return 'linear-gradient(90deg,' + [...new Set(steps)].sort((a,b) => a-b).map(t => colourOfValue(m, bd.lo + (bd.hi - bd.lo) * t) + ' ' + (100*t) + '%').join(',') + ')';
+  }
   function drawLegend() {
     const m = MODES[mode];
     if (mode === "decay") legend.innerHTML = [["stable", T.stable], ["bm", "β⁻"], ["bp", "β⁺/EC"], ["a", "α"], ["sf", "SF"], ["p", "p"], ["n", "n"], ["it", "IT"], ["punst", T.punst]].map(([k, l]) => `<span><i style="background:${DC[k]}"></i>${l}</span>`).join("");
@@ -217,7 +232,7 @@
     else if (mode === "eo") legend.innerHTML = [["#0ea5e9", T.fl_ee], ["#f59e0b", T.fl_eo], ["#22c55e", T.fl_oe], ["#ef4444", T.fl_oo]].map(([c, l]) => `<span><i style="background:${c}"></i>${escape(l)}</span>`).join("");
     else if (m.bins) legend.innerHTML = legendItems([...m.bins.list, ...(m.bins.none ? [m.bins.none] : [])].map(([c, l], i) => ({ key: i === m.bins.list.length ? "none" : i, c, l }))) + (m.need && MOD[modelKey()] ? `<span class="nc-mnote">${escape(MOD[modelKey()].name)}</span>` : "");
     else if (classOn && m.v) legend.innerHTML = classLegend(m);
-    else { const bd = bounds(m), numeric = manualRange || m.user || m.auto, fmtn = z => Number(Number(z).toPrecision(5)), lo = numeric ? fmtn(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? fmtn(bd.hi) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
+    else { const bd = bounds(m), numeric = !!m.v, lo = numeric ? rangeLabel(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? rangeLabel(bd.hi, true) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}" style="background:${colourGradient(m)}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
      drawStats();
   }
 
@@ -427,7 +442,7 @@
       const dataURL=new URL(m.data_url,new URL(root.dataset.models,location.href));if(m.payload_sha256)dataURL.searchParams.set('v',m.payload_sha256);
       const promise=fetch(dataURL).then(r=>{if(!r.ok)throw new Error('Model data');return r.json();}).then(d=>{
         const map=new Map();d.rows.forEach(([z,n,me,b])=>map.set(key(z,n),[me,b]));
-        MOD[k]={...m,map};modelErrors.delete(k);memo.clear();dripCache.clear();return MOD[k];
+        MOD[k]={...m,map};modelErrors.delete(k);memo.clear();autoCache.clear();dripCache.clear();return MOD[k];
       }).catch(e=>{modelLoads.delete(k);modelErrors.add(k);throw e;});
       modelLoads.set(k,promise);return promise;
     });
@@ -448,13 +463,13 @@
       extraRows = s === "ame" ? [] : [...MOD[s].map.keys()].filter(k => !M.has(k)).map(k => { const Z = Math.floor(k / 1000), N = k % 1000, el = EL.find(e => e[0] === Z);
         const r = [Z, N, el ? el[1] : "Z" + Z, null, null, 0, -97, "—", "", null, "", []]; r.mo = true; return r; });
       root.querySelector(".nc-mref").innerHTML = s === "ame" ? "" : `${T.modnote} <a href="${MOD[s].url}" target="_blank" rel="noopener">${MOD[s].ref}</a>`;
-      drawLegend(); draw(); plotChain(); if (pin) showCard(pin);
+      drawLegend(); draw(); syncColourControls(); plotChain(); if (pin) showCard(pin);
     };
     if (s === "ame") go();
     else {
       if (msel) msel.disabled = true;
       loadModels(s).then(go).catch(() => {
-        root.querySelector(".nc-mref").textContent = "Model data unavailable / 模型数据不可用";
+        root.querySelector(".nc-mref").textContent = T.loaded_model_error;
         if (msel) msel.value = src;
       }).finally(() => { if (msel) msel.disabled = false; });
     }
@@ -1126,10 +1141,18 @@
   root.querySelector("[data-nc=in]").onclick = () => zoomBy(1.4);
   root.querySelector("[data-nc=out]").onclick = () => zoomBy(1 / 1.4);
   root.querySelector("[data-nc=fit]").onclick = () => { pin = null; showCard(null); fit(); };
-  root.querySelector("[data-nc=random]").onclick = () => { const p = rows.filter(pass), r = p[Math.floor(Math.random() * p.length)]; pin = r; zoomTo(r); showCard(r); plotChain(r); };
+  root.querySelector("[data-nc=random]").onclick = () => { const p = rows.filter(pass), r = p[Math.floor(Math.random() * p.length)]; if (!r) return; pin = r; zoomTo(r); showCard(r); plotChain(r); };
   sel.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(MODES).map(([k,m])=>[k,m.label])),T);
   sel.value=mode;
-  sel.onchange = () => { mode = sel.value; if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(() => { memo.clear(); drawLegend(); draw(); }); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(() => { memo.clear(); drawLegend(); draw(); }).catch(() => {}); drawLegend(); draw(); };
+  function changeColourMode() {
+    mode = sel.value; manualRange = null; isolate.clear(); isolateMode = "";
+    const refresh = () => { memo.clear(); drawLegend(); draw(); syncColourControls(); };
+    if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(refresh).catch(modelFailure);
+    const au = MODES[mode].aux;
+    if (au && !AUX[au]) loadAux(au).then(refresh).catch(() => {});
+    refresh();
+  }
+  sel.onchange = changeColourMode;
 
   /* ---- parity filters, hotkeys, isomer marks and the colour of empty cells ---- */
   {
@@ -1160,14 +1183,13 @@
   {
     const q = n => root.querySelector('[name="' + n + '"]'), cOn = q("nc-classes"), cN = q("nc-class-n"), cM = q("nc-class-method"), cE = q("nc-class-edges"), cS = q("nc-class-scheme"), note = root.querySelector(".nc-class-note");
     if (cOn && cN && cM && cE && cS) {
-      const sync = () => {
+      const sync = syncClassControls = () => {
         const m = MODES[mode], off = !!m.f || !m.v, on = cOn.checked && !off, manual = cM.value === "manual";
         cOn.disabled = off; cN.disabled = !on || manual; cM.disabled = !on; cE.hidden = !manual; cE.disabled = !on || !manual; cS.disabled = !on || !!m.div;
-        note.textContent = cOn.checked && off ? T.cl_off_mode : on && m.div && !manual && classMethod === "equal" ? fill(T.cl_note_zero, { n: classState ? classState.edges.length + 1 : "" }) : "";
+        note.textContent = off ? T.cl_off_mode : on && m.div && !manual && classMethod === "equal" ? fill(T.cl_note_zero, { n: classState ? classState.edges.length + 1 : "" }) : "";
       };
       const apply = () => { classOn = cOn.checked; classN = Math.max(3, Math.min(20, Math.round(Number(cN.value)) || 9)); classMethod = cM.value; classText = cE.value; classScheme = cS.value; isolate.clear(); isolateMode = ""; memo.clear(); drawLegend(); draw(); sync(); };
       [cOn, cM, cS].forEach(e => { e.onchange = apply; }); cN.oninput = cE.oninput = apply;
-      sel.addEventListener("change", () => { isolate.clear(); isolateMode = ""; drawLegend(); draw(); sync(); });
       legend.addEventListener("click", e => {
         const b = e.target.closest("[data-class]"); if (!b) return;
         const k = b.dataset.class;
@@ -1184,16 +1206,21 @@
     const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]');
     const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData;
     const redraw = () => { memo.clear(); drawLegend(); draw(); };
-    const show = z => String(Number(Number(z).toPrecision(6)));
+    const clearValidity = () => { [minI, maxI].forEach(e => { e.setCustomValidity(""); e.removeAttribute("aria-invalid"); }); };
     function syncRange() {
-      const m = MODES[mode], off = !!m.f; [chk, minI, maxI, autoB, fullB].forEach(e => { if (e) e.disabled = off; });
-      const bd = bounds(m); chk.checked = !!manualRange; if (!off) { minI.value = show(bd.lo); maxI.value = show(bd.hi); }
-      note.textContent = off ? "" : m.rng ? (T.range_log || "log scale: values are log₁₀ of the quantity") : "";
+      const m = MODES[mode], off = !!m.f || !m.v; [chk, autoB, fullB].forEach(e => { if (e) e.disabled = off; });
+      minI.disabled = maxI.disabled = off || !manualRange;
+      clearValidity();
+      const bd = bounds(m); chk.checked = !!manualRange; if (!off) { minI.value = rangeLabel(bd.lo); maxI.value = rangeLabel(bd.hi, true); }
+      note.textContent = off ? (T.range_off_mode || T.cl_off_mode) : m.rng ? T.range_log : "";
     }
+    syncRangeControls = syncRange;
     function applyManual() {
+      if (chk.disabled || !chk.checked) return;
+      minI.disabled = maxI.disabled = false;
       const lo = Number(minI.value), hi = Number(maxI.value);
-      if (minI.value === "" || maxI.value === "" || !Number.isFinite(lo) || !Number.isFinite(hi) || !(lo < hi)) { note.textContent = T.range_bad || "min must be smaller than max"; return; }
-      manualRange = { lo, hi }; chk.checked = true; note.textContent = ""; redraw();
+      if (minI.value === "" || maxI.value === "" || !Number.isFinite(lo) || !Number.isFinite(hi) || !(lo < hi)) { note.textContent = T.range_bad; [minI, maxI].forEach(e => { e.setCustomValidity(T.range_bad); e.setAttribute("aria-invalid", "true"); }); return; }
+      clearValidity(); manualRange = { lo, hi }; note.textContent = MODES[mode].rng ? T.range_log : ""; redraw(); syncClassControls();
     }
     chk.onchange = () => { if (!chk.checked) { manualRange = null; syncRange(); redraw(); } else applyManual(); };
     minI.oninput = maxI.oninput = applyManual;
@@ -1201,19 +1228,18 @@
       const m = MODES[mode], vals = []; if (m.f) return;
       for (const r of allRows()) { if (!pass(r)) continue; const v = m.v(r); if (v != null && Number.isFinite(v)) vals.push(v); }
       const rr = full ? UD.range(vals) : UD.robustRange(vals); if (!rr) { note.textContent = T.mine_empty || "no values"; return; }
-      let [lo, hi] = rr; if (m.div && !full) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
-      manualRange = { lo, hi }; syncRange(); redraw();
+      let [lo, hi] = rr; if (hi === lo) { lo -= 0.5; hi += 0.5; }
+      if (m.div && !full) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
+      manualRange = { lo, hi }; syncRange(); redraw(); syncClassControls();
     };
     autoB.onclick = () => dataRange(false); if (fullB) fullB.onclick = () => dataRange(true);
-    const baseChange = sel.onchange;
-    sel.onchange = () => { manualRange = null; baseChange(); syncRange(); const au = MODES[mode].aux; if (au && !AUX[au]) loadAux(au).then(syncRange).catch(() => {}); };   /* refill min/max once an overlay table has loaded */
     syncRange();
     // own data
     const symbolMap = () => new Map((EL || []).map(e => [e[1], e[0]]));
     function build() {
       const col = colS.value, map = new Map(); let matched = 0;
       for (const r of USER.parsed.rows) { const v = r.values[col]; if (v === undefined) continue; map.set(key(r.Z, r.N), v); if (M.has(key(r.Z, r.N))) matched++; }
-      USER.map = map; USER.column = col;
+      USER.map = map; USER.column = col; autoCache.clear();
       const rg = UD.range([...map.values()]); if (rg) { MODES.mine.lo = rg[0]; MODES.mine.hi = rg[1] > rg[0] ? rg[1] : rg[0] + 1; }
       status.textContent = (T.mine_status || "{m} of {n} rows are on the chart; {e} skipped").replace("{m}", matched).replace("{n}", map.size).replace("{e}", USER.parsed.errors.length) + (USER.parsed.errors.length ? " — #" + USER.parsed.errors[0].line + " " + USER.parsed.errors[0].message : "");
       manualRange = null; if (mode !== "mine") { sel.value = "mine"; sel.onchange(); } else { syncRange(); redraw(); }
@@ -1226,12 +1252,12 @@
       } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; }
     }
     root.querySelector('[data-nc="mine-apply"]').onclick = apply;
-    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = null; ta.value = ""; colS.replaceChildren(); status.textContent = ""; if (mode === "mine") redraw(); };
+    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = null; autoCache.clear(); manualRange = null; ta.value = ""; colS.replaceChildren(); status.textContent = ""; if (mode === "mine") { syncRange(); redraw(); } };
     colS.onchange = () => { if (USER.parsed) build(); };
     fileI.onchange = async () => { const f = fileI.files[0]; if (!f) return; try { if (f.size > 5000000) throw Error("file larger than 5 MB"); ta.value = await f.text(); apply(); } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; } finally { fileI.value = ""; } };
   }
   if (msel) msel.onchange = () => setSource(msel.value);
-  if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && !Object.keys(PATHS).length) loadModels().then(draw); draw(); });
+  if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && e.target.checked && !Object.keys(PATHS).length) loadIndex().then(draw).catch(modelFailure); draw(); });
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");
   fsel.onchange = () => { filt = fsel.value; drawLegend(); draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
   search.addEventListener("keydown", e => {

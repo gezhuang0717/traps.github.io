@@ -22,6 +22,8 @@ Opetan tohtorikurssia *Laserit ja loukut ydinfysiikan tutkimuksessa*. Sivustolla
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 

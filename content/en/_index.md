@@ -22,6 +22,8 @@ I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The w
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 

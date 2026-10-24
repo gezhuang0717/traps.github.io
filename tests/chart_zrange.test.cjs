@@ -8,10 +8,10 @@ function context(values, extra = {}) {
   vm.runInContext('const allRows = () => src === "ame" ? rows : rows.concat(extraRows);\n' + slice('  const autoCache = new Map();', '  const pick =') + '\n' + slice('  function colour(r) {', '  function drawLegend()') + '\nthis.bounds = bounds; this.colour = colour;', ctx);
   return ctx;
 }
-test('an auto mode takes the minimum and maximum of all plotted values instead of the fixed ±30 keV window', () => {
+test('all scalar modes default to full data extrema instead of fixed preset windows', () => {
   const c = context([-812.5, 3, 40, 1450.2, null]);
   assert.deepEqual({ ...c.bounds(c.MODES.d) }, { lo: -812.5, hi: 1450.2 });
-  assert.deepEqual({ ...c.bounds(c.MODES.f) }, { lo: -5, hi: 5 });   // fixed-scale modes are unchanged
+  assert.deepEqual({ ...c.bounds(c.MODES.f) }, { lo: -812.5, hi: 1450.2 }); // scalar modes without an old auto flag also cover every value
 });
 test('the manual range wins over the data range, and a constant data set still gets a finite span', () => {
   const c = context([1, 2, 3]); c.manualRange = { lo: -1, hi: 10 }; assert.deepEqual({ ...c.bounds(c.MODES.d) }, { lo: -1, hi: 10 });
@@ -20,6 +20,22 @@ test('the manual range wins over the data range, and a constant data set still g
 test('before the overlay table has loaded the fallback is not cached', () => {
   const c = context([null, null]); assert.deepEqual({ ...c.bounds(c.MODES.d) }, { lo: -30, hi: 30 });
   c.rows.forEach((r, i) => { r[12] = [-7, 90][i]; }); assert.deepEqual({ ...c.bounds(c.MODES.d) }, { lo: -7, hi: 90 });
+});
+test('real charge radii include hydrogen and every finite table extreme by default', () => {
+  const data = JSON.parse(fs.readFileSync('static/data/research-cache/nuclear-properties-compact.json', 'utf8'));
+  const i = Object.fromEntries(data.columns.map((name,index)=>[name,index]));
+  // Match auxBuild: prefer the ground-state record when an alternate row exists.
+  const values = new Map();
+  for (const row of data.rows) { const key = row[i.Z]+':'+row[i.A]; if (values.has(key) && row[i.kind] === 'u') continue; values.set(key,row[i.r_fm]); }
+  const finite = [...values.values()].filter(Number.isFinite), c = context(finite), b = c.bounds(c.MODES.f);
+  assert.equal(b.lo,0.8783); assert.equal(b.hi,Math.max(...finite));
+  assert.ok(finite.every(v=>v>=b.lo&&v<=b.hi));
+  assert.equal(values.get('1:1'),0.8783);
+});
+test('generic scalar extrema, signed values and nonfinite gaps are never silently clipped', () => {
+  const c = context([-1e8, -123.456789, 0, 1e12, NaN, Infinity, -Infinity, null]);
+  const b = c.bounds(c.MODES.f);assert.deepEqual({...b},{lo:-1e8,hi:1e12});
+  c.manualRange={lo:-1,hi:2};assert.deepEqual({...c.bounds(c.MODES.f)},{lo:-1,hi:2});
 });
 test('diverging colours saturate at both ends of an asymmetric range and are white at zero', () => {
   const c = context([-10, 90]);

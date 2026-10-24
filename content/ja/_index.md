@@ -22,6 +22,8 @@ description: "ユヴァスキュラ大学 フィンランド・アカデミー�
 
 {{< nuclide-of-the-day >}}
 
+{{< home-optics >}}
+
 {{< gallery home="true" >}}
 
 

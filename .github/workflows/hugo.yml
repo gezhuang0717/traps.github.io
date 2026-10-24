@@ -25,6 +25,7 @@ permissions:
 concurrency:
   group: website-${{ github.ref }}
   cancel-in-progress: false
+  queue: max
 env:
   HUGO_VERSION: 0.166.0
 jobs:
