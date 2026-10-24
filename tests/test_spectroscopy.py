@@ -146,8 +146,8 @@ def test_actual_shortcode_build_retains_json_nulls_languages_and_usable_assets(t
         pytest.skip("Pinned Hugo required; installed in CI before tests")
     assets = ["static/js/zg-export.js", "static/js/figure-style.js", "static/css/figure-style.css", "static/js/spectroscopy-core.js", "static/js/spectroscopy.js",
               "static/css/spectroscopy.css", "static/js/spectroscopy-settings.js", "static/js/spectroscopy-uncertainty.js", "static/js/spectroscopy-fr.js", "static/js/research-data.js"]
-    for relative in ["layouts/_shortcodes/spectroscopy-tools.html", "data/spectroscopy.yaml",
-                     "data/laser_cooling.yaml"] + assets:
+    for relative in ["layouts/_shortcodes/spectroscopy-tools.html", "layouts/_partials/zg/page-data.html", "data/spectroscopy.yaml",
+                     "data/laser_cooling.yaml", "data/figure_notes.yaml", "data/tool_steps.yaml"] + assets:
         target = tmp_path / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((ROOT / relative).read_bytes())

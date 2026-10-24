@@ -205,3 +205,5 @@
 <script defer src="{{ "js/chart-classes.js" | relURL }}?v={{ readFile "static/js/chart-classes.js" | sha256 }}"></script>
 <script defer src="{{ "js/chart-stats.js" | relURL }}?v={{ readFile "static/js/chart-stats.js" | sha256 }}"></script>
 <script defer src="{{ "js/nuclide-chart.js" | relURL }}?v={{ readFile "static/js/nuclide-chart.js" | sha256 }}"></script>
+
+{{ partial "zg/page-data.html" . }}

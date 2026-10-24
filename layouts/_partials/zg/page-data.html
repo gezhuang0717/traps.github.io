@@ -1,0 +1,10 @@
+{{- /* The figure explanations and the numbered how-to steps in the page language (data/figure_notes.yaml, data/tool_steps.yaml; read by static/js/zg-ui.js).
+       Written once, and only on pages that carry a tool: the games, lab, chart and research shortcodes call this partial. Putting it in the footer
+       would add about 30 KB to each of the 11,000 generated pages and overrun the size gate of the site. */ -}}
+{{- $page := .Page -}}
+{{- if not ($page.Store.Get "zg-page-data") -}}
+{{- $page.Store.Set "zg-page-data" true -}}
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- with index hugo.Data.figure_notes $k }}<script type="application/json" id="zg-figure-notes">{{ . | jsonify | safeJS }}</script>{{ end }}
+{{- with index hugo.Data.tool_steps $k }}<script type="application/json" id="zg-tool-steps">{{ . | jsonify | safeJS }}</script>{{ end }}
+{{- end -}}

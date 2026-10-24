@@ -30,3 +30,5 @@
   <noscript><p>{{ $t.noscript }}</p><p><a href="https://www.nist.gov/pml/atomic-spectra-database">NIST ASD</a> · <a href="https://www.nndc.bnl.gov/nudat3/">NNDC NuDat</a> · <a href="https://steck.us/alkalidata/">Alkali D Line Data</a></p></noscript>
 </section>
 <script defer src="{{ "js/spectroscopy-games.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/spectroscopy-games.js")) 0 10 }}"></script>
+
+{{ partial "zg/page-data.html" . }}

@@ -1,5 +1,0 @@
-{{- /* The explanations of the figures in the page language (data/figure_notes.yaml). */ -}}
-{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
-{{- with index hugo.Data.figure_notes $k }}<script type="application/json" id="zg-figure-notes">{{ . | jsonify | safeJS }}</script>{{ end }}
-{{- /* The numbered "How to use" steps of the tools in the page language (data/tool_steps.yaml, static/js/zg-ui.js attachSteps). */ -}}
-{{- with index hugo.Data.tool_steps $k }}<script type="application/json" id="zg-tool-steps">{{ . | jsonify | safeJS }}</script>{{ end }}

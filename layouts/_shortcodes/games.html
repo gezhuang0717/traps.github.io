@@ -154,3 +154,5 @@
 <script defer src="{{ "js/periodic-table.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/periodic-table.js")) 0 10 }}"></script>
 <script defer src="{{ "js/topic-navigation.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/topic-navigation.js")) 0 10 }}"></script>
 <script defer src="{{ "js/decimal-controls.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/decimal-controls.js")) 0 10 }}"></script>
+
+{{ partial "zg/page-data.html" . }}
