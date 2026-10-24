@@ -7,16 +7,40 @@ test('appearance settings round-trip every field without replacing scientific da
  for(const bad of [{tickSize:''},{tickSize:Infinity},{markerDiameter:0},{lineWidth:-1},{rasterWidth:1800.5},{filename:'../private'},{filename:'x\n'}])assert.throws(()=>F.normalize(bad));
  assert.throws(()=>F.parse('{"schema":"traps-figure-style-v1"}'));assert.throws(()=>F.parse('{"schema":"other","style":{}}'));
 });
+test('CSV and TXT style settings round-trip all fields in deterministic readable order',()=>{
+ const style=F.normalize({tickSize:17,lineWidth:1.7,filename:'paper, étude'}),csv=F.serializeCSV(style),txt=F.serializeTXT(style);
+ assert.equal(csv,F.serializeCSV(style));assert.equal(txt,F.serializeTXT(style));assert.match(csv,/^name,value\nschema,traps-figure-style-v1\n/);assert.match(csv,/filename,"paper, étude"\n$/);
+ assert.match(txt,/^# traps-figure-style-v1\n/);assert.match(txt,/filename\tpaper, étude\n$/);
+ for(const encoded of [csv,txt,F.serialize(style)])for(const filename of ['', 'style.csv','style.txt','style.json'])assert.deepEqual(F.parse(encoded,undefined,filename),style);
+ assert.deepEqual(csv.trim().split('\n').slice(2).map(line=>line.split(',')[0]),Object.keys(F.defaults));
+ assert.deepEqual(F.parse(F.serializeCSV(F.defaults)),F.defaults);assert.deepEqual(F.parse(F.serializeTXT(F.defaults)),F.defaults);
+});
+test('text imports reject unknown or duplicate fields, incomplete schemas, bad numbers and malformed quotes',()=>{
+ const csv=F.serializeCSV(F.defaults),txt=F.serializeTXT(F.defaults);
+ for(const bad of [csv+'unknown,1\n',csv+'titleSize,20\n',csv.replace('tickSize,13\n',''),csv.replace('rasterWidth,2160','rasterWidth,2160.5'),csv.replace('lineWidth,1','lineWidth,0x1'),csv.replace('filename,','filename,"a"trailing'),csv.replace('filename,','filename,"paper ""draft"""'),txt+'unknown\t1\n',txt+'titleSize\t20\n',txt.replace('schema\ttraps-figure-style-v1','schema\tother'),txt.replace('markerDiameter\t9','markerDiameter\tNaN')])assert.throws(()=>F.parse(bad));
+ assert.throws(()=>F.parse(JSON.stringify({schema:F.schema,style:{extra:1}})));
+ assert.deepEqual(F.parse(JSON.stringify({schema:F.schema,style:{tickSize:17}})),F.normalize({tickSize:17}),'earlier partial JSON presets remain compatible');
+});
 test('real nuclear-level viewBox exports with its 720:420 aspect ratio',()=>{
  assert.deepEqual(F.rasterSize('0 0 720 420',2160),{width:2160,height:1260});
  assert.deepEqual(F.rasterSize('0 0 720 380',1800),{width:1800,height:950});
  assert.throws(()=>F.rasterSize('0 0 0 420',2160));
 });
 test('all six language controls are complete and long words wrap within the measured width',()=>{
- for(const lang of ['en','zh','fi','de','ja','fr'])assert.equal(F.labels[lang].length,14);
+ for(const lang of ['en','zh','fi','de','ja','fr']){assert.equal(F.labels[lang].length,14);assert.equal(F.textLabels[lang].length,3);assert.ok(F.textLabels[lang].every(x=>x.length));}
  const lines=F.wrapText('long-isotope-reference-and-provenance 123Cs',60,10,s=>s.length*6);
  assert.ok(lines.length>2);assert.ok(lines.every(s=>s.length*6<=60));
  assert.equal(lines.join('').replaceAll(' ',''),'long-isotope-reference-and-provenance123Cs');
+});
+test('actual style controls put CSV/TXT first, save real text downloads, and import their files',async()=>{
+ const {E}=elements(),host=new E('div'),saved=[],previous=globalThis.zgExport;globalThis.zgExport={save:(blob,name)=>saved.push({blob,name})};
+ try{const ui=F.controls(host,{lang:'zh',prefix:'chain'}),actions=ui.element.children[2].children;
+  assert.equal(actions[0].textContent,F.textLabels.zh[0]);assert.equal(actions[1].textContent,F.textLabels.zh[1]);assert.equal(actions.at(-1).textContent,F.labels.zh[10]);
+  ui.set({markerDiameter:12,filename:'paper, draft'});actions[0].onclick();actions[1].onclick();actions.at(-1).onclick();
+  assert.deepEqual(saved.map(x=>x.name),['paper, draft-chain-style.csv','paper, draft-chain-style.txt','paper, draft-chain-style.json']);
+  const file=actions[2].children[0];assert.match(file.accept,/\.csv,\.txt,\.json/);
+  for(const item of saved){const text=await item.blob.text();ui.reset();file.files=[{name:item.name,size:text.length,text:async()=>text}];await file.onchange();assert.equal(ui.get().markerDiameter,12);assert.equal(ui.get().filename,'paper, draft');}
+ }finally{if(previous===undefined)delete globalThis.zgExport;else globalThis.zgExport=previous;}
 });
 function elements(){
  const nodes=[];class E{constructor(tag){this.tag=tag;this.children=[];this.attrs={};this.dataset={};this.listeners={};this.ownerDocument=doc;nodes.push(this);}append(...v){this.children.push(...v);}setAttribute(k,v){this.attrs[k]=String(v);}getAttribute(k){return this.attrs[k]??null;}addEventListener(k,f){this.listeners[k]=f;}querySelector(s){return this.children.find(n=>n.tag===s)||null;}replaceChildren(...v){this.children=v;}getContext(){return{font:'',measureText:s=>({width:String(s).length*7})};}}

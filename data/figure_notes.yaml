@@ -1,0 +1,871 @@
+# Explanations of figures, one block per language (static/js/zg-ui.js reads the page language). Every figure id exists in all six languages.
+en:
+  mathieu:
+    title: How to read the Mathieu stability explorer
+    summary: Radial motion of an ion in a linear RFQ obeys w″ + (a − 2q cos 2τ) w = 0 with τ = Ωt/2. The map shows which (q, a) give bounded motion.
+    items:
+    - - q
+      - RF parameter q = 4QV/(mΩ²r₀²); V is the RF peak on each rod (adjacent rods ±V), Q the ion charge, m its mass, Ω = 2πf.
+    - - a
+      - DC parameter a = 8QU/(mΩ²r₀²); U is the DC voltage on the rods (pairs at ±U). a = 0 is pure RF.
+    - - Blue area
+      - 'First plane: motion along x is bounded at (a, q).'
+    - - Orange area
+      - 'Second plane: motion along y is bounded; its parameters are (−a, −q).'
+    - - Green area
+      - 'Both planes stable: the ideal field confines the ion in two dimensions.'
+    - - Black dot
+      - The selected operating point (q, a) of the chosen ion, mass, charge and voltages.
+    - - Coloured dots and dashed lines
+      - Operating points of the optional sections (cooler, mass filter, buncher). Each dashed line is a = (2U/V) q for that section; changing the ion mass moves its dot along the line.
+    - - Limits
+      - 'Ideal Mathieu motion only: no collisions, space charge, fringe fields or measured transmission.'
+  rfq-geometry:
+    title: How to read the rod-geometry drawing
+    summary: Cross-section of 2n round rods around the axis; adjacent rods carry opposite RF.
+    items:
+    - - r₀
+      - 'Dashed circle: field radius, the distance from the axis to the rod surface.'
+    - - ρ
+      - Rod radius = ratio × r₀; the ratio follows the rule chosen in the form (optimal 1.14511 for four rods).
+    - - Blue / red rods
+      - Rods at +V and −V (alternating); the number is the rod index.
+    - - Rc, D, g
+      - Centres at Rc = r₀ + ρ; adjacent centre distance D = 2Rc sin(π/N); surface gap g = D − 2ρ.
+  mr-spectrum:
+    title: How to read the MR-TOF spectrum
+    summary: Simulated time-of-flight peaks after the chosen number of laps, for each species and isomer and for their sum.
+    items:
+    - - Coloured curves
+      - Expected counts per bin of each species; isomers are marked [m]. The area follows the population weight.
+    - - Violet curve
+      - 'Combined sample: sum of all species.'
+    - - Grey bars
+      - One random sample of ions drawn from the same distribution (optional histogram).
+    - - Dashed vertical lines
+      - Centre time of each species.
+    - - x axis
+      - Time of flight relative to the first species, t − t₁ (ns).
+    - - FWHM
+      - Full width at half maximum of a peak, from the peak width and the broadening per lap.
+  mr-power:
+    title: How to read the resolving-power plot
+    summary: Resolving power of each species against the number of laps, compared with the value needed to separate each pair.
+    items:
+    - - R
+      - Resolving power R = (m/q)/Δ(m/q) of a peak; it grows with the number of laps.
+    - - Solid curves
+      - R of each species, in the colours of the legend.
+    - - Dashed lines
+      - 'Required resolving power of a pair: ((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|.'
+    - - Reading
+      - Where a solid curve is above the dashed line of its pair, the two peaks are resolved.
+  mr-laps:
+    title: How to read the separation and width plot
+    summary: Time separation of each pair and the peak width as the number of laps grows.
+    items:
+    - - '|Δt|'
+      - 'Solid curves: time-of-flight difference of a pair (ns); it grows linearly with laps.'
+    - - FWHM
+      - 'Dashed curve: peak width (ns), including the broadening per lap.'
+    - - Resolved
+      - A pair is separated once |Δt| exceeds the FWHM.
+  tof-resonance:
+    title: How to read the TOF-ICR resonance plot
+    summary: Mean time of flight to the detector against the RF excitation frequency; the dip marks the cyclotron resonance of each species.
+    items:
+    - - x axis
+      - 'νRF − νc of the target species (Hz): detuning of the excitation from its cyclotron frequency.'
+    - - Coloured curves
+      - Expected mean TOF of each species (isomers marked [m]); the width of a dip is about 1/T (Fourier limit) for excitation time T.
+    - - Violet curve
+      - 'Mixture: population-weighted mean TOF of the whole sample.'
+    - - Dots with bars
+      - 'Simulated measurement: mean TOF ± standard error at each scanned frequency.'
+    - - Dashed gold curve
+      - Single-species fit to the simulated data; its centre minus the true frequency is the bias.
+    - - Dashed vertical lines
+      - Cyclotron frequency of each species relative to the target.
+  tof-residuals:
+    title: How to read the residual plot
+    summary: Data minus single-species fit at each scanned frequency.
+    items:
+    - - Dots with bars
+      - Residual (µs) ± standard error. Scatter around zero means the fit describes the data; a systematic trend means a second species or a wrong model.
+    - - x axis
+      - Same detuning νRF − νc (Hz) as the resonance plot.
+  tof-distribution:
+    title: How to read the TOF distribution
+    summary: 'Distribution of single-ion times of flight at the chosen detuning: what the detector records for each species.'
+    items:
+    - - Coloured curves
+      - Probability density of each species, scaled by its population weight; a species on resonance arrives earlier.
+    - - Violet curve
+      - Sum over all species.
+    - - x axis
+      - Time of flight of a detected ion (µs).
+  penning-trajectory:
+    title: How to read the Penning-trap trajectory
+    summary: 'Projection of the ion path in an ideal Penning trap: fast modified-cyclotron motion on top of slow magnetron drift, plus axial oscillation.'
+    items:
+    - - ν₊, ν₋, νz
+      - Modified cyclotron, magnetron and axial frequencies; ν₊ + ν₋ = νc = qB/(2πm).
+    - - Violet line
+      - 'Ion path so far (view: top x–y, side x–z or a 3D projection).'
+    - - Red dot
+      - Current ion position.
+    - - rp, rm, z
+      - Radii of the cyclotron and magnetron motions and the axial amplitude, in mm, as set in the form.
+  rfq-design:
+    title: Symbols and formulas of the rod design
+    summary: A multipole guide has N = 2n rods; neighbouring rods carry opposite voltages. Close to the axis the RF potential is a pure multipole. Averaged over one RF period it confines the ion in an effective potential; η tells whether that averaging is allowed.
+    items:
+    - - N, n
+      - N rods (even, 4–24); n = N/2 is the multipole order. N = 4 gives n = 2 (quadrupole, the Mathieu case), N = 8 gives n = 4 (octupole).
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - Electric potential in volts at distance r from the axis and polar angle θ, at time t. On the surface of a rod (r = r₀, θ = 0) it equals U + V cos Ωt; the next rod has the opposite sign.
+    - - U, V
+      - DC voltage and RF peak voltage of a rod relative to ground (V). Between neighbouring rods the peak difference is 2V.
+    - - Ω = 2πf
+      - Angular RF frequency; f is the frequency entered in MHz.
+    - - r₀, r
+      - 'r₀: distance from the axis to the rod surface (field radius). r: distance of the ion from the axis; the readout is evaluated at the chosen fraction r/r₀.'
+    - - Q, m
+      - Ion charge Q = z·e and mass m.
+    - - '|E|'
+      - RF field amplitude |E| = nV/r₀ · (r/r₀)ⁿ⁻¹ in V/m; it grows towards the rods and is zero on the axis.
+    - - U_eff
+      - 'Effective (pseudo) potential, the confining energy left after averaging over one RF period: U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻². It rises as r^(2n−2): parabolic for a quadrupole, a flat floor with steep walls for higher n.'
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 'Adiabaticity parameter η = 2|Q|·|d|E|/dr|/(mΩ²): the change of the RF force over the distance the ion moves in one RF period, relative to the force scale mΩ². Small η: smooth slow motion with small micromotion, so U_eff is valid. Large η: the averaging fails, the micromotion is large and RF heating is possible. For four rods η equals the Mathieu parameter q.'
+    - - η target
+      - Your limit for η at the evaluated radius. η is used because only the quadrupole has a Mathieu stability diagram; for n > 2 the motion is not a Mathieu equation, and the usual design rule is η below about 0.3 (Gerlich 1992). For four rods this is q ≈ 0.3 (the textbook runs cooler-bunchers at q = 0.3–0.5; the stability limit is q = 0.908). It is a rule of thumb, not a sharp threshold. The tile shows η / target, green when η ≤ target.
+    - - f_min, V_max
+      - η scales as V/f². For your V, f_min is the lowest frequency with η ≤ target; for your f, V_max is the highest RF peak voltage.
+    - - A₃ₙ/Aₙ
+      - First unwanted harmonic of the round-rod potential relative to the wanted one (see the rod-ratio rule).
+zh:
+  mathieu:
+    title: 如何阅读 Mathieu 稳定性图
+    summary: 线性 RFQ 中离子的径向运动满足 w″ + (a − 2q cos 2τ) w = 0，τ = Ωt/2。此图显示哪些 (q, a) 对应有界运动。
+    items:
+    - - q
+      - RF 参数 q = 4QV/(mΩ²r₀²)；V 为每根杆的 RF 峰值（相邻杆 ±V），Q 为离子电荷，m 为质量，Ω = 2πf。
+    - - a
+      - 直流参数 a = 8QU/(mΩ²r₀²)；U 为杆上的直流电压（两对杆 ±U）。a = 0 为纯 RF。
+    - - 蓝色区域
+      - 第一平面：x 方向运动在 (a, q) 处有界。
+    - - 橙色区域
+      - 第二平面：y 方向运动有界；其参数为 (−a, −q)。
+    - - 绿色区域
+      - 两个平面都稳定：理想场在二维上约束离子。
+    - - 黑点
+      - 所选离子、质量、电荷和电压对应的工作点 (q, a)。
+    - - 彩色点与虚线
+      - 可选分段（冷却器、质量过滤器、聚束器）的工作点。每条虚线为该段的 a = (2U/V) q；改变离子质量会使其点沿虚线移动。
+    - - 局限
+      - 仅为理想 Mathieu 运动：不含碰撞、空间电荷、边缘场或实测传输。
+  rfq-geometry:
+    title: 如何阅读杆几何图
+    summary: 围绕轴线的 2n 根圆杆截面；相邻杆 RF 极性相反。
+    items:
+    - - r₀
+      - 虚线圆：场半径，即轴线到杆表面的距离。
+    - - ρ
+      - 杆半径 = 比值 × r₀；比值由表单所选规则决定（4 杆最优为 1.14511）。
+    - - 蓝/红杆
+      - 电位 +V 与 −V 的杆（交替排列）；数字为杆编号。
+    - - Rc, D, g
+      - 杆心在 Rc = r₀ + ρ；相邻中心距 D = 2Rc sin(π/N)；表面间隙 g = D − 2ρ。
+  mr-spectrum:
+    title: 如何阅读 MR-TOF 谱
+    summary: 在所选圈数后，各核素/同质异能态及其总和的模拟飞行时间峰。
+    items:
+    - - 彩色曲线
+      - 各核素的每道期望计数；同质异能态标记为 [m]。面积正比于布居权重。
+    - - 紫色曲线
+      - 合成样品：所有核素之和。
+    - - 灰色柱
+      - 从同一分布抽取的一组随机离子样本（可选直方图）。
+    - - 垂直虚线
+      - 各核素的中心时间。
+    - - 横轴
+      - 相对第一种核素的飞行时间 t − t₁（ns）。
+    - - FWHM
+      - 峰的半高全宽，由峰宽和每圈展宽得到。
+  mr-power:
+    title: 如何阅读分辨本领图
+    summary: 各核素的分辨本领随圈数变化，并与分离每对核素所需的值比较。
+    items:
+    - - R
+      - 峰的分辨本领 R = (m/q)/Δ(m/q)；随圈数增长。
+    - - 实线
+      - 各核素的 R，颜色与图例一致。
+    - - 虚线
+      - 一对核素所需的分辨本领：((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|。
+    - - 读法
+      - 实线高于其对应虚线处，两峰可分辨。
+  mr-laps:
+    title: 如何阅读间隔与宽度图
+    summary: 随圈数增加，每对核素的时间间隔和峰宽。
+    items:
+    - - '|Δt|'
+      - 实线：一对核素的飞行时间差（ns）；随圈数线性增长。
+    - - FWHM
+      - 虚线：峰宽（ns），含每圈展宽。
+    - - 可分辨
+      - 当 |Δt| 超过 FWHM 时，这一对核素被分开。
+  tof-resonance:
+    title: 如何阅读 TOF-ICR 共振图
+    summary: 到探测器的平均飞行时间随 RF 激发频率变化；凹陷标出各核素的回旋共振。
+    items:
+    - - 横轴
+      - νRF − νc（目标核素，Hz）：激发频率相对其回旋频率的失谐。
+    - - 彩色曲线
+      - 各核素的期望平均 TOF（同质异能态标 [m]）；激发时间 T 时，凹陷宽度约为 1/T（傅里叶极限）。
+    - - 紫色曲线
+      - 混合样品：按布居加权的平均 TOF。
+    - - 带误差棒的点
+      - 模拟测量：每个扫描频率处的平均 TOF ± 标准误差。
+    - - 金色虚线
+      - 对模拟数据的单核素拟合；其中心减去真实频率即为偏差。
+    - - 垂直虚线
+      - 各核素相对目标的回旋频率。
+  tof-residuals:
+    title: 如何阅读残差图
+    summary: 每个扫描频率处的数据减去单核素拟合。
+    items:
+    - - 带误差棒的点
+      - 残差（µs）± 标准误差。围绕零随机分布说明拟合合理；系统趋势意味着存在第二核素或模型不当。
+    - - 横轴
+      - 与共振图相同的失谐 νRF − νc（Hz）。
+  tof-distribution:
+    title: 如何阅读 TOF 分布
+    summary: 在所选失谐下单个离子飞行时间的分布：探测器对每种核素记录的结果。
+    items:
+    - - 彩色曲线
+      - 各核素的概率密度，按布居权重缩放；处于共振的核素到达更早。
+    - - 紫色曲线
+      - 所有核素之和。
+    - - 横轴
+      - 被探测离子的飞行时间（µs）。
+  penning-trajectory:
+    title: 如何阅读潘宁阱轨迹
+    summary: 理想潘宁阱中离子路径的投影：快速的修正回旋运动叠加在缓慢的磁控漂移上，并带轴向振荡。
+    items:
+    - - ν₊, ν₋, νz
+      - 修正回旋、磁控和轴向频率；ν₊ + ν₋ = νc = qB/(2πm)。
+    - - 紫色线
+      - 迄今的离子路径（视图：俯视 x–y、侧视 x–z 或 3D 投影）。
+    - - 红点
+      - 离子当前位置。
+    - - rp, rm, z
+      - 回旋、磁控运动半径与轴向振幅（mm），由表单设定。
+  rfq-design:
+    title: 杆设计中的符号与公式
+    summary: 多极导引由 N = 2n 根杆组成，相邻杆电压相反。靠近轴线时射频势是纯多极场。对一个射频周期取平均后，离子被约束在有效势中；η 用来判断这种平均是否成立。
+    items:
+    - - N, n
+      - N 为杆数（偶数，4–24）；n = N/2 为多极阶数。N = 4 时 n = 2（四极，即 Mathieu 情形），N = 8 时 n = 4（八极）。
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - 距轴线 r、极角 θ、时刻 t 处的电势（V）。杆表面（r = r₀，θ = 0）处等于 U + V cos Ωt，相邻杆符号相反。
+    - - U, V
+      - 一根杆相对地的直流电压与射频峰值电压（V）。相邻杆之间的射频峰值差为 2V。
+    - - Ω = 2πf
+      - 射频角频率；f 是以 MHz 输入的频率。
+    - - r₀, r
+      - r₀：轴线到杆表面的距离（场半径）。r：离子到轴线的距离；读数在所选的 r/r₀ 处计算。
+    - - Q, m
+      - 离子电荷 Q = z·e 与质量 m。
+    - - '|E|'
+      - 射频电场幅值 |E| = nV/r₀ · (r/r₀)ⁿ⁻¹（V/m）；靠近杆处增大，轴线上为零。
+    - - U_eff
+      - 有效（赝）势，即对一个射频周期取平均后剩下的约束势能：U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻²。它按 r^(2n−2) 上升：四极为抛物线，更高阶则底部平坦、壁很陡。
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 绝热参数 η = 2|Q|·|d|E|/dr|/(mΩ²)：离子在一个射频周期内移动的距离上，射频力的变化相对于力标度 mΩ² 的大小。η 小：运动是平滑的慢运动加小的微运动，U_eff 成立；η 大：平均化失效，微运动大，可能出现射频加热。四根杆时 η 等于 Mathieu 参数 q。
+    - - η 目标
+      - 你在所选半径处为 η 设的上限。用 η 是因为只有四极场才有 Mathieu 稳定图；n > 2 时运动方程不是 Mathieu 方程，常用设计准则是 η 低于约 0.3（Gerlich 1992）。四根杆时即 q ≈ 0.3（教材中冷却聚束器取 q = 0.3–0.5，稳定极限 q = 0.908）。这是经验设计准则，不是严格阈值。方块显示 η / 目标，η ≤ 目标时为绿色。
+    - - f_min, V_max
+      - η 正比于 V/f²。给定 V，使 η ≤ 目标的最低 f 为 f_min；给定 f，最高射频峰值电压为 V_max。
+    - - A₃ₙ/Aₙ
+      - 圆杆电势中第一个不需要的谐波相对于所需谐波的大小（见杆比规则）。
+fi:
+  mathieu:
+    title: Mathieu-stabiilisuuskuvan lukeminen
+    summary: Ionin radiaaliliike lineaarisessa RFQ:ssa noudattaa yhtälöä w″ + (a − 2q cos 2τ) w = 0, τ = Ωt/2. Kuva näyttää, millä (q, a) liike pysyy rajoitettuna.
+    items:
+    - - q
+      - RF-parametri q = 4QV/(mΩ²r₀²); V on kunkin sauvan RF-huippu (viereiset sauvat ±V), Q ionin varaus, m massa, Ω = 2πf.
+    - - a
+      - DC-parametri a = 8QU/(mΩ²r₀²); U on sauvojen tasajännite (parit ±U). a = 0 tarkoittaa puhdasta RF:ää.
+    - - Sininen alue
+      - 'Ensimmäinen taso: x-suuntainen liike on rajoitettu pisteessä (a, q).'
+    - - Oranssi alue
+      - 'Toinen taso: y-suuntainen liike on rajoitettu; sen parametrit ovat (−a, −q).'
+    - - Vihreä alue
+      - 'Molemmat tasot stabiileja: ideaalikenttä sitoo ionin kahdessa ulottuvuudessa.'
+    - - Musta piste
+      - Valitun ionin, massan, varauksen ja jännitteiden työpiste (q, a).
+    - - Värilliset pisteet ja katkoviivat
+      - Valinnaisten osien (jäähdytin, massasuodatin, paketoija) työpisteet. Kukin katkoviiva on a = (2U/V) q kyseiselle osalle; massan muutos siirtää pistettä viivaa pitkin.
+    - - Rajoitukset
+      - 'Vain ideaalinen Mathieu-liike: ei törmäyksiä, avaruusvarausta, reunakenttiä eikä mitattua läpäisyä.'
+  rfq-geometry:
+    title: Sauvageometriakuvan lukeminen
+    summary: Poikkileikkaus 2n pyöreästä sauvasta akselin ympärillä; viereisillä sauvoilla vastakkainen RF.
+    items:
+    - - r₀
+      - 'Katkoviivaympyrä: kenttäsäde, etäisyys akselilta sauvan pintaan.'
+    - - ρ
+      - Sauvan säde = suhde × r₀; suhde määräytyy lomakkeen säännöstä (neljälle sauvalle optimi 1,14511).
+    - - Siniset / punaiset sauvat
+      - Sauvat potentiaalissa +V ja −V (vuorotellen); numero on sauvan järjestysluku.
+    - - Rc, D, g
+      - Keskipisteet Rc = r₀ + ρ; viereisten keskipisteiden väli D = 2Rc sin(π/N); pintaväli g = D − 2ρ.
+  mr-spectrum:
+    title: MR-TOF-spektrin lukeminen
+    summary: Simuloidut lentoaikapiikit valitun kierrosmäärän jälkeen kullekin lajille ja isomeerille sekä niiden summalle.
+    items:
+    - - Värilliset käyrät
+      - Kunkin lajin odotetut laskennat lokeroa kohti; isomeerit merkitty [m]. Pinta-ala seuraa populaatiopainoa.
+    - - Violetti käyrä
+      - 'Yhdistetty näyte: kaikkien lajien summa.'
+    - - Harmaat palkit
+      - Yksi samasta jakaumasta arvottu ionien satunnaisotos (valinnainen histogrammi).
+    - - Pystysuuntaiset katkoviivat
+      - Kunkin lajin keskiaika.
+    - - x-akseli
+      - Lentoaika suhteessa ensimmäiseen lajiin, t − t₁ (ns).
+    - - FWHM
+      - Piikin täysi leveys puolikorkeudella, piikin leveydestä ja kierroskohtaisesta levenemisestä.
+  mr-power:
+    title: Erotuskyvyn kuvaajan lukeminen
+    summary: Kunkin lajin erotuskyky kierrosten funktiona verrattuna parin erottamiseen tarvittavaan arvoon.
+    items:
+    - - R
+      - Piikin erotuskyky R = (m/q)/Δ(m/q); kasvaa kierrosmäärän mukana.
+    - - Yhtenäiset käyrät
+      - Kunkin lajin R, selitteen väreillä.
+    - - Katkoviivat
+      - 'Parin vaatima erotuskyky: ((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|.'
+    - - Lukeminen
+      - Missä yhtenäinen käyrä ylittää parin katkoviivan, piikit erottuvat.
+  mr-laps:
+    title: Erotuksen ja leveyden kuvaajan lukeminen
+    summary: Kunkin parin aikaero ja piikin leveys kierrosmäärän kasvaessa.
+    items:
+    - - '|Δt|'
+      - 'Yhtenäiset käyrät: parin lentoaikaero (ns); kasvaa lineaarisesti kierroksilla.'
+    - - FWHM
+      - 'Katkoviiva: piikin leveys (ns) kierroskohtainen leveneminen mukaan lukien.'
+    - - Erottuu
+      - Pari erottuu, kun |Δt| ylittää FWHM:n.
+  tof-resonance:
+    title: TOF-ICR-resonanssikuvan lukeminen
+    summary: Keskimääräinen lentoaika ilmaisimelle RF-herätetaajuuden funktiona; kuoppa osoittaa kunkin lajin syklotroniresonanssin.
+    items:
+    - - x-akseli
+      - 'νRF − νc (kohdelaji, Hz): herätteen poikkeama sen syklotronitaajuudesta.'
+    - - Värilliset käyrät
+      - Kunkin lajin odotettu keski-TOF (isomeerit [m]); kuopan leveys on noin 1/T herätysajalla T (Fourier-raja).
+    - - Violetti käyrä
+      - 'Seos: koko näytteen populaatiopainotettu keski-TOF.'
+    - - Pisteet virhepalkeilla
+      - 'Simuloitu mittaus: keski-TOF ± keskivirhe jokaisella skannatulla taajuudella.'
+    - - Kultainen katkoviiva
+      - Yhden lajin sovite simuloituun dataan; sen keskipiste miinus todellinen taajuus on harha.
+    - - Pystysuuntaiset katkoviivat
+      - Kunkin lajin syklotronitaajuus suhteessa kohteeseen.
+  tof-residuals:
+    title: Residuaalikuvan lukeminen
+    summary: Data miinus yhden lajin sovite jokaisella skannatulla taajuudella.
+    items:
+    - - Pisteet virhepalkeilla
+      - Residuaali (µs) ± keskivirhe. Hajonta nollan ympärillä tarkoittaa hyvää sovitetta; systemaattinen suunta viittaa toiseen lajiin tai väärään malliin.
+    - - x-akseli
+      - Sama poikkeama νRF − νc (Hz) kuin resonanssikuvassa.
+  tof-distribution:
+    title: TOF-jakauman lukeminen
+    summary: 'Yksittäisten ionien lentoaikojen jakauma valitulla poikkeamalla: mitä ilmaisin kirjaa kustakin lajista.'
+    items:
+    - - Värilliset käyrät
+      - Kunkin lajin todennäköisyystiheys populaatiopainolla skaalattuna; resonanssissa oleva laji saapuu aiemmin.
+    - - Violetti käyrä
+      - Kaikkien lajien summa.
+    - - x-akseli
+      - Havaitun ionin lentoaika (µs).
+  penning-trajectory:
+    title: Penning-loukun radan lukeminen
+    summary: 'Ionin radan projektio ideaalisessa Penning-loukussa: nopea muunneltu syklotroniliike hitaan magnetroniliikkeen päällä sekä aksiaalivärähtely.'
+    items:
+    - - ν₊, ν₋, νz
+      - Muunneltu syklotroni-, magnetroni- ja aksiaalitaajuus; ν₊ + ν₋ = νc = qB/(2πm).
+    - - Violetti viiva
+      - 'Ionin rata tähän asti (näkymä: päältä x–y, sivulta x–z tai 3D-projektio).'
+    - - Punainen piste
+      - Ionin nykyinen paikka.
+    - - rp, rm, z
+      - Syklotroni- ja magnetroniliikkeen säteet sekä aksiaaliamplitudi (mm) lomakkeen mukaan.
+  rfq-design:
+    title: Sauvasuunnittelun symbolit ja kaavat
+    summary: Moninapaisessa ohjaimessa on N = 2n sauvaa; vierekkäisillä sauvoilla on vastakkaiset jännitteet. Lähellä akselia RF-potentiaali on puhdas moninapa. Yhden RF-jakson yli keskiarvoistettuna se sitoo ionin tehokkaaseen potentiaaliin; η kertoo, onko keskiarvoistus sallittu.
+    items:
+    - - N, n
+      - N sauvaa (parillinen, 4–24); n = N/2 on moninapaisuuden kertaluku. N = 4 antaa n = 2 (kvadrupoli, Mathieun tapaus), N = 8 antaa n = 4 (oktupoli).
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - Sähköinen potentiaali voltteina etäisyydellä r akselista ja napakulmassa θ hetkellä t. Sauvan pinnalla (r = r₀, θ = 0) se on U + V cos Ωt; viereisellä sauvalla vastakkainen etumerkki.
+    - - U, V
+      - Sauvan tasajännite ja RF-huippujännite maahan nähden (V). Vierekkäisten sauvojen huippuero on 2V.
+    - - Ω = 2πf
+      - RF:n kulmataajuus; f on MHz:nä annettu taajuus.
+    - - r₀, r
+      - 'r₀: etäisyys akselilta sauvan pintaan (kenttäsäde). r: ionin etäisyys akselilta; lukemat lasketaan valitulla osuudella r/r₀.'
+    - - Q, m
+      - Ionin varaus Q = z·e ja massa m.
+    - - '|E|'
+      - RF-kentän amplitudi |E| = nV/r₀ · (r/r₀)ⁿ⁻¹ (V/m); kasvaa sauvoja kohti ja on nolla akselilla.
+    - - U_eff
+      - 'Tehokas (pseudo)potentiaali, yhden RF-jakson keskiarvoistuksen jälkeen jäävä sidontaenergia: U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻². Se kasvaa kuten r^(2n−2): paraabeli kvadrupolilla, korkeammilla n tasainen pohja ja jyrkät seinät.'
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 'Adiabaattisuusparametri η = 2|Q|·|d|E|/dr|/(mΩ²): RF-voiman muutos matkalla, jonka ioni kulkee yhdessä RF-jaksossa, suhteessa voimaskaalaan mΩ². Pieni η: tasainen hidas liike ja pieni mikroliike, joten U_eff pätee. Suuri η: keskiarvoistus ei päde, mikroliike on suuri ja RF-lämmitys on mahdollinen. Neljällä sauvalla η on Mathieun parametri q.'
+    - - η-tavoite
+      - Oma rajasi η:lle lasketulla säteellä. η:aa käytetään, koska vain kvadrupolilla on Mathieun stabiilisuuskaavio; kun n > 2, liike ei ole Mathieun yhtälö, ja tavallinen suunnittelusääntö on η alle noin 0,3 (Gerlich 1992). Neljällä sauvalla se vastaa q ≈ 0,3 (oppikirjan jäähdytin-kasaajat (cooler-buncher) toimivat arvoilla q = 0,3–0,5; stabiilisuusraja on q = 0,908). Se on peukalosääntö, ei terävä raja. Ruutu näyttää η / tavoite, vihreä kun η ≤ tavoite.
+    - - f_min, V_max
+      - η skaalautuu kuten V/f². Annetulle V:lle f_min on pienin taajuus, jolla η ≤ tavoite; annetulle f:lle V_max on suurin RF-huippujännite.
+    - - A₃ₙ/Aₙ
+      - Pyöreiden sauvojen potentiaalin ensimmäinen ei-toivottu harmoninen suhteessa haluttuun (ks. sauvasuhteen sääntö).
+de:
+  mathieu:
+    title: So liest man das Mathieu-Stabilitätsdiagramm
+    summary: Die radiale Bewegung eines Ions im linearen RFQ folgt w″ + (a − 2q cos 2τ) w = 0 mit τ = Ωt/2. Das Diagramm zeigt, bei welchen (q, a) die Bewegung beschränkt bleibt.
+    items:
+    - - q
+      - RF-Parameter q = 4QV/(mΩ²r₀²); V ist die RF-Spitze je Stab (Nachbarstäbe ±V), Q die Ionenladung, m die Masse, Ω = 2πf.
+    - - a
+      - DC-Parameter a = 8QU/(mΩ²r₀²); U ist die Gleichspannung an den Stäben (Paare ±U). a = 0 ist reiner RF-Betrieb.
+    - - Blaue Fläche
+      - 'Erste Ebene: Die Bewegung in x bleibt bei (a, q) beschränkt.'
+    - - Orange Fläche
+      - 'Zweite Ebene: Die Bewegung in y bleibt beschränkt; ihre Parameter sind (−a, −q).'
+    - - Grüne Fläche
+      - 'Beide Ebenen stabil: Das ideale Feld bindet das Ion zweidimensional.'
+    - - Schwarzer Punkt
+      - Der gewählte Arbeitspunkt (q, a) für Ion, Masse, Ladung und Spannungen.
+    - - Farbige Punkte und gestrichelte Linien
+      - Arbeitspunkte der optionalen Abschnitte (Kühler, Massenfilter, Buncher). Jede gestrichelte Linie ist a = (2U/V) q für den Abschnitt; eine andere Masse verschiebt den Punkt entlang der Linie.
+    - - Grenzen
+      - 'Nur ideale Mathieu-Bewegung: keine Stöße, Raumladung, Randfelder oder gemessene Transmission.'
+  rfq-geometry:
+    title: So liest man die Stabgeometrie
+    summary: Querschnitt von 2n runden Stäben um die Achse; benachbarte Stäbe tragen entgegengesetzte RF.
+    items:
+    - - r₀
+      - 'Gestrichelter Kreis: Feldradius, Abstand von der Achse zur Stabfläche.'
+    - - ρ
+      - 'Stabradius = Verhältnis × r₀; das Verhältnis folgt der gewählten Regel (vier Stäbe: optimal 1,14511).'
+    - - Blaue / rote Stäbe
+      - Stäbe auf +V und −V (abwechselnd); die Zahl ist der Stabindex.
+    - - Rc, D, g
+      - Mittelpunkte bei Rc = r₀ + ρ; Mittenabstand D = 2Rc sin(π/N); Oberflächenspalt g = D − 2ρ.
+  mr-spectrum:
+    title: So liest man das MR-TOF-Spektrum
+    summary: Simulierte Flugzeitpeaks nach der gewählten Rundenzahl für jede Spezies und jedes Isomer sowie ihre Summe.
+    items:
+    - - Farbige Kurven
+      - Erwartete Zählungen je Bin für jede Spezies; Isomere sind mit [m] markiert. Die Fläche folgt dem Populationsgewicht.
+    - - Violette Kurve
+      - 'Gesamtprobe: Summe aller Spezies.'
+    - - Graue Balken
+      - Eine Zufallsstichprobe von Ionen aus derselben Verteilung (optionales Histogramm).
+    - - Gestrichelte senkrechte Linien
+      - Mittenzeit jeder Spezies.
+    - - x-Achse
+      - Flugzeit relativ zur ersten Spezies, t − t₁ (ns).
+    - - FWHM
+      - Volle Breite auf halber Höhe eines Peaks, aus Peakbreite und Verbreiterung pro Runde.
+  mr-power:
+    title: So liest man das Auflösungsdiagramm
+    summary: Auflösungsvermögen jeder Spezies gegen die Rundenzahl, verglichen mit dem zur Trennung jedes Paars nötigen Wert.
+    items:
+    - - R
+      - Auflösungsvermögen eines Peaks R = (m/q)/Δ(m/q); wächst mit der Rundenzahl.
+    - - Durchgezogene Kurven
+      - R jeder Spezies in den Farben der Legende.
+    - - Gestrichelte Linien
+      - 'Nötiges Auflösungsvermögen eines Paars: ((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|.'
+    - - Ablesen
+      - Liegt eine durchgezogene Kurve über der gestrichelten Linie ihres Paars, sind die Peaks getrennt.
+  mr-laps:
+    title: So liest man das Abstands- und Breitendiagramm
+    summary: Zeitabstand jedes Paars und Peakbreite bei wachsender Rundenzahl.
+    items:
+    - - '|Δt|'
+      - 'Durchgezogen: Flugzeitdifferenz eines Paars (ns); wächst linear mit den Runden.'
+    - - FWHM
+      - 'Gestrichelt: Peakbreite (ns) einschließlich Verbreiterung pro Runde.'
+    - - Getrennt
+      - Ein Paar ist getrennt, sobald |Δt| die FWHM übersteigt.
+  tof-resonance:
+    title: So liest man die TOF-ICR-Resonanzkurve
+    summary: Mittlere Flugzeit zum Detektor gegen die RF-Anregungsfrequenz; das Minimum markiert die Zyklotronresonanz jeder Spezies.
+    items:
+    - - x-Achse
+      - 'νRF − νc der Zielspezies (Hz): Verstimmung der Anregung gegenüber ihrer Zyklotronfrequenz.'
+    - - Farbige Kurven
+      - Erwartete mittlere TOF jeder Spezies (Isomere [m]); die Breite des Minimums beträgt etwa 1/T bei Anregungszeit T (Fourier-Grenze).
+    - - Violette Kurve
+      - 'Mischung: populationsgewichtete mittlere TOF der gesamten Probe.'
+    - - Punkte mit Fehlerbalken
+      - 'Simulierte Messung: mittlere TOF ± Standardfehler bei jeder gescannten Frequenz.'
+    - - Goldene gestrichelte Kurve
+      - Ein-Spezies-Fit an die simulierten Daten; Mitte minus wahre Frequenz ist die Verschiebung.
+    - - Gestrichelte senkrechte Linien
+      - Zyklotronfrequenz jeder Spezies relativ zum Ziel.
+  tof-residuals:
+    title: So liest man das Residuendiagramm
+    summary: Daten minus Ein-Spezies-Fit bei jeder gescannten Frequenz.
+    items:
+    - - Punkte mit Fehlerbalken
+      - Residuum (µs) ± Standardfehler. Streuung um null bedeutet gute Anpassung; ein systematischer Trend deutet auf eine zweite Spezies oder ein falsches Modell.
+    - - x-Achse
+      - Gleiche Verstimmung νRF − νc (Hz) wie im Resonanzdiagramm.
+  tof-distribution:
+    title: So liest man die TOF-Verteilung
+    summary: 'Verteilung der Einzelionen-Flugzeiten bei der gewählten Verstimmung: was der Detektor für jede Spezies aufzeichnet.'
+    items:
+    - - Farbige Kurven
+      - Wahrscheinlichkeitsdichte jeder Spezies, mit dem Populationsgewicht skaliert; eine resonante Spezies kommt früher an.
+    - - Violette Kurve
+      - Summe über alle Spezies.
+    - - x-Achse
+      - Flugzeit eines detektierten Ions (µs).
+  penning-trajectory:
+    title: So liest man die Penningfallen-Bahn
+    summary: 'Projektion der Ionenbahn in einer idealen Penningfalle: schnelle modifizierte Zyklotronbewegung über langsamer Magnetronbewegung plus Axialschwingung.'
+    items:
+    - - ν₊, ν₋, νz
+      - Modifizierte Zyklotron-, Magnetron- und Axialfrequenz; ν₊ + ν₋ = νc = qB/(2πm).
+    - - Violette Linie
+      - 'Bisheriger Ionenweg (Ansicht: x–y von oben, x–z von der Seite oder 3D-Projektion).'
+    - - Roter Punkt
+      - Aktuelle Ionenposition.
+    - - rp, rm, z
+      - Radien der Zyklotron- und Magnetronbewegung sowie Axialamplitude (mm), wie im Formular eingestellt.
+  rfq-design:
+    title: Symbole und Formeln der Stabauslegung
+    summary: Ein Multipolführungsfeld hat N = 2n Stäbe; benachbarte Stäbe tragen entgegengesetzte Spannungen. Nahe der Achse ist das HF-Potenzial ein reiner Multipol. Über eine HF-Periode gemittelt hält es das Ion in einem effektiven Potenzial; η sagt, ob diese Mittelung zulässig ist.
+    items:
+    - - N, n
+      - N Stäbe (gerade, 4–24); n = N/2 ist die Multipolordnung. N = 4 ergibt n = 2 (Quadrupol, der Mathieu-Fall), N = 8 ergibt n = 4 (Oktupol).
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - Elektrisches Potenzial in Volt im Abstand r von der Achse und beim Polarwinkel θ zur Zeit t. Auf der Staboberfläche (r = r₀, θ = 0) ist es U + V cos Ωt; der nächste Stab hat das umgekehrte Vorzeichen.
+    - - U, V
+      - Gleichspannung und HF-Spitzenspannung eines Stabs gegen Masse (V). Zwischen Nachbarstäben beträgt die Spitzendifferenz 2V.
+    - - Ω = 2πf
+      - HF-Kreisfrequenz; f ist die in MHz eingegebene Frequenz.
+    - - r₀, r
+      - 'r₀: Abstand von der Achse zur Staboberfläche (Feldradius). r: Abstand des Ions von der Achse; die Anzeige gilt für den gewählten Anteil r/r₀.'
+    - - Q, m
+      - Ionenladung Q = z·e und Masse m.
+    - - '|E|'
+      - HF-Feldamplitude |E| = nV/r₀ · (r/r₀)ⁿ⁻¹ in V/m; sie wächst zu den Stäben hin und ist auf der Achse null.
+    - - U_eff
+      - 'Effektives (Pseudo-)Potenzial, die nach Mittelung über eine HF-Periode verbleibende Einschlussenergie: U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻². Es steigt wie r^(2n−2): parabolisch beim Quadrupol, bei höherem n flacher Boden mit steilen Wänden.'
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 'Adiabasieparameter η = 2|Q|·|d|E|/dr|/(mΩ²): Änderung der HF-Kraft auf der Strecke, die das Ion in einer HF-Periode zurücklegt, relativ zur Kraftskala mΩ². Kleines η: glatte langsame Bewegung mit kleiner Mikrobewegung, U_eff gilt. Großes η: die Mittelung versagt, die Mikrobewegung ist groß, HF-Heizen ist möglich. Bei vier Stäben ist η gleich dem Mathieu-Parameter q.'
+    - - η-Ziel
+      - Ihre Grenze für η beim ausgewerteten Radius. Man nutzt η, weil nur der Quadrupol ein Mathieu-Stabilitätsdiagramm hat; für n > 2 ist die Bewegung keine Mathieu-Gleichung, und die übliche Auslegungsregel lautet η unter etwa 0,3 (Gerlich 1992). Bei vier Stäben entspricht das q ≈ 0,3 (das Lehrbuch betreibt Cooler-Buncher bei q = 0,3–0,5; die Stabilitätsgrenze liegt bei q = 0,908). Es ist eine Faustregel, keine scharfe Schwelle. Die Kachel zeigt η / Ziel, grün bei η ≤ Ziel.
+    - - f_min, V_max
+      - η skaliert wie V/f². Für Ihr V ist f_min die niedrigste Frequenz mit η ≤ Ziel; für Ihr f ist V_max die höchste HF-Spitzenspannung.
+    - - A₃ₙ/Aₙ
+      - Erste unerwünschte Harmonische des Rundstabpotenzials relativ zur gewünschten (siehe Regel für das Stabverhältnis).
+ja:
+  mathieu:
+    title: マシュー安定性図の見方
+    summary: 線形 RFQ 中のイオンの径方向運動は w″ + (a − 2q cos 2τ) w = 0（τ = Ωt/2）に従います。この図は、運動が有界になる (q, a) を示します。
+    items:
+    - - q
+      - RF パラメータ q = 4QV/(mΩ²r₀²)。V は各ロッドの RF 波高（隣り合うロッドは ±V）、Q は電荷、m は質量、Ω = 2πf。
+    - - a
+      - 直流パラメータ a = 8QU/(mΩ²r₀²)。U はロッドの直流電圧（対で ±U）。a = 0 は純 RF です。
+    - - 青い領域
+      - 第一平面：(a, q) で x 方向の運動が有界。
+    - - 橙色の領域
+      - 第二平面：y 方向の運動が有界。パラメータは (−a, −q)。
+    - - 緑の領域
+      - 両平面が安定：理想場がイオンを二次元で閉じ込めます。
+    - - 黒い点
+      - 選択したイオン・質量・電荷・電圧の動作点 (q, a)。
+    - - 色付きの点と破線
+      - 任意区間（クーラー、質量フィルター、バンチャー）の動作点。各破線はその区間の a = (2U/V) q で、イオン質量を変えると点は線上を動きます。
+    - - 限界
+      - 理想的なマシュー運動のみ。衝突・空間電荷・端部電場・実測透過は含みません。
+  rfq-geometry:
+    title: ロッド配置図の見方
+    summary: 軸の周りの 2n 本の円形ロッドの断面。隣り合うロッドは逆極性の RF。
+    items:
+    - - r₀
+      - 破線の円：場の半径（軸からロッド表面までの距離）。
+    - - ρ
+      - ロッド半径 = 比 × r₀。比はフォームで選んだ規則に従います（4 本の最適値は 1.14511）。
+    - - 青／赤のロッド
+      - +V と −V のロッド（交互）。数字はロッド番号。
+    - - Rc, D, g
+      - 中心は Rc = r₀ + ρ。隣接中心間隔 D = 2Rc sin(π/N)、表面間隔 g = D − 2ρ。
+  mr-spectrum:
+    title: MR-TOF スペクトルの見方
+    summary: 選んだ周回数後の、各核種・アイソマーとその合計のシミュレーション飛行時間ピーク。
+    items:
+    - - 色付きの曲線
+      - 各核種のビンあたり期待カウント。アイソマーは [m]。面積は存在比に比例。
+    - - 紫の曲線
+      - 合成試料：全核種の和。
+    - - 灰色の棒
+      - 同じ分布から抽出した乱数イオン標本（任意のヒストグラム）。
+    - - 縦の破線
+      - 各核種の中心時間。
+    - - 横軸
+      - 最初の核種に対する飛行時間 t − t₁（ns）。
+    - - FWHM
+      - ピークの半値全幅。ピーク幅と周回あたりの広がりから求めます。
+  mr-power:
+    title: 分解能プロットの見方
+    summary: 周回数に対する各核種の分解能と、各ペアの分離に必要な値。
+    items:
+    - - R
+      - ピークの分解能 R = (m/q)/Δ(m/q)。周回数とともに増加します。
+    - - 実線
+      - 各核種の R（凡例の色）。
+    - - 破線
+      - ペアに必要な分解能：((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|。
+    - - 読み方
+      - 実線がそのペアの破線を上回る周回数で、2 つのピークは分離されます。
+  mr-laps:
+    title: 間隔と幅のプロットの見方
+    summary: 周回数に対する各ペアの時間間隔とピーク幅。
+    items:
+    - - '|Δt|'
+      - 実線：ペアの飛行時間差（ns）。周回数に比例して増加。
+    - - FWHM
+      - 破線：ピーク幅（ns）。周回あたりの広がりを含みます。
+    - - 分離
+      - '|Δt| が FWHM を超えると、そのペアは分離されます。'
+  tof-resonance:
+    title: TOF-ICR 共鳴曲線の見方
+    summary: RF 励起周波数に対する検出器までの平均飛行時間。谷が各核種のサイクロトロン共鳴を示します。
+    items:
+    - - 横軸
+      - νRF − νc（対象核種、Hz）：励起周波数のサイクロトロン周波数からのずれ。
+    - - 色付きの曲線
+      - 各核種の期待平均 TOF（アイソマーは [m]）。谷の幅は励起時間 T に対し約 1/T（フーリエ限界）。
+    - - 紫の曲線
+      - 混合：存在比で重み付けした試料全体の平均 TOF。
+    - - 誤差棒付きの点
+      - 模擬測定：各走査周波数での平均 TOF ± 標準誤差。
+    - - 金色の破線
+      - 模擬データへの単一核種フィット。中心と真の周波数の差がバイアス。
+    - - 縦の破線
+      - 目標に対する各核種のサイクロトロン周波数。
+  tof-residuals:
+    title: 残差プロットの見方
+    summary: 各走査周波数でのデータ − 単一核種フィット。
+    items:
+    - - 誤差棒付きの点
+      - 残差（µs）± 標準誤差。0 付近のばらつきはフィットが良いこと、系統的な傾向は第 2 の核種やモデルの誤りを示します。
+    - - 横軸
+      - 共鳴図と同じ離調 νRF − νc（Hz）。
+  tof-distribution:
+    title: TOF 分布の見方
+    summary: 選択した離調での単一イオン飛行時間の分布。各核種について検出器が記録するもの。
+    items:
+    - - 色付きの曲線
+      - 存在比で重み付けした各核種の確率密度。共鳴している核種は早く到達します。
+    - - 紫の曲線
+      - 全核種の和。
+    - - 横軸
+      - 検出イオンの飛行時間（µs）。
+  penning-trajectory:
+    title: ペニング・トラップ軌道の見方
+    summary: 理想ペニング・トラップ中のイオン軌道の射影。遅いマグネトロン運動に速い修正サイクロトロン運動が重なり、軸方向振動も加わります。
+    items:
+    - - ν₊, ν₋, νz
+      - 修正サイクロトロン・マグネトロン・軸方向周波数。ν₊ + ν₋ = νc = qB/(2πm)。
+    - - 紫の線
+      - これまでのイオン経路（上面 x–y、側面 x–z、3D 射影）。
+    - - 赤い点
+      - 現在のイオン位置。
+    - - rp, rm, z
+      - サイクロトロン・マグネトロン運動の半径と軸方向振幅（mm）。フォームで設定。
+  rfq-design:
+    title: ロッド設計の記号と式
+    summary: 多重極ガイドには N = 2n 本のロッドがあり、隣り合うロッドには逆の電圧がかかります。軸の近くでは高周波ポテンシャルは純粋な多重極です。高周波 1 周期で平均すると、イオンは有効ポテンシャルに閉じ込められます。この平均化が許されるかどうかを示すのが η です。
+    items:
+    - - N, n
+      - N はロッド本数（偶数、4–24）、n = N/2 は多重極の次数です。N = 4 なら n = 2（四重極、Mathieu の場合）、N = 8 なら n = 4（八重極）。
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - 軸からの距離 r、極角 θ、時刻 t における電位（V）。ロッド表面（r = r₀, θ = 0）では U + V cos Ωt で、隣のロッドは符号が逆です。
+    - - U, V
+      - ロッドの対地直流電圧と高周波ピーク電圧（V）。隣り合うロッド間のピーク差は 2V です。
+    - - Ω = 2πf
+      - 高周波の角周波数。f は MHz で入力した周波数です。
+    - - r₀, r
+      - r₀：軸からロッド表面までの距離（場の半径）。r：イオンの軸からの距離。表示値は選んだ r/r₀ で計算されます。
+    - - Q, m
+      - イオンの電荷 Q = z·e と質量 m。
+    - - '|E|'
+      - 高周波電場の振幅 |E| = nV/r₀ · (r/r₀)ⁿ⁻¹（V/m）。ロッドに近づくほど大きく、軸上では 0 です。
+    - - U_eff
+      - 有効（擬）ポテンシャル。高周波 1 周期で平均した後に残る閉じ込めエネルギー：U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻²。r^(2n−2) で増加し、四重極では放物線、次数が高いと底が平らで壁が急になります。
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 断熱パラメータ η = 2|Q|·|d|E|/dr|/(mΩ²)：イオンが高周波 1 周期に動く距離での高周波力の変化を、力のスケール mΩ² と比べた量です。η が小さい：滑らかな低速運動と小さなマイクロモーションで、U_eff が成り立ちます。η が大きい：平均化が破れ、マイクロモーションが大きくなり高周波加熱が起こり得ます。ロッド 4 本では η は Mathieu パラメータ q に等しくなります。
+    - - η の目標値
+      - 評価半径での η の上限として自分で決める値です。η を使うのは、Mathieu の安定図があるのは四重極だけで、n > 2 の運動は Mathieu 方程式ではないためです。通常の設計目安は η を約 0.3 未満にすること（Gerlich 1992）。ロッド 4 本では q ≈ 0.3 に相当します（教科書ではクーラー・バンチャーを q = 0.3–0.5 で運転し、安定限界は q = 0.908）。厳密なしきい値ではなく経験則です。タイルには η / 目標が表示され、η ≤ 目標なら緑になります。
+    - - f_min, V_max
+      - η は V/f² に比例します。現在の V で η ≤ 目標となる最低の f が f_min、現在の f での最大の高周波ピーク電圧が V_max です。
+    - - A₃ₙ/Aₙ
+      - 円形ロッドの電位に含まれる最初の不要な高調波の、所望成分に対する比（ロッド比の規則を参照）。
+fr:
+  mathieu:
+    title: Lire le diagramme de stabilité de Mathieu
+    summary: Le mouvement radial d’un ion dans un RFQ linéaire obéit à w″ + (a − 2q cos 2τ) w = 0 avec τ = Ωt/2. Le diagramme montre les (q, a) donnant un mouvement borné.
+    items:
+    - - q
+      - Paramètre RF q = 4QV/(mΩ²r₀²) ; V est la crête RF sur chaque barreau (barreaux voisins ±V), Q la charge, m la masse, Ω = 2πf.
+    - - a
+      - 'Paramètre continu a = 8QU/(mΩ²r₀²) ; U est la tension continue sur les barreaux (paires ±U). a = 0 : RF pur.'
+    - - Zone bleue
+      - 'Premier plan : le mouvement selon x est borné en (a, q).'
+    - - Zone orange
+      - 'Second plan : le mouvement selon y est borné ; ses paramètres sont (−a, −q).'
+    - - Zone verte
+      - 'Les deux plans sont stables : le champ idéal confine l’ion en deux dimensions.'
+    - - Point noir
+      - Le point de fonctionnement (q, a) de l’ion, de la masse, de la charge et des tensions choisis.
+    - - Points colorés et lignes pointillées
+      - Points de fonctionnement des sections facultatives (refroidisseur, filtre de masse, groupeur). Chaque ligne pointillée est a = (2U/V) q ; changer la masse déplace le point le long de la ligne.
+    - - Limites
+      - 'Mouvement de Mathieu idéal seulement : ni collisions, ni charge d’espace, ni champs de bord, ni transmission mesurée.'
+  rfq-geometry:
+    title: Lire le schéma de géométrie des barreaux
+    summary: Coupe de 2n barreaux ronds autour de l’axe ; les barreaux voisins portent une RF opposée.
+    items:
+    - - r₀
+      - 'Cercle pointillé : rayon de champ, distance de l’axe à la surface du barreau.'
+    - - ρ
+      - Rayon du barreau = rapport × r₀ ; le rapport suit la règle choisie (optimal 1,14511 pour quatre barreaux).
+    - - Barreaux bleus / rouges
+      - Barreaux à +V et −V (en alternance) ; le nombre est l’indice du barreau.
+    - - Rc, D, g
+      - Centres à Rc = r₀ + ρ ; distance entre centres voisins D = 2Rc sin(π/N) ; jeu de surface g = D − 2ρ.
+  mr-spectrum:
+    title: Lire le spectre MR-TOF
+    summary: Pics de temps de vol simulés après le nombre de tours choisi, pour chaque espèce et isomère et pour leur somme.
+    items:
+    - - Courbes colorées
+      - Comptages attendus par canal pour chaque espèce ; les isomères sont marqués [m]. L’aire suit le poids de population.
+    - - Courbe violette
+      - 'Échantillon combiné : somme de toutes les espèces.'
+    - - Barres grises
+      - Un échantillon aléatoire d’ions tiré de la même distribution (histogramme facultatif).
+    - - Lignes verticales pointillées
+      - Temps central de chaque espèce.
+    - - Axe x
+      - Temps de vol par rapport à la première espèce, t − t₁ (ns).
+    - - FWHM
+      - Largeur totale à mi-hauteur d’un pic, d’après la largeur du pic et l’élargissement par tour.
+  mr-power:
+    title: Lire le graphique du pouvoir de résolution
+    summary: Pouvoir de résolution de chaque espèce en fonction du nombre de tours, comparé à la valeur requise pour séparer chaque paire.
+    items:
+    - - R
+      - Pouvoir de résolution d’un pic R = (m/q)/Δ(m/q) ; il croît avec le nombre de tours.
+    - - Courbes pleines
+      - R de chaque espèce, aux couleurs de la légende.
+    - - Lignes pointillées
+      - 'Pouvoir de résolution requis pour une paire : ((m₁/q₁ + m₂/q₂)/2) / |m₁/q₁ − m₂/q₂|.'
+    - - Lecture
+      - Là où une courbe pleine dépasse la ligne pointillée de sa paire, les deux pics sont résolus.
+  mr-laps:
+    title: Lire le graphique séparation et largeur
+    summary: Écart temporel de chaque paire et largeur du pic quand le nombre de tours augmente.
+    items:
+    - - '|Δt|'
+      - 'Courbes pleines : différence de temps de vol d’une paire (ns) ; croît linéairement avec les tours.'
+    - - FWHM
+      - 'Courbe pointillée : largeur du pic (ns), élargissement par tour inclus.'
+    - - Résolu
+      - Une paire est séparée dès que |Δt| dépasse la FWHM.
+  tof-resonance:
+    title: Lire la courbe de résonance TOF-ICR
+    summary: Temps de vol moyen vers le détecteur en fonction de la fréquence RF ; le creux marque la résonance cyclotron de chaque espèce.
+    items:
+    - - Axe x
+      - 'νRF − νc de l’espèce cible (Hz) : désaccord de l’excitation par rapport à sa fréquence cyclotron.'
+    - - Courbes colorées
+      - TOF moyen attendu de chaque espèce (isomères [m]) ; la largeur du creux vaut environ 1/T pour le temps d’excitation T (limite de Fourier).
+    - - Courbe violette
+      - 'Mélange : TOF moyen pondéré par les populations de tout l’échantillon.'
+    - - Points avec barres
+      - 'Mesure simulée : TOF moyen ± erreur standard à chaque fréquence balayée.'
+    - - Courbe dorée pointillée
+      - Ajustement à une espèce des données simulées ; son centre moins la fréquence vraie est le biais.
+    - - Lignes verticales pointillées
+      - Fréquence cyclotron de chaque espèce relative à la cible.
+  tof-residuals:
+    title: Lire le graphique des résidus
+    summary: Données moins ajustement à une espèce à chaque fréquence balayée.
+    items:
+    - - Points avec barres
+      - Résidu (µs) ± erreur standard. Une dispersion autour de zéro indique un bon ajustement ; une tendance systématique révèle une seconde espèce ou un mauvais modèle.
+    - - Axe x
+      - Même désaccord νRF − νc (Hz) que le graphique de résonance.
+  tof-distribution:
+    title: Lire la distribution TOF
+    summary: 'Distribution des temps de vol d’ions individuels au désaccord choisi : ce que le détecteur enregistre pour chaque espèce.'
+    items:
+    - - Courbes colorées
+      - Densité de probabilité de chaque espèce, pondérée par sa population ; une espèce résonnante arrive plus tôt.
+    - - Courbe violette
+      - Somme sur toutes les espèces.
+    - - Axe x
+      - Temps de vol d’un ion détecté (µs).
+  penning-trajectory:
+    title: Lire la trajectoire du piège de Penning
+    summary: 'Projection de la trajectoire d’un ion dans un piège de Penning idéal : mouvement cyclotron modifié rapide sur la dérive magnétron lente, plus l’oscillation axiale.'
+    items:
+    - - ν₊, ν₋, νz
+      - Fréquences cyclotron modifiée, magnétron et axiale ; ν₊ + ν₋ = νc = qB/(2πm).
+    - - Ligne violette
+      - 'Trajet de l’ion jusqu’ici (vue : x–y de dessus, x–z de côté ou projection 3D).'
+    - - Point rouge
+      - Position actuelle de l’ion.
+    - - rp, rm, z
+      - Rayons des mouvements cyclotron et magnétron et amplitude axiale (mm), réglés dans le formulaire.
+  rfq-design:
+    title: Symboles et formules de la conception des barreaux
+    summary: Un guide multipolaire a N = 2n barreaux ; deux barreaux voisins portent des tensions opposées. Près de l’axe, le potentiel RF est un multipôle pur. Moyenné sur une période RF, il confine l’ion dans un pseudo-potentiel ; η indique si cette moyenne est permise.
+    items:
+    - - N, n
+      - N barreaux (pair, 4–24) ; n = N/2 est l’ordre du multipôle. N = 4 donne n = 2 (quadrupôle, le cas de Mathieu), N = 8 donne n = 4 (octupôle).
+    - - Φ = (U + V cos Ωt)(r/r₀)ⁿ cos nθ
+      - Potentiel électrique en volts à la distance r de l’axe et à l’angle polaire θ, au temps t. À la surface d’un barreau (r = r₀, θ = 0), il vaut U + V cos Ωt ; le barreau suivant a le signe opposé.
+    - - U, V
+      - Tension continue et tension RF crête d’un barreau par rapport à la masse (V). Entre barreaux voisins, la différence crête est 2V.
+    - - Ω = 2πf
+      - Pulsation RF ; f est la fréquence saisie en MHz.
+    - - r₀, r
+      - 'r₀ : distance de l’axe à la surface du barreau (rayon de champ). r : distance de l’ion à l’axe ; les valeurs affichées sont calculées à la fraction r/r₀ choisie.'
+    - - Q, m
+      - Charge de l’ion Q = z·e et masse m.
+    - - '|E|'
+      - Amplitude du champ RF |E| = nV/r₀ · (r/r₀)ⁿ⁻¹ en V/m ; elle croît vers les barreaux et s’annule sur l’axe.
+    - - U_eff
+      - 'Pseudo-potentiel, l’énergie de confinement qui reste après moyenne sur une période RF : U_eff = Q²|E|²/(4mΩ²) = Q²n²V²/(4mΩ²r₀²) · (r/r₀)²ⁿ⁻². Il croît comme r^(2n−2) : parabolique pour un quadrupôle, fond plat et parois raides pour n plus grand.'
+    - - η = 2|Q|n(n−1)V/(mΩ²r₀²) · (r/r₀)ⁿ⁻²
+      - 'Paramètre d’adiabaticité η = 2|Q|·|d|E|/dr|/(mΩ²) : variation de la force RF sur la distance parcourue par l’ion pendant une période RF, comparée à l’échelle de force mΩ². η petit : mouvement lent et régulier avec une faible micro-oscillation, U_eff est valable. η grand : la moyenne échoue, la micro-oscillation est grande et un chauffage RF est possible. Avec quatre barreaux, η est égal au paramètre de Mathieu q.'
+    - - Cible de η
+      - Votre limite pour η au rayon évalué. On utilise η car seul le quadrupôle possède un diagramme de stabilité de Mathieu ; pour n > 2 le mouvement n’obéit pas à l’équation de Mathieu, et la règle de conception usuelle est η inférieur à environ 0,3 (Gerlich 1992). Avec quatre barreaux, cela correspond à q ≈ 0,3 (le manuel fait fonctionner les cooler-bunchers à q = 0,3–0,5 ; la limite de stabilité est q = 0,908). C’est une règle empirique, pas un seuil net. La tuile affiche η / cible, verte quand η ≤ cible.
+    - - f_min, V_max
+      - η varie comme V/f². Pour votre V, f_min est la fréquence minimale avec η ≤ cible ; pour votre f, V_max est la tension RF crête maximale.
+    - - A₃ₙ/Aₙ
+      - Première harmonique indésirable du potentiel de barreaux ronds, relative à l’harmonique utile (voir la règle du rapport de barreau).

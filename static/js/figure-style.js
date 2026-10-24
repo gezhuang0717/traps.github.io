@@ -23,8 +23,32 @@
     if(typeof out.filename!=='string'||out.filename.length>80||/[\x00-\x1f/\\<>:"|?*]/.test(out.filename))throw Error('figure_style_filename');
     out.filename=out.filename.trim();return Object.fromEntries(Object.keys(defaults).map(k=>[k,out[k]]));
   }
+  const textLabels={en:['Save style CSV','Save style TXT','Load style CSV / TXT / JSON'],zh:['保存样式 CSV','保存样式 TXT','读取样式 CSV / TXT / JSON'],fi:['Tallenna tyyli CSV','Tallenna tyyli TXT','Lataa tyyli CSV / TXT / JSON'],de:['Stil als CSV speichern','Stil als TXT speichern','Stil CSV / TXT / JSON laden'],ja:['スタイル CSV を保存','スタイル TXT を保存','スタイル CSV / TXT / JSON を読込'],fr:['Enregistrer le style CSV','Enregistrer le style TXT','Charger le style CSV / TXT / JSON']};
+  function known(values){if(!values||typeof values!=='object'||Array.isArray(values)||Object.keys(values).some(k=>!Object.hasOwn(defaults,k)))throw Error('figure_style_key');for(const[key,value]of Object.entries(values))if(key!=='filename'&&typeof value!=='number'&&(typeof value!=='string'||!/^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[-+]?\d+)?$/i.test(value.trim())))throw Error('figure_style_'+key);return values;}
   function serialize(values,baseline){return JSON.stringify({schema,style:normalize(values,baseline)},null,2)+'\n';}
-  function parse(text,baseline){if(typeof text!=='string'||text.length>16384)throw Error('figure_style_file');const value=JSON.parse(text);if(!value||value.schema!==schema||!value.style||typeof value.style!=='object'||Array.isArray(value.style))throw Error('figure_style_schema');return normalize(value.style,baseline);}
+  const csvCell=value=>/[",\r\n]/.test(String(value))?'"'+String(value).replaceAll('"','""')+'"':String(value);
+  function serializeCSV(values,baseline){const style=normalize(values,baseline);return [['name','value'],['schema',schema],...Object.entries(style)].map(row=>row.map(csvCell).join(',')).join('\n')+'\n';}
+  function serializeTXT(values,baseline){const style=normalize(values,baseline);return '# '+schema+'\n# name<TAB>value; sizes in px, lineWidth is a multiplier\n'+[['schema',schema],...Object.entries(style)].map(row=>row.join('\t')).join('\n')+'\n';}
+  function csvRows(text){
+    const rows=[];let row=[],cell='',quoted=false,closed=false;
+    const endCell=()=>{row.push(cell);cell='';closed=false;},endRow=()=>{endCell();if(row.some(v=>v!==''))rows.push(row);row=[];};
+    for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'){if(text[i+1]==='"'){cell+='"';i++;}else{quoted=false;closed=true;}}else cell+=c;continue;}
+      if(c===','){endCell();continue;}if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;endRow();continue;}
+      if(closed)throw Error('figure_style_csv');if(c==='"'){if(cell)throw Error('figure_style_csv');quoted=true;}else cell+=c;
+    }if(quoted)throw Error('figure_style_csv');if(cell||row.length||closed)endRow();return rows;
+  }
+  function fromRows(rows,baseline){
+    const values={},seen=new Set();let version;
+    for(const row of rows){if(row.length!==2)throw Error('figure_style_columns');const key=row[0].trim();if(seen.has(key)||key!=='schema'&&!Object.hasOwn(defaults,key))throw Error('figure_style_key');seen.add(key);if(key==='schema')version=row[1].trim();else values[key]=row[1];}
+    if(version!==schema||Object.keys(defaults).some(k=>!seen.has(k)))throw Error('figure_style_schema');return normalize(known(values),baseline);
+  }
+  function parse(text,baseline,filename=''){
+    if(typeof text!=='string'||text.length>16384)throw Error('figure_style_file');text=text.replace(/^\uFEFF/,'');const trimmed=text.trim(),hint=String(filename).toLowerCase().split('.').pop();
+    const csv=/^"?name"?\s*,\s*"?value"?(?:\r?\n|$)/.test(trimmed),txt=/^#|^[A-Za-z]\w*\s*(?:\t|=)/m.test(trimmed);
+    if(trimmed.startsWith('{')||!csv&&!txt&&hint==='json'){const value=JSON.parse(text);if(!value||value.schema!==schema||!value.style)throw Error('figure_style_schema');return normalize(known(value.style),baseline);}
+    if(csv||!txt&&hint==='csv'){const rows=csvRows(text);if(rows.shift()?.join(',')!=='name,value')throw Error('figure_style_columns');return fromRows(rows,baseline);}
+    const rows=[];for(const line of text.split(/\r?\n/)){if(!line.trim()||/^\s*#/.test(line))continue;const match=line.match(/^([A-Za-z]\w*)\s*(?:\t|=)\s?(.*)$/);if(!match)throw Error('figure_style_txt');rows.push([match[1],match[2]]);}return fromRows(rows,baseline);
+  }
   const exportName=(style,fallback)=>style.filename?style.filename+'-'+fallback:fallback;
   function rasterSize(viewBox,width){
     const box=typeof viewBox==='string'?viewBox.trim().split(/[\s,]+/).map(Number):viewBox;
@@ -44,15 +68,16 @@
     const details=make('details'),summary=make('summary',L[0]),grid=make('div');details.className='zg-figure-style';grid.className='zg-figure-fields';details.append(summary,grid);parent.append(details);
     Object.keys(defaults).forEach((key,index)=>{const lab=make('label',L[index+1]),input=make('input');input.name=prefix+'-style-'+key;input.dataset.figureStyle=key;input.type=key==='filename'?'text':'number';input.value=String(base[key]);
       if(bounds[key]){input.min=String(bounds[key][0]);input.max=String(bounds[key][1]);input.step=key==='rasterWidth'?'1':key==='lineWidth'?'.1':'.5';}else{input.maxLength=80;input.placeholder='auto';}lab.append(input);grid.append(lab);fields[key]=input;});
-    const actions=make('div');actions.className='zg-figure-actions';const reset=make('button',L[9]),save=make('button',L[10]),load=make('label',L[11]),file=make('input'),status=make('p'),note=make('p',L[12]);
-    reset.type=save.type='button';file.type='file';file.accept='.json,application/json';load.append(file);status.setAttribute('role','status');status.className='zg-figure-status';note.className='zg-figure-note';actions.append(reset,save,load);details.append(actions,note,status);
+    const TL=textLabels[lang]||textLabels.en,actions=make('div');actions.className='zg-figure-actions';const reset=make('button',L[9]),save=make('button',L[10]),saveCSV=make('button',TL[0]),saveTXT=make('button',TL[1]),load=make('label',TL[2]),file=make('input'),status=make('p'),note=make('p',L[12]);
+    reset.type=save.type=saveCSV.type=saveTXT.type='button';file.type='file';file.accept='.csv,.txt,.json,text/csv,text/plain,application/json';load.append(file);status.setAttribute('role','status');status.className='zg-figure-status';note.className='zg-figure-note';actions.append(saveCSV,saveTXT,load,reset,save);details.append(actions,note,status);
     const read=()=>normalize(Object.fromEntries(Object.entries(fields).map(([key,f])=>[key,f.value])),base);
     const changed=()=>{revision++;try{const value=read();current=value;status.textContent='';onChange(value);}catch{status.textContent=L[13];}};
     for(const f of Object.values(fields))f.addEventListener('input',changed);
     function set(value,notify=true){const normalized=normalize(value,base);revision++;for(const[key,v]of Object.entries(normalized))fields[key].value=String(v);current=normalized;status.textContent='';if(notify)onChange(normalized);return normalized;}
     reset.onclick=()=>set(base);
     save.onclick=()=>{try{const value=read();host.zgExport?.save(new Blob([serialize(value,base)],{type:'application/json'}),exportName(value,prefix)+'-style.json');status.textContent='';}catch{status.textContent=L[13];}};
-    file.onchange=async()=>{const f=file.files[0];if(!f)return;const started=++revision;try{if(f.size>16384)throw Error('figure_style_file');const text=await f.text();if(started!==revision)return;set(parse(text,base));}catch{if(started===revision)status.textContent=L[13];}finally{if(file.files[0]===f)file.value='';}};
+    for(const[button,format,encode,mime]of [[saveCSV,'csv',serializeCSV,'text/csv'],[saveTXT,'txt',serializeTXT,'text/plain']])button.onclick=()=>{try{const value=read();host.zgExport?.save(new Blob([encode(value,base)],{type:mime}),exportName(value,prefix)+'-style.'+format);status.textContent='';}catch{status.textContent=L[13];}};
+    file.onchange=async()=>{const f=file.files[0];if(!f)return;const started=++revision;try{if(f.size>16384)throw Error('figure_style_file');const text=await f.text();if(started!==revision)return;set(parse(text,base,f.name));}catch{if(started===revision)status.textContent=L[13];}finally{if(file.files[0]===f)file.value='';}};
     return {get:()=>({...current}),validate:read,valid:()=>{try{read();return true;}catch{status.textContent=L[13];return false;}},set,reset:()=>set(base),element:details,fields};
   }
   async function exportSVG(svg,type,name,style,metadata={}){
@@ -64,5 +89,5 @@
     const dimensions=rasterSize(clone.getAttribute('viewBox'),values.rasterWidth),url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml'}));
     try{const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(Error('figure_export_image'));image.src=url;});const canvas=doc.createElement('canvas');canvas.width=dimensions.width;canvas.height=dimensions.height;const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(image,0,0,canvas.width,canvas.height);host.zgExport[type==='PDF'?'pdf':'png'](canvas,filename);}finally{URL.revokeObjectURL(url);}
   }
-  const api={schema,defaults,bounds,labels,normalize,serialize,parse,exportName,rasterSize,wrapText,controls,exportSVG};host.ZGFigureStyle=api;if(typeof module==='object'&&module.exports)module.exports=api;
+  const api={schema,defaults,bounds,labels,textLabels,normalize,serialize,serializeCSV,serializeTXT,parse,exportName,rasterSize,wrapText,controls,exportSVG};host.ZGFigureStyle=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof window==='object'?window:globalThis);

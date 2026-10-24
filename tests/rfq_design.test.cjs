@@ -6,7 +6,7 @@ function ui(){
  const fs=require('node:fs'),vm=require('node:vm'),T=JSON.parse(fs.readFileSync('data/mathieu_labels.json')).en;
  class E{constructor(tag='div'){this.tag=tag;this.children=[];this.value='';this.dataset={};this.textContent='';this.hidden=false;}setAttribute(k,v){this[k]=v;}append(...x){this.children.push(...x);}replaceChildren(...x){this.children=x;this.textContent='';}addEventListener(k,fn){this[k]=fn;}querySelectorAll(){return [];} }
  const fields=new Map(),slots=new Map(),buttons=new Map(),root=new E(),saved=[];
- const vals={geometry:'linear',mode:'voltage',bands:'3',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+'};
+ const vals={geometry:'linear',mode:'voltage',bands:'3',qmin:'0',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+'};
  for(const[k,v]of Object.entries(vals)){const e=new E('input');e.name='ms-'+k;e.value=v;e.type='text';fields.set(k,e);}
  for(const k of ['cooler','mf','bun']){const e=new E('input');e.name='ms-'+k+'-on';e.type='checkbox';e.checked=false;fields.set(k+'-on',e);}
  for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style'])slots.set(k,new E());
@@ -14,11 +14,11 @@ function ui(){
  root.dataset={labels:JSON.stringify(T),lang:'en'};
  root.querySelector=q=>{const f=q.match(/^\[name="ms-(.+)"\]$/);if(f)return fields.get(f[1])||null;const b=q.match(/^\[data-ms-action="(.+)"\]$/);if(b)return buttons.get(b[1]);return slots.get(q.replace(/^\[data-ms-|\]$/g,''))||null;};
  root.querySelectorAll=q=>q==='[name^="ms-"]'?[...fields.values()]:[];
- const exp={save:(blob,name)=>saved.push({blob,name})},context={window:{ZGMathieu:M,zgExport:exp},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
- vm.runInNewContext(fs.readFileSync('static/js/rfq-mathieu.js','utf8'),context);
+ const exp={save:(blob,name)=>saved.push({blob,name})},docObj={querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},context={window:{ZGMathieu:M,zgExport:exp,document:docObj},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
+ vm.runInNewContext(fs.readFileSync('static/js/zg-ui.js','utf8'),context);vm.runInNewContext(fs.readFileSync('static/js/rfq-mathieu.js','utf8'),context);
  const change=(name,value)=>{fields.get(name).value=value;root.input({target:fields.get(name),stopPropagation(){}});};
  const click=action=>root.click({stopPropagation(){},target:{closest:()=>({dataset:{msAction:action}})}});
- return{fields,slots,buttons,saved,change,click,T};
+ return{root,fields,slots,buttons,saved,change,click,T};
 }
 test('round rods keep an explicit aperture, clearance, alternating phases and coordinates',()=>{
  for(const rod_count of [4,6,8,10,24]){const d=M.rodDesign({...base,rod_count});close(d.center_radius_mm,11);close(d.adjacent_center_mm,22*Math.sin(Math.PI/rod_count));close(d.surface_gap_mm,d.adjacent_center_mm-2);close(d.opposite_center_mm,22);assert.equal(d.rod_coordinates.length,rod_count);for(const [i,p]of d.rod_coordinates.entries()){close(Math.hypot(p.x_mm,p.y_mm),11);assert.equal(p.phase,i%2?-1:1);}}
@@ -105,10 +105,11 @@ test('tolerance and RF suggestions: ratio tolerance from the diameter tolerance;
 });
 test('actual UI: default optimal rule fills the computed radius, shows ratio, parasitic harmonic and RF suggestions; own radius still overlaps loudly',async()=>{
  const h=ui();h.change('rod-rule','optimal');h.change('r0','6');
- const text=h.slots.get('design-readout').children.map(e=>e.textContent||'').join('\n');
+ const flat=n=>[n.textContent||'',n.title||'',...(n.children||[]).flatMap(flat)],text=h.slots.get('design-readout').children.flatMap(flat).join('\n');
  assert.equal(h.fields.get('rod-radius').disabled,true);assert.equal(h.fields.get('rod-ratio').disabled,true);
  assert.ok(Math.abs(Number(h.fields.get('rod-radius').value)-6.870648)<1e-4,h.fields.get('rod-radius').value);
- for(const label of [h.T.geometry_out,h.T.parasitic_out,h.T.rf_suggest,h.T.envelope_out])assert.ok(text.includes(label),label);
+ for(const label of [h.T.grp_geometry,h.T.k_rod_radius,h.T.k_parasitic,h.T.grp_suggest,h.T.rf_suggest,h.T.k_aperture,h.T.grp_rf,h.T.candidates,h.T.use_btn])assert.ok(text.includes(label),label);
+ assert.ok(/q = 0\.4/.test(text)&&/6\.870648/.test(h.fields.get('rod-radius').value));
  h.change('rod-rule','filter');h.change('rod-count','6');assert.equal(h.slots.get('error').textContent,h.T.rule_unavailable);
  h.change('rod-rule','radius');h.change('rod-count','4');h.change('rod-radius','100');assert.ok(h.slots.get('error').textContent.startsWith(h.T.rod_overlap));
 });
@@ -117,4 +118,24 @@ test('older saved settings with only a rod radius keep meaning "own radius"',asy
  for(const k of ['rod-rule','rod-ratio','diameter-tolerance'])delete settings.inputs['ms-'+k];settings.inputs['ms-rod-radius']='2.5';
  const file={size:5000,text:async()=>JSON.stringify(settings)},input=h.slots.get('file');input.files=[file];await input.change({target:input,stopPropagation(){}});
  assert.equal(h.fields.get('rod-rule').value,'radius');assert.equal(h.fields.get('rod-radius').value,'2.5');assert.equal(h.slots.get('error').textContent,'');
+});
+
+// ---- figure legend, caption, zoom and apply-suggestion buttons ----
+const allText=n=>[n.textContent||'',...(n.children||[]).flatMap(allText)];
+test('the Mathieu figure explains the black point, the section dots and the shaded areas, and carries its parameters',()=>{
+ const h=ui(),svg=h.slots.get('figure').children[0],texts=allText(svg).join('\n');
+ assert.equal(svg.tag,'svg');
+ for(const label of [h.T.legend_first,h.T.legend_second,h.T.legend_both,h.T.legend_point,'m = 100 u','U = 0 V','V = 100 V','r₀ = 10 mm','f = 1 MHz'])assert.ok(texts.includes(label),label);
+ assert.ok(texts.includes(h.T.caption_formulas.slice(0,20)));
+ const titles=[];const walk=n=>{if(n.tag==='title')titles.push(n.textContent);(n.children||[]).forEach(walk);};walk(svg);assert.ok(titles.some(t=>t.startsWith(h.T.legend_point)),'hover text of the black point');
+});
+test('zoom buttons narrow the axis ranges, reset restores the defaults, and the pan limits stay inside the valid domain',async()=>{
+ const h=ui(),span=()=>({q:+h.fields.get('qmax').value-+h.fields.get('qmin').value,a:+h.fields.get('amax').value-+h.fields.get('amin').value});
+ const before=span();await h.click('zoom-in');const zoomed=span();assert.ok(zoomed.q<before.q&&zoomed.a<before.a);
+ await h.click('zoom-out');await h.click('zoom-out');assert.ok(span().q>zoomed.q);assert.ok(+h.fields.get('qmin').value>=0&&+h.fields.get('qmax').value<=12&&+h.fields.get('amin').value>=-60&&+h.fields.get('amax').value<=60);
+ await h.click('reset-view');assert.deepEqual(['qmin','qmax','amin','amax'].map(k=>h.fields.get(k).value),['0','2','-1','1']);assert.equal(h.slots.get('error').textContent,'');
+});
+test('an RF suggestion button copies its voltage into the RF field and recalculates',()=>{
+ const h=ui();h.root.click({stopPropagation(){},target:{closest:sel=>sel==='[data-ms-use]'?{dataset:{msUse:'123.5'}}:null}});
+ assert.equal(h.fields.get('V').value,'123.5');
 });

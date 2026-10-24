@@ -574,3 +574,38 @@ html.dark .zg-cal-pop{background:#1c1c24;color:#e8e8ef}
 .pt-about{margin:.8rem 0;padding:.4rem .8rem;border:1px solid var(--zg-line);border-radius:.6rem;background:var(--zg-soft)}.pt-about summary{cursor:pointer;font-weight:600}.pt-about p{margin:.5rem 0 .2rem;line-height:1.55}
 @media (prefers-reduced-motion:reduce){.pt-cell,.pt-cell.ok,.pt-cell.bad{transition:none;animation:none}}
 .nc-rangebar{font-size:.85rem}.nc-rangebar input[type=number]{width:7.5rem}.nc-range-note{color:var(--zg-muted,#64748b)}.nc-mine{margin:.4rem 0}.nc-mine summary{cursor:pointer;font-weight:650}.nc-mine textarea{width:100%;box-sizing:border-box;font:12.5px/1.45 ui-monospace,Menlo,monospace}.nc-mine-status{font-size:.85rem;margin:.3rem 0}
+
+/* ── structured readouts, fold-away long text and figure explanations (static/js/zg-ui.js) ───────────────────────── */
+.zg-rgroup{--zg-c:var(--zg-blue);margin:.65rem 0;padding:.55rem .75rem .7rem;border:1px solid var(--zg-line);border-left:5px solid var(--zg-c);border-radius:.7rem;background:var(--zg-card)}
+.zg-rgroup.ok{--zg-c:var(--zg-green)}.zg-rgroup.warn{--zg-c:var(--zg-orange)}.zg-rgroup.bad{--zg-c:var(--zg-red)}.zg-rgroup.info{--zg-c:var(--zg-blue)}
+.zg-rgroup>h4{margin:0 0 .45rem;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--zg-c);font-weight:800}
+.zg-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.2rem,1fr));gap:.45rem}
+.zg-tile{--zg-c:var(--zg-blue);display:flex;flex-direction:column;gap:.05rem;min-width:0;padding:.38rem .6rem .45rem;border-radius:.5rem;background:var(--zg-soft);border-top:3px solid var(--zg-c)}
+.zg-tile.ok{--zg-c:var(--zg-green)}.zg-tile.warn{--zg-c:var(--zg-orange)}.zg-tile.bad{--zg-c:var(--zg-red)}.zg-tile.info{--zg-c:var(--zg-blue)}
+.zg-tile .k{font-size:.7rem;color:var(--zg-muted);line-height:1.25}
+.zg-tile .v{font-size:1.08rem;font-weight:750;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;color:var(--zg-ink)}
+.zg-tile .u{font-size:.7rem;color:var(--zg-muted)}
+.zg-tile .n{font-size:.68rem;line-height:1.3;color:var(--zg-muted);margin-top:.15rem}
+.zg-badge{--zg-c:var(--zg-blue);display:inline-block;padding:.08em .65em;border-radius:999px;font-size:.76rem;font-weight:750;color:#fff;background:var(--zg-c);white-space:nowrap}
+.zg-badge.ok{--zg-c:var(--zg-green)}.zg-badge.warn{--zg-c:var(--zg-orange)}.zg-badge.bad{--zg-c:var(--zg-red)}
+.zg-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 0}
+.zg-chip-row{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .55rem;border:1px solid var(--zg-line);border-radius:999px;background:var(--zg-soft);font-size:.82rem}
+.zg-chip-row button{font:inherit;font-size:.74rem;padding:.05rem .5rem;border:1px solid var(--zg-blue);border-radius:999px;background:transparent;color:var(--zg-blue);cursor:pointer}
+.zg-chip-row button:hover{background:var(--zg-blue);color:#fff}
+.zg-notice{margin:.5rem 0;padding:.45rem .7rem;border-radius:.5rem;border:1px solid var(--zg-orange);background:rgba(247,107,21,.09);font-size:.85rem}
+.zg-fold{margin:.5rem 0;border:1px solid var(--zg-line);border-radius:.6rem;background:var(--zg-soft);min-width:0;max-width:100%}
+.zg-fold>summary{list-style:none;display:flex;align-items:baseline;gap:.5rem;padding:.42rem .7rem;cursor:pointer;font-weight:650;font-size:.88rem;color:var(--zg-ink)}
+.zg-fold>summary::-webkit-details-marker{display:none}
+.zg-fold>summary::before{content:"▸";color:var(--zg-blue);font-size:.95rem;transition:transform .15s}
+.zg-fold[open]>summary::before{transform:rotate(90deg)}
+.zg-fold>summary:hover{background:rgba(62,99,221,.07);border-radius:.6rem}
+.zg-fold-body{padding:0 .8rem .6rem}.zg-fold-body>p{margin:.3rem 0}
+.zg-fig-fold{border-left:4px solid var(--zg-violet)}
+.zg-fig-fold>summary::before{content:"▸";color:var(--zg-violet)}
+.zg-defs{display:grid;grid-template-columns:minmax(6rem,max-content) 1fr;gap:.25rem .8rem;margin:.4rem 0 0;font-size:.85rem}
+.zg-defs dt{font-weight:750;color:var(--zg-violet)}.zg-defs dd{margin:0;color:var(--zg-ink)}
+@media (max-width:640px){.zg-defs{grid-template-columns:1fr}.zg-defs dd{margin-bottom:.35rem}.zg-tiles{grid-template-columns:repeat(auto-fit,minmax(7.4rem,1fr))}}
+@media (prefers-reduced-motion:reduce){.zg-fold>summary::before{transition:none}}
+.zg-fig-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .5rem;margin:.5rem 0 .2rem}.zg-fig-tools .zg-muted{font-size:.78rem;flex:1 1 14rem}
+[data-ms-figure] svg{touch-action:none;cursor:grab}
+.zg-chips .zg-chip-row b{color:var(--zg-violet)}
