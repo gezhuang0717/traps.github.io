@@ -43,7 +43,7 @@ class GuidanceMarkup(HTMLParser):
             self.links.append(a)
 
 
-def test_actual_shared_partial_emits_one_localized_payload_and_one_script_per_page(tmp_path):
+def test_actual_shared_partial_preserves_native_help_without_generic_guides(tmp_path):
     hugo = os.environ.get("HUGO_TEST_BIN") or shutil.which("hugo")
     if not hugo:
         pytest.skip("Pinned Hugo required")
@@ -60,7 +60,7 @@ def test_actual_shared_partial_emits_one_localized_payload_and_one_script_per_pa
     for lang in LANGS:
         content = tmp_path / "content" / lang
         content.mkdir(parents=True)
-        (content / "lab.md").write_text('---\ntitle: Lab\n---\n{{< learning-links >}}\n{{< learning-links >}}\n')
+        (content / "lab.md").write_text('---\ntitle: Lab\n---\n{{< learning-links >}}\n{{< learning-links >}}\n\nSpecific isotope instructions stay here.\n')
         config += [f"[languages.{lang}]", f'contentDir="content/{lang}"']
     (tmp_path / "hugo.toml").write_text("\n".join(config))
     result = subprocess.run([hugo, "--source", str(tmp_path), "--destination", str(tmp_path / "public"),
@@ -70,18 +70,9 @@ def test_actual_shared_partial_emits_one_localized_payload_and_one_script_per_pa
     assert result.returncode == 0, result.stdout + result.stderr
     for lang in LANGS:
         path = tmp_path / "public" / ("" if lang == "en" else lang) / "lab/index.html"
-        rendered = GuidanceMarkup(path.read_text())
-        assert len(rendered.configs) == 1, lang
-        payload = rendered.configs[0]
-        assert payload["labels"] == json.loads((ROOT / "data/game_workflows.json").read_text())["labels"][lang]
-        assert len(payload["topics"]) >= 20
-        for file in ("game_workflows.json", "lab_workflows.json"):
-            source = json.loads((ROOT / "data" / file).read_text())
-            for key, topic in source["topics"].items():
-                # Shared cooling uses the more detailed individual-panel Lab profile.
-                if file == "game_workflows.json" and key == "cooling":
-                    continue
-                assert payload["topics"][key]["text"] == topic["text"][lang]
-        assert sum("tool-workflows.js" in a.get("src", "") for a in rendered.scripts) == 1
-        assert all("defer" in a for a in rendered.scripts)
-        assert sum("tool-workflows.css" in a.get("href", "") for a in rendered.links) == 1
+        text = path.read_text()
+        rendered = GuidanceMarkup(text)
+        assert not rendered.configs, lang
+        assert "Specific isotope instructions stay here." in text
+        assert not any("tool-workflows.js" in a.get("src", "") for a in rendered.scripts)
+        assert not any("tool-workflows.css" in a.get("href", "") for a in rendered.links)

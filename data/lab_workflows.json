@@ -485,64 +485,6 @@
         }
       }
     },
-    "media": {
-      "selectors": [],
-      "source_files": [
-        "layouts/_shortcodes/reader-figure.html",
-        "layouts/_shortcodes/nuclide-chart.html",
-        "layouts/_partials/zg/laser-cooling.html"
-      ],
-      "text": {
-        "en": {
-          "purpose": "Use this figure or video to inspect and explain the selected result or process.",
-          "inputs": "The caption, selected tool settings, displayed time and viewing or export options determine what is shown.",
-          "outputs": "A visual view of the data or model; the nearby export controls save the offered image or recording formats.",
-          "gain": "Compare patterns or before/after states and communicate a result together with its conditions.",
-          "hint": "Read the caption, axes, units and legend first; keep the settings and numerical data with an exported figure or video when available.",
-          "limits": "An animation shows the displayed process or model, and pixels do not add measurement precision; recording availability depends on the browser."
-        },
-        "zh": {
-          "purpose": "用这幅图或视频观察并说明选定的结果或过程。",
-          "inputs": "图注、当前工具设置、显示时间以及视图或导出选项决定展示内容。",
-          "outputs": "得到数据或模型的可视视图；附近导出控件可保存所提供格式的图像或录屏。",
-          "gain": "比较规律或前后状态，并连同条件一起交流结果。",
-          "hint": "先读图注、坐标轴、单位和图例；有相应功能时，将设置和数值数据与导出的图或视频一并保存。",
-          "limits": "动画显示当前过程或模型，像素不增加测量精度；能否录屏取决于浏览器。"
-        },
-        "fi": {
-          "purpose": "Tarkastele ja selitä valittua tulosta tai prosessia tämän kuvan tai videon avulla.",
-          "inputs": "Kuvateksti, työkalun asetukset, näytetty aika sekä näkymä- ja vientivalinnat määräävät sisällön.",
-          "outputs": "Visuaalinen näkymä dataan tai malliin; viereiset vientipainikkeet tallentavat tarjotut kuva- tai tallennusmuodot.",
-          "gain": "Vertaa kuvioita tai alku- ja lopputiloja ja kerro tulos yhdessä sen ehtojen kanssa.",
-          "hint": "Lue ensin kuvateksti, akselit, yksiköt ja selite; säilytä asetukset ja numeerinen data viennin mukana, kun saatavilla.",
-          "limits": "Animaatio näyttää esitetyn prosessin tai mallin, eivätkä pikselit lisää mittaustarkkuutta; tallennuksen saatavuus riippuu selaimesta."
-        },
-        "de": {
-          "purpose": "Mit dieser Abbildung oder diesem Video das gewählte Ergebnis oder den Prozess untersuchen und erklären.",
-          "inputs": "Bildunterschrift, Werkzeugeinstellungen, angezeigte Zeit sowie Ansichts- und Exportoptionen bestimmen den Inhalt.",
-          "outputs": "Eine visuelle Ansicht der Daten oder des Modells; benachbarte Exportregler speichern die angebotenen Bild- oder Aufnahmeformate.",
-          "gain": "Muster oder Vorher-Nachher-Zustände vergleichen und ein Ergebnis mit seinen Bedingungen vermitteln.",
-          "hint": "Zuerst Bildunterschrift, Achsen, Einheiten und Legende lesen; verfügbare Einstellungen und Zahlen mit der exportierten Abbildung oder dem Video aufbewahren.",
-          "limits": "Eine Animation zeigt den dargestellten Prozess oder das Modell; Pixel erhöhen keine Messgenauigkeit. Die Aufnahmefunktion hängt vom Browser ab."
-        },
-        "ja": {
-          "purpose": "この図や動画を使い、選択した結果や過程を観察して説明します。",
-          "inputs": "キャプション、ツールの設定、表示時刻、表示・書き出しの選択が内容を決めます。",
-          "outputs": "データや模型を可視化し、近くの書き出し操作で対応形式の画像や録画を保存します。",
-          "gain": "傾向や前後の状態を比較し、条件とともに結果を伝えられます。",
-          "hint": "まずキャプション、軸、単位、凡例を読み、可能なら図や動画と一緒に設定と数値データも保存してください。",
-          "limits": "動画は表示された過程や模型を示し、画素数は測定精度を増やしません。録画の利用可否はブラウザーによります。"
-        },
-        "fr": {
-          "purpose": "Utiliser cette figure ou vidéo pour examiner et expliquer le résultat ou le processus choisi.",
-          "inputs": "La légende, les réglages de l’outil, le temps affiché et les options de vue ou d’export déterminent le contenu.",
-          "outputs": "Une vue des données ou du modèle ; les commandes voisines enregistrent les formats d’image ou de vidéo proposés.",
-          "gain": "Comparer les tendances ou les états avant/après et communiquer un résultat avec ses conditions.",
-          "hint": "Lire d’abord légende, axes et unités ; conserver les réglages et données numériques avec la figure ou la vidéo exportée, si disponibles.",
-          "limits": "Une animation montre le processus ou modèle affiché ; les pixels n’ajoutent aucune précision de mesure. L’enregistrement dépend du navigateur."
-        }
-      }
-    },
     "cooling": {
       "selectors": [
         "[data-laser]",
