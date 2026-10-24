@@ -40,20 +40,20 @@ en:
     title: How to use this tool
     steps:
     - Set {name:ms-rod-count} and the rod-radius rule {name:ms-rod-rule} (the optimal rule cancels the first unwanted field harmonic). r₀, the frequency and the RF peak voltage are the fields {name:ms-r0}, {name:ms-f} and {name:ms-V} of the point form above.
-    - Set the {name:ms-eta-target} (0.3 is usual) and the {name:ms-radial-fraction}; list voltages in {name:ms-vscan} to compare several.
+    - Set the {name:ms-eta-target} and the {name:ms-radial-fraction}; list voltages in {name:ms-vscan} to compare several.
     - 'Read the results (read-only): the rod-geometry group opens with its triangle; the RF group says whether η is within the target and gives the lowest frequency and the highest RF peak that still meet it. For four rods the suggested-RF rows have a button that copies a voltage into the form.'
     - The folds “What the design inputs mean” and “Symbols and formulas” give the definitions. Save the geometry as SVG or the design log as CSV or JSON.
   wb-mr:
     title: How to use this tool
     steps:
-    - Set {name:number} (up to ten) and pick an {name:preset}. Type each ion in “Ion species” (the fold “How to type a species” lists the accepted notations), choose its nuclear state (ground state or isomer) and give each species its {name:weight-0}.
+    - Set {name:number} (up to ten) and choose the {name:preset}. Type each ion in “Ion species” (the fold “How to type a species” lists the accepted notations), choose its nuclear state (ground state or isomer) and give each species its {name:weight-0}.
     - Set {name:laps}, {name:width} and {name:broadening}. The spectrum, the resolving power and the separation plots update at once.
     - 'Read the tables under the plots (read-only): flight time, width and population of each species and the time difference of neighbouring peaks. To turn a flight time into a mass, open the reference-ion calibration and press {sel:[data-wb=calibrate]}.'
     - Zoom into a figure with the buttons, Ctrl/⌘ + wheel or by dragging; change legend and sizes under “Figure style”; save PNG, PDF, SVG or CSV.
   wb-tof:
     title: How to use this tool
     steps:
-    - Set {name:number} and pick an {name:preset}, type each ion (see “How to type a species”), choose its nuclear state and give it a {name:weight-0}. {name:target} chooses the species the frequency axis is centred on.
+    - Set {name:number} and choose the {name:preset}, type each ion (see “How to type a species”), choose its nuclear state and give it a {name:weight-0}. {name:target} chooses the species the frequency axis is centred on.
     - Set the field {name:B}, the excitation time {name:T} and the {name:scheme} (rectangular pulse or Ramsey). The plots show each species’ resonance and their sum.
     - 'Press {sel:[data-wb=generate]} and then {sel:[data-wb=fit]}: the summary (read-only) gives the fitted centre and its bias from the true frequency of the target. {sel:[data-wb=clear-fit]} removes the fit.'
     - Zoom and save the figures as in the MR-TOF workbench.
@@ -125,7 +125,7 @@ zh:
     title: 使用步骤
     steps:
     - 设置 {name:ms-rod-count} 和杆半径规则 {name:ms-rod-rule}（最优规则抵消第一个不需要的场谐波）。r₀、频率和射频峰值电压是上方点表单中的 {name:ms-r0}、{name:ms-f} 和 {name:ms-V}。
-    - 设置 {name:ms-eta-target}（常用 0.3）和 {name:ms-radial-fraction}；在 {name:ms-vscan} 中列出多个电压以便比较。
+    - 设置 {name:ms-eta-target} 和 {name:ms-radial-fraction}；在 {name:ms-vscan} 中列出多个电压以便比较。
     - 阅读结果（只读）：杆几何组可用三角展开；射频组说明 η 是否在目标内，并给出仍满足目标的最低频率和最高射频峰值。四根杆时，建议射频行有按钮把电压复制到表单。
     - “设计输入项的含义”和“符号与公式”折叠块给出定义。可将几何保存为 SVG，将设计记录保存为 CSV 或 JSON。
   wb-mr:
@@ -210,7 +210,7 @@ fi:
     title: Näin käytät tätä työkalua
     steps:
     - Aseta {name:ms-rod-count} ja sauvan säteen sääntö {name:ms-rod-rule} (optimaalinen sääntö kumoaa ensimmäisen ei-toivotun kenttäharmonisen). r₀, taajuus ja RF-huippujännite ovat yllä olevan pistelomakkeen kentät {name:ms-r0}, {name:ms-f} ja {name:ms-V}.
-    - Aseta {name:ms-eta-target} (tavallisesti 0,3) ja {name:ms-radial-fraction}; luettele jännitteet kentässä {name:ms-vscan} vertaillaksesi useita.
+    - Aseta {name:ms-eta-target} ja {name:ms-radial-fraction}; luettele jännitteet kentässä {name:ms-vscan} vertaillaksesi useita.
     - 'Lue tulokset (vain luku): sauvageometriaryhmä aukeaa kolmiosta; RF-ryhmä kertoo, onko η tavoitteessa, ja antaa pienimmän taajuuden ja suurimman RF-huipun, jotka sen vielä täyttävät. Neljällä sauvalla ehdotetuilla RF-riveillä on painike, joka kopioi jännitteen lomakkeelle.'
     - Taitokset “Mitä suunnittelun syötteet tarkoittavat” ja “Symbolit ja kaavat” antavat määritelmät. Tallenna geometria SVG:nä tai suunnittelulokki CSV:nä tai JSON:na.
   wb-mr:
@@ -295,7 +295,7 @@ de:
     title: So benutzen Sie dieses Werkzeug
     steps:
     - '{name:ms-rod-count} und die Regel für den Stabradius {name:ms-rod-rule} einstellen (die optimale Regel hebt die erste unerwünschte Feldharmonische auf). r₀, Frequenz und HF-Spitzenspannung sind die Felder {name:ms-r0}, {name:ms-f} und {name:ms-V} des Punktformulars oben.'
-    - Das {name:ms-eta-target} (üblich 0,3) und den {name:ms-radial-fraction} einstellen; Spannungen in {name:ms-vscan} auflisten, um mehrere zu vergleichen.
+    - Das {name:ms-eta-target} und den {name:ms-radial-fraction} einstellen; Spannungen in {name:ms-vscan} auflisten, um mehrere zu vergleichen.
     - 'Die Ergebnisse lesen (nur lesbar): die Gruppe Stabgeometrie öffnet sich mit dem Dreieck; die HF-Gruppe sagt, ob η im Ziel liegt, und nennt die niedrigste Frequenz und die höchste HF-Spitze, die es noch erfüllen. Bei vier Stäben haben die Zeilen der vorgeschlagenen HF eine Taste, die eine Spannung ins Formular kopiert.'
     - Die Einklappbereiche „Was die Auslegungseingaben bedeuten“ und „Symbole und Formeln“ geben die Definitionen. Die Geometrie als SVG oder das Auslegungsprotokoll als CSV oder JSON speichern.
   wb-mr:
@@ -380,7 +380,7 @@ ja:
     title: このツールの使い方
     steps:
     - '{name:ms-rod-count} とロッド半径の規則 {name:ms-rod-rule} を設定します（最適の規則は最初の不要な場の高調波を打ち消します）。r₀、周波数、RF ピーク電圧は、上の点フォームの {name:ms-r0}、{name:ms-f}、{name:ms-V} です。'
-    - '{name:ms-eta-target}（通常 0.3）と {name:ms-radial-fraction} を設定し、複数を比べるときは {name:ms-vscan} に電圧を並べます。'
+    - '{name:ms-eta-target} と {name:ms-radial-fraction} を設定し、複数を比べるときは {name:ms-vscan} に電圧を並べます。'
     - 結果（読み取り専用）を読みます：ロッド形状のグループは三角で開き、RF のグループは η が目標内かどうかと、なお満たす最低周波数・最大 RF ピークを示します。4 本ロッドでは、提案 RF の行のボタンが電圧をフォームに写します。
     - 「設計の入力項目の意味」と「記号と式」の折りたたみに定義があります。形状は SVG、設計記録は CSV または JSON で保存します。
   wb-mr:
@@ -465,7 +465,7 @@ fr:
     title: Mode d’emploi de cet outil
     steps:
     - Réglez {name:ms-rod-count} et la règle du rayon {name:ms-rod-rule} (la règle optimale annule la première harmonique de champ indésirable). r₀, la fréquence et la tension RF crête sont les champs {name:ms-r0}, {name:ms-f} et {name:ms-V} du formulaire de point ci-dessus.
-    - Réglez {name:ms-eta-target} (0,3 usuel) et {name:ms-radial-fraction} ; listez des tensions dans {name:ms-vscan} pour en comparer plusieurs.
+    - Réglez {name:ms-eta-target} et {name:ms-radial-fraction} ; listez des tensions dans {name:ms-vscan} pour en comparer plusieurs.
     - 'Lisez les résultats (lecture seule) : le groupe géométrie des barreaux s’ouvre avec le triangle ; le groupe RF dit si η est dans la cible et donne la fréquence minimale et la crête RF maximale qui la respectent encore. Pour quatre barreaux, les lignes de RF suggérée ont un bouton qui copie une tension dans le formulaire.'
     - Les volets « Signification des entrées de conception » et « Symboles et formules » donnent les définitions. Enregistrez la géométrie en SVG ou le journal de conception en CSV ou JSON.
   wb-mr:
