@@ -47,7 +47,17 @@
     });
   }
 
-  const api = Object.freeze({ summarize, compareEditions, editionRows, ORDER });
+  /* A half-life stored as log10(T1/2 / s) written as mantissa x 10^integer: 0.9705 -> "9.340×10⁰ s", -22.066 -> "8.590×10⁻²³ s".
+     The mantissa has three decimals and lies in [1, 10); a mantissa that rounds up to 10 moves to the next exponent. */
+  function scientificSeconds(log10s, decimals = 3) {
+    if (!Number.isFinite(log10s)) return '';
+    let e = Math.floor(log10s), m = Math.pow(10, log10s - e);
+    if (Number(m.toFixed(decimals)) >= 10) { m /= 10; e += 1; }
+    const sup = String(e).replace(/[-0-9]/g, c => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(c)]);
+    return `${m.toFixed(decimals)}×10${sup} s`;
+  }
+
+  const api = Object.freeze({ summarize, compareEditions, editionRows, scientificSeconds, ORDER });
   if (typeof window !== 'undefined') window.ZGChartStats = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })();

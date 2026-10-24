@@ -348,7 +348,7 @@
       html = strong(fill(T.st_n, { n: list.length })) + " · " + cat.list.map(([k, l]) => `${escape(l)} ${strong(count.get(k) || 0)}`).join(" · ");
     } else if (mode === "hl") {
       const known = list.filter(r => r[6] > -98 && r[6] < 99), s = ST.summarize(known.map(r => ({ v: r[6], id: r }))), stable = list.filter(r => r[6] === 99).length;
-      const t = v => `10^${num(v)} s`;
+      const t = v => ST.scientificSeconds(v);
       html = s ? strong(fill(T.st_hl, { n: s.n })) + ` · ${T.st_min} ${strong(t(s.min.v))} (${nuc(s.min.id)}) · ${T.st_max} ${strong(t(s.max.v))} (${nuc(s.max.id)}) · ${T.st_median} ${strong(t(s.median))} · ${T.st_hl_stable} ${strong(stable)}` : escape(T.st_none);
     } else if (m.v) {
       const items = list.map(r => ({ v: m.v(r), id: r })), s = ST.summarize(items);

@@ -60,3 +60,14 @@ test('state counts: isomers grow with every edition and NUBASE ground states cov
   // NUBASE2020 documents 1378 m-isomers and 463 n-isomers (state index 1 and 2)
   assert.equal(cache.meta.stats.ame2020.nubase.isomers, 1378 + 463);
 });
+
+test('half-lives are written as mantissa x 10^integer seconds', () => {
+  assert.equal(S.scientificSeconds(0.9705), '9.343×10⁰ s');
+  assert.equal(S.scientificSeconds(-22.066), '8.590×10⁻²³ s');
+  assert.equal(S.scientificSeconds(31.851), '7.096×10³¹ s');
+  assert.equal(S.scientificSeconds(3), '1.000×10³ s');
+  assert.equal(S.scientificSeconds(-1), '1.000×10⁻¹ s');
+  assert.equal(S.scientificSeconds(0.99999), '1.000×10¹ s');   // rounds up into the next decade
+  assert.equal(S.scientificSeconds(NaN), '');
+  assert.ok(!/10\^/.test(fs.readFileSync(path.join(__dirname, '../static/js/nuclide-chart.js'), 'utf8').split('\n').filter(l => l.includes('scientificSeconds')).join('')));
+});
