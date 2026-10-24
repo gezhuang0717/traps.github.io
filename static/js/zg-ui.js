@@ -6,6 +6,7 @@
    ZGUI.fold(summary, node, open)  <details> with a triangle; long text goes in here
    ZGUI.autoFold(root)             folds long explanatory paragraphs (class zg-muted / zg-small / sp-note / wb-note / wb-intro)
    ZGUI.attachNotes(root)          puts the figure explanation after every element marked data-figure-note="id"
+   ZGUI.ionText(label)             133Xe[m] +1 -> 133Xem⁺ for plots and legends
    ZGUI.notes(id)                  explanation of one figure (title, summary, items) in the page language, from #zg-figure-notes
    ZGUI.notesBlock(id)             the same as a fold-away block for the page; ZGUI.notesLines(id, max) as plain lines for exported figures */
 (function (host) {
@@ -42,6 +43,13 @@
     if (open) d.open = true;
     d.append(s, node);
     return d;
+  }
+  /* Display form of an ion label: 133Xe[m] +1 -> 133Xem⁺, 133Cs +2 -> 133Cs²⁺ (state letter after the element, charge as a superscript). */
+  const SUPD = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+  function ionText(label) {
+    const m = /^(.*?)\s*\+(\d+)$/.exec(String(label)), q = m ? +m[2] : 0;
+    const base = (m ? m[1] : String(label)).replace(/^(\d+[A-Za-z]{1,2})\[([A-Za-z0-9]+)\]/, '$1$2');
+    return base + (q === 1 ? '⁺' : q > 1 ? [...String(q)].map(c => SUPD[c]).join('') + '⁺' : '');
   }
   /* [data-figure-note="id"] on a canvas or its grid: the explanation of that figure follows it as a fold-away block (once). */
   const NOTE_SELECTOR = '[data-figure-note]';
@@ -106,7 +114,7 @@
     const n = notes(id); if (!n) return [];
     return [n.title, ...(n.items || []).slice(0, max).map(([s, t]) => s + ': ' + t)];
   }
-  const api = { tile, badge, group, readout, fold, lead, autoFold, attachNotes, notes, notesBlock, notesLines, tone, make };
+  const api = { tile, badge, group, readout, fold, lead, autoFold, attachNotes, ionText, notes, notesBlock, notesLines, tone, make };
   host.ZGUI = api;
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (host.document && host.document.addEventListener) {

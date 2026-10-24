@@ -62,3 +62,15 @@ test('attachNotes puts one explanation block after each marked figure, once, and
   assert.equal(two.after_[0].after_.length, 1, 'the second block follows the first');
   assert.equal(U.attachNotes(root), 0, 'second call changes nothing');
 });
+
+test('ionText: state letter after the element, charge as superscript', () => {
+  const U = load();
+  assert.equal(U.ionText('133Xe[m] +1'), '133Xem⁺');
+  assert.equal(U.ionText('133Xe +1'), '133Xe⁺');
+  assert.equal(U.ionText('133Cs +2'), '133Cs²⁺');
+  assert.equal(U.ionText('100Sn +12'), '100Sn¹²⁺');
+  assert.equal(U.ionText('94Ag'), '94Ag');
+  assert.equal(U.ionText('133Xe[m]'), '133Xem');
+  assert.equal(U.ionText('12C11 +1'), '12C11⁺');
+  assert.equal(U.ionText('A = 100'), 'A = 100');
+});

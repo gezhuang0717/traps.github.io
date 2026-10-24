@@ -4,6 +4,7 @@
   const root = document.querySelector("[data-games]");
   if (!root) return;
   const T = JSON.parse(root.dataset.labels), $ = s => root.querySelector(s);
+  const F = s => (window.ZGUI ? window.ZGUI.ionText(s) : s);   /* display form of ion labels: 133Xem⁺ */
   const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹", sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const rnd = a => a[Math.floor(Math.random() * a.length)];
   const best = (k, v) => { try { const o = +localStorage.getItem("zg-game-" + k) || 0; if (v > o) localStorage.setItem("zg-game-" + k, v); return Math.max(o, v); } catch (e) { return v; } };
@@ -157,7 +158,7 @@
       if (reveal) { const x = X(nuTrue - NU_REF); g.strokeStyle = "#e5484d"; g.lineWidth = 1; g.beginPath(); g.moveTo(x, P.t); g.lineTo(x, P.b); g.stroke(); }
       g.restore();
       g.fillStyle = ink; g.font = "13px system-ui,sans-serif"; g.textAlign = "right";
-      g.fillText(`${ION} · B = ${B.toFixed(10)} T · ν_c ≈ ${NU_REF.toFixed(1)} Hz · T_rf = ${Trf * 1000} ms (${scheme === "rect" ? "rectangular" : "Ramsey 10–80–10 %"}) · ${ions.length} ions / ${shots} shots`, P.r - 4, P.t + 13);
+      g.fillText(`${F(ION)} · B = ${B.toFixed(10)} T · ν_c ≈ ${NU_REF.toFixed(1)} Hz · T_rf = ${Trf * 1000} ms (${scheme === "rect" ? "rectangular" : "Ramsey 10–80–10 %"}) · ${ions.length} ions / ${shots} shots`, P.r - 4, P.t + 13);
     }
     const draw = () => { const [g, W, H] = crisp(cv); paint(g, W, H, inkOf(), false); };
     function info() {
@@ -242,7 +243,7 @@
       if (sel("sum").checked) { g.strokeStyle = "#8e4ec6"; g.setLineDash([4, 3]); g.beginPath();
         for (let i = 0; i <= 400; i++) { const x = x0 + span * i / 400, y = Y(area * (Math.exp(-0.5 * (x / sg) ** 2) + V("ratio") * Math.exp(-0.5 * ((x - m.dT) / sg) ** 2))); i ? g.lineTo(X(x), y) : g.moveTo(X(x), y); } g.stroke(); g.setLineDash([]); }
       g.fillStyle = ink; g.font = "600 14px system-ui,sans-serif"; g.textAlign = "center";
-      g.fillText(P.a.label, X(0), Pp.t + 14); g.fillText(P.b.label, X(m.dT), Pp.t + 28);
+      g.fillText(F(P.a.label), X(0), Pp.t + 14); g.fillText(F(P.b.label), X(m.dT), Pp.t + 28);
       const y = Pp.t + 40; g.strokeStyle = ink; g.lineWidth = 1; g.beginPath(); g.moveTo(X(0), y); g.lineTo(X(m.dT), y); g.stroke();
       g.font = "13px system-ui,sans-serif"; g.fillText(`Δt = ${m.dT.toFixed(m.dT < 10 ? 2 : 1)} ns · FWHM = ${m.fw.toFixed(m.fw < 10 ? 2 : 1)} ns`, (X(0) + X(m.dT)) / 2, y - 4);
     }
@@ -263,11 +264,11 @@
       { const [g, W, H] = crisp(cv); paint(g, W, H, inkOf()); }
       { const [g, W, H] = crisp(cv2); paint2(g, W, H, inkOf()); }
       const ok = Math.abs(m.dT) >= m.fw, h = P.est ? "#" : "";
-      msg(box, `${P.a.label} – ${P.b.label}: M(${P.b.label}) − M(${P.a.label}) = ${(P.e==null?fmtN(P.dm)+h+" ± ?":fmtU(P.dm,P.e,h))} keV (AME2020 + NUBASE2020 Eₓ) · m/q = ${(P.m / V("z")).toFixed(4)} u · t = ${(m.t / 1000).toFixed(3)} µs · Δt = ${m.dT.toFixed(2)} ns · FWHM = ${m.fw.toFixed(2)} ns · R ≈ ${Math.round(m.R).toLocaleString()} (${TL.need} ${Math.round(m.need).toLocaleString()}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}` +
+      msg(box, `${F(P.a.label)} – ${F(P.b.label)}: M(${F(P.b.label)}) − M(${F(P.a.label)}) = ${(P.e==null?fmtN(P.dm)+h+" ± ?":fmtU(P.dm,P.e,h))} keV (AME2020 + NUBASE2020 Eₓ) · m/q = ${(P.m / V("z")).toFixed(4)} u · t = ${(m.t / 1000).toFixed(3)} µs · Δt = ${m.dT.toFixed(2)} ns · FWHM = ${m.fw.toFixed(2)} ns · R ≈ ${Math.round(m.R).toLocaleString()} (${TL.need} ${Math.round(m.need).toLocaleString()}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}` +
         (m.dl > 0 ? ` · ${TL.mr_sat}: N ≈ ${Math.round(m.dt0 / m.dl).toLocaleString()}` : ""));
     }
     function fillPairs() {
-      sel("pair").innerHTML = pairs.map((p, i) => `<option value="${i}">${p.a.label} / ${p.b.label} (Δm = ${Math.abs(p.dm).toFixed(0)} keV)</option>`).join("");
+      sel("pair").innerHTML = pairs.map((p, i) => `<option value="${i}">${F(p.a.label)} / ${F(p.b.label)} (Δm = ${Math.abs(p.dm).toFixed(0)} keV)</option>`).join("");
     }
     function randomPair() { /* two neighbouring isobars from NUBASE2020 that live ≥ 10 ms */
       const ok = rows.filter(r => r[6] >= -2 && r[5] === 0), by = new Map(); ok.forEach(r => by.set(r[0] + "," + (r[0] + r[1]), r));
@@ -331,10 +332,10 @@
         .map(A => ({ label: "A = " + A, m: A, z: 1 }));
       if (sel("custom").checked) { const input=(sel("ions").value||"").split(/[,;]/).filter(x=>x.trim()), custom=input.map(massOf); if(!custom.length || custom.some(x=>!x)){ bad.textContent=TL.rfq_bad; ions=[]; running=false;[cv,cvd].forEach(c=>{const [g,W,H]=crisp(c);g.clearRect(0,0,W,H);});box.querySelector(".rfq-out").textContent="";msg(box,TL.rfq_bad);return; } species=custom; bad.textContent="";running=!matchMedia("(prefers-reduced-motion: reduce)").matches; }
       species = species.slice(0, 8); species.forEach((s, i) => (s.c = cols[i], s.t = 0, s.l = 0));
-      const tsel = sel("target"), keep = tsel.value; tsel.innerHTML = species.map((s, i) => `<option value="${i}">${s.label}</option>`).join("");
+      const tsel = sel("target"), keep = tsel.value; tsel.innerHTML = species.map((s, i) => `<option value="${i}">${F(s.label)}</option>`).join("");
       target = keep !== "" && species[+keep] ? +keep : Math.min(1, species.length - 1); tsel.value = target;
       ions = Array.from({ length: 30 }, (_, i) => spawn(i)); sparks = [];
-      box.querySelector(".rfq-leg").innerHTML = species.map((s, i) => `<span><i style="background:${s.c}"></i>${s.label}${i === target ? " ★" : ""}</span>`).join("");
+      box.querySelector(".rfq-leg").innerHTML = species.map((s, i) => `<span><i style="background:${s.c}"></i>${F(s.label)}${i === target ? " ★" : ""}</span>`).join("");
       bad.textContent = sel("custom").checked && (sel("ions").value || "").split(/[,;]/).filter(x => x.trim() && !massOf(x)).length ? TL.rfq_bad : "";
       refresh();
     }
@@ -399,7 +400,7 @@
       if(c.status==='window'||c.status==='rf-only')out.innerHTML=`<dt>${RT.line}</dt><dd>a = ${fmt(c.slope)} q = (2|U|/V) q</dd><dt>${RT.low}</dt><dd>${fmt(c.lowMassU)} u/e · (q, a) = (${fmt(c.qHigh)}, ${fmt(c.aHigh)})</dd><dt>${RT.high}</dt><dd>${Number.isFinite(c.highMassU)?`${fmt(c.highMassU)} u/e · (q, a) = (${fmt(c.qLow)}, ${fmt(c.aLow)})`:RT.rfonly}</dd><dt>${RT.range}</dt><dd>${fmt(c.lowMassU)} &lt; m/z &lt; ${fmt(c.highMassU)} u/e</dd>`;
       else out.innerHTML=`<dd>${c.status==='rf-off'?RT.off:RT.none}</dd>`;
       box.querySelector(".rfq-out").innerHTML = species.map((sp, i) => { const n = sp.t + sp.l, [a, q] = aq(sp);
-        return `<span style="color:${sp.c}">${sp.label} (m = ${sp.m.toFixed(sp.m % 1 ? 4 : 0)} u${sp.z > 1 ? ", z = " + sp.z : ""}): q = ${q.toFixed(4)}, a = ${a.toFixed(4)} → ${mathieuStable(a, q) ? "✔" : "✘"} ${n ? (100 * sp.t / n).toFixed(0) + " %" : "–"}</span>`; }).join("");
+        return `<span style="color:${sp.c}">${F(sp.label)} (m = ${sp.m.toFixed(sp.m % 1 ? 4 : 0)} u${sp.z > 1 ? ", z = " + sp.z : ""}): q = ${q.toFixed(4)}, a = ${a.toFixed(4)} → ${mathieuStable(a, q) ? "✔" : "✘"} ${n ? (100 * sp.t / n).toFixed(0) + " %" : "–"}</span>`; }).join("");
       const tg = species[target], tr = s => s.t / Math.max(1, s.t + s.l), T0 = tr(tg), others = species.filter((_, i) => i !== target), Tx = others.length ? Math.max(...others.map(tr)) : 0;
       const n = species.reduce((s, sp) => s + sp.t + sp.l, 0), sc = Math.round(100 * T0 * (1 - Tx));
       msg(box, n > 60 ? `${TL.rfq_score}: <b>${sc}</b> (${TL.rfq_t}: ${(100 * T0).toFixed(0)} %, ${TL.rfq_o}: ${(100 * Tx).toFixed(0)} %) · ${TL.best}: ${best("rfq", sc)}` : TL.rfq_start);
@@ -558,7 +559,7 @@
       p.sp.forEach((s, i) => { const x = cx + spotRadius * R * Math.cos(s.phi), y = cy - spotRadius * R * Math.sin(s.phi);
         g.strokeStyle = s.col; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, rr, 0, 6.283); g.stroke();
         const lx = cx + (spotRadius * R + rr + 14) * Math.cos(s.phi), ly = cy - (spotRadius * R + rr + 14) * Math.sin(s.phi) + 4 + (i % 2 ? 11 : 0) * (p.sp.length > 3 ? 1 : 0);
-        g.fillStyle = s.col; g.font = "bold 11px system-ui"; g.fillText(s.label, Math.max(g.measureText(s.label).width/2+3, Math.min(W-g.measureText(s.label).width/2-3, lx)), Math.max(12, Math.min(H - 4, ly))); });
+        g.fillStyle = s.col; g.font = "bold 11px system-ui"; g.fillText(F(s.label), Math.max(g.measureText(F(s.label)).width/2+3, Math.min(W-g.measureText(F(s.label)).width/2-3, lx)), Math.max(12, Math.min(H - 4, ly))); });
       g.textAlign = "left"; g.font = "11px system-ui"; g.fillStyle = ink; if(W<450){g.fillText(`t = ${(p.t*1000).toFixed(6)} ms · B = ${p.B.toFixed(10)} T`,8,14);g.fillText(`νc = ${p.nu.toFixed(3)} Hz`,8,28);}else g.fillText(`t_acc = ${(p.t*1000).toFixed(6)} ms · B = ${p.B.toFixed(10)} T · ν_c(${p.sp[0].label}) = ${p.nu.toFixed(3)} Hz · n = ${p.sp[0].n.toLocaleString()} ${TL.turns}`, 8, 14);
     }
     function paintH(g, W, H, ink) {     /* angle histogram */
@@ -567,7 +568,7 @@
       const mx = Math.max(4, ...h) * 1.1, [X, Y] = axes(g, P, [0, 360], [0, mx], TL.pi_angle, "counts", ink, 4), bw = (P.r - P.l) / nb;
       h.forEach((v, i) => { if (v) { g.fillStyle = "rgba(142,78,198,.75)"; g.fillRect(X(i * 360 / nb), Y(v), Math.max(1, bw - 0.4), P.b - Y(v)); } });
       p.sp.forEach((s, i) => { g.strokeStyle = s.col; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(X(s.phi * 180 / Math.PI), P.t); g.lineTo(X(s.phi * 180 / Math.PI), P.b); g.stroke(); g.setLineDash([]);
-        g.fillStyle = s.col; g.font = "10px system-ui"; g.textAlign = "center"; g.fillText(s.label, X(s.phi * 180 / Math.PI), P.t + 10 + 11 * (i % 3)); });
+        g.fillStyle = s.col; g.font = "10px system-ui"; g.textAlign = "center"; g.fillText(F(s.label), X(s.phi * 180 / Math.PI), P.t + 10 + 11 * (i % 3)); });
     }
     const f3 = v => isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: 3, maximumFractionDigits: 3 }) : "—";
     const deltaDegrees = cycles => (ph(2*Math.PI*cycles+Math.PI)-Math.PI)*180/Math.PI;
@@ -580,12 +581,12 @@
     function table(p) {      /* eigenfrequencies of every species (ideal trap, masses from AME2020 / NUBASE2020) */
       const ref = p.sp[0];
       const energy=P.phaseEnergyStep({...ref,ionMassU:ref.M-ref.q*MEU},p.B,p.t);box.querySelector(".pi-energy-hint").textContent=`${TL.reference_label}: ${ref.label}; B = ${p.B.toFixed(10)} T; t = ${(p.t*1000).toFixed(6)} ms; δνc = ${energy.deltaHz.toPrecision(6)} Hz; ${TL.unwrapped_angle}: ${energy.angleDeg.toPrecision(6)}°; ${TL.wrapped_angle}: ${energy.residualDeg.toPrecision(6)}°.`;
-      const rowsH = p.sp.map(s => `<tr><td><span class="pi-dot" style="background:${s.col}"></span>${s.label}</td><td>${s.q}</td><td>${(s.M - s.q * MEU).toFixed(8)}<br>σ = ${s.e == null ? "?" : s.e.toPrecision(4)} keV</td>` +
+      const rowsH = p.sp.map(s => `<tr><td><span class="pi-dot" style="background:${s.col}"></span>${F(s.label)}</td><td>${s.q}</td><td>${(s.M - s.q * MEU).toFixed(8)}<br>σ = ${s.e == null ? "?" : s.e.toPrecision(4)} keV</td>` +
         `<td>${f3(s.nc)}${s.snc != null ? `<br><small>± ${s.snc.toPrecision(3)}</small>` : ""}</td><td>${f3(s.np)}</td><td>${f3(s.nm)}</td><td>${f3(s.nz)}</td><td>${(s.phi * 180 / Math.PI).toFixed(2)}°</td>` +
         `<td>${s === ref ? "—" : ((s.nc - ref.nc) >= 0 ? "+" : "") + (s.nc - ref.nc).toFixed(4) + " Hz / " + (adist(s.phi, ref.phi) * 180 / Math.PI).toFixed(2) + "°"}</td>` +
         `<td>${(s.nc*p.t).toFixed(6)}</td><td>${Math.floor(s.nc*p.t)}</td><td>${((s.nc-ref.nc)*p.t).toFixed(6)}</td><td>${deltaDegrees((s.nc-ref.nc)*p.t).toFixed(2)}</td><td>${s===ref?"—":s.nc===ref.nc?"∞":(500/Math.abs(s.nc-ref.nc)).toFixed(2)}</td>` +
         `<td class="zg-muted">${s.src || "NUBASE2020"}${s.est ? " (#)" : ""}</td></tr>`).join("");
-      const target=sel("t180-target"),old=target.value;target.innerHTML=p.sp.slice(1).map((s,i)=>`<option value="${i+1}">${s.label}</option>`).join("");if([...target.options].some(o=>o.value===old))target.value=old;
+      const target=sel("t180-target"),old=target.value;target.innerHTML=p.sp.slice(1).map((s,i)=>`<option value="${i+1}">${F(s.label)}</option>`).join("");if([...target.options].some(o=>o.value===old))target.value=old;
       const other=p.sp[+target.value],time180=other&&other.nc!==ref.nc?500/Math.abs(other.nc-ref.nc):null;sel("t180").value=time180==null?"":time180.toFixed(2);box.querySelector('[data-act="apply180"]').disabled=time180==null||time180>10000||time180<.005;
       box.querySelector(".pi-freq").innerHTML = `<table class="zg-table pi-tab"><thead><tr><th>${TL.ion}</th><th>q</th><th>m_ion (u)</th><th>ν_c (Hz)</th><th>ν₊ (Hz)</th><th>ν₋ (Hz)</th><th>ν_z (Hz)</th><th>φ_c</th><th>Δν_c / Δφ</th><th>${TL.total_turns}</th><th>${TL.complete_turns}</th><th>${TL.delta_turns}</th><th>${TL.residual_phase}</th><th>${TL.t180}</th><th>${TL.pi_mtab}</th></tr></thead><tbody>${rowsH}</tbody></table>` +
         `<p class="zg-muted pi-inv">${p.calibrated ? doubleTrapNote(p) : ""}ν₊ + ν₋ = ν_c · ν₊² + ν₋² + ν_z² = ν_c² · ν₋ ≈ U₀/(4πB d²) (${TL.pi_mindep}) ${p.sp.some(s => !s.stable) ? " · ⚠ " + TL.pi_unstable : ""}</p>`;
@@ -623,8 +624,8 @@
       box.querySelector(".pi-freq").insertAdjacentHTML("beforeend",`<p>${info}</p>`);
       if (isMulti()) {
         const [i, j] = p.pair || [0, 0], a = p.sp[i], b = p.sp[j];
-        msg(box, p.sp.length < 2 ? `${a.label}: ν_c = ${f3(a.nc)} Hz` :
-          `${p.sp.length} ${TL.pi_species} · ${TL.pi_closest}: ${a.label} / ${b.label} · Δφ = ${(p.d * 180 / Math.PI).toFixed(1)}° · σ_φ = ${(p.sig * 180 / Math.PI).toFixed(1)}° · Δφ/σ_φ = ${p.sep.toFixed(1)} · R ≈ ${p.R.toExponential(2)} (${TL.need} m/Δm = ${mq(a) === mq(b) ? "∞" : (mq(a) / Math.abs(mq(a) - mq(b))).toExponential(2)}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}`);
+        msg(box, p.sp.length < 2 ? `${F(a.label)}: ν_c = ${f3(a.nc)} Hz` :
+          `${p.sp.length} ${TL.pi_species} · ${TL.pi_closest}: ${F(a.label)} / ${F(b.label)} · Δφ = ${(p.d * 180 / Math.PI).toFixed(1)}° · σ_φ = ${(p.sig * 180 / Math.PI).toFixed(1)}° · Δφ/σ_φ = ${p.sep.toFixed(1)} · R ≈ ${p.R.toExponential(2)} (${TL.need} m/Δm = ${mq(a) === mq(b) ? "∞" : (mq(a) / Math.abs(mq(a) - mq(b))).toExponential(2)}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}`);
         return;
       }
       const g = p.sp[0], m = p.sp[1], dnu = g.nc - m.nc;
