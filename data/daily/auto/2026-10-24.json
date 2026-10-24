@@ -1,0 +1,35 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "Counting magnetic flux quanta offers new way to measure photon numbers",
+      "summary": "Researchers at AIST have directly observed magnetic flux quanta generated in a superconductor by photon absorption and demonstrated a new principle of photon detection that identifies the number of photons based on the number of these flux quanta.",
+      "url": "https://phys.org/news/2026-10-magnetic-flux-quanta-photon.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "Plain silicon grating reveals a hidden 'twist' in light from electron beams",
+      "summary": "In 1953, two physicists showed that an electron beam skimming past a grating emits light whose color depends only on the electron's speed and the grating's spacing. Known as Smith-Purcell radiation, this phenomenon has become a useful tool for building compact, tunable light…",
+      "url": "https://phys.org/news/2026-10-plain-silicon-reveals-hidden-electron.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-24T06:28:30+00:00"
+}

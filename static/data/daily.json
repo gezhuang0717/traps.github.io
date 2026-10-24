@@ -1,6 +1,36 @@
 {
   "entries": [
     {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "Counting magnetic flux quanta offers new way to measure photon numbers",
+      "summary": "Researchers at AIST have directly observed magnetic flux quanta generated in a superconductor by photon absorption and demonstrated a new principle of photon detection that identifies the number of photons based on the number of these flux quanta.",
+      "url": "https://phys.org/news/2026-10-magnetic-flux-quanta-photon.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-24",
+      "type": "news",
+      "title": "Plain silicon grating reveals a hidden 'twist' in light from electron beams",
+      "summary": "In 1953, two physicists showed that an electron beam skimming past a grating emits light whose color depends only on the electron's speed and the grating's spacing. Known as Smith-Purcell radiation, this phenomenon has become a useful tool for building compact, tunable light…",
+      "url": "https://phys.org/news/2026-10-plain-silicon-reveals-hidden-electron.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-24",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-23",
       "type": "preprint",
       "title": "Lifetime of the singly charged $^{229}$Th nuclear isomer",
@@ -6006,12 +6036,12 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-23T19:31:45+00:00",
+    "checked_at": "2026-10-24T06:28:30+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 3,
+        "matched": 2,
         "new": 0
       },
       {
@@ -6023,20 +6053,20 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 9,
+        "matched": 8,
         "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 21,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 3
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -6053,7 +6083,7 @@
       {
         "source": "Physical Review C",
         "status": "PASS",
-        "matched": 11,
+        "matched": 10,
         "new": 0
       },
       {
