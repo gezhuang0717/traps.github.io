@@ -22,9 +22,9 @@ description: "ユヴァスキュラ大学 フィンランド・アカデミー�
 
 {{< nuclide-of-the-day >}}
 
-{{< home-optics >}}
-
 {{< gallery home="true" >}}
+
+{{< home-optics >}}
 
 
 MASSPASS の期間は **2023 年 9 月 1 日〜2027 年 8 月 31 日**で、フィンランド研究評議会（Research Council of Finland）の資金で実施されています。職位とプロジェクトの情報は[大学のプロフィール](https://www.jyu.fi/en/people/zhuang-ge)と[プロジェクトページ](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)に基づき、2026 年 10 月 3 日に確認しました。

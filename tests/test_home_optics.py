@@ -22,7 +22,9 @@ def test_figure_and_source_conditions_are_explicit_and_localized():
     assert d["conditions"]["kinetic_energy_MeVu"] == 175
     assert d["conditions"]["momentum_offsets_percent"] == [0.3, 0, -0.3]
     assert d["conditions"]["tof_baseline_F3_S0_m"] == 84
-    assert d["ring_context"]["circumference_m"] == 60.4
+    assert d["ring_context"]["circumference_approx_m"] == 60
+    assert d["ring_context"]["simulated_turns"] == 1900
+    assert "facility_source" not in d
     assert (ROOT / "static" / d["vector_pdf"]).read_bytes().startswith(b"%PDF-")
     raw = (ROOT / "static" / d["image"]).read_bytes()
     assert raw.startswith(b"\x89PNG\r\n\x1a\n")
@@ -30,12 +32,15 @@ def test_figure_and_source_conditions_are_explicit_and_localized():
     assert d["width"] >= 1400
     assert set(d["text"]) == set(LANGS)
     for lang, values in d["text"].items():
-        for field in ("title", "caption", "purpose", "inputs", "outputs", "gain", "hint", "limits"):
+        for field in ("title", "short_title", "caption", "purpose", "inputs", "outputs", "gain", "hint", "limits"):
             assert isinstance(values[field], str) and values[field].strip(), (lang, field)
         assert len(values["paragraphs"]) >= 3
         assert all(isinstance(x, str) and x.strip() for x in values["paragraphs"])
     for lang in LANGS:
-        assert (ROOT / "content" / lang / "_index.md").read_text().count("{{< home-optics >}}") == 1
+        home = (ROOT / "content" / lang / "_index.md").read_text()
+        assert home.count("{{< home-optics >}}") == 1
+        assert home.index('{{< gallery home="true" >}}') < home.index("{{< home-optics >}}")
+        assert (ROOT / "content" / lang / "research.md").read_text().count('{{< home-optics detail="true" >}}') == 1
 
 
 class OpticsMarkup(HTMLParser):
@@ -68,12 +73,14 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((ROOT / path).read_bytes())
     (tmp_path / "layouts/home.html").write_text("<main>{{ .Content }}</main>")
+    (tmp_path / "layouts/page.html").write_text("<main>{{ .Content }}</main>")
     config = ['baseURL="https://example.test/traps.github.io/"', 'defaultContentLanguage="en"',
               'disableKinds=["taxonomy","term","RSS","sitemap","robotsTXT","404"]']
     for lang in LANGS:
         folder = tmp_path / "content" / lang
         folder.mkdir(parents=True)
         (folder / "_index.md").write_text('---\ntitle: Home\n---\n{{< home-optics >}}\n')
+        (folder / "research.md").write_text('---\ntitle: Research\n---\n{{< home-optics detail="true" >}}\n')
         config += [f"[languages.{lang}]", f'contentDir="content/{lang}"']
     (tmp_path / "hugo.toml").write_text("\n".join(config))
     result = subprocess.run([hugo, "--source", str(tmp_path), "--destination", str(tmp_path / "public"),
@@ -87,13 +94,25 @@ def test_actual_homepage_figure_shortcode_renders_all_languages_and_usable_asset
         parsed = OpticsMarkup(html)
         assert len(parsed.ids) == len(set(parsed.ids))
         assert parsed.ids.count("beam-line-optics") == 1
-        assert parsed.ids.count("beam-line-optics-guide") == 1
-        assert d["text"][lang]["title"] in html
+        assert parsed.ids.count("beam-line-optics-guide") == 0
+        assert parsed.ids.count("beam-line-optics-caption") == 1
+        assert d["text"][lang]["short_title"] in html
+        assert d["text"][lang]["paragraphs"][0] not in html
+        assert d["source"]["citation"] not in html
+        assert any(a.get("href", "").endswith("research/#beam-line-optics") for a in parsed.links)
         assert len(parsed.images) == 1
         image = parsed.images[0]
         assert image["alt"] == d["text"][lang]["caption"]
         assert image["width"] == str(d["width"]) and image["height"] == str(d["height"])
         for asset in (d["image"], d["vector_pdf"]):
             assert (tmp_path / "public" / asset).read_bytes() == (ROOT / "static" / asset).read_bytes()
-        assert any(a.get("href") == d["source"]["url"] for a in parsed.links)
-        assert any(a.get("href") == d["facility_source"]["url"] for a in parsed.links)
+        detailed_path = tmp_path / "public" / ("" if lang == "en" else lang) / "research/index.html"
+        detailed = detailed_path.read_text()
+        detail = OpticsMarkup(detailed)
+        assert len(detail.ids) == len(set(detail.ids))
+        assert detail.ids.count("beam-line-optics-guide") == 1
+        assert d["text"][lang]["title"] in detailed
+        assert d["source"]["citation"] in detailed
+        assert any(a.get("href") == d["source"]["url"] for a in detail.links)
+        assert not any(".pdf" in a.get("href", "").lower() for a in parsed.links + detail.links)
+        assert "114003" not in html + detailed and "adf1f5" not in html + detailed

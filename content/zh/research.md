@@ -42,7 +42,7 @@ showDate: false
 
 束流线、储存环与离子阱装置的离子光学设计：RIKEN 稀有RI储存环（Rare-RI Ring）注入离子光学、等时性质量测量的模拟研究，以及当前利用 SIMION 开展的 RFQ、MR-TOF 与彭宁阱束流线设计。
 
-- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)
+{{< home-optics detail="true" >}}
 - Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)
 
 ## 核物理

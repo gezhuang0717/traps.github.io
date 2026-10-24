@@ -42,7 +42,7 @@ showDate: false
 
 ビームライン、蓄積リング、トラップ装置のイオン光学設計：理研 Rare-RI Ring の入射イオン光学、等時性質量測定のシミュレーション研究、そして現在は SIMION を用いた RFQ・MR-TOF・ペニングトラップのビームライン設計。
 
-- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)
+{{< home-optics detail="true" >}}
 - Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)
 
 ## 原子核物理

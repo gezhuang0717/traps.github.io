@@ -22,9 +22,9 @@ I teach the doctoral course *Lasers and Traps in Nuclear Physics Studies*. The w
 
 {{< nuclide-of-the-day >}}
 
-{{< home-optics >}}
-
 {{< gallery home="true" >}}
+
+{{< home-optics >}}
 
 
 MASSPASS runs from **1 September 2023 to 31 August 2027**, funded by the Research Council of Finland. Position and project information follow the [university profile](https://www.jyu.fi/en/people/zhuang-ge) and [project page](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), checked on 3 October 2026.

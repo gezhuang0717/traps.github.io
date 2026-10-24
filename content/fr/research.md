@@ -42,7 +42,7 @@ Mon doctorat au Rare-RI Ring du RIKEN portait sur l’identification des ions po
 
 Conception de lignes de faisceau, d’anneaux de stockage et de systèmes de piégeage : optique d’injection du Rare-RI Ring, mesures isochrones et simulations SIMION de RFQ, MR-TOF et pièges de Penning.
 
-- Z. Ge, Q. Wang, M. Wang, T. Uesaka, étude d’une méthode de mesure des noyaux *N* = *Z*, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294).
+{{< home-optics detail="true" >}}
 - Z. Ge *et al.*, résultats de l’optique d’injection du Rare-RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf).
 
 ## Structure nucléaire

@@ -3,14 +3,18 @@
 {{- $t := index $D.text $lang -}}
 {{- $labels := index hugo.Data.game_workflows.labels $lang -}}
 {{- $source := index (dict "en" "Source" "zh" "来源" "fi" "Lähde" "de" "Quelle" "ja" "出典" "fr" "Source") $lang -}}
-<section class="zg-card zg-home-optics" id="beam-line-optics" data-workflow-guide-ref="beam-line-optics-guide">
+{{- $detail := eq (.Get "detail") "true" -}}
+{{- $researchURL := printf "%s#beam-line-optics" ("research/" | relLangURL) -}}
+{{- with site.GetPage "/research" }}{{ $researchURL = printf "%s#beam-line-optics" .RelPermalink }}{{ end -}}
+<section class="zg-card zg-home-optics" id="beam-line-optics" data-workflow-guide-ref="{{ if $detail }}beam-line-optics-guide{{ else }}beam-line-optics-caption{{ end }}">
+  {{ if $detail }}
   <h2>{{ $t.title }}</h2>
   <p>{{ $t.purpose }}</p>
   <figure aria-describedby="beam-line-optics-guide">
-    <a href="{{ $D.vector_pdf | relURL }}" target="_blank" rel="noopener">
+    <a href="{{ $D.image | relURL }}" target="_blank" rel="noopener">
       <img src="{{ $D.image | relURL }}" alt="{{ $t.caption }}" width="{{ $D.width }}" height="{{ $D.height }}" loading="lazy" decoding="async" style="width:100%;height:auto">
     </a>
-    <figcaption>{{ $t.caption }} <a href="{{ $D.vector_pdf | relURL }}" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+    <figcaption>{{ $t.caption }}</figcaption>
   </figure>
   <div id="beam-line-optics-guide">
     {{ range $t.paragraphs }}<p>{{ . }}</p>{{ end }}
@@ -19,7 +23,12 @@
       <dl class="zg-workflow-fields">{{ range slice "inputs" "outputs" "gain" "hint" "limits" }}<dt>{{ index $labels . }}</dt><dd>{{ index $t . }}</dd>{{ end }}</dl>
     </details>
   </div>
-  <p class="zg-muted zg-small">{{ $source }}: <a href="{{ $D.source.url }}">{{ $D.source.citation }}</a> · <a href="{{ $D.source.pdf_url }}">PDF</a></p>
-  <p class="zg-muted zg-small"><a href="{{ $D.facility_source.url }}">{{ $D.facility_source.citation }}</a></p>
+  <p class="zg-muted zg-small">{{ $source }}: <a href="{{ $D.source.url }}">{{ $D.source.citation }}</a></p>
+  {{ else }}
+  <figure aria-describedby="beam-line-optics-caption" style="max-width:38rem;margin:1rem auto">
+    <a href="{{ $researchURL }}"><img src="{{ $D.image | relURL }}" alt="{{ $t.caption }}" width="{{ $D.width }}" height="{{ $D.height }}" loading="lazy" decoding="async" style="width:100%;height:auto"></a>
+    <figcaption id="beam-line-optics-caption"><a href="{{ $researchURL }}">{{ $t.short_title }}</a></figcaption>
+  </figure>
+  {{ end }}
 </section>
 {{ partial "zg/tool-workflows.html" . }}

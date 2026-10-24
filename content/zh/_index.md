@@ -22,9 +22,9 @@ description: "芬兰于韦斯屈莱大学芬兰科学院研究员——利用彭
 
 {{< nuclide-of-the-day >}}
 
-{{< home-optics >}}
-
 {{< gallery home="true" >}}
+
+{{< home-optics >}}
 
 
 MASSPASS 项目期为 **2023 年 9 月 1 日至 2027 年 8 月 31 日**，由芬兰研究理事会资助。职位与项目信息依据[大学个人主页](https://www.jyu.fi/en/people/zhuang-ge)及[项目主页](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear)，核对日期：2026 年 10 月 3 日。

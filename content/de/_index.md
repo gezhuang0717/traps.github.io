@@ -22,9 +22,9 @@ Ich unterrichte den Doktorandenkurs *Laser und Fallen in der kernphysikalischen 
 
 {{< nuclide-of-the-day >}}
 
-{{< home-optics >}}
-
 {{< gallery home="true" >}}
+
+{{< home-optics >}}
 
 
 MASSPASS läuft vom **1. September 2023 bis 31. August 2027** und wird vom Research Council of Finland gefördert. Position und Projektinformationen folgen dem [Universitätsprofil](https://www.jyu.fi/en/people/zhuang-ge) und der [Projektseite](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear), geprüft am 3. Oktober 2026.

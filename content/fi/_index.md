@@ -22,9 +22,9 @@ Opetan tohtorikurssia *Laserit ja loukut ydinfysiikan tutkimuksessa*. Sivustolla
 
 {{< nuclide-of-the-day >}}
 
-{{< home-optics >}}
-
 {{< gallery home="true" >}}
+
+{{< home-optics >}}
 
 
 MASSPASS kestää **1.9.2023–31.8.2027**, ja sen rahoittaa Suomen Akatemia. Aseman ja hankkeen tiedot perustuvat [yliopiston profiiliin](https://www.jyu.fi/en/people/zhuang-ge) ja [hankesivuun](https://www.jyu.fi/en/projects/mass-measurements-of-exotic-nz-nuclei-up-to-100sn-and-the-vicinity-for-nuclear-physics-and-nuclear); tarkistettu 3.10.2026.

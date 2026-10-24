@@ -42,7 +42,7 @@ Promotion am RIKEN Rare-RI Ring: Identifikation von Sekundärionen für isochron
 
 Ionenoptisches Design von Strahlführungen, Speicherringen und Fallenaufbauten: die Injektionsionenoptik des RIKEN Rare-RI Ring, Simulationsstudien isochroner Massenmessungen und heute RFQ-, MR-TOF- und Penning-Fallen-Strahlführungen mit SIMION.
 
-- Z. Ge, Q. Wang, M. Wang, T. Uesaka, Study of mass-measurement method for *N* = *Z* nuclei with isochronous mass spectrometry, [Nucl. Phys. Rev. 36, 294 (2019)](https://doi.org/10.11804/NuclPhysRev.36.03.294)
+{{< home-optics detail="true" >}}
 - Z. Ge *et al.*, Online results for the injection ion optics of the Rare RI Ring, [RIKEN Accel. Prog. Rep. 49, 180 (2016)](https://www.nishina.riken.jp/researcher/APR/APR049/pdf/180.pdf)
 
 ## Kernphysik
