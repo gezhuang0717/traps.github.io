@@ -1,6 +1,51 @@
 {
   "entries": [
     {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Maxwell’s demon with memory",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03509-8 Maxwell’s demon may produce work using the information it obtains by measuring the system as fuel. Now, it is shown that the amount of produced work increases if the demon takes information about…",
+      "url": "https://www.nature.com/articles/s41567-026-03509-8",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Particle collisions on a quantum computer",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03490-2 Elementary particle physics rests on the discovery of particles produced in high-energy collider experiments. Now, a model collision above the threshold for particle production has been simulated…",
+      "url": "https://www.nature.com/articles/s41567-026-03490-2",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Beating the break-even point with autonomous quantum error correction",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03486-y Conventional quantum error correction requires repeated measurements and real-time feedback, which are technically complex. An autonomous implementation that eliminates these while beating the…",
+      "url": "https://www.nature.com/articles/s41567-026-03486-y",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-24",
       "type": "news",
       "title": "Counting magnetic flux quanta offers new way to measure photon numbers",
@@ -6066,7 +6111,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-24T22:56:07+00:00",
+    "checked_at": "2026-10-25T06:53:01+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -6083,7 +6128,7 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 8,
+        "matched": 5,
         "new": 0
       },
       {
@@ -6118,8 +6163,9 @@
       },
       {
         "source": "Nature Physics",
-        "status": "FAILED",
-        "error": "not well-formed (invalid token): line 14, column 4"
+        "status": "PASS",
+        "matched": 7,
+        "new": 3
       },
       {
         "source": "TRIUMF news",

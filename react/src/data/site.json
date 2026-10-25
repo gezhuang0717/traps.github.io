@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-24T22:56:09+00:00",
+  "generated": "2026-10-25T06:53:03+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,51 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Maxwell’s demon with memory",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03509-8 Maxwell’s demon may produce work using the information it obtains by measuring the system as fuel. Now, it is shown that the amount of produced work increases if the demon takes information about…",
+      "url": "https://www.nature.com/articles/s41567-026-03509-8",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Particle collisions on a quantum computer",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03490-2 Elementary particle physics rests on the discovery of particles produced in high-energy collider experiments. Now, a model collision above the threshold for particle production has been simulated…",
+      "url": "https://www.nature.com/articles/s41567-026-03490-2",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "paper",
+      "title": "Beating the break-even point with autonomous quantum error correction",
+      "summary": "Nature Physics, Published online: 23 October 2026; doi:10.1038/s41567-026-03486-y Conventional quantum error correction requires repeated measurements and real-time feedback, which are technically complex. An autonomous implementation that eliminates these while beating the…",
+      "url": "https://www.nature.com/articles/s41567-026-03486-y",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-23",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-10-24",
       "type": "news",
