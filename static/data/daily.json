@@ -46,6 +46,36 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-10-25",
+      "type": "news",
+      "title": "Supercurrent enables the reading of quantum information without destroying it",
+      "summary": "One of the fundamental challenges of quantum computing is obtaining information from a quantum bit, or qubit. Unlike a conventional bit, which can be read repeatedly without altering its content, direct measurement of a quantum system typically causes the state to collapse…",
+      "url": "https://phys.org/news/2026-10-supercurrent-enables-quantum-destroying.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-25",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "news",
+      "title": "Patterns of polar vortices discovered in lead-free superlattices on silicon",
+      "summary": "A team at HZB has, for the first time, reported polar vortices in (BaTiO₃/SrTiO₃)₁₀ superlattices on silicon. These results expand the range of materials and substrates on which polar topological textures can occur and open up new options for incorporating complex ferroelectric…",
+      "url": "https://phys.org/news/2026-10-patterns-polar-vortices-free-superlattices.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-25",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-24",
       "type": "news",
       "title": "Counting magnetic flux quanta offers new way to measure photon numbers",
@@ -6111,7 +6141,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-25T06:53:01+00:00",
+    "checked_at": "2026-10-25T22:59:55+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -6141,7 +6171,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 0
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -6163,9 +6193,8 @@
       },
       {
         "source": "Nature Physics",
-        "status": "PASS",
-        "matched": 7,
-        "new": 3
+        "status": "FAILED",
+        "error": "not well-formed (invalid token): line 14, column 4"
       },
       {
         "source": "TRIUMF news",

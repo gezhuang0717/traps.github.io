@@ -44,7 +44,37 @@
       "published": "2026-10-23",
       "collected_at": "2026-10-25",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "news",
+      "title": "Supercurrent enables the reading of quantum information without destroying it",
+      "summary": "One of the fundamental challenges of quantum computing is obtaining information from a quantum bit, or qubit. Unlike a conventional bit, which can be read repeatedly without altering its content, direct measurement of a quantum system typically causes the state to collapse…",
+      "url": "https://phys.org/news/2026-10-supercurrent-enables-quantum-destroying.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-25",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-25",
+      "type": "news",
+      "title": "Patterns of polar vortices discovered in lead-free superlattices on silicon",
+      "summary": "A team at HZB has, for the first time, reported polar vortices in (BaTiO₃/SrTiO₃)₁₀ superlattices on silicon. These results expand the range of materials and substrates on which polar topological textures can occur and open up new options for incorporating complex ferroelectric…",
+      "url": "https://phys.org/news/2026-10-patterns-polar-vortices-free-superlattices.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-25",
+      "collected_at": "2026-10-25",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-25T06:53:01+00:00"
+  "fetched": "2026-10-25T22:59:55+00:00"
 }
