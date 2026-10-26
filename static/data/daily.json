@@ -1,6 +1,157 @@
 {
   "entries": [
     {
+      "date": "2026-10-26",
+      "type": "job",
+      "title": "tSPECT - PhD position on neutron lifetime experiment — Mainz U.",
+      "summary": "Europe · deadline 2026-11-16 · PHD. To strengthen the international 𝜏SPECT collaboration, we invite applications for 1 PhD position, 75 % EG13, to develop and investigate novel techniques to control critical systematic bias effects related to the determination of the free…",
+      "url": "https://inspirehep.net/jobs/3218564",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "deadline": "2026-11-16",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "Promiscuity Opens Paths for Coevolution",
+      "summary": "Author(s): Naama Brenner Molecular “locks” that fit many “keys” may allow different plant mating strategies to coexist within a population of a single plant species. [Physics 19, 140] Published Mon Oct 26, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.140",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "Single optical element combines soft X-ray imaging and spectroscopy",
+      "summary": "An international research team from Germany, Switzerland and Japan has demonstrated in a recent study that a single reflection zone plate (RZP) can perform both soft X-ray imaging and resonant inelastic X-ray scattering (RIXS) mapping. The approach could simplify future…",
+      "url": "https://phys.org/news/2026-10-optical-element-combines-soft-ray.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "Physicists reveal new paradigm for fiber growth in neurodegenerative diseases",
+      "summary": "Some proteins that are linked to neurodegenerative diseases can form both liquid droplets and amyloid fibers. But how are these two states connected, and where do the fibers grow? Leiden physicists Liru Feng and Louise Jawerth have discovered a counter-intuitive mechanism.",
+      "url": "https://phys.org/news/2026-10-physicists-reveal-paradigm-fiber-growth.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "Diamond defects confirm 80-year-old theory of crystal stress",
+      "summary": "For the first time, researchers in Japan have directly mapped several components of the stress field surrounding an atomic-scale flaw in the crystal structure of diamond. Led by Tokuyuki Teraji at Japan's National Institute for Materials Science, the team achieved its result…",
+      "url": "https://phys.org/news/2026-10-diamond-defects-year-theory-crystal.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "Tiny shifts in iron content tip a potential memory material between competing magnetic states",
+      "summary": "A team of Yale researchers has figured out what gives a magnetic material its mysterious properties, a discovery that could help boost computing memory and the field of \"spintronics.\" Their work is published in Physical Review Letters.",
+      "url": "https://phys.org/news/2026-10-tiny-shifts-iron-content-potential.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "news",
+      "title": "One extra quantum dot helps balance speed and stability in spin qubits",
+      "summary": "Quantum computers need qubits that can be controlled both quickly and reliably. Yet making semiconductor spin qubits faster often makes them more sensitive to electrical noise, creating a difficult trade-off.",
+      "url": "https://phys.org/news/2026-10-extra-quantum-dot-stability-qubits.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "paper",
+      "title": "A simple twist to altermagnetism",
+      "summary": "Nature Physics, Published online: 26 October 2026; doi:10.1038/s41567-026-03495-x Two-dimensional altermagnets hold promise for next-generation spintronics but remain difficult to synthesize. Now, altermagnetism has been observed in an orthogonally twisted van der Waals…",
+      "url": "https://www.nature.com/articles/s41567-026-03495-x",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "paper",
+      "title": "Curvature and cell mechanics control tissue organization",
+      "summary": "Nature Physics, Published online: 26 October 2026; doi:10.1038/s41567-026-03496-w Tissue geometry mechanically regulates cell behaviour across scales. Now, it can be predicted when cells switch from full adhesion to rapid partial detachment on curved surfaces.",
+      "url": "https://www.nature.com/articles/s41567-026-03496-w",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-26",
+      "type": "paper",
+      "title": "Three-dimensional cell morphology is mediated by curvature sensing and interfacial stress",
+      "summary": "Nature Physics, Published online: 26 October 2026; doi:10.1038/s41567-026-03482-2 Cells adhering to micro-curved surfaces can exhibit either complete adhesion or partial interior detachment. This is now found to be determined by the balance between the cell contractile stress…",
+      "url": "https://www.nature.com/articles/s41567-026-03482-2",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-26",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-25",
       "type": "paper",
       "title": "Maxwell’s demon with memory",
@@ -6141,7 +6292,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-26T06:58:54+00:00",
+    "checked_at": "2026-10-26T20:44:37+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -6158,20 +6309,20 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 3,
-        "new": 0
+        "matched": 4,
+        "new": 1
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 21,
-        "new": 0
+        "matched": 22,
+        "new": 1
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 0
+        "new": 5
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -6188,13 +6339,14 @@
       {
         "source": "Physical Review C",
         "status": "PASS",
-        "matched": 10,
+        "matched": 8,
         "new": 0
       },
       {
         "source": "Nature Physics",
-        "status": "FAILED",
-        "error": "not well-formed (invalid token): line 14, column 4"
+        "status": "PASS",
+        "matched": 8,
+        "new": 3
       },
       {
         "source": "TRIUMF news",
