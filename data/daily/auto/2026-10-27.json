@@ -14,7 +14,97 @@
       "published": "2026-10-26",
       "collected_at": "2026-10-27",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Snapshot: Galactic Clack Resurrects a Cosmic Note",
+      "summary": "Low-frequency radio observations delineate filamentary structures at the heart of a cluster of galaxies. [Physics 19, 142] Published Mon Oct 26, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.142",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "SPINE: A machine-learning program is on the trail of ghost particles",
+      "summary": "Neutrinos are among the most abundant particles in the universe, but they are also among the most elusive. Nearly massless, they are produced by nuclear reactions in the sun, exploding stars, particle accelerators and even the decay of radioactive elements on Earth. They…",
+      "url": "https://phys.org/news/2026-10-spine-machine-trail-ghost-particles.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Quantum gates set speed record at 6.8 nanoseconds with over 99.98% accuracy",
+      "summary": "Researchers from Jülich, Aachen and Cologne have performed a quantum operation on a qubit in just 6.8 nanoseconds—with more than 99.98% accuracy. Such operations typically take several tens of nanoseconds in superconducting quantum computers. The paper was published in Nature…",
+      "url": "https://phys.org/news/2026-10-quantum-gates-nanoseconds-accuracy.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Microscopic springs transform fragile silicon into a flexible terahertz metamaterial",
+      "summary": "Researchers at the Osaka Research Institute of Industrial Science and Technology (ORIST), in collaboration with the University of Osaka and Tohoku University, have developed a flexible and stretchable silicon material whose response to terahertz waves can be mechanically tuned.…",
+      "url": "https://phys.org/news/2026-10-microscopic-fragile-silicon-flexible-terahertz.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Quantum sensor loop design could improve magnetic measurements for medicine and communications",
+      "summary": "Adelaide University quantum engineers have found a new way to improve some of the world's most sensitive sensors of electromagnetic fields, a breakthrough that could help advance brain imaging, medical diagnostics, communications technology and next-generation quantum devices.",
+      "url": "https://phys.org/news/2026-10-quantum-sensor-loop-magnetic-medicine.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "New converter could bridge light wavelength gap in quantum communications",
+      "summary": "Quantum networks, systems that connect devices using quantum mechanical effects, could potentially allow users to share information more securely and efficiently. Building these networks typically entails linking stationary qubits, units of quantum information encoded in…",
+      "url": "https://phys.org/news/2026-10-bridge-wavelength-gap-quantum-communications.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-27T06:50:20+00:00"
+  "fetched": "2026-10-27T20:14:47+00:00"
 }
