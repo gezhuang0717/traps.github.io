@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-26T20:44:38+00:00",
+  "generated": "2026-10-27T06:50:22+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,21 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Metalens microscope switches focus with voltage, not moving optics",
+      "summary": "Just as it is difficult for a camera to keep both a nearby flower and a distant mountain sharply focused at the same time, conventional optical microscopes face a similar challenge when imaging structures located at different depths inside the body. Tighter focusing of light…",
+      "url": "https://phys.org/news/2026-10-metalens-microscope-focus-voltage-optics.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-10-26",
       "type": "job",

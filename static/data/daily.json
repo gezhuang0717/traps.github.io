@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "date": "2026-10-27",
+      "type": "news",
+      "title": "Metalens microscope switches focus with voltage, not moving optics",
+      "summary": "Just as it is difficult for a camera to keep both a nearby flower and a distant mountain sharply focused at the same time, conventional optical microscopes face a similar challenge when imaging structures located at different depths inside the body. Tighter focusing of light…",
+      "url": "https://phys.org/news/2026-10-metalens-microscope-focus-voltage-optics.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-26",
+      "collected_at": "2026-10-27",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-26",
       "type": "job",
       "title": "tSPECT - PhD position on neutron lifetime experiment — Mainz U.",
@@ -6292,37 +6307,37 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-26T20:44:37+00:00",
+    "checked_at": "2026-10-27T06:50:20+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 4,
-        "new": 1
+        "matched": 1,
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 22,
-        "new": 1
+        "matched": 21,
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 1
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -6344,9 +6359,8 @@
       },
       {
         "source": "Nature Physics",
-        "status": "PASS",
-        "matched": 8,
-        "new": 3
+        "status": "FAILED",
+        "error": "not well-formed (invalid token): line 14, column 4"
       },
       {
         "source": "TRIUMF news",
