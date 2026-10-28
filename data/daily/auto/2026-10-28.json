@@ -90,7 +90,161 @@
       "published": "2026-10-27",
       "collected_at": "2026-10-28",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Light from Disordered Media",
+      "summary": "Author(s): Marric Stephens Researchers have proposed that structural disorder can be harnessed to generate coherent, directional light from the passage of a charged particle. [Physics 19, s135] Published Wed Oct 28, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s135",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "When simulations fall short, this spectrometer learns for itself",
+      "summary": "An NMR spectrometer can reveal molecular structure down to the atomic level, but weak signals limit what it can see. Now, Aarhus University researchers have used AI to let the spectrometer learn the best pulse sequence directly from the sample.",
+      "url": "https://phys.org/news/2026-10-simulations-fall-short-spectrometer.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Slow-motion electron camera reveals light-driven quantum jumps in graphene",
+      "summary": "Using a new slow-motion electron camera, physicists from Regensburg, Marburg and Jülich revealed how intense electric fields drive electrons in graphene, causing them to jump across energy gaps in a seemingly paradoxical manner. This was made possible by a novel combination of…",
+      "url": "https://phys.org/news/2026-10-motion-electron-camera-reveals-driven.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Can gravitational fields break and reconnect? Einstein's equations suggest they can",
+      "summary": "More than a century after Einstein first devised the equations that describe gravity, physicists are still finding new ways of interpreting them. Luca Comisso, an associate research scientist in Columbia University's departments of Astronomy and Physics and the Columbia…",
+      "url": "https://phys.org/news/2026-10-gravitational-fields-reconnect-einstein-equations.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Against all expectations, researchers control the magnetic core of a single atom",
+      "summary": "Researchers at Delft University of Technology (the Netherlands) have succeeded in controlling the magnetism in the nucleus of a single atom with radio waves. This came as a surprise: until now, physicists believed that this nuclear spin could not be manipulated directly. The…",
+      "url": "https://phys.org/news/2026-10-magnetic-core-atom.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Sound-levitated particles reveal how static charge builds up",
+      "summary": "When two objects touch and then separate, they can swap tiny amounts of electric charge, even if they are made from exactly the same material. This 'triboelectric effect' is the source of everyday static electricity, but it is still poorly understood in large samples of powder,…",
+      "url": "https://phys.org/news/2026-10-levitated-particles-reveal-static.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "$r$-process nuclei in the rare-earth region above $N=126$ in relativistic Hartree-Bogoliubov theory: A preponderance of shape coexistence in nuclei",
+      "summary": "Author(s): M. M. Sharma The shell structure of nuclei beyond $N=126$ relevant to the third peak at $A≈195$ in $r$-process nuclear abundances in investigated. Within the framework of the relativistic Hartree-Bogoliubov theory in deformed space, a comparative study of the…",
+      "url": "http://link.aps.org/doi/10.1103/h2hw-k3vw",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "Physics-guided residual correction of $α$-decay half-lives based on the effective liquid drop model",
+      "summary": "Author(s): Qingning Yuan, Xuanpeng Xiao, Panpan Qi, Anqi Yang, Gongming Yu, Haitao Yang, Zhangyan Li, and Yanbing Cai To improve the prediction accuracy of $α$-decay half-lives in heavy and superheavy nuclei, a physics-guided residual-correction framework combining the…",
+      "url": "http://link.aps.org/doi/10.1103/7gm3-2y7f",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "Probing neutron skin through event-by-event pion asymmetry in heavy-ion collisions",
+      "summary": "Author(s): Xu-Hua Tian and Long-Gang Pang In this work, we propose a novel approach for probing the neutron skin thickness of gold (Au) by analyzing the event-by-event distribution of ${π}^{−}$ and ${π}^{+}$ yield differences. This is achieved through SMASH simulations of…",
+      "url": "http://link.aps.org/doi/10.1103/bw3p-lpg6",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "Cyclotron radiation signal characterization in resonant cavities for the Project 8 neutrino mass experiment",
+      "summary": "Author(s): A. Ashtari Esfahani et al. (Project 8 Collaboration) Many experimental methods in physics require understanding radiation from single particles into nontrivial electromagnetic mode structures. Such characterization is critical for Cyclotron Radiation Emission…",
+      "url": "http://link.aps.org/doi/10.1103/zgxw-xghd",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-28T07:25:38+00:00"
+  "fetched": "2026-10-28T20:32:19+00:00"
 }
