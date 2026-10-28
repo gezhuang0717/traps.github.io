@@ -1,6 +1,97 @@
 {
   "entries": [
     {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Decoding the loopy physics of hula hooping with high-tech earthquake sensors",
+      "summary": "Hula hooping may be literal child's play, but as it turns out, the physics behind the gym-class staple is so complicated that scientists have spent decades trying to understand how the hula hoop defies gravity.",
+      "url": "https://phys.org/news/2026-10-decoding-loopy-physics-hula-hooping.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Identical vesicles, different behaviors: Model reveals how spontaneous asymmetry gives rise to lifelike behavior",
+      "summary": "In nonreciprocal active matter, agents act differently on each other, seemingly in violation of Newton's third law. This principle can result in various active matter traits, such as self-propulsion, molecular regulation and collective motion.",
+      "url": "https://phys.org/news/2026-10-identical-vesicles-behaviors-reveals-spontaneous.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Scientists uncover new way to control magnetism and topology using light in atomically thin materials",
+      "summary": "Envision a material whose magnetic properties and electronic topology can be toggled by exposure to light, paving the way for future electronic devices that do not rely on traditional electrical switching, which wastes energy by producing heat.",
+      "url": "https://phys.org/news/2026-10-scientists-uncover-magnetism-topology-atomically.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "news",
+      "title": "Radio waves drive a fusion plasma current that could help reactors run continuously",
+      "summary": "For the first time, a team of physicists in the U.S. has clearly demonstrated a \"helicon current drive\" in a nuclear fusion experiment. Led by Jeff Lestz at General Atomics, San Diego, the team took advantage of the latest advances in tokamak technology to show that radio waves…",
+      "url": "https://phys.org/news/2026-10-radio-fusion-plasma-current-reactors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "Near-threshold dynamics of ${χ}_{c1}$(3872) and ${T}_{cc}^{+}$(3875) states via effective range expansion and Monte Carlo uncertainty propagation",
+      "summary": "Author(s): A. A. Atangana Likéné, A. Franck Rothen, J. M. Ema'a Ema'a, P. Pradyun Hebbar, Saralees Nadarajah, Tobias Golling, and G. H. Ben-Bolie We investigate the internal structure of two exotic tetraquark candidates, ${χ}_{c1}(3872)$ and ${T}_{cc}^{+}(3875)$, whose masses…",
+      "url": "http://link.aps.org/doi/10.1103/gck5-f5j5",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-28",
+      "type": "paper",
+      "title": "Order in a quantum chaotic sea",
+      "summary": "Nature Physics, Published online: 27 October 2026; doi:10.1038/s41567-026-03513-y Experiments with a superconducting quantum processor revealed an island of regular motion within otherwise chaotic quantum many-body dynamics and used feedback to steer the dynamics towards it.",
+      "url": "https://www.nature.com/articles/s41567-026-03513-y",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-27",
+      "collected_at": "2026-10-28",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-27",
       "type": "news",
       "title": "Metalens microscope switches focus with voltage, not moving optics",
@@ -6397,7 +6488,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-27T20:14:47+00:00",
+    "checked_at": "2026-10-28T07:25:38+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -6420,14 +6511,14 @@
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 22,
-        "new": 1
+        "matched": 21,
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 4
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -6445,12 +6536,13 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 8,
-        "new": 0
+        "new": 1
       },
       {
         "source": "Nature Physics",
-        "status": "FAILED",
-        "error": "not well-formed (invalid token): line 14, column 4"
+        "status": "PASS",
+        "matched": 8,
+        "new": 1
       },
       {
         "source": "TRIUMF news",
@@ -6460,8 +6552,9 @@
       },
       {
         "source": "GANIL news",
-        "status": "FAILED",
-        "error": "<urlopen error timed out>"
+        "status": "PASS",
+        "matched": 10,
+        "new": 0
       },
       {
         "source": "ECT* news & workshops",
