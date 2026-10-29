@@ -108,7 +108,67 @@
       "published": "2026-10-28",
       "collected_at": "2026-10-29",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "Thought Experiment: Bright Visions of Future Energy",
+      "summary": "More than a century after scientists envisioned artificial photosynthesis and fusion power, neither has achieved widespread use—but slow progress is no reason to give up. [Physics 19, 144] Published Wed Oct 28, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.144",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "Electrical signals reveal hidden magnetic information in altermagnets for first time",
+      "summary": "Researchers have experimentally demonstrated, for the first time, that it is possible to obtain from an altermagnet a spin current that can transport magnetic information. This result is supported by the theoretical model of electron transport developed by the CFM group.…",
+      "url": "https://phys.org/news/2026-10-electrical-reveal-hidden-magnetic-altermagnets.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "A blue laser for underwater communication and sensing",
+      "summary": "Researchers at EPFL have developed a chip-scale blue laser that combines stable light emission with rapid frequency control, opening possibilities for underwater communication, environmental sensing and quantum technologies.",
+      "url": "https://phys.org/news/2026-10-blue-laser-underwater-communication.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "Theoretical method uses light to locate anyons, potential quantum computing building blocks",
+      "summary": "Theoretical physicists at Emory University have discovered a way to use light to detect the \"spectral fingerprints\" of anyons—exotic quasiparticles that emerge from the collective behavior of many electrons. Their findings are published in Physical Review Letters. The work…",
+      "url": "https://phys.org/news/2026-10-theoretical-method-anyons-potential-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-10-29T07:40:13+00:00"
+  "fetched": "2026-10-29T20:33:25+00:00"
 }
