@@ -1,0 +1,114 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-29",
+      "type": "job",
+      "title": "Postdoctoral position - ALICE — Cracow, INP",
+      "summary": "Europe · deadline 2026-11-16 · POSTDOC. The Henryk Niewodniczański Institute of Nuclear Physics Polish Academy of Sciences (IFJ PAN) invites applications for a postdoctoral research appointment starting in the first half of 2027. Postdoctoral Research Associates in the IFJ PAN…",
+      "url": "https://inspirehep.net/jobs/3219659",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "deadline": "2026-11-16",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "job",
+      "title": "Postdoctoral positions in Theoretical Physics — Basque U., Bilbao",
+      "summary": "Europe · deadline 2026-12-13 · POSTDOC. University of the Basque Country (EHU) - EHU Quantum Center Applications are invited for up to three (3) postdoctoral positions in theoretical physics at the Department of Physics of the University of the Basque Country (EHU), in the…",
+      "url": "https://inspirehep.net/jobs/3219606",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "deadline": "2026-12-13",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "job",
+      "title": "Postdoctoral Position in Atmospheric Neutrinos and Mass Ordering at JUNO — Beijing, Inst. High Energy Phys.",
+      "summary": "Asia · deadline 2027-02-28 · POSTDOC. One postdoctoral position is available at IHEP (Chinese Academy of Sciences) to work on atmospheric neutrinos at the Jiangmen Underground Neutrino Observatory (JUNO), from first-principles flux predictions to neutrino interactions in the…",
+      "url": "https://inspirehep.net/jobs/3219285",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "deadline": "2027-02-28",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "job",
+      "title": "Expressions of Interest: Hardware & Machine Learning Research Positions — INFN, Pisa",
+      "summary": "Europe · deadline 2026-12-14 · POSTDOC. The Belle II group at the University of Pisa and INFN Pisa invites expressions of interest from early-career researchers interested in detector development and machine learning applications to experimental instrumentation. Two research…",
+      "url": "https://inspirehep.net/jobs/3219266",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "deadline": "2026-12-14",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "Ultrathin metal layer boosts spin-related signals, opening a door to ultralow-power electronics",
+      "summary": "Researchers at Kyushu University have found that an ultrathin layer of iridium manganese (IrMn) can improve two spin-related signals in a structure made of a magnetic insulator and a platinum film. By examining how spin currents are generated and absorbed, the team gained…",
+      "url": "https://phys.org/news/2026-10-ultrathin-metal-layer-boosts-door.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "news",
+      "title": "Explaining the difference between brittle and ductile behavior in polymer glasses",
+      "summary": "Glasses are (mostly) brittle, metals can be ductile (plastic), and liquids flow easily. Polymers are interesting because they exhibit all three types of behavior, depending on their chemical nature, temperature, and deformation rate. If polymers are not able to crystallize,…",
+      "url": "https://phys.org/news/2026-10-difference-brittle-ductile-behavior-polymer.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-29",
+      "type": "paper",
+      "title": "Precision Isotope-Shift Measurement of the ${^{1}S}_{0}↔{^{3}P}_{2}$ Transition and a Multitransition King-Plot Consistency Test",
+      "summary": "Author(s): Taiki Ishiyama, Koki Ono, Reiji Asano, Hokuto Kawase, Tetsushi Takano, Ayaki Sunaga, Yasuhiro Yamamoto, Minoru Tanaka, and Yoshiro Takahashi We present precision spectroscopy and isotope shift measurement of the ${^{1}S}_{0}↔{^{3}P}_{2}$ clock transition in neutral…",
+      "url": "http://link.aps.org/doi/10.1103/l9xq-8z1d",
+      "source": "Physical Review Letters — traps, masses & astrophysics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-28",
+      "collected_at": "2026-10-29",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-10-29T07:40:13+00:00"
+}
