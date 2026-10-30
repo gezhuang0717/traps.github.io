@@ -92,6 +92,97 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-10-30",
+      "type": "job",
+      "title": "Postdoctoral position in Theoretical Hadron Physics — CTU, Prague",
+      "summary": "Europe · deadline 2026-12-05 · POSTDOC. We are seeking a motivated postdoctoral researcher with a background in theoretical hadron physics to work in the femtoscopy group at CTU in Prague. The position is part of a grant project entiteled “Search for Signatures of Three-Body…",
+      "url": "https://inspirehep.net/jobs/3220339",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "deadline": "2026-12-05",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-30",
+      "type": "news",
+      "title": "How a 'tropical' shortcut could help particle collider experiments",
+      "summary": "Particle accelerators are expensive. Not just to build or to run, but also to predict the outcome of measurements obtained from them.",
+      "url": "https://phys.org/news/2026-10-tropical-shortcut-particle-collider.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-30",
+      "type": "news",
+      "title": "UTe₂ reveals two flavors of superconductivity under extreme pressure",
+      "summary": "Quantum researchers are searching for a topological superconductor—a material that, if discovered, would allow major advances in quantum computing by combining two distinct \"flavors\" of superconductivity.",
+      "url": "https://phys.org/news/2026-10-ute-reveals-flavors-superconductivity-extreme.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-30",
+      "type": "news",
+      "title": "Quantum skyrmions outlast entanglement, hinting at more resilient networks",
+      "summary": "Quantum networks could one day connect quantum computers into more powerful systems and enable new forms of secure communication. But a fundamental obstacle stands in the way: Quantum information is extraordinarily fragile, and the entanglement between particles of light on…",
+      "url": "https://phys.org/news/2026-10-quantum-skyrmions-outlast-entanglement-hinting.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-30",
+      "type": "news",
+      "title": "Confirming altermagnetism: A geometric twist offers experimental proof",
+      "summary": "For decades, physicists recognized only two types of magnetism that occur in materials without external influence: ferromagnetism and antiferromagnetism. In findings published in Science, a team led by the U.S. Department of Energy's SLAC National Accelerator Laboratory has…",
+      "url": "https://phys.org/news/2026-10-altermagnetism-geometric-experimental-proof.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-30",
+      "type": "news",
+      "title": "Unusual quantum states in six-layer graphene offer clues to superconductivity",
+      "summary": "Graphene, a material consisting of a sheet of carbon atoms arranged in a honeycomb pattern, has proved promising for various technological applications. Materials in which several layers of graphene are stacked together can exhibit different advantageous properties.",
+      "url": "https://phys.org/news/2026-10-unusual-quantum-states-layer-graphene.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-30",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-29",
       "type": "job",
       "title": "Postdoctoral position - ALICE — Cracow, INP",
@@ -6902,13 +6993,13 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-30T07:43:57+00:00",
+    "checked_at": "2026-10-30T20:07:03+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
         "matched": 1,
-        "new": 1
+        "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
@@ -6919,13 +7010,13 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 5,
-        "new": 0
+        "matched": 6,
+        "new": 1
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 22,
+        "matched": 20,
         "new": 0
       },
       {
