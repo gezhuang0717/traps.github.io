@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-30T20:07:03+00:00",
+  "checked_at": "2026-10-31T07:30:25+00:00",
   "feeds": [
     {
       "source": "arXiv — ion traps & mass spectrometry",
@@ -29,7 +29,7 @@
       "source": "Phys.org — nuclear physics",
       "status": "PASS",
       "matched": 30,
-      "new": 5
+      "new": 1
     },
     {
       "source": "Physical Review Letters — Nuclear Physics",

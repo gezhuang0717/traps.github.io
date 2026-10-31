@@ -1,6 +1,37 @@
 {
   "entries": [
     {
+      "date": "2026-10-31",
+      "type": "job",
+      "title": "PhD position: Exclusive π0 muoproduction cross section at COMPASS (CERN) — CTU, Prague",
+      "summary": "Europe · deadline 2026-12-15 · PHD. The Department of Dosimetry and Application of Ionizing Radiation, Faculty of Nuclear Sciences and Physical Engineering, Czech Technical University in Prague, offers a PhD position in experimental hadron physics within the COMPASS…",
+      "url": "https://inspirehep.net/jobs/3220801",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "deadline": "2026-12-15",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-31",
+      "type": "news",
+      "title": "Machine learning helps track semiconductor defects under more realistic temperature conditions",
+      "summary": "All materials contain inherent defects. These are not always harmful, since they can be used to engineer and introduce certain properties into a material. However, it is crucial to understand how they function and how they affect the material's properties.",
+      "url": "https://phys.org/news/2026-10-machine-track-semiconductor-defects-realistic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-30",
       "type": "preprint",
       "title": "Theoretical Study of Classical Dynamics of Electron in Two-Frequency Paul Trap",
@@ -6993,7 +7024,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-30T20:07:03+00:00",
+    "checked_at": "2026-10-31T07:30:25+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -7023,7 +7054,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 1
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
