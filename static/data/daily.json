@@ -7085,7 +7085,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-31T19:32:04+00:00",
+    "checked_at": "2026-10-31T23:55:41+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -7109,19 +7109,19 @@
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 19,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
