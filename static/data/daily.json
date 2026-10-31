@@ -32,6 +32,67 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-10-31",
+      "type": "news",
+      "title": "Talking to Superconducting Qubits with Millimeter Waves",
+      "summary": "Author(s): Sophia Chen A new device uses millimeter-wave radiation to accurately read the states of superconducting qubits without altering them. [Physics 19, s140] Published Fri Oct 30, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s140",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-31",
+      "type": "news",
+      "title": "Ultracold atoms simulate hard-to-observe matter-antimatter pair production",
+      "summary": "According to quantum electrodynamics, the theory describing interactions between light and electrically charged particles, a sufficiently strong electric field can, in principle, convert some of its energy into particles and their antimatter partners. A particle's antimatter…",
+      "url": "https://phys.org/news/2026-10-ultracold-atoms-simulate-hard-antimatter.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-31",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-31",
+      "type": "news",
+      "title": "Four superconducting cables link two large quantum processors into one",
+      "summary": "As quantum computers grow more ambitious, many researchers believe the best way forward is to build them in multiple interconnected parts. In these modular designs, separate quantum processors are linked so they can work together as one larger machine. For this to happen,…",
+      "url": "https://phys.org/news/2026-10-superconducting-cables-link-large-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-31",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-10-31",
+      "type": "paper",
+      "title": "Accurate Charge Radius Measurement of $^{14}\\mathrm{C}$ Confronts Ab Initio Theory",
+      "summary": "Author(s): Kristian König, Patrick Müller, Tobias Gesser, Emily Burbach, Stefano Gandolfi, Matthias Heinz, Phillip Imgram, Alessandro Lovato, Pieter Maris, Takayuki Miyagi, Wilfried Nörtershäuser, Robert Roth, Achim Schwenk, and Julien Spahn Located at the neutron shell closure…",
+      "url": "http://link.aps.org/doi/10.1103/f5s7-1t7w",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-10-31",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-10-30",
       "type": "preprint",
       "title": "Theoretical Study of Classical Dynamics of Electron in Two-Frequency Paul Trap",
@@ -7024,7 +7085,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-31T07:30:25+00:00",
+    "checked_at": "2026-10-31T19:32:04+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -7042,25 +7103,25 @@
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 6,
-        "new": 1
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 20,
-        "new": 0
+        "matched": 19,
+        "new": 1
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 0
+        "new": 1
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
