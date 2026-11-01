@@ -1,0 +1,65 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-01",
+      "type": "news",
+      "title": "Breaking the ice: Scientists use attracting particles to form an anti-spin ice",
+      "summary": "In a recent Nature Communications study, researchers have reported the realization of an anti-spin ice, a system that does the opposite of conventional spin ices by breaking the ice rule that governs them.",
+      "url": "https://phys.org/news/2026-10-ice-scientists-particles-anti.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-01",
+      "collected_at": "2026-11-01",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-01",
+      "type": "paper",
+      "title": "The challenge of recognition in large scientific collaborations",
+      "summary": "Nature Physics, Published online: 30 October 2026; doi:10.1038/s41567-026-03511-0 The authorship practices of large collaborations can hide individual contributions. A recognition programme developed by the LIGO Scientific Collaboration publicly documents verified contributions…",
+      "url": "https://www.nature.com/articles/s41567-026-03511-0",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-11-01",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-01",
+      "type": "paper",
+      "title": "Thermodynamic demonstration of tetracriticality and multicomponent superconductivity in UTe 2",
+      "summary": "Nature Physics, Published online: 30 October 2026; doi:10.1038/s41567-026-03504-z Prior measurements of the phase diagram of UTe2 contain a triple point that is forbidden by thermodynamics. Now, an additional phase boundary is discovered that resolves this problem and confirms…",
+      "url": "https://www.nature.com/articles/s41567-026-03504-z",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-11-01",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-01",
+      "type": "paper",
+      "title": "Multiparticle quantum walks in a dipole-conserving Bose–Hubbard model",
+      "summary": "Nature Physics, Published online: 30 October 2026; doi:10.1038/s41567-026-03512-z Strong potential gradients can localize individual particles, but interactions can still generate collective motion. An experiment with ultracold atoms in a tilted lattice now shows this…",
+      "url": "https://www.nature.com/articles/s41567-026-03512-z",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-11-01",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-01T12:24:10+00:00"
+}
