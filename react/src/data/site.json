@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-02T14:19:58+00:00",
+  "generated": "2026-11-02T23:12:55+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5785,6 +5785,115 @@
       "source": "Nature Physics",
       "tags": [
         "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "job",
+      "title": "The Endowed Bucy Chair in Experimental High Energy Physics — Texas Tech. U., Lubbock",
+      "summary": "North America · deadline 2027-01-15 · SENIOR. The Department of Physics and Astronomy at Texas Tech University (TTU) invites nominations or applications at the tenured associate or full professor level for the J. Fred Bucy and Odetta Greer Bucy Endowed Chair in High Energy…",
+      "url": "https://inspirehep.net/jobs/3220935",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-01",
+      "deadline": "2027-01-15",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "job",
+      "title": "Postdoctoral positions in the Nuclear Theory at C3NT/IOPP, CCNU in 2027 — Hua-Zhong Normal U.",
+      "summary": "Asia · deadline 2027-01-09 · POSTDOC. There are several postdoctoral position openings in nuclear theory at Central China Center for Nuclear Theory (C3NT) and Institute of Particle Physics (IOPP) of Central China Normal University (CCNU), Wuhan, China. The research interests at…",
+      "url": "https://inspirehep.net/jobs/3220930",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-01",
+      "deadline": "2027-01-09",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "job",
+      "title": "Postdoctoral Researcher - Superconducting Quantum Sensors for Neutrino Physics, Dark Matter, and Rare Isotopes — Colorado School of Mines",
+      "summary": "North America · deadline 2027-01-07 · POSTDOC. The Quantum Technologies at the Sensitivity Frontier (QTSF) group at the Colorado School of Mines, led by Prof. Wouter Van De Pontseele, is hiring a postdoctoral researcher to develop superconducting sensors and scalable cryogenic…",
+      "url": "https://inspirehep.net/jobs/3220839",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-31",
+      "deadline": "2027-01-07",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "job",
+      "title": "Associate Scientist - AI and Fundamental Physics — Stanford U.",
+      "summary": "North America · deadline 2026-12-18 · JUNIOR. The Fundamental Physics Directorate (FPD) at SLAC National Accelerator Laboratory seeks candidates at the Associate Scientist level (research work performed by associate scientist is similar to assistant professor at a university)…",
+      "url": "https://inspirehep.net/jobs/3220838",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-31",
+      "deadline": "2026-12-18",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "news",
+      "title": "Exactly solvable model reveals how trapped light can create magnetic order in one-dimensional spin chains",
+      "summary": "A research team wanted to better understand how the forces between particles inside a material change. They discovered that by confining one-dimensional classical spin chains inside a mirror box cavity with light, they could force these magnetic particles to organize and…",
+      "url": "https://phys.org/news/2026-11-solvable-reveals-magnetic-dimensional-chains.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "news",
+      "title": "Experiment supports theoretical foundation for potentially more error-resistant quantum computing",
+      "summary": "One approach to making information storage in quantum computing less prone to errors is known as topological quantum computing. It relies on special quantum states that are expected to be more resistant to local disturbances.",
+      "url": "https://phys.org/news/2026-11-theoretical-foundation-potentially-error-resistant.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "news",
+      "title": "Single molecules could provide the building blocks for future quantum networks",
+      "summary": "Quantum computers rely on qubits as their units of information. To connect them into a larger network across long distances, they need to transmit quantum information using light.",
+      "url": "https://phys.org/news/2026-11-molecules-blocks-future-quantum-networks.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
       ],
       "lang": "en",
       "published": "2026-11-02",
