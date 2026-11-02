@@ -1,6 +1,51 @@
 {
   "entries": [
     {
+      "date": "2026-11-02",
+      "type": "paper",
+      "title": "Automated inverse design of metainterfaces with tailored friction laws",
+      "summary": "Nature Physics, Published online: 30 October 2026; doi:10.1038/s41567-026-03503-0 Understanding friction between contacting surfaces is important to improve device performance. Now a method is shown to discover materials that offer on-demand frictional behaviour using inverse…",
+      "url": "https://www.nature.com/articles/s41567-026-03503-0",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "paper",
+      "title": "Motors use biased diffusion to shepherd diffusible proteins on microtubules",
+      "summary": "Nature Physics, Published online: 30 October 2026; doi:10.1038/s41567-026-03489-9 Microtubules are bound by active motors and passively diffusing proteins. Now it is shown that this mixture of active and passive molecules is a realization of rectified Brownian motion in active…",
+      "url": "https://www.nature.com/articles/s41567-026-03489-9",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-30",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "paper",
+      "title": "Imaging hot-electron Thomson cooling beyond the Boltzmann–Onsager framework",
+      "summary": "Nature Physics, Published online: 29 October 2026; doi:10.1038/s41567-026-03510-1 Classical Thomson cooling is inefficient. Now non-equilibrium energy dissipation with a breakdown of the Boltzmann–Onsager limit is demonstrated by imaging hot electrons in HgTe and HgCdTe quantum…",
+      "url": "https://www.nature.com/articles/s41567-026-03510-1",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-01",
       "type": "news",
       "title": "Breaking the ice: Scientists use attracting particles to form an anti-spin ice",
@@ -7145,12 +7190,12 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-01T12:24:10+00:00",
+    "checked_at": "2026-11-02T01:25:23+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
@@ -7162,7 +7207,7 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 6,
+        "matched": 2,
         "new": 0
       },
       {
@@ -7175,7 +7220,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -7185,9 +7230,8 @@
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
-        "status": "PASS",
-        "matched": 1,
-        "new": 0
+        "status": "FAILED",
+        "error": "[Errno 104] Connection reset by peer"
       },
       {
         "source": "Physical Review C",
