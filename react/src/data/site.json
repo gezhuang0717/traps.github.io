@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-02T01:25:25+00:00",
+  "generated": "2026-11-02T14:19:58+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5742,6 +5742,52 @@
       ],
       "lang": "en",
       "published": "2026-10-29",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "preprint",
+      "title": "The Importance of Curium-250 to the $γ$-Ray Signature of $r$-Process Remnants",
+      "summary": "Axel Gross et al. — Identifying the astrophysical sites of the heavy rapid neutron-capture process ($r$-process) remains one of the most prominent unsolved problems in nuclear astrophysics. Emitted $γ$-rays from the decay of unstable nuclei have been identified as a potential…",
+      "url": "https://arxiv.org/abs/2610.40907v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-10-29",
+      "arxiv": "2610.40907v1",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "news",
+      "title": "Ultrathin kagome material opens a route to study unusual quantum states",
+      "summary": "How atoms are arranged inside materials can influence the behavior of electrons and the resulting electronic states. Kagome lattices, repeating arrangements of atoms forming triangles that share corners (with hexagonal spaces between them), have been linked with the emergence…",
+      "url": "https://phys.org/news/2026-10-ultrathin-kagome-material-route-unusual.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-02",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-02",
+      "type": "paper",
+      "title": "Recent progress in the computational study of supercooled and glassy water",
+      "summary": "Nature Physics, Published online: 02 November 2026; doi:10.1038/s41567-026-03479-x This Review discusses recent advances in the computational exploration of the properties of supercooled and glassy water.",
+      "url": "https://www.nature.com/articles/s41567-026-03479-x",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
       "collected_at": "2026-11-02",
       "verification_status": "feed-collected"
     },
