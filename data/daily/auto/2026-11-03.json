@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-03",
+      "type": "preprint",
+      "title": "Regularity of core coupled high-spin structure in neutron-rich $^{196-202}$Au isotopes approaching N $=126$",
+      "summary": "Y. Cho et al. — Excited states built upon long-lived high-spin isomers in hard-to-reach neutron-rich Au ($Z=79$) isotopes were populated using multi-nucleon transfer reactions between $^{136}$Xe and $^{198}$Pt at 7 MeV/u. These states in $^{196,\\,198-202}$Au were identified for…",
+      "url": "https://arxiv.org/abs/2611.03139v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "arxiv": "2611.03139v1",
+      "collected_at": "2026-11-03",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-03",
+      "type": "paper",
+      "title": "Multitask Gaussian process predictions of low-lying excitation observables and shell evolution near $N, Z=20$ and 28",
+      "summary": "Author(s): S. Li, X. Liu, H. Zheng, C. Lv, W. Lin, J. Han, Q. Zhao, G. Qu, and P. Ren The low-lying excitation observables of even-even nuclei, e.g., the excitation energies of the first ${2}^{+}$ and ${4}^{+}$ states, $E({2}_{1}^{+})$ and $E({4}_{1}^{+})$, and the reduced…",
+      "url": "http://link.aps.org/doi/10.1103/p21l-zm7x",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-03",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-03T12:38:12+00:00"
+}
