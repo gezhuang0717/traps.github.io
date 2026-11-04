@@ -138,6 +138,52 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-04",
+      "type": "preprint",
+      "title": "Hydrogen Electron Cyclotron Resonance Dissociator Demonstrator for the Project 8 Experiment",
+      "summary": "Manjinder Oueslati et al. — Project 8, a neutrino mass experiment, employs the novel frequency technique of cyclotron radiation emission spectroscopy (CRES) to perform a model independent measurement of neutrino mass via tritium beta decay. Our pioneering experiment will…",
+      "url": "https://arxiv.org/abs/2611.03972v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "arxiv": "2611.03972v1",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Testing Einstein's laws from the bottom of the Mediterranean Sea",
+      "summary": "Are the laws of physics truly the same everywhere in the universe? This fundamental principle, known as Lorentz invariance, lies at the heart of Einstein's theory of relativity. Yet some theories that seek to reconcile gravity with quantum physics suggest that it might not…",
+      "url": "https://phys.org/news/2026-11-einstein-laws-bottom-mediterranean-sea.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-04",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Fingernail-sized chip untangles mixed light into clean beams",
+      "summary": "Stanford engineers and colleagues designed a chip that can take a muddled mixture of light from multiple lasers and output clean beams of light. It's the first time researchers have demonstrated a device that can take in mixed, or partially coherent, light and sort its photons…",
+      "url": "https://phys.org/news/2026-11-fingernail-sized-chip-untangles.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-03",
       "type": "preprint",
       "title": "Regularity of core coupled high-spin structure in neutron-rich $^{196-202}$Au isotopes approaching N $=126$",
@@ -7514,7 +7560,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-04T01:00:47+00:00",
+    "checked_at": "2026-11-04T13:31:23+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -7525,8 +7571,8 @@
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 1,
-        "new": 0
+        "matched": 2,
+        "new": 1
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
@@ -7538,31 +7584,31 @@
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 21,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 7,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
