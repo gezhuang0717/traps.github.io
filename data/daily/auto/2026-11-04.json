@@ -1,0 +1,142 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Calculating Superconductors from Scratch",
+      "summary": "Author(s): Charles Day A new formalism yields the quantities that characterize a conventional superconductor without adjustable parameters. [Physics 19, s138] Published Tue Nov 03, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s138",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Using Pulsars to Probe Early Growth of Black Holes",
+      "summary": "Author(s): Sarah Burke-Spolaor Researchers have used radio observations of rapidly spinning neutron stars to search for signals from supermassive black hole pairs at the dawn of galaxy formation. [Physics 19, 146] Published Mon Nov 02, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.146",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-02",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Finding the fingerprints of noisy distributions in random quantum systems",
+      "summary": "Imagine shuffling a deck of cards where some of the cards are fading just because of the way they interact with the external environment as you shuffle them. Your job is to figure out the interplay between the shuffling, or \"imposed randomness,\" due to the way you shuffle your…",
+      "url": "https://phys.org/news/2026-11-fingerprints-noisy-random-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Light-matter hybrids form supersolid quantum state at room temperature",
+      "summary": "Researchers from the Faculty of Physics at the University of Warsaw, the Military University of Technology (Poland), IBM Research Zurich and the French National Centre for Scientific Research (CNRS) have observed a new quantum state of matter known as a supersolid in an…",
+      "url": "https://phys.org/news/2026-11-hybrids-supersolid-quantum-state-room.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "A laser can draw superconductivity at the nanoscale",
+      "summary": "Researchers from ICMAB-CSIC, the Politecnico di Milano and Université de Liège have adapted a direct laser writing technique that allows them to \"draw\" superconducting properties in a material. The result is a new way to locally program the behavior of a superconductor, tuning…",
+      "url": "https://phys.org/news/2026-11-laser-superconductivity-nanoscale.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "A single measurement makes quantum bits more reliable",
+      "summary": "Researchers at the University of Regensburg and their international partners have found a way to significantly reduce errors in quantum bits. In an experiment, they demonstrated that a single additional measurement before a series of quantum operations can cut the error rate by…",
+      "url": "https://phys.org/news/2026-11-quantum-bits-reliable.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "news",
+      "title": "Physicists step closer to the 'Zeptoverse' after 42-year particle search",
+      "summary": "Physicists have found evidence of a particle decay so rare that it is expected to occur only around once in every 10 billion \"beauty\" particles. The result, from the upgraded LHCb experiment at CERN's Large Hadron Collider (LHC), follows a search spanning more than 40 years and…",
+      "url": "https://phys.org/news/2026-11-physicists-closer-zeptoverse-year-particle.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "paper",
+      "title": "Building Far-from-Equilibrium Effective Field Theories Using Shift Symmetries",
+      "summary": "Author(s): Xin An, Robbe Brants, Michal P. Heller, and Yi Yin Contemporary understanding of thermalization in quantum field theory stems largely from understanding properties of transient excitations of equilibria. These nonhydrodynamic excitations are known to structurally…",
+      "url": "http://link.aps.org/doi/10.1103/7bz2-nmb9",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "paper",
+      "title": "Inherited collectivity from shape-coexisting cores in the ${i}_{13/2}$ rotational band of $^{189}\\mathrm{Hg}$",
+      "summary": "Author(s): I. Zanon et al. Background: The neutron-deficient Hg isotopes provide one of the most prominent examples of nuclear shape coexistence. While the even-even nuclei have been extensively investigated, much less is known about how an unpaired neutron influences the…",
+      "url": "http://link.aps.org/doi/10.1103/jkvj-3qcz",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-03",
+      "collected_at": "2026-11-04",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-04T01:00:47+00:00"
+}
