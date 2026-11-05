@@ -175,6 +175,51 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-05",
+      "type": "news",
+      "title": "Atomic Wave Simulates Black Hole Properties",
+      "summary": "Author(s): Susan Curtis Using sheets of light to corral waves of ultracold atoms, researchers have created an experimental platform for studying the event horizons of black holes. [Physics 19, 149] Published Wed Nov 04, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.149",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-04",
+      "collected_at": "2026-11-05",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-05",
+      "type": "news",
+      "title": "After 40 years of searching, physicists find evidence for an ultrarare particle decay",
+      "summary": "Physicists at CERN report that they've detected evidence of a rare meson particle decay (B⁰→ µ⁺µ⁻) that occurs when the meson's beauty quark annihilates with a down-type quark. The pair decays into a muon and antimuon, which are particles similar to electrons. Because evidence…",
+      "url": "https://phys.org/news/2026-11-years-physicists-evidence-ultrarare-particle.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-05",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-05",
+      "type": "news",
+      "title": "When Einstein's gravitational waves meet Newton's tides",
+      "summary": "Newton's theory of gravity has described the tides accurately for centuries. But could a tiny trace of Einstein's general relativity also be hidden in them? In a new study, a mathematician at Freie Universität Berlin has outlined how a targeted approach could be used to search…",
+      "url": "https://phys.org/news/2026-11-einstein-gravitational-newton-tides.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-05",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-04",
       "type": "news",
       "title": "Calculating Superconductors from Scratch",
@@ -7734,13 +7779,13 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-05T02:08:54+00:00",
+    "checked_at": "2026-11-05T17:38:50+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
         "matched": 1,
-        "new": 1
+        "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
@@ -7752,19 +7797,19 @@
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 6,
-        "new": 4
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 21,
-        "new": 0
+        "new": 1
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -7782,7 +7827,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 8,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
