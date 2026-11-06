@@ -108,7 +108,207 @@
       "facility_ids": [
         "ganil-spiral2"
       ]
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Why Brittle Solids Crack Under Pressure",
+      "summary": "Author(s): Ryan Wilkinson Theory and experiments suggest that the mysterious fractures that appear when a brittle material is compressed result from a hidden buildup of internal tension. [Physics 19, 151] Published Fri Nov 06, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.151",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Images Capture Unusual Quantum Turbulence",
+      "summary": "Author(s): Rachel Berkowitz Random tangles of vortex lines have been observed untangling in an ultracold gas. [Physics 19, s137] Published Thu Nov 05, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s137",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Probing Strangeness",
+      "summary": "Author(s): Charles Day Close encounters between kaons and deuterons help to elucidate quantum chromodynamics in a challenging mass range. [Physics 19, s145] Published Thu Nov 05, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s145",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Quantum gas microscope reveals individual atoms in first tunable three-component Hubbard system",
+      "summary": "For the first time, an international team of researchers from Germany, Thailand, India, China and the United States has created a three-component Hubbard system with tunable interactions in the laboratory. In doing so, the team used a quantum gas microscope to make the…",
+      "url": "https://phys.org/news/2026-11-quantum-gas-microscope-reveals-individual.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Scientists achieve record-breaking low temperature on China's space station, paving the way for new physics experiments",
+      "summary": "Matter starts to behave differently at extremely low temperatures, creating conditions ideal for studying quantum physics and new states of matter. Now, researchers from China have achieved a new low-temperature record aboard their Tiangong space station. Their research,…",
+      "url": "https://phys.org/news/2026-11-scientists-temperature-china-space-station.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "From chaos to 'intelligent' soft matter—how tiny chemical differences guide droplets into ordered structures",
+      "summary": "Disorder can make sense, and understanding its logic can be genuinely useful. A study by a research group at the University of Trento shows how a minimal chemical difference can turn chaotic, disordered motion into a highly coordinated and reproducible structure.",
+      "url": "https://phys.org/news/2026-11-chaos-intelligent-soft-tiny-chemical.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Paired but out of step: Why electron pairing alone is not enough for room-temperature superconductivity",
+      "summary": "Levitating trains, ultra-efficient energy storage, and quantum computers: superconductivity could unlock a wealth of possibilities for the future. New research led by scientists from Utrecht, Leiden, and Munich has now shed light on one of the key requirements for achieving…",
+      "url": "https://phys.org/news/2026-11-paired-electron-pairing-room-temperature.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "Heavy Quark Transport Is Non-Gaussian beyond Leading Logarithm",
+      "summary": "Author(s): Jean F. Du Plessis and Bruno Scheihing-Hitschfeld We find that heavy quark transport beyond leading logarithm at weak coupling is intrinsically non-Gaussian: the longitudinal momentum transfer distribution has asymmetric exponential tails that are crucial for…",
+      "url": "http://link.aps.org/doi/10.1103/7fd5-1kq5",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "Classification of Scissors Rotational Bands in Deformed Nuclei",
+      "summary": "Author(s): Sheng-Nan Wang, Yu Zhang, and P. Van Isacker We propose a classification scheme for rotational bands built on nuclear scissors vibrations, based on a systematic analysis of the competition among distinct collective modes. Our analysis within the proton-neutron…",
+      "url": "http://link.aps.org/doi/10.1103/z6d8-2q1g",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "First Measurement of Compton Scattering on $^{3}\\mathrm{He}$ at $\\mathrm{HI}γ\\mathrm{S}$",
+      "summary": "Author(s): J. Zhou et al. (Compton@HI γ S Collaboration) The world’s first Compton scattering measurements on a $^{3}\\mathrm{He}$ target were performed to probe neutron electromagnetic polarizabilities. Differential cross sections were measured at laboratory angles of 40°, 55°,…",
+      "url": "http://link.aps.org/doi/10.1103/gn45-7lpx",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "Ab initio calculations of $^{229}\\mathrm{Th}$ band-to-band internal conversion rate in $^{229}\\mathrm{ThO}_{2}$",
+      "summary": "Author(s): Udeshika C. Perera, H. B. Tran Tan, H. W. T. Morgan, Eric R. Hudson, Daniel A. Rehn, and Andrei Derevianko We present an ab initio calculation of the band-to-band internal-conversion rate of the $ℏ{ω}_{\\mathrm{nuc}}≈8.35\\phantom{\\rule{4pt}{0ex}}\\mathrm{eV}$ isomeric…",
+      "url": "http://link.aps.org/doi/10.1103/kdw3-fdyx",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "Suppression of heavy-ion fusion by slow quasifission",
+      "summary": "Author(s): L. T. Bezzina, E. C. Simpson, D. J. Hinde, M. Dasgupta, J. Buete, K. Banerjee, A. C. Berriman, K. J. Cook, D. Y. Jeung, P. McGlynn, C. Simenel, and B. M. A. Swinton-Bland Heavy-element synthesis hinges on the formation of a compound nucleus — a fully equilibrated…",
+      "url": "http://link.aps.org/doi/10.1103/8x4j-pg8f",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "paper",
+      "title": "Coherence enhancement through equilibration to near-zero optical temperatures",
+      "summary": "Nature Physics, Published online: 06 November 2026; doi:10.1038/s41567-026-03520-z Phase-space conservation bars coherence enhancement in passive linear optics, a limit often bypassed by gain or feedback. Here conservative nonlinearity reshapes phase space, thermodynamically…",
+      "url": "https://www.nature.com/articles/s41567-026-03520-z",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-11-06T08:30:18+00:00"
+  "fetched": "2026-11-06T21:02:23+00:00"
 }
