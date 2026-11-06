@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-05T17:38:52+00:00",
+  "generated": "2026-11-06T08:30:19+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,115 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-11-06",
+      "type": "preprint",
+      "title": "General-relativistic neutrino-radiation hydrodynamics of crust ejection in magnetar giant flares",
+      "summary": "Tetyana Pitik et al. — Magnetar giant flares are thought to eject $\\gtrsim 10^{-9}\\,M_\\odot$ of baryons, as inferred from the radio afterglow of the 2004 flare of SGR 1806-20. One proposed mechanism is a shock driven into the neutron-star crust by the hot, high-pressure layer…",
+      "url": "https://arxiv.org/abs/2611.07022v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-04",
+      "arxiv": "2611.07022v1",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Laser-plasma accelerator could generate bright X-rays for biological imaging, simulations show",
+      "summary": "X-rays with wavelengths between approximately 2.3 and 4.4 nanometers, i.e., in the so-called water window, are particularly well suited to examining biological samples in their natural, aqueous environment. To date, however, it has been technically difficult to access this type…",
+      "url": "https://phys.org/news/2026-11-laser-plasma-generate-bright-rays.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Pinning down the structure of quark-gluon plasma, the universe's first fluid",
+      "summary": "In the first fraction of a second following the Big Bang, matter existed as a trillion-degree plasma of quarks and gluons—subatomic particles that zinged around at close to the speed of light. This roiling soup lasted for just a few microseconds before the particles coalesced…",
+      "url": "https://phys.org/news/2026-11-pinning-quark-gluon-plasma-universe.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Electrical control of an unconventional quantum transport state demonstrated in a magnet for the first time",
+      "summary": "Researchers at Tohoku University and the Japan Atomic Energy Agency (JAEA) have successfully controlled a unique quantum phenomenon—the quantum-geometric nonlinear Hall (QgNLH) state—using electric current for the first time. The breakthrough was achieved by revealing and…",
+      "url": "https://phys.org/news/2026-11-electrical-unconventional-quantum-state-magnet.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "How palm orientation shapes spin characteristics in volleyball jump serves",
+      "summary": "A new biomechanical study has uncovered how elite volleyball players control ball spin during jump serves, offering fresh scientific insight into one of the sport's most decisive offensive skills.",
+      "url": "https://phys.org/news/2026-11-palm-characteristics-volleyball.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Physicist develops detector capable of counting photons for quantum computing",
+      "summary": "Detecting a single photon is a challenge in itself. But what if you also want to know exactly how many photons arrive at a particular point at the same time? Physicist Erik Baalbergen is working on light detectors that can do just that. They form a key building block for the…",
+      "url": "https://phys.org/news/2026-11-physicist-detector-capable-photons-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-05",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-06",
+      "type": "news",
+      "title": "Conférence grand public avec François De Oliveira vendredi 6 novembre à la Bibliothèque Universitaire Rosalind-Franklin à Caen",
+      "summary": "François de Oliveira Santos, chercheur au GANIL, animera la conférence sur l&#8217;origine cosmique des éléments chimiques vendredi 6 novembre à 17h30, à la bibliothèque Rosalind-Franklin située sur le campus 2 de l&#8217;Université de Caen Normandie. Cette conférence retrace…",
+      "url": "https://www.ganil-spiral2.eu/2026/11/06/conference-grand-public-avec-francois-de-oliveira-vendredi-6-novembre-a-la-bibliotheque-universitaire-rosalind-franklin-a-caen/",
+      "source": "GANIL news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "published": "2026-11-06",
+      "collected_at": "2026-11-06",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "ganil-spiral2"
+      ]
+    },
     {
       "date": "2026-11-05",
       "type": "preprint",
