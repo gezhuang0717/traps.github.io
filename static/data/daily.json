@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "date": "2026-11-08",
+      "type": "news",
+      "title": "Two paths, one flux: Trapped ions simulate Aharonov–Bohm interference in a lattice gauge theory",
+      "summary": "In a new Nature Physics study, researchers demonstrated the Aharonov-Bohm effect in a quantum simulation of a lattice gauge theory using a hybrid trapped-ion quantum computer.",
+      "url": "https://phys.org/news/2026-11-paths-flux-ions-simulate-aharonovbohm.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-07",
+      "collected_at": "2026-11-08",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-07",
       "type": "news",
       "title": "Air holes turn silicon wafers into flat ultraviolet focusing mirrors for compact optics",
@@ -8135,12 +8150,12 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-07T07:47:16+00:00",
+    "checked_at": "2026-11-08T00:10:25+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
@@ -8152,7 +8167,7 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 4,
+        "matched": 2,
         "new": 0
       },
       {
@@ -8183,7 +8198,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 12,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Nature Physics",
@@ -8199,9 +8214,8 @@
       },
       {
         "source": "GANIL news",
-        "status": "PASS",
-        "matched": 10,
-        "new": 0
+        "status": "FAILED",
+        "error": "<urlopen error timed out>"
       },
       {
         "source": "ECT* news & workshops",

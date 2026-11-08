@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-07T07:47:18+00:00",
+  "generated": "2026-11-08T00:10:27+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,21 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-11-08",
+      "type": "news",
+      "title": "Two paths, one flux: Trapped ions simulate Aharonov–Bohm interference in a lattice gauge theory",
+      "summary": "In a new Nature Physics study, researchers demonstrated the Aharonov-Bohm effect in a quantum simulation of a lattice gauge theory using a hybrid trapped-ion quantum computer.",
+      "url": "https://phys.org/news/2026-11-paths-flux-ions-simulate-aharonovbohm.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-07",
+      "collected_at": "2026-11-08",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-11-07",
       "type": "news",

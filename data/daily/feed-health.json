@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-07T07:47:16+00:00",
+  "checked_at": "2026-11-08T00:10:25+00:00",
   "feeds": [
     {
       "source": "arXiv — ion traps & mass spectrometry",
       "status": "PASS",
-      "matched": 1,
+      "matched": 0,
       "new": 0
     },
     {
@@ -16,7 +16,7 @@
     {
       "source": "INSPIRE-HEP Jobs — nuclear physics",
       "status": "PASS",
-      "matched": 4,
+      "matched": 2,
       "new": 0
     },
     {
@@ -47,7 +47,7 @@
       "source": "Physical Review C",
       "status": "PASS",
       "matched": 12,
-      "new": 2
+      "new": 0
     },
     {
       "source": "Nature Physics",
@@ -63,9 +63,8 @@
     },
     {
       "source": "GANIL news",
-      "status": "PASS",
-      "matched": 10,
-      "new": 0
+      "status": "FAILED",
+      "error": "<urlopen error timed out>"
     },
     {
       "source": "ECT* news & workshops",
