@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-08T07:58:42+00:00",
+  "checked_at": "2026-11-09T00:27:18+00:00",
   "feeds": [
     {
       "source": "arXiv — ion traps & mass spectrometry",
@@ -10,13 +10,13 @@
     {
       "source": "arXiv — nuclear masses, Q-values & astrophysics",
       "status": "PASS",
-      "matched": 1,
+      "matched": 0,
       "new": 0
     },
     {
       "source": "INSPIRE-HEP Jobs — nuclear physics",
       "status": "PASS",
-      "matched": 2,
+      "matched": 0,
       "new": 0
     },
     {
