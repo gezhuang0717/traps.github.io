@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-09T13:37:48+00:00",
+  "generated": "2026-11-09T23:51:13+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5736,6 +5736,130 @@
       "title": "Active-flow-driven DNA remodelling generates millimetre-scale mechanical oscillations",
       "summary": "Nature Physics, Published online: 09 November 2026; doi:10.1038/s41567-026-03505-y Active matter can exhibit turbulent or coherent flows. Now it is shown that active flows can entangle DNA polymers, leading to a non-equilibrium transition from disordered turbulence to periodic…",
       "url": "https://www.nature.com/articles/s41567-026-03505-y",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "Upgraded microscope can now watch individual quantum particles in motion",
+      "summary": "Energy can be carried in a number of ways: by electrons, the particles that underpin all modern electronics, as well as by quasiparticles, the results of different particles interacting with one another at the quantum level. Columbia chemist Milan Delor has been watching these…",
+      "url": "https://phys.org/news/2026-11-microscope-individual-quantum-particles-motion.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "New perovskite system extends room-temperature spin polarization via successive quantum wells",
+      "summary": "A research team led by Lu Haipeng, a professor in the Department of Chemistry at The Hong Kong University of Science and Technology (HKUST), has achieved a breakthrough in preserving spin information for optoelectronic technologies. The team has developed a perovskite chiral…",
+      "url": "https://phys.org/news/2026-11-perovskite-room-temperature-polarization-successive.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "Light reflecting within thin films can masquerade as molecular signals in perovskite solar materials",
+      "summary": "An infrared signal thought to reveal how molecules in perovskite solar materials respond to light-generated charges can arise largely from the way light travels through the thin film itself, a new theoretical study shows. Jun Nishida, assistant professor at the Institute for…",
+      "url": "https://phys.org/news/2026-11-thin-masquerade-molecular-perovskite-solar.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "Atomic defects leave telltale optical fingerprints in quantum material",
+      "summary": "The tiny atomic defects so important for future quantum technologies can be difficult to spot. Fortunately, they leave behind some clues. The defects can alter how a material responds to light, producing a distinctive optical fingerprint that scientists can measure. The…",
+      "url": "https://phys.org/news/2026-11-atomic-defects-telltale-optical-fingerprints.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "High-pressure setup unlocks detailed measurements of organized structures in turbulent flows",
+      "summary": "Turbulent flows are ubiquitous: they are found in clouds, in the ocean and even on other planets. Yet despite their chaotic nature, they also form large-scale structures that can be calculated and predicted. For example, while long streaks of clouds may appear orderly from the…",
+      "url": "https://phys.org/news/2026-11-high-pressure-setup-turbulent.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "paper",
+      "title": "Delivery of refractory radioactive ion beams via in-trap decay at ISOLDE",
+      "summary": "Author(s): J. R. Reilly, M. Athanasakis-Kaklamanakis, M. Au, L. Nies, A. Ajayakumar, M. Benhatchi, J. Berbalk, C. Bernerd, K. Chrysalidis, C. M. Fajardo Zambrano, P. F. Giesel, R. Heinke, D. Lange, G. Peng, S. Rothe, A. Schmidt, C. Schweiger, and J. Wessolek The delivery of…",
+      "url": "http://link.aps.org/doi/10.1103/6m5s-pxyz",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "cern-isolde"
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "type": "paper",
+      "title": "Nobel neutrinos",
+      "summary": "Nature Physics, Published online: 09 November 2026; doi:10.1038/s41567-026-03543-6 The Nobel Prize in Physics 2026 has been awarded to Francis Halzen “for decisive contributions to the IceCube Neutrino Observatory and the discovery of high-energy neutrinos of astrophysical…",
+      "url": "https://www.nature.com/articles/s41567-026-03543-6",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "paper",
+      "title": "The edge of the Sun",
+      "summary": "Nature Physics, Published online: 09 November 2026; doi:10.1038/s41567-026-03515-w Defining the solar radius is not as easy as it might seem. José Vaquero tells us a story of eclipses, meridian lines, astronomical archives and space observations.",
+      "url": "https://www.nature.com/articles/s41567-026-03515-w",
       "source": "Nature Physics",
       "tags": [
         "journal"
