@@ -1,0 +1,50 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-09",
+      "type": "news",
+      "title": "Optical experiment demonstrates the strong Mpemba effect in a single qubit",
+      "summary": "Typically, after a physical system is disturbed, it can gradually return toward a state of thermal equilibrium by exchanging heat with its surroundings. Thermal equilibrium is a state in which there is no net transfer of heat between the system and its surroundings.",
+      "url": "https://phys.org/news/2026-11-optical-strong-mpemba-effect-qubit.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "paper",
+      "title": "Bound states in the continuum through quantum interference in ultracold atomic collisions",
+      "summary": "Nature Physics, Published online: 09 November 2026; doi:10.1038/s41567-026-03519-6 Resonances in ultracold collisions couple to scattering states, causing interactions and loss. Now it is shown that the interference of Feshbach resonances creates a bound state in the continuum…",
+      "url": "https://www.nature.com/articles/s41567-026-03519-6",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-09",
+      "type": "paper",
+      "title": "Active-flow-driven DNA remodelling generates millimetre-scale mechanical oscillations",
+      "summary": "Nature Physics, Published online: 09 November 2026; doi:10.1038/s41567-026-03505-y Active matter can exhibit turbulent or coherent flows. Now it is shown that active flows can entangle DNA polymers, leading to a non-equilibrium transition from disordered turbulence to periodic…",
+      "url": "https://www.nature.com/articles/s41567-026-03505-y",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-09",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-09T13:37:46+00:00"
+}
