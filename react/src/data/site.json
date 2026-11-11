@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-10T13:16:24+00:00",
+  "generated": "2026-11-11T01:48:14+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,142 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "Postdoctoral Associate in Nuclear Theory — Stony Brook U.",
+      "summary": "North America · deadline 2026-12-07 · POSTDOC. The Nuclear Theory Group at Stony Brook University invites applications for a postdoctoral position in theoretical nuclear physics, with emphasis on Quantum Chromodynamics (QCD), hadron structure, and Electron-Ion Collider (EIC)…",
+      "url": "https://inspirehep.net/jobs/3226836",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "deadline": "2026-12-07",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "Fully Funded 4-Year PhD Studentship in Cosmology, Particle Theory, AI, and Beyond — U. Sheffield (main)",
+      "summary": "Europe · deadline 2027-01-01 · PHD. Applications are invited for a fully funded four-year PhD studentship at the University of Sheffield, supervised by Dr Yu-Dai Tsai. The project offers opportunities to research cosmology, theoretical particle physics, mathematics, artificial…",
+      "url": "https://inspirehep.net/jobs/3226834",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "deadline": "2027-01-01",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Gravitational-Wave Observations Implicate Failed Supernovae",
+      "summary": "Author(s): Sophia Chen Stars collapsing directly into black holes might explain the surprising number of merging black holes of about 10 solar masses. [Physics 19, s149] Published Tue Nov 10, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s149",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Harnessing laser nuisance achieves record resolution for atomic measurements",
+      "summary": "A shoebox-sized color detection device could enable precise measurements at record resolution, according to new research led by Adelaide University. An international team exploited an integrating sphere—a highly reflective hollow cavity that causes light to bounce around inside…",
+      "url": "https://phys.org/news/2026-11-harnessing-laser-nuisance-resolution-atomic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Scientists discover new way to control magnetic waves for future quantum technologies",
+      "summary": "Researchers at the U.S. Department of Energy's (DOE) Ames National Laboratory have discovered a way to control the handedness of magnons, tiny magnetic waves that can carry information through materials. By changing the material's magnetic state with an external magnetic field,…",
+      "url": "https://phys.org/news/2026-11-scientists-magnetic-future-quantum-technologies.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Classical–quantum light interactions could make complex quantum behavior easier to simulate",
+      "summary": "An international collaboration demonstrates that classical nonlinear dynamics can drive single- and two-photon states to thermalize, opening new avenues for simulating complex quantum many-body systems within accessible optical architectures.",
+      "url": "https://phys.org/news/2026-11-classicalquantum-interactions-complex-quantum-behavior.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Repeatable laser measurements reveal 'forbidden' vibrations in single molecules without destroying them",
+      "summary": "The possibility of controlling \"forbidden\" excitations of vibrations in molecules could form the basis of extremely accurate clocks, quantum bits and precise tests of the fundamental laws of physics. Researchers at the University of Basel have now identified and controlled such…",
+      "url": "https://phys.org/news/2026-11-laser-reveal-forbidden-vibrations-molecules.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Mathematical method sharpens X-ray images at the nanoscale",
+      "summary": "In an international collaboration, researchers have developed a method that produces significantly higher-quality three-dimensional X-ray images than previously possible. The technique is used for 3D imaging with so-called X-ray nanotomography. The researchers' approach draws…",
+      "url": "https://phys.org/news/2026-11-mathematical-method-sharpens-ray-images.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Seven Ways Nuclear Science Helps Protect the Environment",
+      "summary": "This week, global leaders, international organizations, scientists, business representatives and civil society are gathering in Antalya, Türkiye, for the 31st United Nations Climate Change Conference (COP31).",
+      "url": "http://www.iaea.org/newscenter/news/seven-ways-nuclear-science-helps-protect-the-environment",
+      "source": "IAEA — nuclear science news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-11-10",
       "type": "news",
