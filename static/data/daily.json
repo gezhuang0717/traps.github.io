@@ -241,6 +241,115 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "Postdoctoral Fellow Positions in Nuclear Theory — Jefferson Lab",
+      "summary": "North America · deadline 2026-11-29 · POSTDOC. The Theory Center at Jefferson Lab (JLab) invites applications for postdoctoral positions in theoretical nuclear physics starting in fall 2027. These positions are normally for two years, with the possibility of one additional year…",
+      "url": "https://inspirehep.net/jobs/3227171",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-11",
+      "deadline": "2026-11-29",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "Postdoctoral Associate- Nuclear Physics — Stony Brook U.",
+      "summary": "North America · deadline 2026-12-10 · POSTDOC. Postdoctoral Associate- Nuclear Physics (2604198) Required Qualifications (As evidenced by an attached resume): Ph.D. (or foreign equivalent) in theoretical nuclear physics, particle physics, or a closely related field in hand by…",
+      "url": "https://inspirehep.net/jobs/3227094",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-11",
+      "deadline": "2026-12-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "Postdoctoral Positions Available in 2027 — Beijing, Inst. Theor. Phys.",
+      "summary": "Asia · deadline 2027-02-10 · POSTDOC. The Institute of Theoretical Physics at the Chinese Academy of Sciences (ITP-CAS) ( http://english.itp.cas.cn ) is calling for application for a few postdoctoral fellow positions in 2027. Research areas include but not limited to: 1)…",
+      "url": "https://inspirehep.net/jobs/3227083",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-11",
+      "deadline": "2027-02-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "job",
+      "title": "QUP Postdoctoral Fellows in Experimental Physics — KEK, Tsukuba, QUP, Tsukuba",
+      "summary": "Asia · deadline 2026-12-31 · POSTDOC. We are seeking outstanding applicants for several Postdoctoral Fellow positions at QUP in experimental physics. QUP aims to explore new quantum fields and forces and probe physical phenomena with extremely weak couplings, such as light dark…",
+      "url": "https://inspirehep.net/jobs/3226869",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-11",
+      "deadline": "2026-12-31",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Changing magnetic dimensionality boosts spin-wave frequency in Cr₂₋δTe₂",
+      "summary": "Magnons are quasiparticles that represent quantized spin waves in magnetic materials. They can carry information without moving electric charge, making them promising for future information technologies that could use less energy than conventional electronics. The frequency,…",
+      "url": "https://phys.org/news/2026-11-magnetic-dimensionality-boosts-frequency-crte.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "World's most sensitive lab-based axion search presents its first results",
+      "summary": "Physicists at the ALPS II collaboration have reported the first results from the Any-Light-Particle-Search (ALPS) II experiment: the most sensitive instrument of its kind in the search for hypothetical \"axions.\" Headed by Axel Lindner at the DESY Research Centre in Germany, the…",
+      "url": "https://phys.org/news/2026-11-world-sensitive-lab-based-axion.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-10",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-11",
+      "type": "news",
+      "title": "Chirality of 'trions' illuminates new paths for quantum optics",
+      "summary": "Scientists from Tokyo Metropolitan University have discovered that charged states made of two electrons and a positively charged hole (or vice versa) on atomically thin rolls of carbon atoms have a structure-derived \"handedness\" in how they interact with light. While…",
+      "url": "https://phys.org/news/2026-11-chirality-trions-illuminates-paths-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-09",
+      "collected_at": "2026-11-11",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-10",
       "type": "news",
       "title": "The Gurzhi Effect Reaches Three Dimensions",
@@ -8649,7 +8758,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-11T17:27:37+00:00",
+    "checked_at": "2026-11-11T22:14:30+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -8666,8 +8775,8 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 1,
-        "new": 0
+        "matched": 5,
+        "new": 4
       },
       {
         "source": "APS Physics — news",
@@ -8679,7 +8788,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 3
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -8703,7 +8812,7 @@
         "source": "Nature Physics",
         "status": "PASS",
         "matched": 7,
-        "new": 1
+        "new": 0
       },
       {
         "source": "TRIUMF news",
@@ -8727,7 +8836,7 @@
         "source": "IAEA — nuclear science news",
         "status": "PASS",
         "matched": 1,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Ion Traps Newsletter (iontraps.net)",
