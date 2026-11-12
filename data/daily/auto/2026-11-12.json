@@ -1,0 +1,35 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-12",
+      "type": "news",
+      "title": "Superconducting vortices provide experimental evidence that clogging is a phase transition",
+      "summary": "Clogging is a phenomenon in which moving particles get stuck, slowing or blocking the flow, but how this transition occurs has remained experimentally unproven. Researchers from Science Tokyo studied superconducting vortices to demonstrate that clogging is a nonequilibrium…",
+      "url": "https://phys.org/news/2026-11-superconducting-vortices-experimental-evidence-clogging.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-11",
+      "collected_at": "2026-11-12",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-12",
+      "type": "paper",
+      "title": "Optimal learning of quantum channels in diamond distance",
+      "summary": "Nature Physics, Published online: 12 November 2026; doi:10.1038/s41567-026-03499-7 Quantum channels can be used to describe the evolution of quantum states, including both unitary evolution and measurement. Now the optimal number of uses needed to learn an unknown channel to…",
+      "url": "https://www.nature.com/articles/s41567-026-03499-7",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-12",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-12T13:32:15+00:00"
+}
