@@ -1,0 +1,112 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Engineered atomic interactions help microwave sensor capture three times as much information",
+      "summary": "Researchers from the Faculty of Physics at the University of Warsaw (UW) and the Center for Optical Quantum Technologies at the University of Warsaw's Center for New Technologies (CeNT UW) have developed a method for ultrasensitive microwave sensing. Using cold, strongly…",
+      "url": "https://phys.org/news/2026-11-atomic-interactions-microwave-sensor-capture.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Multiplexed detector system precisely counts more than 9,000 photons",
+      "summary": "Researchers have developed a new approach that can precisely count from zero to more than 9,000 individual photons. The advance opens new possibilities for studying quantum light at large scales and making precise optical measurements.",
+      "url": "https://phys.org/news/2026-11-multiplexed-detector-precisely-photons.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Matter–antimatter asymmetry still provides no evidence of new physics",
+      "summary": "The universe's dominance by ordinary matter is compelling evidence that matter and antimatter are not perfect reflections of each other. However, known differences do not explain the scale of this imbalance, leaving open the possibility that unknown physics is responsible. A…",
+      "url": "https://phys.org/news/2026-11-matterantimatter-asymmetry-evidence-physics.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Chip-based laser cooling could ease quantum computing bottleneck",
+      "summary": "Researchers at Cornell have developed a laser-cooling technique that could potentially remove a significant bottleneck in the development of larger, faster quantum computers.",
+      "url": "https://phys.org/news/2026-11-chip-based-laser-cooling-ease.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Layered superionic conductor hosts atomic vibrations that behave like liquids, glasses and crystals",
+      "summary": "Scientists from the Institute of Metal Research (IMR) of the Chinese Academy of Sciences have directly observed liquid-like, glass-like and crystal-like phonon behaviors coexisting in a crystalline solid—the layered superionic conductor AgCrSe₂.",
+      "url": "https://phys.org/news/2026-11-layered-superionic-conductor-hosts-atomic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "paper",
+      "title": "Long-Range and Short-Range Longitudinal Flow Decorrelations in the Quark-Gluon Plasma",
+      "summary": "Author(s): Jiangyong Jia (贾江涌), Shengli Huang (黄胜利), Chunjian Zhang (张春健), and Somadutta Bhatta The longitudinal structure of the quark-gluon plasma (QGP) remains poorly constrained. Using a transport-model calculation of two-particle elliptic-flow correlations…",
+      "url": "http://link.aps.org/doi/10.1103/l5j1-7b4d",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "paper",
+      "title": "Lower Limit on the Double-Alpha Decay of $^{224}\\mathrm{Ra}$",
+      "summary": "Author(s): P. Belli, R. Bernabei, F. Cappella, V. Caracciolo, R. Cerulli, F. A. Danevich, V. Yu. Denisov, A. Incicchitti, D. V. Kasperovych, V. R. Klavdiienko, A. Leoncini, and V. I. Tretyak A GAGG:Ce crystal scintillator contaminated by thorium was used to search for…",
+      "url": "http://link.aps.org/doi/10.1103/y95w-7ztb",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-13T01:38:34+00:00"
+}
