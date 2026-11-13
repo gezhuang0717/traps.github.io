@@ -106,7 +106,97 @@
       "published": "2026-11-12",
       "collected_at": "2026-11-13",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "The Surprising Origin of Uranus’ Moons and Rings",
+      "summary": "Author(s): Charles Day New infrared observations tie the ice giant’s small moons and narrow rings to a past encounter with a visiting object from the Kuiper belt. [Physics 19, 152] Published Thu Nov 12, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.152",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Light-activated molecules in porous crystals show potential for quantum chemical sensing",
+      "summary": "An international research team led by Nobuhiro Yanai from the University of Tokyo and Michael R. Wasielewski from Northwestern University has created polarized radical pairs, molecules with unpaired electrons whose spins align, in metal–organic frameworks (MOFs), porous…",
+      "url": "https://phys.org/news/2026-11-molecules-porous-crystals-potential-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Research advances quantum computing that harnesses speed of light",
+      "summary": "Quantum computers have the potential to perform calculations more quickly than supercomputers, but they could be even faster and more energy-efficient if they were built with photons as their basic units, called qubits.",
+      "url": "https://phys.org/news/2026-11-advances-quantum-harnesses.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Vision and interferometry improve calibration of large monolithic mirrors",
+      "summary": "In a new study published in Measurement, researchers from the Changchun Institute of Optics, Fine Mechanics and Physics of the Chinese Academy of Sciences have developed a calibration method that combines machine vision with interferometry. This method separates a mirror's…",
+      "url": "https://phys.org/news/2026-11-vision-interferometry-calibration-large-monolithic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Ultrafast 3D imaging captures fleeting motion at 150,000 frames per second",
+      "summary": "A research team from the Institut national de la recherche scientifique (INRS), led by professor Jinyang Liang, is pushing the limits of ultrafast imaging with a new technology capable of capturing three-dimensional images at speeds of up to 150,000 frames per second. Published…",
+      "url": "https://phys.org/news/2026-11-ultrafast-3d-imaging-captures-fleeting.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-13",
+      "type": "news",
+      "title": "Imperfections reveal unexpected links between light and atomic vibrations in ultrathin boron nitride",
+      "summary": "First, one person stands up, followed by their neighbors, one after another, until a wave sweeps through the stadium. Atoms within a material move in a similar way: rather than remaining completely still in their positions, they vibrate together around their respective…",
+      "url": "https://phys.org/news/2026-11-imperfections-reveal-unexpected-links-atomic.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-13",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-11-13T01:38:34+00:00"
+  "fetched": "2026-11-13T13:41:40+00:00"
 }
