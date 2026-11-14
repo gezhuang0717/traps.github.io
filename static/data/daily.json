@@ -145,6 +145,36 @@
       ]
     },
     {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "A new twist on 'magic-angle' graphene: Tuning resistance with strain",
+      "summary": "In materials science labs around the world, researchers regularly reproduce a peculiar experiment. Under a microscope, they use tiny robotic manipulators to lay two sheets of carbon, each a single atom thick, against one another. They then rotate the top sheet against the…",
+      "url": "https://phys.org/news/2026-11-magic-angle-graphene-tuning-resistance.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Unified framework establishes rules for classifying unconventional magnets",
+      "summary": "Researchers from the Hefei Institutes of Physical Science (HFIPS) of the Chinese Academy of Sciences (CAS) have developed a unified framework for establishing symmetry criteria and classifying unconventional magnets.",
+      "url": "https://phys.org/news/2026-11-framework-unconventional-magnets.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-13",
       "type": "news",
       "title": "Engineered atomic interactions help microwave sensor capture three times as much information",
@@ -9129,7 +9159,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-14T02:09:39+00:00",
+    "checked_at": "2026-11-14T16:06:35+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -9147,7 +9177,7 @@
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 6,
-        "new": 1
+        "new": 0
       },
       {
         "source": "APS Physics — news",
@@ -9159,7 +9189,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 2
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -9177,7 +9207,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 9,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
@@ -9195,7 +9225,7 @@
         "source": "GANIL news",
         "status": "PASS",
         "matched": 10,
-        "new": 2
+        "new": 0
       },
       {
         "source": "ECT* news & workshops",

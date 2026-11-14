@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-14T02:09:41+00:00",
+  "generated": "2026-11-14T16:06:37+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5843,6 +5843,36 @@
       "facility_ids": [
         "ganil-spiral2"
       ]
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "A new twist on 'magic-angle' graphene: Tuning resistance with strain",
+      "summary": "In materials science labs around the world, researchers regularly reproduce a peculiar experiment. Under a microscope, they use tiny robotic manipulators to lay two sheets of carbon, each a single atom thick, against one another. They then rotate the top sheet against the…",
+      "url": "https://phys.org/news/2026-11-magic-angle-graphene-tuning-resistance.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Unified framework establishes rules for classifying unconventional magnets",
+      "summary": "Researchers from the Hefei Institutes of Physical Science (HFIPS) of the Chinese Academy of Sciences (CAS) have developed a unified framework for establishing symmetry criteria and classifying unconventional magnets.",
+      "url": "https://phys.org/news/2026-11-framework-unconventional-magnets.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
     },
     {
       "date": "2026-11-13",
