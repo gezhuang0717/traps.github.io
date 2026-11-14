@@ -1,0 +1,149 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-14",
+      "type": "job",
+      "title": "Postdoctoral Researcher in FPGA-based AI for Neutrino Astronomy — Tsung-Dao Lee Inst., Shanghai",
+      "summary": "Asia · deadline 2027-02-28 · POSTDOC. The Tsung-Dao Lee Institute (TDLI) at Shanghai Jiao Tong University (SJTU) invites applications for a postdoctoral research position in FPGA-based artificial intelligence for the TRIDENT (Hai-Ling) Neutrino Telescope, led by Prof. Donglian…",
+      "url": "https://inspirehep.net/jobs/3227787",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "deadline": "2027-02-28",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Unstable plasma heats itself with waves it generates, experiments reveal",
+      "summary": "Fusion power is expected to be a sustainable energy source that emits no carbon dioxide during electricity generation. To achieve this, research is underway worldwide to confine high-temperature plasma using magnetic fields. To initiate a fusion reaction, high-energy particles…",
+      "url": "https://phys.org/news/2026-11-unstable-plasma-generates-reveal.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Self-learning AI separates particle jets from background noise in simulated heavy-ion collisions",
+      "summary": "A team of physicists and computer scientists led by researchers at the U.S. Department of Energy's (DOE) Brookhaven National Laboratory developed a new artificial intelligence (AI) approach that learns on its own to separate important high-energy particle jet signals from the…",
+      "url": "https://phys.org/news/2026-11-ai-particle-jets-background-noise.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Heat drives electron orbital currents, revealing first experimental evidence of orbital Nernst effect",
+      "summary": "Researchers at National Taiwan University (NTU) have reported the first experimental evidence of heat-current-driven transverse accumulation of electrons' orbital angular momentum, a phenomenon known as the orbital Nernst effect. The study was recently published in Nature…",
+      "url": "https://phys.org/news/2026-11-electron-orbital-currents-revealing-experimental.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Optical system maps multiple infrared fields onto one small detector",
+      "summary": "Researchers from the Changchun Institute of Optics, Fine Mechanics and Physics of the Chinese Academy of Sciences have developed an optical system that focuses light from several subfields onto a single small-format detector. By analyzing field-dependent spot shapes, the system…",
+      "url": "https://phys.org/news/2026-11-optical-multiple-infrared-fields-small.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Zn doping reveals robust two-gap superconductivity in FeSe",
+      "summary": "Researchers using the Steady High Magnetic Field Facility have found that zinc doping unexpectedly alters the superconducting properties of iron selenide (FeSe) while preserving its two-gap superconducting state.",
+      "url": "https://phys.org/news/2026-11-zn-doping-reveals-robust-gap.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-12",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "paper",
+      "title": "Precise description of spontaneous fission half-lives of Rutherfordium isotopes within the relativistic Hartree-Bogoliubov theory",
+      "summary": "Author(s): Jie Zhao (赵杰) Accurate predictions of spontaneous-fission half-lives are necessary for understanding the production and stability of superheavy nuclei. Current approaches using energy density functionals can only reproduce the experimental half-lives of spontaneous…",
+      "url": "http://link.aps.org/doi/10.1103/nwp4-fchk",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "FALSTAFF doubles the stakes: first coincident measurements at GANIL",
+      "summary": "FALSTAFF has set up its summer base at NFS/SPIRAL2 (Neutrons For Science) at GANIL in Caen for the simultaneous measurement of the two fragments resulting from neutron-induced fission of uranium-235. This spectrometer was designed and built by a team of physicists, engineers…",
+      "url": "https://www.ganil-spiral2.eu/2026/11/13/falstaff-doubles-the-stakes-first-coincident-measurements-at-ganil/",
+      "source": "GANIL news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "published": "2026-11-13",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "cern-ad-base",
+        "ganil-spiral2"
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "type": "news",
+      "title": "Summer School on Physics of Nuclear Open Quantum Systems at GANIL",
+      "summary": "From July 6 to 24, GANIL hosted the Summer School on Physics of Nuclear Open Quantum System. The School brought together young researchers from around the world with the aim of learning modern theoretical approaches in the field. The nuclear landscape around the limits of…",
+      "url": "https://www.ganil-spiral2.eu/2026/10/05/summer-school-on-physics-of-nuclear-open-quantum-systems-at-ganil/",
+      "source": "GANIL news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "published": "2026-10-05",
+      "collected_at": "2026-11-14",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "ganil-spiral2"
+      ]
+    }
+  ],
+  "fetched": "2026-11-14T02:09:39+00:00"
+}
