@@ -171,7 +171,114 @@
       "published": "2026-11-16",
       "collected_at": "2026-11-17",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "job",
+      "title": "@NDB Hub Postdoctoral Research Fellow in Nuclear Structure Theory — UNC, Chapel Hill",
+      "summary": "North America · deadline 2026-12-15 · POSTDOC. In 2024 the National Science Foundation inaugurated a \"Focused Research Hub in Theoretical Physics, \"Advancing the Theory of Nuclear Double Beta-decay (@NDB)\". The @NDB Hub has as members theoretical physicists and statisticians at…",
+      "url": "https://inspirehep.net/jobs/3229775",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "deadline": "2026-12-15",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "job",
+      "title": "PhD position in AI-based Newtonian-Noise mitigation for the Einstein Telescope — U. Siegen (main)",
+      "summary": "Europe · deadline 2026-12-11 · PHD. The Experimental Particle and Astroparticle Physics Group at the University of Siegen invites applications for a doctoral researcher position in AI-based real-time Newtonian-noise mitigation for the Einstein Telescope. The Einstein Telescope…",
+      "url": "https://inspirehep.net/jobs/3229756",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "deadline": "2026-12-11",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Quantum observers can 'agree to disagree,' but within limits, new theorem shows",
+      "summary": "Two observers can start with the same description of a quantum system, follow the same probability rules and still disagree about the chance of the same outcome—even while being certain of each other's assessments.",
+      "url": "https://phys.org/news/2026-11-quantum-limits-theorem.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Meta-compass: An on-chip toolkit for visualizing optical spectrum and polarization",
+      "summary": "A ruler turns length into a position on a scale. A thermometer converts temperature into the height of a liquid column. In each case, a physical quantity becomes easier to read because an instrument gives it a visible reference. We wanted to bring the same idea to light, whose…",
+      "url": "https://phys.org/news/2026-11-meta-compass-chip-toolkit-visualizing.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Will it flow? Simulating food inks for 3D printing",
+      "summary": "In \"Star Trek,\" characters use a technology called a replicator to produce any food item they can imagine out of thin air. While we don't have this same technology in real life, we can get close with 3D printing.",
+      "url": "https://phys.org/news/2026-11-simulating-food-inks-3d.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "New mechanical modulation method enables tunable multi-pulse fiber lasers",
+      "summary": "In a study published in Optical Fiber Technology, researchers from the Changchun Institute of Optics, Fine Mechanics and Physics of the Chinese Academy of Sciences have developed a new method to control multi-pulse generation in a 1972-nm mode-locked fiber laser. By applying…",
+      "url": "https://phys.org/news/2026-11-mechanical-modulation-method-enables-tunable.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Hidden defects return a qubit's lost energy",
+      "summary": "Today, many leading quantum computers are built from superconducting circuits. However, the qubits in these circuits can easily lose energy to their surroundings, scrambling the fragile quantum information they hold.",
+      "url": "https://phys.org/news/2026-11-hidden-defects-qubit-lost-energy.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-11-17T14:07:31+00:00"
+  "fetched": "2026-11-17T23:08:06+00:00"
 }
