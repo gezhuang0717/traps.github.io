@@ -1,6 +1,178 @@
 {
   "entries": [
     {
+      "date": "2026-11-17",
+      "type": "preprint",
+      "title": "Recent Advances and Precision Measurements with the JYFLTRAP Double Penning Trap Mass Spectrometer",
+      "summary": "Zhuang Ge et al. — High-precision atomic-mass measurements with the JYFLTRAP double Penning-trap mass spectrometer at the IGISOL facility provide direct information on decay energies, nuclear binding and shell evolution, isomer excitation energies, and masses relevant to…",
+      "url": "https://arxiv.org/abs/2611.21588v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "arxiv": "2611.21588v1",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "igisol-jyfltrap"
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Winding Spins Toward Better Quantum Sensing",
+      "summary": "Author(s): Ren-Bao Liu Robust collective spin dynamics have been achieved in diamond by winding the spins into a nanoscale spiral and making their interactions symmetric. [Physics 19, 153] Published Mon Nov 16, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.153",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Quantum Dots Emit Photons in Desired Directions",
+      "summary": "Author(s): Michael Schirber Researchers demonstrate directional control of a single-photon source by coupling two quantum dots together. [Physics 19, 155] Published Mon Nov 16, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.155",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Team extends a qubit's lifetime, correcting errors without measuring them",
+      "summary": "Quantum technologies, devices that can process, store or collect information leveraging the laws of quantum mechanics, could potentially outperform their classical counterparts on some tasks. Yet these devices are highly sensitive to changes or disturbances in their surrounding…",
+      "url": "https://phys.org/news/2026-11-team-qubit-lifetime-errors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "New theoretical framework free of ghostlike instabilities expands the possibilities of symmetry in particle physics",
+      "summary": "Elementary particles and the forces governing their interactions are described by relativistic quantum field theory, in which symmetry serves as a fundamental guiding principle. For more than half a century, the possible symmetries of such theories were believed to be…",
+      "url": "https://phys.org/news/2026-11-theoretical-framework-free-ghostlike-instabilities.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Flat optics roadmap charts path toward smaller imaging and sensing systems",
+      "summary": "For centuries, optical systems have relied on lenses, mirrors and other components that manipulate light through their shape and size. Today, advances in nanotechnology are enabling a different approach. Researchers can now engineer materials at scales smaller than the…",
+      "url": "https://phys.org/news/2026-11-flat-optics-roadmap-path-smaller.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Model of 'alpha-beta decay' could solve a decades-old nuclear mystery",
+      "summary": "A pair of researchers has created a new model for radioactive decay, which allows alpha and beta decay to happen simultaneously in a single transition. Testing their model's predictions against a full chart of known isotopes, Wenqiang Zhang at the Chinese Academy of Sciences,…",
+      "url": "https://phys.org/news/2026-11-alpha-beta-decay-decades-nuclear.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "news",
+      "title": "Reading superconducting qubits while suppressing unwanted state transitions",
+      "summary": "Recently an artificial intelligence proved an 18-year-old conjecture in computer science, called the Aaronson–Ambainis conjecture. The proof settles a long-standing conjecture (educated guess) that eliminates one proposed route to enormous quantum computer speedups, ruling out…",
+      "url": "https://phys.org/news/2026-11-superconducting-qubits-suppressing-unwanted-state.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "paper",
+      "title": "Shell structure and spontaneous decay of superheavy $Z=124$ isotopes with the deformed relativistic Hartree-Bogoliubov theory in continuum",
+      "summary": "Author(s): Yumeng Wang (王宇萌), Lang Liu (刘朗), and Cong Pan (潘琮) Shell structure and spontaneous decay of $Z=124$ isotopes are systematically investigated using the deformed relativistic Hartree-Bogoliubov theory in continuum (DRHBc) with the PC-PK1 density functional. By…",
+      "url": "http://link.aps.org/doi/10.1103/9qrt-cspl",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "paper",
+      "title": "Half-lives of $^{183}\\mathrm{Ta}$ and $^{185}\\mathrm{Ta}$ from electron-induced reactions on natural tungsten",
+      "summary": "Author(s): Ł. Janiak, M. Gierlik, T. Kosiński, M. Matusiak, S. Wronka, and J. Rzadkiewicz New high-precision measurements of the half-lives of $^{183}\\mathrm{Ta}$ and $^{185}\\mathrm{Ta}$ are presented. Accurate half-life data are important for testing nuclear-structure models…",
+      "url": "http://link.aps.org/doi/10.1103/t5wf-w65f",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-17",
+      "type": "paper",
+      "title": "Radiative decay and electromagnetic moments in $^{229}\\mathrm{Th}$ determined within nuclear density functional theory",
+      "summary": "Author(s): A. Restrepo-Giraldo, J. Dobaczewski, J. Bonnard, and X. Sun Using the nuclear DFT approach with symmetry breaking and restoration, we investigate the electromagnetic properties of the ground and isomeric states in $^{229}\\mathrm{Th}$. We determine the magnetic dipole…",
+      "url": "http://link.aps.org/doi/10.1103/khzg-vkgr",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-17",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-16",
       "type": "job",
       "title": "@NDB Hub Postdoctoral Research Fellow — Colorado State U., Fort Collins",
@@ -9357,31 +9529,31 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-16T23:50:14+00:00",
+    "checked_at": "2026-11-17T14:07:31+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 0,
-        "new": 0
+        "matched": 1,
+        "new": 1
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 0,
+        "matched": 1,
         "new": 0
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 3,
-        "new": 2
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 19,
-        "new": 0
+        "new": 2
       },
       {
         "source": "Phys.org — nuclear physics",
@@ -9393,7 +9565,7 @@
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
@@ -9404,20 +9576,20 @@
       {
         "source": "Physical Review C",
         "status": "PASS",
-        "matched": 9,
-        "new": 0
+        "matched": 11,
+        "new": 3
       },
       {
         "source": "Nature Physics",
         "status": "PASS",
         "matched": 6,
-        "new": 3
+        "new": 0
       },
       {
         "source": "TRIUMF news",
         "status": "PASS",
         "matched": 10,
-        "new": 1
+        "new": 0
       },
       {
         "source": "GANIL news",
