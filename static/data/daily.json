@@ -107,6 +107,113 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-18",
+      "type": "job",
+      "title": "Postdoctoral Research Associate — Brookhaven Natl. Lab.",
+      "summary": "North America · deadline 2027-01-07 · POSTDOC. The BNL Physics Division has an opening for a Postdoctoral Research Associate within the Nuclear Theory Group. You will work under the direction of Dr. Peter Petreczky, Group Leader of the Nuclear Theory Group. You will also work…",
+      "url": "https://inspirehep.net/jobs/3230577",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "deadline": "2027-01-07",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "job",
+      "title": "Postdoctoral Positions in High Energy Particle/Nuclear Physics — CUHK, Shenzhen",
+      "summary": "Asia · deadline 2027-01-31 · POSTDOC. We invite applications for postdoctoral positions in high-energy particle/nuclear physics and lattice QCD to work at The Chinese University of Hong Kong, Shenzhen campus (CUHK-Shenzhen) starting in Fall 2027. The start date is negotiable.…",
+      "url": "https://inspirehep.net/jobs/3230362",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "deadline": "2027-01-31",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Scalable photonic quantum computer provides new insights into the fundamentals that shape its performance",
+      "summary": "Photonics-based quantum computers open up new possibilities for investigating highly complex problems in mathematics and have the potential to revolutionize fields ranging from energy and chemical research to secure communications. By utilizing the unusual properties of light…",
+      "url": "https://phys.org/news/2026-11-scalable-photonic-quantum-insights-fundamentals.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Smart lighting technology enables remote color control",
+      "summary": "Lighting has evolved from simply illuminating objects to changing their perceived colors. A smart lighting technology has been developed that changes how objects appear in color by adjusting only the light shining on them, without repainting the objects or modifying their…",
+      "url": "https://phys.org/news/2026-11-smart-technology-enables-remote.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Physicists send an unblockable message using gravity",
+      "summary": "University of Queensland researchers have used gravity to transmit a message through a brick wall using an elevator and a sensitive gravimeter. The unusual experiment took place in UQ's Parnell Building, where the team of physicists sent the elevator back and forth between two…",
+      "url": "https://phys.org/news/2026-11-physicists-unblockable-message-gravity.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Quantum physics can verify a person's location, researchers show",
+      "summary": "Imagine a corporate treasurer directing her company's financial network to make a $50 million wire transfer. How can the network be certain the command is coming from a secure terminal in the company's headquarters, and not a hacker's laptop across the globe?",
+      "url": "https://phys.org/news/2026-11-quantum-physics-person.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "How electrons find their way to diamond's quantum defects",
+      "summary": "A diamond's most useful quantum properties come from defects, places where the regular arrangement of carbon atoms is broken. One of these, a nitrogen atom situated next to a vacancy caused by a missing carbon atom, has become a key component in quantum technology.",
+      "url": "https://phys.org/news/2026-11-electrons-diamond-quantum-defects.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-17",
       "type": "preprint",
       "title": "Recent Advances and Precision Measurements with the JYFLTRAP Double Penning Trap Mass Spectrometer",
@@ -9742,7 +9849,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-18T13:40:12+00:00",
+    "checked_at": "2026-11-18T22:41:31+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -9759,20 +9866,20 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 3,
-        "new": 0
+        "matched": 5,
+        "new": 2
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 21,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 4
+        "new": 5
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -9790,7 +9897,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 10,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
@@ -9818,9 +9925,8 @@
       },
       {
         "source": "IAEA — nuclear science news",
-        "status": "PASS",
-        "matched": 1,
-        "new": 0
+        "status": "FAILED",
+        "error": "HTTP Error 403: Forbidden"
       },
       {
         "source": "Ion Traps Newsletter (iontraps.net)",
