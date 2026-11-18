@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-17T23:08:08+00:00",
+  "generated": "2026-11-18T13:40:14+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,112 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Hawking’s Black Hole Paradox Exposed Clash Between Physics Theories",
+      "summary": "Author(s): Philip Ball Published 50 years ago, the information paradox dramatically illustrated the conflicts between general relativity and quantum mechanics. [Physics 19, 156] Published Tue Nov 17, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.156",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Exposing Majorana Impostors",
+      "summary": "Author(s): Ryan Wilkinson Measurements of quantum inductance could distinguish useful quasiparticles called Majorana zero modes from look-alike signals. [Physics 19, s142] Published Tue Nov 17, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s142",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Using a microwave link to transfer a three-level quantum state",
+      "summary": "Quantum technologies, devices and systems that process, store, transfer or collect information leveraging the laws of quantum mechanics, could outperform their classical counterparts on some real-world tasks. Many of these technologies encode quantum information in qubits,…",
+      "url": "https://phys.org/news/2026-11-microwave-link-quantum-state.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Photon fluctuations offer new way to probe electron dynamics in crystals",
+      "summary": "Intense laser light can make a crystal emit new colors at frequencies many times higher than that of the original beam. This process, known as high-harmonic generation, provides a powerful way to investigate the rapid motion of electrons in solids. Researchers usually study the…",
+      "url": "https://phys.org/news/2026-11-photon-fluctuations-probe-electron-dynamics.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Quantum-gas microscope resolves the 'color' of individual atoms in a single shot",
+      "summary": "In 2024, researchers at the Ultracold Quantum Gases group at ICFO built a quantum-gas microscope capable of imaging individual atoms in strontium quantum gases for the first time, marking a key enabling step for quantum simulation. At that time, the researchers imaged…",
+      "url": "https://phys.org/news/2026-11-quantum-gas-microscope-individual-atoms.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "news",
+      "title": "Quantum teleportation method uses weaker entanglement to transfer encoded information",
+      "summary": "Over the past several decades, researchers have demonstrated quantum teleportation, the transfer of one quantum system's state to another, in a range of systems. However, many quantum computers encode logical qubits (units of quantum information) across groups of physical…",
+      "url": "https://phys.org/news/2026-11-quantum-teleportation-method-weaker-entanglement.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-16",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-18",
+      "type": "paper",
+      "title": "Measurement of $^{119}\\mathrm{Sn}(p,γ)^{120}\\mathrm{Sb}$ and $^{116}\\mathrm{Sn}(p,γ)^{117}\\mathrm{Sb}$ reaction cross sections at energies of astrophysical relevance",
+      "summary": "Author(s): M. Twisha, A. Gupta, A. K. Verma, A. Kundu, A. Mukherjee, K. Mahata, V. V. Parkar, S. K. Pandit, S. C. Sharma, Vineet Kumar, A. Shrivastava, K. Ramachandran, Prabhat Mishra, Chandan Kumar, P. K. Nayak, S. Mukhopadhyay, L. S. Danu, H. Kumawat, Stephane Goriely, A.…",
+      "url": "http://link.aps.org/doi/10.1103/fmfq-cl51",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-17",
+      "collected_at": "2026-11-18",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-11-17",
       "type": "preprint",
