@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-19T14:08:04+00:00",
+  "generated": "2026-11-19T22:45:20+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5788,6 +5788,163 @@
       ],
       "lang": "en",
       "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "Postdoctoral Fellow in Nuclear Theory Group — LBNL, Berkeley",
+      "summary": "North America · deadline 2026-12-06 · POSTDOC. The Nuclear Science Division at Lawrence Berkeley National Laboratory (LBNL) is seeking a Postdoctoral Scholar to join the Nuclear Theory (NT) Group starting in the Fall of 2027. In this role, you will conduct original research in…",
+      "url": "https://inspirehep.net/jobs/3231003",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2026-12-06",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "Postdoctoral Scholar — Michigan State U., East Lansing (main)",
+      "summary": "North America · deadline 2027-01-31 · POSTDOC. Major Duties/Responsibilities Work on the development and refinement of nuclear Density Functional theory and its extensions for the nuclear many-body problem, including their numerical implementation Development of quantified…",
+      "url": "https://inspirehep.net/jobs/3230975",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2027-01-31",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "UChicago-Fermilab Tenured Associate Professor Appointment — U. Chicago (main), Fermilab",
+      "summary": "North America · deadline 2026-12-18 · SENIOR. Description The University of Chicago invites applications for a tenured Associate Professor appointment in the Department of Physics. The search is open to all subfields of experimental physics. For this position, the University…",
+      "url": "https://inspirehep.net/jobs/3230928",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2026-12-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "UChicago-Fermilab Tenure-track Assistant Professor Appointment — U. Chicago (main), Fermilab",
+      "summary": "North America · deadline 2026-12-18 · JUNIOR. The University of Chicago invites applications for a tenure-track Assistant Professor appointment in the Department of Physics. The search is open to all subfields of experimental physics. For this position, the University has a…",
+      "url": "https://inspirehep.net/jobs/3230927",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2026-12-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "Postdoctoral Research Associate — NCBJ, Warsaw",
+      "summary": "Europe · deadline 2026-12-29 · POSTDOC. The National Centre for Nuclear Research in Warsaw, Poland invites applications for a postdoctoral research position in theoretical physics. This a two-year position funded by the National Science Centre, Poland. Support for research…",
+      "url": "https://inspirehep.net/jobs/3230926",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2026-12-29",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "Single Ion Capture and Imaging to Determine the Majorana Nature of the Neutrino — U. Manchester (main)",
+      "summary": "Europe · deadline 2027-02-28 · PHD. Is the neutrino its own antiparticle? Answering this could explain why the Universe is made of matter rather than nothing, and would reveal physics at energy scales far beyond the reach of any collider. This project develops a new way to ask…",
+      "url": "https://inspirehep.net/jobs/3230921",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2027-02-28",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "job",
+      "title": "Absolute, spatially resolved, in-situ quantification of low tritium concentrations using REMPI spectroscopy. — U. Manchester (main)",
+      "summary": "Europe · deadline 2027-01-01 · PHD. State-specific optical detection of hydrogen and its isotopologues is a pressing need for both fusion engineering, fundamental tritium science, and experiments that aim to measure the neutrino mass. Applications include analyzing material…",
+      "url": "https://inspirehep.net/jobs/3230910",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2027-01-01",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Unusual magnetism revealed in a simple metal's electron spins",
+      "summary": "Magnets are usually associated with a familiar property: they produce a magnetic field because the magnetic moments of their electrons align. But nature allows much more unusual forms of magnetic order. An international research team has now identified compelling experimental…",
+      "url": "https://phys.org/news/2026-11-unusual-magnetism-revealed-simple-metal.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Long DNA strands turn chaotic fluid motion into a steady rhythm",
+      "summary": "In living cells, tiny molecules can generate coordinated motion across distances thousands of times larger than the molecules themselves. How such small movements give rise to coordinated motion over much larger distances is still not fully understood.",
+      "url": "https://phys.org/news/2026-11-dna-strands-chaotic-fluid-motion.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Unexpected spin effect lets electric currents switch antiferromagnets at room temperature",
+      "summary": "Researchers have discovered a physical effect that expands the fundamental understanding of how electric currents interact with magnetism, revealing an unexpected way to manipulate the magnetic state of antiferromagnetic materials. A research team led by Northwestern…",
+      "url": "https://phys.org/news/2026-11-unexpected-effect-electric-currents-antiferromagnets.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
       "collected_at": "2026-11-19",
       "verification_status": "feed-collected"
     },

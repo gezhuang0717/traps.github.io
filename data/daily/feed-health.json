@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-19T14:08:02+00:00",
+  "checked_at": "2026-11-19T22:45:19+00:00",
   "feeds": [
     {
       "source": "arXiv — ion traps & mass spectrometry",
@@ -16,14 +16,14 @@
     {
       "source": "INSPIRE-HEP Jobs — nuclear physics",
       "status": "PASS",
-      "matched": 5,
-      "new": 0
+      "matched": 12,
+      "new": 7
     },
     {
       "source": "APS Physics — news",
       "status": "PASS",
       "matched": 22,
-      "new": 2
+      "new": 0
     },
     {
       "source": "Phys.org — nuclear physics",
@@ -46,8 +46,8 @@
     {
       "source": "Physical Review C",
       "status": "PASS",
-      "matched": 10,
-      "new": 1
+      "matched": 9,
+      "new": 0
     },
     {
       "source": "Nature Physics",
@@ -63,9 +63,8 @@
     },
     {
       "source": "GANIL news",
-      "status": "PASS",
-      "matched": 10,
-      "new": 0
+      "status": "FAILED",
+      "error": "syntax error: line 1, column 0"
     },
     {
       "source": "ECT* news & workshops",
@@ -76,7 +75,7 @@
     {
       "source": "IAEA — nuclear science news",
       "status": "FAILED",
-      "error": "undefined entity: line 23, column 138"
+      "error": "undefined entity: line 55, column 138"
     },
     {
       "source": "Ion Traps Newsletter (iontraps.net)",
