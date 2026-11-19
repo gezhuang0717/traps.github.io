@@ -1,6 +1,97 @@
 {
   "entries": [
     {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "The Art of Asking Questions: From Stephen Hawking to AI",
+      "summary": "Author(s): Marika Taylor A former collaborator of Stephen Hawking reflects on what his approach to research can teach us about doing science with AI. [Physics 19, 154] Published Wed Nov 18, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.154",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Controlling Single-Molecule Toroics",
+      "summary": "Author(s): Marric Stephens Researchers have proposed a feasible way to manipulate the ring-like magnetic configurations of certain molecules. [Physics 19, s146] Published Wed Nov 18, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s146",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "X-rays tear water apart before its electrons can relax",
+      "summary": "A single X‑ray photon can break both O–H bonds in a water molecule within a few femtoseconds (quadrillionths of a second), creating neutral atomic oxygen. As shown by a study published in the journal Physical Review Letters, this breakup happens before the electrons finish…",
+      "url": "https://phys.org/news/2026-11-rays-electrons.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Exquisite X-rays and dynamic compression initiate a new era of physics experiments on plutonium",
+      "summary": "Scientists at Lawrence Livermore National Laboratory (LLNL), Argonne National Laboratory (ANL) and Washington State University (WSU) have conducted the first dynamic compression experiments on plutonium at a national light source facility, the Dynamic Compression Sector (DCS).",
+      "url": "https://phys.org/news/2026-11-exquisite-rays-dynamic-compression-era.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "news",
+      "title": "Atoms in sync: Superradiance offers a new kind of frequency comb",
+      "summary": "When scientists shine a laser beam into a crystal, they typically expect a steady glow as the crystal's atoms are energized and begin to emit light. But in early 2024, while searching for something else entirely, researchers in the lab of Caltech's Andrei Faraon saw a crystal…",
+      "url": "https://phys.org/news/2026-11-atoms-sync-superradiance-kind-frequency.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-19",
+      "type": "paper",
+      "title": "Heavy-quark coalescence probability in the presence of a potential",
+      "summary": "Author(s): Taesoo Song and Jiaxing Zhao In this study, we explore the role of the heavy-quark potential in heavy-quark coalescence, whose probability is expected to be unity at low momentum. To this end, we develop a phenomenological heavy-quark potential based on the…",
+      "url": "http://link.aps.org/doi/10.1103/v4nc-phgs",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-18",
+      "collected_at": "2026-11-19",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-18",
       "type": "news",
       "title": "Hawking’s Black Hole Paradox Exposed Clash Between Physics Theories",
@@ -9849,7 +9940,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-18T22:41:31+00:00",
+    "checked_at": "2026-11-19T14:08:02+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -9867,19 +9958,19 @@
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
         "matched": 5,
-        "new": 2
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 21,
-        "new": 0
+        "matched": 22,
+        "new": 2
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 3
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -9897,7 +9988,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 10,
-        "new": 0
+        "new": 1
       },
       {
         "source": "Nature Physics",
@@ -9926,7 +10017,7 @@
       {
         "source": "IAEA — nuclear science news",
         "status": "FAILED",
-        "error": "HTTP Error 403: Forbidden"
+        "error": "undefined entity: line 23, column 138"
       },
       {
         "source": "Ion Traps Newsletter (iontraps.net)",
