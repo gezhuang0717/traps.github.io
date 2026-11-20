@@ -61,6 +61,113 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-20",
+      "type": "job",
+      "title": "Postdoctoral position in Experimental Hadron Physics — Uppsala U. (main)",
+      "summary": "Europe, Asia · deadline 2027-01-15 · POSTDOC. Would you like to play an active role in collecting and analysing data from an exciting, innovative experiment, supported by skilled and friendly colleagues in an international environment? Would you like to work in a department…",
+      "url": "https://inspirehep.net/jobs/3231475",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "deadline": "2027-01-15",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "job",
+      "title": "Postdoctoral Position in High-Energy Nuclear Theory — Vanderbilt U. (main)",
+      "summary": "North America · deadline 2026-12-16 · POSTDOC. The high-energy nuclear physics group at Vanderbilt University invites applications for a postdoctoral research position in high-energy nuclear theory. Research areas of interest include the theory and phenomenology of strongly…",
+      "url": "https://inspirehep.net/jobs/3231011",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "deadline": "2026-12-16",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "Record-setting X-ray laser reliably generates flashes with wavelengths shorter than distances between atoms",
+      "summary": "Researchers from DESY and European XFEL have demonstrated reliable production and transport of X-ray laser flashes with a wavelength of about 0.04 nanometers (or a photon energy of 30,000 electronvolts) at European XFEL, raising their own world record. This means that the…",
+      "url": "https://phys.org/news/2026-11-ray-laser-reliably-generates-wavelengths.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "X-ray technique advances temperature measurements under extreme pressure",
+      "summary": "Scientists at Lawrence Livermore National Laboratory (LLNL) have advanced the ability to measure temperatures in materials subjected to extreme pressures at the National Ignition Facility (NIF), providing new insights into how materials behave under conditions relevant to…",
+      "url": "https://phys.org/news/2026-11-ray-technique-advances-temperature-extreme.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "Theory explains how fusion plasmas enter a state of improved energy confinement, solving a 40-year puzzle",
+      "summary": "Nuclear fusion promises a source of energy by combining light atomic nuclei, the same process that powers the sun. To achieve fusion on Earth, scientists must heat a gas to extreme temperatures, creating a charged state of matter called plasma. Keeping this plasma hot and…",
+      "url": "https://phys.org/news/2026-11-theory-fusion-plasmas-state-energy.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "Excitons mimic light in atom-thin material, confirming decade-old quantum prediction",
+      "summary": "Combining their skills in theory and experiment, Yale researchers have observed for the first time a type of energy-carrying composite particle move in a highly unexpected way. It's a finding that could lead to advances in quantum technologies, solar energy, LEDs and other…",
+      "url": "https://phys.org/news/2026-11-excitons-mimic-atom-thin-material.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "New model predicts critical temperature of superconductors",
+      "summary": "Superconductivity, the ability to carry current with no resistance, has been found in materials ranging from metals to oxides. Conventional Bardeen–Cooper–Schrieffer (BCS) theory explains low-temperature metal superconductors well, but struggles with high-temperature oxide…",
+      "url": "https://phys.org/news/2026-11-critical-temperature-superconductors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-19",
       "type": "news",
       "title": "The Art of Asking Questions: From Stephen Hawking to AI",
@@ -10157,7 +10264,7 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-20T13:50:43+00:00",
+    "checked_at": "2026-11-20T22:20:35+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
@@ -10174,8 +10281,8 @@
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 12,
-        "new": 0
+        "matched": 14,
+        "new": 2
       },
       {
         "source": "APS Physics — news",
@@ -10187,7 +10294,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 4
+        "new": 5
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
@@ -10221,8 +10328,9 @@
       },
       {
         "source": "GANIL news",
-        "status": "FAILED",
-        "error": "syntax error: line 1, column 0"
+        "status": "PASS",
+        "matched": 10,
+        "new": 0
       },
       {
         "source": "ECT* news & workshops",
