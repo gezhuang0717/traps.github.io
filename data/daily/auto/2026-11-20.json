@@ -1,0 +1,65 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "Spiraling spins bring coordinated quantum motion to diamond sensors",
+      "summary": "Trapped within diamond's crystal lattice are tiny defects called nitrogen-vacancy (NV) centers, where a nitrogen atom sits beside an empty gap where a carbon atom should be. Because of their quantum spins, electrons trapped at these defects behave like tiny magnets, turning…",
+      "url": "https://phys.org/news/2026-11-spiraling-quantum-motion-diamond-sensors.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "Building structured-light systems in three dimensions",
+      "summary": "Structured light has become an important tool across modern optics. By shaping properties such as amplitude, phase, polarization and spatial mode, researchers can create light fields with capabilities beyond those of conventional laser beams. These engineered light fields are…",
+      "url": "https://phys.org/news/2026-11-dimensions.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "'PAC-MAN' capsules that gobble up particles in turbulent water show promise for filtration and drug delivery",
+      "summary": "Scientists have created hollow capsules with single openings that can selectively filter particles thanks to the turbulence in surrounding waters—at times, ingesting particles like PAC-MAN eating up dots.",
+      "url": "https://phys.org/news/2026-11-pac-capsules-gobble-particles-turbulent.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-20",
+      "type": "news",
+      "title": "The secret of 'strange metals' may lie in quantum statistics, not collisions",
+      "summary": "In an ordinary metal, electrons behave like well-defined particles that occasionally bump into imperfections or vibrations of the crystal. Many materials with strong electron–electron interactions, including the copper-oxide (cuprate) superconductors, break these rules. In…",
+      "url": "https://phys.org/news/2026-11-secret-strange-metals-quantum-statistics.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "collected_at": "2026-11-20",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-20T13:50:43+00:00"
+}
