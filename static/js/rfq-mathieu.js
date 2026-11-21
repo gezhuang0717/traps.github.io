@@ -2,7 +2,7 @@
  const M=window.ZGMathieu,NS='http://www.w3.org/2000/svg',U=window.ZGUI;if(!M)return;
  document.querySelectorAll('[data-mathieu]').forEach(root=>{
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
-  const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>+field(n).value,err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
+  const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
   let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null;
   const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
@@ -19,7 +19,8 @@
    return{geometry,mode,count,qmin,qmax,amin,amax,p,sections};
   }
   const designNames=['qmin','rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan'];
-  function higher(){return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4;}
+  function higher(){const panel=root.querySelector('[data-local-panel="design"]');return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4&&(!panel||!panel.hidden);}
+  // Mathieu remains an independent ideal four-rod reference when a separate design subtab uses a higher multipole.
   function designInputs(){
    const numeric=n=>{if(!field(n).value.trim())throw Error('blank');const x=Number(field(n).value);if(!Number.isFinite(x))throw Error('finite');return x;};
    const rule=field('rod-rule').value,input={mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:numeric('V'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_rule:rule,radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:numeric('bands')};
@@ -112,8 +113,12 @@
    caption.forEach((line,i)=>svg.append(el('text',{x:left,y:top+h+70+bottomRows.length*(lg+9)+8+i*(lg+4),'font-size':Math.max(9,lg-1),fill:'#53647a'},line)));
    figure.replaceChildren(svg);return{svg,rows,view:{W,H,left,top,w,h,qmin:d.qmin,qmax:d.qmax,amin:d.amin,amax:d.amax}};
   }
+  function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   function refresh(){
-   sync();try{renderDesign();const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent='';last={...d,...drawn,classification:c};
+   sync();let designError=null;
+   const designNotice=root.querySelector('[data-ms-design-error]');if(designNotice)designNotice.textContent='';
+   try{renderDesign();}catch(e){designError=e;lastDesign=null;designSVG=null;root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();if(designNotice)designNotice.textContent=designErrorText(e);}
+   try{const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent=designError&&!designNotice?designErrorText(designError):'';last={...d,...drawn,classification:c};
     const box=root.querySelector('[data-ms-readout]');box.replaceChildren();const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
     if(multi){add(T.multipole);return;}
     const tone=st=>st==='stable'?'ok':st==='unstable'?'bad':st==='boundary'||st==='unresolved'?'warn':'info',planes=[c.first,c.second].map((p,i)=>{let diag;try{diag=M.diagnostic(p.a,p.q);}catch(_){diag={status:'unresolved',trace:NaN,det:NaN,trace_delta:NaN};}return{p,i,diag};});
@@ -141,6 +146,9 @@
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{
    e.stopPropagation();const useBtn=e.target.closest('[data-ms-use]');if(useBtn&&useBtn.dataset.msUse!==undefined){field('V').value=useBtn.dataset.msUse;refresh();return;}
+   const tab=e.target.closest('[data-local-tab]')?.dataset.localTab;
+   if(tab==='design'){field('geometry').value='linear';field('mode').value='voltage';refresh();return;}
+   if(tab==='classic'){refresh();return;}
    const action=e.target.closest('[data-ms-action]')?.dataset.msAction;if(!action)return;
    if(action==='zoom-in'){zoom(.8);return;}if(action==='zoom-out'){zoom(1.25);return;}if(action==='reset-view'){resetView();return;}
    if(action==='fill'){err.textContent=T.loading;try{const cat=await ZGPhysics.load(root.dataset.catalogue,root.dataset.ame),r=cat.resolve(field('species').value);if(!Number.isInteger(r.q)||r.q<1||r.q>100)throw Error('charge');field('mass').value=r.ionMassU;field('charge').value=r.q;source={label:r.label,source:r.source,ionMassU:r.ionMassU,metadata:r};root.querySelector('[data-ms-source]').textContent=r.label+' · '+r.source;refresh();}catch(_){err.textContent=T.unavailable;}return;}
