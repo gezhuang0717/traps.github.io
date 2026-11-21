@@ -66,3 +66,27 @@ test('Mathieu defaults are transparent manual values, not a false Cs-133 catalog
   assert.match(lab,/partial "zg\/rfq-mathieu.html"/);
   assert.doesNotMatch(game,/partial "zg\/rfq-mathieu.html"/);
 });
+
+test('Lab RFQ keeps stability first and design second with shared inputs and stages', () => {
+  const root=path.resolve(__dirname,'..');
+  const html=fs.readFileSync(path.join(root,'layouts/_partials/zg/rfq-mathieu.html'),'utf8');
+  const script=fs.readFileSync(path.join(root,'static/js/rfq-mathieu.js'),'utf8');
+  const labels=JSON.parse(fs.readFileSync(path.join(root,'data/mathieu_labels.json'),'utf8'));
+  const stability=html.indexOf('data-local-tab="classic"');
+  const design=html.indexOf('data-local-tab="design"');
+  assert.ok(stability>0 && design>stability, 'the new tab must follow Mathieu');
+  assert.ok(html.indexOf('data-local-panel="classic"')>design);
+  assert.ok(html.indexOf('data-local-panel="design"')>html.indexOf('data-local-panel="classic"'));
+  assert.equal((html.match(/data-mathieu(?:\s|>)/g)||[]).length,1);
+  for(const name of ['mass','charge','U','V','r0','f','rod-count'])assert.equal((html.match(new RegExp('name="ms-'+name+'"','g'))||[]).length,1,name);
+  assert.equal((html.match(/data-ms-sections/g)||[]).length,1);
+  assert.match(html,/data-ms-stage-readout/);
+  assert.match(html,/data-ms-design-error/);
+  assert.match(script,/function renderStages\(/);
+  assert.match(script,/function designErrorText\(/);
+  assert.match(script,/function higher\(\)/);
+  for(const [lang,d] of Object.entries(labels)){
+    assert.ok(d.design_tab_note && d.quadrupole_reference,lang);
+    assert.ok(d.design_title && d.title,lang);
+  }
+});
