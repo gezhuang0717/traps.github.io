@@ -1,6 +1,6 @@
 {{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
 {{- $t := index hugo.Data.mathieu_labels $k -}}
-<section class="zg-card zg-mathieu" data-mathieu data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
+<section id="rfq-workbench" class="zg-card zg-mathieu" data-mathieu data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
 <h3>{{ $t.title }}</h3><p>{{ $t.lead }}</p>
 <div class="zg-form">
 <label>{{ $t.geometry }} <select name="ms-geometry"><option value="linear">{{ $t.linear }}</option><option value="paul3d">{{ $t.paul3d }}</option></select></label>
@@ -13,7 +13,7 @@
 </div>
 <fieldset data-figure-note="mathieu-inputs"><legend>{{ $t.point }}</legend>
 <div class="zg-form">
-<label>{{ $t.species }} <input name="ms-species" type="text" value="133Cs+" maxlength="100"></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
+<label>{{ $t.species }} <input name="ms-species" type="text" value="" placeholder="133Cs+" maxlength="100"></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
 <label>{{ $t.mass }} (u) <input name="ms-mass" type="number" min="0.000001" step="any" value="100"></label>
 <label>{{ $t.charge }} z <input name="ms-charge" type="number" min="1" max="100" step="1" value="1"></label>
 <label data-ms-voltage>{{ $t.dc }} U (V) <input name="ms-U" type="number" step="any" value="3"></label>
@@ -59,5 +59,6 @@
 <link rel="stylesheet" href="{{ "css/figure-style.css" | relURL }}">
 <script defer src="{{ "js/figure-style.js" | relURL }}"></script>
 {{- end -}}
+<script defer src="{{ "js/rfq-preset.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-preset.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-mathieu.js" | relURL }}"></script>
 {{- end -}}
