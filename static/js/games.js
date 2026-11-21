@@ -446,7 +446,20 @@
       const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
       if(a==='design-preview'){try{const sp=species[target];inversePreview=ZGTrapDesign.inverse({massU:sp.m,charge:sp.z,r0:V('r0')/1000,rfHz:V('f')*1e6},V('designQ'),V('designA'),true);if(inversePreview.Vrf>3000||inversePreview.Udc>500||inversePreview.Udc<0)throw Error('Required voltage is outside game input ranges');box.querySelector('[data-rfq-inverse]').textContent='V='+inversePreview.Vrf.toPrecision(9)+' V; U='+inversePreview.Udc.toPrecision(9)+' V · '+(mathieuStable(V('designA'),V('designQ'))?'stable':'unstable target');box.querySelector('[data-act="design-apply"]').disabled=false;}catch(err){inversePreview=null;box.querySelector('[data-rfq-inverse]').textContent=err.message;box.querySelector('[data-act="design-apply"]').disabled=true;}return;}
       if(a==='design-apply'&&inversePreview){const next={...inversePreview};for(const[n,v]of [['V',next.Vrf],['U',next.Udc]]){sel(n).value=v;sel(n).dispatchEvent(new Event('input',{bubbles:true}));}box.querySelector('[data-rfq-inverse]').textContent='Applied (voltage controls use their displayed resolution)';return;}
-      if(bad.textContent){msg(box,bad.textContent);return;}
+      if(bad.textContent){if(a==='workbench')e.preventDefault();msg(box,bad.textContent);return;}
+      if(a==='workbench'){
+        const link=box.querySelector('[data-rfq-workbench-link]'),sp=species[target];
+        if(!link||!sp||!window.ZGRFQPreset){e.preventDefault();msg(box,TL.rfq_bad);return;}
+        try{
+          // V is the single-rod-pair PEAK, not the differential voltage.
+          // The transfer does not assert that an illustrative A is a sourced isotope.
+          link.href=window.ZGRFQPreset.link(link.href,{
+            mass_u:sp.m,charge:sp.z,U_V:V('U'),V_rod_peak_V:V('V'),
+            r0_mm:V('r0'),f_MHz:V('f'),species:sp.source?sp.label:''
+          });
+        }catch(_){e.preventDefault();msg(box,TL.rfq_bad);}
+        return;
+      }
       const t = tgt(), k = kfac() * t.z / t.m, setv = (n, v) => { sel(n).value = v; sel(n).dispatchEvent(new Event("input", { bubbles: true })); };
       if (a === "cool") { setv("U", 0); setv("V", (0.4 / (4 * k)).toFixed(2)); }
       if (a === "tip") { setv("V", (0.7035 / (4 * k)).toFixed(2)); setv("U", (0.2335 / (8 * k)).toFixed(3)); }

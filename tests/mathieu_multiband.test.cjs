@@ -42,5 +42,10 @@ test('invalid mode/count/domain inputs fail closed',()=>{
 test('six locale key sets match and old RFQ controls stay isolated',()=>{
  const W=path.resolve(__dirname,'..'),labels=JSON.parse(fs.readFileSync(path.join(W,'data/mathieu_labels.json'),'utf8'));
  assert.deepEqual(Object.keys(labels).sort(),['de','en','fi','fr','ja','zh']);for(const d of Object.values(labels)){assert.deepEqual(Object.keys(d).sort(),Object.keys(labels.en).sort());assert.ok(Object.values(d).every(x=>typeof x==='string'&&x.length));}
- const games=fs.readFileSync(path.join(W,'layouts/_shortcodes/games.html'),'utf8'),js=fs.readFileSync(path.join(W,'static/js/games.js'),'utf8');assert.equal((games.match(/zg\/rfq-mathieu.html/g)||[]).length,1);assert.match(js,/const box = container.querySelector\(':scope > \[data-local-panel="classic"\]'/);
+ const games=fs.readFileSync(path.join(W,'layouts/_shortcodes/games.html'),'utf8'),lab=fs.readFileSync(path.join(W,'layouts/_shortcodes/lab-more.html'),'utf8'),js=fs.readFileSync(path.join(W,'static/js/games.js'),'utf8');
+ assert.equal((games.match(/zg\/rfq-mathieu.html/g)||[]).length,0,'Games links to Lab rather than duplicating the explorer');
+ assert.equal((lab.match(/zg\/rfq-mathieu.html/g)||[]).length,1,'Lab owns the canonical Mathieu explorer');
+ assert.match(games,/data-rfq-workbench-link/);
+ assert.match(games,/js\/rfq-preset.js/);
+ assert.match(js,/const box = container.querySelector\(':scope > \[data-local-panel="classic"\]'/);
 });

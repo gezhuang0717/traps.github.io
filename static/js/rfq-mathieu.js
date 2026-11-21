@@ -2,8 +2,8 @@
  const M=window.ZGMathieu,NS='http://www.w3.org/2000/svg',U=window.ZGUI;if(!M)return;
  document.querySelectorAll('[data-mathieu]').forEach(root=>{
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
-  const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>+field(n).value,err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
-  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null;
+  const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
+  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[];
   const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
   const el=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!=null)e.textContent=txt;return e;};
@@ -19,7 +19,8 @@
    return{geometry,mode,count,qmin,qmax,amin,amax,p,sections};
   }
   const designNames=['qmin','rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan'];
-  function higher(){return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4;}
+  function higher(){const panel=root.querySelector('[data-local-panel="design"]');return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4&&(!panel||!panel.hidden);}
+  // Mathieu remains an independent ideal four-rod reference when a separate design subtab uses a higher multipole.
   function designInputs(){
    const numeric=n=>{if(!field(n).value.trim())throw Error('blank');const x=Number(field(n).value);if(!Number.isFinite(x))throw Error('finite');return x;};
    const rule=field('rod-rule').value,input={mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:numeric('V'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_rule:rule,radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:numeric('bands')};
@@ -49,7 +50,7 @@
      t(T.k_eta,`${fmt(d.eta)} / ${fmt(d.eta_target)}`,'',d.eta_target_met?'ok':'warn',T.eta_readout+' · '+(d.eta_target_met?T.target_met:T.target_above),T.n_eta),t(T.k_fmin,fmt(d.eta_frequency_min_MHz),'MHz',null,T.rf_target,T.n_fmin),t(T.k_vmax,fmt(d.eta_voltage_max_V),'V',null,null,T.n_vmax)]));
     if(d.V_V===0){const n=U.make('p','zg-notice',T.zero_rf);nodes.push(n);}
     if(d.suggested_RF){const chips=U.make('div','zg-chips');d.suggested_RF.forEach(x=>{const row=U.make('span','zg-chip-row'),use=U.make('button','',T.use_btn);use.type='button';use.dataset.msUse=String(Number(x.V_rod_peak_V.toPrecision(7)));row.append(U.make('b','','q = '+x.q),U.make('span','',`${fmt(x.V_rod_peak_V)} V · ${x.f_MHz_at_current_V===null?'—':fmt(x.f_MHz_at_current_V)} MHz`),use);chips.append(row);});nodes.push(U.group(T.grp_suggest,'ok',[],[U.make('p','zg-muted',T.rf_suggest),chips]));}
-    const cand=U.make('div','zg-chips');log.candidates.forEach(c=>{const row=U.make('span','zg-chip-row'),st=c.classification?c.classification.status:null,tone=c.classification?(st==='stable'?'ok':st==='unstable'?'bad':'warn'):(c.eta_target_met?'ok':'warn');row.append(U.make('b','',fmt(c.V_V)+' V'),U.badge(c.classification?T[st]:c.eta_target_met?T.target_met:T.target_above,tone),U.make('span','',`η=${fmt(c.eta)} · ${fmt(c.pseudopotential_eV)} eV`));cand.append(row);});
+    const cand=U.make('div','zg-chips');log.candidates.forEach(c=>{const row=U.make('span','zg-chip-row'),st=c.classification?c.classification.status:null,tone=c.V_V===0?'warn':c.classification?(st==='stable'?'ok':st==='unstable'?'bad':'warn'):(c.eta_target_met?'ok':'warn');row.append(U.make('b','',fmt(c.V_V)+' V'),U.badge(c.classification?T[st]:c.eta_target_met?T.target_met:T.target_above,tone),U.make('span','',`η=${fmt(c.eta)} · ${fmt(c.pseudopotential_eV)} eV`));cand.append(row);});
     nodes.push(U.group(T.candidates,'info',[],[cand]));
     {const clean=v=>Math.abs(v)<1e-9*Math.max(1,d.center_radius_mm)?0:v,tb=U.make('tbody'),th=U.make('tr'),body=U.make('div');
      for(const h of [T.coord_rod,'x (mm)','y (mm)',T.coord_angle,T.coord_phase])th.append(U.make('th','',h));
@@ -63,14 +64,14 @@
     add(`${T.eta_readout}: ${fmt(d.eta)} / ${fmt(d.eta_target)} · ${d.eta_target_met?T.target_met:T.target_above}`);if(d.V_V===0)add(T.zero_rf);
    }
    const extent=d.center_radius_mm+d.rod_radius_mm,scale=150/extent,cx=230,cy=200;
-   const svg=el('svg',{xmlns:NS,viewBox:'0 0 460 450',role:'img','aria-label':T.design_title,style:'display:block;width:100%;max-width:520px;height:auto;background:#fff;font-family:Arial,sans-serif'});
+   const svg=el('svg',{xmlns:NS,viewBox:'0 0 460 450',role:'img','aria-label':T.design_title,style:'display:block;width:100%;max-width:520px;min-width:440px;height:auto;background:#fff;font-family:Arial,sans-serif'});
    svg.append(el('rect',{width:460,height:450,fill:'#fff'}),el('text',{x:230,y:25,'text-anchor':'middle','font-size':S.titleSize},T.design_title),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}));
    for(const p of d.rod_coordinates){const rodNode=el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth});rodNode.append(el('title',{},`${p.index}: ${p.phase>0?'+':'−'}V, (${fmt(p.x_mm)}, ${fmt(p.y_mm)}) mm`));svg.append(rodNode,el('text',{x:cx+p.x_mm*scale,y:cy-p.y_mm*scale+4,'text-anchor':'middle','font-size':S.tickSize},String(p.index)));}
-   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('text',{x:cx+10,y:cy-8,'font-size':S.tickSize},`r₀=${fmt(d.r0_mm)} mm`),el('text',{x:230,y:384,'text-anchor':'middle','font-size':S.tickSize},`2n=${d.rod_count}; ρ=${fmt(d.rod_radius_mm)} mm (ρ/r₀=${fmt(d.rod_ratio)}); D=${fmt(d.adjacent_center_mm)} mm; g=${fmt(d.surface_gap_mm)} mm`));
+   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('text',{x:cx+10,y:cy-8,'font-size':S.tickSize},`r₀=${fmt(d.r0_mm)} mm`),el('text',{x:230,y:375,'text-anchor':'middle','font-size':S.tickSize},`2n=${d.rod_count}; ρ=${fmt(d.rod_radius_mm)} mm; ρ/r₀=${fmt(d.rod_ratio)}`),el('text',{x:230,y:394,'text-anchor':'middle','font-size':S.tickSize},`D=${fmt(d.adjacent_center_mm)} mm; g=${fmt(d.surface_gap_mm)} mm`));
    [['#dae6ff','#315aa3','+V'],['#ffe2da','#ac4835','−V']].forEach(([fill,stroke,text],i)=>svg.append(el('circle',{cx:40+i*70,cy:416,r:6,fill,stroke,'stroke-width':S.lineWidth}),el('text',{x:52+i*70,y:420,'font-size':S.tickSize},text)));
    svg.append(el('line',{x1:190,x2:216,y1:416,y2:416,stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}),el('text',{x:222,y:420,'font-size':S.tickSize},`r₀ (${T.k_aperture})`),el('text',{x:230,y:442,'text-anchor':'middle','font-size':Math.max(9,S.tickSize-2),fill:'#53647a'},T.legend_line.replace('a = (2U/V) q','')+'ρ = ratio × r₀; Rc = r₀ + ρ; D = 2Rc sin(π/N); g = D − 2ρ'));holder.append(svg);designSVG=svg;{const n=U?.notesBlock('rfq-geometry');if(n)holder.append(n);}
   }
-  function sync(){const three=field('geometry').value==='paul3d',multi=higher();if(three)field('mode').value='direct';else if(multi)field('mode').value='voltage';field('mode').disabled=three||multi;const direct=three||field('mode').value==='direct';root.querySelectorAll('[data-ms-voltage]').forEach(e=>{e.hidden=direct;});root.querySelectorAll('[data-ms-direct]').forEach(e=>{e.hidden=!direct;});root.querySelector('[data-ms-sections]').hidden=three||multi;const designBox=root.querySelector('[data-ms-design]'),formulaBox=root.querySelector('[data-ms-band-formula]');if(designBox)designBox.hidden=three||direct;if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;}
+  function sync(){const three=field('geometry').value==='paul3d',multi=higher();if(three)field('mode').value='direct';else if(multi)field('mode').value='voltage';field('mode').disabled=three||multi;const direct=three||field('mode').value==='direct';root.querySelectorAll('[data-ms-voltage]').forEach(e=>{e.hidden=direct;});root.querySelectorAll('[data-ms-direct]').forEach(e=>{e.hidden=!direct;});root.querySelector('[data-ms-sections]').hidden=three;const designBox=root.querySelector('[data-ms-design]'),formulaBox=root.querySelector('[data-ms-band-formula]');if(designBox)designBox.hidden=three||direct;const referenceNote=root.querySelector('[data-ms-reference-note]');if(referenceNote)referenceNote.hidden=value('rod-count')<=4;if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;}
   const textWidth=(text,size)=>String(text).length*size*.58;
   function wrapLines(text,maxWidth,size){const lines=[];let line='';for(const word of String(text).split(/\s+/)){const next=line?line+' '+word:word;if(line&&textWidth(next,size)>maxWidth){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);return lines.length?lines:[''];}
   function flow(items,width,size){const rows=[[]];let x=0;for(const item of items){const w=28+textWidth(item.text,size)+16;if(x+w>width&&rows.at(-1).length){rows.push([]);x=0;}rows.at(-1).push({...item,x,w});x+=w;}return rows;}
@@ -91,7 +92,7 @@
    const detail=d.mode==='voltage'?`m = ${fmt(d.p.mass_u)} u · z = ${d.p.charge} · U = ${fmt(d.p.U_V)} V · V = ${fmt(d.p.V_rod_peak_V)} V · r₀ = ${fmt(d.p.r0_mm)} mm · f = ${fmt(d.p.f_MHz)} MHz`:T.caption_direct;
    const caption=wrapLines((source.label&&source.label!==T.manual?source.label+' · ':'')+detail+'. '+T.caption_formulas,W-left-right,lg),top=44+flow(areaItems,w,lg).length*(lg+9)+12;
    const bottomRows=flow(markItems,w,lg),bottom=60+bottomRows.length*(lg+9)+caption.length*(lg+4)+10,H=top+h+bottom;
-   const svg=el('svg',{xmlns:NS,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.title,style:'display:block;width:100%;height:auto;min-width:280px;background:#fff;color:#172235;font-family:Arial,sans-serif'});
+   const svg=el('svg',{xmlns:NS,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.title,style:'display:block;width:100%;height:auto;min-width:680px;background:#fff;color:#172235;font-family:Arial,sans-serif'});
    svg.append(el('rect',{x:0,y:0,width:W,height:H,fill:'#fff'}),el('text',{x:W/2,y:31,'text-anchor':'middle','font-size':S.titleSize,fill:'#172235'},T.title));
    drawLegend(svg,flow(areaItems,w,lg),left,56,lg);
    const X=q=>left+(q-d.qmin)/qr*w,Y=a=>top+(d.amax-a)/(d.amax-d.amin)*h;
@@ -112,8 +113,44 @@
    caption.forEach((line,i)=>svg.append(el('text',{x:left,y:top+h+70+bottomRows.length*(lg+9)+8+i*(lg+4),'font-size':Math.max(9,lg-1),fill:'#53647a'},line)));
    figure.replaceChildren(svg);return{svg,rows,view:{W,H,left,top,w,h,qmin:d.qmin,qmax:d.qmax,amin:d.amin,amax:d.amax}};
   }
+  function renderStages(){
+    const holder=root.querySelector('[data-ms-stage-readout]');
+    if(!holder)return;
+    holder.replaceChildren();lastStages=[];
+    if(value('rod-count')>4){const note=document.createElement('p');note.className='zg-muted';note.textContent=T.quadrupole_reference;holder.append(note);}
+    const head=['Stage','U (V)','V (rod peak, V)','r₀ (mm)','f (MHz)','a','q',T.readout];
+    const table=document.createElement('table');table.className='zg-table';
+    const trHead=document.createElement('tr');
+    for(const h of head){const th=document.createElement('th');th.textContent=h;trHead.append(th);}
+    const thead=document.createElement('thead');thead.append(trHead);table.append(thead);
+    const tbody=document.createElement('tbody');
+    const m=value('mass'),z=value('charge');
+    for(const key of ['cooler','mf','bun']){
+      if(!field(key+'-on')?.checked)continue;
+      try{
+        const p=M.parameters(m,z,value(key+'-U'),value(key+'-V'),value(key+'-r0'),value(key+'-f'));
+        const c=M.classify(p.a,p.q,'linear',value('bands'));
+        lastStages.push({stage:key,geometry:'ideal-four-rod-linear-RFQ',...p,classification:c.status});
+        const row=document.createElement('tr');
+        for(const cell of [T[key],p.U_V,p.V_rod_peak_V,p.r0_mm,p.f_MHz,fmt(p.a),fmt(p.q),T[c.status]]){
+          const td=document.createElement('td');td.textContent=String(cell);row.append(td);
+        }
+        tbody.append(row);
+      }catch(_){
+        const row=document.createElement('tr'),cell=document.createElement('td');
+        cell.colSpan=head.length;cell.textContent=T[key]+': '+T.bad;row.append(cell);tbody.append(row);
+      }
+    }
+    if(!tbody.children.length){const notice=document.createElement('p');notice.textContent=T.section_note;holder.append(notice);return;}
+    table.append(tbody);holder.append(table);
+  }
+  function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   function refresh(){
-   sync();try{renderDesign();const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent='';last={...d,...drawn,classification:c};
+   sync();let designError=null;
+   const designNotice=root.querySelector('[data-ms-design-error]');if(designNotice)designNotice.textContent='';
+   try{renderDesign();}catch(e){designError=e;lastDesign=null;designSVG=null;root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();if(designNotice)designNotice.textContent=designErrorText(e);}
+   renderStages();
+   try{const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent=designError&&!designNotice?designErrorText(designError):'';last={...d,...drawn,classification:c};
     const box=root.querySelector('[data-ms-readout]');box.replaceChildren();const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
     if(multi){add(T.multipole);return;}
     const tone=st=>st==='stable'?'ok':st==='unstable'?'bad':st==='boundary'||st==='unresolved'?'warn':'info',planes=[c.first,c.second].map((p,i)=>{let diag;try{diag=M.diagnostic(p.a,p.q);}catch(_){diag={status:'unresolved',trace:NaN,det:NaN,trace_delta:NaN};}return{p,i,diag};});
@@ -141,6 +178,9 @@
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{
    e.stopPropagation();const useBtn=e.target.closest('[data-ms-use]');if(useBtn&&useBtn.dataset.msUse!==undefined){field('V').value=useBtn.dataset.msUse;refresh();return;}
+   const tab=e.target.closest('[data-local-tab]')?.dataset.localTab;
+   if(tab==='design'){field('geometry').value='linear';field('mode').value='voltage';refresh();return;}
+   if(tab==='classic'){refresh();return;}
    const action=e.target.closest('[data-ms-action]')?.dataset.msAction;if(!action)return;
    if(action==='zoom-in'){zoom(.8);return;}if(action==='zoom-out'){zoom(1.25);return;}if(action==='reset-view'){resetView();return;}
    if(action==='fill'){err.textContent=T.loading;try{const cat=await ZGPhysics.load(root.dataset.catalogue,root.dataset.ame),r=cat.resolve(field('species').value);if(!Number.isInteger(r.q)||r.q<1||r.q>100)throw Error('charge');field('mass').value=r.ionMassU;field('charge').value=r.q;source={label:r.label,source:r.source,ionMassU:r.ionMassU,metadata:r};root.querySelector('[data-ms-source]').textContent=r.label+' · '+r.source;refresh();}catch(_){err.textContent=T.unavailable;}return;}
@@ -148,8 +188,8 @@
    if(action==='reset'){Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;styleControl?.reset();refresh();return;}
    if(action==='save'){refresh();if(!last||styleControl?.valid&&!styleControl.valid())return;save(new Blob([JSON.stringify(state(),null,2)],{type:'application/json'}),'mathieu-settings.json');return;}
    refresh();if(!last)return;
-   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify({...lastDesign,settings:state()},null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
-   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);rows.push(['metadata','calculation_log',JSON.stringify(lastDesign),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
+   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify({...lastDesign,stage_comparison:lastStages,settings:state()},null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
+   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);for(const stage of lastStages){rows.push(['stage',stage.stage,'ideal 4-rod Mathieu','model',stage.classification]);for(const k of ['a','q','U_V','V_rod_peak_V','r0_mm','f_MHz'])rows.push(['stage',stage.stage+':'+k,stage[k],k.endsWith('_V')?'V':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':'dimensionless',stage.classification]);}rows.push(['metadata','calculation_log',JSON.stringify(lastDesign),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
    if(action==='design-svg'){if(designSVG&&window.ZGFigureStyle)await ZGFigureStyle.exportSVG(designSVG,'SVG','rfq-rod-geometry',styleControl?.get(),lastDesign);return;}
    if(higher())return;
    if(action==='csv'){const rows=[['plane','band_n','q','a_low','a_high','geometry']];last.rows.forEach(r=>{for(const k of ['first','second'])r[k].forEach(b=>rows.push([k,b.n,r.q,b.lo,b.hi,last.geometry]));});rows.push(['point','',last.p.q,last.p.a,last.classification.status,last.geometry]);save(new Blob([rows.map(r=>r.join(',')).join('\n')+'\n'],{type:'text/csv'}),'mathieu-bands.csv');return;}
@@ -157,6 +197,22 @@
   });
   root.querySelector('[data-ms-file]').addEventListener('change',async e=>{e.stopPropagation();const file=e.target.files[0];if(!file)return;const before=state();try{if(file.size>300000)throw Error('size');const s=JSON.parse(await file.text());if(s.schema!=='traps-mathieu-v1'||!s.inputs||Object.keys(defaults).filter(k=>!designNames.includes(k.slice(3))).some(k=>!(k in s.inputs)))throw Error('schema');for(const key of designNames){const name='ms-'+key;if(!(name in s.inputs)&&field(key))field(key).value=defaults[name];}if(!('ms-rod-rule' in s.inputs)&&'ms-rod-radius' in s.inputs)field('rod-rule').value='radius';for(const [n,v]of Object.entries(s.inputs)){const el=root.querySelector('[name="'+n+'"]');if(!el||n.includes('"'))throw Error('key');if(el.type==='checkbox'){if(typeof v!=='boolean')throw Error('type');el.checked=v;}else el.value=String(v);}inputs();source=s.source&&typeof s.source==='object'?s.source:{label:T.manual};root.querySelector('[data-ms-source]').textContent=typeof source.label==='string'?source.label:T.manual;if(s.style)styleControl?.set(s.style);refresh();}catch(_){Object.entries(before.inputs).forEach(([n,v])=>{const el=root.querySelector('[name="'+n+'"]');if(el.type==='checkbox')el.checked=v;else el.value=v;});source=before.source;refresh();err.textContent=T.badfile;}finally{e.target.value='';}});
   {const n=U?.notesBlock('mathieu');if(n)figure.after(n);const slot=root.querySelector('[data-ms-design-notes]'),dn=U?.notesBlock('rfq-design');if(slot&&dn)slot.append(dn);}
+  // The game links to this canonical workbench with a versioned, validated
+  // operating-point preset. An ion name in the URL is NOT catalogue provenance:
+  // visitors must use 'Fill ion mass' to obtain an evaluated catalogue value.
+  let importError=false;
+  try{
+   const preset=window.ZGRFQPreset?.parse(window.location?.search||'');
+   if(preset){
+    const map={mass_u:'mass',charge:'charge',U_V:'U',V_rod_peak_V:'V',r0_mm:'r0',f_MHz:'f'};
+    field('geometry').value='linear';field('mode').value='voltage';field('rod-count').value='4';
+    for(const [key,target] of Object.entries(map))field(target).value=String(preset[key]);
+    field('species').value=preset.species;
+    for(const stage of ['cooler','mf','bun'])field(stage+'-on').checked=false;
+    source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;
+   }
+  }catch(_){importError=true;}
   refresh();
+  if(importError)err.textContent=T.badfile;
  });
 })();
