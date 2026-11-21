@@ -11,7 +11,7 @@ function ui({subtabs=false}={}){
  for(const k of ['cooler','mf','bun']){const e=new E('input');e.name='ms-'+k+'-on';e.type='checkbox';e.checked=false;fields.set(k+'-on',e);}
  for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style'])slots.set(k,new E());
  for(const k of ['svg','png','csv'])buttons.set(k,new E('button'));
- if(subtabs){for(const name of ['classic','design']){const panel=new E();panel.hidden=name==='design';panels.set(name,panel);}for(const key of ['design-error','reference-note'])slots.set(key,new E());}
+ if(subtabs){for(const name of ['classic','design']){const panel=new E();panel.hidden=name==='design';panels.set(name,panel);}for(const key of ['design-error','reference-note','stage-readout'])slots.set(key,new E());for(const key of ['cooler','mf','bun'])for(const [suffix,num] of [['U',3],['V',122],['r0',10],['f',1.3]]){const e=new E('input');e.name='ms-'+key+'-'+suffix;e.value=String(num);e.type='number';fields.set(key+'-'+suffix,e);}}
  root.dataset={labels:JSON.stringify(T),lang:'en'};
  root.querySelector=q=>{const panel=q.match(/^\[data-local-panel="(.+)"\]$/);if(panel)return panels.get(panel[1])||null;const f=q.match(/^\[name="ms-(.+)"\]$/);if(f)return fields.get(f[1])||null;const b=q.match(/^\[data-ms-action="(.+)"\]$/);if(b)return buttons.get(b[1]);return slots.get(q.replace(/^\[data-ms-|\]$/g,''))||null;};
  root.querySelectorAll=q=>q==='[name^="ms-"]'?[...fields.values()]:[];
@@ -40,6 +40,25 @@ test('Lab subtabs keep Mathieu independent of design errors, higher rods and bla
  h.change('mass','');
  assert.equal(figure.children.length,0,'blank mass is invalid, not silently zero');
  assert.ok(h.slots.get('error').textContent.length>0);
+});
+test('Independent stage comparison shares mass and voltage conventions and saves provenance',async()=>{
+ const h=ui({subtabs:true});h.fields.get('cooler-on').checked=true;
+ h.clickTab('design');
+ const holder=h.slots.get('stage-readout');
+ assert.equal(holder.children[0].tag,'table');
+ const rows=holder.children[0].children[1].children;
+ assert.equal(rows.length,1);
+ assert.equal(rows[0].children[0].textContent,h.T.cooler);
+ const q=Number(rows[0].children[6].textContent),p=M.parameters(100,1,3,122,10,1.3);
+ assert.ok(Math.abs(q-p.q)<2e-7);
+ await h.click('design-json');
+ const log=JSON.parse(await h.saved.at(-1).blob.text());
+ assert.equal(log.stage_comparison.length,1);
+ assert.equal(log.stage_comparison[0].geometry,'ideal-four-rod-linear-RFQ');
+ assert.equal(log.stage_comparison[0].q,p.q);
+ h.fields.get('cooler-f').value='';
+ h.change('mass','100');
+ assert.ok(holder.children[0].children[1].children[0].children[0].textContent.includes(h.T.cooler));
 });
 test('round rods keep an explicit aperture, clearance, alternating phases and coordinates',()=>{
  for(const rod_count of [4,6,8,10,24]){const d=M.rodDesign({...base,rod_count});close(d.center_radius_mm,11);close(d.adjacent_center_mm,22*Math.sin(Math.PI/rod_count));close(d.surface_gap_mm,d.adjacent_center_mm-2);close(d.opposite_center_mm,22);assert.equal(d.rod_coordinates.length,rod_count);for(const [i,p]of d.rod_coordinates.entries()){close(Math.hypot(p.x_mm,p.y_mm),11);assert.equal(p.phase,i%2?-1:1);}}
