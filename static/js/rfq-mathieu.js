@@ -3,7 +3,7 @@
  document.querySelectorAll('[data-mathieu]').forEach(root=>{
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
   const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
-  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null;
+  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[];
   const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
   const el=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!=null)e.textContent=txt;return e;};
@@ -113,11 +113,42 @@
    caption.forEach((line,i)=>svg.append(el('text',{x:left,y:top+h+70+bottomRows.length*(lg+9)+8+i*(lg+4),'font-size':Math.max(9,lg-1),fill:'#53647a'},line)));
    figure.replaceChildren(svg);return{svg,rows,view:{W,H,left,top,w,h,qmin:d.qmin,qmax:d.qmax,amin:d.amin,amax:d.amax}};
   }
+  function renderStages(){
+    const holder=root.querySelector('[data-ms-stage-readout]');
+    if(!holder)return;
+    holder.replaceChildren();lastStages=[];
+    const head=['Stage','U (V)','V (rod peak, V)','r₀ (mm)','f (MHz)','a','q',T.readout];
+    const table=document.createElement('table');table.className='zg-table';
+    const trHead=document.createElement('tr');
+    for(const h of head){const th=document.createElement('th');th.textContent=h;trHead.append(th);}
+    const thead=document.createElement('thead');thead.append(trHead);table.append(thead);
+    const tbody=document.createElement('tbody');
+    const m=value('mass'),z=value('charge');
+    for(const key of ['cooler','mf','bun']){
+      if(!field(key+'-on')?.checked)continue;
+      try{
+        const p=M.parameters(m,z,value(key+'-U'),value(key+'-V'),value(key+'-r0'),value(key+'-f'));
+        const c=M.classify(p.a,p.q,'linear',value('bands'));
+        lastStages.push({stage:key,geometry:'ideal-four-rod-linear-RFQ',...p,classification:c.status});
+        const row=document.createElement('tr');
+        for(const cell of [T[key],p.U_V,p.V_rod_peak_V,p.r0_mm,p.f_MHz,fmt(p.a),fmt(p.q),T[c.status]]){
+          const td=document.createElement('td');td.textContent=String(cell);row.append(td);
+        }
+        tbody.append(row);
+      }catch(_){
+        const row=document.createElement('tr'),cell=document.createElement('td');
+        cell.colSpan=head.length;cell.textContent=T[key]+': '+T.bad;row.append(cell);tbody.append(row);
+      }
+    }
+    if(!tbody.children.length){const notice=document.createElement('p');notice.textContent=T.section_note;holder.append(notice);return;}
+    table.append(tbody);holder.append(table);
+  }
   function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   function refresh(){
    sync();let designError=null;
    const designNotice=root.querySelector('[data-ms-design-error]');if(designNotice)designNotice.textContent='';
    try{renderDesign();}catch(e){designError=e;lastDesign=null;designSVG=null;root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();if(designNotice)designNotice.textContent=designErrorText(e);}
+   renderStages();
    try{const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent=designError&&!designNotice?designErrorText(designError):'';last={...d,...drawn,classification:c};
     const box=root.querySelector('[data-ms-readout]');box.replaceChildren();const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
     if(multi){add(T.multipole);return;}
@@ -156,8 +187,8 @@
    if(action==='reset'){Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;styleControl?.reset();refresh();return;}
    if(action==='save'){refresh();if(!last||styleControl?.valid&&!styleControl.valid())return;save(new Blob([JSON.stringify(state(),null,2)],{type:'application/json'}),'mathieu-settings.json');return;}
    refresh();if(!last)return;
-   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify({...lastDesign,settings:state()},null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
-   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);rows.push(['metadata','calculation_log',JSON.stringify(lastDesign),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
+   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify({...lastDesign,stage_comparison:lastStages,settings:state()},null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
+   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);for(const stage of lastStages){rows.push(['stage',stage.stage,'ideal 4-rod Mathieu','model',stage.classification]);for(const k of ['a','q','U_V','V_rod_peak_V','r0_mm','f_MHz'])rows.push(['stage',stage.stage+':'+k,stage[k],k.endsWith('_V')?'V':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':'dimensionless',stage.classification]);}rows.push(['metadata','calculation_log',JSON.stringify(lastDesign),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
    if(action==='design-svg'){if(designSVG&&window.ZGFigureStyle)await ZGFigureStyle.exportSVG(designSVG,'SVG','rfq-rod-geometry',styleControl?.get(),lastDesign);return;}
    if(higher())return;
    if(action==='csv'){const rows=[['plane','band_n','q','a_low','a_high','geometry']];last.rows.forEach(r=>{for(const k of ['first','second'])r[k].forEach(b=>rows.push([k,b.n,r.q,b.lo,b.hi,last.geometry]));});rows.push(['point','',last.p.q,last.p.a,last.classification.status,last.geometry]);save(new Blob([rows.map(r=>r.join(',')).join('\n')+'\n'],{type:'text/csv'}),'mathieu-bands.csv');return;}
