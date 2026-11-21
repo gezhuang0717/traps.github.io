@@ -1,6 +1,36 @@
 {
   "entries": [
     {
+      "date": "2026-11-21",
+      "type": "news",
+      "title": "A Half Century of Possible Solutions to the Information Paradox",
+      "summary": "Author(s): Philip Ball The fate of information falling into a black hole remains a mystery, albeit with many ideas for how to solve it. [Physics 19, 159] Published Fri Nov 20, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.159",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-21",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-21",
+      "type": "news",
+      "title": "Quantum software matches classical benchmark for a molecular interaction",
+      "summary": "Predicting how molecules interact is central to drug discovery: it offers important information about how a new drug might work in the human body, the side effects it can cause and more. Computationally modeling these interactions can reduce the need for lengthy and expensive…",
+      "url": "https://phys.org/news/2026-11-quantum-software-classical-benchmark-molecular.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "collected_at": "2026-11-21",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-20",
       "type": "news",
       "title": "Spiraling spins bring coordinated quantum motion to diamond sensors",
@@ -10264,37 +10294,37 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-20T22:20:35+00:00",
+    "checked_at": "2026-11-21T13:15:11+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 1,
+        "matched": 0,
         "new": 0
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 14,
-        "new": 2
+        "matched": 13,
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
-        "matched": 21,
-        "new": 0
+        "matched": 22,
+        "new": 1
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 5
+        "new": 1
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
