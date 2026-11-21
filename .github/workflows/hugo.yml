@@ -168,5 +168,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
+      # The Pages artifact API can briefly lag the successful upload event.
+      # Allow metadata to become visible before deploy-pages queries this run.
+      - name: Allow Pages artifact metadata to propagate
+        run: sleep 15
       - id: deployment
         uses: actions/deploy-pages@v4
