@@ -72,12 +72,12 @@
 </div>
 </section>
 {{- if not (.Page.Store.Get "zg-mathieu-loaded") -}}{{ .Page.Store.Set "zg-mathieu-loaded" true }}
-<script defer src="{{ "js/rfq-rod-ratios.js" | relURL }}"></script>
-<script defer src="{{ "js/mathieu-core.js" | relURL }}"></script>
+<script defer src="{{ "js/rfq-rod-ratios.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-rod-ratios.js")) 0 10 }}"></script>
+<script defer src="{{ "js/mathieu-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/mathieu-core.js")) 0 10 }}"></script>
 {{- if not (.Page.Store.Get "zg-figure-style-loaded") -}}{{ .Page.Store.Set "zg-figure-style-loaded" true }}
 <link rel="stylesheet" href="{{ "css/figure-style.css" | relURL }}">
-<script defer src="{{ "js/figure-style.js" | relURL }}"></script>
+<script defer src="{{ "js/figure-style.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/figure-style.js")) 0 10 }}"></script>
 {{- end -}}
 <script defer src="{{ "js/rfq-preset.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-preset.js")) 0 10 }}"></script>
-<script defer src="{{ "js/rfq-mathieu.js" | relURL }}"></script>
+<script defer src="{{ "js/rfq-mathieu.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-mathieu.js")) 0 10 }}"></script>
 {{- end -}}
