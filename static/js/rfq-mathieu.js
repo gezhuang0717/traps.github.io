@@ -157,6 +157,22 @@
   });
   root.querySelector('[data-ms-file]').addEventListener('change',async e=>{e.stopPropagation();const file=e.target.files[0];if(!file)return;const before=state();try{if(file.size>300000)throw Error('size');const s=JSON.parse(await file.text());if(s.schema!=='traps-mathieu-v1'||!s.inputs||Object.keys(defaults).filter(k=>!designNames.includes(k.slice(3))).some(k=>!(k in s.inputs)))throw Error('schema');for(const key of designNames){const name='ms-'+key;if(!(name in s.inputs)&&field(key))field(key).value=defaults[name];}if(!('ms-rod-rule' in s.inputs)&&'ms-rod-radius' in s.inputs)field('rod-rule').value='radius';for(const [n,v]of Object.entries(s.inputs)){const el=root.querySelector('[name="'+n+'"]');if(!el||n.includes('"'))throw Error('key');if(el.type==='checkbox'){if(typeof v!=='boolean')throw Error('type');el.checked=v;}else el.value=String(v);}inputs();source=s.source&&typeof s.source==='object'?s.source:{label:T.manual};root.querySelector('[data-ms-source]').textContent=typeof source.label==='string'?source.label:T.manual;if(s.style)styleControl?.set(s.style);refresh();}catch(_){Object.entries(before.inputs).forEach(([n,v])=>{const el=root.querySelector('[name="'+n+'"]');if(el.type==='checkbox')el.checked=v;else el.value=v;});source=before.source;refresh();err.textContent=T.badfile;}finally{e.target.value='';}});
   {const n=U?.notesBlock('mathieu');if(n)figure.after(n);const slot=root.querySelector('[data-ms-design-notes]'),dn=U?.notesBlock('rfq-design');if(slot&&dn)slot.append(dn);}
+  // The game links to this canonical workbench with a versioned, validated
+  // operating-point preset. An ion name in the URL is NOT catalogue provenance:
+  // visitors must use 'Fill ion mass' to obtain an evaluated catalogue value.
+  let importError=false;
+  try{
+   const preset=window.ZGRFQPreset?.parse(window.location?.search||'');
+   if(preset){
+    const map={mass_u:'mass',charge:'charge',U_V:'U',V_rod_peak_V:'V',r0_mm:'r0',f_MHz:'f'};
+    field('geometry').value='linear';field('mode').value='voltage';field('rod-count').value='4';
+    for(const [key,target] of Object.entries(map))field(target).value=String(preset[key]);
+    field('species').value=preset.species;
+    for(const stage of ['cooler','mf','bun'])field(stage+'-on').checked=false;
+    source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;
+   }
+  }catch(_){importError=true;}
   refresh();
+  if(importError)err.textContent=T.badfile;
  });
 })();
