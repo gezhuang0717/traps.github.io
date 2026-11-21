@@ -82,3 +82,12 @@ GitHub Actions validates Python and Node tests, all three Hugo themes, publicati
 ### Historical note
 
 Earlier README instructions described the user-site root deployment at https://gezhuang0717.github.io/. That was not the appropriate base URL for this repository. The project-site base above and the repository-aware GitHub Actions build are authoritative for this project.
+
+
+### 中文：RFQ 工作台使用说明
+
+进入 [Lab → RFQ 工作台](https://gezhuang0717.github.io/traps.github.io/zh-hans/lab/#rfq-workbench)，依次查看 **Mathieu 稳定性探索**和 **RFQ 杆几何与射频设计**两个子标签。上方共享离子质量 m、电荷数 z、带符号的直流电压 U、单组电极对地射频峰值 V、内切半径 r₀ 以及射频频率 f。**相对两组电极的射频差分峰值为 2V，不可直接用相同数值替代冷却页面的差分电压。**
+
+理想四杆、无限长、无碰撞情况下，Mathieu 参数采用 a = 8zeU/(mr₀²Ω²)、q = 4zeV/(mr₀²Ω²)、Ω = 2πf。图中稳定区指两个横向方程同时有界，并**不等于实测传输效率**。设计子标签可查看杆半径规则、几何间隙、自由空间谐波、赝势、绝热参数及三段 RFQ 理想计算。六杆及以上多极场不采用四杆 Mathieu 判据。所有结果均需标注理想模型、单位与局限性，不能当作 SIMION 原生仿真、氦气冷却实测或束团输出验收结果。
+
+用户从 Games 携带的离子名称仅是输入标签，不自动等同于 AME/NUBASE 数据库的质量来源；需要点击 **Fill ion mass / 填写离子质量** 获取并记录经过来源识别的数值。参数和计算可导出 JSON/CSV 与 SVG/PNG，详情请查看此项目的 GitHub Actions 测试记录。
