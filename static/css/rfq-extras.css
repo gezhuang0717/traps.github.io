@@ -1,0 +1,10 @@
+/* Public educational RFQ expansions. Mobile-first, isolated from base lab. */
+.zg-mathieu .rfq-extra-result{font-variant-numeric:tabular-nums;white-space:pre-wrap;margin:.75rem 0;line-height:1.75}
+.zg-mathieu .rfq-extra-chart{width:100%;overflow-x:auto;border:1px solid rgba(120,140,170,.25);border-radius:12px;padding:.35rem}
+.zg-mathieu .rfq-extra-chart svg{width:100%;height:auto;min-width:350px;max-width:100%}
+.zg-mathieu .zg-rfq-extras-intro{margin:.75rem 0}
+.zg-mathieu [data-rfq-extras-pane] .zg-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:.65rem;align-items:end}
+.zg-mathieu [data-rfq-extras-pane] .zg-form label{min-width:0}
+.zg-mathieu [data-rfq-extras-pane] .zg-form input{max-width:100%;width:100%;box-sizing:border-box}
+.zg-mathieu [data-rfq-extras-pane] .zg-row{display:flex;flex-wrap:wrap;gap:.4rem}
+@media(max-width:620px){.zg-mathieu [data-rfq-extras-pane] .zg-form{grid-template-columns:minmax(0,1fr)}}
