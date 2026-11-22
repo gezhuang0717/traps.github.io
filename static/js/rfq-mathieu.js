@@ -1,29 +1,50 @@
 (function(){'use strict';
- const M=window.ZGMathieu,NS='http://www.w3.org/2000/svg',U=window.ZGUI;if(!M)return;
+ const M=window.ZGMathieu,H=window.ZGRFQWorkbench,NS='http://www.w3.org/2000/svg',U=window.ZGUI;if(!M||!H)return;
  document.querySelectorAll('[data-mathieu]').forEach(root=>{
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
   const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
-  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[];
+  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[],lastStageErrors=[],lastUncertainty=null;
   const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
   const el=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!=null)e.textContent=txt;return e;};
   const fmt=x=>Number.isFinite(x)?Number(x.toPrecision(7)).toString():'—';
-  function state(){return{schema:'traps-mathieu-v1',inputs:Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value])),source,style:styleControl?.get()||null};}
+  let convention=field('voltage-convention')?.value||'rod-peak';
+  const peaks={},displayCache={};
+  const voltageField=key=>field(H.voltageFields[key].slice(3));
+  function peak(key){
+   const input=voltageField(key);if(!input)throw Error('RF input');
+   // Preserve the canonical number when only the display convention changes.
+   // A genuine text edit is the only operation that reparses a displayed value.
+   if(input.value!==displayCache[key]){
+    if(!String(input.value).trim())throw Error('RF input');
+    peaks[key]=H.toRodPeak(Number(input.value),convention);displayCache[key]=input.value;
+   }
+   if(!Number.isFinite(peaks[key]))throw Error('RF input');return peaks[key];
+  }
+  function setPeak(key,v){const input=voltageField(key);if(!input)return;const displayed=H.fromRodPeak(v,convention);peaks[key]=v;input.value=String(displayed);displayCache[key]=input.value;}
+  function changeConvention(next){
+   H.fromRodPeak(0,next);const valid={};
+   for(const key of Object.keys(H.voltageFields))if(voltageField(key))try{valid[key]=peak(key);}catch(_){}
+   convention=next;if(field('voltage-convention'))field('voltage-convention').value=next;
+   for(const [key,v]of Object.entries(valid))setPeak(key,v);
+  }
+  function restoreVoltages(s){convention=s.voltage?.convention||'rod-peak';for(const key of Object.keys(displayCache))delete displayCache[key];for(const key of Object.keys(peaks))delete peaks[key];for(const [key,v]of Object.entries(s.voltage?.rod_peak_V||{}))setPeak(key,v);}
+  function state(){return{schema:'traps-mathieu-v2',inputs:Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value])),voltage:{convention,rod_peak_V:Object.fromEntries(Object.keys(H.voltageFields).filter(k=>voltageField(k)).map(k=>[k,peak(k)]))},source,style:styleControl?.get()||null};}
+  function selectedVoltagePoint(){return M.parameters(value('mass'),value('charge'),value('U'),peak('main'),value('r0'),value('f'));}
   function inputs(){
    const geometry=field('geometry').value,mode=geometry==='paul3d'?'direct':field('mode').value,count=value('bands'),qmax=value('qmax'),qmin=field('qmin')?value('qmin'):0,amin=value('amin'),amax=value('amax');
    if(!['linear','paul3d'].includes(geometry)||!['voltage','direct'].includes(mode)||!Number.isInteger(count)||count<1||count>6||!Number.isFinite(qmax)||qmax<=0||qmax>12||!Number.isFinite(qmin)||qmin<0||qmin>=qmax||!Number.isFinite(amin)||!Number.isFinite(amax)||amin>=amax||amin< -60||amax>60)throw Error('inputs');
-   const p=mode==='voltage'?M.parameters(value('mass'),value('charge'),value('U'),value('V'),value('r0'),value('f')):{a:value('a'),q:value('q')};
+   const p=mode==='voltage'?selectedVoltagePoint():{a:value('a'),q:value('q')};
    if(!Number.isFinite(p.a)||!Number.isFinite(p.q)||(!higher()&&Math.abs(p.q)>12))throw Error('inputs');
    const sections=[];
-   if(geometry==='linear'&&!higher())for(const key of ['cooler','mf','bun'])if(field(key+'-on').checked){const x=M.parameters(value('mass'),value('charge'),value(key+'-U'),value(key+'-V'),value(key+'-r0'),value(key+'-f'));sections.push({key,...x});}
+   if(geometry==='linear'&&!higher())for(const stage of lastStages)sections.push({key:stage.stage,...stage});
    return{geometry,mode,count,qmin,qmax,amin,amax,p,sections};
   }
-  const designNames=['qmin','rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan'];
-  function higher(){const panel=root.querySelector('[data-local-panel="design"]');return !!field('rod-count')&&field('geometry').value==='linear'&&value('rod-count')>4&&(!panel||!panel.hidden);}
+  function higher(){const panel=root.querySelector('[data-local-panel="design"]');return !!field('rod-count')&&field('geometry').value==='linear'&&field('mode').value==='voltage'&&value('rod-count')>4&&(!panel||!panel.hidden);}
   // Mathieu remains an independent ideal four-rod reference when a separate design subtab uses a higher multipole.
   function designInputs(){
    const numeric=n=>{if(!field(n).value.trim())throw Error('blank');const x=Number(field(n).value);if(!Number.isFinite(x))throw Error('finite');return x;};
-   const rule=field('rod-rule').value,input={mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:numeric('V'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_rule:rule,radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:numeric('bands')};
+   const rule=field('rod-rule').value,input={mass_u:numeric('mass'),charge:numeric('charge'),U_V:numeric('U'),V_V:peak('main'),r0_mm:numeric('r0'),f_MHz:numeric('f'),rod_count:numeric('rod-count'),rod_rule:rule,radial_fraction:numeric('radial-fraction'),eta_target:numeric('eta-target'),bands:M.MAX_BANDS};
    if(rule==='ratio')input.rod_ratio=numeric('rod-ratio');if(rule==='radius')input.rod_radius_mm=numeric('rod-radius');
    if(field('diameter-tolerance').value.trim()!=='')input.diameter_tolerance_mm=numeric('diameter-tolerance');
    return input;
@@ -71,7 +92,34 @@
    [['#dae6ff','#315aa3','+V'],['#ffe2da','#ac4835','−V']].forEach(([fill,stroke,text],i)=>svg.append(el('circle',{cx:40+i*70,cy:416,r:6,fill,stroke,'stroke-width':S.lineWidth}),el('text',{x:52+i*70,y:420,'font-size':S.tickSize},text)));
    svg.append(el('line',{x1:190,x2:216,y1:416,y2:416,stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}),el('text',{x:222,y:420,'font-size':S.tickSize},`r₀ (${T.k_aperture})`),el('text',{x:230,y:442,'text-anchor':'middle','font-size':Math.max(9,S.tickSize-2),fill:'#53647a'},T.legend_line.replace('a = (2U/V) q','')+'ρ = ratio × r₀; Rc = r₀ + ρ; D = 2Rc sin(π/N); g = D − 2ρ'));holder.append(svg);designSVG=svg;{const n=U?.notesBlock('rfq-geometry');if(n)holder.append(n);}
   }
-  function sync(){const three=field('geometry').value==='paul3d',multi=higher();if(three)field('mode').value='direct';else if(multi)field('mode').value='voltage';field('mode').disabled=three||multi;const direct=three||field('mode').value==='direct';root.querySelectorAll('[data-ms-voltage]').forEach(e=>{e.hidden=direct;});root.querySelectorAll('[data-ms-direct]').forEach(e=>{e.hidden=!direct;});root.querySelector('[data-ms-sections]').hidden=three;const designBox=root.querySelector('[data-ms-design]'),formulaBox=root.querySelector('[data-ms-band-formula]');if(designBox)designBox.hidden=three||direct;const referenceNote=root.querySelector('[data-ms-reference-note]');if(referenceNote)referenceNote.hidden=value('rod-count')<=4;if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;}
+  function sync(){
+   const three=field('geometry').value==='paul3d';if(three)field('mode').value='direct';
+   const multi=higher(),direct=three||field('mode').value==='direct';field('mode').disabled=three;
+   root.querySelectorAll('[data-ms-voltage]').forEach(e=>{e.hidden=direct;});root.querySelectorAll('[data-ms-direct]').forEach(e=>{e.hidden=!direct;});
+   root.querySelector('[data-ms-sections]').hidden=three;
+   const designBox=root.querySelector('[data-ms-design]'),formulaBox=root.querySelector('[data-ms-band-formula]');if(designBox)designBox.hidden=three||direct;
+   const directNote=root.querySelector('[data-ms-direct-design]');if(directNote)directNote.hidden=!direct;
+   const referenceNote=root.querySelector('[data-ms-reference-note]');if(referenceNote)referenceNote.hidden=value('rod-count')<=4;
+   const uncertainty=root.querySelector('[data-ms-uncertainty]');if(uncertainty)uncertainty.hidden=direct;
+   root.querySelectorAll('[data-ms-stage-copy]').forEach(e=>{e.disabled=direct;});
+   if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;
+   root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;
+   for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;
+  }
+  function renderConversions(){
+   const box=root.querySelector('[data-ms-conversions]');if(!box)return;box.hidden=field('mode').value!=='voltage';box.textContent='';
+   if(box.hidden)return;
+   try{const v=H.conversions(peak('main'));box.textContent=[[T.convention_rod_peak,v['rod-peak']],[T.convention_rod_pp,v['rod-pp']],[T.convention_diff_peak,v['differential-peak']],[T.convention_diff_pp,v['differential-pp']]].map(([label,x])=>label+': '+fmt(x)+' V').join(' · ');}catch(_){}
+  }
+  function renderUncertainty(){
+   const box=root.querySelector('[data-ms-uncertainty-readout]');lastUncertainty=null;if(!box)return;box.replaceChildren();
+   if(!field('uncertainty-on')?.checked||field('mode').value!=='voltage')return;
+   try{
+    lastUncertainty=H.uncertainty(selectedVoltagePoint(),{mass_u:value('sigma-mass'),V_rod_peak_V:peak('sigma'),r0_mm:value('sigma-r0'),f_MHz:value('sigma-f')});
+    const r=lastUncertainty,p=document.createElement('p');p.textContent=`q = ${fmt(r.q)}; σ(q) = ${fmt(r.sigma_q)}; ${T.uncertainty_relative} = ${r.relative_sigma_q===null?'—':fmt(100*r.relative_sigma_q)+' %'}`;box.append(p);
+    const sensitivities=document.createElement('p');sensitivities.className='zg-muted';sensitivities.textContent=T.sensitivity+': m −1; V +1; r₀ −2; f −2.';box.append(sensitivities);
+   }catch(_){const p=document.createElement('p');p.textContent=T.uncertainty_bad;box.append(p);}
+  }
   const textWidth=(text,size)=>String(text).length*size*.58;
   function wrapLines(text,maxWidth,size){const lines=[];let line='';for(const word of String(text).split(/\s+/)){const next=line?line+' '+word:word;if(line&&textWidth(next,size)>maxWidth){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);return lines.length?lines:[''];}
   function flow(items,width,size){const rows=[[]];let x=0;for(const item of items){const w=28+textWidth(item.text,size)+16;if(x+w>width&&rows.at(-1).length){rows.push([]);x=0;}rows.at(-1).push({...item,x,w});x+=w;}return rows;}
@@ -118,19 +166,19 @@
     if(!holder)return;
     holder.replaceChildren();lastStages=[];
     if(value('rod-count')>4){const note=document.createElement('p');note.className='zg-muted';note.textContent=T.quadrupole_reference;holder.append(note);}
-    const head=['Stage','U (V)','V (rod peak, V)','r₀ (mm)','f (MHz)','a','q',T.readout];
+    const head=[T.stage_name,'U (V)',T.convention_rod_peak+' (V)','r₀ (mm)','f (MHz)','a','q',T.readout];
     const table=document.createElement('table');table.className='zg-table';
     const trHead=document.createElement('tr');
     for(const h of head){const th=document.createElement('th');th.textContent=h;trHead.append(th);}
     const thead=document.createElement('thead');thead.append(trHead);table.append(thead);
     const tbody=document.createElement('tbody');
-    const m=value('mass'),z=value('charge');
+    const m=value('mass'),z=value('charge'),stageErrors=[];
     for(const key of ['cooler','mf','bun']){
       if(!field(key+'-on')?.checked)continue;
       try{
-        const p=M.parameters(m,z,value(key+'-U'),value(key+'-V'),value(key+'-r0'),value(key+'-f'));
-        const c=M.classify(p.a,p.q,'linear',value('bands'));
-        lastStages.push({stage:key,geometry:'ideal-four-rod-linear-RFQ',...p,classification:c.status});
+        const p=M.parameters(m,z,value(key+'-U'),peak(key),value(key+'-r0'),value(key+'-f'));
+        const c=M.classify(p.a,p.q,'linear',M.MAX_BANDS);
+        lastStages.push({stage:key,geometry:'ideal-four-rod-linear-RFQ',...p,classification:c.status,voltage_convention:'rod-peak'});
         const row=document.createElement('tr');
         for(const cell of [T[key],p.U_V,p.V_rod_peak_V,p.r0_mm,p.f_MHz,fmt(p.a),fmt(p.q),T[c.status]]){
           const td=document.createElement('td');td.textContent=String(cell);row.append(td);
@@ -138,9 +186,10 @@
         tbody.append(row);
       }catch(_){
         const row=document.createElement('tr'),cell=document.createElement('td');
-        cell.colSpan=head.length;cell.textContent=T[key]+': '+T.bad;row.append(cell);tbody.append(row);
+        cell.colSpan=head.length;cell.textContent=T[key]+': '+T.bad;row.append(cell);tbody.append(row);stageErrors.push(T[key]);
       }
     }
+    lastStageErrors=stageErrors;const stageNotice=root.querySelector('[data-ms-stage-error]');if(stageNotice)stageNotice.textContent=stageErrors.length?T.stage_error+' '+stageErrors.join(', '):'';
     if(!tbody.children.length){const notice=document.createElement('p');notice.textContent=T.section_note;holder.append(notice);return;}
     table.append(tbody);holder.append(table);
   }
@@ -149,7 +198,7 @@
    sync();let designError=null;
    const designNotice=root.querySelector('[data-ms-design-error]');if(designNotice)designNotice.textContent='';
    try{renderDesign();}catch(e){designError=e;lastDesign=null;designSVG=null;root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();if(designNotice)designNotice.textContent=designErrorText(e);}
-   renderStages();
+   renderStages();renderConversions();renderUncertainty();
    try{const d=inputs(),multi=higher(),c=multi?null:M.classify(d.p.a,d.p.q,d.geometry,d.count),drawn=multi?{svg:null,rows:[]}:draw(d);err.textContent=designError&&!designNotice?designErrorText(designError):'';last={...d,...drawn,classification:c};
     const box=root.querySelector('[data-ms-readout]');box.replaceChildren();const add=text=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
     if(multi){add(T.multipole);return;}
@@ -159,7 +208,7 @@
      for(const{p,i,diag}of planes)nodes.push(U.group(i?T.second:T.first,tone(p.status),[{k:T.k_status,v:T[p.status],tone:tone(p.status)},{k:T.band,v:String(p.band??'—')},{k:T.trace,v:fmt(diag.trace),hint:T.diagnostic},{k:T.det,v:fmt(diag.det)},{k:'Δ',v:fmt(diag.trace_delta),hint:T.diagnostic},{k:T.k_status+' (Floquet)',v:T[diag.status],tone:tone(diag.status)}]));
      nodes.push(U.make('p','zg-muted zg-small',T.diagnostic));box.replaceChildren(...nodes);
     }else{add(`${T.readout}: ${T[c.status]} · a=${fmt(d.p.a)}, q=${fmt(d.p.q)}`);planes.forEach(({p,i,diag})=>add(`${i?T.second:T.first}: ${T[p.status]} · ${T.band} ${p.band??'—'} · ${T.trace}=${fmt(diag.trace)}, ${T.det}=${fmt(diag.det)}, Δ=${fmt(diag.trace_delta)} · ${T[diag.status]}`));add(T.diagnostic);}
-   }catch(e){last=null;lastDesign=null;designSVG=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
+   }catch(e){last=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   }
   function queue(){clearTimeout(timer);timer=setTimeout(refresh,100);}
   const clampView=v=>{let{qmin,qmax,amin,amax}=v;if(qmin<0){qmax-=qmin;qmin=0;}if(qmax>12){qmin=Math.max(0,qmin-(qmax-12));qmax=12;}if(amin<-60){amax+=-60-amin;amin=-60;}if(amax>60){amin-=amax-60;amax=60;}return{qmin,qmax,amin,amax};};
@@ -173,29 +222,63 @@
   figure.addEventListener('pointermove',e=>{if(!drag)return;const m=drag.view,dq=-(e.clientX-drag.x)/drag.rect.width*m.W/m.w*(m.qmax-m.qmin),da=(e.clientY-drag.y)/drag.rect.height*m.H/m.h*(m.amax-m.amin);setView({qmin:m.qmin+dq,qmax:m.qmax+dq,amin:m.amin+da,amax:m.amax+da});});
   figure.addEventListener('pointerup',endDrag);figure.addEventListener('pointercancel',endDrag);figure.addEventListener('dblclick',resetView);
   if(window.ZGFigureStyle)styleControl=ZGFigureStyle.controls(root.querySelector('[data-ms-style]'),{lang:root.dataset.lang,prefix:'mathieu',baseline:{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10},onChange:queue});
-  root.addEventListener('input',e=>{e.stopPropagation();if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
-  root.addEventListener('change',e=>{e.stopPropagation();if(e.target.matches('[data-ms-file]'))return;queue();});
+  root.addEventListener('input',e=>{e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
+  root.addEventListener('change',e=>{e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
+  root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)&&e.target.closest?.('[data-local-tab]'))queue();});
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{
-   e.stopPropagation();const useBtn=e.target.closest('[data-ms-use]');if(useBtn&&useBtn.dataset.msUse!==undefined){field('V').value=useBtn.dataset.msUse;refresh();return;}
+   e.stopPropagation();const useBtn=e.target.closest('[data-ms-use]');if(useBtn&&useBtn.dataset.msUse!==undefined){setPeak('main',Number(useBtn.dataset.msUse));refresh();return;}
+   const applyStage=e.target.closest('[data-ms-stage-apply]')?.dataset.msStageApply,copyStage=e.target.closest('[data-ms-stage-copy]')?.dataset.msStageCopy;
+   if(applyStage||copyStage){
+    const key=applyStage||copyStage;if(!['cooler','mf','bun'].includes(key))return;
+    try{
+     if(applyStage){
+      const p=M.parameters(value('mass'),value('charge'),value(key+'-U'),peak(key),value(key+'-r0'),value(key+'-f'));
+      field('geometry').value='linear';field('mode').value='voltage';
+      for(const [n,v]of Object.entries({U:p.U_V,r0:p.r0_mm,f:p.f_MHz}))field(n).value=String(v);setPeak('main',p.V_rod_peak_V);
+     }else{
+      if(field('mode').value!=='voltage'||field('geometry').value!=='linear')return;
+      const p=selectedVoltagePoint();for(const [n,v]of Object.entries({U:p.U_V,r0:p.r0_mm,f:p.f_MHz}))field(key+'-'+n).value=String(v);setPeak(key,p.V_rod_peak_V);
+     }
+     field(key+'-on').checked=true;refresh();const note=root.querySelector('[data-ms-stage-feedback]');if(note)note.textContent=(applyStage?T.stage_applied:T.stage_copied)+': '+T[key];
+    }catch(_){const notice=root.querySelector('[data-ms-stage-error]');if(notice)notice.textContent=T[key]+': '+T.bad;else err.textContent=T.bad;}return;
+   }
    const tab=e.target.closest('[data-local-tab]')?.dataset.localTab;
-   if(tab==='design'){field('geometry').value='linear';field('mode').value='voltage';refresh();return;}
-   if(tab==='classic'){refresh();return;}
+   if(tab==='design'||tab==='classic'){refresh();return;}
    const action=e.target.closest('[data-ms-action]')?.dataset.msAction;if(!action)return;
+   if(action==='voltage-mode'){field('geometry').value='linear';field('mode').value='voltage';refresh();return;}
+   if(action==='stable-demo'){try{const unit=M.parameters(value('mass'),value('charge'),0,1,value('r0'),value('f'));field('geometry').value='linear';field('mode').value='voltage';field('rod-count').value='4';field('U').value='0';setPeak('main',0.4/unit.q);refresh();}catch(_){err.textContent=T.bad;}return;}
    if(action==='zoom-in'){zoom(.8);return;}if(action==='zoom-out'){zoom(1.25);return;}if(action==='reset-view'){resetView();return;}
    if(action==='fill'){err.textContent=T.loading;try{const cat=await ZGPhysics.load(root.dataset.catalogue,root.dataset.ame),r=cat.resolve(field('species').value);if(!Number.isInteger(r.q)||r.q<1||r.q>100)throw Error('charge');field('mass').value=r.ionMassU;field('charge').value=r.q;source={label:r.label,source:r.source,ionMassU:r.ionMassU,metadata:r};root.querySelector('[data-ms-source]').textContent=r.label+' · '+r.source;refresh();}catch(_){err.textContent=T.unavailable;}return;}
    if(action==='load'){root.querySelector('[data-ms-file]').click();return;}
-   if(action==='reset'){Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;styleControl?.reset();refresh();return;}
-   if(action==='save'){refresh();if(!last||styleControl?.valid&&!styleControl.valid())return;save(new Blob([JSON.stringify(state(),null,2)],{type:'application/json'}),'mathieu-settings.json');return;}
-   refresh();if(!last)return;
-   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify({...lastDesign,stage_comparison:lastStages,settings:state()},null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
-   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);for(const stage of lastStages){rows.push(['stage',stage.stage,'ideal 4-rod Mathieu','model',stage.classification]);for(const k of ['a','q','U_V','V_rod_peak_V','r0_mm','f_MHz'])rows.push(['stage',stage.stage+':'+k,stage[k],k.endsWith('_V')?'V':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':'dimensionless',stage.classification]);}rows.push(['metadata','calculation_log',JSON.stringify(lastDesign),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
+   if(action==='reset'){Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});restoreVoltages({voltage:{convention:'rod-peak',rod_peak_V:{}}});source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;styleControl?.reset();refresh();return;}
+   if(action==='save'){refresh();if(!last||styleControl?.valid&&!styleControl.valid())return;try{save(new Blob([JSON.stringify(state(),null,2)],{type:'application/json'}),'mathieu-settings.json');}catch(_){err.textContent=T.bad;}return;}
+   refresh();
+   const settings=()=>{try{return state();}catch(_){return null;}},log=()=>({...lastDesign,limits:lastDesign.limits.replace(', uncertainty propagation',''),q_uncertainty:lastUncertainty,display_voltage_convention:convention,stage_comparison:lastStages,stage_input_errors:[...lastStageErrors],settings:settings()});
+   if(action==='stage-json'){
+    try{const s=state(),stages=['cooler','mf','bun'].map(key=>({stage:key,enabled:field(key+'-on').checked,...M.parameters(value('mass'),value('charge'),value(key+'-U'),peak(key),value(key+'-r0'),value(key+'-f'))}));save(new Blob([JSON.stringify({schema:'traps-rfq-stages-v1',model:'independent ideal four-rod RFQ stages; no beam transport',voltage_convention:'rod-peak',stages,settings:s},null,2)],{type:'application/json'}),'rfq-stage-settings.json');}catch(_){const notice=root.querySelector('[data-ms-stage-error]');if(notice)notice.textContent=T.bad;else err.textContent=T.bad;}return;
+   }
+   if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify(log(),null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
+
+   if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);for(const stage of lastStages){rows.push(['stage',stage.stage,'ideal 4-rod Mathieu','model',stage.classification]);for(const k of ['a','q','U_V','V_rod_peak_V','r0_mm','f_MHz'])rows.push(['stage',stage.stage+':'+k,stage[k],k.endsWith('_V')?'V':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':'dimensionless',stage.classification]);}if(lastUncertainty){rows.push(['uncertainty','sigma_q',lastUncertainty.sigma_q,'dimensionless',lastUncertainty.model]);for(const c of lastUncertainty.contributions)rows.push(['uncertainty',c.input,c.sigma,'input unit','dq/dinput='+c.derivative]);}rows.push(['metadata','calculation_log',JSON.stringify(log()),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
    if(action==='design-svg'){if(designSVG&&window.ZGFigureStyle)await ZGFigureStyle.exportSVG(designSVG,'SVG','rfq-rod-geometry',styleControl?.get(),lastDesign);return;}
-   if(higher())return;
+   if(!last||higher())return;
    if(action==='csv'){const rows=[['plane','band_n','q','a_low','a_high','geometry']];last.rows.forEach(r=>{for(const k of ['first','second'])r[k].forEach(b=>rows.push([k,b.n,r.q,b.lo,b.hi,last.geometry]));});rows.push(['point','',last.p.q,last.p.a,last.classification.status,last.geometry]);save(new Blob([rows.map(r=>r.join(',')).join('\n')+'\n'],{type:'text/csv'}),'mathieu-bands.csv');return;}
    if(['svg','png'].includes(action)){if(styleControl?.valid&&!styleControl.valid())return;try{if(window.ZGFigureStyle){await ZGFigureStyle.exportSVG(last.svg,action.toUpperCase(),'mathieu-stability',styleControl?.get(),{inputs:state(),model:'ideal Mathieu characteristic bands',source:'https://dlmf.nist.gov/28.17'});}else if(action==='svg')save(new Blob([new XMLSerializer().serializeToString(last.svg)],{type:'image/svg+xml'}),'mathieu-stability.svg');}catch(_){err.textContent=T.badfile;}}
   });
-  root.querySelector('[data-ms-file]').addEventListener('change',async e=>{e.stopPropagation();const file=e.target.files[0];if(!file)return;const before=state();try{if(file.size>300000)throw Error('size');const s=JSON.parse(await file.text());if(s.schema!=='traps-mathieu-v1'||!s.inputs||Object.keys(defaults).filter(k=>!designNames.includes(k.slice(3))).some(k=>!(k in s.inputs)))throw Error('schema');for(const key of designNames){const name='ms-'+key;if(!(name in s.inputs)&&field(key))field(key).value=defaults[name];}if(!('ms-rod-rule' in s.inputs)&&'ms-rod-radius' in s.inputs)field('rod-rule').value='radius';for(const [n,v]of Object.entries(s.inputs)){const el=root.querySelector('[name="'+n+'"]');if(!el||n.includes('"'))throw Error('key');if(el.type==='checkbox'){if(typeof v!=='boolean')throw Error('type');el.checked=v;}else el.value=String(v);}inputs();source=s.source&&typeof s.source==='object'?s.source:{label:T.manual};root.querySelector('[data-ms-source]').textContent=typeof source.label==='string'?source.label:T.manual;if(s.style)styleControl?.set(s.style);refresh();}catch(_){Object.entries(before.inputs).forEach(([n,v])=>{const el=root.querySelector('[name="'+n+'"]');if(el.type==='checkbox')el.checked=v;else el.value=v;});source=before.source;refresh();err.textContent=T.badfile;}finally{e.target.value='';}});
+  root.querySelector('[data-ms-file]').addEventListener('change',async e=>{
+   e.stopPropagation();const file=e.target.files[0];if(!file)return;
+   const before={inputs:Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(x=>[x.name,x.type==='checkbox'?x.checked:x.value])),convention,peaks:{...peaks},displayCache:{...displayCache},source,style:styleControl?.get()||null};
+   const applyInputs=values=>Object.entries(values).forEach(([name,v])=>{const input=field(name.slice(3));if(input.type==='checkbox')input.checked=v;else input.value=String(v);});
+   try{
+    if(file.size>300000)throw Error('size');const normalized=H.normalizeSettings(JSON.parse(await file.text()),defaults,T.manual);
+    applyInputs(normalized.inputs);restoreVoltages(normalized);inputs();
+    source=normalized.source;root.querySelector('[data-ms-source]').textContent=source.label;if(normalized.style)styleControl?.set(normalized.style);refresh();
+   }catch(_){
+    applyInputs(before.inputs);convention=before.convention;for(const key of Object.keys(peaks))delete peaks[key];Object.assign(peaks,before.peaks);for(const key of Object.keys(displayCache))delete displayCache[key];Object.assign(displayCache,before.displayCache);
+    source=before.source;root.querySelector('[data-ms-source]').textContent=source.label;if(before.style)styleControl?.set(before.style);refresh();err.textContent=T.badfile;
+   }finally{e.target.value='';}
+  });
   {const n=U?.notesBlock('mathieu');if(n)figure.after(n);const slot=root.querySelector('[data-ms-design-notes]'),dn=U?.notesBlock('rfq-design');if(slot&&dn)slot.append(dn);}
   // The game links to this canonical workbench with a versioned, validated
   // operating-point preset. An ion name in the URL is NOT catalogue provenance:

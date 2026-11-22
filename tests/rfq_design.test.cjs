@@ -1,26 +1,28 @@
 'use strict';
-const test=require('node:test'),assert=require('node:assert/strict'),M=require('../static/js/mathieu-core.js');
+const test=require('node:test'),assert=require('node:assert/strict'),M=require('../static/js/mathieu-core.js'),H=require('../static/js/rfq-workbench.js');
 const base={mass_u:100,charge:1,U_V:0,V_V:100,r0_mm:10,f_MHz:1,rod_count:4,rod_radius_mm:1,radial_fraction:.5,eta_target:.3};
 const close=(a,b)=>assert.ok(Math.abs(a-b)<=1e-12*Math.max(1,Math.abs(b)),`${a} != ${b}`);
 function ui({subtabs=false}={}){
  const fs=require('node:fs'),vm=require('node:vm'),T=JSON.parse(fs.readFileSync('data/mathieu_labels.json')).en;
  class E{constructor(tag='div'){this.tag=tag;this.children=[];this.value='';this.dataset={};this.textContent='';this.hidden=false;}setAttribute(k,v){this[k]=v;}append(...x){this.children.push(...x);}replaceChildren(...x){this.children=x;this.textContent='';}addEventListener(k,fn){this[k]=fn;}querySelectorAll(){return [];} }
  const fields=new Map(),slots=new Map(),buttons=new Map(),panels=new Map(),root=new E(),saved=[];
- const vals={geometry:'linear',mode:'voltage',bands:'3',qmin:'0',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+'};
+ const vals={geometry:'linear',mode:'voltage',bands:'3',qmin:'0',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+','voltage-convention':'rod-peak','sigma-mass':'0','sigma-V':'0','sigma-r0':'0','sigma-f':'0'};
  for(const[k,v]of Object.entries(vals)){const e=new E('input');e.name='ms-'+k;e.value=v;e.type='text';fields.set(k,e);}
+ {const e=new E('input');e.name='ms-uncertainty-on';e.type='checkbox';e.checked=false;fields.set('uncertainty-on',e);}
  for(const k of ['cooler','mf','bun']){const e=new E('input');e.name='ms-'+k+'-on';e.type='checkbox';e.checked=false;fields.set(k+'-on',e);}
- for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style'])slots.set(k,new E());
+ for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style','conversions','uncertainty','uncertainty-readout','direct-design','stage-feedback','stage-error'])slots.set(k,new E());
  for(const k of ['svg','png','csv'])buttons.set(k,new E('button'));
  if(subtabs){for(const name of ['classic','design']){const panel=new E();panel.hidden=name==='design';panels.set(name,panel);}for(const key of ['design-error','reference-note','stage-readout'])slots.set(key,new E());for(const key of ['cooler','mf','bun'])for(const [suffix,num] of [['U',3],['V',122],['r0',10],['f',1.3]]){const e=new E('input');e.name='ms-'+key+'-'+suffix;e.value=String(num);e.type='number';fields.set(key+'-'+suffix,e);}}
  root.dataset={labels:JSON.stringify(T),lang:'en'};
  root.querySelector=q=>{const panel=q.match(/^\[data-local-panel="(.+)"\]$/);if(panel)return panels.get(panel[1])||null;const f=q.match(/^\[name="ms-(.+)"\]$/);if(f)return fields.get(f[1])||null;const b=q.match(/^\[data-ms-action="(.+)"\]$/);if(b)return buttons.get(b[1]);return slots.get(q.replace(/^\[data-ms-|\]$/g,''))||null;};
  root.querySelectorAll=q=>q==='[name^="ms-"]'?[...fields.values()]:[];
- const exp={save:(blob,name)=>saved.push({blob,name})},docObj={querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},context={window:{ZGMathieu:M,zgExport:exp,document:docObj},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
+ const exp={save:(blob,name)=>saved.push({blob,name})},docObj={querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},context={window:{ZGMathieu:M,ZGRFQWorkbench:H,zgExport:exp,document:docObj},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
  vm.runInNewContext(fs.readFileSync('static/js/zg-ui.js','utf8'),context);vm.runInNewContext(fs.readFileSync('static/js/rfq-mathieu.js','utf8'),context);
  const change=(name,value)=>{fields.get(name).value=value;root.input({target:fields.get(name),stopPropagation(){}});};
  const click=action=>root.click({stopPropagation(){},target:{closest:()=>({dataset:{msAction:action}})}});
  const clickTab=name=>{for(const [key,panel]of panels)panel.hidden=key!==name;root.click({stopPropagation(){},target:{closest:selector=>selector==='[data-local-tab]'?{dataset:{localTab:name}}:null}});};
- return{root,fields,slots,buttons,panels,saved,change,click,clickTab,T};
+ const stage=(kind,key)=>root.click({stopPropagation(){},target:{closest:selector=>selector==='[data-ms-stage-'+kind+']'?{dataset:{[kind==='apply'?'msStageApply':'msStageCopy']:key}}:null}});
+ return{root,fields,slots,buttons,panels,saved,change,click,clickTab,stage,T};
 }
 test('Lab subtabs keep Mathieu independent of design errors, higher rods and blank inputs',()=>{
  const h=ui({subtabs:true}),figure=h.slots.get('figure'),notice=h.slots.get('design-error');
@@ -107,13 +109,20 @@ test('actual settings loader accepts the earlier schema without rod fields and r
 
 // ---- rod size and distance follow published design rules (owner textbook ch. 1 and 7; free-space round-rod multipole solution) ----
 const R=require('../static/js/rfq-rod-ratios.js'),design={mass_u:133,charge:1,U_V:0,V_V:200,r0_mm:6,f_MHz:1,rod_count:4};
-test('four rods: the optimal ratio is Denison\'s dodecapole condition 1.14511 and the textbook worked example 6 mm gives 6.87 mm',()=>{
+test('four rods: the free-space A6-zero table agrees with the rounded published 1.14511 and gives a 6.87 mm rod for r0 = 6 mm',()=>{
  assert.ok(Math.abs(R.rows[4].optimal-1.14511)<1e-5,String(R.rows[4].optimal));
  const d=M.rodDesign({...design,rod_rule:'optimal'});
  assert.ok(Math.abs(d.rod_radius_mm-6.87)<5e-3);assert.ok(Math.abs(d.rod_diameter_mm-13.74)<1e-2);
  close(d.center_radius_mm,6+d.rod_radius_mm);close(d.outer_radius_mm,d.center_radius_mm+d.rod_radius_mm);close(d.aperture_diameter_mm,12);
  close(d.adjacent_center_mm,Math.SQRT2*d.center_radius_mm);close(d.surface_gap_mm,d.adjacent_center_mm-2*d.rod_radius_mm);
  assert.equal(d.rod_rule,'optimal');assert.ok(Math.abs(d.ratio_deviation_percent)<1e-9);
+});
+test('round-rod attribution distinguishes the numerical free-space table from hardware optimization',()=>{
+ const log=M.designLog({...design,rod_rule:'optimal'},[100]);
+ assert.ok(log.sources.includes('https://doi.org/10.1016/0029-554X(71)90587-8'));
+ assert.ok(log.references.some(s=>/finite-series free-space 2D calculation/.test(s)));
+ assert.ok(log.references.some(s=>/not the precise tabulated rod-ratio digits/.test(s)));
+ assert.ok(!log.references.some(s=>/Denison.*1\.14511/.test(s)));
 });
 test('eight rods: 0.37216 reproduces the published numerical optimum (0.372159) and the table is monotonic and below the touching ratio',()=>{
  assert.ok(Math.abs(R.rows[8].optimal-0.372159)<2e-5,String(R.rows[8].optimal));
@@ -181,4 +190,48 @@ test('zoom buttons narrow the axis ranges, reset restores the defaults, and the 
 test('an RF suggestion button copies its voltage into the RF field and recalculates',()=>{
  const h=ui();h.root.click({stopPropagation(){},target:{closest:sel=>sel==='[data-ms-use]'?{dataset:{msUse:'123.5'}}:null}});
  assert.equal(h.fields.get('V').value,'123.5');
+});
+
+test('convention switching preserves physical values, suggestions, stages, sigma and saved settings',async()=>{
+ const h=ui({subtabs:true});h.change('V','123.45678901234567');h.change('sigma-V','.125');
+ h.fields.get('cooler-on').checked=true;const original=Number(h.fields.get('V').value);
+ for(let repeat=0;repeat<4;repeat++)for(const convention of ['rod-pp','differential-peak','differential-pp','rod-peak'])h.change('voltage-convention',convention);
+ assert.equal(Number(h.fields.get('V').value),original);assert.equal(h.fields.get('cooler-V').value,'122');
+ h.change('voltage-convention','differential-pp');assert.equal(Number(h.fields.get('V').value),4*original);assert.equal(h.fields.get('sigma-V').value,'0.5');
+ h.root.click({stopPropagation(){},target:{closest:sel=>sel==='[data-ms-use]'?{dataset:{msUse:'123.5'}}:null}});
+ assert.equal(h.fields.get('V').value,'494');await h.click('save');
+ const saved=JSON.parse(await h.saved.at(-1).blob.text());assert.equal(saved.schema,'traps-mathieu-v2');assert.equal(saved.voltage.rod_peak_V.main,123.5);assert.equal(saved.voltage.rod_peak_V.cooler,122);assert.equal(saved.voltage.rod_peak_V.sigma,.125);
+ h.change('voltage-convention','rod-peak');const f=h.slots.get('file');f.files=[{size:5000,text:async()=>JSON.stringify(saved)}];await f.change({target:f,stopPropagation(){}});
+ assert.equal(h.fields.get('V').value,'494');assert.equal(h.fields.get('voltage-convention').value,'differential-pp');
+});
+test('stages apply and copy in both directions without factor-two errors and preserve signed DC',async()=>{
+ const h=ui({subtabs:true});h.change('voltage-convention','rod-pp');h.change('cooler-U','-2.375');h.change('cooler-V','300');h.change('cooler-r0','5');h.change('cooler-f','.7');
+ await h.stage('apply','cooler');assert.equal(h.fields.get('U').value,'-2.375');assert.equal(h.fields.get('V').value,'300');assert.equal(h.fields.get('r0').value,'5');assert.equal(h.fields.get('f').value,'0.7');
+ h.change('V','450');await h.stage('copy','bun');assert.equal(h.fields.get('bun-V').value,'450');assert.equal(h.fields.get('bun-U').value,'-2.375');assert.equal(h.fields.get('bun-on').checked,true);
+ h.fields.get('mf-on').checked=false;await h.click('stage-json');const stages=JSON.parse(await h.saved.at(-1).blob.text());assert.equal(stages.schema,'traps-rfq-stages-v1');assert.equal(stages.stages.length,3);assert.equal(stages.stages.find(s=>s.stage==='mf').enabled,false);assert.equal(stages.stages.find(s=>s.stage==='bun').V_rod_peak_V,225);
+ h.change('bun-V','10');const f=h.slots.get('file');f.files=[{size:5000,text:async()=>JSON.stringify(stages)}];await f.change({target:f,stopPropagation(){}});assert.equal(h.fields.get('bun-V').value,'450');assert.equal(h.fields.get('mf-on').checked,false);
+});
+test('invalid stage inputs and chart axes cannot erase a valid independent design result',async()=>{
+ const h=ui({subtabs:true});h.fields.get('cooler-on').checked=true;h.change('cooler-f','');
+ assert.equal(h.slots.get('figure').children[0].tag,'svg');assert.equal(h.slots.get('error').textContent,'');assert.ok(h.slots.get('stage-error').textContent.includes(h.T.stage_error));
+ assert.equal(h.slots.get('design-figure').children[0].tag,'svg');h.change('qmax','-1');assert.equal(h.slots.get('figure').children.length,0);assert.equal(h.slots.get('design-figure').children[0].tag,'svg');
+ await h.click('design-json');const log=JSON.parse(await h.saved.at(-1).blob.text());assert.equal(log.result.rod_count,4);assert.deepEqual(log.stage_input_errors,[h.T.cooler]);assert.ok(h.slots.get('error').textContent);
+});
+test('direct-mode design requires an explicit voltage transition and never rewrites a,q silently',async()=>{
+ const h=ui({subtabs:true});h.change('mode','direct');h.change('a','-.125');h.change('q','.7');h.clickTab('design');
+ assert.equal(h.fields.get('mode').value,'direct');assert.equal(h.slots.get('direct-design').hidden,false);assert.equal(h.slots.get('design-figure').children.length,0);assert.equal(h.fields.get('a').value,'-.125');
+ await h.click('voltage-mode');assert.equal(h.fields.get('mode').value,'voltage');assert.equal(h.slots.get('direct-design').hidden,true);assert.equal(h.slots.get('design-figure').children[0].tag,'svg');assert.equal(h.fields.get('a').value,'-.125');
+});
+test('stable example is an explicit physical voltage calculation and uncertainty exports separately',async()=>{
+ const h=ui({subtabs:true});h.change('voltage-convention','rod-pp');await h.click('stable-demo');assert.equal(h.fields.get('U').value,'0');
+ close(M.parameters(+h.fields.get('mass').value,+h.fields.get('charge').value,0,+h.fields.get('V').value/2,+h.fields.get('r0').value,+h.fields.get('f').value).q,.4);
+ h.fields.get('uncertainty-on').checked=true;h.change('sigma-V','2');h.change('sigma-r0','.01');await h.click('design-json');const log=JSON.parse(await h.saved.at(-1).blob.text());assert.equal(log.q_uncertainty.model,'first-order-independent-inputs');assert.ok(log.q_uncertainty.sigma_q>0);assert.equal(log.q_uncertainty.contributions.find(c=>c.input==='V_rod_peak_V').sigma,1);
+ h.change('sigma-r0','-1');assert.equal(h.slots.get('figure').children[0].tag,'svg');assert.equal(h.slots.get('uncertainty-readout').children[0].textContent,h.T.uncertainty_bad);
+});
+test('failed settings imports roll back physical voltage and provenance even after changing display convention',async()=>{
+ const h=ui({subtabs:true});h.change('voltage-convention','differential-pp');await h.click('save');const saved=JSON.parse(await h.saved.at(-1).blob.text());
+ saved.voltage.rod_peak_V.main=400;const f=h.slots.get('file');f.files=[{size:5000,text:async()=>JSON.stringify(saved)}];await f.change({target:f,stopPropagation(){}});
+ assert.equal(h.fields.get('V').value,'400');assert.equal(h.fields.get('voltage-convention').value,'differential-pp');assert.equal(h.slots.get('error').textContent,h.T.badfile);
+ // Loading must remain possible when a current input is invalid.
+ saved.voltage.rod_peak_V.main=100;h.change('V','');f.files=[{size:5000,text:async()=>JSON.stringify(saved)}];await f.change({target:f,stopPropagation(){}});assert.equal(h.fields.get('V').value,'400');assert.equal(h.slots.get('error').textContent,'');
 });
