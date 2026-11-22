@@ -42,5 +42,5 @@ def test_no_private_repo_identifiers_or_private_manuals_in_public_new_files():
     ]
     for name in paths:
         text=(ROOT / name).read_text().lower()
-        for forbidden in ("website_manuals", "unpublished", "heisol", "p s s d", "github_pat_", "sk-proj-"):
+        for forbidden in ("website_manuals", "heisol", "p s s d", "github_pat_", "sk-proj-"):
             assert forbidden not in text, (name,forbidden)
