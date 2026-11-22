@@ -90,14 +90,30 @@ function render(kind){
   latest[kind]={report,rows,svg};
  }catch(e){err.textContent=msg('bad','Invalid inputs')+' ('+e.message+')';}
 }
-function exportKind(kind,action){
+async function exportKind(kind,action){
  render(kind);const result=latest[kind];if(!result)return;
  if(action==='json')save(JSON.stringify({schema:'rfq-browser-workbench-v1',kind,generated_utc:new Date().toISOString(),model_evidence:'analytical-or-numerical-browser-only',result:result.report},null,2)+'\n','rfq-'+kind+'-model.json','application/json');
  if(action==='csv'){
   if(!result.rows.length)return;const cols=Object.keys(result.rows[0]),text=[cols.map(escapeCSV).join(','),...result.rows.map(row=>cols.map(k=>escapeCSV(row[k])).join(','))].join('\n')+'\n';
   save(text,'rfq-'+kind+'-model.csv','text/csv');
  }
- if(action==='svg'&&result.svg)save(new XMLSerializer().serializeToString(result.svg),'rfq-'+kind+'-figure.svg','image/svg+xml');
+ if(['svg','png','pdf'].includes(action)&&result.svg){
+  // Encode traceability, not raw locally loaded CSV contents, in exported figure metadata.
+  const provenance={
+   schema:'rfq-browser-figure-v1',kind,model_evidence:'browser-only educational model',
+   model:result.report.model || result.report.bunch?.model || 'local sample statistics',
+   limits:'No measured transmission, 3D electrode fields or native SIMION simulation',
+   generated_utc:new Date().toISOString()
+  };
+  if(window.ZGFigureStyle){
+   try{await window.ZGFigureStyle.exportSVG(result.svg,action.toUpperCase(),'rfq-'+kind+'-figure',undefined,provenance);}
+   catch(e){const box=root.querySelector('[data-rfx-error="'+kind+'"]');if(box)box.textContent=msg('bad','Export unavailable')+' ('+e.message+')';}
+  }else if(action==='svg'){
+   save(new XMLSerializer().serializeToString(result.svg),'rfq-'+kind+'-figure.svg','image/svg+xml');
+  }else{
+   const box=root.querySelector('[data-rfx-error="'+kind+'"]');if(box)box.textContent=msg('bad','Export unavailable')+' (figure exporter unavailable)';
+  }
+ }
 }
 let useTimer=()=>{clearTimeout(debounce);debounce=setTimeout(()=>panels.filter(k=>k!=='data').forEach(render),160);};
 root.addEventListener('input',e=>{if(e.target.matches?.('[name^="ms-"],[name^="rx-"]'))useTimer();});
