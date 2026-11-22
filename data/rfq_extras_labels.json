@@ -44,7 +44,9 @@
     "data_note": "Sample standard deviations and Gaussian-equivalent FWHM, not non-Gaussian fits or a native SIMION calculation.",
     "bad": "Invalid parameters. Check positive values, units and selected model.",
     "no_data": "Choose a valid local CSV to calculate statistics.",
-    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site."
+    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site.",
+    "png": "Export PNG",
+    "pdf": "Export PDF"
   },
   "zh": {
     "motion": "离子轨迹",
@@ -91,7 +93,9 @@
     "data_note": "样本标准差与等效高斯 FWHM；不是非高斯拟合或原生 SIMION 运算。",
     "bad": "参数无效，请检查取值、单位和模型。",
     "no_data": "请选择有效本地 CSV。",
-    "readme": "科研细节与复现操作说明单独保存在私有文档库。"
+    "readme": "科研细节与复现操作说明单独保存在私有文档库。",
+    "png": "导出 PNG",
+    "pdf": "导出 PDF"
   },
   "fi": {
     "motion": "Ioniradat",
@@ -138,7 +142,9 @@
     "data_note": "Sample standard deviations and Gaussian-equivalent FWHM, not non-Gaussian fits or a native SIMION calculation.",
     "bad": "Invalid parameters. Check positive values, units and selected model.",
     "no_data": "Choose a valid local CSV to calculate statistics.",
-    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site."
+    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site.",
+    "png": "Vie PNG",
+    "pdf": "Vie PDF"
   },
   "de": {
     "motion": "Ionentrajektorien",
@@ -185,7 +191,9 @@
     "data_note": "Sample standard deviations and Gaussian-equivalent FWHM, not non-Gaussian fits or a native SIMION calculation.",
     "bad": "Invalid parameters. Check positive values, units and selected model.",
     "no_data": "Choose a valid local CSV to calculate statistics.",
-    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site."
+    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site.",
+    "png": "PNG exportieren",
+    "pdf": "PDF exportieren"
   },
   "ja": {
     "motion": "イオン軌道",
@@ -232,7 +240,9 @@
     "data_note": "Sample standard deviations and Gaussian-equivalent FWHM, not non-Gaussian fits or a native SIMION calculation.",
     "bad": "Invalid parameters. Check positive values, units and selected model.",
     "no_data": "Choose a valid local CSV to calculate statistics.",
-    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site."
+    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site.",
+    "png": "PNG 書き出し",
+    "pdf": "PDF 書き出し"
   },
   "fr": {
     "motion": "Trajectoires ioniques",
@@ -279,6 +289,8 @@
     "data_note": "Sample standard deviations and Gaussian-equivalent FWHM, not non-Gaussian fits or a native SIMION calculation.",
     "bad": "Invalid parameters. Check positive values, units and selected model.",
     "no_data": "Choose a valid local CSV to calculate statistics.",
-    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site."
+    "readme": "Scientific details and reproducibility procedures are maintained separately from the public site.",
+    "png": "Exporter PNG",
+    "pdf": "Exporter PDF"
   }
 }
