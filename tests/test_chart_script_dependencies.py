@@ -70,7 +70,10 @@ def test_actual_hugo_standalone_and_lab_chart_have_unique_scripts_and_safe_order
     i18n = {p.relative_to(ROOT).as_posix() for p in (ROOT / "i18n").iterdir()
             if p.is_file() and not p.name.startswith("._")}
     inputs = templates | data_files | hash_files | i18n
-    assert sum((ROOT / rel).stat().st_size for rel in inputs) < 10 * 1024 * 1024
+    # The six-language RFQ guidance and its pure convention/uncertainty helper
+    # bring the discovered fixture just above 10 MiB. Keep a bounded fixture
+    # budget without copying unrelated public assets or reducing source clarity.
+    assert sum((ROOT / rel).stat().st_size for rel in inputs) < 12 * 1024 * 1024
     for rel in inputs:
         target = tmp_path / rel
         target.parent.mkdir(parents=True, exist_ok=True)
