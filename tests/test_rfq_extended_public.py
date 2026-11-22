@@ -26,11 +26,15 @@ def test_all_rfq_panels_labeled_and_mounted():
     extras=(ROOT / "layouts/_partials/zg/rfq-extras.html").read_text()
     data=json.loads((ROOT / "data/rfq_extras_labels.json").read_text())
     for language in ("en","zh","fi","de","ja","fr"):
-        for key in ("motion","gas","bunch","scan","data","scope","run","csv","json","svg"):
+        for key in ("motion","gas","bunch","scan","data","scope","run","csv","json","svg","png","pdf"):
             assert data[language][key].strip(), (language,key)
     for key in ("motion","gas","bunch","scan","data"):
         assert f'data-local-tab="{{{{ . }}}}"' in partial
         assert f'data-local-panel="{key}"' in extras
+    for kind in ("motion","gas","bunch","scan","data"):
+        for ext in ("svg","png","pdf"):
+            assert f'data-rfx-action="{ext}" data-rfx-kind="{kind}"' in extras
+    assert "ZGFigureStyle.exportSVG" in (ROOT / "static/js/rfq-extended-ui.js").read_text()
     assert '{{ partial "zg/rfq-extras.html" . }}' in partial
     for module in ("rfq-extended-core.js","rfq-extended-ui.js","rfq-extras.css"):
         assert module in partial
