@@ -1,5 +1,5 @@
 /* Browser-only RFQ extensions. One shared ion/RF point, honest model boundaries.
-   Deliberately no fetch(), telemetry, storage, remote upload, or private links. */
+   Deliberately avoids network requests, telemetry, persistent storage and remote uploads. */
 (function(){'use strict';
 const X=window.ZGRFQExtras,M=window.ZGMathieu,H=window.ZGRFQWorkbench;
 if(!X||!M||!H)return;
