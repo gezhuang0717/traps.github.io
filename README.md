@@ -1,66 +1,53 @@
-# traps.github.io — public scientific website
+# traps.github.io
 
-Public academic website for experimental nuclear physics, ion traps, laser spectroscopy and mass spectrometry. The source is built with Hugo and three interchangeable themes. **This repository contains public-facing software, data and documentation only.**
+Personal academic site of Zhuang Ge, built with [Hugo](https://gohugo.io/). One set of content, three interchangeable themes.
 
-**Live:** https://gezhuang0717.github.io/traps.github.io/
-
-## Website sections
-
-- Research, publications, talks, facilities, databases and daily research updates
-- Lab: Penning trap, MR-TOF, laser spectroscopy, nuclear data and RFQ workbenches
-- Games: educational physics challenges, including the separate ideal-RFQ mass-filter game
-
-The Lab RFQ workbench has a shared ion/RF operating point and seven tabs:
-
-| Tab | Public calculation | Evidence boundary |
+| Theme | Config | Look |
 |---|---|---|
-| Mathieu stability | Ideal four-rod characteristic bands, selected point and multi-stage comparisons | Ideal Mathieu only |
-| Rod design | Circular-rod geometry and multipole indicators | Ideal geometry |
-| Ion trajectories | RK4 integration of the ideal transverse Mathieu equations | No finite electrodes, collision dynamics or space charge |
-| Gas cooling model | Uniform-gas kinetic collision-rate and energy-relaxation proxy | Not a measured cooling time, RF heating model or Monte Carlo |
-| Bunching and extraction | Linearized field-free time/energy covariance; ideal inventory | No axial-potential solver or extraction-pulser trajectories |
-| RF parameter scan | Ideal Mathieu operating points versus RF voltage | Not a real mass-filter transmission curve |
-| Local data analysis | Browser-only CSV statistics for t_ns and E_eV, with optional x_mm/y_mm | No upload, no server retention, not native SIMION |
+| [Congo](https://github.com/jpanther/congo) | `sites/congo` | Light profile homepage, sapphire colours (same theme as mengkel.github.io) |
+| [Blowfish](https://github.com/nunocoracao/blowfish) | `sites/blowfish` | Dark ocean scheme, gradient header, table of contents, recent posts |
+| [PaperMod](https://github.com/adityatelange/hugo-PaperMod) | `sites/papermod` | Minimal profile card with buttons, auto light/dark |
 
-The Games RFQ tool remains educational, with a validated preset link to the Lab. Both are clearly labeled ideal calculations; **green stability is not experimental transport efficiency**.
+Detailed website manuals and research documentation are maintained privately (not in this public repository).
 
-All public model exports identify the model, numerical scope, and units. No experimental calibration, unpublished engineering baseline, credentials, or private reports are included.
+Live site: <https://gezhuang0717.github.io/traps.github.io/>
 
-## Repository layout
+## Structure
 
-```text
-site.yaml               public site identity and multilingual menus
-content/<language>/     public Markdown pages
-data/                   public YAML/JSON metadata and translations
-layouts/                Hugo shortcodes and RFQ workbench tabs
-static/js/              browser-local scientific calculators
-static/css/             browser styles
-tests/                  scientific and website regression tests
-tools/                  build, public-source validation and publication checks
-.github/workflows/      build/test and GitHub Pages deployment
-themes/                 Git submodules: Congo, Blowfish, PaperMod
+```
+content/<language>/  public Markdown pages (en, zh, fi, de, ja, fr)
+  _index.md         homepage bio
+  research.md       research themes
+  publications.md   publication list
+  projects.md, talks.md, cv.md
+  posts/            blog
+assets/img/       profile image (processed by Congo/Blowfish)
+static/img/       profile image (PaperMod); put cv.pdf in static/
+site.yaml         public site configuration and theme choice
+sites/<theme>/    generated theme configuration
+themes/           git submodules (added by setup.sh)
 ```
 
-## Install and validate
+## Local preview
 
-Use Python 3.12, Node.js 24 and pinned Hugo Extended 0.166.0 as in CI.
+Requires Hugo **extended** ≥ 0.163 and Git.
 
 ```bash
-git clone --recurse-submodules https://github.com/gezhuang0717/traps.github.io.git
-cd traps.github.io
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-python tools/site.py check
-python -m pytest tests -q
-node --test tests/*.test.cjs
-hugo server --configDir sites/congo --themesDir themes
+./setup.sh                                                   # once
+hugo server --configDir sites/congo    --themesDir themes    # or blowfish / papermod
 ```
 
-Open http://localhost:1313/traps.github.io/ or the URL printed by Hugo. GitHub Actions validates the full public build and links before publication; merging to `main` deploys only after the publication gate passes.
+Open the local preview URL printed by Hugo.
 
-## Contribution and scientific validation
+## Deploy to GitHub Pages
 
-Make changes on a feature branch and preserve the public README, multilingual labels, regression tests, plots/exports, and exact physics conventions. Do not infer native field-map, RFQ cooling, mass resolution or transmission from analytical Mathieu stability. Lab models can be extended through separately tested JavaScript modules; private laboratory data and detailed internal reproducibility material must never enter the public repository.
+1. This repository is connected: validated pushes to `main` deploy to https://gezhuang0717.github.io/traps.github.io/.
+2. Repository → Settings → Pages → Source: **GitHub Actions**.
+3. The selected theme is configured by `live_theme` in the public `site.yaml` (regenerate theme configurations before building).
 
-The publication gate runs via `python tools/publish.py check` in CI. Browser-local CSV analysis is intentionally not a cloud upload.
+## Common edits
+
+- Bio: `content/<language>/_index.md`; headline and social links: edit the public `site.yaml`, then regenerate site configuration.
+- Colours and theme selection: edit the public site/theme configuration; do not edit generated files by hand.
+- Replace `assets/img/zhuang-ge.png` and `static/img/zhuang-ge.png` with a photo.
+- Add a blog post in `content/<language>/posts/` using the existing public-content workflow.
