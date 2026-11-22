@@ -1,0 +1,73 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- $t := index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en -}}
+<div class="zg-rfq-extras-intro"><p class="zg-muted">{{ $t.scope }}</p><p class="zg-muted">{{ $t.shared }}</p></div>
+<div data-local-panel="motion" data-rfq-extras-pane hidden>
+<h3>{{ $t.motion }}</h3><p class="zg-muted">{{ $t.motion_note }}</p>
+<div class="zg-form"><label>{{ $t.cycles }} <input name="rx-cycles" type="number" value="8" min=".1" max="100" step="any"></label>
+<label>{{ $t.x0 }} <input name="rx-x" type="number" value="1" min="-1000" max="1000" step="any"></label>
+<label>{{ $t.y0 }} <input name="rx-y" type="number" value=".4" min="-1000" max="1000" step="any"></label>
+<label>{{ $t.phase }} <input name="rx-phase" type="number" value="0" min="-1000" max="1000" step="any"></label></div>
+<div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="motion">{{ $t.run }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="motion">{{ $t.csv }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="motion">{{ $t.json }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="svg" data-rfx-kind="motion">{{ $t.svg }}</button></div>
+<div class="rfq-extra-result" data-rfx-output="motion" role="status" aria-live="polite"></div>
+<div class="rfq-extra-chart" data-rfx-figure="motion"></div>
+<p class="zg-muted zg-small" data-rfx-error="motion" role="alert"></p></div>
+<div data-local-panel="gas" data-rfq-extras-pane hidden>
+<h3>{{ $t.gas }}</h3><p class="zg-muted">{{ $t.gas_note }}</p>
+<div class="zg-form"><label>{{ $t.gas_mass }} <input name="rx-gas_mass" type="number" value="4" min=".1" max="300" step="any"></label>
+<label>{{ $t.temperature }} <input name="rx-T" type="number" value="300" min="1" max="2500" step="any"></label>
+<label>{{ $t.pressure }} <input name="rx-p" type="number" value=".001" min="0" max="10" step="any"></label>
+<label>{{ $t.cross }} <input name="rx-sigma" type="number" value="100" min=".01" max="1000000" step="any"></label>
+<label>{{ $t.energy }} <input name="rx-E" type="number" value="10" min="0" max="1000000" step="any"></label>
+<label>{{ $t.residence }} <input name="rx-ms" type="number" value="2" min="0" max="100000" step="any"></label>
+<label>{{ $t.factor }} <input name="rx-eta" type="number" value="1" min="0" max="1" step="any"></label></div>
+<div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="gas">{{ $t.run }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="gas">{{ $t.csv }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="gas">{{ $t.json }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="svg" data-rfx-kind="gas">{{ $t.svg }}</button></div>
+<div class="rfq-extra-result" data-rfx-output="gas" role="status" aria-live="polite"></div>
+<div class="rfq-extra-chart" data-rfx-figure="gas"></div>
+<p class="zg-muted zg-small" data-rfx-error="gas" role="alert"></p></div>
+<div data-local-panel="bunch" data-rfq-extras-pane hidden>
+<h3>{{ $t.bunch }}</h3><p class="zg-muted">{{ $t.bunch_note }}</p>
+<div class="zg-form"><label>{{ $t.voltage }} <input name="rx-V" type="number" value="1000" min=".001" max="10000000" step="any"></label>
+<label>{{ $t.drift }} <input name="rx-L" type="number" value=".5" min=".001" max="10000" step="any"></label>
+<label>{{ $t.sigma_t }} <input name="rx-st" type="number" value="20" min="0" max="1000000000" step="any"></label>
+<label>{{ $t.sigma_e }} <input name="rx-sE" type="number" value=".5" min="0" max="100000000" step="any"></label>
+<label>{{ $t.rho }} <input name="rx-rho" type="number" value="0" min="-1" max="1" step="any"></label>
+<label>{{ $t.rate }} <input name="rx-rate" type="number" value="1000" min="0" max="10000000000000" step="any"></label>
+<label>{{ $t.hold }} <input name="rx-hold" type="number" value="20" min="0" max="1000000000" step="any"></label>
+<label>{{ $t.lifetime }} <input name="rx-life" type="number" value="1000" min=".001" max="1000000000000" step="any"></label>
+<label>{{ $t.capacity }} <input name="rx-capacity" type="number" value="100000" min="0" max="10000000000000" step="any"></label>
+<label>{{ $t.extraction }} <input name="rx-eff" type="number" value=".7" min="0" max="1" step="any"></label></div>
+<div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="bunch">{{ $t.run }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="bunch">{{ $t.csv }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="bunch">{{ $t.json }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="svg" data-rfx-kind="bunch">{{ $t.svg }}</button></div>
+<div class="rfq-extra-result" data-rfx-output="bunch" role="status" aria-live="polite"></div>
+<div class="rfq-extra-chart" data-rfx-figure="bunch"></div>
+<p class="zg-muted zg-small" data-rfx-error="bunch" role="alert"></p></div>
+<div data-local-panel="scan" data-rfq-extras-pane hidden>
+<h3>{{ $t.scan }}</h3><p class="zg-muted">{{ $t.scan_note }}</p>
+<div class="zg-form"><label>{{ $t.vmin }} <input name="rx-vmin" type="number" value="0" min="0" max="1000000" step="any"></label>
+<label>{{ $t.vmax }} <input name="rx-vmax" type="number" value="200" min="0" max="1000000" step="any"></label>
+<label>{{ $t.count }} <input name="rx-count" type="number" value="51" min="3" max="201" step="1"></label></div>
+<div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="scan">{{ $t.run }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="scan">{{ $t.csv }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="scan">{{ $t.json }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="svg" data-rfx-kind="scan">{{ $t.svg }}</button></div>
+<div class="rfq-extra-result" data-rfx-output="scan" role="status" aria-live="polite"></div>
+<div class="rfq-extra-chart" data-rfx-figure="scan"></div>
+<p class="zg-muted zg-small" data-rfx-error="scan" role="alert"></p></div>
+<div data-local-panel="data" data-rfq-extras-pane hidden>
+<h3>{{ $t.data }}</h3><p class="zg-muted">{{ $t.data_note }}</p>
+<div class="zg-form"><label>{{ $t.load }} <input type="file" name="rx-file" accept=".csv,text/csv" data-rfx-file></label><p class="zg-muted">{{ $t.format }}</p></div>
+<div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="data">{{ $t.run }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="data">{{ $t.csv }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="data">{{ $t.json }}</button>
+<button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="svg" data-rfx-kind="data">{{ $t.svg }}</button></div>
+<div class="rfq-extra-result" data-rfx-output="data" role="status" aria-live="polite"></div>
+<div class="rfq-extra-chart" data-rfx-figure="data"></div>
+<p class="zg-muted zg-small" data-rfx-error="data" role="alert"></p></div>

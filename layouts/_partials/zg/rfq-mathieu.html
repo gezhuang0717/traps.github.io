@@ -1,7 +1,7 @@
 {{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
 {{- $t := index hugo.Data.mathieu_labels $k -}}
 <style>.zg-mathieu [hidden]{display:none!important}</style>
-<section id="rfq-workbench" class="zg-card zg-mathieu" data-mathieu data-local-tabs data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
+<section id="rfq-workbench" class="zg-card zg-mathieu" data-mathieu data-local-tabs data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-extras-labels="{{ (index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en) | jsonify }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
 
 <div class="zg-rfq-shared">
 <fieldset data-figure-note="mathieu-inputs"><legend>{{ $t.point }}</legend>
@@ -36,6 +36,8 @@
 <div class="zg-local-tabs" role="tablist" aria-label="{{ $t.title }}">
 <button class="zg-btn" type="button" id="lab-rfq-mathieu-tab" role="tab" data-local-tab="classic" aria-selected="true">{{ $t.title }}</button>
 <button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-design-tab" role="tab" data-local-tab="design" aria-selected="false">{{ $t.design_title }}</button>
+{{- $extra := index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en -}}
+{{ range slice "motion" "gas" "bunch" "scan" "data" }}<button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-{{ . }}-tab" role="tab" data-local-tab="{{ . }}" aria-selected="false">{{ index $extra . }}</button>{{ end }}
 </div>
 <div data-local-panel="classic">
 <h3>{{ $t.title }}</h3><p>{{ $t.lead }}</p><p data-ms-reference-note class="zg-muted" hidden>{{ $t.quadrupole_reference }}</p>
@@ -81,6 +83,7 @@
 </details>
 <p data-ms-design-error class="g-warn" role="alert" aria-live="polite"></p>
 </div>
+{{ partial "zg/rfq-extras.html" . }}
 <details class="zg-rfq-quick-guide"><summary>{{ $t.guide_title }}</summary>
 <ol><li>{{ $t.guide_voltage }}</li><li>{{ $t.guide_steps }}</li><li>{{ $t.guide_boundary }}</li></ol>
 <p>{{ $t.guide_pressure }}</p><p>{{ $t.guide_sources }} <a href="https://titan.triumf.ca/equipment/RFQ/254.pdf">Herfurth et al. (2001)</a> · <a href="https://arxiv.org/html/2501.09764v1">HIBISCUS (2025)</a> · <a href="https://simion.com/info/time_dependent_field.html">SIMION: time-dependent fields</a> · <a href="https://simion.com/info/collision_model_hs1.html">SIMION: gas collisions</a></p>
@@ -96,4 +99,7 @@
 <script defer src="{{ "js/rfq-preset.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-preset.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-workbench.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-workbench.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-mathieu.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-mathieu.js")) 0 10 }}"></script>
+<link rel="stylesheet" href="{{ "css/rfq-extras.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/rfq-extras.css")) 0 10 }}">
+<script defer src="{{ "js/rfq-extended-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-extended-core.js")) 0 10 }}"></script>
+<script defer src="{{ "js/rfq-extended-ui.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-extended-ui.js")) 0 10 }}"></script>
 {{- end -}}
