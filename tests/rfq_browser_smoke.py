@@ -40,6 +40,19 @@ def check():
         dl=info.value
         assert dl.suggested_filename=="rfq-motion-model.csv"
         assert "cycle" in pathlib.Path(dl.path()).read_text()
+        # Validate actual browser download bytes, not just an enabled button.
+        for ext in ("svg", "png", "pdf"):
+            with page.expect_download(timeout=30000) as item:
+                root.locator(f'[data-rfx-action="{ext}"][data-rfx-kind="motion"]').click()
+            got=item.value
+            assert got.suggested_filename.endswith("." + ext),got.suggested_filename
+            raw=pathlib.Path(got.path()).read_bytes()
+            if ext=="png":
+                assert raw.startswith(bytes.fromhex("89504e470d0a1a0a"))
+            elif ext=="pdf":
+                assert raw.startswith(b"%PDF-")
+            else:
+                assert b"<svg" in raw
         root.locator('[data-local-tab="data"]').click()
         data=root.locator('[data-rfx-output="data"]')
         root.locator('[data-rfx-file]').set_input_files({"name":"demo.csv","mimeType":"text/csv","buffer":b"t_ns,E_eV,x_mm,y_mm\n1,1,0,0\n2,2,3,4\n3,3,0,0\n4,4,0,0\n"})
