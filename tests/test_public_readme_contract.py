@@ -29,12 +29,12 @@ def test_detailed_private_science_content_not_in_root_readme():
         r"(?i)website_manuals",
         r"(?i)backups/traps",
         r"(?i)private[_/-]data",
-        r"(?i)RFQ\\s+(?:cooler|mass.?filter|workbench|ion.?guide)",
-        r"(?i)(?:native\\s+)?SIMION",
+        r"(?i)RFQ\s+(?:cooler|mass.?filter|workbench|ion.?guide)",
+        r"(?i)(?:native\s+)?SIMION",
         r"(?i)EPICS|MCS6|TDC",
         r"(?i)electron.?gun|UCx|photofission",
-        r"(?i)calibration\\s+(?:subtabs|covariance|workflow)",
-        r"(?i)\\b(?:secret|password|token|api[_-]?key)\\s*[:=]",
+        r"(?i)calibration\s+(?:subtabs|covariance|workflow)",
+        r"(?i)\b(?:secret|password|token|api[_-]?key)\s*[:=]",
         r"-----BEGIN (?:OPENSSH|RSA|PRIVATE) KEY-----",
     ]
     for pattern in patterns:
