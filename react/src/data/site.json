@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-22T17:23:31+00:00",
+  "generated": "2026-11-23T09:29:18+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5700,6 +5700,22 @@
     }
   ],
   "daily": [
+    {
+      "date": "2026-11-23",
+      "type": "preprint",
+      "title": "Parity-violating optical rotation in the Th-229 nuclear clock transition",
+      "summary": "Sebastian Lahs et al. — The exceptionally low-energy nuclear transition in $^{229}$Th provides a new opportunity to study hadronic parity violation (PV) by optical methods. The PV nucleon--nucleus interaction admixes opposite-parity nuclear states into the $5/2^+$ ground state…",
+      "url": "https://arxiv.org/abs/2611.26784v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-19",
+      "arxiv": "2611.26784v1",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
     {
       "date": "2026-11-21",
       "type": "news",
