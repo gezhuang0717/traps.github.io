@@ -136,9 +136,9 @@
   background: #fff;
 }
 #rfq-workbench .rfq-extra-chart:empty { display: none; }
-#rfq-workbench .rfq-extra-chart svg { display: block; height: auto; width: 100%; max-width: 100%; min-width: 260px; }
+#rfq-workbench .rfq-extra-chart svg { display: block; height: auto; width: 100%; max-width: 100%; min-width: 0; }
 #rfq-workbench [data-ms-figure], #rfq-workbench [data-ms-design-figure] { border-radius: .5rem; }
-#rfq-workbench [data-ms-figure] svg, #rfq-workbench [data-ms-design-figure] svg { display: block; }
+#rfq-workbench [data-ms-figure] svg, #rfq-workbench [data-ms-design-figure] svg { display: block; min-width: 0; max-width: 100%; }
 #rfq-workbench .zg-rfq-extras-intro { margin: .75rem 0; font-size: .9rem; }
 #rfq-workbench [role="alert"]:not(:empty) {
   padding: .8rem 1rem; border: 1px solid #c98b47; border-inline-start-width: 3px; border-radius: .35rem; overflow-wrap: anywhere;

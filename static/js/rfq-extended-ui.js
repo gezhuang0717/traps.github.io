@@ -71,7 +71,7 @@
   }
   function plot(chart, series, title, xlabel, ylabel, options = {}) {
     const svg = window.ZGRFQChart?.plot(series, title, xlabel, ylabel, {
-      width: Math.max(260, (chart.clientWidth || root.clientWidth - 36 || 824) - 4), ...options
+      width: Math.max(200, (chart.clientWidth || root.clientWidth - 36 || 824) - 4), ...options
     });
     if (!svg) throw Error('chart unavailable');
     chart.replaceChildren(svg);

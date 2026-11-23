@@ -83,7 +83,7 @@
     let [xmin, xmax] = options.xDomain || extend(observed[0], observed[1], .035);
     let [ymin, ymax] = options.yDomain || extend(observed[2], observed[3], .08);
     if (![xmin, xmax, ymin, ymax].every(Number.isFinite) || xmin >= xmax || ymin >= ymax) throw Error('RFQ chart range');
-    const w = Math.max(260, Math.min(1440, Number(options.width) || 800));
+    const w = Math.max(200, Math.min(1440, Number(options.width) || 800));
     const narrow = w < 520;
     const font = narrow ? 12 : 13, titleSize = narrow ? 16 : 19;
     const titleLines = wrap(title, w - 40, titleSize);

@@ -23,8 +23,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  # Validate each PR revision independently; publication keeps its ordered queue.
-  group: website-${{ github.ref }}${{ github.event_name == 'pull_request' && format('-{0}', github.event.pull_request.head.sha) || '' }}
+  group: website-${{ github.ref }}
   cancel-in-progress: false
   queue: max
 env:

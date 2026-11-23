@@ -43,6 +43,7 @@ LAYOUT_CHECK = r"""root => {
 
 CHART_CHECK = r"""svg => {
   const viewport=svg.getBoundingClientRect();
+  const container=svg.closest('[data-ms-figure], [data-ms-design-figure], [data-rfx-figure]')||svg.parentElement;
   const labels=[...svg.querySelectorAll('text')].filter(t=>t.textContent.trim()).map(t=>{
     const r=t.getBoundingClientRect();return {role:t.dataset.chartLabel||'text',text:t.textContent,x:r.x,y:r.y,right:r.right,bottom:r.bottom};
   });
@@ -52,7 +53,7 @@ CHART_CHECK = r"""svg => {
     const a=labels[i],b=labels[j];
     if(Math.min(a.right,b.right)-Math.max(a.x,b.x)>1 && Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>1)collisions.push([a,b]);
   }
-  return {width:viewport.width,height:viewport.height,labels:labels.length,clipped,collisions};
+  return {width:viewport.width,height:viewport.height,container_width:container.clientWidth,labels:labels.length,clipped,collisions};
 }"""
 
 
@@ -63,6 +64,33 @@ def fixture() -> bytes:
         energy = 1000 + .2 * (t - 200) + math.cos(i * .71)
         rows.append(f"{t:.9f},{energy:.9f},{math.sin(i):.6f},{math.cos(i):.6f}")
     return ("\n".join(rows) + "\n").encode()
+
+
+def settled_figure(container) -> dict:
+    """Wait for a visible chart to stop changing, with a strict 5 s deadline.
+
+    Tab/resize events legitimately replace the SVG after a short debounce.
+    Observe its permanent container instead of retaining a detached SVG handle.
+    Both DOM mutations and measured size changes reset the quiet interval.
+    """
+    return container.evaluate(r"""container => new Promise((resolve, reject) => {
+      const start=performance.now(), limit=5000, quiet=250;
+      let lastChange=start, previous=null, signature='', frame=null;
+      const observer=new MutationObserver(()=>{lastChange=performance.now();});
+      observer.observe(container,{subtree:true,childList:true,attributes:true,characterData:true});
+      const finish=(error,result)=>{observer.disconnect();if(frame!==null)cancelAnimationFrame(frame);error?reject(Error(error)):resolve(result);};
+      const sample=now=>{
+        const svg=container.querySelector('svg');
+        const bounds=container.getBoundingClientRect();
+        const visible=svg && svg.isConnected && bounds.width>0 && bounds.height>0 && getComputedStyle(container).display!=='none';
+        const next=visible?[bounds.width.toFixed(2),bounds.height.toFixed(2),svg.getAttribute('viewBox')].join('|'):'';
+        if(!visible||svg!==previous||next!==signature){lastChange=now;previous=svg;signature=next;}
+        if(visible&&now-lastChange>=quiet){finish(null,{wait_ms:Math.round(now-start),quiet_ms:Math.round(now-lastChange),width:bounds.width,height:bounds.height,viewBox:svg.getAttribute('viewBox')});return;}
+        if(now-start>=limit){finish('RFQ figure did not settle within 5 seconds');return;}
+        frame=requestAnimationFrame(sample);
+      };
+      frame=requestAnimationFrame(sample);
+    })""")
 
 
 def check_exports(page, root, tab: str, prefix: str) -> list[dict]:
@@ -149,14 +177,16 @@ def run() -> dict:
                         first_failure = len(evidence["failures"])
                         prefix = f"{language}-{width}"
                         panel = root.locator(f'[data-local-panel="{tab}"]')
-                        figure = panel.locator('[data-ms-figure] svg' if tab == 'classic' else '[data-ms-design-figure] svg' if tab == 'design' else '[data-rfx-figure] svg').first
+                        figure_container = panel.locator('[data-ms-figure]' if tab == 'classic' else '[data-ms-design-figure]' if tab == 'design' else '[data-rfx-figure]').first
+                        figure = figure_container.locator('svg').first
                         try:
                             root.locator(f'[data-local-tab="{tab}"]').click()
                             expect(panel).to_be_visible()
                             if tab not in ("classic", "design"):
                                 panel.locator(f'[data-rfx-action="run"][data-rfx-kind="{tab}"]').click()
                             expect(figure).to_be_visible(timeout=15000)
-                            figure.scroll_into_view_if_needed()
+                            figure_container.scroll_into_view_if_needed(timeout=10000)
+                            case["render_settle"] = settled_figure(figure_container)
                             layout = root.evaluate(LAYOUT_CHECK)
                             case["layout"] = layout
                             if layout["document"] > layout["viewport"] + 2:
@@ -168,6 +198,8 @@ def run() -> dict:
                             for chart_index, svg in enumerate(panel.locator('svg[data-rfq-chart]').all()):
                                 check = svg.evaluate(CHART_CHECK)
                                 case["charts"].append(check)
+                                if check["width"] > check["container_width"] + 2:
+                                    failure({**scope, "chart": chart_index}, "chart overflow", {"rendered_width": check["width"], "container_width": check["container_width"]})
                                 if check["clipped"]:
                                     failure({**scope, "chart": chart_index}, "clipped labels", check["clipped"])
                                 if check["collisions"]:
@@ -178,7 +210,7 @@ def run() -> dict:
                         # measured collisions remain failures, never suppressed.
                         try:
                             if figure.is_visible():
-                                figure.screenshot(path=str(ART / f"{prefix}-{tab}-figure.png"), timeout=10000)
+                                figure_container.screenshot(path=str(ART / f"{prefix}-{tab}-figure.png"), timeout=10000)
                             if panel.is_visible() and (width in (390, 1440) or len(evidence["failures"]) > first_failure):
                                 panel.screenshot(path=str(ART / f"{prefix}-{tab}-panel.png"), timeout=10000)
                             elif not figure.is_visible():
