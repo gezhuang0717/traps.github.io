@@ -17,7 +17,8 @@ def test_public_readme_restored_to_compact_academic_template():
     assert text.startswith("# traps.github.io\n")
     assert "One set of content, three interchangeable themes." in text
     assert "https://gezhuang0717.github.io/traps.github.io/" in text
-    assert "The website manual" in text or "Detailed website manuals" in text
+    for heading in ("## Structure", "## Local preview", "## Deploy to GitHub Pages", "## Common edits"):
+        assert heading in text
     assert 1000 <= len(text) < 3000, "Public README must remain a short introduction"
 
 
@@ -27,6 +28,9 @@ def test_detailed_private_science_content_not_in_root_readme():
     # pages; only stop the root README becoming a private research manual again.
     patterns = [
         r"(?i)website_manuals",
+        r"(?i)\bprivate\b|\bbackups?\b|\bmanuals?\b",
+        r"(?i)drive\.google\.com|chatgpt\.com/(?:share|c)/",
+        r"(?i)/(?:Volumes|workspace|home)/",
         r"(?i)backups/traps",
         r"(?i)private[_/-]data",
         r"(?i)RFQ\s+(?:cooler|mass.?filter|workbench|ion.?guide)",

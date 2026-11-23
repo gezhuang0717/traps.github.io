@@ -1,0 +1,116 @@
+{
+  "en": {
+    "title": "RFQ physics guide · from voltage to bunch width",
+    "lead": "Start with the voltage convention, then follow the field, motion and observables. The calculations below describe ideal or reduced models; each tab states its assumptions.",
+    "roles_title": "1 · What does each RFQ stage do?",
+    "role_headers": [
+      "Stage",
+      "Physical operation",
+      "Observable to validate"
+    ],
+    "roles": [
+      [
+        "Ion guide",
+        "Alternating transverse focusing transports ions along an open axis.",
+        "Aperture acceptance and transmitted fraction for a specified input beam."
+      ],
+      [
+        "Cooler",
+        "RF confinement and collisions with a buffer gas reduce the phase-space spread.",
+        "Energy spread, emittance, cooling time and surviving fraction."
+      ],
+      [
+        "Mass filter",
+        "RF plus differential DC selects a range of mass-to-charge ratios.",
+        "Transmission versus mass-to-charge, peak width and resolving power."
+      ],
+      [
+        "Buncher",
+        "An axial DC well stores ions; a switched exit potential releases a pulse.",
+        "Bunch charge, pulse width, time–energy correlation and repetition rate."
+      ]
+    ],
+    "roles_note": "A stable Mathieu point establishes transverse stability for the ideal field. It does not determine cooling performance, a transmitted fraction, or mass resolving power.",
+    "field_title": "2 · Define the electrodes before calculating a and q",
+    "field_text": "Take the x rod pair at +(U − V cos Ωt) and the y pair at −(U − V cos Ωt), relative to a shared common-mode potential. Here V is the RF peak amplitude of one rod, Q = ze is the ion charge, Ω = 2πfRF, and r₀ is the inscribed radius.",
+    "field_voltage": "For balanced rods: 150 V rod peak = 300 V rod peak-to-peak = 300 V differential peak = 600 V differential peak-to-peak. A common platform offset is a different quantity and does not belong in V.",
+    "field_derivation": "From E = −∇Φ and m ẍ = QEx, substitute τ = Ωt/2. The factor Ω²/4 in the time derivative gives the coefficients below. The two radial axes have opposite a and q signs.",
+    "field_stability": "Both radial axes must remain bounded. For a = 0 the first ideal stability region extends to |q| ≈ 0.908; the q = 0 point provides no RF confinement. Higher stability bands need the full characteristic-value calculation.",
+    "average_title": "3 · Separate slow secular motion from micromotion",
+    "average_text": "For a slowly varying RF field and small |q|, average the fast micromotion to obtain a pseudopotential energy W. For an ideal quadrupole its radial dependence is quadratic. D below is the RF-only depth at r = r₀; differential DC tilts the effective curvature along the two axes.",
+    "average_units": "D is an energy: QVq/4 in joules, or zVq/4 in eV when V is in volts. Near a stability boundary, use the Mathieu exponent β and fsec = βfRF/2 instead of the small-q approximation.",
+    "example_title": "Worked reference · 100 u, singly charged",
+    "example_inputs": "U = 0 V; V = 150 V rod peak; fRF = 0.700 MHz; r₀ = 10.0 mm.",
+    "example_outputs": "q = 0.2992656; D = 11.22246 eV; fsec ≈ 74.0644 kHz (small-q estimate). These values are analytically calculated, not measured.",
+    "sensitivity": "Sensitivity: doubling RF amplitude doubles q; doubling frequency or aperture radius divides q by four. At U = 0, fsec scales as V/(mfRF r₀²) for fixed charge. Rod size and finite electrode length require a field model before their effect can be inferred.",
+    "gas_title": "4 · Relate pressure to collisions, then to cooling",
+    "gas_text": "Use local gas pressure and temperature to obtain number density. The collision frequency also needs a cross section and relative velocity. The gas tab uses a constant-rate relaxation approximation; increasing pressure alone is not a validated transmission optimization.",
+    "gas_limits": "At 300 K the three-dimensional thermal mean kinetic energy is 3kBT/2 ≈ 0.03878 eV. RF heating, gas flow, mass-dependent collision kinematics, charge exchange, space charge and aperture losses can change the actual result. A vacuum reading far from the rods may not equal the local cooling-gas pressure.",
+    "bunch_title": "5 · Carry time–energy covariance through a drift",
+    "bunch_text": "After acceleration to a mean kinetic energy E, a field-free drift of length L takes td = L√(m/2E). Linearize around the mean: later launch time and higher energy can compensate because g = ∂td/∂E is negative. The output variance must include the covariance term.",
+    "bunch_units": "Use consistent units: if g is in ns/eV, σt must be in ns and σE in eV. For a Gaussian pulse, FWHM = 2√(2 ln 2)σ ≈ 2.35482σ. A Gaussian-equivalent width from a local event table is not a fitted width for a non-Gaussian peak.",
+    "bunch_limits": "An RFQ exit bunch width and an MR-TOF detector peak width are different observables. Switching fields, timing jitter and aberrations need a trajectory calculation; later optics can focus or broaden a correlated bunch.",
+    "sources_title": "Primary references and model boundaries",
+    "sources_text": "Use the Lab tabs for reproducible analytical and numerical exploration. Finite electrodes, stochastic cooling, extraction fields and experimentally verified transmission require additional field/trajectory calculations and measurements.",
+    "mathieu_source": "NIST DLMF §§28.2 and 28.17 · Mathieu equation and stability",
+    "cooler_source": "Herfurth et al., NIM A 469 (2001) 254–275 · RFQ cooler and buncher",
+    "collision_source": "SIMION documentation · time-dependent fields and collision models"
+  },
+  "zh": {
+    "title": "RFQ 物理基础 · 从电压到束团宽度",
+    "lead": "先明确电压定义，再逐步理解电场、离子运动与可观测量。以下计算属于理想模型或简化模型；各功能页分别标明适用条件。",
+    "roles_title": "1 · 各类 RFQ 的物理作用是什么？",
+    "role_headers": [
+      "功能",
+      "物理过程",
+      "需要验证的可观测量"
+    ],
+    "roles": [
+      [
+        "离子导引",
+        "交变横向聚焦使离子沿开放轴向传输。",
+        "给定入射束流条件下的孔径接受度和传输率。"
+      ],
+      [
+        "冷却器",
+        "射频约束与缓冲气体碰撞共同减小相空间分布。",
+        "能散、发射度、冷却时间和存活比例。"
+      ],
+      [
+        "质量过滤器",
+        "射频与差分直流电压选择一定的质荷比区间。",
+        "传输率随质荷比的变化、峰宽和质量分辨本领。"
+      ],
+      [
+        "聚束器",
+        "轴向直流势阱储存离子，切换出口电势后释放束团。",
+        "束团电荷量、时间宽度、时间—能量关联和重复频率。"
+      ]
+    ],
+    "roles_note": "Mathieu 稳定点只说明理想电场中的横向稳定性；它不能直接给出冷却性能、离子传输率或质量分辨本领。",
+    "field_title": "2 · 先定义电极电压，再计算 a 和 q",
+    "field_text": "令 x 方向杆对相对于公共参考电位的电压为 +(U − V cos Ωt)，y 方向杆对为 −(U − V cos Ωt)。V 表示单根杆的射频峰值，Q = ze 为离子电荷，Ω = 2πfRF，r₀ 为内切圆半径。",
+    "field_voltage": "对平衡驱动：单杆峰值 150 V = 单杆峰峰值 300 V = 两杆对之间差分峰值 300 V = 差分峰峰值 600 V。整体平台偏置是另一个物理量，不能代入这里的 V。",
+    "field_derivation": "由 E = −∇Φ 和 m ẍ = QEx 出发，再代入 τ = Ωt/2。时间二阶导数中的 Ω²/4 因子给出下列系数。两个径向方向的 a、q 符号相反。",
+    "field_stability": "两个径向方向都必须保持有界。a = 0 时，第一理想稳定区延伸至 |q| ≈ 0.908；q = 0 本身没有射频约束。高阶稳定带应使用完整的特征值计算。",
+    "average_title": "3 · 区分慢速久期运动与射频微运动",
+    "average_text": "在射频电场缓慢随空间变化、|q| 较小时，可对快速微运动取平均，得到赝势能 W。理想四极场的径向赝势能呈二次分布。下式的 D 为 r = r₀ 处的纯射频势阱深度；差分直流电压会改变两个方向的有效曲率。",
+    "average_units": "D 是能量：QVq/4 的单位为焦耳；当 V 以伏特给出时，D 的电子伏特数值为 zVq/4。接近稳定边界时，应使用 Mathieu 特征指数 β 和 fsec = βfRF/2，不能继续依赖小 q 近似。",
+    "example_title": "计算示例 · 质量 100 u，单电荷离子",
+    "example_inputs": "U = 0 V；V = 150 V 单杆峰值；fRF = 0.700 MHz；r₀ = 10.0 mm。",
+    "example_outputs": "q = 0.2992656；D = 11.22246 eV；fsec ≈ 74.0644 kHz（小 q 近似）。这些是解析计算值，并非测量结果。",
+    "sensitivity": "灵敏度：射频幅度加倍使 q 加倍；频率或孔径半径加倍使 q 变为原来的四分之一。U = 0、离子电荷固定时，fsec 正比于 V/(mfRF r₀²)。杆尺寸与有限电极长度的影响需要电场模型才能定量判断。",
+    "gas_title": "4 · 从气压得到碰撞率，再讨论冷却",
+    "gas_text": "利用局部气压与温度求气体数密度；碰撞频率还取决于截面和相对速度。气体页使用恒定速率的能量弛豫近似，因此不能把增加气压直接解释为已经验证的传输优化。",
+    "gas_limits": "300 K 下，三维热平衡平均动能 3kBT/2 ≈ 0.03878 eV。射频加热、气流、与质量有关的碰撞运动学、电荷交换、空间电荷和孔径损失均可能改变真实结果。远离杆区的真空计读数未必等于局部冷却气压。",
+    "bunch_title": "5 · 在漂移过程中传播时间—能量协方差",
+    "bunch_text": "离子加速到平均动能 E 后，在长度 L 的无场区内飞行时间为 td = L√(m/2E)。在平均值附近线性展开：因为 g = ∂td/∂E 为负，较晚出发而能量较高的离子能够部分补偿时间差。因此输出时间方差必须包含协方差项。",
+    "bunch_units": "单位必须一致：g 用 ns/eV 时，σt 用 ns、σE 用 eV。对高斯分布，FWHM = 2√(2 ln 2)σ ≈ 2.35482σ。本地事件表给出的高斯等效宽度，不等同于对非高斯峰进行拟合得到的宽度。",
+    "bunch_limits": "RFQ 出口束团宽度与 MR-TOF 探测器峰宽是不同的可观测量。切换电场、定时抖动和像差需要轨迹计算；后续离子光学可使带有关联的束团进一步聚焦或展宽。",
+    "sources_title": "原始参考文献与模型边界",
+    "sources_text": "Lab 各页用于可重复的解析和数值探索。有限电极、随机碰撞冷却、引出电场以及经实验验证的传输率，需要进一步的电场与轨迹计算和测量。",
+    "mathieu_source": "NIST DLMF §§28.2 与 28.17 · Mathieu 方程与稳定性",
+    "cooler_source": "Herfurth 等，NIM A 469 (2001) 254–275 · RFQ 冷却器与聚束器",
+    "collision_source": "SIMION 官方文档 · 时变电场与碰撞模型"
+  }
+}

@@ -8,8 +8,6 @@ Personal academic site of Zhuang Ge, built with [Hugo](https://gohugo.io/). One 
 | [Blowfish](https://github.com/nunocoracao/blowfish) | `sites/blowfish` | Dark ocean scheme, gradient header, table of contents, recent posts |
 | [PaperMod](https://github.com/adityatelange/hugo-PaperMod) | `sites/papermod` | Minimal profile card with buttons, auto light/dark |
 
-Detailed website manuals and research documentation are maintained privately (not in this public repository).
-
 Live site: <https://gezhuang0717.github.io/traps.github.io/>
 
 ## Structure

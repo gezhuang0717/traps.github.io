@@ -1,14 +1,25 @@
 name: RFQ real-browser acceptance
 on:
   push:
-    branches: ['feature/rfq-integrated-science-20261122']
+    branches: ['main', 'feature/rfq-integrated-science-20261122']
+    paths:
+      - 'static/js/rfq-*'
+      - 'static/js/mathieu-core.js'
+      - 'static/css/rfq-*'
+      - 'layouts/_partials/zg/rfq-*'
+      - 'data/rfq*'
+      - 'data/mathieu_labels*'
+      - 'tests/rfq_*'
+      - '.github/workflows/rfq-e2e.yml'
   pull_request:
     paths:
       - 'static/js/rfq-*'
       - 'static/css/rfq-*'
       - 'layouts/_partials/zg/rfq-*'
-      - 'data/rfq_extras_labels.json'
-      - 'tests/rfq_browser_smoke.py'
+      - 'static/js/mathieu-core.js'
+      - 'data/rfq*'
+      - 'data/mathieu_labels*'
+      - 'tests/rfq_*'
       - '.github/workflows/rfq-e2e.yml'
 permissions:
   contents: read
@@ -36,6 +47,7 @@ jobs:
           python -m pip install playwright==1.58.0
           python -m playwright install --with-deps chromium
       - name: Build website for local browser
+        id: build
         run: |
           python tools/site.py config
           hugo --minify --configDir sites/congo --themesDir themes --destination "$RUNNER_TEMP/rfq-site" --baseURL http://127.0.0.1:8765/
@@ -44,6 +56,9 @@ jobs:
           for i in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/lab/ > /dev/null && break; sleep 1; done
       - name: Run real Chromium desktop/mobile acceptance
         run: python tests/rfq_browser_smoke.py
+      - name: Verify readable RFQ plots and responsive controls
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python tests/rfq_visual_acceptance.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -77,20 +77,35 @@
      for(const h of [T.coord_rod,'x (mm)','y (mm)',T.coord_angle,T.coord_phase])th.append(U.make('th','',h));
      for(const q of d.rod_coordinates){const x=clean(q.x_mm),y=clean(q.y_mm),angle=((Math.atan2(y,x)*180/Math.PI)%360+360)%360,row=U.make('tr'),cells=[U.make('b','',String(q.index)),fmt(x),fmt(y),fmt(angle)+'°',U.badge(q.phase>0?'+V':'−V',q.phase>0?'info':'bad')];
       for(const c of cells){const td=U.make('td');if(c&&c.nodeType)td.append(c);else td.textContent=c;row.append(td);}tb.append(row);}
-     const table=U.make('table','zg-table'),head=U.make('thead');head.append(th);table.append(head,tb);const wrap=U.make('div','wb-table-wrap');wrap.append(table);
+     const table=U.make('table','zg-table'),head=U.make('thead');head.append(th);table.append(head,tb);const wrap=U.make('div','rfq-table-scroll rfq-table-wrap');wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label',T.coordinates);wrap.append(table);
      body.append(U.make('p','zg-muted zg-small',`${T.coord_note} R_c = ${fmt(d.center_radius_mm)} mm, ρ = ${fmt(d.rod_radius_mm)} mm.`),wrap);nodes.push(U.fold(T.coordinates,body));}
     box.replaceChildren(...nodes);
    }else{
     add(`${T.geometry_out}: ${fmt(d.rod_radius_mm)} / ${fmt(d.rod_diameter_mm)} · ${fmt(d.rod_ratio)} · ${fmt(d.ratio_deviation_percent)}`);add(`${T.envelope_out}: ${fmt(d.outer_radius_mm)} / ${fmt(d.aperture_diameter_mm)}`);add(`${T.gaps}: ${fmt(d.adjacent_center_mm)} / ${fmt(d.surface_gap_mm)} / ${fmt(d.opposite_center_mm)}`);
     add(`${T.eta_readout}: ${fmt(d.eta)} / ${fmt(d.eta_target)} · ${d.eta_target_met?T.target_met:T.target_above}`);if(d.V_V===0)add(T.zero_rf);
    }
-   const extent=d.center_radius_mm+d.rod_radius_mm,scale=150/extent,cx=230,cy=200;
-   const svg=el('svg',{xmlns:NS,viewBox:'0 0 460 450',role:'img','aria-label':T.design_title,style:'display:block;width:100%;max-width:520px;min-width:440px;height:auto;background:#fff;font-family:Arial,sans-serif'});
-   svg.append(el('rect',{width:460,height:450,fill:'#fff'}),el('text',{x:230,y:25,'text-anchor':'middle','font-size':S.titleSize},T.design_title),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}));
-   for(const p of d.rod_coordinates){const rodNode=el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth});rodNode.append(el('title',{},`${p.index}: ${p.phase>0?'+':'−'}V, (${fmt(p.x_mm)}, ${fmt(p.y_mm)}) mm`));svg.append(rodNode,el('text',{x:cx+p.x_mm*scale,y:cy-p.y_mm*scale+4,'text-anchor':'middle','font-size':S.tickSize},String(p.index)));}
-   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('text',{x:cx+10,y:cy-8,'font-size':S.tickSize},`r₀=${fmt(d.r0_mm)} mm`),el('text',{x:230,y:375,'text-anchor':'middle','font-size':S.tickSize},`2n=${d.rod_count}; ρ=${fmt(d.rod_radius_mm)} mm; ρ/r₀=${fmt(d.rod_ratio)}`),el('text',{x:230,y:394,'text-anchor':'middle','font-size':S.tickSize},`D=${fmt(d.adjacent_center_mm)} mm; g=${fmt(d.surface_gap_mm)} mm`));
-   [['#dae6ff','#315aa3','+V'],['#ffe2da','#ac4835','−V']].forEach(([fill,stroke,text],i)=>svg.append(el('circle',{cx:40+i*70,cy:416,r:6,fill,stroke,'stroke-width':S.lineWidth}),el('text',{x:52+i*70,y:420,'font-size':S.tickSize},text)));
-   svg.append(el('line',{x1:190,x2:216,y1:416,y2:416,stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}),el('text',{x:222,y:420,'font-size':S.tickSize},`r₀ (${T.k_aperture})`),el('text',{x:230,y:442,'text-anchor':'middle','font-size':Math.max(9,S.tickSize-2),fill:'#53647a'},T.legend_line.replace('a = (2U/V) q','')+'ρ = ratio × r₀; Rc = r₀ + ρ; D = 2Rc sin(π/N); g = D − 2ρ'));holder.append(svg);designSVG=svg;{const n=U?.notesBlock('rfq-geometry');if(n)holder.append(n);}
+   const W=Math.min(620,layoutWidth(holder)),narrow=W<440,titleSize=Math.max(14,Math.min(S.titleSize,narrow?17:22)),labelSize=Math.max(11,Math.min(S.tickSize,narrow?12:14)),captionSize=11;
+   const title=wrapLines(T.design_title,W-32,titleSize),top=24+title.length*(titleSize+4)+8;
+   const extent=d.center_radius_mm+d.rod_radius_mm,radius=Math.min((W-40)/2,190),scale=radius/extent,cx=W/2,cy=top+radius;
+   const dimensions=[`2n = ${d.rod_count} · r₀ = ${fmt(d.r0_mm)} mm`,`ρ = ${fmt(d.rod_radius_mm)} mm · ρ/r₀ = ${fmt(d.rod_ratio)}`,`D = ${fmt(d.adjacent_center_mm)} mm · g = ${fmt(d.surface_gap_mm)} mm`].flatMap(line=>wrapLines(line,W-32,labelSize));
+   const dimensionY=cy+radius+24,legendY=dimensionY+dimensions.length*(labelSize+4)+14;
+   const legend=flow([{kind:'area',fill:'#dae6ff',color:'#315aa3',text:'+V'},{kind:'area',fill:'#ffe2da',color:'#ac4835',text:'−V'},{kind:'line',color:'#73808f',text:`r₀ (${T.k_aperture})`}],W-32,labelSize);
+   const formulas=['ρ = (ρ/r₀) × r₀; Rc = r₀ + ρ;','D = 2Rc sin(π/N); g = D − 2ρ; N = 2n.'].flatMap(line=>wrapLines(line,W-32,captionSize));
+   const captionY=legendY+legendHeight(legend,labelSize)+6,H=captionY+formulas.length*(captionSize+4)+16;
+   const svg=el('svg',{xmlns:NS,width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.design_title,'data-rfq-layout-width':W,'data-rfq-chart':'responsive',style:'display:block;width:100%;max-width:620px;margin-inline:auto;height:auto;background:#fff;color:#172235;font-family:Arial,"Noto Sans",sans-serif'});
+   svg.append(el('rect',{width:W,height:H,fill:'#fff'}),textLines(title,16,24,titleSize,{'font-weight':600,'data-chart-label':'title'}),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}));
+   for(const p of d.rod_coordinates){
+    const rodNode=el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth});
+    rodNode.append(el('title',{},`${p.index}: ${p.phase>0?'+':'−'}V, (${fmt(p.x_mm)}, ${fmt(p.y_mm)}) mm`));
+    svg.append(rodNode,el('text',{x:cx+p.x_mm*scale,y:cy-p.y_mm*scale+labelSize*.34,'text-anchor':'middle','font-size':labelSize,fill:'#172235'},String(p.index)));
+   }
+   // The radial dimension is labelled below the circle so it cannot collide
+   // with rod numbers, especially for high multipoles on narrow screens.
+   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('circle',{cx,cy,r:2,fill:'#172235'}),textLines(dimensions,16,dimensionY,labelSize,{'data-chart-label':'dimensions'}));
+   drawLegend(svg,legend,16,legendY,labelSize);
+   svg.append(textLines(formulas,16,captionY,captionSize,{fill:'#53647a','data-chart-label':'caption'}));
+   holder.append(svg);designSVG=svg;{const n=U?.notesBlock('rfq-geometry');if(n)holder.append(n);}
+
   }
   function sync(){
    const three=field('geometry').value==='paul3d';if(three)field('mode').value='direct';
@@ -104,7 +119,7 @@
    root.querySelectorAll('[data-ms-stage-copy]').forEach(e=>{e.disabled=direct;});
    if(formulaBox)formulaBox.hidden=multi;root.querySelector('[data-ms-formula]').hidden=three;
    root.querySelector('[data-ms-mapping]').textContent=three?T.mapping_paul:T.mapping_linear;figure.hidden=multi;
-   for(const action of ['svg','png','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;
+   for(const action of ['svg','png','pdf','csv'])root.querySelector('[data-ms-action="'+action+'"]').disabled=multi;
   }
   function renderConversions(){
    const box=root.querySelector('[data-ms-conversions]');if(!box)return;box.hidden=field('mode').value!=='voltage';box.textContent='';
@@ -120,29 +135,58 @@
     const sensitivities=document.createElement('p');sensitivities.className='zg-muted';sensitivities.textContent=T.sensitivity+': m −1; V +1; r₀ −2; f −2.';box.append(sensitivities);
    }catch(_){const p=document.createElement('p');p.textContent=T.uncertainty_bad;box.append(p);}
   }
-  const textWidth=(text,size)=>String(text).length*size*.58;
-  function wrapLines(text,maxWidth,size){const lines=[];let line='';for(const word of String(text).split(/\s+/)){const next=line?line+' '+word:word;if(line&&textWidth(next,size)>maxWidth){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);return lines.length?lines:[''];}
-  function flow(items,width,size){const rows=[[]];let x=0;for(const item of items){const w=28+textWidth(item.text,size)+16;if(x+w>width&&rows.at(-1).length){rows.push([]);x=0;}rows.at(-1).push({...item,x,w});x+=w;}return rows;}
+  // Match the extension charts' CJK-aware wrapping even on the initial draw,
+  // before rfq-chart.js has finished loading.
+  const textWidth=(text,size)=>window.ZGRFQChart?.widthOf(text,size)??Array.from(String(text)).reduce((sum,ch)=>sum+size*(/[^\u0000-\u02ff]/u.test(ch)?1.02:/[ilI.,:;'| ]/.test(ch)?.34:.63),0);
+  function wrapLines(text,maxWidth,size){
+   if(window.ZGRFQChart)return window.ZGRFQChart.wrap(text,maxWidth,size);
+   const lines=[];let line='';for(const token of String(text).split(/(\s+|(?=[\u3000-\u9fff]))/u).filter(Boolean)){
+    if(line&&textWidth(line+token,size)>maxWidth){lines.push(line.trim());line='';}
+    if(textWidth(token,size)>maxWidth){for(const ch of token){if(line&&textWidth(line+ch,size)>maxWidth){lines.push(line.trim());line='';}line+=ch;}}else line+=token;
+   }if(line.trim())lines.push(line.trim());return lines.length?lines:[''];
+  }
+  function contentWidth(node){
+   if(!node?.clientWidth)return 0;const css=window.getComputedStyle?.(node);
+   return node.clientWidth-(parseFloat(css?.paddingLeft)||0)-(parseFloat(css?.paddingRight)||0);
+  }
+  const layoutWidth=node=>Math.round(Math.max(180,Math.min(1440,contentWidth(node)||contentWidth(root)||800)));
+  const textLines=(lines,x,y,size,attrs={})=>{
+   const node=el('text',{x,y,'font-size':size,fill:'#172235',...attrs});
+   lines.forEach((line,i)=>node.append(el('tspan',{x,dy:i?size+4:0},line)));return node;
+  };
+  function flow(items,width,size){
+   const rows=[[]];let x=0;for(const item of items){
+    const lines=wrapLines(item.text,Math.max(32,width-30),size),w=Math.min(width,30+Math.max(...lines.map(line=>textWidth(line,size)))+12);
+    if(x+w>width&&rows.at(-1).length){rows.push([]);x=0;}
+    rows.at(-1).push({...item,lines,x,w});x+=w;
+   }return rows;
+  }
+  const legendHeight=(rows,size)=>rows.reduce((sum,row)=>sum+Math.max(1,...row.map(item=>item.lines.length))*(size+4)+10,0);
   function drawLegend(svg,rows,x0,y0,size){
-   rows.forEach((row,r)=>{const y=y0+r*(size+9),mid=y-size/2+2;row.forEach(item=>{const x=x0+item.x,g=el('g',{});
+   let offset=0;rows.forEach(row=>{const y=y0+offset,mid=y-size/2+2;row.forEach(item=>{const x=x0+item.x,g=el('g',{});
     if(item.kind==='area')g.append(el('rect',{x,y:mid-6,width:20,height:12,fill:item.fill,stroke:item.color,'stroke-width':1}));
     if(item.kind==='line'||item.kind==='dotline')g.append(el('line',{x1:x,x2:x+20,y1:mid,y2:mid,stroke:item.color,'stroke-width':2,'stroke-dasharray':'6 3'}));
     if(item.kind==='dot'||item.kind==='dotline')g.append(el('circle',{cx:x+10,cy:mid,r:item.r,fill:item.color,stroke:item.stroke||'#fff','stroke-width':1.2}));
-    g.append(el('text',{x:x+26,y,'font-size':size,fill:'#172235'},item.text));if(item.title)g.append(el('title',{},item.title));svg.append(g);});});
+    g.append(textLines(item.lines,x+26,y,size,{'data-chart-label':'legend'}));if(item.title)g.append(el('title',{},item.title));svg.append(g);
+   });offset+=Math.max(1,...row.map(item=>item.lines.length))*(size+4)+10;});
   }
   function draw(d){
    const S=styleControl?.get()||{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10,lineWidth:1};
-   const W=900,left=86,right=30,w=W-left-right,h=440,lg=S.legendSize,qr=d.qmax-d.qmin;
+   const W=layoutWidth(figure),narrow=W<520,lg=Math.max(11,Math.min(S.legendSize,narrow?12:16)),tickSize=Math.max(11,Math.min(S.tickSize,narrow?12:16)),axisSize=Math.max(11,Math.min(S.axisSize,narrow?14:20)),titleSize=Math.max(14,Math.min(S.titleSize,narrow?18:26));
+   const tickFmt=x=>window.ZGRFQChart?.formatTick(x)??String(Number(x.toPrecision(4)));
+   const yTicks=Array.from({length:narrow?5:6},(_,i)=>d.amin+(d.amax-d.amin)*i/(narrow?4:5));
+   const left=Math.max(narrow?58:72,Math.max(...yTicks.map(a=>textWidth(tickFmt(a),tickSize)))+44),right=22,w=W-left-right,h=narrow?260:400,qr=d.qmax-d.qmin;
    const areaItems=[{kind:'area',fill:'#dfeafb',color:'#2f62b8',text:T.legend_first},{kind:'area',fill:'#ffe6ce',color:'#ad6a25',text:T.legend_second},{kind:'area',fill:'#8ed3ac',color:'#23865b',text:T.legend_both}];
    const colours=['#7b4dbb','#c54847','#008391'],qOf=x=>fmt(Math.abs(x));
    const markItems=[{kind:'dot',r:S.markerDiameter/2,color:'#172235',stroke:'#fff',text:`${T.legend_point}: q = ${qOf(d.p.q)}, a = ${fmt(d.p.a)}`,title:T.legend_point}];
    d.sections.forEach((sec,i)=>markItems.push({kind:'dotline',r:Math.max(2.5,S.markerDiameter*.4),color:colours[i],text:`${T[sec.key]}: q = ${qOf(sec.q)}, a = ${fmt(sec.a)}${sec.V_rod_peak_V?` (a/q = ${fmt(2*sec.U_V/sec.V_rod_peak_V)})`:''}`,title:`${T[sec.key]} · ${T.legend_line}`}));
    const detail=d.mode==='voltage'?`m = ${fmt(d.p.mass_u)} u · z = ${d.p.charge} · U = ${fmt(d.p.U_V)} V · V = ${fmt(d.p.V_rod_peak_V)} V · r₀ = ${fmt(d.p.r0_mm)} mm · f = ${fmt(d.p.f_MHz)} MHz`:T.caption_direct;
-   const caption=wrapLines((source.label&&source.label!==T.manual?source.label+' · ':'')+detail+'. '+T.caption_formulas,W-left-right,lg),top=44+flow(areaItems,w,lg).length*(lg+9)+12;
-   const bottomRows=flow(markItems,w,lg),bottom=60+bottomRows.length*(lg+9)+caption.length*(lg+4)+10,H=top+h+bottom;
-   const svg=el('svg',{xmlns:NS,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.title,style:'display:block;width:100%;height:auto;min-width:680px;background:#fff;color:#172235;font-family:Arial,sans-serif'});
-   svg.append(el('rect',{x:0,y:0,width:W,height:H,fill:'#fff'}),el('text',{x:W/2,y:31,'text-anchor':'middle','font-size':S.titleSize,fill:'#172235'},T.title));
-   drawLegend(svg,flow(areaItems,w,lg),left,56,lg);
+   const titleLines=wrapLines(T.title,W-32,titleSize),captionSize=Math.max(11,lg-1),caption=wrapLines((source.label&&source.label!==T.manual?source.label+' · ':'')+detail+'. '+T.caption_formulas,W-32,captionSize);
+   const areaRows=flow(areaItems,W-32,lg),areaY=24+titleLines.length*(titleSize+4)+10,top=areaY+legendHeight(areaRows,lg)+12;
+   const bottomRows=flow(markItems,W-32,lg),legendY=top+h+70,captionY=legendY+legendHeight(bottomRows,lg)+4,H=captionY+caption.length*(captionSize+4)+16;
+   const svg=el('svg',{xmlns:NS,width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.title,'data-rfq-layout-width':W,'data-rfq-chart':'responsive',style:'display:block;width:100%;max-width:100%;height:auto;background:#fff;color:#172235;font-family:Arial,"Noto Sans",sans-serif'});
+   svg.append(el('rect',{x:0,y:0,width:W,height:H,fill:'#fff'}),textLines(titleLines,16,24,titleSize,{'font-weight':600,'data-chart-label':'title'}));
+   drawLegend(svg,areaRows,16,areaY,lg);
    const X=q=>left+(q-d.qmin)/qr*w,Y=a=>top+(d.amax-a)/(d.amax-d.amin)*h;
    const chart=el('svg',{x:left,y:top,width:w,height:h,viewBox:`${left} ${top} ${w} ${h}`,overflow:'hidden'});svg.append(chart);
    const qs=Array.from({length:241},(_,i)=>d.qmin+qr*i/240),factor=d.geometry==='linear'?1:2;
@@ -151,14 +195,16 @@
    function strip(select,fill){let run=[];const flush=()=>{if(run.length>1){const pts=run.map(r=>[r.q,r.lo]).concat(run.slice().reverse().map(r=>[r.q,r.hi]));chart.append(el('path',{d:path(pts,true),fill,stroke:'none'}));}run=[];};rows.forEach(r=>{const b=select(r);if(b&&b.hi>b.lo)run.push({q:r.q,...b});else flush();});flush();}
    for(let n=0;n<d.count;n++){strip(r=>r.first[n],'#dfeafb');strip(r=>r.second[n],'#ffe6ce');}
    for(let i=0;i<d.count;i++)for(let j=0;j<d.count;j++)strip(r=>({lo:Math.max(r.first[i].lo,r.second[j].lo),hi:Math.min(r.first[i].hi,r.second[j].hi)}),'#8ed3ac');
-   for(let i=0;i<=5;i++){const q=d.qmin+qr*i/5,a=d.amin+(d.amax-d.amin)*i/5;chart.append(el('line',{x1:X(q),x2:X(q),y1:top,y2:top+h,stroke:'#d9dee6','stroke-width':.7}),el('line',{x1:left,x2:left+w,y1:Y(a),y2:Y(a),stroke:'#d9dee6','stroke-width':.7}));svg.append(el('text',{x:X(q),y:top+h+23,'text-anchor':'middle','font-size':S.tickSize,fill:'#172235'},fmt(q)),el('text',{x:left-10,y:Y(a)+4,'text-anchor':'end','font-size':S.tickSize,fill:'#172235'},fmt(a)));}
+   const xIntervals=w<300?2:w<550?4:5;
+   for(let i=0;i<=xIntervals;i++){const q=d.qmin+qr*i/xIntervals;chart.append(el('line',{x1:X(q),x2:X(q),y1:top,y2:top+h,stroke:'#d9dee6','stroke-width':.7}));svg.append(el('text',{x:X(q),y:top+h+23,'text-anchor':i===0?'start':i===xIntervals?'end':'middle','font-size':tickSize,fill:'#172235','data-chart-label':'x-tick'},tickFmt(q)));}
+   for(const a of yTicks){chart.append(el('line',{x1:left,x2:left+w,y1:Y(a),y2:Y(a),stroke:'#d9dee6','stroke-width':.7}));svg.append(el('text',{x:left-10,y:Y(a)+4,'text-anchor':'end','font-size':tickSize,fill:'#172235','data-chart-label':'y-tick'},tickFmt(a)));}
    for(let n=0;n<d.count;n++)for(const [plane,color,dash] of [['first','#2f62b8',''],['second','#ad6a25','5 3']])for(const side of ['lo','hi'])chart.append(el('path',{d:path(rows.map(r=>[r.q,r[plane][n][side]])),fill:'none',stroke:color,'stroke-width':S.lineWidth,'stroke-dasharray':dash}));
    d.sections.forEach((sec,i)=>{const color=colours[i],ratio=sec.V_rod_peak_V?2*sec.U_V/sec.V_rod_peak_V:null;if(ratio!==null)chart.append(el('line',{x1:X(d.qmin),y1:Y(ratio*d.qmin),x2:X(d.qmax),y2:Y(ratio*d.qmax),stroke:color,'stroke-width':2*S.lineWidth,'stroke-dasharray':'7 3'}));if(sec.V_rod_peak_V===0)chart.append(el('line',{x1:X(0),x2:X(0),y1:top,y2:top+h,stroke:color,'stroke-width':2*S.lineWidth}));
     const dot=el('circle',{cx:X(Math.abs(sec.q)),cy:Y(sec.a),r:Math.max(2.5,S.markerDiameter*.4),fill:color,stroke:'#fff','stroke-width':1.2});dot.append(el('title',{},`${T[sec.key]}: q = ${qOf(sec.q)}, a = ${fmt(sec.a)}`));chart.append(dot);});
    const point=el('circle',{cx:X(Math.abs(d.p.q)),cy:Y(d.p.a),r:S.markerDiameter/2,fill:'#172235',stroke:'#fff','stroke-width':1.5});point.append(el('title',{},`${T.legend_point}: q = ${qOf(d.p.q)}, a = ${fmt(d.p.a)}`));chart.append(point);
-   svg.append(el('rect',{x:left,y:top,width:w,height:h,fill:'none',stroke:'#172235'}),el('text',{x:left+w/2,y:top+h+48,'text-anchor':'middle','font-size':S.axisSize,fill:'#172235'},d.geometry==='linear'?'q':'q_z'),el('text',{x:23,y:top+h/2,'text-anchor':'middle',transform:`rotate(-90 23 ${top+h/2})`,'font-size':S.axisSize,fill:'#172235'},d.geometry==='linear'?'a':'a_z'));
-   drawLegend(svg,bottomRows,left,top+h+70,lg);
-   caption.forEach((line,i)=>svg.append(el('text',{x:left,y:top+h+70+bottomRows.length*(lg+9)+8+i*(lg+4),'font-size':Math.max(9,lg-1),fill:'#53647a'},line)));
+   svg.append(el('rect',{x:left,y:top,width:w,height:h,fill:'none',stroke:'#172235'}),el('text',{x:left+w/2,y:top+h+48,'text-anchor':'middle','font-size':axisSize,fill:'#172235'},d.geometry==='linear'?'q':'q_z'),el('text',{x:16,y:top+h/2,'text-anchor':'middle',transform:`rotate(-90 16 ${top+h/2})`,'font-size':axisSize,fill:'#172235'},d.geometry==='linear'?'a':'a_z'));
+   drawLegend(svg,bottomRows,16,legendY,lg);
+   svg.append(textLines(caption,16,captionY,captionSize,{fill:'#53647a','data-chart-label':'caption'}));
    figure.replaceChildren(svg);return{svg,rows,view:{W,H,left,top,w,h,qmin:d.qmin,qmax:d.qmax,amin:d.amin,amax:d.amax}};
   }
   function renderStages(){
@@ -191,10 +237,13 @@
     }
     lastStageErrors=stageErrors;const stageNotice=root.querySelector('[data-ms-stage-error]');if(stageNotice)stageNotice.textContent=stageErrors.length?T.stage_error+' '+stageErrors.join(', '):'';
     if(!tbody.children.length){const notice=document.createElement('p');notice.textContent=T.section_note;holder.append(notice);return;}
-    table.append(tbody);holder.append(table);
+    table.append(tbody);const wrap=document.createElement('div');wrap.className='rfq-table-scroll rfq-table-wrap';wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label',T.sections);wrap.append(table);holder.append(wrap);
   }
   function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   function refresh(){
+   // All programmatic changes (stage apply, reset, presets and file loads)
+   // notify the dependent RFQ panels after this synchronous refresh.
+   queueMicrotask(()=>root.dispatchEvent(new CustomEvent('rfq:statechange')));
    sync();let designError=null;
    const designNotice=root.querySelector('[data-ms-design-error]');if(designNotice)designNotice.textContent='';
    try{renderDesign();}catch(e){designError=e;lastDesign=null;designSVG=null;root.querySelector('[data-ms-design-readout]')?.replaceChildren();root.querySelector('[data-ms-design-figure]')?.replaceChildren();if(designNotice)designNotice.textContent=designErrorText(e);}
@@ -211,6 +260,19 @@
    }catch(e){last=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   }
   function queue(){clearTimeout(timer);timer=setTimeout(refresh,100);}
+  let resizeTimer=null;
+  function redrawResponsiveFigures(){
+   const designHolder=root.querySelector('[data-ms-design-figure]');
+   if(figure.clientWidth>0&&!figure.hidden&&last?.svg&&Number(last.svg.dataset.rfqLayoutWidth)!==layoutWidth(figure)){
+    try{last={...last,...draw(last)};}catch(_){/* An independent input error is handled by refresh(). */}
+   }
+   if(designHolder?.clientWidth>0&&designSVG&&Number(designSVG.dataset.rfqLayoutWidth)!==Math.min(620,layoutWidth(designHolder))){
+    try{renderDesign();}catch(_){/* Preserve the existing validation feedback. */}
+   }
+  }
+  const queueResponsiveDraw=()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(redrawResponsiveFigures,80);};
+  window.addEventListener?.('resize',queueResponsiveDraw,{passive:true});
+  root.addEventListener('rfq:statechange',queueResponsiveDraw);
   const clampView=v=>{let{qmin,qmax,amin,amax}=v;if(qmin<0){qmax-=qmin;qmin=0;}if(qmax>12){qmin=Math.max(0,qmin-(qmax-12));qmax=12;}if(amin<-60){amax+=-60-amin;amin=-60;}if(amax>60){amin-=amax-60;amax=60;}return{qmin,qmax,amin,amax};};
   function setView(v){for(const[k,x]of Object.entries(clampView(v))){const f=field(k);if(f)f.value=String(Number(x.toPrecision(6)));}queue();}
   function zoom(factor,q0,a0){const m=last?.view;if(!m)return;q0=q0??(m.qmin+m.qmax)/2;a0=a0??(m.amin+m.amax)/2;const v={qmin:q0-(q0-m.qmin)*factor,qmax:q0+(m.qmax-q0)*factor,amin:a0-(a0-m.amin)*factor,amax:a0+(m.amax-a0)*factor};if(!(v.qmax-v.qmin>1e-3)||!(v.amax-v.amin>1e-3))return;setView(v);}
@@ -222,8 +284,8 @@
   figure.addEventListener('pointermove',e=>{if(!drag)return;const m=drag.view,dq=-(e.clientX-drag.x)/drag.rect.width*m.W/m.w*(m.qmax-m.qmin),da=(e.clientY-drag.y)/drag.rect.height*m.H/m.h*(m.amax-m.amin);setView({qmin:m.qmin+dq,qmax:m.qmax+dq,amin:m.amin+da,amax:m.amax+da});});
   figure.addEventListener('pointerup',endDrag);figure.addEventListener('pointercancel',endDrag);figure.addEventListener('dblclick',resetView);
   if(window.ZGFigureStyle)styleControl=ZGFigureStyle.controls(root.querySelector('[data-ms-style]'),{lang:root.dataset.lang,prefix:'mathieu',baseline:{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10},onChange:queue});
-  root.addEventListener('input',e=>{e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
-  root.addEventListener('change',e=>{e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
+  root.addEventListener('input',e=>{if(e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
+  root.addEventListener('change',e=>{if(e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
   root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)&&e.target.closest?.('[data-local-tab]'))queue();});
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{
@@ -261,10 +323,10 @@
    if(action==='design-json'){if(lastDesign)save(new Blob([JSON.stringify(log(),null,2)],{type:'application/json'}),'rfq-design-log.json');return;}
 
    if(action==='design-csv'){if(!lastDesign)return;const d=lastDesign.result,rows=[['record','quantity','value','unit','classification_or_note']];for(const[k,v]of Object.entries(d))if(typeof v==='number')rows.push(['result',k,v,k==='mass_u'?'u':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':k.endsWith('_eV')?'eV':k.endsWith('_V_m')?'V/m':k.endsWith('_V')?'V':'dimensionless','']);for(const c of lastDesign.candidates)rows.push(['candidate','RF_rod_peak',c.V_V,'V',c.classification?c.classification.status:'eta-target-only: '+c.eta_target_met]);for(const p of d.rod_coordinates)rows.push(['rod',p.index,`${p.x_mm};${p.y_mm}`,'mm',p.phase]);for(const stage of lastStages){rows.push(['stage',stage.stage,'ideal 4-rod Mathieu','model',stage.classification]);for(const k of ['a','q','U_V','V_rod_peak_V','r0_mm','f_MHz'])rows.push(['stage',stage.stage+':'+k,stage[k],k.endsWith('_V')?'V':k.endsWith('_mm')?'mm':k.endsWith('_MHz')?'MHz':'dimensionless',stage.classification]);}if(lastUncertainty){rows.push(['uncertainty','sigma_q',lastUncertainty.sigma_q,'dimensionless',lastUncertainty.model]);for(const c of lastUncertainty.contributions)rows.push(['uncertainty',c.input,c.sigma,'input unit','dq/dinput='+c.derivative]);}rows.push(['metadata','calculation_log',JSON.stringify(log()),'JSON','']);const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';save(new Blob([csv],{type:'text/csv'}),'rfq-design-log.csv');return;}
-   if(action==='design-svg'){if(designSVG&&window.ZGFigureStyle)await ZGFigureStyle.exportSVG(designSVG,'SVG','rfq-rod-geometry',styleControl?.get(),lastDesign);return;}
+   if(['design-svg','design-png','design-pdf'].includes(action)){try{if(designSVG&&window.ZGFigureStyle)await ZGFigureStyle.exportSVG(designSVG,action.slice(7).toUpperCase(),'rfq-rod-geometry',styleControl?.get(),lastDesign);}catch(_){root.querySelector('[data-ms-design-error]').textContent=T.badfile;}return;}
    if(!last||higher())return;
    if(action==='csv'){const rows=[['plane','band_n','q','a_low','a_high','geometry']];last.rows.forEach(r=>{for(const k of ['first','second'])r[k].forEach(b=>rows.push([k,b.n,r.q,b.lo,b.hi,last.geometry]));});rows.push(['point','',last.p.q,last.p.a,last.classification.status,last.geometry]);save(new Blob([rows.map(r=>r.join(',')).join('\n')+'\n'],{type:'text/csv'}),'mathieu-bands.csv');return;}
-   if(['svg','png'].includes(action)){if(styleControl?.valid&&!styleControl.valid())return;try{if(window.ZGFigureStyle){await ZGFigureStyle.exportSVG(last.svg,action.toUpperCase(),'mathieu-stability',styleControl?.get(),{inputs:state(),model:'ideal Mathieu characteristic bands',source:'https://dlmf.nist.gov/28.17'});}else if(action==='svg')save(new Blob([new XMLSerializer().serializeToString(last.svg)],{type:'image/svg+xml'}),'mathieu-stability.svg');}catch(_){err.textContent=T.badfile;}}
+   if(['svg','png','pdf'].includes(action)){if(styleControl?.valid&&!styleControl.valid())return;try{if(window.ZGFigureStyle){await ZGFigureStyle.exportSVG(last.svg,action.toUpperCase(),'mathieu-stability',styleControl?.get(),{inputs:state(),model:'ideal Mathieu characteristic bands',source:'https://dlmf.nist.gov/28.17'});}else if(action==='svg')save(new Blob([new XMLSerializer().serializeToString(last.svg)],{type:'image/svg+xml'}),'mathieu-stability.svg');}catch(_){err.textContent=T.badfile;}}
   });
   root.querySelector('[data-ms-file]').addEventListener('change',async e=>{
    e.stopPropagation();const file=e.target.files[0];if(!file)return;

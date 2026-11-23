@@ -1,0 +1,113 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" "en" -}}
+{{- $t := index hugo.Data.rfq_foundations $k -}}
+<details class="rfq-foundations" data-no-fold lang="{{ $k }}">
+  <summary>{{ $t.title }}</summary>
+  <p class="rfq-guide-lead">{{ $t.lead }}</p>
+
+  <details class="rfq-guide-section" open>
+    <summary>{{ $t.roles_title }}</summary>
+    <div class="rfq-table-wrap" tabindex="0" role="region" aria-label="{{ $t.roles_title }}">
+      <table><thead><tr>{{ range $t.role_headers }}<th scope="col">{{ . }}</th>{{ end }}</tr></thead>
+        <tbody>{{ range $t.roles }}<tr>{{ range $i, $cell := . }}{{ if eq $i 0 }}<th scope="row">{{ $cell }}</th>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>{{ end }}</tbody>
+      </table>
+    </div>
+    <p>{{ $t.roles_note }}</p>
+  </details>
+
+  <details class="rfq-guide-section">
+    <summary>{{ $t.field_title }}</summary>
+    <p>{{ $t.field_text }}</p>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="Phi equals (U minus V cosine Omega t) times (x squared minus y squared) divided by r0 squared">
+        <mi>Φ</mi><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>t</mi><mo>)</mo><mo>=</mo>
+        <mrow><mo>[</mo><mi>U</mi><mo>−</mo><mi>V</mi><mi mathvariant="normal">cos</mi><mo>(</mo><mi>Ω</mi><mi>t</mi><mo>)</mo><mo>]</mo></mrow>
+        <mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><msubsup><mi>r</mi><mn>0</mn><mn>2</mn></msubsup></mfrac>
+      </math>
+    </div>
+    <p>{{ $t.field_voltage }}</p>
+    <p>{{ $t.field_derivation }}</p>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="tau equals Omega t over 2; x double prime plus (a minus 2 q cosine 2 tau) x equals zero">
+        <mi>τ</mi><mo>=</mo><mfrac><mrow><mi>Ω</mi><mi>t</mi></mrow><mn>2</mn></mfrac><mo>;</mo><mspace width="1em"/>
+        <msup><mi>x</mi><mo>″</mo></msup><mo>+</mo><mo>(</mo><mi>a</mi><mo>−</mo><mn>2</mn><mi>q</mi><mi mathvariant="normal">cos</mi><mn>2</mn><mi>τ</mi><mo>)</mo><mi>x</mi><mo>=</mo><mn>0</mn>
+      </math>
+    </div>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="a equals 8 Q U over m r0 squared Omega squared; q equals 4 Q V over m r0 squared Omega squared">
+        <mi>a</mi><mo>=</mo><mfrac><mrow><mn>8</mn><mi>Q</mi><mi>U</mi></mrow><mrow><mi>m</mi><msubsup><mi>r</mi><mn>0</mn><mn>2</mn></msubsup><msup><mi>Ω</mi><mn>2</mn></msup></mrow></mfrac>
+        <mo>,</mo><mspace width="1em"/>
+        <mi>q</mi><mo>=</mo><mfrac><mrow><mn>4</mn><mi>Q</mi><mi>V</mi></mrow><mrow><mi>m</mi><msubsup><mi>r</mi><mn>0</mn><mn>2</mn></msubsup><msup><mi>Ω</mi><mn>2</mn></msup></mrow></mfrac>
+      </math>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="The y axis uses minus a and minus q">
+        <mo>(</mo><msub><mi>a</mi><mi>y</mi></msub><mo>,</mo><msub><mi>q</mi><mi>y</mi></msub><mo>)</mo><mo>=</mo><mo>(</mo><mo>−</mo><mi>a</mi><mo>,</mo><mo>−</mo><mi>q</mi><mo>)</mo>
+      </math>
+    </div>
+    <p>{{ $t.field_stability }}</p>
+  </details>
+
+  <details class="rfq-guide-section">
+    <summary>{{ $t.average_title }}</summary>
+    <p>{{ $t.average_text }}</p>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="Pseudopotential energy W equals Q squared E RF peak squared over 4 m Omega squared">
+        <mi>W</mi><mo>(</mo><mi>r</mi><mo>)</mo><mo>=</mo><mfrac><mrow><msup><mi>Q</mi><mn>2</mn></msup><msubsup><mi>E</mi><mtext>RF,peak</mtext><mn>2</mn></msubsup></mrow><mrow><mn>4</mn><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup></mrow></mfrac>
+        <mo>=</mo><mfrac><mrow><msup><mi>Q</mi><mn>2</mn></msup><msup><mi>V</mi><mn>2</mn></msup><msup><mi>r</mi><mn>2</mn></msup></mrow><mrow><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><msubsup><mi>r</mi><mn>0</mn><mn>4</mn></msubsup></mrow></mfrac>
+      </math>
+    </div>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="D equals Q V q over four; at a zero and small q, secular frequency is approximately absolute q times RF frequency over two square root two">
+        <mi>D</mi><mo>=</mo><mfrac><mrow><mi>Q</mi><mi>V</mi><mi>q</mi></mrow><mn>4</mn></mfrac><mo>,</mo><mspace width="1em"/>
+        <msub><mi>f</mi><mtext>sec</mtext></msub><mo>≈</mo><mfrac><mrow><mo>|</mo><mi>q</mi><mo>|</mo><msub><mi>f</mi><mtext>RF</mtext></msub></mrow><mrow><mn>2</mn><msqrt><mn>2</mn></msqrt></mrow></mfrac><mspace width=".6em"/><mo>(</mo><mi>a</mi><mo>=</mo><mn>0</mn><mo>)</mo>
+      </math>
+    </div>
+    <p>{{ $t.average_units }}</p>
+    <aside class="rfq-reference-case"><strong>{{ $t.example_title }}</strong><p>{{ $t.example_inputs }}</p><p>{{ $t.example_outputs }}</p></aside>
+    <p>{{ $t.sensitivity }}</p>
+  </details>
+
+  <details class="rfq-guide-section">
+    <summary>{{ $t.gas_title }}</summary>
+    <p>{{ $t.gas_text }}</p>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="number density n equals p over k B T; collision frequency nu equals n times cross section times relative velocity">
+        <mi>n</mi><mo>=</mo><mfrac><mi>p</mi><mrow><msub><mi>k</mi><mi mathvariant="normal">B</mi></msub><mi>T</mi></mrow></mfrac><mo>,</mo><mspace width="1em"/>
+        <msub><mi>ν</mi><mtext>coll</mtext></msub><mo>=</mo><mi>n</mi><mi>σ</mi><msub><mi>v</mi><mtext>rel</mtext></msub>
+      </math>
+    </div>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="Mean energy equals thermal energy plus initial excess energy times exp minus t over relaxation time">
+        <mo>⟨</mo><mi>E</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>⟩</mo><mo>=</mo><msub><mi>E</mi><mtext>th</mtext></msub><mo>+</mo>
+        <mo>(</mo><msub><mi>E</mi><mn>0</mn></msub><mo>−</mo><msub><mi>E</mi><mtext>th</mtext></msub><mo>)</mo><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>t</mi><mo>/</mo><msub><mi>τ</mi><mi>E</mi></msub></mrow></msup>
+      </math>
+    </div>
+    <p>{{ $t.gas_limits }}</p>
+  </details>
+
+  <details class="rfq-guide-section">
+    <summary>{{ $t.bunch_title }}</summary>
+    <p>{{ $t.bunch_text }}</p>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="g equals derivative of drift time with respect to energy equals minus drift time over two E">
+        <mi>g</mi><mo>=</mo><mfrac><mrow><mo>∂</mo><msub><mi>t</mi><mi>d</mi></msub></mrow><mrow><mo>∂</mo><mi>E</mi></mrow></mfrac><mo>=</mo><mo>−</mo><mfrac><msub><mi>t</mi><mi>d</mi></msub><mrow><mn>2</mn><mi>E</mi></mrow></mfrac>
+      </math>
+    </div>
+    <div class="rfq-equation">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="Output time variance equals input time variance plus g squared times energy variance plus twice g times the time energy covariance">
+        <msubsup><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>out</mtext></mrow><mn>2</mn></msubsup><mo>=</mo>
+        <msubsup><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>in</mtext></mrow><mn>2</mn></msubsup><mo>+</mo>
+        <msup><mi>g</mi><mn>2</mn></msup><msubsup><mi>σ</mi><mi>E</mi><mn>2</mn></msubsup><mo>+</mo><mn>2</mn><mi>g</mi><mi mathvariant="normal">Cov</mi><mo>(</mo><mi>t</mi><mo>,</mo><mi>E</mi><mo>)</mo>
+      </math>
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="The time energy covariance equals correlation rho times sigma t times sigma E">
+        <mi mathvariant="normal">Cov</mi><mo>(</mo><mi>t</mi><mo>,</mo><mi>E</mi><mo>)</mo><mo>=</mo><mi>ρ</mi><msub><mi>σ</mi><mi>t</mi></msub><msub><mi>σ</mi><mi>E</mi></msub>
+      </math>
+    </div>
+    <p>{{ $t.bunch_units }}</p><p>{{ $t.bunch_limits }}</p>
+  </details>
+
+  <div class="rfq-reading-list">
+    <h4>{{ $t.sources_title }}</h4><p>{{ $t.sources_text }}</p>
+    <ul><li><a href="https://dlmf.nist.gov/28.2">{{ $t.mathieu_source }}</a> · <a href="https://dlmf.nist.gov/28.17">§28.17</a></li>
+      <li><a href="https://titan.triumf.ca/equipment/RFQ/254.pdf">{{ $t.cooler_source }}</a></li>
+      <li><a href="https://simion.com/info/time_dependent_field.html">{{ $t.collision_source }}</a> · <a href="https://simion.com/info/collision_model_hs1.html">HS1</a></li></ul>
+  </div>
+</details>

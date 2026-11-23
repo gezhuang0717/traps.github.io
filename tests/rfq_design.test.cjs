@@ -4,22 +4,24 @@ const base={mass_u:100,charge:1,U_V:0,V_V:100,r0_mm:10,f_MHz:1,rod_count:4,rod_r
 const close=(a,b)=>assert.ok(Math.abs(a-b)<=1e-12*Math.max(1,Math.abs(b)),`${a} != ${b}`);
 function ui({subtabs=false}={}){
  const fs=require('node:fs'),vm=require('node:vm'),T=JSON.parse(fs.readFileSync('data/mathieu_labels.json')).en;
- class E{constructor(tag='div'){this.tag=tag;this.children=[];this.value='';this.dataset={};this.textContent='';this.hidden=false;}setAttribute(k,v){this[k]=v;}append(...x){this.children.push(...x);}replaceChildren(...x){this.children=x;this.textContent='';}addEventListener(k,fn){this[k]=fn;}querySelectorAll(){return [];} }
+ class E{constructor(tag='div'){this.tag=tag;this.children=[];this.value='';this.dataset={};this.textContent='';this.hidden=false;this.listeners=new Map();}setAttribute(k,v){this[k]=v;}append(...x){this.children.push(...x);}replaceChildren(...x){this.children=x;this.textContent='';}addEventListener(k,fn){this[k]=fn;this.listeners.set(k,[...(this.listeners.get(k)||[]),fn]);}dispatchEvent(e){for(const fn of this.listeners.get(e.type)||[])fn(e);return true;}querySelectorAll(){return [];} }
  const fields=new Map(),slots=new Map(),buttons=new Map(),panels=new Map(),root=new E(),saved=[];
  const vals={geometry:'linear',mode:'voltage',bands:'3',qmin:'0',qmax:'2',amin:'-1',amax:'1',mass:'100',charge:'1',U:'0',V:'100',r0:'10',f:'1',a:'0',q:'.4','rod-count':'4','rod-rule':'radius','rod-ratio':'1.145108','diameter-tolerance':'0.05','rod-radius':'1','radial-fraction':'.5','eta-target':'.3',vscan:'50,100,150,200',species:'133Cs+','voltage-convention':'rod-peak','sigma-mass':'0','sigma-V':'0','sigma-r0':'0','sigma-f':'0'};
  for(const[k,v]of Object.entries(vals)){const e=new E('input');e.name='ms-'+k;e.value=v;e.type='text';fields.set(k,e);}
  {const e=new E('input');e.name='ms-uncertainty-on';e.type='checkbox';e.checked=false;fields.set('uncertainty-on',e);}
  for(const k of ['cooler','mf','bun']){const e=new E('input');e.name='ms-'+k+'-on';e.type='checkbox';e.checked=false;fields.set(k+'-on',e);}
  for(const k of ['error','figure','design','design-figure','design-readout','sections','band-formula','formula','mapping','readout','source','file','style','conversions','uncertainty','uncertainty-readout','direct-design','stage-feedback','stage-error'])slots.set(k,new E());
- for(const k of ['svg','png','csv'])buttons.set(k,new E('button'));
+ for(const k of ['svg','png','pdf','csv'])buttons.set(k,new E('button'));
  if(subtabs){for(const name of ['classic','design']){const panel=new E();panel.hidden=name==='design';panels.set(name,panel);}for(const key of ['design-error','reference-note','stage-readout'])slots.set(key,new E());for(const key of ['cooler','mf','bun'])for(const [suffix,num] of [['U',3],['V',122],['r0',10],['f',1.3]]){const e=new E('input');e.name='ms-'+key+'-'+suffix;e.value=String(num);e.type='number';fields.set(key+'-'+suffix,e);}}
  root.dataset={labels:JSON.stringify(T),lang:'en'};
  root.querySelector=q=>{const panel=q.match(/^\[data-local-panel="(.+)"\]$/);if(panel)return panels.get(panel[1])||null;const f=q.match(/^\[name="ms-(.+)"\]$/);if(f)return fields.get(f[1])||null;const b=q.match(/^\[data-ms-action="(.+)"\]$/);if(b)return buttons.get(b[1]);return slots.get(q.replace(/^\[data-ms-|\]$/g,''))||null;};
  root.querySelectorAll=q=>q==='[name^="ms-"]'?[...fields.values()]:[];
- const exp={save:(blob,name)=>saved.push({blob,name})},docObj={querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},context={window:{ZGMathieu:M,ZGRFQWorkbench:H,zgExport:exp,document:docObj},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
+ const microtasks=[],flush=()=>{while(microtasks.length)microtasks.shift()();};
+ const exp={save:(blob,name)=>saved.push({blob,name})},docObj={querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},context={window:{ZGMathieu:M,ZGRFQWorkbench:H,zgExport:exp,document:docObj},zgExport:exp,document:{querySelectorAll:()=>[root],createElement:tag=>new E(tag),createElementNS:(_,tag)=>new E(tag)},Blob,URL,CustomEvent:class{constructor(type){this.type=type;}},queueMicrotask:fn=>microtasks.push(fn),setTimeout:fn=>{fn();return 1;},clearTimeout(){},console};
  vm.runInNewContext(fs.readFileSync('static/js/zg-ui.js','utf8'),context);vm.runInNewContext(fs.readFileSync('static/js/rfq-mathieu.js','utf8'),context);
- const change=(name,value)=>{fields.get(name).value=value;root.input({target:fields.get(name),stopPropagation(){}});};
- const click=action=>root.click({stopPropagation(){},target:{closest:()=>({dataset:{msAction:action}})}});
+ flush();
+ const change=(name,value)=>{fields.get(name).value=value;root.input({target:fields.get(name),stopPropagation(){}});flush();};
+ const click=action=>{const result=root.click({stopPropagation(){},target:{closest:()=>({dataset:{msAction:action}})}});flush();return result;};
  const clickTab=name=>{for(const [key,panel]of panels)panel.hidden=key!==name;root.click({stopPropagation(){},target:{closest:selector=>selector==='[data-local-tab]'?{dataset:{localTab:name}}:null}});};
  const stage=(kind,key)=>root.click({stopPropagation(){},target:{closest:selector=>selector==='[data-ms-stage-'+kind+']'?{dataset:{[kind==='apply'?'msStageApply':'msStageCopy']:key}}:null}});
  return{root,fields,slots,buttons,panels,saved,change,click,clickTab,stage,T};
@@ -47,8 +49,8 @@ test('Independent stage comparison shares mass and voltage conventions and saves
  const h=ui({subtabs:true});h.fields.get('cooler-on').checked=true;
  h.clickTab('design');
  const holder=h.slots.get('stage-readout');
- assert.equal(holder.children[0].tag,'table');
- const rows=holder.children[0].children[1].children;
+ assert.equal(holder.children[0].children[0].tag,'table');
+ const rows=holder.children[0].children[0].children[1].children;
  assert.equal(rows.length,1);
  assert.equal(rows[0].children[0].textContent,h.T.cooler);
  const q=Number(rows[0].children[6].textContent),p=M.parameters(100,1,3,122,10,1.3);
@@ -60,7 +62,7 @@ test('Independent stage comparison shares mass and voltage conventions and saves
  assert.equal(log.stage_comparison[0].q,p.q);
  h.fields.get('cooler-f').value='';
  h.change('mass','100');
- assert.ok(holder.children[0].children[1].children[0].children[0].textContent.includes(h.T.cooler));
+ assert.ok(holder.children[0].children[0].children[1].children[0].children[0].textContent.includes(h.T.cooler));
 });
 test('round rods keep an explicit aperture, clearance, alternating phases and coordinates',()=>{
  for(const rod_count of [4,6,8,10,24]){const d=M.rodDesign({...base,rod_count});close(d.center_radius_mm,11);close(d.adjacent_center_mm,22*Math.sin(Math.PI/rod_count));close(d.surface_gap_mm,d.adjacent_center_mm-2);close(d.opposite_center_mm,22);assert.equal(d.rod_coordinates.length,rod_count);for(const [i,p]of d.rod_coordinates.entries()){close(Math.hypot(p.x_mm,p.y_mm),11);assert.equal(p.phase,i%2?-1:1);}}
