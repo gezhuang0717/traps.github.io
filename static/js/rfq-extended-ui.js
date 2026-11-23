@@ -1,130 +1,304 @@
-/* Browser-only RFQ extensions. One shared ion/RF point, honest model boundaries.
-   Deliberately avoids network requests, telemetry, persistent storage and remote uploads. */
-(function(){'use strict';
-const X=window.ZGRFQExtras,M=window.ZGMathieu,H=window.ZGRFQWorkbench;
-if(!X||!M||!H)return;
-const root=document.querySelector('#rfq-workbench');
-if(!root||root.dataset.extrasReady)return;root.dataset.extrasReady='true';
-const f=name=>root.querySelector('[name="'+name+'"]');
-const v=name=>{const e=f(name);if(!e||!String(e.value).trim())throw Error(name);const x=Number(e.value);if(!Number.isFinite(x))throw Error(name);return x;};
-const labels=JSON.parse(root.dataset.extrasLabels||'{}');
-const msg=(key,fallback)=>labels[key]||fallback;
-const escapeCSV=s=>'"'+String(s??'').replaceAll('"','""')+'"';
-const save=(content,name,type)=>{const blob=new Blob([content],{type});if(window.zgExport?.save){window.zgExport.save(blob,name);return;}const url=URL.createObjectURL(blob),a=document.createElement('a');a.download=name;a.href=url;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);};
-let latest={},localRows=null,debounce=null;
-const source=()=>{
- const mass=v('ms-mass'),charge=v('ms-charge'),r0=v('ms-r0'),fMHz=v('ms-f');
- if(!Number.isInteger(charge)||charge<1||mass<=0||r0<=0||fMHz<=0)throw Error('ion');
- const direct=f('ms-mode').value==='direct'||f('ms-geometry').value==='paul3d';
- let p,rodPeak;
- if(direct){p={a:v('ms-a'),q:v('ms-q')};rodPeak=null;}
- else{rodPeak=H.toRodPeak(v('ms-V'),f('ms-voltage-convention').value);p=M.parameters(mass,charge,v('ms-U'),rodPeak,r0,fMHz);}
- return{mass,charge,r0,fMHz,direct,rodPeak,p,geometry:f('ms-geometry').value};
-};
-const nice=x=>Number.isFinite(x)?Number(x.toPrecision(7)).toString():'—';
-const ns='http://www.w3.org/2000/svg';
-function el(type,attrs={},label){const o=document.createElementNS(ns,type);Object.entries(attrs).forEach(([k,v])=>o.setAttribute(k,String(v)));if(label!=null)o.textContent=label;return o;}
-function plot(series,title,xlabel,ylabel,scatter=false){
- const samples=series.flatMap(s=>s.rows),w=820,h=355,l=76,r=24,t=44,b=72;
- if(!samples.length)return null;
- let xmin=Math.min(...samples.map(x=>x.x)),xmax=Math.max(...samples.map(x=>x.x)),ymin=Math.min(...samples.map(x=>x.y)),ymax=Math.max(...samples.map(x=>x.y));
- if(!Number.isFinite(xmin+xmax+ymin+ymax))throw Error('plot');
- if(xmax===xmin){xmin-=1;xmax+=1;}if(ymax===ymin){ymin-=1;ymax+=1;}
- const dx=(xmax-xmin)*.06,dy=(ymax-ymin)*.1;xmin-=dx;xmax+=dx;ymin-=dy;ymax+=dy;
- const Xp=x=>l+(x-xmin)/(xmax-xmin)*(w-l-r),Yp=y=>t+(ymax-y)/(ymax-ymin)*(h-t-b);
- const svg=el('svg',{xmlns:ns,viewBox:'0 0 '+w+' '+h,width:w,height:h,role:'img','aria-label':title,style:'font-family:Arial,sans-serif;background:white;color:#18243a'});
- svg.append(el('rect',{x:0,y:0,width:w,height:h,fill:'#fff'}),el('text',{x:w/2,y:26,'text-anchor':'middle','font-size':18,fill:'#15243c'},title));
- for(let k=0;k<=4;k++){
-  const x=l+(w-l-r)*k/4,y=t+(h-t-b)*k/4;
-  svg.append(el('line',{x1:x,y1:t,x2:x,y2:h-b,stroke:'#e4eaf0'}),el('line',{x1:l,y1:y,x2:w-r,y2:y,stroke:'#e4eaf0'}));
-  svg.append(el('text',{x,y:h-b+21,'text-anchor':'middle','font-size':12,fill:'#42516a'},nice(xmin+(xmax-xmin)*k/4)));
-  svg.append(el('text',{x:l-9,y:y+4,'text-anchor':'end','font-size':12,fill:'#42516a'},nice(ymax-(ymax-ymin)*k/4)));
- }
- svg.append(el('text',{x:w/2,y:h-12,'text-anchor':'middle','font-size':14,fill:'#14243c'},xlabel));
- svg.append(el('text',{transform:'translate(21 '+h/2+') rotate(-90)','text-anchor':'middle','font-size':14,fill:'#14243c'},ylabel));
- series.forEach((s,i)=>{
-  const color=['#2966c1','#d46c39','#208b76','#853db9'][i%4],points=s.rows.map(q=>[Xp(q.x),Yp(q.y)]);
-  if(!scatter)svg.append(el('polyline',{points:points.map(q=>q.join(',')).join(' '),fill:'none',stroke:color,'stroke-width':2.3,'stroke-linejoin':'round'}));
-  else for(const [x,y]of points)svg.append(el('circle',{cx:x,cy:y,r:3.7,fill:color,opacity:.75}));
-  svg.append(el('line',{x1:l+i*185,y1:h-44,x2:l+i*185+22,y2:h-44,stroke:color,'stroke-width':3}));
-  svg.append(el('text',{x:l+i*185+28,y:h-39,'font-size':12,fill:'#14243c'},s.name));
- });return svg;
-}
-const lineRows=(lines)=>lines.map(([k,val])=>k+': '+(typeof val==='number'?nice(val):val)).join('\n');
-const panels=['motion','gas','bunch','scan','data'];
-function render(kind){
- const out=root.querySelector('[data-rfx-output="'+kind+'"]'),chart=root.querySelector('[data-rfx-figure="'+kind+'"]'),err=root.querySelector('[data-rfx-error="'+kind+'"]');if(!out||!chart)return;
- out.textContent='';chart.replaceChildren();err.textContent='';delete latest[kind];
- try{
-  const s=source();let report,svg,rows=[];
-  if(kind==='motion'){
-   if(s.geometry!=='linear')throw Error('4-rod linear reference only');
-   const q=s.p.q,a=s.p.a,run=X.motion({a,q,r0_mm:s.r0,cycles:v('rx-cycles'),x_mm:v('rx-x'),y_mm:v('rx-y'),phase_rad:v('rx-phase')});
-   rows=run.samples;report={...run,shared:{mass_u:s.mass,charge:s.charge,a,q,mode:s.direct?'direct-aq':'voltage'}};
-   out.textContent=lineRows([['a',a],['q',q],['Model',run.model],['Radial aperture survival',run.alive?'yes (ideal finite time)':'no'],['First loss cycle',run.loss_cycle??'not observed'],['Sampled points',rows.length]]);
-   svg=plot([{name:'x (mm)',rows:rows.map(p=>({x:p.cycle,y:p.x_mm}))},{name:'y (mm)',rows:rows.map(p=>({x:p.cycle,y:p.y_mm}))}],'Ideal Mathieu transverse motion','RF cycles','Position (mm)');
-  }else if(kind==='gas'){
-   report=X.cooling({mass_u:s.mass,gas_mass_u:v('rx-gas_mass'),temperature_K:v('rx-T'),pressure_mbar:v('rx-p'),cross_section_A2:v('rx-sigma'),energy_eV:v('rx-E'),residence_ms:v('rx-ms'),transfer_efficiency:v('rx-eta')});
-   rows=report.points;out.textContent=lineRows([['Number density (m⁻³)',report.density_m3],['Collision proxy rate (s⁻¹)',report.collision_rate_s],['Relaxation time (ms)',report.tau_ms??'∞'],['Energy floor (eV)',report.energy_floor_eV],['Estimated final energy (eV)',report.estimated_energy_eV],['Model',report.model]]);
-   svg=plot([{name:'energy',rows:rows.map(p=>({x:p.t_ms,y:p.energy_eV}))}],'Gas energy-relaxation proxy','Residence (ms)','Mean energy (eV)');
-  }else if(kind==='bunch'){
-   const b=X.bunch({mass_u:s.mass,charge:s.charge,acceleration_V:v('rx-V'),drift_m:v('rx-L'),sigma_t_ns:v('rx-st'),sigma_E_eV:v('rx-sE'),rho:v('rx-rho')});
-   const invent=X.inventory({ion_rate_s:v('rx-rate'),hold_ms:v('rx-hold'),lifetime_ms:v('rx-life'),capacity:v('rx-capacity'),extraction_fraction:v('rx-eff')});
-   report={bunch:b,inventory:invent};rows=b.scan;
-   out.textContent=lineRows([['Drift energy (eV)',b.energy_eV],['Flight time (ns)',b.flight_ns],['dt/dE (ns/eV)',b.dt_dE_ns_per_eV],['Covariance (ns·eV)',b.covariance_ns_eV],['Gaussian FWHM (ns)',b.fwhm_out_ns],['Stored ions (expected)',invent.captured_ions],['Delivered ions (expected)',invent.delivered_ions],['Model',b.model]]);
-   svg=plot([{name:'Gaussian FWHM',rows:rows.map(p=>({x:p.rho,y:p.fwhm_ns}))}],'Ideal time–energy covariance scan','Input correlation ρ','Gaussian FWHM (ns)');
-  }else if(kind==='scan'){
-   if(s.geometry!=='linear'||s.direct)throw Error('scan requires linear voltage mode');
-   report=X.voltageScan({mass_u:s.mass,charge:s.charge,U_V:v('ms-U'),r0_mm:s.r0,f_MHz:s.fMHz,min_V:v('rx-vmin'),max_V:v('rx-vmax'),count:v('rx-count')},M);
-   rows=report.rows;
-   const stable=rows.filter(r=>r.classification==='stable').length;
-   out.textContent=lineRows([['Scan points',rows.length],['Stable ideal points',stable],['Unstable/outside/boundary',rows.length-stable],['Voltage definition','single-rod RF peak'],['Model',report.model]]);
-   svg=plot([{name:'Mathieu q',rows:rows.map(p=>({x:p.voltage_rod_peak_V,y:p.q}))}],'Ideal RF scan','Single-rod peak V','Mathieu q');
-  }else if(kind==='data'){
-   if(!localRows){out.textContent=msg('no_data','Choose a local CSV');return;}
-   report=X.analyzeSamples(localRows);rows=localRows;
-   out.textContent=lineRows([['Events',report.count],['Mean TOF (ns)',report.mean_t_ns],['Sample σ(t) (ns)',report.sigma_t_ns],['Gaussian-equivalent FWHM (ns)',report.gaussian_equivalent_fwhm_ns],['Sample σ(E) (eV)',report.sigma_E_eV],['Cov(t,E) (ns·eV)',report.covariance_ns_eV],['Correlation',report.correlation??'undefined'],['Radial RMS (mm)',report.radial_rms_mm??'not provided'],['Model',report.model]]);
-   svg=plot([{name:'local t–E events',rows:rows.slice(0,3000).map(p=>({x:p.t_ns,y:p.E_eV}))}],'Local table: time vs energy','TOF (ns)','Energy (eV)',true);
-  }
-  if(svg)chart.append(svg);
-  latest[kind]={report,rows,svg};
- }catch(e){err.textContent=msg('bad','Invalid inputs')+' ('+e.message+')';}
-}
-async function exportKind(kind,action){
- render(kind);const result=latest[kind];if(!result)return;
- if(action==='json')save(JSON.stringify({schema:'rfq-browser-workbench-v1',kind,generated_utc:new Date().toISOString(),model_evidence:'analytical-or-numerical-browser-only',result:result.report},null,2)+'\n','rfq-'+kind+'-model.json','application/json');
- if(action==='csv'){
-  if(!result.rows.length)return;const cols=Object.keys(result.rows[0]),text=[cols.map(escapeCSV).join(','),...result.rows.map(row=>cols.map(k=>escapeCSV(row[k])).join(','))].join('\n')+'\n';
-  save(text,'rfq-'+kind+'-model.csv','text/csv');
- }
- if(['svg','png','pdf'].includes(action)&&result.svg){
-  // Encode traceability, not raw locally loaded CSV contents, in exported figure metadata.
-  const provenance={
-   schema:'rfq-browser-figure-v1',kind,model_evidence:'browser-only educational model',
-   model:result.report.model || result.report.bunch?.model || 'local sample statistics',
-   limits:'No measured transmission, 3D electrode fields or native SIMION simulation',
-   generated_utc:new Date().toISOString()
+/* RFQ analytical workbench. All uploaded data stay in this browser.
+ * Each model validates only the inputs it uses. Numerical output is not a
+ * measured transmission, a finite-electrode solution, or native SIMION data.
+ */
+(function () {
+  'use strict';
+  const X = window.ZGRFQExtras, M = window.ZGMathieu, H = window.ZGRFQWorkbench;
+  const root = document.querySelector('#rfq-workbench');
+  if (!X || !M || !H || !root || root.dataset.extrasReady) return;
+  root.dataset.extrasReady = 'true';
+  const labels = JSON.parse(root.dataset.extrasLabels || '{}');
+  const msg = (key, fallback = key) => labels[key] || fallback;
+  const field = name => root.querySelector('[name="' + name + '"]');
+  const value = name => {
+    const e = field(name), text = e?.value?.trim();
+    if (!text || !Number.isFinite(Number(text))) throw Error(name);
+    return Number(text);
   };
-  if(window.ZGFigureStyle){
-   try{await window.ZGFigureStyle.exportSVG(result.svg,action.toUpperCase(),'rfq-'+kind+'-figure',undefined,provenance);}
-   catch(e){const box=root.querySelector('[data-rfx-error="'+kind+'"]');if(box)box.textContent=msg('bad','Export unavailable')+' ('+e.message+')';}
-  }else if(action==='svg'){
-   save(new XMLSerializer().serializeToString(result.svg),'rfq-'+kind+'-figure.svg','image/svg+xml');
-  }else{
-   const box=root.querySelector('[data-rfx-error="'+kind+'"]');if(box)box.textContent=msg('bad','Export unavailable')+' (figure exporter unavailable)';
+  const make = (tag, cls, text) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = String(text);
+    return e;
+  };
+  const nice = x => Number.isFinite(x) ? Number(x.toPrecision(7)).toString() : '—';
+  const quote = s => '"' + String(s ?? '').replaceAll('"', '""') + '"';
+  const panels = ['motion', 'gas', 'bunch', 'scan', 'data'];
+  const latest = {};
+  let localRows = null, localSource = '', timer = null, resizeTimer = null;
+  const save = (content, name, type) => {
+    const blob = new Blob([content], { type });
+    if (window.zgExport?.save) { window.zgExport.save(blob, name); return; }
+    const url = URL.createObjectURL(blob), link = document.createElement('a');
+    link.download = name; link.href = url; document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  };
+  const ion = (chargeRequired = true) => {
+    const mass = value('ms-mass'), charge = chargeRequired ? value('ms-charge') : null;
+    if (mass <= 0 || (chargeRequired && (!Number.isInteger(charge) || charge < 1 || charge > 100))) throw Error('ion');
+    return { mass, charge };
+  };
+  const point = () => {
+    const s = ion(), r0 = value('ms-r0'), fMHz = value('ms-f');
+    if (r0 <= 0 || fMHz <= 0) throw Error('r₀ / f');
+    const geometry = field('ms-geometry').value;
+    const direct = field('ms-mode').value === 'direct' || geometry === 'paul3d';
+    const rodPeak = direct ? null : H.toRodPeak(value('ms-V'), field('ms-voltage-convention').value);
+    const p = direct ? { a: value('ms-a'), q: value('ms-q') } : M.parameters(s.mass, s.charge, value('ms-U'), rodPeak, r0, fMHz);
+    return { ...s, r0, fMHz, geometry, direct, rodPeak, p };
+  };
+  const inputSnapshot = () => Object.fromEntries([...root.querySelectorAll('[name^="ms-"],[name^="rx-"]')]
+    .filter(e => e.type !== 'file').map(e => [e.name, e.type === 'checkbox' ? e.checked : e.value]));
+  function metrics(out, rows, modelKey) {
+    const dl = make('dl', 'rfq-metrics');
+    for (const [label, result, tone] of rows) {
+      const item = make('div', 'rfq-metric' + (tone ? ' rfq-metric-' + tone : ''));
+      item.append(make('dt', '', label + ':'), make('dd', '', typeof result === 'number' ? nice(result) : result));
+      dl.append(item);
+    }
+    out.replaceChildren(dl, make('p', 'rfq-model-caption', msg('model') + ': ' + msg(modelKey)));
   }
- }
-}
-let useTimer=()=>{clearTimeout(debounce);debounce=setTimeout(()=>panels.filter(k=>k!=='data').forEach(render),160);};
-root.addEventListener('input',e=>{if(e.target.matches?.('[name^="ms-"],[name^="rx-"]'))useTimer();});
-root.addEventListener('change',e=>{if(e.target.matches?.('[name^="ms-"],[name^="rx-"]'))useTimer();});
-root.addEventListener('click',e=>{const btn=e.target.closest?.('[data-rfx-action]');if(!btn||!root.contains(btn))return;const kind=btn.dataset.rfxKind,action=btn.dataset.rfxAction;if(!panels.includes(kind))return;if(action==='run')render(kind);else exportKind(kind,action);});
-const picker=root.querySelector('[data-rfx-file]');if(picker)picker.addEventListener('change',async e=>{
- const file=e.target.files?.[0],error=root.querySelector('[data-rfx-error="data"]');
- if(!file)return;try{
-  if(file.size>1500000)throw Error('file too large (>1.5 MB)');
-  localRows=X.parseCSV(await file.text());render('data');
- }catch(ex){localRows=null;render('data');error.textContent=msg('bad','Bad input')+' ('+ex.message+')';}finally{picker.value='';}
-});
-panels.filter(k=>k!=='data').forEach(render);render('data');
+  function showPoint() {
+    const box = root.querySelector('[data-rfx-shared-summary]');
+    if (!box) return;
+    try {
+      const s = point();
+      box.replaceChildren(make('strong', '', msg('parameters')),
+        make('span', '', `m = ${nice(s.mass)} u · z = ${s.charge} · a = ${nice(s.p.a)} · q = ${nice(s.p.q)}`),
+        make('span', 'zg-muted', s.direct ? msg('direct_point') : `V = ${nice(s.rodPeak)} V (${msg('axis_voltage')}) · r₀ = ${nice(s.r0)} mm · f = ${nice(s.fMHz)} MHz`));
+    } catch (_) { box.textContent = msg('bad'); }
+  }
+  function plot(chart, series, title, xlabel, ylabel, options = {}) {
+    const svg = window.ZGRFQChart?.plot(series, title, xlabel, ylabel, {
+      width: Math.max(260, (chart.clientWidth || root.clientWidth - 36 || 824) - 4), ...options
+    });
+    if (!svg) throw Error('chart unavailable');
+    chart.replaceChildren(svg);
+    return svg;
+  }
+  const axisInfo = {
+    voltage: { key: 'axis_voltage', unit: 'V', range: [0, 200], lower: 0 },
+    frequency: { key: 'axis_frequency', unit: 'MHz', range: [.5, 3], lower: .000001 },
+    radius: { key: 'axis_radius', unit: 'mm', range: [2, 12], lower: .001 },
+    mass: { key: 'axis_mass', unit: 'u', range: [20, 240], lower: .001 }
+  };
+  let scanAxis = field('rx-scan-axis').value;
+  const scanRanges = {};
+  function scanLabels(changeRange = false) {
+    const axis = field('rx-scan-axis').value, info = axisInfo[axis];
+    if (!info) return;
+    if (changeRange && axis !== scanAxis) {
+      scanRanges[scanAxis] = [field('rx-vmin').value, field('rx-vmax').value];
+      const range = scanRanges[axis] || info.range;
+      field('rx-vmin').value = range[0]; field('rx-vmax').value = range[1]; scanAxis = axis;
+    }
+    root.querySelector('[data-rfx-min-label]').textContent = `${msg('scan_min')} (${info.unit})`;
+    root.querySelector('[data-rfx-max-label]').textContent = `${msg('scan_max')} (${info.unit})`;
+    for (const n of ['rx-vmin', 'rx-vmax']) field(n).min = info.lower;
+  }
+  function scanTable(rows) {
+    const box = root.querySelector('[data-rfx-scan-table]'); box.replaceChildren();
+    const table = make('table', 'zg-table'), head = make('thead'), tr = make('tr');
+    [msg(axisInfo[field('rx-scan-axis').value].key), 'a', 'q', msg('metric_depth'), JSON.parse(root.dataset.labels).readout].forEach(x => tr.append(make('th', '', x)));
+    head.append(tr); table.append(head); const body = make('tbody');
+    for (const row of rows) {
+      const tr = make('tr');
+      [nice(row.scan_value), nice(row.a), nice(row.q), nice(row.rf_only_depth_eV), msg('class_' + row.classification, row.classification)].forEach(x => tr.append(make('td', '', x)));
+      body.append(tr);
+    }
+    table.append(body); box.append(table);
+  }
+  function histogram(rows) {
+    let low = Infinity, high = -Infinity;
+    for (const r of rows) { low = Math.min(low, r.t_ns); high = Math.max(high, r.t_ns); }
+    if (low === high) { low -= .5; high += .5; }
+    const count = Math.min(40, Math.max(5, Math.ceil(Math.sqrt(rows.length))));
+    const dx = (high - low) / count, bins = Array(count).fill(0);
+    for (const r of rows) bins[Math.min(count - 1, Math.floor((r.t_ns - low) / dx))]++;
+    return bins.flatMap((y, i) => [{ x: low + i * dx, y }, { x: low + (i + 1) * dx, y }]);
+  }
+  function render(kind) {
+    const out = root.querySelector('[data-rfx-output="' + kind + '"]');
+    const chart = root.querySelector('[data-rfx-figure="' + kind + '"]');
+    const err = root.querySelector('[data-rfx-error="' + kind + '"]');
+    if (!out || !chart) return;
+    out.replaceChildren(); chart.replaceChildren(); chart.hidden = false; err.textContent = ''; delete latest[kind];
+    if (kind === 'scan') root.querySelector('[data-rfx-scan-table]').replaceChildren();
+    root.querySelectorAll('[data-rfx-kind="' + kind + '"]').forEach(b => {
+      if (['csv', 'json', 'svg', 'png', 'pdf'].includes(b.dataset.rfxAction)) b.disabled = true;
+    });
+    try {
+      let report, svg, rows = [], modelKey = kind + '_model';
+      if (kind === 'motion') {
+        const s = point(); if (s.geometry !== 'linear') throw Error(msg('four_rod_only'));
+        const run = X.motion({ a: s.p.a, q: s.p.q, r0_mm: s.r0, cycles: value('rx-cycles'),
+          x_mm: value('rx-x'), y_mm: value('rx-y'), phase_rad: value('rx-phase'),
+          vx_mm_per_tau: value('rx-vx') / (Math.PI * s.fMHz), vy_mm_per_tau: value('rx-vy') / (Math.PI * s.fMHz),
+          steps_per_rf_cycle: value('rx-steps') });
+        rows = run.samples.map(r => ({ ...r, time_us: r.cycle / s.fMHz,
+          vx_mm_per_us: r.vx_mm_per_tau * Math.PI * s.fMHz, vy_mm_per_us: r.vy_mm_per_tau * Math.PI * s.fMHz }));
+        report = { ...run, shared: { mass_u: s.mass, charge: s.charge, a: s.p.a, q: s.p.q, f_MHz: s.fMHz }, samples: rows };
+        metrics(out, [[msg('current'), run.alive ? msg('yes_ideal') : msg('no_loss'), run.alive ? 'ok' : 'warn'],
+          ['a', s.p.a], ['q', s.p.q], [msg('first_loss'), run.loss_cycle ?? msg('none_observed')],
+          [msg('samples'), rows.length], [msg('integrator'), run.steps_per_rf_cycle], [msg('duration_us'), value('rx-cycles') / s.fMHz]], modelKey);
+        const view = field('rx-motion-view').value;
+        if (view === 'orbit') {
+          const aperture = Array.from({ length: 129 }, (_, i) => ({ x: s.r0 * Math.cos(i * Math.PI / 64), y: s.r0 * Math.sin(i * Math.PI / 64) }));
+          svg = plot(chart, [{ name: msg('view_orbit'), rows: rows.map(p => ({ x: p.x_mm, y: p.y_mm })) },
+            { name: 'r = r₀', rows: aperture, dash: '5 4', color: '#8b99a8' }], msg('orbit_title'), 'x (mm)', 'y (mm)', { equalAspect: true });
+        } else if (view === 'phase') {
+          svg = plot(chart, [{ name: 'x–vₓ', rows: rows.map(p => ({ x: p.x_mm, y: p.vx_mm_per_us })) }], msg('phase_title'), 'x (mm)', 'vₓ (mm/µs)');
+        } else {
+          svg = plot(chart, [{ name: 'x (mm)', rows: rows.map(p => ({ x: p.cycle, y: p.x_mm })) },
+            { name: 'y (mm)', rows: rows.map(p => ({ x: p.cycle, y: p.y_mm })) }], msg('motion_title'), msg('cycles_axis'), msg('position_axis'),
+            { references: run.loss_cycle == null ? [] : [{ x: run.loss_cycle, label: msg('no_loss'), color: '#a83a34' }] });
+        }
+      } else if (kind === 'gas') {
+        const s = ion(false);
+        report = X.cooling({ mass_u: s.mass, gas_mass_u: value('rx-gas_mass'), temperature_K: value('rx-T'),
+          pressure_mbar: value('rx-p'), cross_section_A2: value('rx-sigma'), energy_eV: value('rx-E'),
+          residence_ms: value('rx-ms'), transfer_efficiency: value('rx-eta') });
+        rows = report.points;
+        metrics(out, [[msg('density'), report.density_m3], [msg('collision_rate'), report.collision_rate_s],
+          [msg('relaxation'), report.tau_ms ?? '∞'], [msg('energy_floor'), report.energy_floor_eV], [msg('final_energy'), report.estimated_energy_eV]], modelKey);
+        svg = plot(chart, [{ name: msg('energy_series'), rows: rows.map(p => ({ x: p.t_ms, y: p.energy_eV })) }],
+          msg('gas_title'), msg('residence'), msg('energy_axis'), { references: [{ y: report.energy_floor_eV, label: msg('energy_floor'), color: '#b46c22' }] });
+      } else if (kind === 'bunch') {
+        const s = ion(), b = X.bunch({ mass_u: s.mass, charge: s.charge, acceleration_V: value('rx-V'),
+          drift_m: value('rx-L'), sigma_t_ns: value('rx-st'), sigma_E_eV: value('rx-sE'), rho: value('rx-rho') });
+        const inv = X.inventory({ ion_rate_s: value('rx-rate'), hold_ms: value('rx-hold'), lifetime_ms: value('rx-life'),
+          capacity: value('rx-capacity'), extraction_fraction: value('rx-eff') });
+        report = { bunch: b, inventory: inv }; rows = b.scan;
+        metrics(out, [[msg('width_axis'), b.fwhm_out_ns], [msg('drift_energy'), b.energy_eV], [msg('flight_time'), b.flight_ns],
+          [msg('derivative'), b.dt_dE_ns_per_eV], [msg('covariance'), b.covariance_ns_eV], [msg('stored'), inv.captured_ions], [msg('delivered'), inv.delivered_ions]], modelKey);
+        if (b.relative_energy_spread > .1 || b.valid_linearization === false) out.append(make('p', 'rfq-warning', msg('linear_warning')));
+        svg = plot(chart, [{ name: msg('width_axis'), rows: rows.map(p => ({ x: p.rho, y: p.fwhm_ns })) }], msg('bunch_title'), msg('rho_axis'), msg('width_axis'),
+          { markers: [{ x: value('rx-rho'), y: b.fwhm_out_ns, label: msg('current') }], references: [{ y: X.C.fwhm * value('rx-st'), label: msg('initial_width') }] });
+      } else if (kind === 'scan') {
+        const s = point(); if (s.geometry !== 'linear' || s.direct) throw Error(msg('voltage_required'));
+        const axis = field('rx-scan-axis').value;
+        report = X.parameterScan({ axis, min: value('rx-vmin'), max: value('rx-vmax'), count: value('rx-count'), mass_u: s.mass,
+          charge: s.charge, U_V: value('ms-U'), V_rod_peak_V: s.rodPeak, r0_mm: s.r0, f_MHz: s.fMHz }, M);
+        rows = report.rows;
+        metrics(out, [[msg('count'), rows.length], [msg('stable_points'), rows.filter(r => r.classification === 'stable').length],
+          [msg('other_points'), rows.filter(r => r.classification !== 'stable').length]], modelKey);
+        const depth = field('rx-scan-metric').value === 'depth', key = depth ? 'rf_only_depth_eV' : 'q';
+        // Distinguish classifications with both colour and marker shape; a line
+        // alone can look stable even when every computed point is unstable.
+        const groups = ['stable', 'unstable', 'boundary', 'outside', 'unresolved'].map((status, i) => ({
+          name: msg('class_' + status), color: ['#19786c', '#b64a3f', '#a66b20', '#788396', '#7b528b'][i],
+          rows: rows.filter(r => r.classification === status).map(p => ({ x: p.scan_value, y: p[key] })),
+          scatter: true, marker: ['circle', 'cross', 'square', 'diamond', 'triangle'][i]
+        })).filter(s => s.rows.length);
+        svg = plot(chart, groups, msg('scan_title'), msg(axisInfo[axis].key), msg(depth ? 'metric_depth' : 'metric_q'), { scatter: true });
+        scanTable(rows);
+      } else if (kind === 'data') {
+        if (!localRows) { out.textContent = msg('no_data'); chart.hidden = true; return; }
+        report = X.analyzeSamples(localRows); rows = localRows;
+        metrics(out, [[msg('events'), report.count], [msg('mean_t'), report.mean_t_ns], [msg('sigma_time'), report.sigma_t_ns],
+          [msg('gaussian_fwhm'), report.gaussian_equivalent_fwhm_ns], [msg('sigma_energy'), report.sigma_E_eV],
+          [msg('covariance'), report.covariance_ns_eV], [msg('correlation'), report.correlation ?? msg('undefined')],
+          [msg('radial_rms'), report.radial_rms_mm ?? msg('not_provided')]], modelKey);
+        if (field('rx-data-view').value === 'histogram') {
+          const bins = histogram(rows), maximumCount = Math.max(...bins.map(p => p.y));
+          svg = plot(chart, [{ name: msg('events'), rows: bins }], msg('hist_title'), 'TOF (ns)', msg('counts_axis'), { yDomain: [0, Math.max(1, maximumCount * 1.08)] });
+        } else {
+          const plotted = rows.length <= 3000 ? rows : Array.from({ length: 3000 }, (_, i) => rows[Math.floor(i * (rows.length - 1) / 2999)]);
+          svg = plot(chart, [{ name: msg('data_series'), rows: plotted.map(p => ({ x: p.t_ns, y: p.E_eV })) }], msg('data_title'), 'TOF (ns)', msg('energy_axis'), { scatter: true });
+          if (rows.length > 3000) out.append(make('p', 'zg-muted', msg('plot_subset')));
+        }
+      }
+      chart.hidden = !svg;
+      latest[kind] = { report, rows, svg, inputs: inputSnapshot(), source: kind === 'data' ? localSource : null, modelKey };
+      root.querySelectorAll('[data-rfx-kind="' + kind + '"]').forEach(b => {
+        if (['csv', 'json', 'svg', 'png', 'pdf'].includes(b.dataset.rfxAction)) b.disabled = false;
+      });
+    } catch (e) {
+      chart.hidden = true;
+      err.textContent = msg('bad') + ' (' + e.message + ')';
+    }
+  }
+  async function exportKind(kind, action, button) {
+    render(kind);
+    const result = latest[kind], status = root.querySelector('[data-rfx-export-status="' + kind + '"]');
+    if (!result) { status.textContent = msg('empty_error'); return; }
+    const generated = new Date().toISOString();
+    if (action === 'json') save(JSON.stringify({ schema: 'rfq-browser-workbench-v2', kind, generated_utc: generated,
+      model_evidence: 'analytical-or-numerical-browser-only', inputs: result.inputs, data_source: result.source,
+      units: { mass: 'u', RF_voltage: 'selected display convention; canonical amplitude is single-rod peak', radius: 'mm', frequency: 'MHz', time: 'ns unless time_us or t_ms', energy: 'eV' },
+      result: result.report }, null, 2) + '\n', 'rfq-' + kind + '-model.json', 'application/json');
+    else if (action === 'csv') {
+      if (!result.rows.length) return;
+      const cols = Object.keys(result.rows[0]);
+      const text = [cols.map(quote).join(','), ...result.rows.map(r => cols.map(k => quote(r[k])).join(','))].join('\n') + '\n';
+      save(text, 'rfq-' + kind + '-model.csv', 'text/csv');
+    } else if (['svg', 'png', 'pdf'].includes(action) && result.svg) {
+      status.textContent = msg('exporting'); if (button) button.disabled = true;
+      try {
+        const provenance = { schema: 'rfq-browser-figure-v2', kind, model: result.report.model || result.report.bunch?.model,
+          model_evidence: 'browser educational calculation', inputs: result.inputs, generated_utc: generated,
+          limits: 'No measured transmission or native SIMION execution. Raw imported events are excluded from figure metadata.' };
+        if (window.ZGFigureStyle) await window.ZGFigureStyle.exportSVG(result.svg, action.toUpperCase(), 'rfq-' + kind + '-figure', undefined, provenance);
+        else if (action === 'svg') save(new XMLSerializer().serializeToString(result.svg), 'rfq-' + kind + '-figure.svg', 'image/svg+xml');
+        else throw Error('figure exporter unavailable');
+      } catch (e) { status.textContent = msg('bad') + ' (' + e.message + ')'; return; }
+      finally { if (button) button.disabled = false; }
+    }
+    status.textContent = msg('export_ready');
+  }
+  function refreshAll() { showPoint(); scanLabels(); panels.forEach(render); }
+  function queueAll() { clearTimeout(timer); timer = setTimeout(refreshAll, 120); }
+  root.addEventListener('rfq:statechange', queueAll);
+  root.addEventListener('input', e => {
+    if (e.target.name?.startsWith('rx-') && e.target.type !== 'file') queueAll();
+  });
+  root.addEventListener('change', e => {
+    if (e.target.name === 'rx-scan-axis') scanLabels(true);
+    if (e.target.name?.startsWith('rx-') && e.target.type !== 'file') queueAll();
+  });
+  root.addEventListener('click', e => {
+    const btn = e.target.closest?.('[data-rfx-action]');
+    if (!btn || !root.contains(btn)) return;
+    const kind = btn.dataset.rfxKind, action = btn.dataset.rfxAction;
+    if (!panels.includes(kind)) return;
+    if (action === 'demo') {
+      localRows = Array.from({ length: 61 }, (_, i) => ({ t_ns: 1000 + (i - 30) * 1.5,
+        E_eV: 1000 + .035 * (i - 30) + .12 * Math.sin(i * 2.4), x_mm: .1 * Math.cos(i), y_mm: .12 * Math.sin(i) }));
+      localSource = 'deterministic educational example';
+      root.querySelector('[data-rfx-data-source]').textContent = msg('demo_note'); render('data');
+    } else if (action === 'clear') {
+      localRows = null; localSource = ''; root.querySelector('[data-rfx-data-source]').textContent = ''; render('data');
+    } else if (action === 'run') render(kind);
+    else exportKind(kind, action, btn);
+  });
+  const picker = root.querySelector('[data-rfx-file]');
+  picker.addEventListener('change', async () => {
+    const file = picker.files?.[0]; if (!file) return;
+    try {
+      if (file.size > 1500000) throw Error('file too large (>1.5 MB)');
+      localRows = X.parseCSV(await file.text()); localSource = file.name;
+      root.querySelector('[data-rfx-data-source]').textContent = file.name; render('data');
+    } catch (e) {
+      localRows = null; localSource = ''; render('data');
+      root.querySelector('[data-rfx-data-source]').textContent = '';
+      root.querySelector('[data-rfx-error="data"]').textContent = msg('bad') + ' (' + e.message + ')';
+    } finally { picker.value = ''; }
+  });
+  // Hidden panels have no usable width. Rebuild the visible chart on tab
+  // selection or resize; numerical data remain independent of its pixel size.
+  const resizeVisible = () => {
+    clearTimeout(resizeTimer); resizeTimer = setTimeout(() => {
+      for (const kind of panels) if (!root.querySelector('[data-local-panel="' + kind + '"]').hidden) render(kind);
+    }, 80);
+  };
+  window.addEventListener('resize', resizeVisible);
+  if (window.ResizeObserver) {
+    let width = 0;
+    new ResizeObserver(entries => {
+      const next = entries[0].contentRect.width;
+      if (Math.abs(next - width) > 2) { width = next; resizeVisible(); }
+    }).observe(root);
+  }
+  refreshAll();
 })();
