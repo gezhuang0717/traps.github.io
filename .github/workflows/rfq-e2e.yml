@@ -1,7 +1,7 @@
 name: RFQ real-browser acceptance
 on:
   push:
-    branches: ['main', 'feature/rfq-integrated-science-20261122', 'feature/rfq-polish-20261123']
+    branches: ['main', 'feature/rfq-integrated-science-20261122']
     paths:
       - 'static/js/rfq-*'
       - 'static/js/mathieu-core.js'

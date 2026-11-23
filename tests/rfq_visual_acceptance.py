@@ -103,7 +103,7 @@ def run() -> dict:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             evidence["browser"] = browser.version
-            for language, route in (("en", "lab/"), ("zh", "zh/lab/")):
+            for language, route in (("en", "lab/"), ("zh", "zh-hans/lab/")):
                 context = browser.new_context(viewport={"width": WIDTHS[0], "height": 1000}, accept_downloads=True)
                 page = context.new_page()
                 errors = []
