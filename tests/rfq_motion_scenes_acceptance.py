@@ -73,7 +73,9 @@ def wait_scene(panel, kind):
     expect(panel.locator(f'[data-rfx-error="{kind}"]')).to_be_empty(timeout=15000)
     expect(stage(panel, kind).locator('svg')).to_be_visible(timeout=15000)
     expect(player(panel)).to_have_count(1)
-    settled(stage(panel, kind))
+    # Tab/resize work can replace the entire stage after its debounce. Observe
+    # the permanent figure host so an old detached stage cannot stall the test.
+    settled(panel.locator(f'[data-rfx-figure="{kind}"]'))
 
 
 def seek(panel, fraction):
@@ -219,7 +221,7 @@ def motion_workflows(page, root, evidence):
     before_svg = geometry_signature(stage(panel, 'motion').locator('svg'))
     stage(panel, 'motion').focus(); stage(panel, 'motion').press('ArrowRight')
     expect(camera.locator('input[type="range"]').first).to_have_value('-30')
-    settled(stage(panel, 'motion'))
+    settled(panel.locator('[data-rfx-figure="motion"]'))
     assert before_svg != geometry_signature(stage(panel, 'motion').locator('svg'))
     after_data = model(page, root, 'motion', 'camera-after', evidence)['result']['samples']
     assert before_data == after_data, 'camera rotation changed integrated physical trajectory'
@@ -232,7 +234,7 @@ def motion_workflows(page, root, evidence):
     page.wait_for_function("Number(document.querySelector('[data-rfq-playback=\"rfq-motion-spatial\"]').dataset.fraction)>.08")
     player(panel).locator('[data-playback-action="play"]').click()
     paused = player(panel).get_attribute('data-fraction')
-    settled(stage(panel, 'motion'))
+    settled(panel.locator('[data-rfx-figure="motion"]'))
     assert player(panel).get_attribute('data-fraction') == paused
     check_frame_exports(page, panel, 'motion', evidence)
     record_four_seconds(page, panel, 'motion', evidence)
@@ -326,11 +328,48 @@ GEOMETRY_CHECK = r"""svg => {
 }"""
 
 
+MATH_CHECK = r"""guide => [...guide.querySelectorAll('[data-rfq-equation]')].map(box => {
+  const math=box.querySelector('math'),rect=math?.getBoundingClientRect();
+  return {key:box.dataset.rfqEquation,namespace:math?.namespaceURI,
+    width:rect?.width||0,height:rect?.height||0,alt:math?.getAttribute('alttext')||'',
+    text:math?.textContent.trim()||'',nativeMath:CSS.supports('math-style','normal'),
+    fractions:[...box.querySelectorAll('mfrac')].map(e=>{const r=e.getBoundingClientRect();return {width:r.width,height:r.height};})};
+})"""
+
+
+def fundamentals(page, panel, kind, language, width, evidence):
+    guide = panel.locator(f'[data-rfq-basics="{kind}"]')
+    expect(guide).to_be_visible()
+    if guide.get_attribute('open') is None:
+        guide.locator(':scope > summary').click()
+    for section in guide.locator('details.rfq-guide-section').all():
+        if section.get_attribute('open') is None:
+            section.locator(':scope > summary').click()
+    data = json.loads((REPO / 'data/rfq_cooling_bunch_basics.json').read_text())
+    expected = [block['key'] for section in data[language][kind] for block in section['blocks'] if block['type'] == 'equation']
+    expect(guide.locator('[data-rfq-equation]')).to_have_count(len(expected))
+    page.evaluate('document.fonts.ready')
+    equations = guide.evaluate(MATH_CHECK)
+    assert [equation['key'] for equation in equations] == expected
+    for equation in equations:
+        assert equation['namespace'] == 'http://www.w3.org/1998/Math/MathML' and equation['nativeMath'], equation
+        assert equation['width'] > 8 and equation['height'] > 8 and equation['alt'] and equation['text'], equation
+        assert '\\frac' not in equation['text'] and '<mrow>' not in equation['text'], equation
+        assert all(fraction['width'] > 0 and fraction['height'] > 0 for fraction in equation['fractions']), equation
+    # Long equations may use their own horizontal scroller; opening the full
+    # derivation must never make the entire document scroll sideways.
+    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 2'), (language, width, kind, 'open guide overflow')
+    path = ART / f'{language}-{width}-{kind}-fundamentals.png'
+    guide.screenshot(path=str(path))
+    evidence['fundamentals'].append({'language': language, 'viewport': width, 'kind': kind,
+        'equations': equations, 'screenshot': path.name})
+
+
 def layouts(browser, evidence):
-    for language, width in [('en', 320), ('zh', 320), ('en', 390), ('zh', 1440)]:
+    for language, width in ((lang, size) for lang in ('en', 'zh') for size in (320, 390, 1440)):
         context = browser.new_context(viewport={'width': width, 'height': 950})
         page = context.new_page()
-        page.goto(BASE + ('' if language == 'en' else 'zh/') + 'lab/', wait_until='domcontentloaded', timeout=60000)
+        page.goto(BASE + ('' if language == 'en' else 'zh-hans/') + 'lab/', wait_until='domcontentloaded', timeout=60000)
         root = page.locator('#rfq-workbench'); expect(root).to_be_visible(timeout=30000)
         checks = [('design', None), ('motion', 'spatial'), ('motion', 'filtered'), ('motion', 'spectrum'), ('gas', None), ('bunch', None), ('scan', None)]
         for kind, view in checks:
@@ -344,7 +383,7 @@ def layouts(browser, evidence):
             else:
                 wait_scene(panel, kind); container = stage(panel, kind)
             page.wait_for_function('document.fonts.status === "loaded"')
-            settled(container)
+            settled(panel.locator(f'[data-rfx-figure="{kind}"]') if kind != 'design' else container)
             svg = container.locator('svg'); checked = svg.evaluate(CHART_CHECK)
             assert not checked['clipped'], (language, width, kind, view, checked['clipped'])
             assert not checked['collisions'], (language, width, kind, view, checked['collisions'])
@@ -358,6 +397,8 @@ def layouts(browser, evidence):
             path = ART / f'{language}-{width}-{kind}-{view or "scene"}.png'
             svg.screenshot(path=str(path))
             evidence['layout'].append({'language': language, 'viewport': width, 'kind': kind, 'view': view, **checked})
+            if kind in ('gas', 'bunch') and width in (320, 1440):
+                fundamentals(page, panel, kind, language, width, evidence)
         context.close()
 
 
@@ -367,7 +408,7 @@ def run():
         'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
         'evidence_kind': 'real browser UI and actual decoded MediaRecorder files; no experimental measurements',
         'exports': [], 'videos': [], 'presets': [], 'views': [], 'scenes': [], 'examples': [], 'data_views': [],
-        'geometry': [], 'layout': [], 'failures': []}
+        'geometry': [], 'layout': [], 'fundamentals': [], 'failures': []}
     try:
         for binary in ('ffprobe', 'ffmpeg'):
             assert shutil.which(binary), f'{binary} must be installed before the browser acceptance run'

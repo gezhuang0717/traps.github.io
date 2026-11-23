@@ -28,6 +28,7 @@
 <p class="zg-muted zg-small" data-rfx-error="motion" role="alert"></p></div>
 <div data-local-panel="gas" data-rfq-extras-pane hidden>
 <h3>{{ $t.gas }}</h3><p class="zg-muted">{{ $t.gas_note }}</p><div class="rfq-equation">n = p/(k<sub>B</sub>T); &nbsp; ν<sub>coll</sub> = nσv<sub>rel</sub>; &nbsp; E<sub>th</sub> [eV] = 3k<sub>B</sub>T/(2e); &nbsp; E(t) = E<sub>th</sub> + [E(0) − E<sub>th</sub>]exp(−t/τ)</div>
+{{ partial "zg/rfq-cooling-bunch-basics.html" (dict "kind" "gas") }}
 <div class="zg-form"><label>{{ $t.gas_mass }} <input name="rx-gas_mass" type="number" value="4" min=".1" max="300" step="any"></label>
 <label>{{ $t.temperature }} <input name="rx-T" type="number" value="300" min="1" max="2500" step="any"></label>
 <label>{{ $t.pressure }} <input name="rx-p" type="number" value=".001" min="0" max="10" step="any"></label>
@@ -47,6 +48,7 @@
 <p class="zg-muted zg-small" data-rfx-error="gas" role="alert"></p></div>
 <div data-local-panel="bunch" data-rfq-extras-pane hidden>
 <h3>{{ $t.bunch }}</h3><p class="zg-muted">{{ $t.bunch_note }}</p><div class="rfq-equation">σ²<sub>t,out</sub> = σ²<sub>t</sub> + g²σ²<sub>E</sub> + 2g Cov(t,E); &nbsp; g = −t/(2E); &nbsp; FWHM = 2√(2 ln 2) σ</div>
+{{ partial "zg/rfq-cooling-bunch-basics.html" (dict "kind" "bunch") }}
 <div class="zg-form"><label>{{ $t.voltage }} <input name="rx-V" type="number" value="1000" min=".001" max="10000000" step="any"></label>
 <label>{{ $t.drift }} <input name="rx-L" type="number" value=".5" min=".001" max="10000" step="any"></label>
 <label>{{ $t.sigma_t }} <input name="rx-st" type="number" value="20" min="0" max="1000000000" step="any"></label>

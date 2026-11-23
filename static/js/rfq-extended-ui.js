@@ -123,13 +123,16 @@
     delete players[kind]; delete scenes[kind];
   }
   function applyInputs(values) {
+    if (Object.hasOwn(values, 'rx-scan-axis')) {
+      field('rx-scan-axis').value = values['rx-scan-axis']; scanLabels(true);
+    }
     for (const [name, result] of Object.entries(values)) {
       const input = field(name);
       if (input) input.value = String(result);
     }
     // Let the shared workbench update conversions and emit rfq:statechange.
     field('ms-mode').dispatchEvent(new Event('change', { bubbles: true }));
-    scanLabels(true); queueAll();
+    scanLabels(); queueAll();
   }
   function motionPreset(name) {
     const r0 = value('ms-r0'), f = value('ms-f');

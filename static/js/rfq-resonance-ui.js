@@ -15,11 +15,17 @@
   const box = name => pane.querySelector('[data-rr-' + name + ']');
   const holder = kind => pane.querySelector('[data-rr-figure="' + kind + '"]');
   const quote = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
-  let generation = 0, timer = null, dirty = true, busy = false, latest = null, resized = null;
+  let generation = 0, timer = null, dirty = true, busy = false, latest = null, resized = null, requestedInputs = null;
   const spectra = new Map();
   function snapshot() {
     return Object.fromEntries([...root.querySelectorAll('[name^="ms-"],[name^="rr-"]')]
       .filter(e => e.type !== 'file').map(e => [e.name, e.type === 'checkbox' ? e.checked : e.value]));
+  }
+  function calculationKey(inputs = snapshot()) {
+    // Changing the export target does not change the calculation. In
+    // particular, input followed by an unchanged blur/change must not discard
+    // a finished result just as the user clicks its export button.
+    return JSON.stringify(Object.fromEntries(Object.entries(inputs).filter(([key]) => key !== 'rr-export-target')));
   }
   function state() {
     const f = number(shared('f')) * 1e6, mass = number(shared('mass')), charge = number(shared('charge')), r0 = number(shared('r0'));
@@ -169,7 +175,8 @@
     box('error').hidden = true; box('progress').textContent = t('build');
     const cancelled = () => token !== generation || pane.hidden;
     try {
-      const s = state(), point = R.selected(s), inputs = snapshot(); metrics(point, s);
+      const s = state(), point = R.selected(s), inputs = snapshot(), inputKey = calculationKey(inputs);
+      requestedInputs = inputKey; metrics(point, s);
       const fine = node('grid').value === 'fine';
       const grid = await R.grid({ columns: fine ? 201 : 121, rows: fine ? 141 : 85 },
         { cancelled, progress: p => { if (!cancelled()) box('progress').textContent = t('build') + ' ' + Math.round(p * 100) + '%'; } });
@@ -189,14 +196,17 @@
       } else {
         holder('spectrum').replaceChildren(); box('response-warning').hidden = false; box('response-warning').textContent = t('no_response');
       }
-      latest = { inputs, state: s, point, grid, lines, response, map, spectrumSVG };
+      latest = { inputs, inputKey, state: s, point, grid, lines, response, map, spectrumSVG };
       box('progress').textContent = t('ready'); exportsDisabled(false);
     } catch (error) {
       if (!cancelled()) { latest = null; holder('map').replaceChildren(); holder('spectrum').replaceChildren();
         box('error').hidden = false; box('error').textContent = t('invalid') + ' (' + error.message + ')'; box('progress').textContent = ''; }
     } finally { if (token === generation) busy = false; }
   }
-  function queue() {
+  function queue(force = false) {
+    const key = calculationKey();
+    if (force !== true && key === requestedInputs && (busy || dirty || latest)) return;
+    requestedInputs = key;
     generation++; dirty = true; latest = null; exportsDisabled(true); clearTimeout(timer);
     if (!pane.hidden) timer = setTimeout(refresh, 140);
   }
@@ -208,20 +218,25 @@
   }
   async function exportResult(action, button) {
     const status = box('export-status');
-    if (busy || !latest) { status.textContent = t('export_wait'); return; }
-    const target = node('export-target').value, svg = target === 'map' ? latest.map : latest.spectrumSVG;
-    const metadata = { schema: 'rfq-resonance-export-v1', generated_utc: new Date().toISOString(), inputs: latest.inputs,
-      point: latest.point, conditions: latest.lines.map(({ segments, ...line }) => ({ ...line, segment_count: segments.length })),
-      grid: { columns: latest.grid.columns, rows: latest.grid.rows, steps: latest.grid.steps, method: latest.grid.method },
-      model_evidence: 'ideal numerical calculation; not measured loss or native SIMION', units: { frequency: 'Hz', position: 'mm', a: 'dimensionless', q: 'dimensionless' },
-      sources: R.sources, limits: latest.point.limits };
     try {
       button.disabled = true; status.textContent = t('exporting');
-      if (action === 'json') save(JSON.stringify({ ...metadata, contour_segments: latest.lines, response: latest.response }, null, 2) + '\n', 'rfq-resonance-model.json', 'application/json');
+      if (busy || dirty || !latest || latest.inputKey !== calculationKey()) {
+        clearTimeout(timer); await refresh();
+      }
+      if (busy || dirty || !latest || latest.inputKey !== calculationKey()) { status.textContent = t('export_wait'); return; }
+      button.disabled = true;
+      const result = latest, target = node('export-target').value, svg = target === 'map' ? result.map : result.spectrumSVG;
+      const metadata = { schema: 'rfq-resonance-export-v1', generated_utc: new Date().toISOString(),
+        inputs: { ...result.inputs, 'rr-export-target': target }, point: result.point,
+        conditions: result.lines.map(({ segments, ...line }) => ({ ...line, segment_count: segments.length })),
+        grid: { columns: result.grid.columns, rows: result.grid.rows, steps: result.grid.steps, method: result.grid.method },
+        model_evidence: 'ideal numerical calculation; not measured loss or native SIMION', units: { frequency: 'Hz', position: 'mm', a: 'dimensionless', q: 'dimensionless' },
+        sources: R.sources, limits: result.point.limits };
+      if (action === 'json') save(JSON.stringify({ ...metadata, contour_segments: result.lines, response: result.response }, null, 2) + '\n', 'rfq-resonance-model.json', 'application/json');
       else if (action === 'csv') {
-        const rows = target === 'spectrum' ? latest.response?.rows : latest.grid.nodes.flat().map(p => ({ a: p.a, q: p.q, stable: p.stable,
-          beta_x: p.beta_x, beta_y: p.beta_y, f_x_Hz: p.stable ? p.beta_x * latest.state.f_Hz / 2 : null,
-          f_y_Hz: p.stable ? p.beta_y * latest.state.f_Hz / 2 : null }));
+        const rows = target === 'spectrum' ? result.response?.rows : result.grid.nodes.flat().map(p => ({ a: p.a, q: p.q, stable: p.stable,
+          beta_x: p.beta_x, beta_y: p.beta_y, f_x_Hz: p.stable ? p.beta_x * result.state.f_Hz / 2 : null,
+          f_y_Hz: p.stable ? p.beta_y * result.state.f_Hz / 2 : null }));
         if (!rows?.length) throw Error(t('no_response'));
         const columns = Object.keys(rows[0]);
         save([columns.map(quote).join(','), ...rows.map(row => columns.map(c => quote(row[c])).join(','))].join('\r\n') + '\r\n', 'rfq-resonance-' + target + '.csv', 'text/csv');
@@ -233,7 +248,7 @@
       }
       status.textContent = t('export_ready');
     } catch (error) { status.textContent = t('invalid') + ' (' + error.message + ')'; }
-    finally { button.disabled = !latest; }
+    finally { button.disabled = busy || dirty || !latest || latest.inputKey !== calculationKey(); }
   }
   root.addEventListener('rfq:statechange', queue);
   for (const eventName of ['input', 'change']) pane.addEventListener(eventName, event => {
@@ -257,7 +272,7 @@
     else if (pane.hidden) { generation++; busy = false; dirty = true; }
   }).observe(pane, { attributes: true, attributeFilter: ['hidden'] });
   window.addEventListener('resize', () => {
-    clearTimeout(resized); resized = setTimeout(() => { if (!pane.hidden) queue(); }, 100);
+    clearTimeout(resized); resized = setTimeout(() => { if (!pane.hidden) queue(true); }, 100);
   });
   controls(); exportsDisabled(true); if (!pane.hidden) refresh();
 })();

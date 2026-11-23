@@ -39,9 +39,14 @@ CHART_CHECK = r"""svg => {
 
 
 def ready(panel):
-    expect(panel.locator('[data-rr-error]')).to_be_hidden()
     expect(panel.locator('[data-rr-action="json"]')).to_be_enabled(timeout=20000)
     expect(panel.locator('[data-rr-figure="map"] svg')).to_be_visible()
+    # A control event can precede the debounced rebuild. Observe a quiet map
+    # container, then recheck the export gate, which stays closed until both
+    # the map and the finite-pulse response belong to the current inputs.
+    settled(panel.locator('[data-rr-figure="map"]'))
+    expect(panel.locator('[data-rr-action="json"]')).to_be_enabled(timeout=20000)
+    expect(panel.locator('[data-rr-error]')).to_be_hidden()
 
 
 def settled(container):
@@ -136,14 +141,19 @@ def workflows(page, evidence):
 
     before_path = after_path
     panel.locator('[name="rr-drive"]').fill('140')
+    expect(panel.locator('[data-rr-family="dipole"]').first).not_to_have_attribute('d', before_path, timeout=20000)
     ready(panel)
     assert panel.locator('[data-rr-family="dipole"]').first.get_attribute('d') != before_path
+    # Keep the edited field focused. The first export click must survive the
+    # native change event emitted by its blur, without requiring a second click.
+    expect(panel.locator('[name="rr-drive"]')).to_be_focused()
     driven = model(page, panel, 'drive-140kHz', evidence)
     assert all(abs(c['beta'] - .28) < 1e-12 for c in driven['conditions'] if c['family'] == 'dipole')
 
     # An overlay is a conditional locus. Its presence must not turn it into an
     # invented nonlinear force or a parametric heating/loss simulation.
     panel.locator('[name="rr-nonlinear"]').check()
+    expect(panel.locator('[data-rr-family="candidate"]')).to_have_count(4, timeout=20000)
     ready(panel)
     expect(panel.locator('[data-rr-candidate-note]')).to_be_visible()
     expect(panel.locator('[data-rr-candidate-note]')).to_contain_text('not sufficient')
@@ -158,10 +168,11 @@ def workflows(page, evidence):
     # stable point away from boundaries; the pick area itself is the chart.
     pick = panel.locator('[data-rr-pick-area]')
     bounds = pick.bounding_box()
+    old = panel.locator('[data-rr-readout]').inner_text()
     pick.click(position={'x': bounds['width'] * .55, 'y': bounds['height'] * .50})
     expect(root.locator('[name="ms-mode"]')).to_have_value('direct')
     page.wait_for_function("Math.abs(Number(document.querySelector('[name=\"ms-q\"]').value)-.55)<.002")
-    ready(panel)
+    wait_readout_change(panel, old)
     selected = model(page, panel, 'picked', evidence)
     assert abs(selected['point']['a']) < .002 and abs(selected['point']['q'] - .55) < .002
     assert selected['point']['stable']
@@ -203,13 +214,14 @@ def narrow_layout(browser, evidence):
     for lang in ('en', 'zh'):
         context = browser.new_context(viewport={'width': 320, 'height': 900})
         page = context.new_page()
-        page.goto(BASE + ('' if lang == 'en' else 'zh/') + 'lab/', wait_until='domcontentloaded', timeout=60000)
+        page.goto(BASE + ('' if lang == 'en' else 'zh-hans/') + 'lab/', wait_until='domcontentloaded', timeout=60000)
         root = page.locator('#rfq-workbench')
         expect(root).to_be_visible(timeout=30000)
         root.locator('[data-local-tab="resonance"]').click()
         panel = root.locator('[data-local-panel="resonance"]')
         ready(panel)
         panel.locator('[name="rr-nonlinear"]').check()
+        expect(panel.locator('[data-rr-family="candidate"]')).to_have_count(4, timeout=20000)
         ready(panel)
         page.wait_for_function('document.fonts.status === "loaded"')
         for kind in ('map', 'spectrum'):
