@@ -21,7 +21,7 @@ from playwright.sync_api import expect, sync_playwright
 
 BASE = os.environ.get("RFQ_E2E_BASE", "http://127.0.0.1:8765/").rstrip("/") + "/"
 ART = Path(os.environ.get("RFQ_E2E_ARTIFACTS", "rfq-browser-evidence")) / "visual"
-TABS = ("classic", "design", "motion", "gas", "bunch", "scan", "data")
+TABS = ("classic", "design", "resonance", "motion", "gas", "bunch", "scan", "data")
 WIDTHS = (320, 390, 768, 1440)
 ART.mkdir(parents=True, exist_ok=True)
 
@@ -99,6 +99,7 @@ def check_exports(page, root, tab: str, prefix: str) -> list[dict]:
         selector = (
             f'[data-ms-action="{suffix}"]' if tab == "classic"
             else f'[data-ms-action="design-{suffix}"]' if tab == "design"
+            else f'[data-rr-action="{suffix}"]' if tab == "resonance"
             else f'[data-rfx-action="{suffix}"][data-rfx-kind="{tab}"]'
         )
         button = root.locator(selector)
@@ -177,12 +178,14 @@ def run() -> dict:
                         first_failure = len(evidence["failures"])
                         prefix = f"{language}-{width}"
                         panel = root.locator(f'[data-local-panel="{tab}"]')
-                        figure_container = panel.locator('[data-ms-figure]' if tab == 'classic' else '[data-ms-design-figure]' if tab == 'design' else '[data-rfx-figure]').first
+                        figure_container = panel.locator('[data-ms-figure]' if tab == 'classic' else '[data-ms-design-figure]' if tab == 'design' else '[data-rr-figure="map"]' if tab == 'resonance' else '[data-rfx-figure]').first
                         figure = figure_container.locator('svg').first
                         try:
                             root.locator(f'[data-local-tab="{tab}"]').click()
                             expect(panel).to_be_visible()
-                            if tab not in ("classic", "design"):
+                            if tab == 'resonance':
+                                panel.locator('[data-rr-action="run"]').click()
+                            elif tab not in ("classic", "design"):
                                 panel.locator(f'[data-rfx-action="run"][data-rfx-kind="{tab}"]').click()
                             expect(figure).to_be_visible(timeout=15000)
                             figure_container.scroll_into_view_if_needed(timeout=10000)
@@ -224,7 +227,7 @@ def run() -> dict:
                                 failure(scope, "figure export", traceback.format_exc())
                         case["result"] = "failed" if len(evidence["failures"]) > first_failure else "passed"
                     if width in (320, 1440):
-                        guide = root.locator('.rfq-foundations')
+                        guide = root.locator(':scope > .rfq-foundations')
                         scope = {"language": language, "viewport": width, "tab": "physics guide"}
                         try:
                             if guide.get_attribute('open') is None:

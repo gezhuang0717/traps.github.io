@@ -1,0 +1,37 @@
+{{- $kind := .kind | default "gas" -}}
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" "en" -}}
+{{- $data := hugo.Data.rfq_cooling_bunch_basics -}}
+{{- $t := index $data $k -}}
+{{- $sections := index $t $kind -}}
+{{- with $sections -}}
+<details class="rfq-foundations rfq-process-foundations" data-no-fold data-rfq-basics="{{ $kind }}" lang="{{ $k }}">
+  <summary>{{ index $t (printf "%s_title" $kind) }}</summary>
+  <p class="rfq-guide-lead">{{ index $t (printf "%s_lead" $kind) }}</p>
+  {{ range . }}
+  <details class="rfq-guide-section" data-rfq-basics-section="{{ .id }}" {{ if .open }}open{{ end }}>
+    <summary>{{ .title }}</summary>
+    {{ range .blocks }}
+      {{ if eq .type "text" }}
+        <p>{{ .text }}</p>
+      {{ else if eq .type "equation" }}
+        {{- $equation := index $data.equations .key -}}
+        <div class="rfq-equation" data-rfq-equation="{{ .key }}">
+          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" alttext="{{ index $equation $k }}">{{ $equation.markup | safeHTML }}</math>
+        </div>
+      {{ else if eq .type "example" }}
+        <aside class="rfq-reference-case"><strong>{{ .title }}</strong><p>{{ .text }}</p></aside>
+      {{ else if eq .type "table" }}
+        <div class="rfq-table-wrap" tabindex="0" role="region" aria-label="{{ index $t (printf "%s_title" $kind) }}">
+          <table><thead><tr>{{ range .headers }}<th scope="col">{{ . }}</th>{{ end }}</tr></thead>
+          <tbody>{{ range .rows }}<tr>{{ range $i, $cell := . }}{{ if eq $i 0 }}<th scope="row">{{ $cell }}</th>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>{{ end }}</tbody></table>
+        </div>
+      {{ else if eq .type "list" }}
+        <ul>{{ range .items }}<li>{{ . }}</li>{{ end }}</ul>
+      {{ else if eq .type "reference" }}
+        <p class="rfq-basics-reference">{{ $t.source_label }}: <a href="{{ .url }}">{{ .label }}</a></p>
+      {{ end }}
+    {{ end }}
+  </details>
+  {{ end }}
+</details>
+{{- end -}}

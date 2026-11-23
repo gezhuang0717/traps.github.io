@@ -89,3 +89,59 @@ test('CSV rejects duplicate headers, broken quoting, nondecimal and negative ene
   't_ns,E_eV\n1,-2\n2,3\n3,4'
  ])assert.throws(()=>X.parseCSV(csv));
 });
+
+test('3D RFQ motion preserves exact free axial drift and leaves transverse dynamics unchanged',()=>{
+ const p={a:0,q:.2,r0_mm:5,cycles:3.137,x_mm:.2,y_mm:.1,vx_mm_per_tau:.03,vy_mm_per_tau:-.02};
+ const xy=X.motion(p),xyz=X.motion({...p,z_mm:-2,vz_mm_per_tau:.4});
+ assert.equal(xyz.axial_model,'free drift; no axial electric field');assert.equal(xyz.alive,xy.alive);
+ assert.equal(xyz.samples.length,xy.samples.length);
+ xyz.samples.forEach((row,i)=>{
+  close(row.z_mm,-2+.4*row.tau);close(row.vz_mm_per_tau,.4);
+  for(const key of ['x_mm','y_mm','vx_mm_per_tau','vy_mm_per_tau','r_mm'])assert.equal(row[key],xy.samples[i][key]);
+ });
+ // tau = pi*f_MHz*t_us, so velocity entry in mm/us has this conversion.
+ const fMHz=2.5,vz=.7,run=X.motion({...p,z_mm:1,vz_mm_per_tau:vz/(Math.PI*fMHz)});
+ for(const row of run.samples)close(row.z_mm,1+vz*row.cycle/fMHz);
+});
+test('RF running means use full centered windows and never invent endpoint values',()=>{
+ const p={a:0,q:0,r0_mm:100,cycles:2.137,x_mm:1,y_mm:2,z_mm:3,vx_mm_per_tau:.1,vy_mm_per_tau:-.2,vz_mm_per_tau:.3};
+ const run=X.motion(p);assert.equal(run.average_window_cycles,1);assert.equal(run.secular_approx_valid,false);
+ for(const row of run.samples){
+  const full=row.cycle>=.5-1e-12&&row.cycle<=run.completed_cycles-.5+1e-12;
+  for(const axis of ['x','y','z']){
+   if(full){close(row[axis+'_rf_average_mm'],row[axis+'_mm']);close(row[axis+'_rf_residual_mm'],0);}
+   else{assert.equal(row[axis+'_rf_average_mm'],null);assert.equal(row[axis+'_rf_residual_mm'],null);}
+  }
+ }
+ const short=X.motion({...p,cycles:.7});assert.ok(short.samples.every(r=>r.x_rf_average_mm===null));
+});
+test('RF period averaging agrees with an independent harmonic integral',()=>{
+ const run=X.motion({a:1,q:0,r0_mm:5,cycles:4,x_mm:.2,y_mm:0,vx_mm_per_tau:.1,steps_per_rf_cycle:128});
+ let compared=0;
+ for(const row of run.samples)if(row.x_rf_average_mm!==null){
+  const exact=(2/Math.PI)*(.2*Math.cos(row.tau)+.1*Math.sin(row.tau));
+  assert.ok(Math.abs(row.x_rf_average_mm-exact)<1e-5);compared++;
+  close(row.x_rf_average_mm+row.x_rf_residual_mm,row.x_mm);
+ }
+ assert.ok(compared>50);assert.equal(run.secular_approx_valid,false);
+});
+test('slow-motion interpretation is explicitly restricted and raw plus filtered residual is conserved',()=>{
+ const p={a:0,q:.2,r0_mm:5,cycles:3,x_mm:.4,y_mm:.1};
+ const low=X.motion(p);assert.equal(low.secular_approx_valid,true);
+ assert.equal(X.motion({...p,q:.6}).secular_approx_valid,false);
+ assert.equal(X.motion({...p,a:.01}).secular_approx_valid,false);
+ for(const row of low.samples)if(row.x_rf_average_mm!==null)for(const axis of ['x','y','z'])close(row[axis+'_rf_average_mm']+row[axis+'_rf_residual_mm'],row[axis+'_mm']);
+ assert.match(low.assumptions.join(' '),/not an exact secular\/micromotion decomposition/);
+});
+
+test('near a time focus, second-order Gaussian energy curvature is reported separately',()=>{
+ const p={mass_u:100,charge:1,acceleration_V:100,drift_m:1,sigma_t_ns:0,sigma_E_eV:1,rho:1};
+ const flight=X.bunch(p),st=-flight.dt_dE_ns_per_eV*p.sigma_E_eV,r=X.bunch({...p,sigma_t_ns:st});
+ assert.ok(r.relative_energy_spread<.1);assert.equal(r.near_focus_warning,true);assert.equal(r.valid_linearization,false);
+ close(r.second_order_sigma_t_ns,3*r.flight_ns/(4*Math.sqrt(2))*.01**2);
+ close(r.second_order_mean_shift_ns,3*r.flight_ns/8*.01**2);
+ assert.ok(r.sigma_t_out_ns<1e-10,'formal first-order width remains separate');assert.ok(r.second_order_sigma_t_ns>0);
+ assert.match(r.second_order_model,/not nonlinear Monte Carlo/);assert.match(r.warnings.join(' '),/near_first_order_time_focus/);
+ const ordinary=X.bunch({...p,rho:0,sigma_t_ns:st});assert.equal(ordinary.near_focus_warning,false);assert.equal(ordinary.valid_linearization,true);
+ const exact=X.bunch({...p,sigma_E_eV:0});assert.equal(exact.near_focus_warning,false);assert.equal(exact.second_order_sigma_t_ns,0);
+});

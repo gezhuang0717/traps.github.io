@@ -1,0 +1,1091 @@
+{
+  "equations": {
+    "temperature": {
+      "en": "Directional second-moment temperature: kB Ti equals m variance of vi",
+      "zh": "方向二阶矩温度：kB Ti 等于 m 乘以 vi 的方差",
+      "markup": "<mrow><msub><mi>k</mi><mi>B</mi></msub><msub><mi>T</mi><mi>i</mi></msub><mo>=</mo><mi>m</mi><mrow><mo>⟨</mo><msup><mrow><mo>(</mo><msub><mi>v</mi><mi>i</mi></msub><mo>−</mo><mrow><mo>⟨</mo><msub><mi>v</mi><mi>i</mi></msub><mo>⟩</mo></mrow><mo>)</mo></mrow><mn>2</mn></msup><mo>⟩</mo></mrow><mo>,</mo><mrow><mo>⟨</mo><msub><mi>K</mi><mi>i</mi></msub><mo>⟩</mo></mrow><mo>=</mo><mfrac><mrow><msub><mi>k</mi><mi>B</mi></msub><msub><mi>T</mi><mi>i</mi></msub></mrow><mn>2</mn></mfrac></mrow>"
+    },
+    "thermal_components": {
+      "en": "Random transverse energy is kB times Tx plus Ty over two; longitudinal random energy is kB Tz over two",
+      "zh": "横向随机能量为 kB 乘 Tx 加 Ty 后除以二；纵向随机能量为 kB Tz 除以二",
+      "markup": "<mrow><mrow><mo>⟨</mo><msub><mi>K</mi><mo>⊥</mo></msub><mo>⟩</mo></mrow><mo>=</mo><mfrac><mrow><msub><mi>k</mi><mi>B</mi></msub><mrow><mo>(</mo><msub><mi>T</mi><mi>x</mi></msub><mo>+</mo><msub><mi>T</mi><mi>y</mi></msub><mo>)</mo></mrow></mrow><mn>2</mn></mfrac><mo>;</mo><mrow><mo>⟨</mo><msub><mi>K</mi><mo>∥</mo></msub><mo>⟩</mo></mrow><mo>=</mo><mfrac><mrow><msub><mi>k</mi><mi>B</mi></msub><msub><mi>T</mi><mi>z</mi></msub></mrow><mn>2</mn></mfrac></mrow>"
+    },
+    "emittance_transverse": {
+      "en": "Geometric rms x emittance equals square root of variance x times variance x prime minus covariance squared",
+      "zh": "几何均方根 x 发射度等于 x 方差乘 x 撇方差减协方差平方的平方根",
+      "markup": "<mrow><msub><mi>ε</mi><mi>x</mi></msub><mo>=</mo><msqrt><mrow><msup><msub><mi>σ</mi><mi>x</mi></msub><mn>2</mn></msup><msup><msub><mi>σ</mi><msup><mi>x</mi><mo>′</mo></msup></msub><mn>2</mn></msup><mo>−</mo><msup><mrow><mi>Cov</mi><mrow><mo>(</mo><mi>x</mi><mo>,</mo><msup><mi>x</mi><mo>′</mo></msup><mo>)</mo></mrow></mrow><mn>2</mn></msup></mrow></msqrt></mrow>"
+    },
+    "gas_rate": {
+      "en": "Density equals pressure over kB Tgas; collision rate equals density cross section relative speed",
+      "zh": "数密度等于气压除以 kB Tgas；碰撞率等于数密度乘截面乘相对速度",
+      "markup": "<mrow><mi>n</mi><mo>=</mo><mfrac><mi>p</mi><mrow><msub><mi>k</mi><mi>B</mi></msub><msub><mi>T</mi><mi>g</mi></msub></mrow></mfrac><mo>;</mo><msub><mi>ν</mi><mtext>coll</mtext></msub><mo>=</mo><mi>n</mi><mi>σ</mi><msub><mi>v</mi><mtext>rel</mtext></msub></mrow>"
+    },
+    "gas_transfer": {
+      "en": "Inverse energy relaxation time equals collision rate times two m M over m plus M squared times the energy transfer factor",
+      "zh": "能量弛豫时间的倒数等于碰撞率乘以二 m M 除以 m 加 M 的平方，再乘能量传递效率",
+      "markup": "<mrow><mfrac><mn>1</mn><msub><mi>τ</mi><mi>E</mi></msub></mfrac><mo>=</mo><msub><mi>ν</mi><mtext>coll</mtext></msub><mfrac><mrow><mn>2</mn><mi>m</mi><mi>M</mi></mrow><msup><mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>M</mi><mo>)</mo></mrow><mn>2</mn></msup></mfrac><msub><mi>η</mi><mi>E</mi></msub></mrow>"
+    },
+    "gas_ode": {
+      "en": "Mean energy departure from equilibrium decays at inverse relaxation time",
+      "zh": "平均能量相对平衡的偏差按弛豫时间倒数衰减",
+      "markup": "<mrow><mfrac><mrow><mi>d</mi><mrow><mo>⟨</mo><mi>E</mi><mo>⟩</mo></mrow></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo>−</mo><mfrac><mrow><mrow><mo>⟨</mo><mi>E</mi><mo>⟩</mo></mrow><mo>−</mo><msub><mi>E</mi><mtext>th</mtext></msub></mrow><msub><mi>τ</mi><mi>E</mi></msub></mfrac><mo>;</mo><msub><mi>E</mi><mtext>th</mtext></msub><mo>=</mo><mfrac><mrow><mn>3</mn><msub><mi>k</mi><mi>B</mi></msub><msub><mi>T</mi><mi>g</mi></msub></mrow><mrow><mn>2</mn><mi>e</mi></mrow></mfrac></mrow>"
+    },
+    "gas_solution": {
+      "en": "Mean energy equals equilibrium plus initial departure times exponential decay",
+      "zh": "平均能量等于平衡能量加初始偏差乘指数衰减",
+      "markup": "<mrow><mrow><mo>⟨</mo><mi>E</mi><mo>⟩</mo></mrow><mo>=</mo><msub><mi>E</mi><mtext>th</mtext></msub><mo>+</mo><mrow><mo>(</mo><msub><mi>E</mi><mn>0</mn></msub><mo>−</mo><msub><mi>E</mi><mtext>th</mtext></msub><mo>)</mo></mrow><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mi>t</mi><msub><mi>τ</mi><mi>E</mi></msub></mfrac></mrow></msup></mrow>"
+    },
+    "axial_potential": {
+      "en": "A local axial DC potential is Uc over z0 squared times z squared minus half x squared plus y squared",
+      "zh": "局部轴向直流电势为 Uc 除以 z0 平方，乘以 z 平方减去 x 平方与 y 平方之和的一半",
+      "markup": "<mrow><msub><mi>Φ</mi><mtext>DC</mtext></msub><mo>=</mo><mfrac><msub><mi>U</mi><mi>c</mi></msub><msup><msub><mi>z</mi><mn>0</mn></msub><mn>2</mn></msup></mfrac><mrow><mo>(</mo><msup><mi>z</mi><mn>2</mn></msup><mo>−</mo><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>)</mo></mrow></mrow>"
+    },
+    "axial_bounce": {
+      "en": "Axial force is minus two Q Uc z over z0 squared; squared harmonic bounce frequency is two Q Uc over m z0 squared",
+      "zh": "轴向力为负二 Q Uc z 除以 z0 平方；谐波轴向振荡角频率平方为二 Q Uc 除以 m z0 平方",
+      "markup": "<mrow><msub><mi>F</mi><mi>z</mi></msub><mo>=</mo><mo>−</mo><mfrac><mrow><mn>2</mn><mi>Q</mi><msub><mi>U</mi><mi>c</mi></msub><mi>z</mi></mrow><msup><msub><mi>z</mi><mn>0</mn></msub><mn>2</mn></msup></mfrac><mo>;</mo><msup><msub><mi>ω</mi><mi>z</mi></msub><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mn>2</mn><mi>Q</mi><msub><mi>U</mi><mi>c</mi></msub></mrow><mrow><mi>m</mi><msup><msub><mi>z</mi><mn>0</mn></msub><mn>2</mn></msup></mrow></mfrac></mrow>"
+    },
+    "inventory_ode": {
+      "en": "Expected number evolves as injection rate minus expected number over loss lifetime, initially zero",
+      "zh": "粒子数期望值的变化率等于注入率减去期望值除以损失寿命，初值为零",
+      "markup": "<mrow><mfrac><mrow><mi>d</mi><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>R</mi><mo>−</mo><mfrac><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><msub><mi>τ</mi><mtext>loss</mtext></msub></mfrac><mo>;</mo><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>=</mo><mn>0</mn></mrow>"
+    },
+    "inventory_factor": {
+      "en": "Multiplying by the integrating factor gives d over dt of Nbar times exp t over tau equals R exp t over tau",
+      "zh": "乘以积分因子后，Nbar 乘 exp t 除以 tau 的导数等于 R 乘该指数",
+      "markup": "<mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mrow><mo>(</mo><msup><mi>e</mi><mfrac><mi>t</mi><msub><mi>τ</mi><mtext>loss</mtext></msub></mfrac></msup><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mo>)</mo></mrow><mo>=</mo><mi>R</mi><msup><mi>e</mi><mfrac><mi>t</mi><msub><mi>τ</mi><mtext>loss</mtext></msub></mfrac></msup></mrow>"
+    },
+    "inventory_solution": {
+      "en": "Expected stored number before capacity clipping equals R tau times one minus exp minus hold time over tau",
+      "zh": "容量截断前的存储数期望等于 R tau 乘一减去 exp 负保持时间除以 tau",
+      "markup": "<mrow><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mrow><mo>(</mo><msub><mi>T</mi><mi>h</mi></msub><mo>)</mo></mrow><mo>=</mo><mi>R</mi><msub><mi>τ</mi><mtext>loss</mtext></msub><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><msub><mi>T</mi><mi>h</mi></msub><msub><mi>τ</mi><mtext>loss</mtext></msub></mfrac></mrow></msup><mo>)</mo></mrow></mrow>"
+    },
+    "inventory_survival": {
+      "en": "The same mean is the integral of injection rate times survival probability",
+      "zh": "同一期望值也等于注入率乘存活概率的积分",
+      "markup": "<mrow><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mrow><mo>(</mo><msub><mi>T</mi><mi>h</mi></msub><mo>)</mo></mrow><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><msub><mi>T</mi><mi>h</mi></msub></msubsup><mi>R</mi><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><msub><mi>T</mi><mi>h</mi></msub><mo>−</mo><mi>s</mi></mrow><msub><mi>τ</mi><mtext>loss</mtext></msub></mfrac></mrow></msup><mi>d</mi><mi>s</mi></mrow>"
+    },
+    "inventory_cap": {
+      "en": "Stored expectation is minimum of K and the uncapped mean; extracted expectation is eta times stored expectation",
+      "zh": "存储期望等于 K 与未截断均值的较小者；引出期望等于 eta 乘存储期望",
+      "markup": "<mrow><msub><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mtext>store</mtext></msub><mo>=</mo><mi>min</mi><mrow><mo>(</mo><mi>K</mi><mo>,</mo><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mrow><mo>(</mo><msub><mi>T</mi><mi>h</mi></msub><mo>)</mo></mrow><mo>)</mo></mrow><mo>;</mo><msub><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mtext>ext</mtext></msub><mo>=</mo><msub><mi>η</mi><mtext>ext</mtext></msub><msub><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mtext>store</mtext></msub></mrow>"
+    },
+    "inventory_rate": {
+      "en": "Rate normalized by hold time is N ext over hold time; full cycle rate includes dead time",
+      "zh": "保持时间归一化率为引出期望除以保持时间；完整周期率还包含死时间",
+      "markup": "<mrow><msub><mi>R</mi><mtext>hold</mtext></msub><mo>=</mo><mfrac><msub><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mtext>ext</mtext></msub><msub><mi>T</mi><mi>h</mi></msub></mfrac><mo>;</mo><msub><mi>R</mi><mtext>cycle</mtext></msub><mo>=</mo><mfrac><msub><mover accent=\"true\"><mi>N</mi><mo>¯</mo></mover><mtext>ext</mtext></msub><mrow><msub><mi>T</mi><mi>h</mi></msub><mo>+</mo><msub><mi>t</mi><mtext>dead</mtext></msub></mrow></mfrac></mrow>"
+    },
+    "covariance": {
+      "en": "Time energy covariance is the average product of centered deviations, equal to rho sigma t sigma E",
+      "zh": "时间能量协方差为去均值偏差乘积的平均，等于 rho sigma t sigma E",
+      "markup": "<mrow><msub><mi>C</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub><mo>=</mo><mrow><mo>⟨</mo><mrow><mi>δt</mi><mi>δE</mi></mrow><mo>⟩</mo></mrow><mo>=</mo><mi>ρ</mi><msub><mi>σ</mi><mi>t</mi></msub><msub><mi>σ</mi><mi>E</mi></msub></mrow>"
+    },
+    "drift_time": {
+      "en": "Drift time is L over velocity, equal to L square root of m over two energy in joules; energy in joules is e times energy in electronvolts",
+      "zh": "漂移时间等于 L 除以速度，也等于 L 乘 m 除以二倍焦耳能量的平方根；焦耳能量等于 e 乘电子伏特能量",
+      "markup": "<mrow><msub><mi>t</mi><mi>d</mi></msub><mo>=</mo><mfrac><mi>L</mi><mi>v</mi></mfrac><mo>=</mo><mi>L</mi><msqrt><mfrac><mi>m</mi><mrow><mn>2</mn><msub><mi>E</mi><mi>J</mi></msub></mrow></mfrac></msqrt><mo>;</mo><msub><mi>E</mi><mi>J</mi></msub><mo>=</mo><mi>e</mi><msub><mi>E</mi><mtext>eV</mtext></msub></mrow>"
+    },
+    "drift_derivative": {
+      "en": "Derivative of drift time with respect to energy is minus drift time over twice energy",
+      "zh": "漂移时间对能量的导数为负漂移时间除以二倍能量",
+      "markup": "<mrow><mi>g</mi><mo>=</mo><mfrac><mrow><mi>∂</mi><msub><mi>t</mi><mi>d</mi></msub></mrow><mrow><mi>∂</mi><msub><mi>E</mi><mtext>eV</mtext></msub></mrow></mfrac><mo>=</mo><mo>−</mo><mfrac><msub><mi>t</mi><mi>d</mi></msub><mrow><mn>2</mn><msub><mi>E</mi><mtext>eV</mtext></msub></mrow></mfrac></mrow>"
+    },
+    "drift_linear": {
+      "en": "Output time deviation is input time deviation plus g times energy deviation; energy deviation is unchanged",
+      "zh": "输出时间偏差等于输入时间偏差加 g 乘能量偏差；能量偏差不变",
+      "markup": "<mrow><msub><mi>δt</mi><mtext>out</mtext></msub><mo>=</mo><msub><mi>δt</mi><mtext>in</mtext></msub><mo>+</mo><mi>g</mi><mi>δE</mi><mo>;</mo><msub><mi>δE</mi><mtext>out</mtext></msub><mo>=</mo><msub><mi>δE</mi><mtext>in</mtext></msub></mrow>"
+    },
+    "variance_expand": {
+      "en": "Square the time map and average: output variance is the average of input time squared plus two g time energy plus g squared energy squared",
+      "zh": "将时间映射平方再平均：输出方差为输入时间平方加二 g 时间能量乘积加 g 平方能量平方的平均",
+      "markup": "<mrow><msup><msub><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>out</mtext></mrow></msub><mn>2</mn></msup><mo>=</mo><mrow><mo>⟨</mo><mrow><msup><msub><mi>δt</mi><mtext>in</mtext></msub><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>g</mi><msub><mi>δt</mi><mtext>in</mtext></msub><mi>δE</mi><mo>+</mo><msup><mi>g</mi><mn>2</mn></msup><msup><mi>δE</mi><mn>2</mn></msup></mrow><mo>⟩</mo></mrow></mrow>"
+    },
+    "variance_result": {
+      "en": "Output variance equals sigma t squared plus g squared sigma E squared plus two g covariance",
+      "zh": "输出方差等于 sigma t 平方加 g 平方 sigma E 平方加二 g 协方差",
+      "markup": "<mrow><msup><msub><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>out</mtext></mrow></msub><mn>2</mn></msup><mo>=</mo><msup><msub><mi>σ</mi><mi>t</mi></msub><mn>2</mn></msup><mo>+</mo><msup><mi>g</mi><mn>2</mn></msup><msup><msub><mi>σ</mi><mi>E</mi></msub><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>g</mi><msub><mi>C</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub></mrow>"
+    },
+    "focus_optimum": {
+      "en": "Derivative of output variance with respect to g is zero at g optimum equals minus covariance over sigma E squared",
+      "zh": "输出方差对 g 的导数在最优 g 为负协方差除以 sigma E 平方时为零",
+      "markup": "<mrow><mfrac><mrow><mi>d</mi><msup><msub><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>out</mtext></mrow></msub><mn>2</mn></msup></mrow><mrow><mi>d</mi><mi>g</mi></mrow></mfrac><mo>=</mo><mn>2</mn><mi>g</mi><msup><msub><mi>σ</mi><mi>E</mi></msub><mn>2</mn></msup><mo>+</mo><mn>2</mn><msub><mi>C</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub><mo>=</mo><mn>0</mn><mo>;</mo><msub><mi>g</mi><mtext>opt</mtext></msub><mo>=</mo><mo>−</mo><mfrac><msub><mi>C</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub><msup><msub><mi>σ</mi><mi>E</mi></msub><mn>2</mn></msup></mfrac></mrow>"
+    },
+    "focus_minimum": {
+      "en": "Minimum time variance is sigma t squared times one minus rho squared",
+      "zh": "最小时间方差等于 sigma t 平方乘以一减 rho 平方",
+      "markup": "<mrow><msub><msup><msub><mi>σ</mi><mrow><mi>t</mi><mo>,</mo><mtext>out</mtext></mrow></msub><mn>2</mn></msup><mtext>min</mtext></msub><mo>=</mo><msup><msub><mi>σ</mi><mi>t</mi></msub><mn>2</mn></msup><mo>−</mo><mfrac><msup><msub><mi>C</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub><mn>2</mn></msup><msup><msub><mi>σ</mi><mi>E</mi></msub><mn>2</mn></msup></mfrac><mo>=</mo><msup><msub><mi>σ</mi><mi>t</mi></msub><mn>2</mn></msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup><mo>)</mo></mrow></mrow>"
+    },
+    "covariance_map": {
+      "en": "The linear transport matrix is one g zero one, with determinant one; output covariance is A Sigma A transpose",
+      "zh": "线性传输矩阵为一 g 零一，行列式为一；输出协方差矩阵等于 A Sigma A 转置",
+      "markup": "<mrow><mi>A</mi><mo>=</mo><mrow><mo>(</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mi>g</mi></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>)</mo></mrow><mo>;</mo><mi>det</mi><mi>A</mi><mo>=</mo><mn>1</mn><mo>;</mo><msub><mi>Σ</mi><mtext>out</mtext></msub><mo>=</mo><mi>A</mi><msub><mi>Σ</mi><mtext>in</mtext></msub><msup><mi>A</mi><mtext>T</mtext></msup></mrow>"
+    },
+    "long_emittance": {
+      "en": "Longitudinal rms emittance is square root of determinant Sigma, equal to sigma t sigma E square root one minus rho squared, and is invariant under this drift",
+      "zh": "纵向均方根发射度为协方差矩阵行列式的平方根，等于 sigma t sigma E 乘一减 rho 平方的平方根，在该漂移下不变",
+      "markup": "<mrow><msub><mi>ε</mi><mrow><mi>t</mi><mi>E</mi></mrow></msub><mo>=</mo><msqrt><mrow><mi>det</mi><mi>Σ</mi></mrow></msqrt><mo>=</mo><msub><mi>σ</mi><mi>t</mi></msub><msub><mi>σ</mi><mi>E</mi></msub><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ρ</mi><mn>2</mn></msup></mrow></msqrt><mo>;</mo><msub><mi>ε</mi><mtext>out</mtext></msub><mo>=</mo><msub><mi>ε</mi><mtext>in</mtext></msub></mrow>"
+    },
+    "second_order": {
+      "en": "Second order expansion of flight time is td plus g delta E plus three td over eight E squared times delta E squared",
+      "zh": "飞行时间二阶展开为 td 加 g delta E 加三 td 除以八 E 平方乘 delta E 平方",
+      "markup": "<mrow><msub><mi>t</mi><mi>d</mi></msub><mrow><mo>(</mo><msub><mi>E</mi><mtext>eV</mtext></msub><mo>+</mo><mi>δE</mi><mo>)</mo></mrow><mo>≈</mo><msub><mi>t</mi><mi>d</mi></msub><mo>+</mo><mi>g</mi><mi>δE</mi><mo>+</mo><mfrac><mrow><mn>3</mn><msub><mi>t</mi><mi>d</mi></msub></mrow><mrow><mn>8</mn><msup><msub><mi>E</mi><mtext>eV</mtext></msub><mn>2</mn></msup></mrow></mfrac><msup><mi>δE</mi><mn>2</mn></msup></mrow>"
+    },
+    "second_order_spread": {
+      "en": "For centered Gaussian energy deviations the quadratic mean shift is three td over eight times relative spread squared, and quadratic rms spread is three td over four square root two times relative spread squared",
+      "zh": "能量偏差为中心高斯分布时，二阶均值移动为三 td 除以八乘相对能散平方，二阶均方根展宽为三 td 除以四根号二乘相对能散平方",
+      "markup": "<mrow><msub><mi>Δt</mi><mtext>mean,2</mtext></msub><mo>=</mo><mfrac><mrow><mn>3</mn><msub><mi>t</mi><mi>d</mi></msub></mrow><mn>8</mn></mfrac><msup><mrow><mo>(</mo><mfrac><msub><mi>σ</mi><mi>E</mi></msub><msub><mi>E</mi><mtext>eV</mtext></msub></mfrac><mo>)</mo></mrow><mn>2</mn></msup><mo>;</mo><msub><mi>σ</mi><mtext>t,2</mtext></msub><mo>=</mo><mfrac><mrow><mn>3</mn><msub><mi>t</mi><mi>d</mi></msub></mrow><mrow><mn>4</mn><msqrt><mn>2</mn></msqrt></mrow></mfrac><msup><mrow><mo>(</mo><mfrac><msub><mi>σ</mi><mi>E</mi></msub><msub><mi>E</mi><mtext>eV</mtext></msub></mfrac><mo>)</mo></mrow><mn>2</mn></msup></mrow>"
+    }
+  },
+  "en": {
+    "gas_title": "Cooling from first principles: directions, collisions and axial storage",
+    "bunch_title": "Bunching from first principles: whole ions, expected counts and time–energy correlations",
+    "gas_lead": "Choose the observable before calling a beam colder. This guide distinguishes random kinetic energy, emittance, axial confinement and the scalar approximation used by this tab.",
+    "bunch_lead": "The inventory model predicts average counts per cycle. The drift model predicts how a supplied time–energy distribution changes its time projection. They are different calculations and do not simulate an extraction pulse.",
+    "source_label": "Primary source",
+    "gas": [
+      {
+        "id": "directions",
+        "title": "1. What is being cooled?",
+        "open": true,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Take z along the beam and x,y transverse to it. Subtract the mean velocity before describing random motion: δvᵢ = vᵢ − ⟨vᵢ⟩. A directed beam can have large forward kinetic energy and a small random velocity spread. Slowing its mean forward motion is not the same observable as reducing that spread."
+          },
+          {
+            "type": "equation",
+            "key": "temperature"
+          },
+          {
+            "type": "equation",
+            "key": "thermal_components"
+          },
+          {
+            "type": "text",
+            "text": "Here Tᵢ is a directional second-moment temperature. It becomes an ordinary thermodynamic temperature only when the relevant distribution is thermal. A driven RF distribution can be anisotropic or non-Maxwellian, so quote the measured moments and the RF phase treatment."
+          },
+          {
+            "type": "table",
+            "headers": [
+              "Observable",
+              "Physical question",
+              "Useful report"
+            ],
+            "rows": [
+              [
+                "Transverse cooling",
+                "Do random x and y motion and occupied transverse phase space shrink?",
+                "σ(vx), σ(vy), Tx, Ty; εx and εy at stated beam energy"
+              ],
+              [
+                "Longitudinal cooling",
+                "Does the axial velocity or energy spread decrease?",
+                "σ(vz), Tz, σ(E), energy tails and mean energy"
+              ],
+              [
+                "Temporal bunching",
+                "Do arrivals occupy a shorter interval at a stated plane?",
+                "σ(t), FWHM, Cov(t,E), transmission and the observation plane"
+              ]
+            ]
+          },
+          {
+            "type": "equation",
+            "key": "emittance_transverse"
+          },
+          {
+            "type": "text",
+            "text": "In the paraxial definition x′ ≈ vx/vz, geometric rms emittance is measured in length × angle. A smaller beam spot alone can be accompanied by greater divergence. Use covariance and state whether an emittance is geometric or normalized."
+          },
+          {
+            "type": "example",
+            "title": "Illustrative thermal reference, not a simulated result",
+            "text": "For an isotropic 300 K equilibrium: each random kinetic degree of freedom contributes kBT/2 = 0.012926 eV; the two transverse directions contribute 0.025852 eV; the three-dimensional total is 3kBT/2 = 0.038778 eV."
+          }
+        ]
+      },
+      {
+        "id": "relaxation",
+        "title": "2. From gas density to a mean-energy curve",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "For an ideal gas at local pressure p and temperature Tg, n = p/(kBTg). In this widget p in mbar is multiplied by 100 to obtain pascals; a cross section in Å² is multiplied by 10⁻²⁰ to obtain m². With νcoll = nσvrel, the dimensions are m⁻³ × m² × m/s = s⁻¹."
+          },
+          {
+            "type": "equation",
+            "key": "gas_rate"
+          },
+          {
+            "type": "text",
+            "text": "The proxy freezes vrel at its initial estimate. It multiplies the collision rate by the binary-mass transfer factor 2mM/(m+M)² and the supplied efficiency ηE. This gives an energy-relaxation time, which is generally different from one collision time."
+          },
+          {
+            "type": "equation",
+            "key": "gas_transfer"
+          },
+          {
+            "type": "text",
+            "text": "Assume the energy departure relaxes at that constant rate. Divide by the departure, integrate in time, then impose the initial condition ⟨E(0)⟩ = E0. The thermal reference below is in eV, so the SI thermal energy is divided by the elementary charge e."
+          },
+          {
+            "type": "equation",
+            "key": "gas_ode"
+          },
+          {
+            "type": "equation",
+            "key": "gas_solution"
+          },
+          {
+            "type": "text",
+            "text": "At one relaxation time the initial departure is multiplied by exp(−1) = 0.3679; at five it is multiplied by exp(−5) = 0.006738. If p = 0 or ηE = 0, the model has no relaxation. If E0 is below the thermal reference, the same equation describes heating toward it."
+          },
+          {
+            "type": "text",
+            "text": "This is one scalar mean. The widget does not separately track bulk motion, Tx, Ty, Tz, transverse emittance or longitudinal energy spread. Its optional animated Maxwell profiles are an additional distribution-shape assumption, not a collision calculation."
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth et al. (2001), gas cooling and the microscopic collision model, §3.2",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      },
+      {
+        "id": "rfheating",
+        "title": "3. Why gas does not guarantee monotonic cooling",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "A collision changes an ion’s motion relative to the RF drive. The drive can then supply energy, so damping and heating compete. Ion–gas mass ratio, excess micromotion, scattering and field conditions matter; there is no universal gas-mass threshold supplied by this widget."
+          },
+          {
+            "type": "text",
+            "text": "A mean energy near 3kBT/2 does not prove a Maxwell distribution. DeVoe’s RF-trap collision study finds non-Maxwellian power-law tails whose shape depends on the mass ratio. The scene therefore labels a thermal distribution as an illustrative assumption."
+          },
+          {
+            "type": "reference",
+            "label": "DeVoe (2009), Power-Law Distributions for a Trapped Ion Interacting with a Classical Buffer Gas",
+            "url": "https://doi.org/10.1103/PhysRevLett.102.063001"
+          },
+          {
+            "type": "text",
+            "text": "At an RFQ exit, gas diffusion, space charge and RF fringe fields can change both transverse emittance and longitudinal energy spread. A successful scalar relaxation curve does not establish extraction quality. The SHIRaC study explicitly investigates these exit-region effects."
+          },
+          {
+            "type": "reference",
+            "label": "Boussaid et al. (2017), RFQ cooling and exit-region beam quality",
+            "url": "https://doi.org/10.1103/PhysRevAccelBeams.20.124701"
+          }
+        ]
+      },
+      {
+        "id": "axialwell",
+        "title": "4. Axial bouncing, cooling and release require a well",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Radial RF confinement does not by itself trap an ion along z. An axial DC well supplies a restoring force; ions can bounce between its turning points, exchange energy with gas and accumulate before the exit barrier is switched. The local potential below satisfies Laplace’s equation and shows why axial focusing is accompanied by radial DC defocusing."
+          },
+          {
+            "type": "equation",
+            "key": "axial_potential"
+          },
+          {
+            "type": "equation",
+            "key": "axial_bounce"
+          },
+          {
+            "type": "text",
+            "text": "Q = ze. For positive ions, QUc > 0 gives a harmonic axial restoring force near the minimum. Uc describes axial curvature and is not the signed radial quadrupole DC input U in the Mathieu calculation. RF confinement must also overcome the accompanying radial defocusing."
+          },
+          {
+            "type": "text",
+            "text": "Outside the harmonic approximation the bounce period can depend on energy. Collisions may damp motion and add random kicks. Extraction depends on the actual segmented DC fields, barrier waveform, RF phase, gas distribution and space charge."
+          },
+          {
+            "type": "text",
+            "text": "The present trajectory scene uses free axial drift, z = z0 + vz t. Its three-dimensional view does not introduce an axial trapping force. The bunch scene starts with a supplied exit covariance and follows a downstream field-free shear; it does not animate a solved trapping well or pulsed barrier."
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth et al. (2001), axial confinement and cooler–buncher operation, §3.1",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      },
+      {
+        "id": "cooling_evidence",
+        "title": "5. What would validate transverse and longitudinal cooling?",
+        "open": false,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "State entry/exit planes, accepted ions, local gas pressure and temperature, RF convention and phase, and DC electrode waveforms.",
+              "Compare Tx, Ty and Tz or velocity moments after removing mean flow. Resolve or average RF micromotion consistently.",
+              "Report energy distributions and tails, εx, εy, time–energy covariance and longitudinal rms emittance alongside transmitted counts.",
+              "Repeat field/trajectory calculations with step-size and spatial-field refinement; compare a microscopic collision model with the mean-energy approximation.",
+              "Measure uncertainty in pressure, cross sections, RF amplitude, timing and detector response. A guessed capacity or transfer efficiency is an assumption, not an experimental calibration."
+            ]
+          }
+        ]
+      }
+    ],
+    "bunch": [
+      {
+        "id": "expectations",
+        "title": "1. Why can “stored ions” be 0.08646647?",
+        "open": true,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Every actual ion count is an integer: 0, 1, 2, …. The displayed number is an expectation, the average over repeated nominally identical cycles or an equivalent ensemble of possible outcomes. An expected 0.08646647 stored ions does not mean that a fraction of one ion exists in a trap."
+          },
+          {
+            "type": "text",
+            "text": "Define R as the injection rate admitted to the inventory model, τloss as a constant independent-loss lifetime, and Th as the accumulation time. Starting empty, injection adds R dt to the mean while loss removes N̄ dt/τloss. This gives the rate equation below."
+          },
+          {
+            "type": "equation",
+            "key": "inventory_ode"
+          },
+          {
+            "type": "text",
+            "text": "Multiply both sides by exp(t/τloss). The left side becomes the derivative of a product. Integrating from 0 to Th and applying N̄(0) = 0 gives the closed form."
+          },
+          {
+            "type": "equation",
+            "key": "inventory_factor"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_solution"
+          },
+          {
+            "type": "text",
+            "text": "The same result follows by adding all injection cohorts: an ion admitted at time s survives to Th with probability exp[−(Th−s)/τloss]. Integrate the constant rate times that survival probability."
+          },
+          {
+            "type": "equation",
+            "key": "inventory_survival"
+          },
+          {
+            "type": "text",
+            "text": "For Th ≪ τloss this approaches RTh. For Th ≫ τloss it saturates at Rτloss. This loss lifetime can be an effective lifetime combining several independent loss mechanisms; it is not automatically the radioactive lifetime."
+          },
+          {
+            "type": "example",
+            "title": "Illustrative numbers, chosen to reproduce the displayed fractions",
+            "text": "Choose R = 10 s⁻¹, Th = 20 ms = 0.020 s, τloss = 10 ms = 0.010 s, K = 1000 ions and ηext = 0.7. Then Rτloss(1−exp(−Th/τloss)) = 0.1(1−exp(−2)) = 0.08646647168. The extracted expectation is 0.7 × 0.08646647168 = 0.06052653017. These are model arithmetic, not measured precision."
+          },
+          {
+            "type": "text",
+            "text": "Across 100 such cycles, the expected totals are 8.646647 stored and 6.052653 extracted events. A realized experiment still yields integer totals. Do not round each per-cycle expectation to zero before adding cycles. Predicting a full count distribution requires further assumptions, such as Poisson injection and independent losses."
+          }
+        ]
+      },
+      {
+        "id": "capacity",
+        "title": "2. Capacity, extraction fraction and rate mean different things",
+        "open": false,
+        "blocks": [
+          {
+            "type": "equation",
+            "key": "inventory_cap"
+          },
+          {
+            "type": "text",
+            "text": "K is a user-assumed hard capacity. This implementation clips the calculated mean at K; it does not solve space charge, a saturated birth–death process, or the expectation of a capped Poisson random variable. In general min(K, E[N]) is not E[min(K,N)]."
+          },
+          {
+            "type": "text",
+            "text": "ηext is the fraction of the stored expectation assumed to be extracted. It is not calculated from a pulsed field. It is also distinct from the gas energy-transfer factor ηE and from end-to-end transmission Nout/Nincident, which depends on capture, survival, apertures, transport and any detection definition."
+          },
+          {
+            "type": "equation",
+            "key": "inventory_rate"
+          },
+          {
+            "type": "text",
+            "text": "The reported rate in the model JSON is normalized by hold time only: N̄ext/Th. Extraction, reset and transfer dead time are excluded. For a full cycle, divide by Th + tdead. In the illustrative example, the hold-normalized expectation is 3.0263265 s⁻¹; with 10 ms additional dead time, the full-cycle expectation is 2.0175510 s⁻¹."
+          },
+          {
+            "type": "text",
+            "text": "Measure or bound R, τloss, K and ηext before treating these values as device predictions. A low expected extracted count can reflect weak injection or short survival, even when an ideal Mathieu point is stable."
+          }
+        ]
+      },
+      {
+        "id": "correlation",
+        "title": "3. Define time–energy correlation before using it",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "At the RFQ exit, let δt = tin − ⟨tin⟩ describe early or late release and δE = E − ⟨E⟩ describe lower or higher energy. Their variances are σt² and σE². The covariance is the average product of these centered deviations."
+          },
+          {
+            "type": "equation",
+            "key": "covariance"
+          },
+          {
+            "type": "text",
+            "text": "ρ is dimensionless and lies between −1 and +1. Positive ρ means later ions tend to have higher energy; negative ρ means later ions tend to have lower energy. If either standard deviation is zero, covariance is zero and the usual normalized correlation is undefined."
+          },
+          {
+            "type": "text",
+            "text": "The longitudinal coordinates (t,E) differ from transverse (x,vx) and from axial position–momentum (z,pz). At a fixed observation plane, (t,E) is useful for pulse transport. A distribution of release times and energies must be supplied or obtained from an extraction calculation or measurement; the present drift model does not generate it."
+          }
+        ]
+      },
+      {
+        "id": "drift",
+        "title": "4. Derive the field-free time map",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "For nonrelativistic kinetic energy EJ in joules, v = √(2EJ/m), so a drift of length L takes td = L/v. If energy is entered in electronvolts, use EJ = e EeV. The acceleration input here sets mean EeV = z Vacc; it is not the rod RF amplitude."
+          },
+          {
+            "type": "equation",
+            "key": "drift_time"
+          },
+          {
+            "type": "text",
+            "text": "Differentiate the inverse-square-root dependence with respect to energy. The derivative is negative: higher-energy ions traverse the same distance in less time. If td is in ns and E in eV, g is directly in ns/eV."
+          },
+          {
+            "type": "equation",
+            "key": "drift_derivative"
+          },
+          {
+            "type": "text",
+            "text": "Arrival time is tout = tin + td(E). Expand about the mean energy, retain the first-order term and subtract the mean arrival time. The common mean flight time drops out of the deviation equation."
+          },
+          {
+            "type": "equation",
+            "key": "drift_linear"
+          },
+          {
+            "type": "text",
+            "text": "This is a shear: each energy slice shifts in time by gδE while its energy remains unchanged. It is not an axial oscillation and not the motion inside a DC storage well."
+          }
+        ]
+      },
+      {
+        "id": "variance",
+        "title": "5. Derive the pulse width and the focusing condition",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Square δtout = δtin + gδE and average. Because the deviations are centered, the cross term is twice g times the covariance. This is why σt and σE alone do not determine the output pulse width."
+          },
+          {
+            "type": "equation",
+            "key": "variance_expand"
+          },
+          {
+            "type": "equation",
+            "key": "variance_result"
+          },
+          {
+            "type": "text",
+            "text": "For a Gaussian time projection, FWHM = 2√(2 ln 2) σ ≈ 2.35482 σ. That conversion is not a non-Gaussian peak fit. With g < 0, a positive covariance makes the cross term negative and can compress the pulse; too long a drift passes the focus and broadens it again."
+          },
+          {
+            "type": "text",
+            "text": "Differentiate the variance with respect to g. For σE > 0, the mathematical minimum occurs at gopt = −CtE/σE². Substitute that value back into the variance."
+          },
+          {
+            "type": "equation",
+            "key": "focus_optimum"
+          },
+          {
+            "type": "equation",
+            "key": "focus_minimum"
+          },
+          {
+            "type": "text",
+            "text": "A positive-length field-free drift has g < 0, so the nonzero optimum is reachable this way only for positive covariance. A negative covariance would require a different longitudinal transformation to reach the algebraic optimum."
+          },
+          {
+            "type": "example",
+            "title": "Illustrative propagation at 100 u",
+            "text": "For m = 100 u, z = 1, Vacc = 1000 V and L = 0.5 m: td = 11.38215 µs and g = −5.691076 ns/eV. With σt = 20 ns and σE = 0.5 eV, ρ = 0 gives FWHM = 47.57069 ns; ρ = +0.8 gives 41.92902 ns; ρ = −0.8 gives 52.61083 ns. These are first-order model outputs, not measured RFQ pulse widths."
+          },
+          {
+            "type": "text",
+            "text": "The compression preset sets ρ = +0.95 and selects the minimizing drift length. For the same illustrative mass, energy and input spreads, it gives L = 3.33856 m and σmin = 20√(1−0.95²) = 6.24500 ns. That distance describes downstream transport, not an inferred RFQ electrode length."
+          }
+        ]
+      },
+      {
+        "id": "emittance",
+        "title": "6. A shorter pulse is not automatically longitudinal cooling",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Write the map as a 2×2 matrix acting on (δt,δE). Covariance matrices transform by Σout = A Σin Aᵀ. This drift matrix has determinant one."
+          },
+          {
+            "type": "equation",
+            "key": "covariance_map"
+          },
+          {
+            "type": "text",
+            "text": "Therefore det Σout = (det A)² det Σin = det Σin. The rms longitudinal emittance in this chosen (t,E) representation is unchanged under the linear drift."
+          },
+          {
+            "type": "equation",
+            "key": "long_emittance"
+          },
+          {
+            "type": "text",
+            "text": "At the temporal focus the covariance becomes zero and the time projection is narrowest, while the energy spread is still σE. The scene illustrates this redistribution by shearing a covariance ellipse. Reducing occupied phase space requires a dissipative process or a selection process with losses; an ideal drift alone does neither."
+          },
+          {
+            "type": "text",
+            "text": "This invariance is for the stated linear map and covariance definition. It is not a claim that projected rms emittance is invariant under every nonlinear field, collision process or aperture cut."
+          }
+        ]
+      },
+      {
+        "id": "focus_limits",
+        "title": "7. Why a nearly zero first-order width is a warning",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "A small σE/E is useful but insufficient near cancellation. Keep the next Taylor term of the inverse-square-root flight time. For centered jointly Gaussian inputs, its centered quadratic contribution has zero covariance with the linear contribution."
+          },
+          {
+            "type": "equation",
+            "key": "second_order"
+          },
+          {
+            "type": "equation",
+            "key": "second_order_spread"
+          },
+          {
+            "type": "text",
+            "text": "The two expressions give a perturbative mean shift and a separate second-order rms scale. The workbench flags a near focus when the first-order σout is no more than three times this quadratic scale. It also flags σE/E > 0.1. These are screening conditions, not error bars or a universal accuracy guarantee."
+          },
+          {
+            "type": "text",
+            "text": "For a near-focus design, propagate the full joint distribution through the actual time-of-flight relation and then through electrode fringe fields and switching waveforms. Include detector timing and the downstream instrument response before interpreting the final peak. A formal zero in the linear model is not a physically demonstrated zero-duration bunch."
+          },
+          {
+            "type": "reference",
+            "label": "Boussaid et al. (2017), exit fields and energy-spread degradation",
+            "url": "https://doi.org/10.1103/PhysRevAccelBeams.20.124701"
+          }
+        ]
+      },
+      {
+        "id": "workflow",
+        "title": "8. Connect the models to a real buncher",
+        "open": false,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "Specify the axial storage well and RF radial confinement before discussing trapped-ion bouncing or cooling. The current free-drift scene does not supply that well.",
+              "Obtain the exit distribution in time, energy and transverse coordinates from a validated extraction-field calculation or measurement. Record RF phase, DC timing and correlations.",
+              "Propagate that distribution to a stated observation plane, comparing first-order covariance with nonlinear trajectories when necessary.",
+              "Keep accepted injection, stored expectation, extracted expectation, end-to-end transmission and detector counts distinct. Include dead time in cycle rates.",
+              "Report input uncertainties, convergence and model assumptions. Compare Gaussian-equivalent FWHM with the actual distribution, particularly its tails."
+            ]
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth et al. (2001), accumulation, cooling and bunched extraction in a physical RFQ",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  "zh": {
+    "gas_title": "冷却从零开始：方向、碰撞与轴向存储",
+    "bunch_title": "束团从零开始：整数离子、计数期望与时间—能量相关",
+    "gas_lead": "先定义观测量，再判断束流是否更冷。本指南区分随机动能、发射度、轴向约束，以及本页使用的标量近似。",
+    "bunch_lead": "积累模型预测每周期的平均粒子数；漂移模型预测给定时间—能量分布的时间投影如何变化。两者是不同计算，都不模拟引出脉冲。",
+    "source_label": "一手文献",
+    "gas": [
+      {
+        "id": "directions",
+        "title": "1. 冷却的究竟是什么？",
+        "open": true,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "令 z 沿束流方向，x、y 为横向。描述随机运动前先减去平均速度：δvᵢ = vᵢ − ⟨vᵢ⟩。定向束流可以具有很高的前进动能，同时具有很小的随机速度展宽。降低平均前进速度与降低速度展宽不是同一个观测量。"
+          },
+          {
+            "type": "equation",
+            "key": "temperature"
+          },
+          {
+            "type": "equation",
+            "key": "thermal_components"
+          },
+          {
+            "type": "text",
+            "text": "这里 Tᵢ 是方向二阶矩温度；只有相应分布处于热平衡时，它才是通常的热力学温度。射频驱动分布可能各向异性或不是 Maxwell 分布，因此应报告实测矩以及如何处理射频相位。"
+          },
+          {
+            "type": "table",
+            "headers": [
+              "观测量",
+              "物理问题",
+              "建议报告"
+            ],
+            "rows": [
+              [
+                "横向冷却",
+                "x、y 随机运动与横向相空间占据是否缩小？",
+                "σ(vx)、σ(vy)、Tx、Ty；指定束流能量下的 εx、εy"
+              ],
+              [
+                "纵向冷却",
+                "轴向速度或能量展宽是否下降？",
+                "σ(vz)、Tz、σ(E)、能量尾部和平均能量"
+              ],
+              [
+                "时间聚束",
+                "指定观测面处的到达时间区间是否缩短？",
+                "σ(t)、FWHM、Cov(t,E)、透射率和观测面位置"
+              ]
+            ]
+          },
+          {
+            "type": "equation",
+            "key": "emittance_transverse"
+          },
+          {
+            "type": "text",
+            "text": "近轴定义下 x′ ≈ vx/vz，几何均方根发射度的单位为长度乘角度。束斑变小可以同时伴随发散角增大，应使用协方差并注明发射度是几何值还是归一化值。"
+          },
+          {
+            "type": "example",
+            "title": "示例热平衡参考值，并非仿真结果",
+            "text": "各向同性 300 K 平衡下，每个随机动能自由度贡献 kBT/2 = 0.012926 eV；两个横向方向合计 0.025852 eV；三维总和为 3kBT/2 = 0.038778 eV。"
+          }
+        ]
+      },
+      {
+        "id": "relaxation",
+        "title": "2. 从气体密度到平均能量曲线",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "局部压强 p、气体温度 Tg 下，理想气体数密度为 n = p/(kBTg)。本页将 mbar 乘以 100 换成 Pa，将 Å² 乘以 10⁻²⁰ 换成 m²。νcoll = nσvrel 的量纲为 m⁻³ × m² × m/s = s⁻¹。"
+          },
+          {
+            "type": "equation",
+            "key": "gas_rate"
+          },
+          {
+            "type": "text",
+            "text": "此近似将 vrel 固定为初始估计值，并将碰撞率乘以双体质量传递因子 2mM/(m+M)² 与输入效率 ηE，从而得到能量弛豫时间。它通常不等于一次碰撞的平均等待时间。"
+          },
+          {
+            "type": "equation",
+            "key": "gas_transfer"
+          },
+          {
+            "type": "text",
+            "text": "假设能量偏差按这个常数速率弛豫。两边除以偏差并对时间积分，再代入初值 ⟨E(0)⟩ = E0。下式热能参考值以 eV 表示，因此将 SI 热能除以元电荷 e。"
+          },
+          {
+            "type": "equation",
+            "key": "gas_ode"
+          },
+          {
+            "type": "equation",
+            "key": "gas_solution"
+          },
+          {
+            "type": "text",
+            "text": "经过一个弛豫时间，初始偏差乘以 exp(−1) = 0.3679；五个弛豫时间后乘以 exp(−5) = 0.006738。若 p = 0 或 ηE = 0，模型中没有弛豫。若 E0 低于热能参考值，同一个方程描述向该参考值加热。"
+          },
+          {
+            "type": "text",
+            "text": "这只是一个标量平均值。本页并未分别追踪整体平移、Tx、Ty、Tz、横向发射度或纵向能散。可选的 Maxwell 分布动画是另加的形状假设，不是碰撞计算。"
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth 等（2001），气体冷却与微观碰撞模型，§3.2",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      },
+      {
+        "id": "rfheating",
+        "title": "3. 为什么加入气体不保证单调冷却",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "碰撞会改变离子相对于射频驱动的运动，随后射频源可能向离子做功，因此阻尼与加热相互竞争。离子—气体质量比、过量微运动、散射和电场条件都重要；本页没有给出适用于所有装置的气体质量阈值。"
+          },
+          {
+            "type": "text",
+            "text": "平均能量接近 3kBT/2 并不能证明分布为 Maxwell 分布。DeVoe 的射频阱碰撞研究得到随质量比变化的非 Maxwell 幂律尾部，因此本动画把热分布明确标为示意假设。"
+          },
+          {
+            "type": "reference",
+            "label": "DeVoe（2009），经典缓冲气体中被俘获离子的幂律分布",
+            "url": "https://doi.org/10.1103/PhysRevLett.102.063001"
+          },
+          {
+            "type": "text",
+            "text": "RFQ 出口的气体扩散、空间电荷和射频边缘场会改变横向发射度与纵向能散。标量弛豫曲线表现良好，并不能证明引出束流质量。SHIRaC 研究专门考察了这些出口区效应。"
+          },
+          {
+            "type": "reference",
+            "label": "Boussaid 等（2017），RFQ 冷却与出口区束流质量",
+            "url": "https://doi.org/10.1103/PhysRevAccelBeams.20.124701"
+          }
+        ]
+      },
+      {
+        "id": "axialwell",
+        "title": "4. 轴向往返、冷却与释放需要势阱",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "径向射频约束本身不会沿 z 俘获离子。轴向直流势阱提供回复力，离子可在转折点之间往返、与气体交换能量并积累，随后通过切换出口势垒释放。下列局部电势满足拉普拉斯方程，也说明轴向聚焦为何伴随径向直流散焦。"
+          },
+          {
+            "type": "equation",
+            "key": "axial_potential"
+          },
+          {
+            "type": "equation",
+            "key": "axial_bounce"
+          },
+          {
+            "type": "text",
+            "text": "Q = ze。正离子在 QUc > 0 时于势阱最低点附近受到谐波轴向回复力。Uc 表示轴向曲率，并不是 Mathieu 计算中径向四极直流输入 U；径向射频约束还必须抵消相伴的直流散焦。"
+          },
+          {
+            "type": "text",
+            "text": "离开谐波近似后，往返周期可能依赖能量。碰撞既可阻尼运动，也可带来随机冲量。真实引出依赖分段直流场、势垒波形、射频相位、气体分布与空间电荷。"
+          },
+          {
+            "type": "text",
+            "text": "当前轨迹画面采用自由轴向漂移 z = z0 + vz t，三维视图并不会增加轴向俘获力。束团画面从给定的出口协方差出发，跟踪下游无场剪切，并未求解存储势阱或脉冲势垒。"
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth 等（2001），轴向约束与冷却聚束器运行，§3.1",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      },
+      {
+        "id": "cooling_evidence",
+        "title": "5. 如何验证横向与纵向冷却？",
+        "open": false,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "明确入口/出口平面、接受的离子、局部气压和温度、射频电压约定及相位、直流电极波形。",
+              "扣除平均流速后比较 Tx、Ty、Tz 或速度矩；使用一致方法分辨或平均射频微运动。",
+              "同时报告能量分布及尾部、εx、εy、时间—能量协方差、纵向均方根发射度与透过粒子数。",
+              "细化积分步长与空间场网格检查收敛，并比较微观碰撞模型与平均能量近似。",
+              "量化气压、截面、射频幅度、时序和探测器响应的不确定度。猜测的容量或效率是假设，不是实验标定。"
+            ]
+          }
+        ]
+      }
+    ],
+    "bunch": [
+      {
+        "id": "expectations",
+        "title": "1. 为什么“存储离子数”可以是 0.08646647？",
+        "open": true,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "每次实际离子计数只能是整数：0、1、2……。显示数值是期望值，即重复相同名义条件周期后的平均，或等价的可能结果集合平均。预计存储 0.08646647 个离子，并不表示阱里存在一个离子的某一小部分。"
+          },
+          {
+            "type": "text",
+            "text": "定义 R 为进入积累模型的注入率，τloss 为恒定独立损失寿命，Th 为积累时间。初始为空时，注入使均值增加 R dt，损失使均值减少 N̄ dt/τloss，由此得到速率方程。"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_ode"
+          },
+          {
+            "type": "text",
+            "text": "两边乘以 exp(t/τloss)，左侧变为乘积的导数。从 0 积分到 Th，并代入 N̄(0) = 0，即得到闭式解。"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_factor"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_solution"
+          },
+          {
+            "type": "text",
+            "text": "也可逐批计算注入离子：在时刻 s 进入的离子，存活到 Th 的概率为 exp[−(Th−s)/τloss]。对恒定注入率乘该存活概率积分，得到同一个结果。"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_survival"
+          },
+          {
+            "type": "text",
+            "text": "Th ≪ τloss 时，结果趋于 RTh；Th ≫ τloss 时，趋于 Rτloss。这里可以使用多个独立损失机制合成的有效寿命，但它并不自动等于放射性寿命。"
+          },
+          {
+            "type": "example",
+            "title": "为复现这些小数而选取的说明性参数",
+            "text": "取 R = 10 s⁻¹、Th = 20 ms = 0.020 s、τloss = 10 ms = 0.010 s、K = 1000 个离子、ηext = 0.7。则 Rτloss(1−exp(−Th/τloss)) = 0.1(1−exp(−2)) = 0.08646647168；引出期望为 0.7 × 0.08646647168 = 0.06052653017。这些位数表示模型算术，不是实测精度。"
+          },
+          {
+            "type": "text",
+            "text": "重复 100 个这样的周期，预计存储总数为 8.646647，引出总数为 6.052653；某次真实实验的总数仍然是整数。不能先把每周期期望值舍入成零再求和。若要预测完整计数分布，还需要泊松注入、独立损失等附加假设。"
+          }
+        ]
+      },
+      {
+        "id": "capacity",
+        "title": "2. 容量、引出比例与速率是不同量",
+        "open": false,
+        "blocks": [
+          {
+            "type": "equation",
+            "key": "inventory_cap"
+          },
+          {
+            "type": "text",
+            "text": "K 是用户假定的硬容量。本实现将算出的均值截断到 K，不求解空间电荷、饱和出生—死亡过程，也不计算截断泊松随机变量的期望。一般而言 min(K, E[N]) 并不等于 E[min(K,N)]。"
+          },
+          {
+            "type": "text",
+            "text": "ηext 是假定能够从存储期望中引出的比例，不是由脉冲电场算得。它也不同于气体能量传递因子 ηE，更不同于端到端透射率 Nout/Nincident；后者取决于捕获、存活、孔径、传输和探测定义。"
+          },
+          {
+            "type": "equation",
+            "key": "inventory_rate"
+          },
+          {
+            "type": "text",
+            "text": "模型 JSON 中的速率仅以保持时间归一化：N̄ext/Th，没有加入引出、复位和传输死时间。完整周期应除以 Th + tdead。在上面的说明性示例中，保持时间归一化期望率为 3.0263265 s⁻¹；若额外死时间为 10 ms，完整周期期望率为 2.0175510 s⁻¹。"
+          },
+          {
+            "type": "text",
+            "text": "将这些数值用作器件预测之前，应测量或约束 R、τloss、K 和 ηext。即使理想 Mathieu 工作点稳定，弱注入或短存活时间仍可使预计引出粒子数很低。"
+          }
+        ]
+      },
+      {
+        "id": "correlation",
+        "title": "3. 先定义时间—能量相关",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "在 RFQ 出口，令 δt = tin − ⟨tin⟩ 表示释放时间偏早或偏晚，δE = E − ⟨E⟩ 表示能量偏低或偏高。其方差分别为 σt²、σE²，协方差是这两个去均值偏差乘积的平均。"
+          },
+          {
+            "type": "equation",
+            "key": "covariance"
+          },
+          {
+            "type": "text",
+            "text": "ρ 无量纲，范围为 −1 到 +1。正相关表示较晚离子倾向于具有较高能量；负相关表示较晚离子倾向于具有较低能量。若任一标准差为零，协方差为零，而通常的归一化相关系数没有定义。"
+          },
+          {
+            "type": "text",
+            "text": "纵向坐标 (t,E) 不同于横向 (x,vx)，也不同于轴向位置—动量 (z,pz)。在固定观测面，(t,E) 适合描述脉冲传输。释放时间与能量分布需要由输入给定，或来自引出计算或测量；当前漂移模型不会生成这个分布。"
+          }
+        ]
+      },
+      {
+        "id": "drift",
+        "title": "4. 推导无场时间映射",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "非相对论动能 EJ 以焦耳表示时，v = √(2EJ/m)，长度 L 的漂移时间为 td = L/v。能量若以 eV 输入，应换算 EJ = e EeV。本页加速电压输入设置平均 EeV = z Vacc，它不是电极杆射频幅度。"
+          },
+          {
+            "type": "equation",
+            "key": "drift_time"
+          },
+          {
+            "type": "text",
+            "text": "对能量的负二分之一次幂求导。导数为负，意味着能量较高的离子通过相同距离所需时间更短。若 td 用 ns、E 用 eV，则 g 的单位直接为 ns/eV。"
+          },
+          {
+            "type": "equation",
+            "key": "drift_derivative"
+          },
+          {
+            "type": "text",
+            "text": "到达时间为 tout = tin + td(E)。在平均能量附近展开，保留一阶项，再减去平均到达时间，共同的平均飞行时间便从偏差方程中消失。"
+          },
+          {
+            "type": "equation",
+            "key": "drift_linear"
+          },
+          {
+            "type": "text",
+            "text": "这是剪切映射：每个能量切片在时间方向移动 gδE，而能量不变。它不是轴向振荡，也不是直流存储阱中的运动。"
+          }
+        ]
+      },
+      {
+        "id": "variance",
+        "title": "5. 推导脉宽与聚焦条件",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "将 δtout = δtin + gδE 平方后取平均。偏差已经去均值，因此交叉项就是二倍 g 乘协方差。这说明仅凭 σt 和 σE 无法确定输出脉宽。"
+          },
+          {
+            "type": "equation",
+            "key": "variance_expand"
+          },
+          {
+            "type": "equation",
+            "key": "variance_result"
+          },
+          {
+            "type": "text",
+            "text": "高斯时间投影满足 FWHM = 2√(2 ln 2) σ ≈ 2.35482 σ，这不是对非高斯峰的拟合。g < 0 时，正协方差使交叉项为负，可压缩脉冲；漂移过长则越过焦点，再次展宽。"
+          },
+          {
+            "type": "text",
+            "text": "对 g 求方差导数。σE > 0 时，数学极小值位于 gopt = −CtE/σE²；代回方差公式即可得到最小宽度。"
+          },
+          {
+            "type": "equation",
+            "key": "focus_optimum"
+          },
+          {
+            "type": "equation",
+            "key": "focus_minimum"
+          },
+          {
+            "type": "text",
+            "text": "正长度无场漂移具有 g < 0，因此只有正协方差才能用这种方式到达非零最优漂移。负协方差若要达到代数上的最优值，需要其他纵向变换。"
+          },
+          {
+            "type": "example",
+            "title": "100 u 的说明性传输示例",
+            "text": "m = 100 u、z = 1、Vacc = 1000 V、L = 0.5 m 时，td = 11.38215 µs，g = −5.691076 ns/eV。取 σt = 20 ns、σE = 0.5 eV：ρ = 0 时 FWHM = 47.57069 ns；ρ = +0.8 时为 41.92902 ns；ρ = −0.8 时为 52.61083 ns。这些是一阶模型输出，不是实测 RFQ 脉宽。"
+          },
+          {
+            "type": "text",
+            "text": "压缩预设将 ρ 设为 +0.95，并选择使宽度最小的漂移长度。在同一说明性质量、能量和初始展宽下，L = 3.33856 m，σmin = 20√(1−0.95²) = 6.24500 ns。该长度表示下游传输距离，不是推断出的 RFQ 电极长度。"
+          }
+        ]
+      },
+      {
+        "id": "emittance",
+        "title": "6. 脉冲变短不自动等于纵向冷却",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "将映射写成作用于 (δt,δE) 的 2×2 矩阵。协方差矩阵按 Σout = A Σin Aᵀ 变换，而该漂移矩阵的行列式为一。"
+          },
+          {
+            "type": "equation",
+            "key": "covariance_map"
+          },
+          {
+            "type": "text",
+            "text": "因此 det Σout = (det A)² det Σin = det Σin。在所选 (t,E) 表示中，均方根纵向发射度在线性漂移下不变。"
+          },
+          {
+            "type": "equation",
+            "key": "long_emittance"
+          },
+          {
+            "type": "text",
+            "text": "在时间焦点，协方差变为零，时间投影最窄，但能散仍为 σE。动画通过协方差椭圆的剪切展示这种重新分配。缩小相空间占据需要耗散过程，或伴随损失的选择过程；理想漂移本身不会做到。"
+          },
+          {
+            "type": "text",
+            "text": "这里的不变性限于给定线性映射与协方差定义，并不宣称任意非线性电场、碰撞或孔径截断都保持投影均方根发射度。"
+          }
+        ]
+      },
+      {
+        "id": "focus_limits",
+        "title": "7. 为什么一阶宽度接近零反而需要警惕",
+        "open": false,
+        "blocks": [
+          {
+            "type": "text",
+            "text": "σE/E 很小有帮助，但在相消附近仍不够。应保留飞行时间负二分之一次幂展开的下一项。对于中心联合高斯输入，去均值后的二次项与线性项的协方差为零。"
+          },
+          {
+            "type": "equation",
+            "key": "second_order"
+          },
+          {
+            "type": "equation",
+            "key": "second_order_spread"
+          },
+          {
+            "type": "text",
+            "text": "这两个表达式给出微扰均值移动和独立的二阶均方根尺度。当一阶 σout 不超过该二阶尺度的三倍时，本工作台提示接近焦点；同时对 σE/E > 0.1 提示警告。这些是筛查条件，不是误差棒或普适精度保证。"
+          },
+          {
+            "type": "text",
+            "text": "对于近焦点设计，应先将完整联合分布代入真实飞行时间关系，再传播通过电极边缘场和开关波形。解释最终峰形前，还需加入探测器时序和下游仪器响应。一阶模型形式上的零，并不证明存在物理上的零时宽束团。"
+          },
+          {
+            "type": "reference",
+            "label": "Boussaid 等（2017），出口电场与能散劣化",
+            "url": "https://doi.org/10.1103/PhysRevAccelBeams.20.124701"
+          }
+        ]
+      },
+      {
+        "id": "workflow",
+        "title": "8. 如何连接到真实聚束器",
+        "open": false,
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              "讨论被俘获离子的轴向往返或冷却前，先指定轴向存储阱与射频径向约束。当前无场漂移动画不提供该势阱。",
+              "由经过验证的引出场计算或测量获取出口时间、能量和横向分布，并记录射频相位、直流时序和相关性。",
+              "将分布传播到指定观测面；需要时比较一阶协方差与非线性轨迹。",
+              "区分进入模型的注入、存储期望、引出期望、端到端透射率与探测计数；周期率应包含死时间。",
+              "报告输入不确定度、收敛性与模型假设；比较高斯等效 FWHM 和真实分布，尤其关注尾部。"
+            ]
+          },
+          {
+            "type": "reference",
+            "label": "Herfurth 等（2001），真实 RFQ 中的积累、冷却与束团引出",
+            "url": "https://titan.triumf.ca/equipment/RFQ/254.pdf"
+          }
+        ]
+      }
+    ]
+  }
+}

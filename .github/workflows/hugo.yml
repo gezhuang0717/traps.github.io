@@ -149,9 +149,9 @@ jobs:
           path: public
   deploy:
     needs: validate
-    # Publish the user site, the owner-selected IGISOL project or the test/staging site; other copies
-    # and the `test` branch only validate.
-    if: always() && (github.repository == format('{0}/{0}.github.io', github.repository_owner) || github.repository == 'gezhuang0717/igisol.github.io' || github.repository == 'gezhuang0717/traps.github.io') && github.ref == 'refs/heads/main' && needs.validate.result == 'success' && github.event_name != 'pull_request'
+    # Owner request 2026-11-23: traps must not publish a public Pages website.
+    # Validation remains available; only the public main site and IGISOL may deploy.
+    if: always() && github.repository != 'gezhuang0717/traps.github.io' && (github.repository == format('{0}/{0}.github.io', github.repository_owner) || github.repository == 'gezhuang0717/igisol.github.io') && github.ref == 'refs/heads/main' && needs.validate.result == 'success' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       pages: write

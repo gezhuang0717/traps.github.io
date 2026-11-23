@@ -1,0 +1,128 @@
+{
+  "en": {
+    "title": "Understand the motion: from the electric field to cooler performance",
+    "lead": "An ion has one physical trajectory. “Secular motion” and “micromotion” describe different time scales within that trajectory. Start with the weak-confinement example, then compare the raw path, RF-period mean, residual and spectrum.",
+    "sections": [
+      {
+        "title": "1 · Why two time scales appear",
+        "paragraphs": [
+          "The rods reverse their focusing and defocusing directions every half RF period. The ion cannot follow the field instantaneously. Rapid, driven motion combines with a slower restoring motion. The Motion panel integrates the full ideal Mathieu equations; it does not construct the path by adding two guessed sine waves.",
+          "Use Q = ze, Ω = 2πf_RF and τ = Ωt/2. V is the peak voltage on one rod relative to the RF midpoint. For this website’s potential convention, Φ = (U − V cos Ωt)(x² − y²)/r₀². Taking −Q∂Φ/∂x = m d²x/dt² and changing the time variable gives the following equations."
+        ],
+        "equations": [
+          "a = 8QU/(mr₀²Ω²);  q = 4QV/(mr₀²Ω²)",
+          "x″ + [a − 2q cos(2τ)]x = 0;  y″ + [−a + 2q cos(2τ)]y = 0",
+          "At small |a| and |q|: βₓ² ≈ a + q²/2;  βᵧ² ≈ −a + q²/2;  ωᵢ = βᵢΩ/2"
+        ],
+        "after": "Primes denote derivatives with respect to τ. Both approximate β² values must be positive. Near a boundary, use the numerical Floquet exponents in Resonances. The small-q formulas do not define the exact stability boundary."
+      },
+      {
+        "title": "2 · Derive the micromotion term and recognize it",
+        "paragraphs": [
+          "Write x = X + ξ, where X changes slowly during one RF period. In dimensionless time, the leading fast equation is ξ″ ≈ 2qX cos(2τ). Treating X as constant during that short interval gives ξ ≈ −(q/2)X cos(2τ). Repeating the argument for y reverses the sign. The sign depends on the chosen RF phase and potential convention.",
+          "Thus the rapid oscillation is proportional to distance from the RF null, with opposite phases along x and y. The slow orbit X or Y is approximately harmonic in the weak-confinement regime. Intrinsic micromotion accompanies a secular orbit away from the null. Excess micromotion can also arise from a static displacement, RF phase imbalance or an axial RF field; those imperfections are not included in this ideal trajectory model."
+        ],
+        "equations": [
+          "x(t) ≈ X(t)[1 − (q/2) cos Ωt];  y(t) ≈ Y(t)[1 + (q/2) cos Ωt]",
+          "X(t) ≈ Aₓ cos(ωₓt + θₓ);  Y(t) ≈ Aᵧ cos(ωᵧt + θᵧ)",
+          "At a = 0: f_sec ≈ |q|f_RF/(2√2);  fast-displacement amplitude ≈ |qX|/2"
+        ],
+        "after": "Try Gentle confinement, then Stronger micromotion. The larger-q example shows why a convenient low-q separation becomes less accurate; it is still integrated with the full ideal equations."
+      },
+      {
+        "title": "3 · What each plot can and cannot identify",
+        "paragraphs": [
+          "The time trace shows the actual integrated coordinates. The x–y view shows transverse acceptance against a circular aperture proxy. The x–vₓ view shows position–velocity correlations. The 3D view adds exact free axial drift z = z₀ + v_z t; it does not represent an axial trapping well.",
+          "The one-period mean smooths fast oscillations and the residual is raw minus mean. This filter is useful for diagnosis, but is not an exact secular/micromotion separation. Edges without a complete centered window are omitted. Strong q, a short record or an unstable path makes a secular interpretation especially unreliable.",
+          "The Hann-window spectrum removes the coordinate mean and reports single-sided displacement amplitude. A modulated secular oscillation produces components near f_sec and f_RF ± f_sec. A pure peak at f_RF is not required for intrinsic micromotion. Frequency resolution is limited by the record duration; zero padding only gives a finer sampling of the spectrum.",
+          "For a phase-coherent measurement, compare with the RF reference, vary the DC compensation or the RF amplitude, and measure the change of mean position and phase-locked motion. Laser-accessible ions also allow fluorescence/RF correlation or resolved sideband measurements. An unresolved camera image or a broadened TOF spectrum alone cannot uniquely identify micromotion."
+        ],
+        "equations": [
+          "cos(ωt) cos(Ωt) = ½ cos[(Ω + ω)t] + ½ cos[(Ω − ω)t]",
+          "Floquet frequencies: |n f_RF ± f_sec|;  first-zone f_sec = βf_RF/2;  resolution scale Δf ≈ 1/T"
+        ],
+        "after": "Use at least 32 RF cycles for the spectrum example, and compare 64 with 128 integration steps per RF cycle when studying fine structure or loss. The phase-comparison view changes only the launch RF phase; it recomputes each path."
+      },
+      {
+        "title": "4 · Why it matters for cooling, acceptance and extraction",
+        "paragraphs": [
+          "Secular amplitude sets the slow beam envelope; excessive amplitude reaches the aperture and reduces acceptance. Increasing q can strengthen confinement while increasing the driven motion. Stability of an ideal equation is therefore only one requirement for useful cooler operation.",
+          "For a locally fixed displacement d from the RF null, the micromotion velocity amplitude is |q|Ω|d|/2. Averaging ½m v² over the RF cycle gives the energy below. For a secular orbit, d is time dependent and requires an additional secular average; do not substitute the turning-point amplitude as its RMS displacement.",
+          "A collision changes velocity at a particular RF phase. Subsequent RF work may cool or heat the slow motion, so the final distribution need not be Maxwellian or equal to the gas temperature. The Gas cooling tab intentionally models only exponential mean-energy relaxation; it does not calculate this RF heating.",
+          "Assess the real device using transverse emittance or phase-space scans, energy spread, TOF shape and correlations, extracted count per cycle, loss rate and dependence on RF phase. Fringe fields can couple transverse motion into longitudinal energy during extraction. A narrower image, a lower mean energy and a shorter bunch are different observables."
+        ],
+        "equations": [
+          "⟨K_mm⟩_RF ≈ m q²Ω²d²/16",
+          "W(r) = Q²|E_RF,peak(r)|²/(4mΩ²);  W(r₀)/e = zVq/4 (eV)",
+          "Cooling-performance checks: σ(x), σ(vₓ), Cov(x,vₓ), σ(E), σ(t), Cov(t,E), N_ext per cycle"
+        ],
+        "after": "Worked scale: for 100 u, z = 1, V = 150 V, r₀ = 10 mm and f_RF = 0.7 MHz, q ≈ 0.299266. The low-q secular estimate is about 74.1 kHz; the first-zone Floquet value is about 75.43 kHz. A fixed 1 mm offset gives about 0.112 eV of RF-averaged micromotion kinetic energy in the low-q estimate. This is a model scale, not a measured temperature or the energy of the default trajectory."
+      }
+    ],
+    "sources": "Sources and conventions",
+    "source_note": "The equations above are derived for the displayed voltage convention. Experimental micromotion diagnostics and collision-driven steady states require additional apparatus and assumptions."
+  },
+  "zh": {
+    "title": "理解运动：从电场到冷却器性能",
+    "lead": "离子只有一条实际轨迹。“久期运动”和“微运动”表示这条轨迹中的不同时间尺度。先载入弱约束示例，再比较原始轨迹、射频周期均值、残差与频谱。",
+    "sections": [
+      {
+        "title": "1 · 为什么出现两个时间尺度",
+        "paragraphs": [
+          "四根电极每半个射频周期交换聚焦和散焦方向。离子不能瞬时跟随电场，快速受迫运动与较慢的恢复运动共同构成轨迹。运动面板直接积分完整的理想 Mathieu 方程，而不是把两条任意正弦曲线拼在一起。",
+          "定义 Q = ze、Ω = 2πf_RF、τ = Ωt/2。V 是单根电极相对射频中点的峰值电压。本网站使用 Φ = (U − V cos Ωt)(x² − y²)/r₀²。由 −Q∂Φ/∂x = m d²x/dt² 并变换时间变量，可得下式。"
+        ],
+        "equations": [
+          "a = 8QU/(mr₀²Ω²);  q = 4QV/(mr₀²Ω²)",
+          "x″ + [a − 2q cos(2τ)]x = 0;  y″ + [−a + 2q cos(2τ)]y = 0",
+          "At small |a| and |q|: βₓ² ≈ a + q²/2;  βᵧ² ≈ −a + q²/2;  ωᵢ = βᵢΩ/2"
+        ],
+        "after": "撇号表示对 τ 求导。两个近似 β² 都必须为正。在稳定边界附近应使用“共振”子页的数值 Floquet 指数；低 q 公式不能定义精确稳定边界。"
+      },
+      {
+        "title": "2 · 推导并识别微运动项",
+        "paragraphs": [
+          "写成 x = X + ξ，其中 X 在一个射频周期内变化较慢。快速项满足 ξ″ ≈ 2qX cos(2τ)。在这段短时间内把 X 视为常数，得到 ξ ≈ −(q/2)X cos(2τ)；y 方向符号相反。这里的符号取决于所选射频相位和电势约定。",
+          "快速振荡幅度近似与离射频零点的距离成正比，x 和 y 方向相位相反。弱约束时，慢轨道 X、Y 近似为简谐振荡。只要久期轨道离开零点，就伴随本征微运动；静电位移、两路射频相位不平衡或轴向射频场还会引起过量微运动。这些非理想因素没有加入当前理想轨迹模型。"
+        ],
+        "equations": [
+          "x(t) ≈ X(t)[1 − (q/2) cos Ωt];  y(t) ≈ Y(t)[1 + (q/2) cos Ωt]",
+          "X(t) ≈ Aₓ cos(ωₓt + θₓ);  Y(t) ≈ Aᵧ cos(ωᵧt + θᵧ)",
+          "At a = 0: f_sec ≈ |q|f_RF/(2√2);  fast-displacement amplitude ≈ |qX|/2"
+        ],
+        "after": "先比较“弱约束慢振荡”和“较强微运动”。较大 q 的例子说明低 q 分离近似为何变差；轨迹本身仍由完整理想方程积分。"
+      },
+      {
+        "title": "3 · 各种图能识别什么，不能识别什么",
+        "paragraphs": [
+          "时间轨迹显示实际积分坐标；x–y 图结合圆形孔径近似说明横向接收度；x–vₓ 图显示位置与速度的相关性；三维图增加 z = z₀ + v_z t 的精确轴向自由漂移，不代表轴向势阱。",
+          "一个射频周期均值平滑快速振荡，残差等于原始轨迹减均值。它是有用的诊断滤波器，不是久期运动与微运动的严格分离。不完整的边缘窗口省略。较大 q、较短记录或不稳定轨迹下，久期解释尤其需要谨慎。",
+          "频谱先去除坐标均值并使用 Hann 窗，给出单边位移幅度。被调制的久期振荡会在 f_sec 和 f_RF ± f_sec 附近产生分量。本征微运动不一定在 f_RF 处出现孤立峰。分辨率受记录时长限制；补零仅加密频谱采样点。",
+          "实际相干诊断应与射频参考比较，并改变静电补偿或射频幅度，观察平均位置与锁相运动。可激光探测的离子还可使用荧光与 RF 相关法或分辨边带法。仅有无法分辨时间的相机图像，或展宽的 TOF 谱，不能唯一确认微运动。"
+        ],
+        "equations": [
+          "cos(ωt) cos(Ωt) = ½ cos[(Ω + ω)t] + ½ cos[(Ω − ω)t]",
+          "Floquet frequencies: |n f_RF ± f_sec|;  first-zone f_sec = βf_RF/2;  resolution scale Δf ≈ 1/T"
+        ],
+        "after": "频谱示例建议至少使用 32 个射频周期；研究细结构或损失时，应比较每周期 64 与 128 个积分步。“比较注入相位”只改变射频起始相位，并分别重新计算轨迹。"
+      },
+      {
+        "title": "4 · 对冷却、接收度和提取的影响",
+        "paragraphs": [
+          "久期幅度决定缓慢变化的束流包络；幅度过大将碰到孔径，降低接收度。增大 q 可能增强约束，同时增加受迫运动。因此，理想方程稳定只是冷却器有效工作的条件之一。",
+          "对于相对 RF 零点近似固定的位移 d，微运动速度幅度为 |q|Ω|d|/2。对 ½m v² 作 RF 周期平均可得下式。如果 d 随久期运动变化，还需进一步作久期平均，不能把转折点振幅直接当成均方根位移。",
+          "碰撞在某个 RF 相位改变速度，随后 RF 电场做功可能减少或增加慢运动能量，因此稳态分布不一定为 Maxwell 分布，也不一定达到气体温度。“气体冷却”页仅计算平均能量的指数弛豫，没有计算这种 RF 加热。",
+          "真实装置应结合横向发射度或相空间扫描、能散、TOF 形状及相关性、每周期提取离子数、损失率和 RF 相位依赖来评价。提取时的边缘场会把横向运动耦合到纵向能量。更窄的束斑、更低的平均能量和更短的束团是不同观测量。"
+        ],
+        "equations": [
+          "⟨K_mm⟩_RF ≈ m q²Ω²d²/16",
+          "W(r) = Q²|E_RF,peak(r)|²/(4mΩ²);  W(r₀)/e = zVq/4 (eV)",
+          "Cooling-performance checks: σ(x), σ(vₓ), Cov(x,vₓ), σ(E), σ(t), Cov(t,E), N_ext per cycle"
+        ],
+        "after": "数值尺度：100 u、z = 1、V = 150 V、r₀ = 10 mm、f_RF = 0.7 MHz 时，q ≈ 0.299266。低 q 久期频率约为 74.1 kHz，第一稳定区 Floquet 值约为 75.43 kHz。固定偏离零点 1 mm 时，低 q 估计的 RF 平均微运动动能约为 0.112 eV。这是模型尺度，不是测得温度，也不是默认轨迹的能量。"
+      }
+    ],
+    "sources": "来源与约定",
+    "source_note": "上述方程按本页的电压定义推导。实验微运动诊断和含碰撞的稳态需要额外装置与物理假设。"
+  }
+}

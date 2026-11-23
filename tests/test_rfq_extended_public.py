@@ -1,5 +1,6 @@
 """Source-level guard for public RFQ extensions and the private/manuals boundary."""
 from pathlib import Path
+from html.parser import HTMLParser
 import json
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,9 +32,21 @@ def test_all_rfq_panels_labeled_and_mounted():
     for key in ("motion","gas","bunch","scan","data"):
         assert f'data-local-tab="{{{{ . }}}}"' in partial
         assert f'data-local-panel="{key}"' in extras
+    class ButtonAttributes(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.buttons = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "button":
+                self.buttons.append(dict(attrs))
+
+    controls = ButtonAttributes()
+    controls.feed(extras)
     for kind in ("motion","gas","bunch","scan","data"):
         for ext in ("svg","png","pdf"):
-            assert f'data-rfx-action="{ext}" data-rfx-kind="{kind}"' in extras
+            assert any(button.get("data-rfx-action") == ext and button.get("data-rfx-kind") == kind
+                       for button in controls.buttons), (kind, ext)
     assert "ZGFigureStyle.exportSVG" in (ROOT / "static/js/rfq-extended-ui.js").read_text()
     assert '{{ partial "zg/rfq-extras.html" . }}' in partial
     for module in ("rfq-extended-core.js","rfq-extended-ui.js","rfq-extras.css"):

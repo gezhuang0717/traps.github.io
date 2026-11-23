@@ -8,7 +8,7 @@ Personal academic site of Zhuang Ge, built with [Hugo](https://gohugo.io/). One 
 | [Blowfish](https://github.com/nunocoracao/blowfish) | `sites/blowfish` | Dark ocean scheme, gradient header, table of contents, recent posts |
 | [PaperMod](https://github.com/adityatelange/hugo-PaperMod) | `sites/papermod` | Minimal profile card with buttons, auto light/dark |
 
-Live site: <https://gezhuang0717.github.io/traps.github.io/>
+Public website repository: <https://github.com/gezhuang0717/gezhuang0717.github.io>
 
 ## Structure
 
@@ -37,11 +37,11 @@ hugo server --configDir sites/congo    --themesDir themes    # or blowfish / pap
 
 Open the local preview URL printed by Hugo.
 
-## Deploy to GitHub Pages
+## Publication
 
-1. This repository is connected: validated pushes to `main` deploy to https://gezhuang0717.github.io/traps.github.io/.
-2. Repository → Settings → Pages → Source: **GitHub Actions**.
-3. The selected theme is configured by `live_theme` in the public `site.yaml` (regenerate theme configurations before building).
+Automatic GitHub Pages publication from this repository is disabled. The public website is maintained in the repository linked above.
+
+The selected theme is configured by `live_theme` in the public `site.yaml` (regenerate theme configurations before building).
 
 ## Common edits
 

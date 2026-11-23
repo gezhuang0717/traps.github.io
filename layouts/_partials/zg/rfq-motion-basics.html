@@ -1,0 +1,13 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" "en" -}}
+{{- $t := index hugo.Data.rfq_motion_basics $k -}}
+<details class="rfq-foundations rfq-motion-basics" data-no-fold lang="{{ $k }}">
+<summary>{{ $t.title }}</summary><p class="rfq-guide-lead">{{ $t.lead }}</p>
+{{ range $t.sections }}
+<details class="rfq-guide-section" open><summary>{{ .title }}</summary>
+{{ range .paragraphs }}<p>{{ . }}</p>{{ end }}
+{{ range .equations }}<div class="rfq-equation">{{ . }}</div>{{ end }}
+<p class="rfq-model-caption">{{ .after }}</p></details>
+{{ end }}
+<h4>{{ $t.sources }}</h4><p>{{ $t.source_note }}</p>
+<p><a href="https://dlmf.nist.gov/28.2">NIST DLMF §28.2</a> · <a href="https://tf.nist.gov/general/pdf/1226.pdf">Berkeland et al., J. Appl. Phys. 83, 5025 (1998)</a> · <a href="https://doi.org/10.1103/PhysRevLett.112.143009">Chen, Sullivan &amp; Hudson, Phys. Rev. Lett. 112, 143009 (2014)</a></p>
+</details>

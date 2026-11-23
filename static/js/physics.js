@@ -155,11 +155,13 @@
     return { species, pairs, width: fw, origin: species[0].time, parameters: p };
   }
   function calibration(t, refTime, refIon, q, delay, sigT = 0, sigRef = 0, sigDelay = 0) {
-    if (!(t > delay && refTime > delay && q > 0) || [sigT, sigRef, sigDelay].some(x => x < 0)) throw new Error("Calibration times must exceed delay.");
-    const a = t - delay, b = refTime - delay, mass = refIon.ionMassU * q / refIon.q * (a / b) ** 2;
+    // q is the signed target charge state. Flight speed depends on |q|;
+    // recovering a neutral atomic mass requires the signed electron correction.
+    if (!(t > delay && refTime > delay && Number.isInteger(q) && q !== 0) || [sigT, sigRef, sigDelay].some(x => x < 0)) throw new Error("Calibration times must exceed delay; nonzero integer charge required.");
+    const a = t - delay, b = refTime - delay, mass = refIon.ionMassU * Math.abs(q) / refIon.q * (a / b) ** 2;
     const derivatives = [2 * mass / a, -2 * mass / b, 2 * mass * (1 / b - 1 / a)];
     const e = refIon.e == null ? null : Math.hypot(...derivatives.map((d, i) => d * [sigT, sigRef, sigDelay][i]), mass / refIon.ionMassU * refIon.e / C.uKeV);
-    return { atomicMassU: mass + q * C.electronU, uncertaintyU: e, uncertainty_model: "independent times/reference mass; shared time-zero derivative combined" };
+    return { atomicMassU: mass + q * C.electronU, ionMassU: mass, signedCharge: q, uncertaintyU: e, uncertainty_model: "independent times/reference mass; shared time-zero derivative combined" };
   }
   function conversion(detuning, T, scheme = "rect") {
     if (!(T > 0)) throw new Error("Excitation time must be positive");
@@ -231,8 +233,13 @@
   }
   const MA0 = q => eigLow([...Array(14)].map((_, r) => 4 * r * r), [...Array(13)].map((_, r) => r ? q : Math.SQRT2 * q));
   const MB1 = q => eigLow([...Array(14)].map((_, r) => r ? (2 * r + 1) ** 2 : 1 - q), [...Array(13)].map(() => q));
-  const Q_EDGE = 0.908046, Q_TIP = 0.705996, A_TIP = 0.236994;
-  const mathieuStable = (a, q) => q > 0 && q < Q_EDGE && a < MB1(q) && a > MA0(q) && -a < MB1(q) && -a > MA0(q);
+  function mathieuStable(a, q) {
+    if (![a, q].every(Number.isFinite)) return false;
+    // q → −q is an RF phase shift; use the first-band characteristic values, not a rounded q intercept.
+    q = Math.abs(q);
+    if (!(q > 0 && q < 1)) return false;
+    return Math.abs(a) < Math.min(-MA0(q), MB1(q));
+  }
 
 
   function mathieuParameters(ion,U,V,r0,frequencyMHz) { const k=C.e*(ion.sign||1)*ion.q/(ion.ionMassU*C.uKg*(r0/1000)**2*(2*Math.PI*frequencyMHz*1e6)**2);return {a:8*k*U,q:4*k*V}; }
@@ -289,7 +296,9 @@
      Modes:  "fixed-minus" (PyMassScanner): ν− is the calibrant's ν− for every ion; ν+ = νc − ν−; νz = √(2ν+ν−).
              "ideal": νz² ∝ q/m from the calibrant (ideal quadrupole), ν± = [νc ± √(νc² − 2νz²)]/2 (mass-dependent ν−).
      Uncertainty: relative σ of νc combines the calibrant σνc and the mass covariance of shared primitives (AME/NUBASE inputs),
-     so an ion identical to the calibrant returns exactly σνc; several calibrants are averaged with weights 1/σB². */
+     so an ion identical to the calibrant returns exactly σνc; several calibrants are averaged with fixed nominal weights
+     1/σB² (equal weights if these are unavailable). Shared mass primitives are propagated together. These are not GLS
+     weights; the independent-input χ²/Birge diagnostic is omitted when calibrants share an uncertain mass primitive. */
   function massTerms(ion) {               /* u per keV coefficients of the atomic-mass primitives of an ion */
     const t = {}; for (const [id, x] of Object.entries(ion.value?.terms || {})) t[id] = { c: x.c, e: x.e }; return t;
   }
@@ -309,26 +318,38 @@
     const known = list.every(c => c.sB > 0);
     const w = list.map(c => known ? 1 / c.sB ** 2 : 1), W = w.reduce((a, b) => a + b, 0), a = w.map(x => x / W);
     const B = list.reduce((s, c, i) => s + a[i] * c.B, 0);
-    const sB = list.every(c => c.sB != null) ? Math.sqrt(list.reduce((s, c, i) => s + (a[i] * c.sB) ** 2, 0)) : null;
+    const fieldMass = {};
+    list.forEach((c, i) => { for (const [id, t] of Object.entries(c.terms)) {
+      fieldMass[id] ||= { c: 0, e: t.e, uses: 0 };
+      fieldMass[id].c += a[i] * c.B * t.c / c.m;
+      if (t.c !== 0) fieldMass[id].uses++;
+    } });
+    const correlatedMasses = Object.values(fieldMass).some(t => t.uses > 1 && t.e !== 0);
+    const sB = list.every(c => c.sB != null) ? Math.sqrt(
+      Object.values(fieldMass).reduce((s, t) => s + (t.c * t.e) ** 2, 0) +
+      list.reduce((s, c, i) => s + (a[i] * c.B * c.snc / c.nc) ** 2, 0)) : null;
     const ppb = list.map(c => (c.B - B) / B * 1e9);
-    const chi2 = known && list.length > 1 ? list.reduce((s, c) => s + ((c.B - B) / c.sB) ** 2, 0) : null;
+    const chi2 = known && !correlatedMasses && list.length > 1 ? list.reduce((s, c) => s + ((c.B - B) / c.sB) ** 2, 0) : null;
     const k = list.reduce((s, c, i) => s + a[i] * c.k, 0), nm = list.reduce((s, c, i) => s + a[i] * c.nm, 0);
     return { mode, list, weights: a, B, sB, ppb, chi2, birge: chi2 == null ? null : Math.sqrt(chi2 / (list.length - 1)), k, nm,
+      correlatedMasses, uncertaintyModel: "fixed nominal weights; shared mass primitives; independent frequency measurements",
       convention: "nc ∝ q/m_ion (m_ion = M_atom − q·m_e); ν+ + ν− = νc; ν+² + ν−² + νz² = νc²" };
   }
   function calibratedPenning(ion, cal) {
     if (!cal || !cal.list) throw new Error("Calibration unavailable.");
     if (!(ion.ionMassU > 0 && ion.q > 0)) throw new Error("Ion unavailable.");
     const m = ion.ionMassU, q = ion.q, nc = q * C.e * cal.B / (2 * Math.PI * m * C.uKg);
-    /* σ(ln νc) = Σ_i a_i ln νc,i − ln m_ion + Σ a_i ln m_cal,i  → gradient over shared mass primitives */
+    /* For B̄ = Σ a_i B_i with fixed nominal weights, d ln B̄ = Σ b_i d ln B_i,
+       b_i = a_i B_i/B̄. Propagate this derivative and −d ln m_ion over shared mass primitives. */
     const own = massTerms(ion), g = {};
+    const b = cal.list.map((c, i) => cal.weights[i] * c.B / cal.B);
     let unknown = Object.values(own).some(t => !numeric(t.e)) || cal.list.some(c => Object.values(c.terms).some(t => !numeric(t.e)));
-    cal.list.forEach((c, i) => { for (const [id, t] of Object.entries(c.terms)) { g[id] ||= { c: 0, e: t.e }; g[id].c += cal.weights[i] * t.c / c.m; } });
+    cal.list.forEach((c, i) => { for (const [id, t] of Object.entries(c.terms)) { g[id] ||= { c: 0, e: t.e }; g[id].c += b[i] * t.c / c.m; } });
     for (const [id, t] of Object.entries(own)) { g[id] ||= { c: 0, e: t.e }; g[id].c -= t.c / m; }
-    const rel = unknown ? null : Math.sqrt(Object.values(g).reduce((s, t) => s + (t.c * t.e) ** 2, 0) + cal.list.reduce((s, c, i) => s + (cal.weights[i] * c.snc / c.nc) ** 2, 0));
+    const rel = unknown ? null : Math.sqrt(Object.values(g).reduce((s, t) => s + (t.c * t.e) ** 2, 0) + cal.list.reduce((s, c, i) => s + (b[i] * c.snc / c.nc) ** 2, 0));
     let np, nm, nz, stable;
     if (cal.mode === "fixed-minus") { nm = cal.nm; np = nc - nm; nz = np > 0 ? Math.sqrt(2 * np * nm) : NaN; stable = np > nm && nm > 0; }
-    else { const nz2 = cal.k * q / m, D = nc * nc - 2 * nz2; nz = Math.sqrt(nz2); stable = D > 0; np = D >= 0 ? (nc + Math.sqrt(D)) / 2 : null; nm = D >= 0 ? (nc - Math.sqrt(D)) / 2 : null; }
+    else { const nz2 = cal.k * q / m, D = nc * nc - 2 * nz2; nz = Math.sqrt(nz2); stable = D > 0; np = D >= 0 ? (nc + Math.sqrt(D)) / 2 : null; nm = np > 0 ? nz2 / (2 * np) : null; }
     const snm = cal.mode === "fixed-minus" ? Math.sqrt(cal.list.reduce((s, c, i) => s + (cal.weights[i] * c.snm) ** 2, 0)) : null;
     return { nc, snc: rel == null ? null : nc * rel, relSigma: rel, np, nm, nz, snm, stable, marginal: false, B: cal.B, mode: cal.mode, calibrated: true,
       keVperHz: m * C.uKeV / nc, convention: cal.convention };
@@ -375,9 +396,9 @@
     const k = 2 * Math.PI / p.lambda, X = 2 * p.delta / p.gamma, D = 1 + p.s0 + X * X, eta = p.eta ?? 1;
     const beta = -8 * HBAR * k * k * p.delta * p.s0 / (p.gamma * D * D);
     const Rtot = 2 * laserScatter(p.s0, p.delta, p.gamma), D0 = HBAR * HBAR * k * k * Rtot * (1 + eta) / 2;
-    return { k, beta, D0, Rtot, T: p.delta < 0 ? D0 / beta / KB : Infinity, TDoppler: HBAR * p.gamma / (2 * KB),
+    return { k, beta, D0, Rtot, T: beta > 0 ? D0 / beta / KB : Infinity, TDoppler: HBAR * p.gamma / (2 * KB),
       Trecoil: HBAR * HBAR * k * k / (p.massKg * KB), vr: HBAR * k / p.massKg, vCapture: p.gamma / (2 * k) * Math.sqrt(1 + p.s0),
-      dampingTime: p.delta < 0 ? p.massKg / beta : Infinity, optimalDelta: -p.gamma / 2 * Math.sqrt(1 + p.s0) };
+      dampingTime: beta > 0 ? p.massKg / beta : Infinity, optimalDelta: -p.gamma / 2 * Math.sqrt(1 + p.s0) };
   }
   function poisson(mean, random) {
     if (!(mean > 0)) return 0;
