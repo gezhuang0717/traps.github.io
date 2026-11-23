@@ -55,7 +55,7 @@
 <p class="rfq-model-caption">{{ $t.spectrum_limit }}</p>
 
 <div class="zg-form"><label>{{ $t.export_target }} <select name="rr-export-target"><option value="map">{{ $t.map }}</option><option value="spectrum">{{ $t.spectrum }}</option></select></label></div>
-<div class="zg-row">{{ range slice "svg" "png" "pdf" "csv" "json" }}<button type="button" class="zg-btn zg-btn-ghost" data-rr-action="{{ . }}">{{ index $t . }}</button>{{ end }}</div>
+<div class="zg-row">{{ range slice "svg" "png" "pdf" "csv" "json" }}<button type="button" class="zg-btn zg-btn-ghost" data-rr-action="{{ . }}" {{ if eq . "png" }}data-pdf-ready="true"{{ end }}>{{ index $t . }}</button>{{ end }}</div>
 <p class="rfq-export-status" data-rr-export-status role="status"></p>
 <p class="rfq-warning" data-rr-error role="alert" hidden></p>
 

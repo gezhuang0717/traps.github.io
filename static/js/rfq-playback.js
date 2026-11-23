@@ -48,6 +48,9 @@
     for (const format of ['SVG', 'PNG', 'PDF']) {
       const button = make('button', 'zg-btn zg-btn-ghost', t.frame + ' ' + format); button.type = 'button';
       button.dataset.playbackFrame = format.toLowerCase();
+      // This toolbar already has a native PDF action. Suppress the site's
+      // legacy automatic PDF wrapper around PNG buttons.
+      if (format === 'PNG') button.dataset.pdfReady = 'true';
       button.addEventListener('click', async () => {
         pause(); const svg = getSVG(); if (!svg) return;
         button.disabled = true;
@@ -123,21 +126,25 @@
         for (const mimeType of types) { try { recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 5000000 }); break; } catch (_) { recorder = null; } }
         if (!recorder) throw Error(t.unavailable);
         const chunks = [], type = recorder.mimeType;
-        const stopped = new Promise((resolve, reject) => {
+        let recorderError = null;
+        // Settle with an outcome, rather than leaving a rejected promise
+        // unobserved while SVG frames are still being rasterized.
+        const stopped = new Promise(resolve => {
           recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
-          recorder.onerror = e => reject(e.error || Error('MediaRecorder failed'));
-          recorder.onstop = resolve;
+          recorder.onerror = e => { recorderError = e.error || Error('MediaRecorder failed'); resolve(recorderError); };
+          recorder.onstop = () => resolve(recorderError);
         });
         recorder.start(250);
         const seconds = Number(duration.value), start = performance.now(); let frames = 0;
-        while (!cancelRecording && !destroyed) {
+        while (!cancelRecording && !destroyed && !recorderError) {
           if (document.hidden) { cancelRecording = true; break; }
           const f = Math.min(1, (performance.now() - start) / (1000 * seconds));
           await raster(draw(f), canvas); frames++;
           if (f >= 1) break;
           await new Promise(resolve => setTimeout(resolve, 1000 / 30));
         }
-        if (recorder.state !== 'inactive') recorder.stop(); await stopped;
+        if (recorder.state !== 'inactive') recorder.stop();
+        const terminalError = await stopped; if (terminalError) throw terminalError;
         if (!cancelRecording && !destroyed) {
           const blob = new Blob(chunks, { type }); if (blob.size < 1000 || frames < 2) throw Error('Empty recording');
           const ext = type.startsWith('video/mp4') ? 'mp4' : 'webm'; save(blob, filename + '.' + ext);
@@ -146,6 +153,7 @@
         }
       } catch (error) { if (!destroyed) status.textContent = t.exportError + ': ' + error.message; }
       finally {
+        if (recorder && recorder.state !== 'inactive') recorder.stop();
         stream?.getTracks().forEach(track => track.stop()); stream = null; recorder = null; recording = false;
         if (!destroyed) {
           controls.forEach(e => e.disabled = false); recordButton.disabled = !canRecord;

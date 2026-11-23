@@ -82,6 +82,37 @@
       dash: line.family === 'candidate' ? '3 3' : line.axis === 'y' ? '8 4' : '',
       label: line.family === 'candidate' ? candidateLabel(line) : t(line.family) + ' ' + line.axis + ' · ' + nice(line.drive_Hz / 1000) + ' kHz' };
   }
+  function contourPath(segments, xp, yp) {
+    // Continue through shared triangle-edge intersections so SVG dashes run
+    // along a contour. Starting a new M for every tiny segment resets the dash
+    // phase and makes a nominally dashed curve look solid.
+    const nodes = new Map(), edges = [], paths = [];
+    const nodeAt = point => {
+      const x = xp(point.q), y = yp(point.a), key = Math.round(x * 1e6) + ',' + Math.round(y * 1e6);
+      if (!nodes.has(key)) nodes.set(key, { x, y, edges: [] });
+      return nodes.get(key);
+    };
+    const coordinate = node => node.x.toFixed(2) + ',' + node.y.toFixed(2);
+    for (const [p, q] of segments) {
+      const a = nodeAt(p), b = nodeAt(q); if (a === b) continue;
+      const edge = { a, b, used: false }; edges.push(edge); a.edges.push(edge); b.edges.push(edge);
+    }
+    const walk = (start, first) => {
+      let current = start, edge = first, path = 'M' + coordinate(start);
+      while (edge && !edge.used) {
+        edge.used = true; current = edge.a === current ? edge.b : edge.a;
+        path += 'L' + coordinate(current);
+        if (current === start) { path += 'Z'; break; }
+        if (current.edges.length !== 2) break;
+        edge = current.edges.find(candidate => !candidate.used);
+      }
+      paths.push(path);
+    };
+    for (const node of nodes.values()) if (node.edges.length !== 2)
+      for (const edge of node.edges) if (!edge.used) walk(node, edge);
+    for (const edge of edges) if (!edge.used) walk(edge.a, edge);
+    return paths.join('');
+  }
   function mapFigure(grid, lines, point, s) {
     const W = Math.max(240, Math.min(1200, holder('map').clientWidth || root.clientWidth - 28 || 840));
     const small = W < 500, font = small ? 12 : 13, titleSize = small ? 17 : 20;
@@ -125,9 +156,9 @@
     svg.append(svgElement('text', { x: left + pw / 2, y: bottom + 46, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 600, fill: '#263c56', 'data-chart-label': 'x-axis' }, 'q'),
       svgElement('text', { x: left - 30, y: top - 10, 'font-size': 15, 'font-weight': 600, fill: '#263c56', 'data-chart-label': 'y-axis' }, 'a'));
     for (const line of lines) {
-      const style = lineStyle(line), d = line.segments.map(([p, q]) => `M${xp(p.q).toFixed(2)},${yp(p.a).toFixed(2)}L${xp(q.q).toFixed(2)},${yp(q.a).toFixed(2)}`).join('');
+      const style = lineStyle(line), d = contourPath(line.segments, xp, yp);
       if (d) { const path = svgElement('path', { d, fill: 'none', stroke: style.color, 'stroke-width': line.family === 'candidate' ? 1.5 : 2,
-        'stroke-dasharray': style.dash, 'data-rr-family': line.family }); path.append(svgElement('title', {}, line.condition)); svg.append(path); }
+        'stroke-dasharray': style.dash, 'data-rr-family': line.family, 'data-rr-axis': line.axis || '' }); path.append(svgElement('title', {}, line.condition)); svg.append(path); }
     }
     const onMap = s.q >= grid.q_min && s.q <= grid.q_max && s.a >= grid.a_min && s.a <= grid.a_max;
     if (onMap) {

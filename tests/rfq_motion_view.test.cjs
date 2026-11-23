@@ -1,6 +1,9 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
 const { spectrum, project } = require('../static/js/rfq-motion-view.js');
 const { videoTypes } = require('../static/js/rfq-playback.js');
 
@@ -47,4 +50,85 @@ test('video types follow actual browser capabilities and never invent a containe
   assert.deepEqual(videoTypes({isTypeSupported:t=>t==='video/webm;codecs=vp8'}),['video/webm;codecs=vp8']);
   assert.deepEqual(videoTypes({isTypeSupported:t=>t==='video/mp4'||t==='video/webm'}),['video/mp4','video/webm']);
   assert.deepEqual(videoTypes({isTypeSupported:()=>{throw Error('unsupported');}}),[]);
+});
+
+test('mocked encoder error restores playback without an unhandled rejection or download', async () => {
+  // This is controlled failure-path evidence, not browser/video-decoding evidence.
+  // Exercise the actual playback module; only its DOM, rasterizer and encoder
+  // boundary are stubs. Real encoded files are checked in browser acceptance.
+  class Element {
+    constructor(tag) { this.tag = tag; this.children = []; this.attrs = {}; this.dataset = {}; this.disabled = false; }
+    append(...items) { for (const item of items) { item.parent = this; this.children.push(item); } }
+    replaceChildren(...items) { this.children = []; this.append(...items); }
+    remove() { if (this.parent) this.parent.children = this.parent.children.filter(e => e !== this); }
+    setAttribute(name, value) { this.attrs[name] = String(value); }
+    getAttribute(name) { return this.attrs[name] ?? null; }
+    addEventListener() {}
+    cloneNode() { const copy = new Element(this.tag); copy.attrs = { ...this.attrs }; return copy; }
+    querySelectorAll(selector) {
+      const tags = selector.split(','), found = [];
+      for (const child of this.children) { if (tags.includes(child.tag)) found.push(child); found.push(...child.querySelectorAll(selector)); }
+      return found;
+    }
+    get value() { return this._value ?? this.children.find(e => e.selected)?.value ?? ''; }
+    set value(value) { this._value = String(value); }
+  }
+  let stoppedTracks = 0, now = 0, encoderErrors = 0;
+  const track = { stop() { stoppedTracks++; } }, stream = { getTracks: () => [track] };
+  class Canvas extends Element {
+    constructor() { super('canvas'); }
+    captureStream() { return stream; }
+    getContext() { return { fillRect() {}, drawImage() {} }; }
+  }
+  class RasterImage { set src(_) { setImmediate(() => this.onload()); } }
+  class Encoder {
+    static isTypeSupported(type) { return type === 'video/webm'; }
+    constructor(_, options) { this.mimeType = options.mimeType; this.state = 'inactive'; }
+    start() {
+      this.state = 'recording';
+      setImmediate(() => {
+        this.state = 'inactive'; encoderErrors++;
+        this.onerror({ error: Error('Synthetic encoder failure') });
+        this.ondataavailable({ data: new Blob(['partial encoded output']) });
+        this.onstop();
+      });
+    }
+    stop() { this.state = 'inactive'; setImmediate(() => this.onstop()); }
+  }
+  const document = { documentElement: { lang: 'en' }, hidden: false,
+    createElement: tag => tag === 'canvas' ? new Canvas() : new Element(tag),
+    createTextNode: text => Object.assign(new Element('#text'), { textContent: text }),
+    addEventListener() {}, removeEventListener() {} };
+  const sandbox = { document, HTMLCanvasElement: Canvas, MediaRecorder: Encoder, Image: RasterImage, Blob,
+    XMLSerializer: class { serializeToString() { return '<svg xmlns="http://www.w3.org/2000/svg"/>'; } },
+    URL: { createObjectURL: () => 'blob:mock-frame', revokeObjectURL() {} },
+    performance: { now: () => (now += 250) },
+    setTimeout: (callback, delay) => setTimeout(callback, Math.min(delay, 1)), cancelAnimationFrame() {} };
+  sandbox.window = sandbox;
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../static/js/rfq-playback.js'), 'utf8'), sandbox);
+  const container = new Element('div'), svg = new Element('svg'); svg.setAttribute('viewBox', '0 0 400 300');
+  const downloads = [], rendered = [], unhandled = [];
+  const onUnhandled = reason => unhandled.push(reason);
+  process.on('unhandledRejection', onUnhandled);
+  const player = sandbox.ZGRFQPlayback.mount({ container, renderFrame: f => { rendered.push(f); return svg; },
+    getSVG: () => svg, saveBlob: (...args) => downloads.push(args), durationSeconds: 4 });
+  try {
+    const bar = container.children[0], controls = bar.querySelectorAll('button,input,select');
+    const recordButton = controls.find(e => e.dataset.playbackAction === 'record');
+    const pending = player.record();
+    assert.equal(player.recording, true);
+    assert.ok(controls.every(e => e === recordButton ? !e.disabled : e.disabled));
+    await pending;
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(encoderErrors, 1, 'the asynchronous encoder failure was actually injected');
+    assert.deepEqual(unhandled, [], 'encoder failure must be handled before the next event-loop turn');
+    assert.equal(stoppedTracks, 1, 'all capture tracks are stopped on failure');
+    assert.equal(player.recording, false);
+    assert.ok(controls.every(e => !e.disabled), 'controls are usable again');
+    assert.equal(recordButton.textContent, 'Save video (WEBM)');
+    assert.equal(bar.children.find(e => e.className === 'rfq-recording-preview').hidden, true);
+    assert.match(bar.children.find(e => e.className === 'rfq-playback-status').textContent, /Export failed: Synthetic encoder failure/);
+    assert.equal(downloads.length, 0, 'partial encoder output must not be downloaded');
+    assert.ok(rendered.length <= 3, 'an encoder failure stops the frame loop promptly');
+  } finally { player.destroy(); process.removeListener('unhandledRejection', onUnhandled); }
 });

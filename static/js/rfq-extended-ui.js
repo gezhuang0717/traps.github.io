@@ -219,7 +219,7 @@
         if (b.relative_energy_spread > .1) out.append(make('p', 'rfq-warning', msg('linear_warning')));
         if (b.near_focus_warning) out.append(make('p', 'rfq-warning', msg('near_focus_warning') + ' ' + nice(b.second_order_sigma_t_ns) + ' ns.'));
         svg = plot(chart, [{ name: msg('width_axis'), rows: rows.map(p => ({ x: p.rho, y: p.fwhm_ns })) }], msg('bunch_title'), msg('rho_axis'), msg('width_axis'),
-          { markers: [{ x: value('rx-rho'), y: b.fwhm_out_ns, label: msg('current') }], references: [{ y: X.C.fwhm * value('rx-st'), label: msg('initial_width') }] });
+          { xDomain: [-1, 1], markers: [{ x: value('rx-rho'), y: b.fwhm_out_ns, label: msg('current') }], references: [{ y: X.C.fwhm * value('rx-st'), label: msg('initial_width') }] });
       } else if (kind === 'scan') {
         const s = point(); if (s.geometry !== 'linear' || s.direct) throw Error(msg('voltage_required'));
         const axis = field('rx-scan-axis').value;

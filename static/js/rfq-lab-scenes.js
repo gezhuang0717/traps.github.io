@@ -84,18 +84,22 @@
     xvals.forEach((v, i) => { group.append(node('line', { x1: xx(v), y1: top, x2: xx(v), y2: bottom, stroke: C.grid, 'stroke-width': 1 })); fixedText(group, options.xTick ? options.xTick(v) : number(v, 3), xx(v), bottom + 18, tick, i === 0 ? 'start' : i === xvals.length - 1 ? 'end' : 'middle', C.muted, 'scene-x-tick'); });
     y = textBlock(group, xlabel, x0 + 12, bottom + 40, width - 24, 11, C.ink, 400, 'scene-x-axis');
     const height = y - y0 + 9; surface.setAttribute('height', height);
-    const data = node('g', { 'clip-path': `url(#${clipId})` }); group.append(data);
+    const data = node('g', { 'clip-path': `url(#${clipId})` }), markers = node('g', { 'data-scene-marker-layer': 'true' }); group.append(data, markers);
     const line = (points, colour, dash, lineWidth = 2, opacity = 1) => {
       const valid = points.filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
       if (valid.length) data.append(node('path', { d: valid.map((p, i) => `${i ? 'L' : 'M'}${xx(p.x)},${yy(p.y)}`).join(' '), fill: 'none', stroke: colour, 'stroke-width': lineWidth, 'stroke-dasharray': dash || '', opacity, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
     };
     const marker = (point, colour, shape = 'circle', size = 3.2) => {
       const x = xx(point.x), y = yy(point.y); if (!Number.isFinite(x) || !Number.isFinite(y)) return;
-      if (shape === 'cross') data.append(node('path', { d: `M${x - size},${y - size}L${x + size},${y + size}M${x - size},${y + size}L${x + size},${y - size}`, stroke: colour, 'stroke-width': 1.6 }));
-      else if (shape === 'square') data.append(node('rect', { x: x - size, y: y - size, width: size * 2, height: size * 2, fill: colour }));
-      else if (shape === 'diamond') data.append(node('path', { d: `M${x},${y - size - 1}L${x + size + 1},${y}L${x},${y + size + 1}L${x - size - 1},${y}Z`, fill: colour }));
-      else if (shape === 'triangle') data.append(node('path', { d: `M${x},${y - size - 1}L${x + size + 1},${y + size}L${x - size - 1},${y + size}Z`, fill: colour }));
-      else data.append(node('circle', { cx: x, cy: y, r: size, fill: colour }));
+      // A point on the axis boundary still has a complete visible symbol.
+      // Curves stay clipped; finite markers inside the data domain may extend
+      // by their radius into the existing plot margins (at most 5.3 px).
+      if (x < left - 1e-7 || x > right + 1e-7 || y < top - 1e-7 || y > bottom + 1e-7) return;
+      if (shape === 'cross') markers.append(node('path', { d: `M${x - size},${y - size}L${x + size},${y + size}M${x - size},${y + size}L${x + size},${y - size}`, stroke: colour, 'stroke-width': 1.6 }));
+      else if (shape === 'square') markers.append(node('rect', { x: x - size, y: y - size, width: size * 2, height: size * 2, fill: colour }));
+      else if (shape === 'diamond') markers.append(node('path', { d: `M${x},${y - size - 1}L${x + size + 1},${y}L${x},${y + size + 1}L${x - size - 1},${y}Z`, fill: colour }));
+      else if (shape === 'triangle') markers.append(node('path', { d: `M${x},${y - size - 1}L${x + size + 1},${y + size}L${x - size - 1},${y + size}Z`, fill: colour }));
+      else markers.append(node('circle', { cx: x, cy: y, r: size, fill: colour }));
     };
     return { height, line, marker, group, data, xx, yy, left, right, top, bottom };
   }

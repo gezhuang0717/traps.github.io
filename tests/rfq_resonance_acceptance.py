@@ -118,6 +118,14 @@ def workflows(page, evidence):
     assert abs(point['f_x_Hz'] - 75428.4999381953) < .01
     assert abs(point['primary_parametric_x_Hz'] - 2 * point['f_x_Hz']) < 1e-8
     assert first['response']['rows'] and first['response']['pulse_cycles'] == 48
+    for family in ('dipole', 'parametric'):
+        condition = next(c for c in first['conditions'] if c['family'] == family and c['axis'] == 'y')
+        path = panel.locator(f'[data-rr-family="{family}"][data-rr-axis="y"]')
+        expect(path).to_have_attribute('stroke-dasharray', '8 4')
+        # Continuous subpaths preserve visible gaps. Separate M...L for every
+        # marching triangle would restart the dash before reaching its gap.
+        assert path.get_attribute('d').count('M') < condition['segment_count'] / 4
+        assert path.evaluate('p=>p.getTotalLength()') > 24
 
     old = panel.locator('[data-rr-readout]').inner_text()
     root.locator('[name="ms-mass"]').fill('200')
