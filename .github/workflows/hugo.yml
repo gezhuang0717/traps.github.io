@@ -23,10 +23,9 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: website-${{ github.ref }}
-  # A revised pull request supersedes its previous validation. Main-branch
-  # publication and scheduled refreshes continue to finish in order.
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  # Validate each PR revision independently; publication keeps its ordered queue.
+  group: website-${{ github.ref }}${{ github.event_name == 'pull_request' && format('-{0}', github.event.pull_request.head.sha) || '' }}
+  cancel-in-progress: false
   queue: max
 env:
   HUGO_VERSION: 0.166.0
