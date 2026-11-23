@@ -1,0 +1,67 @@
+{{- $k := cond (hasPrefix site.Language.Lang "zh") "zh" site.Language.Lang -}}
+{{- $native := index hugo.Data.rfq_resonance_labels $k -}}
+{{- $t := $native | default hugo.Data.rfq_resonance_labels.en -}}
+<div data-local-panel="resonance" data-rfq-resonance data-labels="{{ $t | jsonify }}" hidden>
+<h3>{{ $t.title }}</h3>
+<p class="zg-muted">{{ $t.lead }}</p>
+{{ if not $native }}<p class="zg-notice" lang="en">{{ $t.fallback }}</p>{{ end }}
+<p class="rfq-model-caption">{{ $t.scope }}</p>
+<p class="rfq-warning" data-rr-reference hidden>{{ $t.reference_only }}</p>
+
+<fieldset><legend>{{ $t.line_controls }}</legend>
+<div class="zg-row">
+<label><input type="checkbox" name="rr-dipole" checked> {{ $t.dipole }}</label>
+<label><input type="checkbox" name="rr-parametric" checked> {{ $t.parametric }}</label>
+<label><input type="checkbox" name="rr-nonlinear"> {{ $t.candidate }}</label>
+</div>
+<div class="zg-form">
+<label>{{ $t.drive }} <input name="rr-drive" type="number" min="0" max="1000000000" step="any" value="100"></label>
+<label>{{ $t.modulation }} <input name="rr-modulation" type="number" min="0" max="1000000000" step="any" value="250"></label>
+<label>{{ $t.perturbation }} <select name="rr-perturbation"><option value="sixth">{{ $t.sixth }}</option><option value="fourth">{{ $t.fourth }}</option><option value="third">{{ $t.third }}</option><option value="coupling">{{ $t.coupling }}</option><option value="custom">{{ $t.custom }}</option></select></label>
+<label>{{ $t.resolution }} <select name="rr-grid"><option value="normal">{{ $t.normal }}</option><option value="fine">{{ $t.fine }}</option></select></label>
+</div>
+<div class="zg-form" data-rr-custom hidden>
+<label>{{ $t.order_p }} <input name="rr-p" type="number" min="-8" max="8" step="1" value="2"></label>
+<label>{{ $t.order_r }} <input name="rr-r" type="number" min="-8" max="8" step="1" value="2"></label>
+<label>{{ $t.order_k }} <input name="rr-k" type="number" min="-4" max="4" step="1" value="1"></label>
+</div>
+<p class="rfq-model-caption" data-rr-candidate-note hidden>{{ $t.candidate_note }}</p>
+</fieldset>
+
+<div class="rfq-equation">cos(πβᵢ) = tr Mᵢ / 2; &nbsp; fᵢ = βᵢ f_RF / 2; &nbsp; f_ex = fᵢ; &nbsp; f_mod = 2fᵢ; &nbsp; pβₓ + rβᵧ = 2k</div>
+<div class="rfq-extra-result" data-rr-readout aria-live="polite"></div>
+<p class="rfq-warning" data-rr-point-warning hidden></p>
+<div class="zg-row"><button type="button" class="zg-btn" data-rr-action="run">{{ $t.run }}</button><button type="button" class="zg-btn zg-btn-ghost" data-rr-action="match-dipole">{{ $t.match_dipole }}</button><button type="button" class="zg-btn zg-btn-ghost" data-rr-action="match-parametric">{{ $t.match_parametric }}</button></div>
+<p class="rfq-export-status" data-rr-progress role="status" aria-live="polite"></p>
+<div class="rfq-extra-chart" data-rr-figure="map"></div>
+<p class="rfq-model-caption">{{ $t.map_note }}</p>
+<p class="rfq-model-caption">{{ $t.map_hint }}</p>
+<p class="rfq-warning" data-rr-empty hidden>{{ $t.empty_lines }}</p>
+
+<details open><summary>{{ $t.fundamentals }}</summary>
+<p>{{ $t.fundamental_1 }}</p><p>{{ $t.fundamental_2 }}</p><p>{{ $t.fundamental_3 }}</p><p>{{ $t.fundamental_4 }}</p><p class="rfq-model-caption">{{ $t.sidebands }}</p>
+</details>
+
+<h4>{{ $t.spectrum_title }}</h4>
+<p class="zg-muted">{{ $t.spectrum_note }}</p>
+<div class="zg-form">
+<label>{{ $t.field }} <input name="rr-field" type="number" min="0" max="1000000" step="any" value="1"></label>
+<label>{{ $t.pulse }} <input name="rr-pulse" type="number" min="1" max="200" step="any" value="48"></label>
+<label>{{ $t.response_steps }} <select name="rr-steps"><option value="64">64</option><option value="128">128</option></select></label>
+</div>
+<div class="rfq-equation">u″ + [aᵤ − 2qᵤ cos(2τ)]u = 4Q E_ex cos(2f_ex τ / f_RF) / (mΩ²); &nbsp; u(0) = u′(0) = 0; &nbsp; u: m, E_ex: V/m, Ω: rad/s</div>
+<div class="rfq-extra-chart" data-rr-figure="spectrum"></div>
+<p class="rfq-warning" data-rr-response-warning hidden></p>
+<p class="rfq-model-caption">{{ $t.spectrum_limit }}</p>
+
+<div class="zg-form"><label>{{ $t.export_target }} <select name="rr-export-target"><option value="map">{{ $t.map }}</option><option value="spectrum">{{ $t.spectrum }}</option></select></label></div>
+<div class="zg-row">{{ range slice "svg" "png" "pdf" "csv" "json" }}<button type="button" class="zg-btn zg-btn-ghost" data-rr-action="{{ . }}">{{ index $t . }}</button>{{ end }}</div>
+<p class="rfq-export-status" data-rr-export-status role="status"></p>
+<p class="rfq-warning" data-rr-error role="alert" hidden></p>
+
+<details><summary>{{ $t.suggestions }}</summary><ol><li>{{ $t.try_1 }}</li><li>{{ $t.try_2 }}</li><li>{{ $t.try_3 }}</li></ol></details>
+<details><summary>{{ $t.sources }}</summary>
+<p>{{ $t.sources_note }}</p>
+<p><a href="https://dlmf.nist.gov/28.2">NIST DLMF 28.2</a> · <a href="https://dlmf.nist.gov/28.17">NIST DLMF 28.17</a> · <a href="https://doi.org/10.1016/0168-1176(90)85024-V">March et al. (1990)</a> · <a href="https://doi.org/10.1016/0168-1176(93)80004-X">Wang, Franzen &amp; Wanczek (1993)</a></p>
+</details>
+</div>

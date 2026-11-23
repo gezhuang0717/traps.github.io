@@ -3,15 +3,19 @@
 <div class="zg-rfq-extras-intro"><p>{{ $t.shared }}</p></div>
 <div data-local-panel="motion" data-rfq-extras-pane hidden>
 <h3>{{ $t.motion }}</h3><p class="zg-muted">{{ $t.motion_note }}</p>
+{{ partial "zg/rfq-motion-basics.html" . }}
 <div class="zg-form"><label>{{ $t.cycles }} <input name="rx-cycles" type="number" value="8" min=".1" max="100" step="any"></label>
 <label>{{ $t.x0 }} <input name="rx-x" type="number" value="1" min="-1000" max="1000" step="any"></label>
 <label>{{ $t.y0 }} <input name="rx-y" type="number" value=".4" min="-1000" max="1000" step="any"></label>
+<label>{{ $t.z0 }} <input name="rx-z" type="number" value="0" step="any"></label>
 <label>{{ $t.phase }} <input name="rx-phase" type="number" value="0" min="-1000" max="1000" step="any"></label>
 <label>{{ $t.vx0 }} <input name="rx-vx" type="number" value="0" step="any"></label>
 <label>{{ $t.vy0 }} <input name="rx-vy" type="number" value="0" step="any"></label>
+<label>{{ $t.vz0 }} <input name="rx-vz" type="number" value="1" step="any"></label>
 <label>{{ $t.steps }} <select name="rx-steps"><option value="32">32</option><option value="64" selected>64</option><option value="128">128</option></select></label>
-<label>{{ $t.view }} <select name="rx-motion-view"><option value="time">{{ $t.view_time }}</option><option value="orbit">{{ $t.view_orbit }}</option><option value="phase">{{ $t.view_phase }}</option></select></label></div>
+<label>{{ $t.view }} <select name="rx-motion-view"><option value="time">{{ $t.view_time }}</option><option value="orbit">{{ $t.view_orbit }}</option><option value="phase">{{ $t.view_phase }}</option><option value="filtered">{{ $t.view_filtered }}</option><option value="axial">{{ $t.view_axial }}</option><option value="spatial">{{ $t.view_spatial }}</option><option value="comparison">{{ $t.view_comparison }}</option><option value="spectrum">{{ $t.view_spectrum }}</option></select></label></div>
 <div class="rfq-equation">τ = Ωt/2; &nbsp; x″ + [a − 2q cos(2τ + φ)]x = 0; &nbsp; y″ + [−a + 2q cos(2τ + φ)]y = 0</div>
+<p class="zg-muted">{{ $t.axial_note }}</p>
 <div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="motion">{{ $t.run }}</button>
 <button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="csv" data-rfx-kind="motion">{{ $t.csv }}</button>
 <button type="button" class="zg-btn zg-btn-ghost" data-rfx-action="json" data-rfx-kind="motion">{{ $t.json }}</button>

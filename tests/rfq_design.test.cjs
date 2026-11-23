@@ -237,3 +237,26 @@ test('failed settings imports roll back physical voltage and provenance even aft
  // Loading must remain possible when a current input is invalid.
  saved.voltage.rod_peak_V.main=100;h.change('V','');f.files=[{size:5000,text:async()=>JSON.stringify(saved)}];await f.change({target:f,stopPropagation(){}});assert.equal(h.fields.get('V').value,'400');assert.equal(h.slots.get('error').textContent,'');
 });
+
+test('r0=10mm worked geometry distinguishes all radii, diameters and centre distances',()=>{
+ const d=M.rodDesign({...design,r0_mm:10,rod_rule:'optimal'});
+ close(d.rod_radius_mm,11.4510807);close(d.rod_diameter_mm,22.9021614);
+ close(d.aperture_diameter_mm,20);close(d.center_radius_mm,21.4510807);
+ close(d.adjacent_center_mm,30.336409253499742);close(d.surface_gap_mm,7.434247853499741);
+ close(d.opposite_center_mm,42.9021614);close(d.outer_radius_mm,32.9021614);
+ for(let i=0;i<d.rod_count;i++){
+  const p=d.rod_coordinates[i],next=d.rod_coordinates[(i+1)%d.rod_count];
+  close(Math.hypot(p.x_mm-next.x_mm,p.y_mm-next.y_mm),d.adjacent_center_mm);
+  close(Math.hypot(p.x_mm,p.y_mm)-d.rod_radius_mm,d.r0_mm);
+ }
+});
+test('first-parasitic harmonic interpolation honors the independently solved cancellation root',()=>{
+ for(let rod_count=4;rod_count<=24;rod_count+=2){
+  const d=M.rodDesign({...design,rod_count,rod_rule:'optimal'});
+  assert.equal(d.parasitic_A_over_An,0);assert.equal(d.parasitic_at_radial_fraction,0);
+  assert.match(d.parasitic_interpolation,/numerical cancellation-root anchor/);
+  const at=ratio=>M.rodDesign({...design,rod_count,rod_rule:'ratio',rod_ratio:ratio}).parasitic_A_over_An;
+  assert.ok(at(d.rod_ratio-1e-5)>0);assert.ok(at(d.rod_ratio+1e-5)<0);
+  assert.ok(Math.abs(at(d.rod_ratio+1e-9))<1e-8);
+ }
+});

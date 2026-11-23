@@ -16,8 +16,9 @@ def test_public_readme_restored_to_compact_academic_template():
     text = README.read_text(encoding="utf-8")
     assert text.startswith("# traps.github.io\n")
     assert "One set of content, three interchangeable themes." in text
-    assert "https://gezhuang0717.github.io/traps.github.io/" in text
-    for heading in ("## Structure", "## Local preview", "## Deploy to GitHub Pages", "## Common edits"):
+    assert "https://github.com/gezhuang0717/gezhuang0717.github.io" in text
+    assert "https://gezhuang0717.github.io/traps.github.io/" not in text
+    for heading in ("## Structure", "## Local preview", "## Publication", "## Common edits"):
         assert heading in text
     assert 1000 <= len(text) < 3000, "Public README must remain a short introduction"
 

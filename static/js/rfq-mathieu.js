@@ -61,11 +61,11 @@
    const status=d.classification?d.classification.status:null,statusTone=status==='stable'?'ok':status==='unstable'?'bad':'warn';
    if(U){
     const nodes=[];
-    const geo=U.group(T.grp_geometry,'info',[t(T.k_rod_radius,fmt(d.rod_radius_mm),'mm'),t(T.k_rod_diameter,fmt(d.rod_diameter_mm),'mm'),t(T.k_ratio,fmt(d.rod_ratio),'',devTone,T.geometry_out,T.n_ratio),t(T.k_deviation,fmt(d.ratio_deviation_percent),'%',devTone,null,T.n_deviation),
+    const geo=U.group(T.grp_geometry,'info',[t(T.k_rod_count,`${d.rod_count} (n = ${d.rod_count/2})`,''),t(T.radius+' r₀',fmt(d.r0_mm),'mm',null,null,T.geometry_dimension_note),t(T.k_rod_radius,fmt(d.rod_radius_mm),'mm'),t(T.k_rod_diameter,fmt(d.rod_diameter_mm),'mm'),t(T.k_ratio,fmt(d.rod_ratio),'',devTone,T.geometry_out,T.n_ratio),t(T.k_deviation,fmt(d.ratio_deviation_percent),'%',devTone,null,T.n_deviation),
      t(T.k_outer,fmt(d.outer_radius_mm),'mm',null,T.envelope_out,T.n_outer),t(T.k_aperture,fmt(d.aperture_diameter_mm),'mm',null,null,T.n_aperture),t(T.k_adjacent,fmt(d.adjacent_center_mm),'mm',null,T.gaps,T.n_adjacent),t(T.k_gap,fmt(d.surface_gap_mm),'mm',null,null,T.n_gap),t(T.k_opposite,fmt(d.opposite_center_mm),'mm',null,null,T.n_opposite),
      t(T.k_parasitic,d.parasitic_A_over_An===null?T.parasitic_none:fmt(d.parasitic_A_over_An),'',d.parasitic_A_over_An===null?'warn':Math.abs(d.parasitic_A_over_An)<1e-3?'ok':'warn',T.parasitic_out,T.n_parasitic),
      ...(d.parasitic_at_radial_fraction===null?[]:[t(T.k_parasitic_x,fmt(d.parasitic_at_radial_fraction),'',null,null,T.n_parasitic_x)]),...(d.ratio_tolerance===null?[]:[t(T.k_tol,'±'+fmt(d.ratio_tolerance),'',null,null,T.n_tol)])],[],
-     {fold:true,open:geoOpen.v,summary:[U.make('span','zg-pill',`Ø ${fmt(d.rod_diameter_mm)} mm`),U.make('span','zg-pill',`r/r₀ ${fmt(d.rod_ratio)}`),U.make('span','zg-pill '+(devTone==='bad'?'bad':devTone==='warn'?'warn':'ok'),`${fmt(d.ratio_deviation_percent)} %`)]});
+     {fold:true,open:geoOpen.v,summary:[U.make('span','zg-pill',`Ø ${fmt(d.rod_diameter_mm)} mm`),U.make('span','zg-pill',`ρ/r₀ ${fmt(d.rod_ratio)}`),U.make('span','zg-pill '+(devTone==='bad'?'bad':devTone==='warn'?'warn':'ok'),`${fmt(d.ratio_deviation_percent)} %`)]});
     geo.addEventListener('toggle',()=>{geoOpen.v=geo.open;});nodes.push(geo);
     nodes.push(U.group(T.grp_rf,status?statusTone:d.eta_target_met?'ok':'warn',[...(status?[t(T.readout,T[status],'',statusTone)]:[]),t(T.k_field,fmt(d.field_RF_V_m),'V/m',null,T.field_depth,T.n_field),t(T.k_pseudo,fmt(d.pseudopotential_eV),'eV',null,null,T.n_pseudo),
      t(T.k_eta,`${fmt(d.eta)} / ${fmt(d.eta_target)}`,'',d.eta_target_met?'ok':'warn',T.eta_readout+' · '+(d.eta_target_met?T.target_met:T.target_above),T.n_eta),t(T.k_fmin,fmt(d.eta_frequency_min_MHz),'MHz',null,T.rf_target,T.n_fmin),t(T.k_vmax,fmt(d.eta_voltage_max_V),'V',null,null,T.n_vmax)]));
@@ -87,21 +87,43 @@
    const W=Math.min(620,layoutWidth(holder)),narrow=W<440,titleSize=Math.max(14,Math.min(S.titleSize,narrow?17:22)),labelSize=Math.max(11,Math.min(S.tickSize,narrow?12:14)),captionSize=11;
    const title=wrapLines(T.design_title,W-32,titleSize),top=24+title.length*(titleSize+4)+8;
    const extent=d.center_radius_mm+d.rod_radius_mm,radius=Math.min((W-40)/2,190),scale=radius/extent,cx=W/2,cy=top+radius;
-   const dimensions=[`2n = ${d.rod_count} · r₀ = ${fmt(d.r0_mm)} mm`,`ρ = ${fmt(d.rod_radius_mm)} mm · ρ/r₀ = ${fmt(d.rod_ratio)}`,`D = ${fmt(d.adjacent_center_mm)} mm · g = ${fmt(d.surface_gap_mm)} mm`].flatMap(line=>wrapLines(line,W-32,labelSize));
-   const dimensionY=cy+radius+24,legendY=dimensionY+dimensions.length*(labelSize+4)+14;
-   const legend=flow([{kind:'area',fill:'#dae6ff',color:'#315aa3',text:'+V'},{kind:'area',fill:'#ffe2da',color:'#ac4835',text:'−V'},{kind:'line',color:'#73808f',text:`r₀ (${T.k_aperture})`}],W-32,labelSize);
-   const formulas=['ρ = (ρ/r₀) × r₀; Rc = r₀ + ρ;','D = 2Rc sin(π/N); g = D − 2ρ; N = 2n.'].flatMap(line=>wrapLines(line,W-32,captionSize));
+   // Each named quantity keeps its own record. Values and millimetre units
+   // move together to a new line rather than breaking an "mm" or a dimension.
+   const dimensions=[
+    {key:'rod-count',label:T.k_rod_count,value:`${d.rod_count} (n = ${d.rod_count/2})`},
+    {key:'inscribed-radius',label:T.radius+' r₀',value:fmt(d.r0_mm)+' mm'},
+    {key:'aperture-diameter',label:T.k_aperture,value:fmt(d.aperture_diameter_mm)+' mm'},
+    {key:'rod-radius',label:T.k_rod_radius,value:fmt(d.rod_radius_mm)+' mm'},
+    {key:'rod-radius-ratio',label:T.k_ratio,value:fmt(d.rod_ratio)},
+    {key:'adjacent-centres',label:T.k_adjacent,value:fmt(d.adjacent_center_mm)+' mm'},
+    {key:'surface-gap',label:T.k_gap,value:fmt(d.surface_gap_mm)+' mm'}
+   ].map(item=>({...item,lines:textWidth(item.label+' = '+item.value,labelSize)<=W-32?[item.label+' = '+item.value]:[...wrapLines(item.label,W-32,labelSize),item.value]}));
+   const dimensionY=cy+radius+24,dimensionsHeight=dimensions.reduce((height,item)=>height+item.lines.length*(labelSize+4)+4,0),legendY=dimensionY+dimensionsHeight+10;
+   const legend=flow([{kind:'area',fill:'#dae6ff',color:'#315aa3',text:'+V'},{kind:'area',fill:'#ffe2da',color:'#ac4835',text:'−V'},{kind:'line',color:'#73808f',text:T.geometry_circle+' r₀'}],W-32,labelSize);
+   const formulas=['ρ = (ρ/r₀) × r₀','R_c = r₀ + ρ','D = 2R_c sin(π/N)','g = D − 2ρ; N = 2n'].flatMap(line=>wrapLines(line,W-32,captionSize));
    const captionY=legendY+legendHeight(legend,labelSize)+6,H=captionY+formulas.length*(captionSize+4)+16;
-   const svg=el('svg',{xmlns:NS,width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.design_title,'data-rfq-layout-width':W,'data-rfq-chart':'responsive',style:'display:block;width:100%;max-width:620px;margin-inline:auto;height:auto;background:#fff;color:#172235;font-family:Arial,"Noto Sans",sans-serif'});
-   svg.append(el('rect',{width:W,height:H,fill:'#fff'}),textLines(title,16,24,titleSize,{'font-weight':600,'data-chart-label':'title'}),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth}));
+   const svg=el('svg',{xmlns:NS,width:W,height:H,viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':T.design_title,'data-rfq-layout-width':W,'data-rfq-chart':'responsive','data-rfq-geometry':'round-rods','data-rfq-length-unit':'mm',style:'display:block;width:100%;max-width:620px;margin-inline:auto;height:auto;background:#fff;color:#172235;font-family:Arial,"Noto Sans",sans-serif'});
+   svg.append(el('title',{},T.design_title),el('desc',{},T.geometry_dimension_note+' '+dimensions.map(item=>item.label+' = '+item.value).join('; ')),el('rect',{width:W,height:H,fill:'#fff'}),textLines(title,16,24,titleSize,{'font-weight':600,'data-chart-label':'title'}),el('circle',{cx,cy,r:d.r0_mm*scale,fill:'none',stroke:'#73808f','stroke-dasharray':'5 4','stroke-width':S.lineWidth,'data-rfq-aperture':'inscribed-circle'}));
    for(const p of d.rod_coordinates){
-    const rodNode=el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth});
+    const rodNode=el('circle',{cx:cx+p.x_mm*scale,cy:cy-p.y_mm*scale,r:d.rod_radius_mm*scale,fill:p.phase>0?'#dae6ff':'#ffe2da',stroke:p.phase>0?'#315aa3':'#ac4835','stroke-width':S.lineWidth,'data-rfq-rod':p.index});
     rodNode.append(el('title',{},`${p.index}: ${p.phase>0?'+':'−'}V, (${fmt(p.x_mm)}, ${fmt(p.y_mm)}) mm`));
     svg.append(rodNode,el('text',{x:cx+p.x_mm*scale,y:cy-p.y_mm*scale+labelSize*.34,'text-anchor':'middle','font-size':labelSize,fill:'#172235'},String(p.index)));
    }
-   // The radial dimension is labelled below the circle so it cannot collide
-   // with rod numbers, especially for high multipoles on narrow screens.
-   svg.append(el('line',{x1:cx,y1:cy,x2:cx+d.r0_mm*scale,y2:cy,stroke:'#172235','stroke-width':S.lineWidth}),el('circle',{cx,cy,r:2,fill:'#172235'}),textLines(dimensions,16,dimensionY,labelSize,{'data-chart-label':'dimensions'}));
+   // Radius: axis to the right-hand inner surface. Diameter: the complete
+   // vertical chord through the axis. Both use the same mm-to-pixel scale.
+   const apertureRadius=d.r0_mm*scale,arrow=Math.min(5,apertureRadius/5),radiusColor='#0d6a72',diameterColor='#8a4f04';
+   svg.append(
+    el('line',{x1:cx,y1:cy-apertureRadius,x2:cx,y2:cy+apertureRadius,stroke:diameterColor,'stroke-width':Math.max(1.2,S.lineWidth),'data-rfq-dimension':'aperture-diameter','data-rfq-value-mm':d.aperture_diameter_mm}),
+    el('path',{d:`M${cx-arrow/2},${cy-apertureRadius+arrow} L${cx},${cy-apertureRadius} L${cx+arrow/2},${cy-apertureRadius+arrow} M${cx-arrow/2},${cy+apertureRadius-arrow} L${cx},${cy+apertureRadius} L${cx+arrow/2},${cy+apertureRadius-arrow}`,fill:'none',stroke:diameterColor,'stroke-width':1.4}),
+    el('line',{x1:cx,y1:cy,x2:cx+apertureRadius,y2:cy,stroke:radiusColor,'stroke-width':Math.max(1.2,S.lineWidth),'data-rfq-dimension':'inscribed-radius','data-rfq-value-mm':d.r0_mm}),
+    el('path',{d:`M${cx+apertureRadius-arrow},${cy-arrow/2} L${cx+apertureRadius},${cy} L${cx+apertureRadius-arrow},${cy+arrow/2}`,fill:'none',stroke:radiusColor,'stroke-width':1.4}),
+    el('text',{x:cx+apertureRadius*.55,y:cy-6,'text-anchor':'middle','font-size':labelSize,fill:radiusColor,'data-chart-label':'radius-dimension'},'r₀'),
+    el('text',{x:cx-6,y:cy+labelSize*.35,'text-anchor':'end','font-size':labelSize,fill:diameterColor,'data-chart-label':'diameter-dimension'},'2r₀'),
+    el('circle',{cx,cy,r:2,fill:'#172235'}));
+   let dimensionOffset=0;for(const item of dimensions){
+    svg.append(textLines(item.lines,16,dimensionY+dimensionOffset,labelSize,{'data-chart-label':'dimensions','data-rfq-quantity':item.key}));
+    dimensionOffset+=item.lines.length*(labelSize+4)+4;
+   }
    drawLegend(svg,legend,16,legendY,labelSize);
    svg.append(textLines(formulas,16,captionY,captionSize,{fill:'#53647a','data-chart-label':'caption'}));
    holder.append(svg);designSVG=svg;{const n=U?.notesBlock('rfq-geometry');if(n)holder.append(n);}
@@ -239,7 +261,7 @@
     if(!tbody.children.length){const notice=document.createElement('p');notice.textContent=T.section_note;holder.append(notice);return;}
     table.append(tbody);const wrap=document.createElement('div');wrap.className='rfq-table-scroll rfq-table-wrap';wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label',T.sections);wrap.append(table);holder.append(wrap);
   }
-  function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
+  function designErrorText(e){return e.message==='rod overlap'?T.rod_overlap+' ρ/r₀ < '+fmt(Math.sin(Math.PI/value('rod-count'))/(1-Math.sin(Math.PI/value('rod-count')))):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   function refresh(){
    // All programmatic changes (stage apply, reset, presets and file loads)
    // notify the dependent RFQ panels after this synchronous refresh.
@@ -257,7 +279,7 @@
      for(const{p,i,diag}of planes)nodes.push(U.group(i?T.second:T.first,tone(p.status),[{k:T.k_status,v:T[p.status],tone:tone(p.status)},{k:T.band,v:String(p.band??'—')},{k:T.trace,v:fmt(diag.trace),hint:T.diagnostic},{k:T.det,v:fmt(diag.det)},{k:'Δ',v:fmt(diag.trace_delta),hint:T.diagnostic},{k:T.k_status+' (Floquet)',v:T[diag.status],tone:tone(diag.status)}]));
      nodes.push(U.make('p','zg-muted zg-small',T.diagnostic));box.replaceChildren(...nodes);
     }else{add(`${T.readout}: ${T[c.status]} · a=${fmt(d.p.a)}, q=${fmt(d.p.q)}`);planes.forEach(({p,i,diag})=>add(`${i?T.second:T.first}: ${T[p.status]} · ${T.band} ${p.band??'—'} · ${T.trace}=${fmt(diag.trace)}, ${T.det}=${fmt(diag.det)}, Δ=${fmt(diag.trace_delta)} · ${T[diag.status]}`));add(T.diagnostic);}
-   }catch(e){last=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' r/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
+   }catch(e){last=null;figure.replaceChildren();root.querySelector('[data-ms-readout]').replaceChildren();const sine=Math.sin(Math.PI/value('rod-count'));err.textContent=e.message==='rod overlap'?T.rod_overlap+' ρ/r₀ < '+fmt(sine/(1-sine)):e.message==='rod rule'?T.rule_unavailable:T.bad;}
   }
   function queue(){clearTimeout(timer);timer=setTimeout(refresh,100);}
   let resizeTimer=null;
@@ -284,8 +306,8 @@
   figure.addEventListener('pointermove',e=>{if(!drag)return;const m=drag.view,dq=-(e.clientX-drag.x)/drag.rect.width*m.W/m.w*(m.qmax-m.qmin),da=(e.clientY-drag.y)/drag.rect.height*m.H/m.h*(m.amax-m.amin);setView({qmin:m.qmin+dq,qmax:m.qmax+dq,amin:m.amin+da,amax:m.amax+da});});
   figure.addEventListener('pointerup',endDrag);figure.addEventListener('pointercancel',endDrag);figure.addEventListener('dblclick',resetView);
   if(window.ZGFigureStyle)styleControl=ZGFigureStyle.controls(root.querySelector('[data-ms-style]'),{lang:root.dataset.lang,prefix:'mathieu',baseline:{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10},onChange:queue});
-  root.addEventListener('input',e=>{if(e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
-  root.addEventListener('change',e=>{if(e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
+  root.addEventListener('input',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
+  root.addEventListener('change',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
   root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)&&e.target.closest?.('[data-local-tab]'))queue();});
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{

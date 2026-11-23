@@ -1,0 +1,381 @@
+{
+  "schema": "rfq-teaching-examples-v1",
+  "generator": "tools/generate_rfq_examples.py",
+  "generator_version": 1,
+  "origin": "synthetic-teaching",
+  "measured": false,
+  "units": {
+    "t_ns": "ns",
+    "E_eV": "eV",
+    "x_mm": "mm",
+    "y_mm": "mm"
+  },
+  "conventions": [
+    "N and z,w denote independent standard normal draws; U is uniform on (0,1).",
+    "Statistics use the rounded CSV values, sample standard deviations and covariance (n−1).",
+    "Gaussian-equivalent FWHM = 2 sqrt(2 ln 2) sigma_t; it is not a fitted non-Gaussian width.",
+    "Radial RMS = sqrt(mean(x²+y²)) about the origin, not about the centroid.",
+    "These examples are synthetic teaching data, not measurements or RFQ transport predictions.",
+    "The catalog covers representative shapes, not every possible dataset."
+  ],
+  "examples": [
+    {
+      "id": "narrow",
+      "file": "narrow.csv",
+      "name": {
+        "en": "Narrow bunch",
+        "zh": "窄时间束团"
+      },
+      "description": {
+        "en": "Small independent time and energy spreads. No position columns are supplied.",
+        "zh": "时间与能量展宽较小且独立；此文件不提供位置列。"
+      },
+      "category": "independent",
+      "origin": "synthetic-teaching",
+      "seed": 1101,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "source"
+      ],
+      "construction": "t=1000+2N; E=10+0.12N",
+      "sha256": "4707eef5a7f835ced57b46472c431571b00a26864aafebfa020300970b1e08c0",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1000.3065446533672,
+        "mean_E_eV": 10.001300812472657,
+        "sigma_t_ns": 2.035650925406417,
+        "sigma_E_eV": 0.12247193962026866,
+        "covariance_ns_eV": 0.0037890672177215362,
+        "correlation": 0.015198208800777603,
+        "gaussian_equivalent_fwhm_ns": 4.793591603832832,
+        "radial_rms_mm": null
+      }
+    },
+    {
+      "id": "broad",
+      "file": "broad.csv",
+      "name": {
+        "en": "Broad bunch",
+        "zh": "宽时间束团"
+      },
+      "description": {
+        "en": "Larger independent spreads for comparison with the narrow example.",
+        "zh": "较大的独立展宽，可与窄束团示例比较。"
+      },
+      "category": "independent",
+      "origin": "synthetic-teaching",
+      "seed": 1102,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "t=1000+25N; E=10+1.2N",
+      "sha256": "f00f7d66572b13b55e9399a046c4f2254d19643331efd331a23e382dba322b31",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1002.4418373782812,
+        "mean_E_eV": 9.873578790792969,
+        "sigma_t_ns": 26.118750691204706,
+        "sigma_E_eV": 1.2551300025492416,
+        "covariance_ns_eV": 2.2551588168655554,
+        "correlation": 0.06879169666425994,
+        "gaussian_equivalent_fwhm_ns": 61.504957678814804,
+        "radial_rms_mm": 0.9150670374246758
+      }
+    },
+    {
+      "id": "positive",
+      "file": "positive.csv",
+      "name": {
+        "en": "Positive time–energy correlation",
+        "zh": "正时间–能量相关"
+      },
+      "description": {
+        "en": "Later events have higher energy; construction correlation +0.9, finite-sample value shown below.",
+        "zh": "较晚事件的能量较高；构造相关系数为 +0.9，下方给出有限样本值。"
+      },
+      "category": "correlation-positive",
+      "origin": "synthetic-teaching",
+      "seed": 1103,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "t=1000+15z; E=10+0.8*(0.9z+sqrt(0.19)w)",
+      "sha256": "8d583669efe936646692e62274274d16144b9b467838cac70d33af5b65791309",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 999.8149180864062,
+        "mean_E_eV": 9.95460672453125,
+        "sigma_t_ns": 14.692273254743235,
+        "sigma_E_eV": 0.8019060912792606,
+        "covariance_ns_eV": 10.411778931073753,
+        "correlation": 0.8837154116073503,
+        "gaussian_equivalent_fwhm_ns": 34.59765956734147,
+        "radial_rms_mm": 0.1403489216981385
+      }
+    },
+    {
+      "id": "negative",
+      "file": "negative.csv",
+      "name": {
+        "en": "Negative time–energy correlation",
+        "zh": "负时间–能量相关"
+      },
+      "description": {
+        "en": "Later events have lower energy; construction correlation −0.9, finite-sample value shown below.",
+        "zh": "较晚事件的能量较低；构造相关系数为 −0.9，下方给出有限样本值。"
+      },
+      "category": "correlation-negative",
+      "origin": "synthetic-teaching",
+      "seed": 1104,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "t=1000+15z; E=10+0.8*(-0.9z+sqrt(0.19)w)",
+      "sha256": "7a249fd4b969441106a5c999c917a27fe9350fb31f781109ef0548c8051356ed",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 999.6901395206953,
+        "mean_E_eV": 10.01469312230078,
+        "sigma_t_ns": 13.974190080555278,
+        "sigma_E_eV": 0.7185266126292326,
+        "covariance_ns_eV": -8.909194219012674,
+        "correlation": -0.8872968141324791,
+        "gaussian_equivalent_fwhm_ns": 32.906702914764224,
+        "radial_rms_mm": 0.13733307058442878
+      }
+    },
+    {
+      "id": "tail",
+      "file": "tail.csv",
+      "name": {
+        "en": "Late-time tail",
+        "zh": "晚到时间拖尾"
+      },
+      "description": {
+        "en": "Gaussian timing jitter plus a positive exponential delay. Gaussian-equivalent width is not a fitted tail width.",
+        "zh": "高斯时间抖动叠加正指数延迟；高斯等效宽度并非拖尾的拟合宽度。"
+      },
+      "category": "skew-tail",
+      "origin": "synthetic-teaching",
+      "seed": 1105,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "delay=-15*ln(U); t=1000+2N+delay; E=10+0.015*delay+0.2N",
+      "sha256": "8d343479d7b1b884e6cca1ba9e66fdabf7814753c558c0c57870b4f0dfb91fe6",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1015.3024403041094,
+        "mean_E_eV": 10.238324433191407,
+        "sigma_t_ns": 15.290244321989318,
+        "sigma_E_eV": 0.2893965911649545,
+        "covariance_ns_eV": 3.3364141755340286,
+        "correlation": 0.7540013465812295,
+        "gaussian_equivalent_fwhm_ns": 36.00577382284111,
+        "radial_rms_mm": 0.14377348747420268
+      }
+    },
+    {
+      "id": "double",
+      "file": "double.csv",
+      "name": {
+        "en": "Two time peaks",
+        "zh": "双时间峰"
+      },
+      "description": {
+        "en": "Equal populations separated in time. One mean and standard deviation do not identify two peaks.",
+        "zh": "两个等权组分在时间上分离；单一均值和标准差无法识别双峰。"
+      },
+      "category": "double-peak",
+      "origin": "synthetic-teaching",
+      "seed": 1106,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "alternating groups g=±1; t=1000+12g+2N; E=10+0.3g+0.15N",
+      "sha256": "c14098358141b29ba9afd2e3acd248c949b21eae1fe0df0e4d98421e61c91a4c",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1000.1204048081328,
+        "mean_E_eV": 10.009019050679688,
+        "sigma_t_ns": 12.23789114595991,
+        "sigma_E_eV": 0.3492104307276119,
+        "covariance_ns_eV": 3.7788419239835034,
+        "correlation": 0.8842293610820401,
+        "gaussian_equivalent_fwhm_ns": 28.81803137941317,
+        "radial_rms_mm": 0.14175981384752875
+      }
+    },
+    {
+      "id": "drift",
+      "file": "drift.csv",
+      "name": {
+        "en": "Drift with event order",
+        "zh": "随事件顺序漂移"
+      },
+      "description": {
+        "en": "Time and energy means drift across the recorded event order; inspect the event-index plots.",
+        "zh": "时间和能量均值随记录顺序漂移；请查看事件序号图。"
+      },
+      "category": "drift",
+      "origin": "synthetic-teaching",
+      "seed": 1107,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "u=i/(n-1)-0.5; t=1000+20u+2N; E=10+u+0.1N",
+      "sha256": "3bfd779ecf280994660158e3f43e6453782783b28f5f54aa478253695c7bb9cd",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1000.039225514293,
+        "mean_E_eV": 9.999175130695313,
+        "sigma_t_ns": 6.157767876503646,
+        "sigma_E_eV": 0.31248099539599733,
+        "covariance_ns_eV": 1.7056842684054219,
+        "correlation": 0.8864448493193882,
+        "gaussian_equivalent_fwhm_ns": 14.50043522823845,
+        "radial_rms_mm": 0.13564820979322847
+      }
+    },
+    {
+      "id": "outliers",
+      "file": "outliers.csv",
+      "name": {
+        "en": "Sparse outliers",
+        "zh": "稀疏离群点"
+      },
+      "description": {
+        "en": "A narrow core with eight deliberate extreme events. Compare histogram and event-index views.",
+        "zh": "窄核心中加入八个刻意设置的极端事件；可比较直方图与事件序号图。"
+      },
+      "category": "outliers",
+      "origin": "synthetic-teaching",
+      "seed": 1108,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "narrow core; every32nd event has alternating dt=±60 and dE=±4",
+      "sha256": "58f80f94d2ccb878f8814090f60a71f668386f821e26aad7d013eb1e65699dae",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 999.8626779673829,
+        "mean_E_eV": 9.993945038027343,
+        "sigma_t_ns": 10.872604864735505,
+        "sigma_E_eV": 0.7130218375739223,
+        "covariance_ns_eV": 7.552006717131463,
+        "correlation": 0.9741502165462538,
+        "gaussian_equivalent_fwhm_ns": 25.603027877180182,
+        "radial_rms_mm": 0.13863243029743139
+      }
+    },
+    {
+      "id": "round-spot",
+      "file": "round-spot.csv",
+      "name": {
+        "en": "Centered round spot",
+        "zh": "居中圆形束斑"
+      },
+      "description": {
+        "en": "Centered isotropic transverse coordinates. Radial RMS is measured about the coordinate origin.",
+        "zh": "居中的各向同性横向坐标；径向均方根相对于坐标原点计算。"
+      },
+      "category": "round-spot",
+      "origin": "synthetic-teaching",
+      "seed": 1109,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "t=1000+6N; E=10+0.25N; x=0.3N; y=0.3N",
+      "sha256": "b9694495f1b3d82f57fcf28d1c27ac93fb9c39feb6379fd626bc143c9de671b2",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1000.5722106751133,
+        "mean_E_eV": 10.000941962707032,
+        "sigma_t_ns": 6.033388685194787,
+        "sigma_E_eV": 0.24411879885751553,
+        "covariance_ns_eV": 0.021068509787594874,
+        "correlation": 0.014304454128511937,
+        "gaussian_equivalent_fwhm_ns": 14.207544615359607,
+        "radial_rms_mm": 0.41714436094359947
+      }
+    },
+    {
+      "id": "tilted-spot",
+      "file": "tilted-spot.csv",
+      "name": {
+        "en": "Offset tilted spot",
+        "zh": "偏心倾斜束斑"
+      },
+      "description": {
+        "en": "Offset correlated transverse coordinates. Equal axis scale preserves the spot shape; origin-based radial RMS includes the offset.",
+        "zh": "偏心且相关的横向坐标；坐标轴等比例保留束斑形状，原点径向均方根包含偏移。"
+      },
+      "category": "tilted-spot",
+      "origin": "synthetic-teaching",
+      "seed": 1110,
+      "count": 256,
+      "columns": [
+        "t_ns",
+        "E_eV",
+        "x_mm",
+        "y_mm",
+        "source"
+      ],
+      "construction": "x=0.8+0.6z; y=-0.4+0.25*(0.85z+sqrt(1-0.85^2)w)",
+      "sha256": "e855ff5ae4e3a6e483eb2a1223054950ae10c265158c069bf619a54344f24174",
+      "expected": {
+        "count": 256,
+        "mean_t_ns": 1000.4158722229258,
+        "mean_E_eV": 10.007440681753906,
+        "sigma_t_ns": 6.435495217247024,
+        "sigma_E_eV": 0.24924148480878844,
+        "covariance_ns_eV": -0.03417247608107259,
+        "correlation": -0.021304637374943234,
+        "gaussian_equivalent_fwhm_ns": 15.154433137274097,
+        "radial_rms_mm": 1.0998496641537645
+      }
+    }
+  ]
+}

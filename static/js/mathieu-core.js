@@ -72,12 +72,19 @@
   const mass=mass_u*C.u,Q=charge*C.e,r0=r0_mm/1000,omega=2*Math.PI*f_MHz*1e6,x=radial_fraction;
   const etaPerV=2*Q*n*(n-1)/(mass*omega**2*r0**2)*x**(n-2),eta=etaPerV*V_V;
   const p=rod_count===4?parameters(mass_u,charge,U_V,V_V,r0_mm,f_MHz):null;
-  const curve=g.row.curve,parasitic=interpolate(curve.ratio,curve.A3n_over_An,g.ratio);
+  const curve=g.row.curve;
+  // The coarse display curve does not contain its independently solved root.
+  // Insert that zero anchor before interpolation; otherwise selecting A_3n
+  // cancellation falsely reports a nonzero first parasitic harmonic.
+  const points=curve.ratio.map((ratio,i)=>[ratio,curve.A3n_over_An[i]]);
+  if(!curve.ratio.includes(g.row.optimal))points.push([g.row.optimal,0]);
+  points.sort((a,b)=>a[0]-b[0]);
+  const parasitic=interpolate(points.map(p=>p[0]),points.map(p=>p[1]),g.ratio);
   const qScale=Q/(mass*r0**2*omega**2),suggestedRF=rod_count===4?Q_RANGE.map(q=>({q,V_rod_peak_V:q/(4*qScale),f_MHz_at_current_V:V_V>0?Math.sqrt(4*Q*V_V/(mass*r0**2*q))/(2*Math.PI)*1e-6:null})):null;
-  const result={mass_u,charge,U_V,V_V,r0_mm,f_MHz,rod_count,rod_rule:g.rule,rod_ratio:g.ratio,rod_radius_mm,rod_diameter_mm:2*rod_radius_mm,radial_fraction,eta_target,order_n:n,
+  const result={field_normalization:'ideal A_n=1; actual round-rod fundamental amplitude and higher fields are not applied',mass_u,charge,U_V,V_V,r0_mm,f_MHz,rod_count,rod_rule:g.rule,rod_ratio:g.ratio,rod_radius_mm,rod_diameter_mm:2*rod_radius_mm,radial_fraction,eta_target,order_n:n,
    rod_ratio_optimal:g.row.optimal,rod_ratio_curvature:1/(n-1),rod_ratio_touching:g.row.touching,ratio_deviation_percent:100*(g.ratio/g.row.optimal-1),
    aperture_diameter_mm:2*r0_mm,center_radius_mm:R,outer_radius_mm:R+rod_radius_mm,adjacent_center_mm:adjacent,surface_gap_mm:gap,opposite_center_mm:2*R,
-   parasitic_harmonic_order:3*n,parasitic_A_over_An:parasitic,parasitic_at_radial_fraction:parasitic===null?null:parasitic*x**(2*n),
+   parasitic_interpolation:'piecewise linear with numerical cancellation-root anchor; not a new field solution',parasitic_harmonic_order:3*n,parasitic_A_over_An:parasitic,parasitic_at_radial_fraction:parasitic===null?null:parasitic*x**(2*n),
    diameter_tolerance_mm,ratio_tolerance:diameter_tolerance_mm===null?null:diameter_tolerance_mm/(2*r0_mm),
    rod_coordinates:Array.from({length:rod_count},(_,i)=>({index:i+1,x_mm:R*Math.cos(2*Math.PI*i/rod_count),y_mm:R*Math.sin(2*Math.PI*i/rod_count),phase:i%2?-1:1})),
    field_RF_V_m:n*V_V/r0*x**(n-1),dc_potential_at_theta0_V:U_V*x**n,
@@ -96,7 +103,7 @@
    units:{length:'mm',mass:'u',frequency:'MHz',voltage:'V rod peak; differential peak=2V',field:'V/m',energy:'eV',eta:'dimensionless'},
    equations:{potential:'Phi=(U+V cos(Omega t))(r/r0)^n cos(n theta); 2n rods',geometry:'r0 = axis to rod surface; rr = ratio r0; Rc=r0+rr; Dadj=2Rc sin(pi/rod_count); gap=Dadj-2rr; outer radius Rc+rr',rod_rule:'optimal: A_3n(rr/r0)=0 for free-space 2D round rods (four rods: calculated 1.14510807, not a universal hardware optimum); curvature: rr=r0/(n-1); filter: 1.128 (four rods); ratio/radius: user value; parasitic harmonic: A_3n/A_n (r/r0)^(2n)',rf_suggestion:'V_rod_peak=q m r0^2 Omega^2/(4Q) for q=0.3, 0.4, 0.5; f=sqrt(4QV/(m r0^2 q))/(2 pi)',phase:'Positive Mathieu q uses a half-period RF phase-origin shift relative to Phi with +V cos(Omega t); stability is invariant',field:'E_RF=n V/r0 (r/r0)^(n-1)',pseudopotential:'Ueff=Q^2 n^2 V^2/(4m Omega^2 r0^2)(r/r0)^(2n-2)',eta:'eta=2|Q| n(n-1)V/(m Omega^2 r0^2)(r/r0)^(n-2)'},
    sources:['https://dlmf.nist.gov/28.17','https://doi.org/10.3390/physics1030028','https://arxiv.org/abs/0902.2746','https://doi.org/10.1002/rcm.735','https://doi.org/10.1002/rcm.7018','https://doi.org/10.1016/0029-554X(71)90587-8'],references:['G. E. Lee-Whiting and L. Yamazaki, Nucl. Instrum. Methods 94 (1971) 319-332: rounded A6-cancellation ratio 1.14511 for circular quadrupoles','Rod-radius table: tools/make_rfq_rod_ratios.py, independent finite-series free-space 2D calculation; four-rod value 1.14510807 is a numerical table result, not a measured or universal optimum','Douglas and Konenkov, Rapid Commun. Mass Spectrom. 16 (2002) 1425-1431: A6 cancellation need not optimize mass-filter transmission/resolution because A10 also matters','Hicks et al. (2019) and Champenois (2009) support ideal multipole field/adiabaticity equations, not the precise tabulated rod-ratio digits'],
-   limits:'Ideal infinite multipole for the RF/adiabaticity numbers; the rod-radius rule and the parasitic harmonic come from a free-space two-dimensional round-rod solution (no grounded housing, end fields, rod tolerances or space charge). Eta target is user-selected, not a stability guarantee. Higher poles have no Mathieu classification; DC is excluded from pseudopotential/eta. Zero RF gives zero pseudopotential even when the eta target is met. No end fields, collisions, space charge, uncertainty propagation or hardware acceptance.'};
+   limits:'Ideal infinite multipole with A_n=1 for the RF/adiabaticity numbers; a circular-rod field generally has a different fundamental amplitude even at A_3n cancellation; the rod-radius rule and the parasitic harmonic come from a free-space two-dimensional round-rod solution (no grounded housing, end fields, rod tolerances or space charge). Eta target is user-selected, not a stability guarantee. Higher poles have no Mathieu classification; DC is excluded from pseudopotential/eta. Zero RF gives zero pseudopotential even when the eta target is met. No end fields, collisions, space charge, uncertainty propagation or hardware acceptance.'};
  }
  function monodromy(a,q,steps=512){
   if(!finite(a)||!finite(q)||Math.abs(q)>MAX_Q||Math.abs(a)>100||!Number.isInteger(steps)||steps<64||steps>4096)throw Error('domain');

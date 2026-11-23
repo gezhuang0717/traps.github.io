@@ -309,7 +309,7 @@
           set("cal-ref", refModel.species[0].time / 1000); set("cal-time", model.species[0].time / 1000); set("cal-t0", parameters.delayUs);
           controls.querySelector(".wb-cal-result").textContent = T.cal_filled;
         }
-        if (action === "calibrate") { const ref = cat.resolve($("cal-ion").value), c = P.calibration(val("cal-time"), val("cal-ref"), ref, ions[0].q, val("cal-t0"), val("cal-sig") / 1000, val("cal-ref-sig") / 1000, val("cal-delay-sig") / 1000); controls.querySelector(".wb-cal-result").textContent = `${fmt(c.atomicMassU, 12)} ± ${c.uncertaintyU == null ? T.unknown : fmt(c.uncertaintyU)} u (m/q = ${fmt((c.atomicMassU - ions[0].q * P.C.electronU) / ions[0].q, 12)} u/e). ${c.uncertainty_model}`; }
+        if (action === "calibrate") { const ref = cat.resolve($("cal-ion").value), c = P.calibration(val("cal-time"), val("cal-ref"), ref, (ions[0].sign || 1) * ions[0].q, val("cal-t0"), val("cal-sig") / 1000, val("cal-ref-sig") / 1000, val("cal-delay-sig") / 1000); controls.querySelector(".wb-cal-result").textContent = `${fmt(c.atomicMassU, 12)} ± ${c.uncertaintyU == null ? T.unknown : fmt(c.uncertaintyU)} u (m/q = ${fmt(c.ionMassU / ions[0].q, 12)} u/e). ${c.uncertainty_model}`; }
         if (action === "view") { view = b.dataset.view; clearViews(); paintOrbit(); }
         if (action === "pause") { paused = !paused; b.setAttribute("aria-pressed", String(paused)); }
         if (action === "reset") { play = 0; paintOrbit(); }

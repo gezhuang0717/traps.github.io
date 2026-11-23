@@ -140,7 +140,17 @@
     "class_boundary": "Boundary",
     "class_outside": "Outside computed range",
     "class_unresolved": "Unresolved",
-    "energy_axis": "Energy (eV)"
+    "energy_axis": "Energy (eV)",
+    "resonance": "Resonances",
+    "z0": "Initial z (mm)",
+    "vz0": "Initial v_z (mm/µs)",
+    "view_filtered": "RF-period mean and residual",
+    "view_axial": "Axial free flight",
+    "view_spatial": "3D trajectory",
+    "view_comparison": "Compare RF launch phases",
+    "view_spectrum": "Frequency spectrum",
+    "axial_note": "Axial motion is free drift: z = z₀ + v_z t. A one-RF-period mean is a diagnostic filter, not an exact separation of secular motion and micromotion.",
+    "near_focus_warning": "Near a time focus, the linear width can underestimate the bunch duration. Second-order Gaussian estimate σ₂ ="
   },
   "zh": {
     "motion": "离子轨迹",
@@ -283,7 +293,17 @@
     "class_boundary": "边界",
     "class_outside": "超出计算范围",
     "class_unresolved": "未判定",
-    "energy_axis": "能量（eV）"
+    "energy_axis": "能量（eV）",
+    "resonance": "共振",
+    "z0": "初始 z（mm）",
+    "vz0": "初始 v_z（mm/µs）",
+    "view_filtered": "射频周期均值与残差",
+    "view_axial": "轴向自由飞行",
+    "view_spatial": "三维轨迹",
+    "view_comparison": "比较射频注入相位",
+    "view_spectrum": "频谱",
+    "axial_note": "轴向运动为自由漂移：z = z₀ + v_z t。一个射频周期均值是诊断滤波器，不是久期运动与微运动的严格分离。",
+    "near_focus_warning": "在时间焦点附近，一阶宽度可能低估束团时长。高斯二阶估计 σ₂ ="
   },
   "fi": {
     "motion": "Ionien liikeradat",
@@ -426,7 +446,17 @@
     "class_boundary": "Rajalla",
     "class_outside": "Lasketun alueen ulkopuolella",
     "class_unresolved": "Ratkaisematon",
-    "energy_axis": "Energia (eV)"
+    "energy_axis": "Energia (eV)",
+    "resonance": "Resonanssit",
+    "z0": "Alkuarvo z (mm)",
+    "vz0": "Alkunopeus v_z (mm/µs)",
+    "view_filtered": "RF-jakson keskiarvo ja jäännös",
+    "view_axial": "Vapaa aksiaalinen lento",
+    "view_spatial": "3D-rata",
+    "view_comparison": "RF-alkuvaiheiden vertailu",
+    "view_spectrum": "Taajuusspektri",
+    "axial_note": "Aksiaalinen liike on vapaata: z = z₀ + v_z t. Yhden RF-jakson keskiarvo on diagnostinen suodatin, ei sekulaariliikkeen ja mikroliikkeen tarkka erottelu.",
+    "near_focus_warning": "Aikafokuksen lähellä lineaarinen leveys voi aliarvioida keston. Gaussinen toisen kertaluvun arvio σ₂ ="
   },
   "de": {
     "motion": "Ionentrajektorien",
@@ -569,7 +599,17 @@
     "class_boundary": "Grenze",
     "class_outside": "Außerhalb des berechneten Bereichs",
     "class_unresolved": "Nicht aufgelöst",
-    "energy_axis": "Energie (eV)"
+    "energy_axis": "Energie (eV)",
+    "resonance": "Resonanzen",
+    "z0": "Anfangswert z (mm)",
+    "vz0": "Anfangsgeschwindigkeit v_z (mm/µs)",
+    "view_filtered": "RF-Mittelwert und Residuum",
+    "view_axial": "Freier axialer Flug",
+    "view_spatial": "3D-Trajektorie",
+    "view_comparison": "RF-Startphasen vergleichen",
+    "view_spectrum": "Frequenzspektrum",
+    "axial_note": "Axial gilt freie Drift: z = z₀ + v_z t. Das Mittel über eine RF-Periode ist ein diagnostischer Filter, keine exakte Trennung von Säkular- und Mikrobewegung.",
+    "near_focus_warning": "Nahe dem Zeitfokus kann die lineare Breite die Dauer unterschätzen. Gaußsche Näherung zweiter Ordnung σ₂ ="
   },
   "ja": {
     "motion": "イオン軌道",
@@ -712,7 +752,17 @@
     "class_boundary": "境界",
     "class_outside": "計算範囲外",
     "class_unresolved": "未判定",
-    "energy_axis": "エネルギー（eV）"
+    "energy_axis": "エネルギー（eV）",
+    "resonance": "共鳴",
+    "z0": "初期 z（mm）",
+    "vz0": "初期 v_z（mm/µs）",
+    "view_filtered": "RF周期平均と残差",
+    "view_axial": "軸方向の自由飛行",
+    "view_spatial": "3D軌道",
+    "view_comparison": "RF初期位相を比較",
+    "view_spectrum": "周波数スペクトル",
+    "axial_note": "軸方向は自由ドリフト：z = z₀ + v_z t。RF一周期平均は診断用フィルターであり、永年運動とマイクロモーションの厳密な分離ではありません。",
+    "near_focus_warning": "時間焦点付近では一次近似が束の時間幅を過小評価します。ガウス分布の二次推定 σ₂ ="
   },
   "fr": {
     "motion": "Trajectoires ioniques",
@@ -855,6 +905,16 @@
     "class_boundary": "Frontière",
     "class_outside": "Hors du domaine calculé",
     "class_unresolved": "Non résolu",
-    "energy_axis": "Énergie (eV)"
+    "energy_axis": "Énergie (eV)",
+    "resonance": "Résonances",
+    "z0": "z initial (mm)",
+    "vz0": "v_z initial (mm/µs)",
+    "view_filtered": "Moyenne RF et résidu",
+    "view_axial": "Vol axial libre",
+    "view_spatial": "Trajectoire 3D",
+    "view_comparison": "Comparer les phases RF",
+    "view_spectrum": "Spectre en fréquence",
+    "axial_note": "Le mouvement axial est une dérive libre : z = z₀ + v_z t. La moyenne sur une période RF est un filtre diagnostique, pas une séparation exacte des mouvements séculaire et RF.",
+    "near_focus_warning": "Près du foyer temporel, la largeur linéaire peut sous-estimer la durée. Estimation gaussienne du second ordre σ₂ ="
   }
 }

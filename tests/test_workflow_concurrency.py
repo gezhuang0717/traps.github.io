@@ -24,3 +24,15 @@ def test_daily_and_code_publication_remain_in_one_serial_lane():
     assert concurrency["group"] == "website-${{ github.ref }}", (
         "Splitting schedule/push groups can overlap Daily writes and Pages publication"
     )
+
+
+def test_traps_cannot_republish_pages_after_unpublishing():
+    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+    publishers = [job for job in workflow["jobs"].values()
+                  if any(str(step.get("uses", "")).startswith("actions/deploy-pages@")
+                         for step in job.get("steps", []))]
+    assert publishers, "Review any replacement Pages publication mechanism"
+    for job in publishers:
+        assert "github.repository != 'gezhuang0717/traps.github.io'" in job["if"], (
+            "Keep the explicit repository-level publication block for traps"
+        )

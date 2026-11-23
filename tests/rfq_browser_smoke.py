@@ -28,7 +28,7 @@ def check():
         page.goto(BASE + 'lab/', wait_until='domcontentloaded', timeout=60000)
         root = page.locator('#rfq-workbench')
         expect(root).to_be_visible(timeout=25000)
-        tabs = ('classic', 'design', 'motion', 'gas', 'bunch', 'scan', 'data')
+        tabs = ('classic', 'design', 'resonance', 'motion', 'gas', 'bunch', 'scan', 'data')
         for key in tabs:
             tab = root.locator(f'[data-local-tab="{key}"]')
             assert tab.count() == 1, key
@@ -114,7 +114,7 @@ def check():
             root.locator(f'[data-local-tab="{key}"]').click()
             expect(root.locator(f'[data-local-panel="{key}"]')).to_be_visible(timeout=10000)
         mobile.close(); browser.close()
-    print('RFQ E2E passed: seven tabs, shared programmatic state, motion views/timing, four scans, real figure downloads, CSV round trip, independent data analysis, mobile tabs.')
+    print('RFQ E2E passed: eight tabs, shared programmatic state, motion views/timing, four scans, real figure downloads, CSV round trip, independent data analysis, mobile tabs.')
 
 
 if __name__ == '__main__':
