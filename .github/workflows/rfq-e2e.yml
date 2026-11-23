@@ -47,6 +47,7 @@ jobs:
           python -m pip install playwright==1.58.0
           python -m playwright install --with-deps chromium
       - name: Build website for local browser
+        id: build
         run: |
           python tools/site.py config
           hugo --minify --configDir sites/congo --themesDir themes --destination "$RUNNER_TEMP/rfq-site" --baseURL http://127.0.0.1:8765/
@@ -56,6 +57,7 @@ jobs:
       - name: Run real Chromium desktop/mobile acceptance
         run: python tests/rfq_browser_smoke.py
       - name: Verify readable RFQ plots and responsive controls
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: python tests/rfq_visual_acceptance.py
       - uses: actions/upload-artifact@v4
         if: always()

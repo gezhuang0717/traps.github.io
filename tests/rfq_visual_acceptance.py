@@ -98,7 +98,13 @@ def run() -> dict:
     evidence = {"started_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "base_url": BASE,
                 "evidence_kind": "browser rendering and deterministic test data; no native simulation",
                 "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
-                "cases": [], "exports": []}
+                "cases": [], "exports": [], "failures": []}
+
+    def failure(scope: dict, kind: str, detail) -> None:
+        item = {**scope, "kind": kind, "detail": detail}
+        evidence["failures"].append(item)
+        print(f'RFQ visual failure: {scope} — {kind}', flush=True)
+
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -112,65 +118,109 @@ def run() -> dict:
                 root = page.locator("#rfq-workbench")
                 expect(root).to_be_visible(timeout=30000)
                 page.evaluate("document.fonts.ready")
-                expect(root.locator('[data-local-tab="classic"]')).to_have_attribute("aria-selected", "true")
-                # Confirm keyboard navigation works without a pointer.
-                root.locator('[data-local-tab="classic"]').focus()
-                for tab in TABS[1:]:
-                    page.keyboard.press("ArrowRight")
-                    expect(root.locator(f'[data-local-tab="{tab}"]')).to_be_focused()
-                    expect(root.locator(f'[data-local-panel="{tab}"]')).to_be_visible()
-                page.keyboard.press("Home")
-                expect(root.locator('[data-local-tab="classic"]')).to_be_focused()
-                page.keyboard.press("End")
-                expect(root.locator('[data-local-tab="data"]')).to_be_focused()
-                root.locator('[data-rfx-file]').set_input_files({"name": "rfq-visual-test-fixture.csv", "mimeType": "text/csv", "buffer": fixture()})
-                expect(root.locator('[data-rfx-output="data"]')).not_to_be_empty()
+                # A keyboard failure remains a gate, but does not discard the
+                # independent rendered evidence from the remaining viewports.
+                try:
+                    expect(root.locator('[data-local-tab="classic"]')).to_have_attribute("aria-selected", "true")
+                    root.locator('[data-local-tab="classic"]').focus()
+                    for tab in TABS[1:]:
+                        page.keyboard.press("ArrowRight")
+                        expect(root.locator(f'[data-local-tab="{tab}"]')).to_be_focused()
+                        expect(root.locator(f'[data-local-panel="{tab}"]')).to_be_visible()
+                    page.keyboard.press("Home")
+                    expect(root.locator('[data-local-tab="classic"]')).to_be_focused()
+                    page.keyboard.press("End")
+                    expect(root.locator('[data-local-tab="data"]')).to_be_focused()
+                except Exception:
+                    failure({"language": language}, "keyboard navigation", traceback.format_exc())
+                try:
+                    root.locator('[data-local-tab="data"]').click()
+                    root.locator('[data-rfx-file]').set_input_files({"name": "rfq-visual-test-fixture.csv", "mimeType": "text/csv", "buffer": fixture()})
+                    expect(root.locator('[data-rfx-output="data"]')).not_to_be_empty()
+                except Exception:
+                    failure({"language": language}, "fixture import", traceback.format_exc())
 
                 for width in WIDTHS:
                     page.set_viewport_size({"width": width, "height": 1000})
                     for tab in TABS:
-                        root.locator(f'[data-local-tab="{tab}"]').click()
-                        panel = root.locator(f'[data-local-panel="{tab}"]')
-                        expect(panel).to_be_visible()
-                        # Run buttons refresh visible charts at the final width.
-                        if tab not in ("classic", "design"):
-                            panel.locator(f'[data-rfx-action="run"][data-rfx-kind="{tab}"]').click()
-                        figure = panel.locator('[data-ms-figure] svg' if tab == 'classic' else '[data-ms-design-figure] svg' if tab == 'design' else '[data-rfx-figure] svg').first
-                        expect(figure).to_be_visible(timeout=15000)
-                        figure.scroll_into_view_if_needed()
-                        layout = root.evaluate(LAYOUT_CHECK)
-                        assert layout["document"] <= layout["viewport"] + 2, (language, width, tab, "document overflow", layout)
-                        assert layout["root"]["right"] <= layout["viewport"] + 2 and layout["root"]["x"] >= -2, (language, width, tab, "workbench overflow", layout)
-                        assert not layout["collisions"], (language, width, tab, "control overlap", layout["collisions"])
-                        chart_checks = []
-                        for svg in panel.locator('svg[data-rfq-chart]').all():
-                            check = svg.evaluate(CHART_CHECK)
-                            assert not check["clipped"], (language, width, tab, "clipped labels", check["clipped"])
-                            assert not check["collisions"], (language, width, tab, "overlapping labels", check["collisions"])
-                            chart_checks.append(check)
+                        scope = {"language": language, "viewport": width, "tab": tab}
+                        case = {**scope, "layout": None, "charts": []}
+                        evidence["cases"].append(case)
+                        first_failure = len(evidence["failures"])
                         prefix = f"{language}-{width}"
-                        figure.screenshot(path=str(ART / f"{prefix}-{tab}-figure.png"))
-                        if width in (390, 1440):
-                            panel.screenshot(path=str(ART / f"{prefix}-{tab}-panel.png"))
-                        evidence["cases"].append({"language": language, "viewport": width, "tab": tab, "layout": layout, "charts": chart_checks})
+                        panel = root.locator(f'[data-local-panel="{tab}"]')
+                        figure = panel.locator('[data-ms-figure] svg' if tab == 'classic' else '[data-ms-design-figure] svg' if tab == 'design' else '[data-rfx-figure] svg').first
+                        try:
+                            root.locator(f'[data-local-tab="{tab}"]').click()
+                            expect(panel).to_be_visible()
+                            if tab not in ("classic", "design"):
+                                panel.locator(f'[data-rfx-action="run"][data-rfx-kind="{tab}"]').click()
+                            expect(figure).to_be_visible(timeout=15000)
+                            figure.scroll_into_view_if_needed()
+                            layout = root.evaluate(LAYOUT_CHECK)
+                            case["layout"] = layout
+                            if layout["document"] > layout["viewport"] + 2:
+                                failure(scope, "document overflow", layout)
+                            if layout["root"]["right"] > layout["viewport"] + 2 or layout["root"]["x"] < -2:
+                                failure(scope, "workbench overflow", layout)
+                            if layout["collisions"]:
+                                failure(scope, "control overlap", layout["collisions"])
+                            for chart_index, svg in enumerate(panel.locator('svg[data-rfq-chart]').all()):
+                                check = svg.evaluate(CHART_CHECK)
+                                case["charts"].append(check)
+                                if check["clipped"]:
+                                    failure({**scope, "chart": chart_index}, "clipped labels", check["clipped"])
+                                if check["collisions"]:
+                                    failure({**scope, "chart": chart_index}, "overlapping labels", check["collisions"])
+                        except Exception:
+                            failure(scope, "rendering or measurement", traceback.format_exc())
+                        # Capture failing cases as well as successful ones; the
+                        # measured collisions remain failures, never suppressed.
+                        try:
+                            if figure.is_visible():
+                                figure.screenshot(path=str(ART / f"{prefix}-{tab}-figure.png"), timeout=10000)
+                            if panel.is_visible() and (width in (390, 1440) or len(evidence["failures"]) > first_failure):
+                                panel.screenshot(path=str(ART / f"{prefix}-{tab}-panel.png"), timeout=10000)
+                            elif not figure.is_visible():
+                                page.screenshot(path=str(ART / f"{prefix}-{tab}-failure.png"), timeout=10000)
+                        except Exception:
+                            failure(scope, "evidence screenshot", traceback.format_exc())
                         if width == 1440 and language == "en":
-                            evidence["exports"].extend(check_exports(page, root, tab, prefix))
+                            try:
+                                evidence["exports"].extend(check_exports(page, root, tab, prefix))
+                            except Exception:
+                                failure(scope, "figure export", traceback.format_exc())
+                        case["result"] = "failed" if len(evidence["failures"]) > first_failure else "passed"
                     if width in (320, 1440):
                         guide = root.locator('.rfq-foundations')
-                        guide.locator(':scope > summary').click()
-                        for section in guide.locator('.rfq-guide-section').all():
-                            if section.get_attribute('open') is None:
-                                section.locator(':scope > summary').click()
-                        assert guide.locator('math mfrac').count() >= 8, "Equations are absent"
-                        for eq in guide.locator('math').all():
-                            assert eq.evaluate('(e)=>e.getBoundingClientRect().height') > 5, "Equation did not render"
-                        layout = root.evaluate(LAYOUT_CHECK)
-                        assert layout["document"] <= width + 2, (language, width, "equation overflow", layout)
-                        guide.screenshot(path=str(ART / f"{language}-{width}-physics-guide.png"))
-                        guide.locator(':scope > summary').click()
-                assert not errors, (language, "uncaught browser errors", errors)
+                        scope = {"language": language, "viewport": width, "tab": "physics guide"}
+                        try:
+                            if guide.get_attribute('open') is None:
+                                guide.locator(':scope > summary').click()
+                            for section in guide.locator('.rfq-guide-section').all():
+                                if section.get_attribute('open') is None:
+                                    section.locator(':scope > summary').click()
+                            if guide.locator('math mfrac').count() < 8:
+                                failure(scope, "equations absent", "Expected the guide's fraction equations")
+                            for index, eq in enumerate(guide.locator('math').all()):
+                                if eq.evaluate('(e)=>e.getBoundingClientRect().height') <= 5:
+                                    failure(scope, "equation did not render", {"equation": index})
+                            layout = root.evaluate(LAYOUT_CHECK)
+                            if layout["document"] > width + 2:
+                                failure(scope, "equation overflow", layout)
+                            guide.screenshot(path=str(ART / f"{language}-{width}-physics-guide.png"), timeout=10000)
+                        except Exception:
+                            failure(scope, "guide rendering or screenshot", traceback.format_exc())
+                        finally:
+                            if guide.get_attribute('open') is not None:
+                                guide.locator(':scope > summary').click()
+                if errors:
+                    failure({"language": language}, "uncaught browser errors", errors)
                 context.close()
             browser.close()
+        if evidence["failures"]:
+            failed_cases = sum(case["result"] == "failed" for case in evidence["cases"])
+            raise AssertionError(f'RFQ visual acceptance: {len(evidence["failures"])} failures in {failed_cases}/{len(evidence["cases"])} rendered cases; inspect visual/validation.json and screenshots.')
         evidence["result"] = "passed"
         return evidence
     except Exception:
