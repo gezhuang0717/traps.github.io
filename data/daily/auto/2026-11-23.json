@@ -15,7 +15,118 @@
       "arxiv": "2611.26784v1",
       "collected_at": "2026-11-23",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "job",
+      "title": "PhD Student Position - Data Acquisition Technology and Neutrino Physics with the KATRIN Experiment — KIT, Karlsruhe",
+      "summary": "Europe · deadline 2026-12-04 · PHD. The Institute for Data Processing and Electronics at the Karlsruhe Institute of Technology is inviting applications for a PhD student position on the data acquisition system of the TRISTAN detector of the KATRIN experiment, with the…",
+      "url": "https://inspirehep.net/jobs/3231637",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-21",
+      "deadline": "2026-12-04",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "kit-katrin"
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "type": "news",
+      "title": "No magnets needed: Extreme voltage drives completely new kind of Hall effect",
+      "summary": "The Hall effect, a physical phenomenon in which a current arises perpendicular to a voltage applied across a material, has been of particular interest to physicists since it was discovered more than a century ago. Over time, physicists have broadened their understanding of the…",
+      "url": "https://phys.org/news/2026-11-magnets-extreme-voltage-kind-hall.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "news",
+      "title": "New fiber laser combines ultrashort pulses with broad spectrum and stable output",
+      "summary": "Femtosecond lasers produce pulses lasting only quadrillionths of a second. Their speed makes them useful for imaging rapid processes, sampling high-frequency signals and measuring distance or time with high precision. For these applications, a laser must provide not only short…",
+      "url": "https://phys.org/news/2026-11-fiber-laser-combines-ultrashort-pulses.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "news",
+      "title": "Theoretical model describes a new type of atomic oscillation with cloverleaf symmetry in altermagnets",
+      "summary": "A team of researchers at Martin Luther University Halle-Wittenberg (MLU) and the University of Münster has discovered a new type of atomic oscillation in altermagnets, which exhibit a striking cloverleaf symmetry. The findings were published in the journal Physical Review…",
+      "url": "https://phys.org/news/2026-11-theoretical-atomic-oscillation-cloverleaf-symmetry.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "paper",
+      "title": "Bayesian Inference of the Landau Parameter ${G}_{0}^{′}$ from Joint Gamow-Teller Measurements",
+      "summary": "Author(s): Zidu Lin, Gianluca Colò, Andrew W. Steiner, and Amber Stinson ${G}_{0}^{′}$ is the leading-order Landau-Migdal parameter that characterizes the spin-isospin dependent nucleon-nucleon interaction. Consequently, the ${G}_{0}^{′}$ is closely related to the Gamow-Teller…",
+      "url": "http://link.aps.org/doi/10.1103/kn6h-dkxb",
+      "source": "Physical Review Letters — Nuclear Physics",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "paper",
+      "title": "Precision Spectroscopy of a Trapped Ion Using a Bath of Ultracold Atoms",
+      "summary": "Author(s): Egor Kovlakov and Rene Gerritsma We perform laser spectroscopy of a trapped ion that is not directly laser cooled. An ultracold atomic bath continuously cools the internal degrees of freedom of the ion to its hyperfine ground state via spin-exchange collisions while…",
+      "url": "http://link.aps.org/doi/10.1103/fq33-db1l",
+      "source": "Physical Review Letters — traps, masses & astrophysics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-23",
+      "type": "paper",
+      "title": "Probing core excitation in the breakup of $^{8}\\mathrm{B}$ with state-of-the-art nuclear structure inputs",
+      "summary": "Author(s): G. Yang, M. R. Xie, K. Wang, and J. G. Li (RIBLL Collaboration) The role of core excitation in the breakup of the proton-halo nucleus $^{8}\\mathrm{B}$ is investigated within a coupled-channels framework using microscopic nuclear structure inputs from Gamow shell…",
+      "url": "http://link.aps.org/doi/10.1103/9pbx-bdhx",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-23",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-11-23T09:29:17+00:00"
+  "fetched": "2026-11-23T21:40:24+00:00"
 }
