@@ -1,6 +1,222 @@
 {
   "entries": [
     {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "QED theory of scalar hyperfine interactions in HD$^+$",
+      "summary": "Tymon Kilich et al. — HD$^+$ is the simplest heteronuclear molecular ion. It has been used to determine the proton-to-electron and deuteron-to-electron mass ratios, to test quantum electrodynamics, and to search for new interactions. All these applications rely on an accurate…",
+      "url": "https://arxiv.org/abs/2611.30481v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "arxiv": "2611.30481v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "Low Vibration Closed-Cycle Flow Cryostat for Ion-Cavity Experiments",
+      "summary": "Andrew Laugharn — Cryogenic operation below 10 K suppresses trap-electrode and dielectric heating of trapped ions while cryopumping residual gases to ultra-high vacuum (UHV) without requiring a bakeout. These advantages are particularly important for cavity-integrated ion…",
+      "url": "https://arxiv.org/abs/2611.29785v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-22",
+      "arxiv": "2611.29785v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "Emergence of collectivity in the $0^+_2$ band of $^{92}$Zr",
+      "summary": "E. J. Williams et al. — The $2^+_2 \\rightarrow 0^+_2$ transition in $^{92}$Zr was observed for the first time in a high-statistics decay study of the 10-day isomer $^{92m}$Nb. Its $E2$ transition strength of 8.9(7) W.u. is enhanced by 40% relative to the ground state band,…",
+      "url": "https://arxiv.org/abs/2611.30940v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "arxiv": "2611.30940v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "Non-Equilibrium Steady States in Nucleosynthesis",
+      "summary": "Zewei Xiong et al. — Steady-state behavior underlies many nucleosynthesis processes in which the population number of nuclei can remain nearly constant despite the rapid nuclear reactions. While existing theoretical descriptions largely focus on established chemical…",
+      "url": "https://arxiv.org/abs/2611.30370v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "arxiv": "2611.30370v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "Measuring the Neutrino Mass with $^{241}$Pu",
+      "summary": "Mustafa Anaam et al. — Tritium has long been the isotope of choice for measurements of the absolute neutrino mass. Its low nuclear mass leads to substantial recoil energy, limiting measurements with both molecular tritium ($T_2$) and atomic tritium bound to a substrate. With a…",
+      "url": "https://arxiv.org/abs/2611.29122v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-22",
+      "arxiv": "2611.29122v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "preprint",
+      "title": "The recoil nucleon effect in nuclear systems",
+      "summary": "Hankui Wang — Nuclear excitation energies are typically in the keV-MeV range, but rare eV-scale transitions remain a puzzle for nuclear theory. This work develops a two-body recoil model to describe $β^-$ decay on the basis of classic momentum conservation. Using the final…",
+      "url": "https://arxiv.org/abs/2611.28424v1",
+      "source": "arXiv — nuclear masses, Q-values & astrophysics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-20",
+      "arxiv": "2611.28424v1",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "Symmetry Guides the Search for Magnetic Order",
+      "summary": "Author(s): Zhi-Da Song New symmetry-based computational approaches could make it easier to identify magnetic materials for spintronic devices and other technologies. [Physics 19, 157] Published Mon Nov 23, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.157",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "A Paradox That Still Puzzles Physicists",
+      "summary": "Author(s): Michael Schirber A survey of leading researchers finds broad agreement that information escapes from black holes—but little consensus on how, or whether the paradox is solved. [Physics 19, 162] Published Mon Nov 23, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.162",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "Ultracold atoms reveal first direct view of bound-pair motion in a fracton system",
+      "summary": "Particles can generally move between neighboring sites in a crystal, a solid in which atoms are arranged in a regular, repeating pattern, or an optical lattice, an arrangement of laser-based traps that confines atoms. A strong potential gradient (i.e., a steep change in…",
+      "url": "https://phys.org/news/2026-11-ultracold-atoms-reveal-view-bound.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "New light-conversion tool could help speed up quantum computing",
+      "summary": "Want to break down some basics in the world of quantum research over dinner? Researchers at the Cockrell School of Engineering have you covered.",
+      "url": "https://phys.org/news/2026-11-conversion-tool-quantum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "Local measurements reveal global quantum properties in a constant number of experimental runs",
+      "summary": "A quantum device with more qubits is harder to verify. Describing a general quantum state takes an exponential number of parameters, and reconstructing it in full—a procedure known as state tomography—becomes impractical as the system grows. Yet most experiments do not need the…",
+      "url": "https://phys.org/news/2026-11-local-reveal-global-quantum-properties.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "Physics-guided AI reconstructs fluid flow from sparse, noisy data",
+      "summary": "Medical imaging technologies have transformed how scientists and physicians visualize blood flowing through the human heart, but even the most advanced imaging techniques cannot capture every detail of fluid motion. Researchers at the University of California, Irvine, have…",
+      "url": "https://phys.org/news/2026-11-physics-ai-reconstructs-fluid-sparse.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "news",
+      "title": "Overlooked symmetry group offers new geometric blueprint for the Standard Model and topologically protected vacuums",
+      "summary": "For more than half a century, physicists searching for a grand unified theory have followed one unspoken rule: go bigger. If you want to weave nature's fundamental forces into a single mathematical framework, the classic recipe says you need a giant \"simple\" symmetry…",
+      "url": "https://phys.org/news/2026-11-overlooked-symmetry-group-geometric-blueprint.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-23",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-24",
+      "type": "paper",
+      "title": "Rich quantum phase diagram revealed in semimetallic rhombohedral graphene",
+      "summary": "Nature Physics, Published online: 24 November 2026; doi:10.1038/s41567-026-03456-4 Previous studies of rhombohedral graphene have focused on a single topological and flat conduction or valence band isolated by strong electric fields. Rhombohedral hexalayer graphene is now found…",
+      "url": "https://www.nature.com/articles/s41567-026-03456-4",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "collected_at": "2026-11-24",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-23",
       "type": "preprint",
       "title": "Parity-violating optical rotation in the Th-229 nuclear clock transition",
@@ -10421,61 +10637,61 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-23T21:40:24+00:00",
+    "checked_at": "2026-11-24T11:38:01+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 0,
-        "new": 0
+        "matched": 2,
+        "new": 2
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 1,
-        "new": 0
+        "matched": 4,
+        "new": 4
       },
       {
         "source": "INSPIRE-HEP Jobs — nuclear physics",
         "status": "PASS",
-        "matched": 10,
-        "new": 1
+        "matched": 2,
+        "new": 0
       },
       {
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 22,
-        "new": 0
+        "new": 2
       },
       {
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 3
+        "new": 5
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
         "status": "PASS",
         "matched": 30,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review Letters — traps, masses & astrophysics",
         "status": "PASS",
         "matched": 1,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 8,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
         "status": "PASS",
         "matched": 6,
-        "new": 0
+        "new": 1
       },
       {
         "source": "TRIUMF news",
