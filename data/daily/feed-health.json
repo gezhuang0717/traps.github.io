@@ -1,35 +1,35 @@
 {
-  "checked_at": "2026-11-24T11:38:01+00:00",
+  "checked_at": "2026-11-25T00:05:47+00:00",
   "feeds": [
     {
       "source": "arXiv — ion traps & mass spectrometry",
       "status": "PASS",
       "matched": 2,
-      "new": 2
+      "new": 0
     },
     {
       "source": "arXiv — nuclear masses, Q-values & astrophysics",
       "status": "PASS",
-      "matched": 4,
-      "new": 4
+      "matched": 3,
+      "new": 0
     },
     {
       "source": "INSPIRE-HEP Jobs — nuclear physics",
       "status": "PASS",
       "matched": 2,
-      "new": 0
+      "new": 1
     },
     {
       "source": "APS Physics — news",
       "status": "PASS",
       "matched": 22,
-      "new": 2
+      "new": 0
     },
     {
       "source": "Phys.org — nuclear physics",
       "status": "PASS",
       "matched": 30,
-      "new": 5
+      "new": 3
     },
     {
       "source": "Physical Review Letters — Nuclear Physics",
@@ -46,14 +46,14 @@
     {
       "source": "Physical Review C",
       "status": "PASS",
-      "matched": 8,
+      "matched": 7,
       "new": 0
     },
     {
       "source": "Nature Physics",
       "status": "PASS",
       "matched": 6,
-      "new": 1
+      "new": 0
     },
     {
       "source": "TRIUMF news",
@@ -75,8 +75,9 @@
     },
     {
       "source": "IAEA — nuclear science news",
-      "status": "FAILED",
-      "error": "undefined entity: line 55, column 138"
+      "status": "PASS",
+      "matched": 1,
+      "new": 1
     },
     {
       "source": "Ion Traps Newsletter (iontraps.net)",

@@ -1,0 +1,80 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-25",
+      "type": "job",
+      "title": "PhD Position - Neuromorphic Computing in Gravitational Wave Detection — ZAT, Julich",
+      "summary": "Europe · deadline 2027-01-08 · PHD. What does the early universe look like? What sound does a black hole collision make? Big questions require big instruments to measure the faintest signals, like the Einstein Telescope (ET) . Here, even the smallest disturbances influence the…",
+      "url": "https://inspirehep.net/jobs/3232435",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "deadline": "2027-01-08",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "Quantum blueprint maps a practical path to testing unusual entanglement",
+      "summary": "Adrian Del Maestro knows how to engineer a quantum fingerprint. Rick Mukherjee has a gift for tuning atoms. Their combined expertise has taken a theory sketched out on paper and created a pathway for real experiments. The results, published in the journal Physical Review…",
+      "url": "https://phys.org/news/2026-11-quantum-blueprint-path-unusual-entanglement.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "Copper aluminum oxide could make light-controlling components for smart glasses 120 times thinner",
+      "summary": "Could augmented reality (AR) glasses become as thin and lightweight as everyday eyeglasses? Researchers at the Korea Advanced Institute of Science and Technology (KAIST) and their collaborators have identified a material that could reduce the thickness of polarization-control…",
+      "url": "https://phys.org/news/2026-11-copper-aluminum-oxide-components-smart.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "New theoretical model allows for sustained entanglement between diamond qubits at greater separations",
+      "summary": "In a new study accepted in the journal Physical Review B, a team of physicists from the University of Delaware may have found a way to overcome limitations in maintaining the entanglement of diamond qubits. The model involves driving the qubits away from equilibrium using…",
+      "url": "https://phys.org/news/2026-11-theoretical-sustained-entanglement-diamond-qubits.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-24",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "Supporting Children's Health Using Nuclear Techniques",
+      "summary": "From understanding malnutrition to strengthening medical imaging services, nuclear science and technology contribute to improving the health and well-being of children around the world.",
+      "url": "http://www.iaea.org/newscenter/news/supporting-childrens-health-using-nuclear-techniques",
+      "source": "IAEA — nuclear science news",
+      "tags": [
+        "facility"
+      ],
+      "lang": "en",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-25T00:05:47+00:00"
+}
