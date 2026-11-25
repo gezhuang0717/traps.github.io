@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-11-25T15:19:24+00:00",
+  "generated": "2026-11-25T23:46:29+00:00",
   "config": {
     "live_theme": "congo",
     "base_url": "https://gezhuang0717.github.io/traps.github.io/",
@@ -5875,6 +5875,68 @@
       "source": "Nature Physics",
       "tags": [
         "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "job",
+      "title": "Postdoctoral Position in Theoretical Particle Physics — Charles U., Prague (main)",
+      "summary": "Europe · deadline 2027-01-22 · POSTDOC. The Institute of Particle and Nuclear Physics (IPNP), Charles University in Prague, invites applications for a postdoctoral position in theoretical particle physics , working closely with Lukáš Gráf and his research group. We particularly…",
+      "url": "https://inspirehep.net/jobs/3233709",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "deadline": "2027-01-22",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "job",
+      "title": "Postdoc (f/m/x) on the application of Machine Learning to Particle Physics — Marietta Blau Inst., Vienna",
+      "summary": "Europe · deadline 2027-01-31 · POSTDOC. The Marietta Blau Institute for Particle Physics (MBI, formerly Institute of High Energy Physics (HEPHY) and Stefan Meyer Institue of Subatomic Physics (SMI) of the Austrian Academy of Sciences (ÖAW)), Austria’s leading non-university…",
+      "url": "https://inspirehep.net/jobs/3233706",
+      "source": "INSPIRE-HEP Jobs — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "deadline": "2027-01-31",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "New quantum network entangles 123 qubits that store information in atoms' positions",
+      "summary": "Researchers are constantly getting closer to making practical quantum computers. Now, a team of researchers has overcome another hurdle in the process. Their study, published in Physical Review Letters, describes a new platform for manipulating entangled atomic networks in…",
+      "url": "https://phys.org/news/2026-11-quantum-network-entangles-qubits-atoms.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-25",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-25",
+      "type": "news",
+      "title": "Quantum leap: Computing's next frontier takes shape",
+      "summary": "After several dashed predictions, quantum computing is accelerating rapidly with actual use cases and scientific breakthroughs now expected within years, not decades.",
+      "url": "https://phys.org/news/2026-11-quantum-frontier.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
       ],
       "lang": "en",
       "published": "2026-11-25",
