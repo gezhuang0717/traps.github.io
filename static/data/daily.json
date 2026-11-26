@@ -108,6 +108,21 @@
       "verification_status": "feed-collected"
     },
     {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "ITN Newsletter – September 2026",
+      "summary": "Foreword Dear Ion Trappers, We would like to thank you for the ongoing engagement from the iontrap community, who keep the conversation lively by sharing their latest news, events, jobs, publications, and editorials. Visit the ITN-Website (https://iontraps.net/) where you can…",
+      "url": "https://iontraps.net/itn-newsletter-september-2026/",
+      "source": "Ion Traps Newsletter (iontraps.net)",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-26",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
       "date": "2026-11-25",
       "type": "job",
       "title": "PhD Position - Neuromorphic Computing in Gravitational Wave Detection — ZAT, Julich",
@@ -10987,13 +11002,13 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-26T14:43:42+00:00",
+    "checked_at": "2026-11-26T23:59:05+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
         "matched": 3,
-        "new": 1
+        "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
@@ -11011,7 +11026,7 @@
         "source": "APS Physics — news",
         "status": "PASS",
         "matched": 24,
-        "new": 3
+        "new": 0
       },
       {
         "source": "Phys.org — nuclear physics",
@@ -11035,7 +11050,7 @@
         "source": "Physical Review C",
         "status": "PASS",
         "matched": 9,
-        "new": 1
+        "new": 0
       },
       {
         "source": "Nature Physics",
@@ -11071,7 +11086,7 @@
         "source": "Ion Traps Newsletter (iontraps.net)",
         "status": "PASS",
         "matched": 10,
-        "new": 2
+        "new": 1
       }
     ]
   },

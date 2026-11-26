@@ -106,7 +106,22 @@
       "published": "2026-11-26",
       "collected_at": "2026-11-26",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "ITN Newsletter – September 2026",
+      "summary": "Foreword Dear Ion Trappers, We would like to thank you for the ongoing engagement from the iontrap community, who keep the conversation lively by sharing their latest news, events, jobs, publications, and editorials. Visit the ITN-Website (https://iontraps.net/) where you can…",
+      "url": "https://iontraps.net/itn-newsletter-september-2026/",
+      "source": "Ion Traps Newsletter (iontraps.net)",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-26",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
     }
   ],
-  "fetched": "2026-11-26T14:43:42+00:00"
+  "fetched": "2026-11-26T23:59:05+00:00"
 }
