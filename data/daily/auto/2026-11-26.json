@@ -1,0 +1,112 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-26",
+      "type": "preprint",
+      "title": "Direct mass measurements of the high-spin isomers in self-conjugate 94Ag",
+      "summary": "Ville Virtanen et al. — Two decades ago, two-proton emission from a $(21^+)$ isomeric state in $^{94}$Ag was reported. This report has remained the sole example of possible two-proton radioactivity in a nucleus with an odd number of protons on the chart of nuclei. A debate…",
+      "url": "https://arxiv.org/abs/2611.34355v1",
+      "source": "arXiv — ion traps & mass spectrometry",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "arxiv": "2611.34355v1",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "Creating Nature’s Magnetic Explosions in the Lab",
+      "summary": "Author(s): Haihong Che A new experiment decodes the small-scale physical processes responsible for large-scale, cosmic manifestations of magnetic reconnection. [Physics 19, 158] Published Wed Nov 25, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.158",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "Getting More Photons Out of Quantum Memory",
+      "summary": "Author(s): Sophia Chen A new solid-state quantum memory combines multiple innovations to more efficiently store and retrieve photons. [Physics 19, s147] Published Wed Nov 25, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s147",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "Protein Droplets Power Motorless Propulsion",
+      "summary": "Author(s): Ryan Wilkinson A new mechanism lets microscopic objects propel themselves using protein droplets without requiring molecular motors. [Physics 19, s157] Published Wed Nov 25, 2026",
+      "url": "http://link.aps.org/doi/10.1103/Physics.19.s157",
+      "source": "APS Physics — news",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "paper",
+      "title": "Identification of a new ${1}_{2}^{+}$ state in $^{84}\\mathrm{Br}$: A benchmark case for model interactions near $N=50$",
+      "summary": "Author(s): Y. H. Kim, U. Köster, J. M. Daugas, J. M. Regis, M. von Tresckow, M. Rudigier, P. Papakonstantinou, M. Liu, A. Abramuk, S. Bae, A. A. Gopakumar, K. I. Hahn, J. Jolie, T. Krakowski, Th. Kröll, J. Kurpeta, G. J. Lane, A. J. Mitchell, L. Stuhl, and C. Yuan Background:…",
+      "url": "http://link.aps.org/doi/10.1103/zvmj-g8lc",
+      "source": "Physical Review C",
+      "tags": [
+        "nuclear",
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-25",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "ITN Newsletter – November 2026",
+      "summary": "Foreword Dear Ion Trappers, We would like to thank you for the ongoing engagement from the iontrap community, who keep the conversation lively by sharing their latest news, events, jobs, publications, and editorials. Visit the ITN-Website (https://iontraps.net/) where you can…",
+      "url": "https://iontraps.net/itn-newsletter-november-2026/",
+      "source": "Ion Traps Newsletter (iontraps.net)",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-26",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-26",
+      "type": "news",
+      "title": "ITN Newsletter – October 2026",
+      "summary": "Foreword Dear Ion Trappers, We would like to thank you for the ongoing engagement from the iontrap community, who keep the conversation lively by sharing their latest news, events, jobs, publications, and editorials. Visit the ITN-Website (https://iontraps.net/) where you can…",
+      "url": "https://iontraps.net/itn-newsletter-october-2026/",
+      "source": "Ion Traps Newsletter (iontraps.net)",
+      "tags": [
+        "trap"
+      ],
+      "lang": "en",
+      "published": "2026-11-26",
+      "collected_at": "2026-11-26",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-26T14:43:42+00:00"
+}
