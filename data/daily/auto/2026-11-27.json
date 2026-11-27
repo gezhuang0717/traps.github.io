@@ -1,0 +1,50 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-27",
+      "type": "news",
+      "title": "Nonlinear optical lattice boosts spatial coherence by concentrating light in a single mode",
+      "summary": "Light waves can have varying degrees of coherence, which means that the consistency of the relationship between their phases across space or time can differ. Reliable methods to enhance the coherence of light could pave the way for the development of high-quality lasers and…",
+      "url": "https://phys.org/news/2026-11-nonlinear-optical-lattice-boosts-spatial.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-27",
+      "collected_at": "2026-11-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-27",
+      "type": "paper",
+      "title": "Chemical gradients turn bacterial aggregates inside out",
+      "summary": "Nature Physics, Published online: 27 November 2026; doi:10.1038/s41567-026-03531-w When a Neisseria gonorrhoeae aggregate grows large enough, cell–cell adhesion in the oxygen-deprived core is weaker than among peripheral cells. This differential adhesion drives the inner cells…",
+      "url": "https://www.nature.com/articles/s41567-026-03531-w",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-27",
+      "collected_at": "2026-11-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-27",
+      "type": "paper",
+      "title": "Differential active adhesion and a capillary instability drive global eversion and dissemination of bacterial colonies",
+      "summary": "Nature Physics, Published online: 27 November 2026; doi:10.1038/s41567-026-03530-x Chemical gradients help shape bacterial colonies. Now it is shown that these gradients can lead to a nonlinear shape instability in a colony of Neisseria gonorrhoeae.",
+      "url": "https://www.nature.com/articles/s41567-026-03530-x",
+      "source": "Nature Physics",
+      "tags": [
+        "journal"
+      ],
+      "lang": "en",
+      "published": "2026-11-27",
+      "collected_at": "2026-11-27",
+      "verification_status": "feed-collected"
+    }
+  ],
+  "fetched": "2026-11-27T14:42:30+00:00"
+}
