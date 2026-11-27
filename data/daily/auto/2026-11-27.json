@@ -44,7 +44,40 @@
       "published": "2026-11-27",
       "collected_at": "2026-11-27",
       "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-27",
+      "type": "news",
+      "title": "New research establishes fundamental complexity limit for quantum circuit optimization",
+      "summary": "Quantum circuit optimization is an important research area, as the computational resources required to execute quantum algorithms remain a major challenge. In particular, two-qubit operations are generally associated with higher error rates than single-qubit gates on current…",
+      "url": "https://phys.org/news/2026-11-fundamental-complexity-limit-quantum-circuit.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-27",
+      "collected_at": "2026-11-27",
+      "verification_status": "feed-collected"
+    },
+    {
+      "date": "2026-11-27",
+      "type": "news",
+      "title": "ATLAS finds hints of the hidden structure of the vacuum",
+      "summary": "Researchers at the University of Bonn, together with colleagues from Oxford and Prague, played a leading role in analyzing particle collisions at CERN's Large Hadron Collider. The ATLAS Collaboration observed more proton collisions with the particle pattern it was looking for…",
+      "url": "https://phys.org/news/2026-11-atlas-hints-hidden-vacuum.html",
+      "source": "Phys.org — nuclear physics",
+      "tags": [
+        "nuclear"
+      ],
+      "lang": "en",
+      "published": "2026-11-27",
+      "collected_at": "2026-11-27",
+      "verification_status": "feed-collected",
+      "facility_ids": [
+        "anl-atlas"
+      ]
     }
   ],
-  "fetched": "2026-11-27T14:42:30+00:00"
+  "fetched": "2026-11-27T23:42:53+00:00"
 }
