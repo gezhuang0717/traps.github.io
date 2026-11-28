@@ -117,7 +117,10 @@
       <label class="nc-chk"><input type="checkbox" data-path="r"><i style="background:#d97706;border-radius:50%"></i>{{ $t.rpath }}</label>
       <label class="nc-chk"><input type="checkbox" data-path="rp"><i style="background:#00873e;border-radius:50%"></i>{{ $t.rppath }}</label>
     </span>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc-overlay-default>{{ if hasPrefix site.Language.Lang "zh" }}恢复 N=Z{{ else }}Reset overlays{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc-overlay-clear>{{ if hasPrefix site.Language.Lang "zh" }}清除叠加{{ else }}Clear overlays{{ end }}</button>
   </div>
+  <p class="nc-overlay-status zg-small zg-muted" data-nc-overlay-feedback role="status" aria-live="polite"></p>
   <div class="nc-bar"><label>{{ $t.line_width }} <select name="nc-line-width"><option value="0.5">0.50 px</option><option value="1" selected>1.00 px</option><option value="1.5">1.50 px</option><option value="2">2.00 px</option></select></label><small>{{ $t.export_hint }}</small></div>
   <p class="nc-mref zg-small zg-muted"></p>
   <div class="nc-stage">
