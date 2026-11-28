@@ -16,6 +16,9 @@
       <select data-rfq-cinema-left-view>
         <option value="orbit">{{ if $zh }}XY 轨道与径向边界{{ else }}XY orbit and radial aperture{{ end }}</option>
         <option value="phase">{{ if $zh }}x–vx 相空间{{ else }}x–vx phase space{{ end }}</option>
+        <option value="xz">{{ if $zh }}XZ 轴向投影{{ else }}XZ axial projection{{ end }}</option>
+        <option value="yz">{{ if $zh }}YZ 轴向投影{{ else }}YZ axial projection{{ end }}</option>
+        <option value="rz">{{ if $zh }}RZ 半径轨迹{{ else }}RZ radial projection{{ end }}</option>
         <option value="time">{{ if $zh }}x(t)、y(t) 位置{{ else }}x(t), y(t) displacement{{ end }}</option>
         <option value="filtered">{{ if $zh }}射频周期均值及微运动残差{{ else }}RF-period mean and residual{{ end }}</option>
         <option value="axial">{{ if $zh }}z(t) 自由漂移{{ else }}z(t) free axial drift{{ end }}</option>
