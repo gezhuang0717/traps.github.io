@@ -1180,6 +1180,11 @@ items:
     - 按原始 2026 定宽列解析，区分质量数值和不确定度的独立外推标记；* 表示缺失数据。
     - 优先使用 RCT1/RCT2 发表的反应能不确定度，不直接对相关质量的误差作独立平方和。
     - 与 2020 评价对照时保留版本来源；不能未经协方差校正就报告差异显著性。
+    fr:
+    - Téléchargez les fichiers officiels mass.mas26 et nubase.mas26, ainsi que les tables de réactions non arrondies rct1.mas26 et rct2.mas26.
+    - Respectez les colonnes fixes de 2026 et distinguez les valeurs estimées de leurs incertitudes ; * indique une valeur indisponible.
+    - Utilisez les incertitudes de réaction évaluées dans RCT1 et RCT2 : les masses évaluées sont corrélées.
+    - Identifiez les éditions 2026 et 2020 lors de la comparaison ; ne supposez pas l'indépendance statistique des différences sans covariance.
   tips:
     en: Cite the evaluated 2026 primary papers and refer to the exact AMDC source-table hashes. The website's current Chart of Nuclides defaults to 2026 while preserving 2020 history.
     zh: 引用 2026 年评价原始论文及官方源文件校验值；网站核素图默认 AME2026，历史 2020 可切换。
