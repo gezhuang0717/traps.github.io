@@ -135,14 +135,60 @@
   }
   function loadAux(name) {
     if (AUX[name]) return Promise.resolve();
-    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); autoCache.clear(); if (name === "ed") titleEditionOptions(); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
+    return auxJobs[name] || (auxJobs[name] = (async()=>{
+      const response=await fetch(auxBase+auxFile[name]);
+      if(!response.ok)throw Error("overlay data "+response.status);
+      const source=await response.json(),result=auxBuild(name,source);
+      if(name==='ed' && evaluationYear==='2026'){
+        // The historical compact overlay stores 1995/2003/2012/2016 masses
+        // but only 2020 *counts*. Load the actual 2020 published mass table
+        // before enabling the AME2026 - AME2020 comparison colour/chain.
+        const historical=root.getAttribute('data-ame-2020');
+        if(!historical)throw Error('Historical 2020 mass table URL is missing');
+        const [oldResp,newResp]=await Promise.all([fetch(historical),fetch(root.dataset.ame)]);
+        if(!oldResp.ok||!newResp.ok)throw Error('Evaluated mass comparison table unavailable');
+        const [oldMass,newMass]=await Promise.all([oldResp.json(),newResp.json()]);
+        if(oldMass.metadata?.name!=='AME2020'||newMass.metadata?.name!=='AME2026')
+          throw Error('Evaluation source identity mismatch');
+        result.ame2020=new Map(oldMass.rows.map(r=>[key(r[0],r[1]-r[0]),[r[3],r[4],r[5]]]));
+        const states=[...catalog.states.values()];
+        const isomers=states.filter(s=>s.kind==='isomer'&&s.existence!=='withdrawn');
+        const estimated=newMass.rows.filter(r=>r[5]).length;
+        EDSTATS.ame2026={
+          nuclides:newMass.rows.length,
+          measured:newMass.rows.length-estimated,estimated,
+          nubase:{
+            table:'NUBASE2026',url:catalog.metadata.url,
+            raw_sha256:catalog.metadata.sha256,
+            ground_states:rows.length,
+            ground_measured:rows.filter(r=>r[3]!=null&&!r[5]).length,
+            ground_estimated:rows.filter(r=>r[3]!=null&&r[5]).length,
+            ground_no_mass:rows.filter(r=>r[3]==null).length,
+            isomers:isomers.length,
+            nuclides_with_isomers:rows.filter(r=>r[11]?.length).length,
+            other_excited_states:states.filter(s=>s.source_state_index>0&&
+              !['isomer','analogue'].includes(s.kind)).length
+          }
+        };
+      }
+      AUX[name]=result;autoCache.clear();
+      if(name==='ed')titleEditionOptions();
+    })().catch(error=>{
+      delete auxJobs[name];
+      const box=root.querySelector('.nc-model-error');
+      if(box)box.textContent=(T.aux_error||'Could not load the overlay data.')+' '+error.message;
+      throw error;
+    }));
   }
   const auxGet = (name, r) => AUX[name] && AUX[name].get(key(r[0], r[1]));
   const edDiff = (ed, r) => {
     const m = AUX.ed && AUX.ed[ed] && AUX.ed[ed].get(key(r[0], r[1]));
     if (!m || r[3] == null) return null;
-    const known = r[4] != null && m[1] != null;
-    return { v: r[3] - m[0], e: known ? Math.hypot(r[4], m[1]) : null, est: !!(r[5] || m[2]) };
+    // Published editions share input data. Their cross-edition covariance is
+    // unknown: their difference has a well-defined central value, but not a
+    // statistically justified sigma from quadrature of marginal errors.
+    return { v: r[3] - m[0], e:null, est: !!(r[5] || m[2]),
+      uncertainty_model:'Cross-edition covariance unavailable; do not infer significance' };
   };
   const USER = { map: new Map(), column: "", rows: [], parsed: null, typed: null };  /* independent typed observable; mass adoption is explicit */
   let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
@@ -408,7 +454,9 @@
     if (c.dropped) lines.push(fill(T.ed_hint_drop, { ed: label, n: c.dropped }));
     if (c.estimatedToMeasured || c.measuredToEstimated) lines.push(fill(T.ed_hint_stat, { a: c.estimatedToMeasured, b: c.measuredToEstimated }));
     if (c.largest) lines.push(fill(T.ed_hint_spread, { med: num(c.medianAbs), mean: num(c.meanDifference), max: num(c.largest.v), id: sup(c.largest.id[0] + c.largest.id[1]) + (EL.find(e => e[0] === c.largest.id[0]) || [0, "Z" + c.largest.id[0]])[1] }));
-    lines.push(fill(T.ed_hint_sigma, { n: c.beyond3Sigma }));
+    lines.push(document.documentElement.lang.startsWith('zh')
+      ? '不同评价版本共享部分实验数据，缺少跨评价协方差；不报告三倍标准差显著性。'
+      : 'Evaluations share experimental inputs. Cross-edition covariance is unavailable; no 3σ significance is claimed.');
     edHint.innerHTML = lines.map(l => `<p>${escape(l)}</p>`).join("");
   }
   function renderEditions() {
@@ -731,10 +779,13 @@
   PQ.be2 = [linear(T.m_be2), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.b, a.sb) : null; }, "e²b²"];
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
   PQ.mine = [T.m_mine, () => null, ""]; // Custom values are an independent series, never an evaluated reference.
-  for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
+  for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"], ...(evaluationYear==='2026'?[["dame20","ame2020"]]:[])])
+    PQ[name] = [name==='dame20'?'ΔME(AME2026 − AME2020)':T["m_" + name],
+      (d,r)=>{const x=edDiff(ed,r);return x?{v:x.v*1000,e:null,est:x.est,
+        uncertainty_model:x.uncertainty_model}:null;}, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
   // underlying mass separate for filtering, input labels and CSV provenance.
-  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame16", "dame12", "dame03", "dame95", "mine"];
+  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame20", "dame16", "dame12", "dame03", "dame95", "mine"];
   const dependencyValue=(quantity,derived,value)=>quantity==='dme'||EXPQ.includes(quantity)?derived.me:value;
   const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
