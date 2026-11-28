@@ -145,3 +145,34 @@ test('near a time focus, second-order Gaussian energy curvature is reported sepa
  const ordinary=X.bunch({...p,rho:0,sigma_t_ns:st});assert.equal(ordinary.near_focus_warning,false);assert.equal(ordinary.valid_linearization,true);
  const exact=X.bunch({...p,sigma_E_eV:0});assert.equal(exact.near_focus_warning,false);assert.equal(exact.second_order_sigma_t_ns,0);
 });
+
+test('nominal RFQ active length predicts ideal free-flight time and cycles with explicit evidence boundary',()=>{
+ const p={mass_u:100,active_length_mm:20,vz_mm_per_us:1,f_MHz:2,observation_cycles:40},a=X.transitEstimate(p);
+ close(a.transit_time_us,20);close(a.transit_rf_cycles,40);close(a.axial_kinetic_eV,.5*100*X.C.u*1e6/X.C.e);
+ assert.equal(a.forward_exit_possible,true);assert.equal(a.observation_covers_nominal_exit,true);
+ assert.equal(a.schema,'rfq-axial-transit-ideal-v1');assert.match(a.model,/free drift/);
+ assert.match(a.assumptions.join(' '),/no axial DC gradients/);
+ const short=X.transitEstimate({...p,observation_cycles:8});
+ assert.equal(short.observation_covers_nominal_exit,false);
+ close(short.observation_axial_distance_mm,4);
+ const scaled=X.transitEstimate({...p,f_MHz:4,active_length_mm:40});
+ close(scaled.transit_time_us,40);close(scaled.transit_rf_cycles,160);
+ const doubledMass=X.transitEstimate({...p,mass_u:200});close(doubledMass.axial_kinetic_eV,2*a.axial_kinetic_eV);
+});
+test('longitudinal reference length does not assert forward exit for zero or backwards velocity',()=>{
+ const p={mass_u:100,active_length_mm:20,vz_mm_per_us:0,f_MHz:2,observation_cycles:8};
+ for(const vz of [0,-1]){const r=X.transitEstimate({...p,vz_mm_per_us:vz});
+  assert.equal(r.forward_exit_possible,false);assert.equal(r.transit_time_us,null);
+  assert.equal(r.transit_rf_cycles,null);assert.equal(r.observation_covers_nominal_exit,false);
+ }
+ assert.throws(()=>X.transitEstimate({...p,active_length_mm:0}));
+ assert.throws(()=>X.transitEstimate({...p,vz_mm_per_us:1001}));
+});
+test('axial transit agrees with independent kinetic-energy drift calculation',()=>{
+ const p={mass_u:133,active_length_mm:75,vz_mm_per_us:2.7,f_MHz:1.7,observation_cycles:40};
+ const r=X.transitEstimate(p);
+ const drift=X.bunch({mass_u:p.mass_u,charge:1,acceleration_V:r.axial_kinetic_eV,
+  drift_m:p.active_length_mm/1000,sigma_t_ns:0,sigma_E_eV:0,rho:0});
+ close(drift.flight_ns/1000,r.transit_time_us,1e-9);
+ close(r.transit_rf_cycles/r.transit_time_us,p.f_MHz,1e-9);
+});
