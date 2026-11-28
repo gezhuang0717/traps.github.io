@@ -69,6 +69,42 @@ test('manual range checkbox controls fields, rejects invalid edits and restores 
   lo.value='-999';lo.fire('input');assert.equal(h.ctx.manualRange,null);
 });
 
+test('manual ranges recolour actual cells and are restored for each numerical quantity',()=>{
+ const h=harness();
+ // The default Decay mode is categorical: numeric bounds cannot represent a
+ // colour scale. The UI must explain and provide a direct numeric-mode switch.
+ assert.equal(h.get('nc-range-manual').disabled,true);
+ assert.equal(h.get('[data-nc="range-numeric"]').hidden,false);
+ assert.equal(h.get('.nc-range-note').attrs['data-range-state'],'categorical');
+ h.get('[data-nc="range-numeric"]').onclick();
+ assert.equal(h.ctx.mode,'me');
+ assert.equal(h.get('[data-nc="range-numeric"]').hidden,true);
+ const automatic=h.ctx.colour({value:4});
+ const chk=h.get('nc-range-manual');
+ chk.checked=true;chk.fire('change');
+ h.get('nc-range-min').value='-2';h.get('nc-range-max').value='6';
+ h.get('nc-range-max').fire('input');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-state'],'manual');
+ assert.deepEqual({...h.ctx.manualRange},{lo:-2,hi:6});
+ assert.notEqual(h.ctx.colour({value:4}),automatic,'Actual cell colour must change');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-lo'],'-2');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-hi'],'6');
+ assert.match(h.get('.nc-range-note').textContent,/clipped/);
+ h.setMode('dme',true);
+ assert.equal(h.get('nc-range-manual').checked,false);
+ h.get('nc-range-manual').checked=true;h.get('nc-range-manual').fire('change');
+ h.get('nc-range-min').value='-1';h.get('nc-range-max').value='1';
+ h.get('nc-range-max').fire('input');
+ h.setMode('me',true);
+ assert.equal(h.get('nc-range-manual').checked,true);
+ assert.equal(h.get('nc-range-min').value,'-2');
+ assert.equal(h.get('nc-range-max').value,'6');
+ assert.deepEqual({...h.ctx.manualRange},{lo:-2,hi:6});
+ h.get('nc-range-manual').checked=false;h.get('nc-range-manual').fire('change');
+ h.setMode('dme',true);h.setMode('me',true);
+ assert.equal(h.get('nc-range-manual').checked,false,'Cleared range must not return');
+});
+
 test('classes update legend and cells together after manual range and method edits',()=>{
   const h=harness();h.setMode('me');h.get('nc-classes').checked=true;h.get('nc-classes').fire('change');
   h.get('nc-range-manual').checked=true;h.get('nc-range-manual').fire('change');h.get('nc-range-min').value='-10';h.get('nc-range-max').value='90';h.get('nc-range-max').fire('input');
@@ -84,7 +120,7 @@ test('AME edition asynchronous range refill, model and logarithmic modes stay co
   assert.equal(h.get('nc-range-min').value,'-800');assert.equal(h.get('nc-range-max').value,'1450');
   h.get('nc-classes').checked=true;h.get('nc-classes').fire('change');assert.equal(h.get('nc-class-scheme').disabled,true);assert.equal(h.ctx.classState.edges.length,8);
   h.setMode('beta2',true);assert.equal(h.get('nc-range-min').value,'-800');assert.equal(h.get('nc-range-max').value,'1450');
-  h.setMode('dme',true);assert.equal(h.get('.nc-range-note').textContent,'log10');h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');h.get('nc-class-edges').value='0.1,1,100';h.get('nc-class-edges').fire('input');assert.deepEqual([...h.ctx.classState.edges],[-1,0,2]);
+  h.setMode('dme',true);assert.match(h.get('.nc-range-note').textContent,/log10/);h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');h.get('nc-class-edges').value='0.1,1,100';h.get('nc-class-edges').fire('input');assert.deepEqual([...h.ctx.classState.edges],[-1,0,2]);
 });
 
 test('own-table Apply enters the numeric mode through the same control synchronization',()=>{
@@ -100,7 +136,7 @@ test('asymmetric signed legend places zero where the cell colour function does',
 
 test('disabled range explanations exist in every supported language',()=>{
   const labels=fs.readFileSync(path.join(__dirname,'../data/nuclide_chart_labels.yaml'),'utf8');
-  for(const lang of ['en','zh','fi','de','ja','fr']){const section=labels.split('\n'+lang+':')[1];assert.ok(section,lang);assert.match(section.split(/\n[a-z]{2}:/)[0],/range_off_mode: .+/);}
+  for(const lang of ['en','zh','fi','de','ja','fr']){const section=labels.split('\n'+lang+':')[1];assert.ok(section,lang);const p=section.split(/\n[a-z]{2}:/)[0];for(const key of ['range_off_mode','range_active','range_auto_info','range_clip','range_choose_numeric'])assert.match(p,new RegExp(key+': .+'));}
 });
 
 test('full-data and opt-in percentile buttons keep finite spans and show the chosen override',()=>{
@@ -110,6 +146,15 @@ test('full-data and opt-in percentile buttons keep finite spans and show the cho
   h.ctx.rows=[{value:4},{value:4}];h.get('[data-nc="range-full"]').onclick();assert.ok(h.ctx.manualRange.lo<4&&h.ctx.manualRange.hi>4);assert.equal(h.get('nc-range-min').disabled,false);
 });
 
+test('automatic numeric range respects selected visible filter, not hidden nuclei',()=>{
+ const h=harness();
+ h.ctx.rows=[{value:-40,display:true},{value:5,display:true},{value:500,display:false}];
+ h.ctx.pass=r=>r.display;
+ h.setMode('me',true);
+ assert.ok(Number(h.get('nc-range-min').value)<=-40);
+ assert.ok(Number(h.get('nc-range-max').value)<500);
+ assert.ok(h.ctx.bounds(h.ctx.MODES.me).hi===5,'Filtered-away outlier must not set colour scale');
+});
 test('random selection is safe when parity and mass filters leave no candidates',()=>{
   const control=new Control();let zooms=0;
   const ctx={root:{querySelector:()=>control},rows:[],pass:()=>true,pin:null,zoomTo(){zooms++;},showCard(){},plotChain(){},Math};
