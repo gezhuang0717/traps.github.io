@@ -1,0 +1,37 @@
+{{- $zh := hasPrefix site.Language.Lang "zh" -}}
+<details class="rfq-ensemble-lab" data-rfq-ensemble>
+  <summary>{{ if $zh }}👥 多离子束团 · 同步 2D/3D 科学动画{{ else }}👥 Multi-ion beam · synchronized 2D/3D scientific movie{{ end }}</summary>
+  <p class="zg-muted">
+    {{ if $zh }}设定独立高斯初始位置、横向速度和轴向速度，使用与单离子 Motion 相同的理想四杆 Mathieu/RK4 求解器。可查看全部轨迹、孔径损失、二维/三维并行动画、导出逐粒子事件与真实浏览器录像。{{ else }}Release a seeded Gaussian ensemble with selectable spatial and velocity spreads. Every ion uses the same ideal Mathieu/RK4 solver as Motion. Explore paths, finite-aperture losses, synchronized XY and 3D movies, recorded browser video and event exports.{{ end }}
+  </p>
+  <p class="zg-notice">
+    {{ if $zh }}此处仅对理想四杆横向场积分，轴向自由漂移。束团存活百分比不是实际传输效率，不包含气体碰撞、空间电荷、电极边缘场或原生 SIMION。{{ else }}Only ideal transverse RF confinement and free axial drift are integrated. Packet survival is a finite-aperture *model sample*, not measured transmission; gas collisions, space charge, fringe fields and native SIMION are absent.{{ end }}
+  </p>
+  <div class="zg-form rfq-ensemble-params">
+    <label>{{ if $zh }}离子数{{ else }}Ions{{ end }} <input name="re-count" type="number" min="2" max="48" step="1" value="16"></label>
+    <label>{{ if $zh }}随机种子{{ else }}Random seed{{ end }} <input name="re-seed" type="number" min="0" max="4294967295" step="1" value="20261128"></label>
+    <label>σ(x), σ(y) (mm) <input name="re-pos" type="number" min="0" max="1000" step="any" value="0.5"></label>
+    <label>σ(vₓ), σ(vᵧ) (mm/µs) <input name="re-vel" type="number" min="0" max="1000" step="any" value="0.002"></label>
+    <label>⟨v_z⟩ (mm/µs) <input name="re-vz" type="number" min="-1000" max="1000" step="any" value="0.08"></label>
+    <label>σ(v_z) (mm/µs) <input name="re-sigmaz" type="number" min="0" max="1000" step="any" value="0.004"></label>
+    <label>{{ if $zh }}模拟 RF 周期{{ else }}RF cycles{{ end }} <input name="re-cycles" type="number" min="2" max="60" step="1" value="24"></label>
+    <label>{{ if $zh }}每周期积分步数{{ else }}Steps / RF cycle{{ end }}
+      <select name="re-steps"><option value="32">32</option><option value="64" selected>64</option><option value="128">128</option></select>
+    </label>
+    <label>{{ if $zh }}三维相机方位角{{ else }}3D camera azimuth{{ end }}
+      <input name="re-yaw" type="range" min="-180" max="180" step="1" value="-35"></label>
+    <label>{{ if $zh }}三维相机仰角{{ else }}3D camera elevation{{ end }}
+      <input name="re-pitch" type="range" min="-80" max="80" step="1" value="25"></label>
+  </div>
+  <div class="zg-row">
+    <button type="button" class="zg-btn" data-rfq-ensemble-run>{{ if $zh }}运行离子束团并显示所有轨迹{{ else }}Run packet and show all ion paths{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-ensemble-csv disabled>{{ if $zh }}保存事件 CSV{{ else }}Save ion events CSV{{ end }}</button>
+  </div>
+  <p class="zg-muted" data-rfq-ensemble-status role="status" aria-live="polite"></p>
+  <div class="rfq-cinema-grid">
+    <div class="rfq-cinema-cell"><h4>{{ if $zh }}离子束团：XY 孔径截面{{ else }}Beam ensemble: XY aperture cross section{{ end }}</h4><div data-rfq-ensemble-xy></div></div>
+    <div class="rfq-cinema-cell"><h4>{{ if $zh }}离子束团：可旋转正交三维轨迹{{ else }}Beam ensemble: rotatable orthographic 3D{{ end }}</h4><div data-rfq-ensemble-3d></div></div>
+  </div>
+  <div data-rfq-ensemble-player class="rfq-cinema-timeline"></div>
+  <p class="zg-muted zg-small">{{ if $zh }}不同随机种子反映示例束团采样变化；请以32/64/128步检查轨迹收敛，并严格区分数值统计与仪器实测。{{ else }}Different seeds sample different ideal packets. Check 32/64/128-step convergence; do not interpret numerical sample fractions as experimental efficiency or hardware uncertainties.{{ end }}</p>
+</details>

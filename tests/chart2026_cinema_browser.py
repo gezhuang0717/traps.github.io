@@ -199,6 +199,38 @@ with sync_playwright() as p:
     assert int(streams[0]['height'])==800 and int(streams[0]['nb_read_frames'])>=3,streams
     print("RFQ REAL VIDEO",path.name,path.stat().st_size,"bytes",streams[0],flush=True)
 
+    # Multi-ion RFQ: deterministic seeded beam, not simply a second static graph.
+    ensemble=cinema.locator('[data-rfq-ensemble]')
+    ensemble.locator('summary').click()
+    page.wait_for_function("()=>document.querySelector('[data-rfq-ensemble]')?.dataset.ensembleReady==='true'",timeout=25000)
+    assert ensemble.locator('[data-rfq-ensemble-xy] svg').count()==1
+    assert ensemble.locator('[data-rfq-ensemble-3d] svg').count()==1
+    assert ensemble.locator('[data-rfq-ensemble-xy] svg circle').count()>=16
+    assert '16/16' in ensemble.locator('[data-rfq-ensemble-status]').inner_text() or 'survivors' in ensemble.locator('[data-rfq-ensemble-status]').inner_text().lower()
+    timeline_packet=ensemble.locator('[data-rfq-ensemble-player]')
+    assert timeline_packet.locator('[data-playback-action=play]').is_enabled()
+    timeline_packet.locator('[data-playback-action=play]').click()
+    page.wait_for_timeout(350)
+    assert float(timeline_packet.locator('[data-rfq-playback]').get_attribute('data-fraction'))>0
+    timeline_packet.locator('[data-playback-action=play]').click()
+    with page.expect_download(timeout=25000) as csv_event:
+        ensemble.locator('[data-rfq-ensemble-csv]').click()
+    download=csv_event.value
+    csv_path=ART/download.suggested_filename;download.save_as(csv_path)
+    rows=csv_path.read_text(encoding='utf-8').splitlines()
+    assert rows[0].startswith('ion_id,seed,rf_cycle,time_us,x_mm,y_mm,z_mm')
+    assert len(rows)>200 and all('NaN' not in row for row in rows[:120])
+    with page.expect_download(timeout=25000) as ensemble_frame:
+        timeline_packet.locator('[data-playback-frame="svg"]').click()
+    image=ensemble_frame.value
+    frame_path=ART/image.suggested_filename;image.save_as(frame_path)
+    assert frame_path.stat().st_size>1500
+    assert 'Synchronized 2D XY / 3D' in frame_path.read_text(encoding='utf-8')
+    snapshot(page,"rfq-ideal-ensemble-2d3d.png")
+    ensemble.locator('[name=re-seed]').fill('20261129')
+    ensemble.locator('[data-rfq-ensemble-run]').click()
+    assert 'seed=20261129' in ensemble.locator('[data-rfq-ensemble-status]').inner_text()
+
     # Mobile responsive: both panels remain in DOM, no clipped controls.
     mobile_ctx=browser.new_context(viewport={"width":393,"height":852},device_scale_factor=1,
                                   accept_downloads=True,locale="en-US")

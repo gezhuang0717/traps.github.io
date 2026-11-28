@@ -44,4 +44,5 @@
     <summary>{{ if $zh }}模型、图像、动画和不确定度说明{{ else }}Model, movie and uncertainty explanation{{ end }}</summary>
     <p>{{ if $zh }}保存帧可使用 SVG/PNG/PDF，浏览器支持时录像保存真实 MP4 或 WebM。二维与三维动画数据来自同一组离子。有限孔径生存不等于实际离子透过率，3D 是 (x,y,z) 数据投影而不是三维场计算。改变积分步长 32/64/128 做收敛检验。{{ else }}Export synchronized frames to SVG/PNG/PDF and, when supported, real MP4 or WebM browser recordings. Both plots show the same initial ion. Finite-aperture survival is not experimental transmission; the 3D view projects (x,y,z) coordinates and does not solve 3D electrode fields. Verify convergence with 32, 64 and 128 time steps per RF cycle.{{ end }}</p>
   </details>
+{{ partial "zg/rfq-ensemble.html" . }}
 </div>
