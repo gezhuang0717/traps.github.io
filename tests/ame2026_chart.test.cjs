@@ -48,3 +48,28 @@ test('RFQ cinema shares ideal integrator and exposes one video recorder for both
  assert.ok(tab.includes('data-rfq-cinema-2d')&&tab.includes('data-rfq-cinema-3d'));
  assert.match(js,/NOT a 3D field solver/i);
 });
+
+test('AME2026 versus AME2020 uses authenticated masses, not a metadata-only empty heatmap',()=>{
+ const script=fs.readFileSync(path.join(root,'static/js/nuclide-chart.js'),'utf8');
+ const ST=require('../static/js/chart-stats.js');
+ const prev=read('ame2020.json'),latest=read('ame2026.json');
+ assert.equal(prev.metadata.name,'AME2020');
+ assert.equal(latest.metadata.name,'AME2026');
+ const old=new Map(prev.rows.map(r=>[r[0]*1000+r[1]-r[0],r[3]]));
+ let differences=0,checked=0;
+ for(const r of latest.rows){
+   const reference=old.get(r[0]*1000+r[1]-r[0]);
+   if(reference===undefined)continue;
+   checked++;if(Math.abs(r[3]-reference)>0.005)differences++;
+ }
+ assert.ok(checked>=3400,'real shared evaluation identities');
+ assert.ok(differences>1000,'different editions have physically different mass excesses');
+ assert.ok(script.includes('result.ame2020=new Map(oldMass.rows.map'));
+ assert.ok(script.includes('Cross-edition covariance unavailable'));
+ const overview=ST.editionRows({ame2026:{
+   nuclides:3723,measured:3000,estimated:723,
+   nubase:{table:'NUBASE2026',isomers:2200,nuclides_with_isomers:1500,
+     other_excited_states:300}}});
+ assert.equal(overview[0].label,'AME2026');
+ assert.equal(overview[0].nuclides,3723);
+});
