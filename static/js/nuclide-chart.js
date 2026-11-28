@@ -16,7 +16,9 @@
   if(evaluationYear==='2020'){
     // Explicit historical selection: refuse mixed AME2020/2026 data silently.
     for(const name of ['ame','src','catalogue','reactions']){
-      const reference=root.dataset[name+'2020'];
+      // data-ame-2020 retains its hyphen before digits in DOMStringMap,
+      // so dataset.ame2020 is undefined. Read the exact HTML attribute.
+      const reference=root.getAttribute('data-'+name+'-2020');
       if(!reference)throw Error('Historical '+name+' source unavailable');
       root.dataset[name]=reference;
     }
