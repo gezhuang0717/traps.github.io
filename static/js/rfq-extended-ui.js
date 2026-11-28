@@ -169,14 +169,24 @@
           vx_mm_per_tau: value('rx-vx') / (Math.PI * s.fMHz), vy_mm_per_tau: value('rx-vy') / (Math.PI * s.fMHz),
           steps_per_rf_cycle: value('rx-steps') };
         const run = X.motion(config);
+        const transit = X.transitEstimate({mass_u:s.mass,active_length_mm:value('rx-length'),
+          vz_mm_per_us:value('rx-vz'),f_MHz:s.fMHz,observation_cycles:value('rx-cycles')});
         const physicalRows = samples => samples.map(r => ({ ...r, time_us: r.cycle / s.fMHz,
           vx_mm_per_us: r.vx_mm_per_tau * Math.PI * s.fMHz, vy_mm_per_us: r.vy_mm_per_tau * Math.PI * s.fMHz,
           vz_mm_per_us: r.vz_mm_per_tau * Math.PI * s.fMHz }));
         rows = physicalRows(run.samples);
-        report = { ...run, shared: { mass_u: s.mass, charge: s.charge, a: s.p.a, q: s.p.q, f_MHz: s.fMHz }, samples: rows };
+        report = { ...run, transit, shared: { mass_u: s.mass, charge: s.charge, a: s.p.a, q: s.p.q, f_MHz: s.fMHz }, samples: rows };
         metrics(out, [[msg('current'), run.alive ? msg('yes_ideal') : msg('no_loss'), run.alive ? 'ok' : 'warn'],
           ['a', s.p.a], ['q', s.p.q], [msg('first_loss'), run.loss_cycle ?? msg('none_observed')],
-          [msg('samples'), rows.length], [msg('integrator'), run.steps_per_rf_cycle], [msg('duration_us'), value('rx-cycles') / s.fMHz]], modelKey);
+          [msg('samples'), rows.length], [msg('integrator'), run.steps_per_rf_cycle], [msg('duration_us'), value('rx-cycles') / s.fMHz],
+          [msg('active_length'), transit.active_length_mm],
+          [msg('axial_ke'), transit.axial_kinetic_eV],
+          [msg('transit_time'), transit.transit_time_us ?? msg('no_forward_motion')],
+          [msg('transit_cycles'), transit.transit_rf_cycles ?? msg('no_forward_motion')],
+          [msg('transit_window'), !transit.forward_exit_possible ? msg('no_forward_motion') :
+            transit.observation_covers_nominal_exit ? msg('window_covers') : msg('window_short'),
+            transit.observation_covers_nominal_exit ? 'ok' : 'warn']], modelKey);
+        out.append(make('p', 'zg-muted zg-small', msg('length_note')));
         const view = field('rx-motion-view').value;
         if (view === 'comparison') {
           report.phase_comparison = [0, Math.PI/2, Math.PI].map(phase_rad => {
