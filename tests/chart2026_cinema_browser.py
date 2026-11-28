@@ -119,7 +119,7 @@ with sync_playwright() as p:
     cinema.locator('[data-rfq-cinema-left-view]').select_option('phase')
     assert 'phase' in cinema.locator('[data-rfq-cinema-left-view]').input_value()
     camera=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-camera input[type=range]').first
-    camera.fill('65');camera.dispatch_event("input")
+    camera.evaluate("(node)=>{node.value='65';node.dispatchEvent(new Event('input',{bubbles:true}));}")
     assert right.count()==1
     # Frame SVG export proves combined render is a valid standalone SVG, not a fake static placeholder.
     with page.expect_download(timeout=25000) as dl:
@@ -130,7 +130,9 @@ with sync_playwright() as p:
     assert b"<svg" in data and b"NOT" in data or (b"<svg" in data and len(data)>1800)
     assert b"orthographic" in data or b"trajectory" in data
     # Mobile responsive: both panels remain in DOM, no clipped controls.
-    mobile=ctx.new_page(viewport={"width":393,"height":852})
+    mobile_ctx=browser.new_context(viewport={"width":393,"height":852},device_scale_factor=1,
+                                  accept_downloads=True,locale="en-US")
+    mobile=mobile_ctx.new_page()
     mobile_errors=console_watch(mobile)
     mobile.goto(BASE+"lab/",wait_until="domcontentloaded")
     await_chart(mobile,3700)
