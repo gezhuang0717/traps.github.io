@@ -1547,7 +1547,10 @@
           try{preview.textContent=T.mine_conversion_preview+' '+TD.massRows(typed).slice(0,3).map((r,i)=>{const normalized=MM.normalize(r,i,catalog);return (r.Z+r.N)+(EL.find(e=>e[0]===r.Z)||[r.Z,'Z'+r.Z])[1]+': '+r.quantity+' = '+r.value+' ± '+(r.uncertainty??T.mine_unknown)+' '+r.unit+(r.quantity==='bea'?' · BE = '+Number((r.value*(r.Z+r.N)).toPrecision(10))+' '+r.unit.replace('/nucleon',''):'')+' → ME = '+Number(normalized.me.toPrecision(10))+' ± '+(normalized.e===null?T.mine_unknown:Number(normalized.e.toPrecision(8)))+' keV';}).join('; ');}catch(e){preview.textContent=T.mine_conversion_preview+' '+(T.loaded_errors[e.message]||e.message);appendB.disabled=replaceB.disabled=true;}
         }
         status.textContent=T.mine_status.replace('{m}',matched).replace('{n}',map.size).replace('{e}',USER.parsed.errors.length+typed.errors.length)+' · '+(typed.label||T.m_mine)+' · '+(typed.quantity==='custom'?T.mine_custom:PQ[typed.quantity][0])+' ('+typed.unit+') · '+T.mine_unknown_count.replace('{n}',typed.rows.filter(r=>r.sigma===null).length)+(USER.parsed.duplicates?' · '+T.mine_duplicates.replace('{n}',USER.parsed.duplicates):'');
-        manualRange=null;pq.value=typed.quantity==='custom'?'mine':typed.quantity;
+        // A replacement user table invalidates any remembered colour limits
+        // for the old table; other published-quantity preferences are retained.
+        manualRange=null;rangeByQuantity.delete('mine');
+        pq.value=typed.quantity==='custom'?'mine':typed.quantity;
         if(focus){const u=typed.rows[0];chainInput('range').checked=false;root.querySelector('.nc-prange-in').hidden=true;chainInput('xscale').value='data';chainInput('yscale').value='data';chain=M.get(key(u.Z,u.N))||[u.Z,u.N,(EL.find(e=>e[0]===u.Z)||[u.Z,'Z'+u.Z])[1]];}
         if(mode!=='mine'){sel.value='mine';sel.onchange();}else{syncRange();redraw();}
         pq.onchange();return true;
@@ -1570,7 +1573,7 @@
       }catch(e){inputError(e);}
     }
     root.querySelector('[data-nc="mine-apply"]').onclick = apply;
-    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = USER.typed = null; autoCache.clear(); manualRange = null; ta.value = ""; colS.replaceChildren();sigmaS.replaceChildren(option('',T.mine_unknown));appendB.disabled=replaceB.disabled=true; status.textContent = "";root.querySelector('.nc-mine-preview').textContent=''; if (mode === "mine") { syncRange(); redraw(); }plotChain(); };
+    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = USER.typed = null; autoCache.clear(); manualRange = null; rangeByQuantity.delete('mine'); ta.value = ""; colS.replaceChildren();sigmaS.replaceChildren(option('',T.mine_unknown));appendB.disabled=replaceB.disabled=true; status.textContent = "";root.querySelector('.nc-mine-preview').textContent=''; if (mode === "mine") { syncRange(); redraw(); }plotChain(); };
     colS.onchange=()=>{if(sigmaS.value===colS.value)sigmaS.value='';build();};sigmaS.onchange=unitS.onchange=()=>build();
     quantityS.onchange=()=>{syncUnits();build();};for(const input of [customUnit,labelI,referenceI])input.addEventListener('change',()=>build());
     for(const [button,method]of [[appendB,'append'],[replaceB,'replace']])button.onclick=()=>{
