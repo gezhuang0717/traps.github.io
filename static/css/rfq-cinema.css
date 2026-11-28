@@ -12,3 +12,14 @@
 .zg-mathieu .rfq-cinema-timeline{margin:1rem 0;padding:.6rem;border:1px solid color-mix(in srgb,currentColor 16%,transparent);border-radius:12px}
 .zg-mathieu .rfq-cinema-timeline .rfq-playback-controls{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}
 @media(max-width:900px){.zg-mathieu .rfq-cinema-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Ideal multi-ion packet, readable labels and responsive dual views. */
+.zg-mathieu .rfq-ensemble-lab{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:12px;margin:1.3rem 0;padding:1rem}
+.zg-mathieu .rfq-ensemble-lab summary{cursor:pointer;font-weight:650;font-size:1.08rem}
+.zg-mathieu .rfq-ensemble-params{margin:1rem 0}
+.zg-mathieu .rfq-ensemble-params label{min-width:0}
+.zg-mathieu .rfq-ensemble-params input,.zg-mathieu .rfq-ensemble-params select{max-width:100%}
+.zg-mathieu [data-rfq-ensemble-xy] svg,.zg-mathieu [data-rfq-ensemble-3d] svg{display:block;max-width:100%;height:auto}
+.zg-mathieu [data-rfq-ensemble-player] .rfq-playback-controls{flex-wrap:wrap}
+.zg-mathieu [data-rfq-ensemble-status]{overflow-wrap:anywhere}
+@media (max-width:680px){.zg-mathieu .rfq-ensemble-lab{padding:.65rem}.zg-mathieu .rfq-ensemble-params label{min-width:0}}
