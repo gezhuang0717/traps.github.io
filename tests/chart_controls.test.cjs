@@ -115,6 +115,35 @@ test('classes update legend and cells together after manual range and method edi
   h.get('nc-classes').checked=false;h.get('nc-classes').fire('change');assert.match(h.legend.innerHTML,/linear-gradient/);assert.notEqual(h.ctx.colour({value:6}),h.ctx.colour({value:49}));
 });
 
+test('invalid manual class boundaries never silently change chart colours',()=>{
+ const h=harness();h.setMode('me');const on=h.get('nc-classes');
+ on.checked=true;on.fire('change');h.get('nc-class-method').value='manual';
+ h.get('nc-class-method').fire('change');
+ const field=h.get('nc-class-edges');
+ assert.equal(field.hidden,false,'Empty manual edges must leave an editable field');
+ assert.equal(field.attrs['aria-invalid'],'true');
+ field.value='-5, 5, 50';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ const color=h.ctx.colour({value:6});
+ assert.deepEqual([...h.ctx.classState.edges],[-5,5,50]);
+ for(const invalid of ['-5, broken, 50','5, -5, 50','5, 5, 50','Infinity, 20','',Array.from({length:21},(_,i)=>i).join(',')]){
+  field.value=invalid;field.fire('input');
+  assert.equal(field.attrs['aria-invalid'],'true',invalid);
+  assert.ok(field.validationMessage,invalid);
+  assert.equal(h.ctx.colour({value:6}),color,'Old valid colour scale must remain on invalid entry');
+  assert.deepEqual([...h.ctx.classState.edges],[-5,5,50]);
+ }
+ field.value='-10, 0, 10';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ assert.deepEqual([...h.ctx.classState.edges],[-10,0,10]);
+ h.setMode('dme',true);on.checked=true;on.fire('change');
+ h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');
+ field.value='0, 1, 100';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],'true','Logarithmic physical-unit edges must be >0');
+ field.value='0.01, 1, 100';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ assert.deepEqual([...h.ctx.classState.edges],[-2,0,2]);
+});
 test('AME edition asynchronous range refill, model and logarithmic modes stay coherent',async()=>{
   const h=harness();h.setMode('dame16',true);await new Promise(resolve=>setImmediate(resolve));
   assert.equal(h.get('nc-range-min').value,'-800');assert.equal(h.get('nc-range-max').value,'1450');
