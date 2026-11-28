@@ -250,8 +250,16 @@ with sync_playwright() as p:
     cinema_button.click()
     cinema=root.locator('[data-local-panel="cinema"]')
     cinema.wait_for(state="visible",timeout=12000)
+    # A preset updates shared RFQ fields and schedules a fresh cinema render.
+    # Waiting only for iteration > 0 can leave the test holding a controller
+    # that is about to be destroyed and replaced by the scheduled render.
+    iteration_before=int(cinema.get_attribute("data-cinema-iteration") or "0")
     cinema.locator('[data-rfq-cinema-preset="flight"]').click()
-    page.wait_for_function("()=>Number(document.querySelector('[data-rfq-cinema]').dataset.cinemaIteration||0)>0",timeout=25000)
+    page.wait_for_function(
+        "(previous)=>Number(document.querySelector('[data-rfq-cinema]')?.dataset.cinemaIteration||0)>previous",
+        arg=iteration_before,timeout=25000)
+    page.wait_for_timeout(300)  # beyond the 170 ms coalescing debounce
+    assert int(cinema.get_attribute('data-cinema-iteration'))>iteration_before
     left=cinema.locator('[data-rfq-cinema-2d] .rfq-motion-stage svg')
     right=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-stage svg')
     assert left.count()==1 and right.count()==1
