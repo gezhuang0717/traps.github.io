@@ -93,8 +93,8 @@
   const editionSelect=root.querySelector('[name=zg-db-edition]');
   // Retain no-selector compatibility for older embedded cards and offline
   // unit fixtures. The rendered current site explicitly selects 2026.
-  const edition=()=>editionSelect
-    ? (editionSelect.value==='2020'?'2020':'2026')
+  const edition=()=>editionSelect && ['2020','2026'].includes(editionSelect.value)
+    ? editionSelect.value
     : (/nubase2020/i.test(root.dataset.nubase||'')?'2020':'2026');
   const NB=new Map(),jobs=new Map();
   const load = () => {
