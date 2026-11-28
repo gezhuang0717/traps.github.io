@@ -1414,7 +1414,7 @@
         // The lower-level parser intentionally tolerates malformed input for
         // importing old files. The interactive editor must NEVER silently
         // ignore invalid/unsorted boundaries or give a misleading legend.
-        const tokens=cE.value.trim().split(/[\\s,;]+/).filter(Boolean);
+        const tokens=cE.value.trim().split(/[\s,;]+/).filter(Boolean);
         const nums=tokens.map(Number),positive=!!MODES[mode].rng;
         const valid=tokens.length>=1&&tokens.length<=19&&nums.every((v,i)=>
           Number.isFinite(v)&&(!positive||v>0)&&(i===0||v>nums[i-1]));
