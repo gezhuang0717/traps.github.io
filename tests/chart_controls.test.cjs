@@ -31,7 +31,9 @@ function harness(initial='decay') {
     window:{ZGChartUserData:UD,ZGChartTypedData:TD},document:{createElement:()=>({})},key:(z,n)=>z*1000+n,chain:null,chainInput:n=>get('nc-'+n),pq:{value:'mine',onchange(){}},PQ:{mine:['My data',()=>null,'counts']},plotChain(){},loads:[],allRows(){return ctx.rows.concat(ctx.src==='ame'?[]:ctx.extraRows);},loadModels:()=>Promise.resolve(),loadAux:name=>{ctx.loads.push(name);return Promise.resolve().then(()=>{ctx.AUX[name]=true;ctx.rows=[{value:-800},{value:0},{value:1450}];});}
   };
   const numerical={label:'ME',v:r=>r.value,lo:-30,hi:30};
-  ctx.MODES={decay:{label:'decay',f:()=> '#111'},me:numerical,dme:{...numerical,label:'precision',rng:['0.001 keV','1 MeV'],lo:-3,hi:3},dame16:{...numerical,label:'edition',v:r=>ctx.AUX.ed?r.value:null,auto:true,div:true,aux:'ed'},beta2:{...numerical,label:'model',div:true,lo:-.3,hi:.4},mine:{...numerical,label:'mine',user:true,lo:0,hi:1}};
+  ctx.MODES={decay:{label:'decay',f:()=> '#111'},me:numerical,
+    hl:{label:'Half-life',v:r=>r.value,lo:-9,hi:20,u:'log₁₀(s)',staticRange:true},
+    dme:{...numerical,label:'precision',rng:['0.001 keV','1 MeV'],lo:-3,hi:3},dame16:{...numerical,label:'edition',v:r=>ctx.AUX.ed?r.value:null,auto:true,div:true,aux:'ed'},beta2:{...numerical,label:'model',div:true,lo:-.3,hi:.4},mine:{...numerical,label:'mine',user:true,lo:0,hi:1}};
   ctx.draw=()=>{ctx.painted=ctx.rows.map(r=>ctx.colour(r));};
   vm.createContext(ctx);
   vm.runInContext(cut('  const autoCache = new Map();','  const pick =')+'\n'+cut('  function colour(r) {','  /* ---------- drawing')+'\n'+cut('  const rngUnit =','  const darkHex =')+'\n'+cut('  function changeColourMode()','  /* ---- parity filters')+'\n'+cut('  /* ---- divided colour bar (default off:','  if (msel) msel.onchange')+'\nthis.colour=colour;this.bounds=bounds;this.colourGradient=colourGradient;this.syncColourControls=syncColourControls;',vm.createContext(Object.assign(ctx,{syncClassControls:()=>{},syncRangeControls:()=>{},syncColourControls:()=>{ctx.syncClassControls();ctx.syncRangeControls();}})));
@@ -115,6 +117,24 @@ test('classes update legend and cells together after manual range and method edi
   h.get('nc-classes').checked=false;h.get('nc-classes').fire('change');assert.match(h.legend.innerHTML,/linear-gradient/);assert.notEqual(h.ctx.colour({value:6}),h.ctx.colour({value:49}));
 });
 
+test('half-life logarithmic colour bounds are manually editable without altering stable/unknown nuclei',()=>{
+ const h=harness();
+ h.setMode('hl',true);
+ assert.equal(h.get('nc-range-manual').disabled,false);
+ assert.equal(h.get('nc-range-min').value,'-9');
+ assert.equal(h.get('nc-range-max').value,'20');
+ assert.match(h.get('.nc-range-note').textContent,/log₁₀\(s\)/);
+ const unchangedStable=h.ctx.colour([0,0,'',0,0,0,99]);
+ const unchangedUnknown=h.ctx.colour([0,0,'',0,0,0,-99]);
+ assert.equal(unchangedStable,'#111827');assert.equal(unchangedUnknown,'#e2e8f0');
+ const before=h.ctx.colour({value:2});
+ const chk=h.get('nc-range-manual');chk.checked=true;chk.fire('change');
+ h.get('nc-range-min').value='-6';h.get('nc-range-max').value='3';
+ h.get('nc-range-max').fire('input');
+ assert.notEqual(h.ctx.colour({value:2}),before);
+ assert.equal(h.ctx.colour([0,0,'',0,0,0,99]),unchangedStable);
+ assert.equal(h.ctx.colour([0,0,'',0,0,0,-99]),unchangedUnknown);
+});
 test('invalid manual class boundaries never silently change chart colours',()=>{
  const h=harness();h.setMode('me');const on=h.get('nc-classes');
  on.checked=true;on.fire('change');h.get('nc-class-method').value='manual';
