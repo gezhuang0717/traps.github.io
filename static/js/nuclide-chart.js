@@ -1407,7 +1407,32 @@
         cOn.disabled = off; cN.disabled = !on || manual; cM.disabled = !on; cE.hidden = !manual; cE.disabled = !on || !manual; cS.disabled = !on || !!m.div;
         note.textContent = off ? T.cl_off_mode : on && m.div && !manual && classMethod === "equal" ? fill(T.cl_note_zero, { n: classState ? classState.edges.length + 1 : "" }) : "";
       };
-      const apply = () => { classOn = cOn.checked; classN = Math.max(3, Math.min(20, Math.round(Number(cN.value)) || 9)); classMethod = cM.value; classText = cE.value; classScheme = cS.value; isolate.clear(); isolateMode = ""; memo.clear(); drawLegend(); draw(); sync(); };
+      const checkManualEdges=()=>{
+        if(!cOn.checked||cM.value!=='manual'||cOn.disabled){
+          cE.setCustomValidity('');cE.removeAttribute('aria-invalid');return true;
+        }
+        // The lower-level parser intentionally tolerates malformed input for
+        // importing old files. The interactive editor must NEVER silently
+        // ignore invalid/unsorted boundaries or give a misleading legend.
+        const tokens=cE.value.trim().split(/[\\s,;]+/).filter(Boolean);
+        const nums=tokens.map(Number),positive=!!MODES[mode].rng;
+        const valid=tokens.length>=1&&tokens.length<=19&&nums.every((v,i)=>
+          Number.isFinite(v)&&(!positive||v>0)&&(i===0||v>nums[i-1]));
+        if(!valid){
+          const message=T.cl_invalid_edges||'Enter 1–19 strictly increasing finite class edges.';
+          cE.setCustomValidity(message);cE.setAttribute('aria-invalid','true');
+          cE.hidden=false;cE.disabled=false;cN.disabled=true;
+          note.textContent=message;return false;
+        }
+        cE.setCustomValidity('');cE.removeAttribute('aria-invalid');
+        return true;
+      };
+      const apply=()=>{
+        if(!checkManualEdges())return; 
+        classOn=cOn.checked;classN=Math.max(3,Math.min(20,Math.round(Number(cN.value))||9));
+        classMethod=cM.value;classText=cE.value;classScheme=cS.value;
+        isolate.clear();isolateMode='';memo.clear();drawLegend();draw();sync();
+      };
       [cOn, cM, cS].forEach(e => { e.onchange = apply; }); cN.oninput = cE.oninput = apply;
       legend.addEventListener("click", e => {
         const b = e.target.closest("[data-class]"); if (!b) return;
