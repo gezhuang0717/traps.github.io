@@ -196,7 +196,7 @@
     qa: { label: T.m_qa, v: r => mv(D(r).qa), lo: 0, hi: 10, u: "MeV" },
     dme: { label: T.m_dme, v: r => r[4] == null ? null : Math.log10(Math.max(r[4], 1e-4)), lo: -3, hi: 3, rng: ["0.001 keV", "1 MeV"] },
     est: { label: T.m_est, f: r => r[3] == null ? "#868e96" : r[5] ? "#f59e0b" : "#0ea5e9" },
-    year: { label: T.m_year, v: r => r[9], lo: 1900, hi: 2020 },
+    year: { label: T.m_year, v: r => r[9], lo: 1900, hi: 2026 },
     iso: { label: T.m_iso, f: r => ["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][Math.min(3, r[11].length)] },
     eo: { label: T.m_eo, f: r => ["#0ea5e9", "#f59e0b", "#22c55e", "#ef4444"][(r[0] % 2) * 2 + (r[1] % 2)] },
     s2p: { label: T.mf_s2p, v: r => mv(D(r).s2p), lo: 0, hi: 35, u: "MeV" },
@@ -406,7 +406,7 @@
     if (!edTable || !edBox || !edBox.open) return;
     const ST = window.ZGChartStats;
     if (!EDSTATS) { edTable.textContent = T.ed_loading; return; }
-    const head = [T.ed_col_ed, T.ed_col_nub, T.ed_col_n, T.ed_col_meas, T.ed_col_est, T.ed_col_iso, T.ed_col_wiso, T.ed_col_oth], cur = EDMODE[mode] || "ame2020";
+    const head = [T.ed_col_ed, T.ed_col_nub, T.ed_col_n, T.ed_col_meas, T.ed_col_est, T.ed_col_iso, T.ed_col_wiso, T.ed_col_oth], cur = EDMODE[mode] || "ame"+evaluationYear;
     edTable.innerHTML = `<table class="nc-ed-tab"><thead><tr>${head.map(h => `<th scope="col">${escape(h)}</th>`).join("")}</tr></thead><tbody>` + ST.editionRows(EDSTATS).map(e =>
       `<tr${e.key === cur ? ' class="nc-ed-cur" aria-current="true"' : ""}><th scope="row">${e.label}</th><td>${escape(e.nubase)}</td><td>${e.nuclides}</td><td>${e.measured}</td><td>${e.estimated}</td><td>${e.isomers ?? "—"}</td><td>${e.withIsomers ?? "—"}</td><td>${e.other ?? "—"}</td></tr>`).join("") + "</tbody></table>";
   }
@@ -645,7 +645,7 @@
       <details class="nc-explanation nc-published-reference"><summary>${cardT.published}</summary>${publishedReferenceHTML(evaluatedData,r[0],r[1],cardT,unknown)}</details>
       <div class="nc-cbtn"><button type="button" class="zg-btn" data-ch="Z">${T.p_iso}</button><button type="button" class="zg-btn" data-ch="N">${T.p_isot}</button><button type="button" class="zg-btn" data-ch="A">${T.p_isob}</button></div>
       <ul class="nc-facts">${facts(r, d).map(x => "<li>" + x + "</li>").join("")}</ul>
-      <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>AME2020 · NUBASE2020 (Chin. Phys. C 45, 030001–030003, 2021)</p>`;
+      <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>${EDITION.ame} · ${EDITION.nubase} (Chin. Phys. C ${evaluationYear==='2026'?'50, 120001–120003, 2026':'45, 030001–030003, 2021'})</p>`;
     card.insertAdjacentHTML("beforeend",measured?.annotation(r[0],r[1])||"");
     showStates(r);
     card.querySelector(".nc-close").onclick = () => { pin = null; showCard(null); draw(); };
@@ -1094,7 +1094,7 @@
     c.lineWidth=lineWidth()*st.lineWidth;c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font=st.tickSize+'px system-ui';
     c.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>c.fillText(fmtTick(y),L-5,py(y)+3));c.textAlign='center';
     niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>c.fillText(x,px(x),height-B+15));
-    c.font=st.titleSize+'px system-ui';c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,Math.max(12,st.titleSize+1));c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
+    c.font=st.titleSize+'px system-ui';c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − '+EDITION.ame,(L+width-R)/2,Math.max(12,st.titleSize+1));c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     drawBands(c,residualPts,px,py);
@@ -1103,7 +1103,7 @@
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       ps.forEach(p=>{const x=px(p.x+shiftOf(p.series)),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5*mark,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
-    c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
+    c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − '+EDITION.ame+', keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
   rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=residualGeom(residualDomain,rc._cw,rc._ch);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
   function plotAt(e) {
