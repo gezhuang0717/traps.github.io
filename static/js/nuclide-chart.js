@@ -225,7 +225,7 @@
     if (hi === lo) { lo -= 0.5; hi += 0.5; }
     const b = { lo, hi }; autoCache.set(id, b); return b;
   }
-  const bounds = m => manualRange || (m.v && autoBounds(m)) || { lo: m.lo, hi: m.hi };
+  const bounds = m => manualRange || (!m.staticRange && m.v && autoBounds(m)) || { lo: m.lo, hi: m.hi };
   /* Display/prefill limits outwards, so checking Manual never clips a rounded data extremum. */
   function rangeLabel(value, upper = false) {
     if (!Number.isFinite(value) || value === 0) return String(value);
@@ -258,7 +258,12 @@
   };
   const MODES = {
     decay: { label: T.m_decay, f: r => DC[decayClass(r)] },
-    hl: { label: T.m_hl, f: r => r[6] === 99 ? "#111827" : r[6] <= -98 ? "#e2e8f0" : ramp((r[6] + 9) / 29), range: ["1 ns", "10²⁰ s"] },
+    hl: { label: T.m_hl,
+      v: r => r[6]===99||r[6]<=-98?null:r[6],
+      lo:-9,hi:20,u:'log₁₀(s)',staticRange:true,
+      // Stable nuclei and unknown half-lives remain explicit exceptions,
+      // never treated as arbitrary enormous/negative numeric lifetimes.
+      special:'stable-and-unavailable' },
     be: { label: T.mf_be, v: r => mv(D(r).BE), lo: 0, hi: 2100, u: "MeV" },
     bea: { label: T.m_bea, v: r => mv(D(r).BEA), lo: 7.0, hi: 8.8, u: "MeV/nucleon" },
     me: { label: T.m_me, v: r => mv(D(r).me), lo: -95, hi: 80, u: "MeV" },
@@ -322,7 +327,12 @@
   const pass = r => (r.mo ? filt === "all" : FILTERS[filt][1](r)) && CL.parityOk(r[0], zpar) && CL.parityOk(r[1], npar);
   const allRows = () => src === "ame" ? rows : rows.concat(extraRows);
   function colour(r) {
-    const m = MODES[mode]; if (m.f) return m.f(r);
+    const m=MODES[mode];
+    if(mode==='hl'){
+      if(r[6]===99)return '#111827';
+      if(r[6]<=-98)return '#e2e8f0';
+    }
+    if(m.f)return m.f(r);
     let v = m.v(r); if (v == null) return emptyColour;
     if (classOn && classState && classState.mode === mode) v = classState.centres[CL.classIndex(v, classState.edges)];
     return colourOfValue(m, v);
@@ -346,6 +356,7 @@
     else if (m.bins) legend.innerHTML = legendItems([...m.bins.list, ...(m.bins.none ? [m.bins.none] : [])].map(([c, l], i) => ({ key: i === m.bins.list.length ? "none" : i, c, l }))) + (m.need && MOD[modelKey()] ? `<span class="nc-mnote">${escape(MOD[modelKey()].name)}</span>` : "");
     else if (classOn && m.v) legend.innerHTML = classLegend(m);
     else { const bd = bounds(m), numeric = !!m.v, lo = numeric ? rangeLabel(bd.lo) : m.range ? m.range[0] : m.rng ? m.rng[0] : m.lo, hi = numeric ? rangeLabel(bd.hi, true) : m.range ? m.range[1] : m.rng ? m.rng[1] : m.hi; legend.innerHTML = `<span>${lo}</span><span class="nc-ramp${m.div ? " nc-ramp-div" : ""}" style="background:${colourGradient(m)}"></span><span>${hi} ${m.u || ""}</span>` + (m.need || src !== "ame" ? `<span class="nc-mnote">${MOD[modelKey()] ? MOD[modelKey()].name : ""}</span>` : ""); }
+    if(mode==='hl')legend.innerHTML+=`<span><i style="background:#111827"></i>${escape(T.stable)}</span><span><i style="background:#e2e8f0"></i>${escape(T.lg_nodata)}</span>`;
      drawStats();
   }
 
