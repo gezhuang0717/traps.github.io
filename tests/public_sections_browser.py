@@ -40,6 +40,7 @@ with sync_playwright() as playwright:
     desktop.goto(BASE+"publications/",wait_until="domcontentloaded",timeout=35000)
     pub=desktop.locator("[data-pub-search]")
     pub.wait_for(state="visible",timeout=12000)
+    desktop.wait_for_function("()=>document.querySelector('[data-pub-count]')?.textContent.includes(' / ')",timeout=12000)
     initial=pub.locator("[data-pub-count]").inner_text()
     assert desktop.locator(".zg-paper").count()>5
     pub.locator("[name=pub-query]").fill("THIS_QUERY_SHOULD_MATCH_NO_PUBLICATION_829172")
