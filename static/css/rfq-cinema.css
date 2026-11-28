@@ -1,0 +1,14 @@
+/* RFQ educational trajectory cinema: parallel science plots, mobile responsive. */
+.zg-mathieu .rfq-cinema-scenes{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.zg-mathieu .rfq-cinema-settings{display:flex;align-items:end;flex-wrap:wrap;gap:.75rem;margin:.75rem 0}
+.zg-mathieu .rfq-cinema-settings label{display:grid;gap:.25rem;min-width:235px}
+.zg-mathieu .rfq-cinema-settings select{width:100%;max-width:100%;padding:.55rem}
+.zg-mathieu .rfq-cinema-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:start;width:100%}
+.zg-mathieu .rfq-cinema-cell{min-width:0;border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:12px;padding:.65rem;overflow:hidden}
+.zg-mathieu .rfq-cinema-cell h4{font-size:1rem;margin:.15rem 0 .6rem}
+.zg-mathieu .rfq-cinema-cell .rfq-motion-stage svg{display:block;max-width:100%;height:auto}
+.zg-mathieu .rfq-cinema-cell .rfq-motion-explorer{max-width:100%;overflow:hidden}
+.zg-mathieu .rfq-cinema-cell .rfq-motion-toolbar{display:none}
+.zg-mathieu .rfq-cinema-timeline{margin:1rem 0;padding:.6rem;border:1px solid color-mix(in srgb,currentColor 16%,transparent);border-radius:12px}
+.zg-mathieu .rfq-cinema-timeline .rfq-playback-controls{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}
+@media(max-width:900px){.zg-mathieu .rfq-cinema-grid{grid-template-columns:minmax(0,1fr)}}
