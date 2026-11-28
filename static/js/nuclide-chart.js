@@ -603,8 +603,12 @@
     const k=String(language).toLowerCase().split('-')[0];
     // The card's source is the selected evaluation, not the historical 2020 default.
     // Keep each language's original wording and replace only the edition tokens.
+    const activeEdition=typeof EDITION==='object'&&EDITION?
+      {ame:EDITION.ame,nubase:EDITION.nubase}:{ame:'AME2020',nubase:'NUBASE2020'};
     return Object.fromEntries(Object.entries({...labels[k]||labels.en,...referenceLabels[k]||referenceLabels.en})
-      .map(([name,value])=>[name,typeof value==='string'?editionText(value):value]));
+      .map(([name,value])=>[name,typeof value==='string'
+        ?value.replaceAll('AME2020',activeEdition.ame).replaceAll('NUBASE2020',activeEdition.nubase)
+        :value]));
   }
   function referenceMassText(value,unknown='?') {
     if(!value||!Number.isFinite(value.v))return '—';
