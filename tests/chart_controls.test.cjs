@@ -118,12 +118,20 @@ test('random selection is safe when parity and mass filters leave no candidates'
   ctx.rows=[[20,28,'Ca']];control.onclick();assert.equal(zooms,1);assert.equal(ctx.pin[2],'Ca');
 });
 
-test('unchecked paths do not load a model and a failed path index reports an error',async()=>{
-  const overlay=new Control();let loads=0,errors=0,draws=0;
-  const ctx={ovl:overlay,PATHS:{},loadIndex(){loads++;return Promise.reject(Error('offline'));},modelFailure(){errors++;},draw(){draws++;}};
-  vm.runInNewContext(cut('  if (ovl) ovl.addEventListener("change"','  fsel.innerHTML ='),ctx);
-  const cb=new Control();cb.dataset.path='r';overlay.listeners.change[0]({target:cb});assert.equal(loads,0);
-  cb.checked=true;overlay.listeners.change[0]({target:cb});await new Promise(resolve=>setImmediate(resolve));assert.equal(loads,1);assert.equal(errors,1);assert.equal(draws,2);
+test('unchecked overlay paths stay lazy, failed loading reports an error and overlay feedback updates',async()=>{
+  const overlay=new Control(),status=new Control();let loads=0,errors=0,draws=0;
+  overlay.querySelectorAll=()=>[];
+  const root={querySelector(selector){return selector==='[data-nc-overlay-feedback]'?status:null;}};
+  const ctx={ovl:overlay,root,rows:[],src:'ame',document:{documentElement:{lang:'en'}},
+    PATHS:{},loadIndex(){loads++;return Promise.reject(Error('offline'));},
+    modelFailure(){errors++;},draw(){draws++;}};
+  vm.runInNewContext(cut('  const ovlFeedback=root.querySelector','  fsel.innerHTML ='),ctx);
+  const cb=new Control();cb.dataset.path='r';cb.closest=()=>cb;
+  overlay.listeners.change[0]({target:cb});assert.equal(loads,0);
+  cb.checked=true;overlay.listeners.change[0]({target:cb});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(loads,1);assert.equal(errors,1);assert.equal(draws,2);
+  assert.match(status.textContent,/Reference paths unavailable/);
 });
 
 test('automatic bound labels and manual prefill round outwards, preserving extrema',()=>{
