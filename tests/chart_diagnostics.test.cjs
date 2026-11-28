@@ -45,7 +45,7 @@ test('actual chain CSV uses mass provenance for the sigma diagnostic and residua
  const style=FS.normalize({filename:'diagnostic',markerDiameter:10});
  const residual=P.combine([1,f.input],[-1,f.ame]);
  const residualPoint={...p,valueObj:residual,dependencyValue:residual,panel:'residual',unit:'keV',y:10,e:residual.e};
- const button={},context={root:{querySelector:()=>button},plotDomain:{x0:60,x1:70,y0:0,y1:2},residualDomain:null,
+ const button={},context={EDITION:{ame:'AME2020',nubase:'NUBASE2020'},root:{querySelector:()=>button},plotDomain:{x0:60,x1:70,y0:0,y1:2},residualDomain:null,
   plotPts:[p],modPts:[],residualPts:[residualPoint],pq:{value:'dme'},PQ:f.PQ,pchain:{value:'Z'},
   MOD:{},MM,inputTable:f.context.inputTable,measured:{hash:()=>''},seriesMeta:()=>({shape:'diamond'}),
   pointColor:()=> 'magenta',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},
