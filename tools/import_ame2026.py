@@ -231,14 +231,18 @@ def build(raw_dir):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--download",action="store_true")
+    ap.add_argument("--download-only",action="store_true",help="Validate and save official raw files only; separately parse and cross-check")
     ap.add_argument("--check",action="store_true")
     args=ap.parse_args()
-    if args.download and args.check:raise SystemExit("Choose download or check")
-    if args.download:
+    if (args.download or args.download_only) and args.check:raise SystemExit("Choose download or check")
+    if args.download or args.download_only:
         for filename in FILES:
             raw=download_original(filename)
             save_atomic(RAW_DIR/filename,raw)
             print("OFFICIAL RAW",filename,len(raw),sha(raw),flush=True)
+    if args.download_only:
+        print("Official raw AMDC2026 sources authenticated and stored. Processed tables NOT yet validated.")
+        return
     result=build(RAW_DIR)
     for filename,data in result.items():
         target=DATA_DIR/filename
