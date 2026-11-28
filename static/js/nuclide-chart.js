@@ -296,7 +296,7 @@
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
     dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
-    ...(evaluationYear==='2026' ? {dame20: {label: 'ΔME(AME2026 − AME2020) · keV',
+    ...(evaluationYear==='2026' ? {dame20: {label: T.m_dame20,
       aux:'ed',v:r=>{const d=edDiff('ame2020',r);return d?d.v:null;},
       lo:-30,hi:30,u:'keV',div:true,auto:true}} : {}),
     dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
@@ -585,7 +585,7 @@
   root.querySelector('[data-model-none]').onclick=()=>{root.querySelectorAll('[data-model-series]').forEach(el=>el.checked=false);plotChain();};
   function setSource(s) {
     const go = () => {
-      src = s; memo.clear(); dripCache.clear();
+      src = s; memo.clear(); autoCache.clear(); dripCache.clear();
       if(s!=="ame"){const box=root.querySelector('[data-model-series="'+s+'"]');if(box)box.checked=true;}
       extraRows = s === "ame" ? [] : [...MOD[s].map.keys()].filter(k => !M.has(k)).map(k => { const Z = Math.floor(k / 1000), N = k % 1000, el = EL.find(e => e[0] === Z);
         const r = [Z, N, el ? el[1] : "Z" + Z, null, null, 0, -97, "—", "", null, "", []]; r.mo = true; return r; });
@@ -820,7 +820,7 @@
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
   PQ.mine = [T.m_mine, () => null, ""]; // Custom values are an independent series, never an evaluated reference.
   for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"], ...(evaluationYear==='2026'?[["dame20","ame2020"]]:[])])
-    PQ[name] = [name==='dame20'?'ΔME(AME2026 − AME2020)':T["m_" + name],
+    PQ[name] = [T["m_" + name],
       (d,r)=>{const x=edDiff(ed,r);return x?{v:x.v*1000,e:null,est:x.est,
         uncertainty_model:x.uncertainty_model}:null;}, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
@@ -1686,7 +1686,14 @@
     rows = d.rows; EL = d.elements; rows.forEach(r => M.set(key(r[0], r[1]), r));
     MEn = get(0, 1) || MEn; MEH = get(1, 0) || MEH; MEa = get(2, 2) || MEa;
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;
-    measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{inputTable=table;memo.clear();plotChain();draw();if(pin)showCard(pin);impactRebuild();});
+    measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{
+      // A newly adopted/removed input changes stencils and may shift the extrema.
+      // Clear the automatic range as well as derived-value memoization; otherwise
+      // the colourbar can reflect a previous imported mass table.
+      inputTable=table;memo.clear();autoCache.clear();
+      drawLegend();draw();syncColourControls();plotChain();
+      if(pin)showCard(pin);impactRebuild();
+    });
     inputTable=measured.table();
     loadIndex().then(reportOverlays).catch(error=>{modelFailure();reportOverlays();});
     buildPT(); drawLegend(); fit(); fsel.onchange(); reportOverlays();
