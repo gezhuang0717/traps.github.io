@@ -16,6 +16,10 @@ on:
       - 'static/css/rfq-*'
       - 'tests/ame2026_chart.test.cjs'
       - 'tests/chart2026_cinema_browser.py'
+      - 'tests/databases_2026_browser.py'
+      - 'static/js/databases.js'
+      - 'layouts/_shortcodes/databases.html'
+      - 'data/databases.yaml'
       - '.github/workflows/chart2026-cinema-e2e.yml'
   pull_request:
 permissions:
@@ -67,6 +71,8 @@ jobs:
           for n in $(seq 1 30); do curl -fsS http://127.0.0.1:8770/lab/ >/dev/null && break; sleep 1; done
       - name: Real Chromium checkboxes, actual 2026/2020 dataset switch, 2D/3D motion and mobile
         run: python tests/chart2026_cinema_browser.py
+      - name: Databases lookup current/archival evaluation and other tab controls
+        run: python tests/databases_2026_browser.py
       - name: Full research-site Python, JS, publication and all-theme validation
         run: |
           set -euo pipefail
