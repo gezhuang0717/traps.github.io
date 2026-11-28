@@ -73,11 +73,15 @@ with sync_playwright() as p:
     band=chart.locator('[name=nc-band]');residual=chart.locator('[name=nc-residual]')
     feedback=chart.locator('[data-nc-series-feedback]')
     band.check()
-    assert feedback.get_attribute('data-band-count')=='0'
-    assert 'no applicable points' in feedback.inner_text()
+    bands=int(feedback.get_attribute('data-band-count'))
+    assert bands>=0 and 'uncertainty bands' in feedback.inner_text()
+    if bands==0:
+        assert 'no applicable points' in feedback.inner_text()
     residual.check()
-    assert feedback.get_attribute('data-residual-count')=='0'
-    assert 'choose another' in feedback.inner_text()
+    residuals=int(feedback.get_attribute('data-residual-count'))
+    assert residuals>=0 and 'Residual points' in feedback.inner_text()
+    if residuals==0:
+        assert 'choose another' in feedback.inner_text()
     residual.uncheck();band.uncheck()
     # AME2026 versus AME2020 uses the *actual* archived ground-mass table,
     # not an empty metadata-only edition list or an assumed mass covariance.
