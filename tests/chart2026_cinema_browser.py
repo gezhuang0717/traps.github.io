@@ -5,7 +5,7 @@ Both evaluation versions are tested through the actual Hugo-built Lab page.
 No synthetic replacement of AME2026 data; figures are browser UI evidence.
 """
 from __future__ import annotations
-import json,os,pathlib,re,sys
+import json,os,pathlib,re,sys,subprocess
 from playwright.sync_api import sync_playwright
 BASE=os.environ.get("NUCLIDE_E2E_BASE","http://127.0.0.1:8770/").rstrip("/")+"/"
 ART=pathlib.Path(os.environ.get("NUCLIDE_E2E_ARTIFACTS","chart-2026-browser-evidence"))
@@ -169,6 +169,25 @@ with sync_playwright() as p:
     data=output.read_bytes()
     assert b"<svg" in data and b"NOT" in data or (b"<svg" in data and len(data)>1800)
     assert b"orthographic" in data or b"trajectory" in data
+    # Scientifically inspect the actual dual-view video stream, not only a
+    # preview image or fake blob. Browser MediaRecorder -> decoded video frames.
+    record_button=timeline.locator('[data-playback-action="record"]')
+    assert record_button.is_enabled(),"This Chromium acceptance runtime must export browser video"
+    timeline.locator('select[aria-label="Video duration"]').select_option("4")
+    with page.expect_download(timeout=45000) as pending_movie:
+        record_button.click()
+    movie=pending_movie.value
+    path=ART/movie.suggested_filename
+    movie.save_as(path)
+    assert path.stat().st_size>15000,("Empty RFQ 2D+3D video",path.stat().st_size)
+    inspect=subprocess.run(['ffprobe','-v','error','-select_streams','v:0',
+        '-count_frames','-show_entries','stream=codec_name,nb_read_frames,width,height',
+        '-of','json',str(path)],capture_output=True,text=True,check=True)
+    streams=json.loads(inspect.stdout)['streams']
+    assert len(streams)==1 and int(streams[0]['width'])==1280
+    assert int(streams[0]['height'])==800 and int(streams[0]['nb_read_frames'])>=3,streams
+    print("RFQ REAL VIDEO",path.name,path.stat().st_size,"bytes",streams[0],flush=True)
+
     # Mobile responsive: both panels remain in DOM, no clipped controls.
     mobile_ctx=browser.new_context(viewport={"width":393,"height":852},device_scale_factor=1,
                                   accept_downloads=True,locale="en-US")
