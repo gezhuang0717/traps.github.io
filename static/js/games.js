@@ -1,9 +1,39 @@
 /* Games page: physics games (the trap zoo animation lives in static/js/trap-zoo.js).
-   Data: static/data/nubase2020.json (NUBASE2020). Labels: data-labels JSON on [data-games]. */
+   Data: NUBASE2026 default (NUBASE2020 explicit historical). Labels: data-labels JSON on [data-games]. */
 (() => {
   const root = document.querySelector("[data-games]");
   if (!root) return;
+  const editionYear=new URLSearchParams(window.location.search).get('evaluation')==='2020'?'2020':'2026';
+  const AME='AME'+editionYear,NUBASE='NUBASE'+editionYear;
+  if(editionYear==='2020'){
+    for(const name of ['catalogue','src','ame']){
+      const url=root.getAttribute('data-'+name+'-2020');
+      if(!url)throw Error('Historical '+name+' missing; no evaluation mixing allowed');
+      root.dataset[name]=url;
+    }
+  }
+  root.dataset.activeEvaluation=editionYear;
+  const editionControl=root.querySelector('[data-games-edition]');
+  if(editionControl){
+    editionControl.value=editionYear;
+    editionControl.addEventListener('change',()=>{
+      const u=new URL(window.location.href);
+      if(editionControl.value==='2020')u.searchParams.set('evaluation','2020');
+      else u.searchParams.delete('evaluation');
+      window.location.assign(u.href);
+    });
+  }
   const T = JSON.parse(root.dataset.labels), $ = s => root.querySelector(s);
+  for(const key of Object.keys(T)){
+    if(typeof T[key]==='string')T[key]=T[key].replaceAll('AME2020',AME)
+      .replaceAll('AME2026',AME).replaceAll('NUBASE2020',NUBASE).replaceAll('NUBASE2026',NUBASE);
+  }
+  const sourceStatus=$('[data-games-source-status]'),sourceLink=$('[data-games-source-link]');
+  if(sourceStatus)sourceStatus.textContent=AME+' + '+NUBASE+' · official AMDC evaluations';
+  if(sourceLink)sourceLink.href=editionYear==='2020'?'https://www-nds.iaea.org/amdc/ame2020/':
+    'https://amdc.impcas.ac.cn/masstables/Ame2026/filel.html';
+  const halfLifeNote=$('#g-hl > p.zg-muted');
+  if(halfLifeNote)halfLifeNote.textContent=T.hl_n;
   const F = s => (window.ZGUI ? window.ZGUI.ionText(s) : s);   /* display form of ion labels: 133Xem⁺ */
   const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹", sup = n => String(n).replace(/\d/g, d => SUP[d]);
   const rnd = a => a[Math.floor(Math.random() * a.length)];
@@ -185,7 +215,7 @@
         const mG = ZQ * QE * B / (2 * Math.PI * (NU_REF + +sl.value)) / U + SIGN_ION * ZQ * ME / U, dm = (mG - M_CS) * 931494.10242;
         reveal = true; draw();
         msg(box, `ν_c = ${nuTrue.toLocaleString("en", { minimumFractionDigits: 3, maximumFractionDigits: 3 })} Hz · ${TL.yours}: ${(NU_REF + +sl.value).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Hz (Δ = ${err.toFixed(3)} Hz = ${(err / fw).toFixed(2)} FWHM)<br>` +
-          `m = qB/(2πν_c) → ${mG.toFixed(7)} u (${dm >= 0 ? "+" : ""}${dm.toFixed(1)} keV vs AME2020) · ${TL.score}: <b>${sc}</b> · ${TL.best}: ${best("tof", sc)}`);
+          `m = qB/(2πν_c) → ${mG.toFixed(7)} u (${dm >= 0 ? "+" : ""}${dm.toFixed(1)} keV vs ${AME}) · ${TL.score}: <b>${sc}</b> · ${TL.best}: ${best("tof", sc)}`);
       }
       if (a === "new") reset();
       if (a === "png") savePNG(cv, paint, "tof-icr-resonance");
@@ -265,7 +295,7 @@
       { const [g, W, H] = crisp(cv); paint(g, W, H, inkOf()); }
       { const [g, W, H] = crisp(cv2); paint2(g, W, H, inkOf()); }
       const ok = Math.abs(m.dT) >= m.fw, h = P.est ? "#" : "";
-      msg(box, `${F(P.a.label)} – ${F(P.b.label)}: M(${F(P.b.label)}) − M(${F(P.a.label)}) = ${(P.e==null?fmtN(P.dm)+h+" ± ?":fmtU(P.dm,P.e,h))} keV (AME2020 + NUBASE2020 Eₓ) · m/q = ${(P.m / V("z")).toFixed(4)} u · t = ${(m.t / 1000).toFixed(3)} µs · Δt = ${m.dT.toFixed(2)} ns · FWHM = ${m.fw.toFixed(2)} ns · R ≈ ${Math.round(m.R).toLocaleString()} (${TL.need} ${Math.round(m.need).toLocaleString()}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}` +
+      msg(box, `${F(P.a.label)} – ${F(P.b.label)}: M(${F(P.b.label)}) − M(${F(P.a.label)}) = ${(P.e==null?fmtN(P.dm)+h+" ± ?":fmtU(P.dm,P.e,h))} keV (${AME} + ${NUBASE} Eₓ) · m/q = ${(P.m / V("z")).toFixed(4)} u · t = ${(m.t / 1000).toFixed(3)} µs · Δt = ${m.dT.toFixed(2)} ns · FWHM = ${m.fw.toFixed(2)} ns · R ≈ ${Math.round(m.R).toLocaleString()} (${TL.need} ${Math.round(m.need).toLocaleString()}) · ${ok ? "✔ " + TL.separated : "… " + TL.overlap}` +
         (m.dl > 0 ? ` · ${TL.mr_sat}: N ≈ ${Math.round(m.dt0 / m.dl).toLocaleString()}` : ""));
     }
     function fillPairs() {
@@ -470,7 +500,9 @@
       if (a === "video" && window.ZGCoolingView) { ZGCoolingView.recordPanel(box,[cv,cvd],'rfq-ions-and-stability',()=>({parameters:{trap:'RFQ',species:species.map(s=>s.label).join(', '),...Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)])),seed:V('rfq-seed')},view:{plots:'cross-section + a–q stability',voltage:'V rod zero-to-peak RF (differential=2V); U DC'},time_s:xi/(Math.PI*V('f')*1e6)}),()=>{running=true;});return; }
       if(a==='json'||a==='csv') {
         const cuts=currentCutoffs(),parameters=Object.fromEntries(['U','V','r0','f','emit','cycles'].map(n=>[n,V(n)]));
-        const source={name:'AME2020 + NUBASE2020',url:'https://www-nds.iaea.org/amdc/ame2020/',doi:'10.1088/1674-1137/abddae'};
+        const source={name:AME+' + '+NUBASE,url:editionYear==='2020'
+   ?'https://www-nds.iaea.org/amdc/ame2020/':'https://amdc.impcas.ac.cn/masstables/Ame2026/filel.html',
+   doi:editionYear==='2020'?'10.1088/1674-1137/abddae':'10.1088/1674-1137/aebcec'};
         const results=species.map(sp=>{const [a,q]=aq(sp);return {...designFor(sp),label:sp.label,mass_u:sp.m,charge:sp.z,a,q,stable:mathieuStable(a,q),transmitted:sp.t,lost:sp.l,observed_fraction:sp.t+sp.l?sp.t/(sp.t+sp.l):null,source:sp.source||'illustrative integer mass'};});
         const cleanCuts={...cuts,highMassU:Number.isFinite(cuts.highMassU)?cuts.highMassU:null,highMassUnbounded:cuts.highMassU===Infinity};
         const record={model:'ideal linear RFQ / Mathieu dynamics',source,seed:V('rfq-seed'),parameters,units:{U:'V DC',V:'V rod zero-to-peak RF (differential = 2V)',r0:'mm',f:'MHz',emit:'percent r0',cycles:'RF cycles',lowMassU:'u/e',highMassU:'u/e'},cutoffs:cleanCuts,species:results,simulation_time_xi:xi,assumptions:[RT.limits,TL.rfq_convention]};
@@ -621,7 +653,7 @@
         `<td>${f3(s.nc)}${s.snc != null ? `<br><small>± ${s.snc.toPrecision(3)}</small>` : ""}</td><td>${f3(s.np)}</td><td>${f3(s.nm)}</td><td>${f3(s.nz)}</td><td>${(s.phi * 180 / Math.PI).toFixed(2)}°</td>` +
         `<td>${s === ref ? "—" : ((s.nc - ref.nc) >= 0 ? "+" : "") + (s.nc - ref.nc).toFixed(4) + " Hz / " + (adist(s.phi, ref.phi) * 180 / Math.PI).toFixed(2) + "°"}</td>` +
         `<td>${(s.nc*p.t).toFixed(6)}</td><td>${Math.floor(s.nc*p.t)}</td><td>${((s.nc-ref.nc)*p.t).toFixed(6)}</td><td>${deltaDegrees((s.nc-ref.nc)*p.t).toFixed(2)}</td><td>${s===ref?"—":s.nc===ref.nc?"∞":(500/Math.abs(s.nc-ref.nc)).toFixed(2)}</td>` +
-        `<td class="zg-muted">${s.src || "NUBASE2020"}${s.est ? " (#)" : ""}</td></tr>`).join("");
+        `<td class="zg-muted">${s.src || NUBASE}${s.est ? " (#)" : ""}</td></tr>`).join("");
       const target=sel("t180-target"),old=target.value;target.innerHTML=p.sp.slice(1).map((s,i)=>`<option value="${i+1}">${F(s.label)}</option>`).join("");if([...target.options].some(o=>o.value===old))target.value=old;
       const other=p.sp[+target.value],time180=other&&other.nc!==ref.nc?500/Math.abs(other.nc-ref.nc):null;sel("t180").value=time180==null?"":time180.toFixed(2);box.querySelector('[data-act="apply180"]').disabled=time180==null||time180>10000||time180<.005;
       box.querySelector(".pi-freq").innerHTML = `<table class="zg-table pi-tab"><thead><tr><th>${TL.ion}</th><th>q</th><th>m_ion (u)</th><th>ν_c (Hz)</th><th>ν₊ (Hz)</th><th>ν₋ (Hz)</th><th>ν_z (Hz)</th><th>φ_c</th><th>Δν_c / Δφ</th><th>${TL.total_turns}</th><th>${TL.complete_turns}</th><th>${TL.delta_turns}</th><th>${TL.residual_phase}</th><th>${TL.t180}</th><th>${TL.pi_mtab}</th></tr></thead><tbody>${rowsH}</tbody></table>` +
@@ -698,11 +730,11 @@
       if (a === "png") { savePNG(cv, paint, "pi-icr-detector"); }
       if (a === "png2") savePNG(cvh, paintH, "pi-icr-angle");
       if (a === "csv" && window.zgExport) { const sp = phys().sp; window.zgExport.csv(["x_rel", "y_rel", "x_mm", "y_mm", "detector_radius_mm", "angle_deg", "state"], hits.map(([x, y, k]) => [x, y, x*detectorRadius(), y*detectorRadius(), detectorRadius(), k === 2 ? "" : ((Math.atan2(y, x) * 180 / Math.PI + 360) % 360), k === 2 ? "centre" : k === 3 ? "magnetron-reference" : (sp[k - 10] || {}).txt || "?"]), "pi-icr-hits"); }
-      if (a === "fcsv" && window.zgExport) { const p=phys(),ref=p.sp[0];window.zgExport.csv(["ion","q","m_ion_u","mass_sigma_keV","nu_c_Hz","nu_plus_Hz","nu_minus_Hz","nu_z_Hz","phi_c_deg","mass_table","B_T","U0_V","d_mm","t_acc_ms","total_turns","complete_turns","delta_turns_from_first","residual_delta_deg","first_180_time_ms","phase_origin_deg","seed","spot_radius_mm","detector_radius_mm","separation_target_sigma","requested_tacc_ms","ideal_tacc_ms","minus_offset_deg","plus_offset_deg","overlap_reference","clock_ns","reference_mismatch_deg","configured_clock_ns"],p.sp.map(s=>[s.txt,(s.sign||1)*s.q,s.ionMassU,s.e??"",s.nc,s.np,s.nm,s.nz,s.phi*180/Math.PI,s.src||"NUBASE2020",p.B,V("u0"),V("dch"),p.t*1000,s.nc*p.t,Math.floor(s.nc*p.t),(s.nc-ref.nc)*p.t,deltaDegrees((s.nc-ref.nc)*p.t),s===ref?"":s.nc===ref.nc?"unavailable":500/Math.abs(s.nc-ref.nc),V("phase-offset"),V("pi-seed"),V("radius"),detectorRadius(),V("separation-sigma"),V("tacc"),p.timing.idealSeconds*1000,V("minus-offset"),V("plus-offset"),sel("overlap-reference").checked,p.timing.clockNs,p.timing.residualDeg,V("phase-clock")]),"pi-icr-frequencies"); }
+      if (a === "fcsv" && window.zgExport) { const p=phys(),ref=p.sp[0];window.zgExport.csv(["ion","q","m_ion_u","mass_sigma_keV","nu_c_Hz","nu_plus_Hz","nu_minus_Hz","nu_z_Hz","phi_c_deg","mass_table","B_T","U0_V","d_mm","t_acc_ms","total_turns","complete_turns","delta_turns_from_first","residual_delta_deg","first_180_time_ms","phase_origin_deg","seed","spot_radius_mm","detector_radius_mm","separation_target_sigma","requested_tacc_ms","ideal_tacc_ms","minus_offset_deg","plus_offset_deg","overlap_reference","clock_ns","reference_mismatch_deg","configured_clock_ns"],p.sp.map(s=>[s.txt,(s.sign||1)*s.q,s.ionMassU,s.e??"",s.nc,s.np,s.nm,s.nz,s.phi*180/Math.PI,s.src||NUBASE,p.B,V("u0"),V("dch"),p.t*1000,s.nc*p.t,Math.floor(s.nc*p.t),(s.nc-ref.nc)*p.t,deltaDegrees((s.nc-ref.nc)*p.t),s===ref?"":s.nc===ref.nc?"unavailable":500/Math.abs(s.nc-ref.nc),V("phase-offset"),V("pi-seed"),V("radius"),detectorRadius(),V("separation-sigma"),V("tacc"),p.timing.idealSeconds*1000,V("minus-offset"),V("plus-offset"),sel("overlap-reference").checked,p.timing.clockNs,p.timing.residualDeg,V("phase-clock")]),"pi-icr-frequencies"); }
       } catch(e) { msg(box,e.message); }
     });
     sel("iso-search").addEventListener("input",()=>filterList());
-    box.addEventListener("click",e=>{if(e.target.closest("[data-act=json]")){try {const p=phys(),ref=p.sp[0];const data={model:"PI-ICR ideal phase",source:{names:["AME2020","NUBASE2020"],url:"https://www-nds.iaea.org/amdc/"},constants:P.C,parameters:{B:p.B,manual_B_T:V("B"),field_source:p.calibrated?"calibrants":"manual",U0:V("u0"),d_mm:V("dch"),tacc_ms:p.t*1000,requested_tacc_ms:V("tacc"),ideal_tacc_ms:p.timing.idealSeconds*1000,minus_offset_deg:V("minus-offset"),plus_offset_deg:V("plus-offset"),overlap_reference:sel("overlap-reference").checked,clock_ns:p.timing.clockNs,configured_clock_ns:V("phase-clock"),reference_mismatch_deg:p.timing.residualDeg,radius_mm:V("radius"),detector_view_radius_mm:detectorRadius(),event_sigma_mm:V("spot")/10,centre_sigma_mm:V("centre-spot"),angular_floor_mrad:V("floor"),counts:V("centroid-count"),separation_sigma:V("separation-sigma"),phase_origin_deg:V("phase-offset"),centre_lines:sel("centre-lines").checked,seed:V("pi-seed")},units:{B:"T",U0:"V",d_mm:"mm",tacc_ms:"ms",requested_tacc_ms:"ms",ideal_tacc_ms:"ms",minus_offset_deg:"deg",plus_offset_deg:"deg",clock_ns:"ns",configured_clock_ns:"ns",reference_mismatch_deg:"deg",radius_mm:"mm",detector_view_radius_mm:"mm",event_sigma_mm:"mm",centre_sigma_mm:"mm",angular_floor_mrad:"mrad",hits:"normalized Cartesian coordinates"},comparison:{enabled:sel("compare-times").checked,requested_times_ms:[V("tacc"),V("compare-t2"),V("compare-t3")],times_ms:[p.t*1000,...[V("compare-t2"),V("compare-t3")].map(ms=>phaseTiming(ms/1000,p.nu).actualSeconds*1000)]},assumptions:["Ideal Penning frequencies; known frequencies set the complete turn count", "Independent detector events; angular floor is shared per species and dataset", "Drawing radius is 21 mm up to a 20 mm spot radius and 32 mm above; detector acceptance losses are not simulated", "Ion mass = atomic mass minus signed charge times electron mass; frequency magnitudes and flight speeds use absolute charge; binding and electron-affinity energies omitted"],timing:p.timing,reference:{ion:ref.label,magnetron_phase_deg:p.magnetronPhi*180/Math.PI,projected_cyclotron_phase_deg:ref.phi*180/Math.PI},species:species(),results:p.sp.map(s=>({ion:s.label,nu_c_Hz:s.nc,projected_phase_deg:s.phi*180/Math.PI,total_turns:s.nc*p.t,complete_turns:Math.floor(s.nc*p.t),delta_turns:(s.nc-ref.nc)*p.t,residual_delta_deg:deltaDegrees((s.nc-ref.nc)*p.t),first_180_time_ms:s===ref||s.nc===ref.nc?null:500/Math.abs(s.nc-ref.nc)})),one_keV:P.phaseEnergyStep(ref,p.B,p.t),hits};const link=document.createElement("a"),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));link.href=url;link.download="pi-icr-inputs-results.json";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){msg(box,e.message);}}});
+    box.addEventListener("click",e=>{if(e.target.closest("[data-act=json]")){try {const p=phys(),ref=p.sp[0];const data={model:"PI-ICR ideal phase",source:{names:[AME,NUBASE],url:sourceLink?.href||'https://amdc.impcas.ac.cn/masstables/Ame2026/filel.html'},constants:P.C,parameters:{B:p.B,manual_B_T:V("B"),field_source:p.calibrated?"calibrants":"manual",U0:V("u0"),d_mm:V("dch"),tacc_ms:p.t*1000,requested_tacc_ms:V("tacc"),ideal_tacc_ms:p.timing.idealSeconds*1000,minus_offset_deg:V("minus-offset"),plus_offset_deg:V("plus-offset"),overlap_reference:sel("overlap-reference").checked,clock_ns:p.timing.clockNs,configured_clock_ns:V("phase-clock"),reference_mismatch_deg:p.timing.residualDeg,radius_mm:V("radius"),detector_view_radius_mm:detectorRadius(),event_sigma_mm:V("spot")/10,centre_sigma_mm:V("centre-spot"),angular_floor_mrad:V("floor"),counts:V("centroid-count"),separation_sigma:V("separation-sigma"),phase_origin_deg:V("phase-offset"),centre_lines:sel("centre-lines").checked,seed:V("pi-seed")},units:{B:"T",U0:"V",d_mm:"mm",tacc_ms:"ms",requested_tacc_ms:"ms",ideal_tacc_ms:"ms",minus_offset_deg:"deg",plus_offset_deg:"deg",clock_ns:"ns",configured_clock_ns:"ns",reference_mismatch_deg:"deg",radius_mm:"mm",detector_view_radius_mm:"mm",event_sigma_mm:"mm",centre_sigma_mm:"mm",angular_floor_mrad:"mrad",hits:"normalized Cartesian coordinates"},comparison:{enabled:sel("compare-times").checked,requested_times_ms:[V("tacc"),V("compare-t2"),V("compare-t3")],times_ms:[p.t*1000,...[V("compare-t2"),V("compare-t3")].map(ms=>phaseTiming(ms/1000,p.nu).actualSeconds*1000)]},assumptions:["Ideal Penning frequencies; known frequencies set the complete turn count", "Independent detector events; angular floor is shared per species and dataset", "Drawing radius is 21 mm up to a 20 mm spot radius and 32 mm above; detector acceptance losses are not simulated", "Ion mass = atomic mass minus signed charge times electron mass; frequency magnitudes and flight speeds use absolute charge; binding and electron-affinity energies omitted"],timing:p.timing,reference:{ion:ref.label,magnetron_phase_deg:p.magnetronPhi*180/Math.PI,projected_cyclotron_phase_deg:ref.phi*180/Math.PI},species:species(),results:p.sp.map(s=>({ion:s.label,nu_c_Hz:s.nc,projected_phase_deg:s.phi*180/Math.PI,total_turns:s.nc*p.t,complete_turns:Math.floor(s.nc*p.t),delta_turns:(s.nc-ref.nc)*p.t,residual_delta_deg:deltaDegrees((s.nc-ref.nc)*p.t),first_180_time_ms:s===ref||s.nc===ref.nc?null:500/Math.abs(s.nc-ref.nc)})),one_keV:P.phaseEnergyStep(ref,p.B,p.t),hits};const link=document.createElement("a"),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));link.href=url;link.download="pi-icr-inputs-results.json";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){msg(box,e.message);}}});
     const init = () => rows.length ? build() : setTimeout(init, 200); init();
   }
 
