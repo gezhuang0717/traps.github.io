@@ -24,14 +24,16 @@ function harness(initial='decay') {
   for(const [name,value] of Object.entries({'nc-colour':initial,'nc-class-n':'9','nc-class-method':'equal','nc-class-scheme':'default','nc-class-edges':'','nc-mine-text':'','nc-mine-custom-unit':'counts'}))get(name).value=value;
   const legend=new Control(), canvas=new Control();
   const root={querySelector(selector){const m=/^\[name="?([^\]"]+)"?\]$/.exec(selector);return m?get(m[1]):selector==='.nc-legend'?legend:get(selector);}};
-  const ctx={root,sel:get('nc-colour'),legend,cv:canvas,mode:initial,manualRange:null,classOn:false,classN:9,classMethod:'equal',classText:'',classScheme:'default',classState:null,isolate:new Set(),isolateMode:'',
+  const ctx={root,sel:get('nc-colour'),legend,cv:canvas,mode:initial,manualRange:null,rangeByQuantity:new Map(),filt:'all',zpar:'all',npar:'all',classOn:false,classN:9,classMethod:'equal',classText:'',classScheme:'default',classState:null,isolate:new Set(),isolateMode:'',
     emptyColour:'#e5e7eb',src:'ame',MOD:{frdm:{name:'FRDM'}},AUX:{ed:null},rows:[{value:-10},{value:0},{value:10},{value:90}],extraRows:[],USER:{map:new Map(),parsed:null},EL:[],M:new Map(),CL:C,RNG_UNIT:{dme:'keV'},DC:{},
-    T:{cl_off_mode:'Fixed colours',range_off_mode:'Choose a numerical quantity',range_bad:'min must be smaller than max',range_log:'log10',cl_note_zero:'{n} classes',mine_status:'{m}/{n}/{e}',mine_unknown_count:'{n} unknown sigma',mine_custom:'Custom',mine_duplicates:'{n} duplicate identities',mine_unknown:'unknown',cl_none:'no edges'},
+    T:{cl_off_mode:'Fixed colours',cl_invalid_edges:'Enter 1-19 ascending valid class edges',range_active:'Manual range applied',range_auto_info:'Automatic range',range_clip:'out-of-range values clipped',range_off_mode:'Choose a numerical quantity',range_bad:'min must be smaller than max',range_log:'log10',cl_note_zero:'{n} classes',mine_status:'{m}/{n}/{e}',mine_unknown_count:'{n} unknown sigma',mine_custom:'Custom',mine_duplicates:'{n} duplicate identities',mine_unknown:'unknown',cl_none:'no edges'},
     fill:(t,o)=>String(t||'').replace(/\{(\w+)\}/g,(_,k)=>o[k]??''),escape:s=>String(s),ramp:x=>'hsl('+270*(1-Math.max(0,Math.min(1,x)))+',85%,52%)',modelKey:()=> 'frdm',pass:()=>true,memo:{clear(){}},drawStats(){},modelFailure(){},
     window:{ZGChartUserData:UD,ZGChartTypedData:TD},document:{createElement:()=>({})},key:(z,n)=>z*1000+n,chain:null,chainInput:n=>get('nc-'+n),pq:{value:'mine',onchange(){}},PQ:{mine:['My data',()=>null,'counts']},plotChain(){},loads:[],allRows(){return ctx.rows.concat(ctx.src==='ame'?[]:ctx.extraRows);},loadModels:()=>Promise.resolve(),loadAux:name=>{ctx.loads.push(name);return Promise.resolve().then(()=>{ctx.AUX[name]=true;ctx.rows=[{value:-800},{value:0},{value:1450}];});}
   };
   const numerical={label:'ME',v:r=>r.value,lo:-30,hi:30};
-  ctx.MODES={decay:{label:'decay',f:()=> '#111'},me:numerical,dme:{...numerical,label:'precision',rng:['0.001 keV','1 MeV'],lo:-3,hi:3},dame16:{...numerical,label:'edition',v:r=>ctx.AUX.ed?r.value:null,auto:true,div:true,aux:'ed'},beta2:{...numerical,label:'model',div:true,lo:-.3,hi:.4},mine:{...numerical,label:'mine',user:true,lo:0,hi:1}};
+  ctx.MODES={decay:{label:'decay',f:()=> '#111'},me:numerical,
+    hl:{label:'Half-life',v:r=>r.value,lo:-9,hi:20,u:'log₁₀(s)',staticRange:true},
+    dme:{...numerical,label:'precision',rng:['0.001 keV','1 MeV'],lo:-3,hi:3},dame16:{...numerical,label:'edition',v:r=>ctx.AUX.ed?r.value:null,auto:true,div:true,aux:'ed'},beta2:{...numerical,label:'model',div:true,lo:-.3,hi:.4},mine:{...numerical,label:'mine',user:true,lo:0,hi:1}};
   ctx.draw=()=>{ctx.painted=ctx.rows.map(r=>ctx.colour(r));};
   vm.createContext(ctx);
   vm.runInContext(cut('  const autoCache = new Map();','  const pick =')+'\n'+cut('  function colour(r) {','  /* ---------- drawing')+'\n'+cut('  const rngUnit =','  const darkHex =')+'\n'+cut('  function changeColourMode()','  /* ---- parity filters')+'\n'+cut('  /* ---- divided colour bar (default off:','  if (msel) msel.onchange')+'\nthis.colour=colour;this.bounds=bounds;this.colourGradient=colourGradient;this.syncColourControls=syncColourControls;',vm.createContext(Object.assign(ctx,{syncClassControls:()=>{},syncRangeControls:()=>{},syncColourControls:()=>{ctx.syncClassControls();ctx.syncRangeControls();}})));
@@ -69,6 +71,42 @@ test('manual range checkbox controls fields, rejects invalid edits and restores 
   lo.value='-999';lo.fire('input');assert.equal(h.ctx.manualRange,null);
 });
 
+test('manual ranges recolour actual cells and are restored for each numerical quantity',()=>{
+ const h=harness();
+ // The default Decay mode is categorical: numeric bounds cannot represent a
+ // colour scale. The UI must explain and provide a direct numeric-mode switch.
+ assert.equal(h.get('nc-range-manual').disabled,true);
+ assert.equal(h.get('[data-nc="range-numeric"]').hidden,false);
+ assert.equal(h.get('.nc-range-note').attrs['data-range-state'],'categorical');
+ h.get('[data-nc="range-numeric"]').onclick();
+ assert.equal(h.ctx.mode,'me');
+ assert.equal(h.get('[data-nc="range-numeric"]').hidden,true);
+ const automatic=h.ctx.colour({value:4});
+ const chk=h.get('nc-range-manual');
+ chk.checked=true;chk.fire('change');
+ h.get('nc-range-min').value='-2';h.get('nc-range-max').value='6';
+ h.get('nc-range-max').fire('input');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-state'],'manual');
+ assert.deepEqual({...h.ctx.manualRange},{lo:-2,hi:6});
+ assert.notEqual(h.ctx.colour({value:4}),automatic,'Actual cell colour must change');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-lo'],'-2');
+ assert.equal(h.get('.nc-range-note').attrs['data-range-hi'],'6');
+ assert.match(h.get('.nc-range-note').textContent,/clipped/);
+ h.setMode('dme',true);
+ assert.equal(h.get('nc-range-manual').checked,false);
+ h.get('nc-range-manual').checked=true;h.get('nc-range-manual').fire('change');
+ h.get('nc-range-min').value='-1';h.get('nc-range-max').value='1';
+ h.get('nc-range-max').fire('input');
+ h.setMode('me',true);
+ assert.equal(h.get('nc-range-manual').checked,true);
+ assert.equal(h.get('nc-range-min').value,'-2');
+ assert.equal(h.get('nc-range-max').value,'6');
+ assert.deepEqual({...h.ctx.manualRange},{lo:-2,hi:6});
+ h.get('nc-range-manual').checked=false;h.get('nc-range-manual').fire('change');
+ h.setMode('dme',true);h.setMode('me',true);
+ assert.equal(h.get('nc-range-manual').checked,false,'Cleared range must not return');
+});
+
 test('classes update legend and cells together after manual range and method edits',()=>{
   const h=harness();h.setMode('me');h.get('nc-classes').checked=true;h.get('nc-classes').fire('change');
   h.get('nc-range-manual').checked=true;h.get('nc-range-manual').fire('change');h.get('nc-range-min').value='-10';h.get('nc-range-max').value='90';h.get('nc-range-max').fire('input');
@@ -79,12 +117,59 @@ test('classes update legend and cells together after manual range and method edi
   h.get('nc-classes').checked=false;h.get('nc-classes').fire('change');assert.match(h.legend.innerHTML,/linear-gradient/);assert.notEqual(h.ctx.colour({value:6}),h.ctx.colour({value:49}));
 });
 
+test('half-life logarithmic colour bounds are manually editable without altering stable/unknown nuclei',()=>{
+ const h=harness();
+ h.setMode('hl',true);
+ assert.equal(h.get('nc-range-manual').disabled,false);
+ assert.equal(h.get('nc-range-min').value,'-9');
+ assert.equal(h.get('nc-range-max').value,'20');
+ assert.match(h.get('.nc-range-note').textContent,/log₁₀\(s\)/);
+ const unchangedStable=h.ctx.colour([0,0,'',0,0,0,99]);
+ const unchangedUnknown=h.ctx.colour([0,0,'',0,0,0,-99]);
+ assert.equal(unchangedStable,'#111827');assert.equal(unchangedUnknown,'#e2e8f0');
+ const before=h.ctx.colour({value:2});
+ const chk=h.get('nc-range-manual');chk.checked=true;chk.fire('change');
+ h.get('nc-range-min').value='-6';h.get('nc-range-max').value='3';
+ h.get('nc-range-max').fire('input');
+ assert.notEqual(h.ctx.colour({value:2}),before);
+ assert.equal(h.ctx.colour([0,0,'',0,0,0,99]),unchangedStable);
+ assert.equal(h.ctx.colour([0,0,'',0,0,0,-99]),unchangedUnknown);
+});
+test('invalid manual class boundaries never silently change chart colours',()=>{
+ const h=harness();h.setMode('me');const on=h.get('nc-classes');
+ on.checked=true;on.fire('change');h.get('nc-class-method').value='manual';
+ h.get('nc-class-method').fire('change');
+ const field=h.get('nc-class-edges');
+ assert.equal(field.hidden,false,'Empty manual edges must leave an editable field');
+ assert.equal(field.attrs['aria-invalid'],'true');
+ field.value='-5, 5, 50';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ const color=h.ctx.colour({value:6});
+ assert.deepEqual([...h.ctx.classState.edges],[-5,5,50]);
+ for(const invalid of ['-5, broken, 50','5, -5, 50','5, 5, 50','Infinity, 20','',Array.from({length:21},(_,i)=>i).join(',')]){
+  field.value=invalid;field.fire('input');
+  assert.equal(field.attrs['aria-invalid'],'true',invalid);
+  assert.ok(field.validationMessage,invalid);
+  assert.equal(h.ctx.colour({value:6}),color,'Old valid colour scale must remain on invalid entry');
+  assert.deepEqual([...h.ctx.classState.edges],[-5,5,50]);
+ }
+ field.value='-10, 0, 10';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ assert.deepEqual([...h.ctx.classState.edges],[-10,0,10]);
+ h.setMode('dme',true);on.checked=true;on.fire('change');
+ h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');
+ field.value='0, 1, 100';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],'true','Logarithmic physical-unit edges must be >0');
+ field.value='0.01, 1, 100';field.fire('input');
+ assert.equal(field.attrs['aria-invalid'],undefined);
+ assert.deepEqual([...h.ctx.classState.edges],[-2,0,2]);
+});
 test('AME edition asynchronous range refill, model and logarithmic modes stay coherent',async()=>{
   const h=harness();h.setMode('dame16',true);await new Promise(resolve=>setImmediate(resolve));
   assert.equal(h.get('nc-range-min').value,'-800');assert.equal(h.get('nc-range-max').value,'1450');
   h.get('nc-classes').checked=true;h.get('nc-classes').fire('change');assert.equal(h.get('nc-class-scheme').disabled,true);assert.equal(h.ctx.classState.edges.length,8);
   h.setMode('beta2',true);assert.equal(h.get('nc-range-min').value,'-800');assert.equal(h.get('nc-range-max').value,'1450');
-  h.setMode('dme',true);assert.equal(h.get('.nc-range-note').textContent,'log10');h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');h.get('nc-class-edges').value='0.1,1,100';h.get('nc-class-edges').fire('input');assert.deepEqual([...h.ctx.classState.edges],[-1,0,2]);
+  h.setMode('dme',true);assert.match(h.get('.nc-range-note').textContent,/log10/);h.get('nc-class-method').value='manual';h.get('nc-class-method').fire('change');h.get('nc-class-edges').value='0.1,1,100';h.get('nc-class-edges').fire('input');assert.deepEqual([...h.ctx.classState.edges],[-1,0,2]);
 });
 
 test('own-table Apply enters the numeric mode through the same control synchronization',()=>{
@@ -100,7 +185,7 @@ test('asymmetric signed legend places zero where the cell colour function does',
 
 test('disabled range explanations exist in every supported language',()=>{
   const labels=fs.readFileSync(path.join(__dirname,'../data/nuclide_chart_labels.yaml'),'utf8');
-  for(const lang of ['en','zh','fi','de','ja','fr']){const section=labels.split('\n'+lang+':')[1];assert.ok(section,lang);assert.match(section.split(/\n[a-z]{2}:/)[0],/range_off_mode: .+/);}
+  for(const lang of ['en','zh','fi','de','ja','fr']){const section=labels.split('\n'+lang+':')[1];assert.ok(section,lang);const p=section.split(/\n[a-z]{2}:/)[0];for(const key of ['range_off_mode','range_active','range_auto_info','range_clip','range_choose_numeric'])assert.match(p,new RegExp(key+': .+'));}
 });
 
 test('full-data and opt-in percentile buttons keep finite spans and show the chosen override',()=>{
@@ -110,6 +195,15 @@ test('full-data and opt-in percentile buttons keep finite spans and show the cho
   h.ctx.rows=[{value:4},{value:4}];h.get('[data-nc="range-full"]').onclick();assert.ok(h.ctx.manualRange.lo<4&&h.ctx.manualRange.hi>4);assert.equal(h.get('nc-range-min').disabled,false);
 });
 
+test('automatic numeric range respects selected visible filter, not hidden nuclei',()=>{
+ const h=harness();
+ h.ctx.rows=[{value:-40,display:true},{value:5,display:true},{value:500,display:false}];
+ h.ctx.pass=r=>r.display;
+ h.setMode('me',true);
+ assert.ok(Number(h.get('nc-range-min').value)<=-40);
+ assert.ok(Number(h.get('nc-range-max').value)<500);
+ assert.ok(h.ctx.bounds(h.ctx.MODES.me).hi===5,'Filtered-away outlier must not set colour scale');
+});
 test('random selection is safe when parity and mass filters leave no candidates',()=>{
   const control=new Control();let zooms=0;
   const ctx={root:{querySelector:()=>control},rows:[],pass:()=>true,pin:null,zoomTo(){zooms++;},showCard(){},plotChain(){},Math};

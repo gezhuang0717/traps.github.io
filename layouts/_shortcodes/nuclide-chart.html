@@ -43,6 +43,7 @@
 <section class="zg-card nc" id="nuclide-chart" data-nuclide-chart data-aux="{{ "data/research-cache/" | relURL }}" data-edition="2026" data-catalogue="{{ "data/nuclear-states2026.json" | relURL }}" data-ame="{{ "data/ame2026.json" | relURL }}" data-src="{{ "data/nubase2026.json" | relURL }}" data-reactions="{{ "data/ame2026-reactions.json" | relURL }}?v={{ readFile "static/data/ame2026-reactions.json" | sha256 }}" data-ame-2020="{{ "data/ame2020.json" | relURL }}" data-src-2020="{{ "data/nubase2020.json" | relURL }}" data-catalogue-2020="{{ "data/nuclear-states.json" | relURL }}" data-reactions-2020="{{ "data/ame2020-reactions.json" | relURL }}?v={{ readFile "static/data/ame2020-reactions.json" | sha256 }}" data-models="{{ "data/massmodels-index.json" | relURL }}?v={{ readFile "static/data/massmodels-index.json" | sha256 }}" data-labels="{{ $t | jsonify }}">
   <h2>{{ $t.title }}</h2>
   <p class="zg-muted">{{ $t.note }} <span class="nc-count"></span></p>
+  <p class="zg-muted zg-small nc-reaction-status" data-nc-reaction-status data-ready="loading" role="status" aria-live="polite">{{ if hasPrefix site.Language.Lang "zh" }}核素图先加载基态/核态数据；AME 反应能与评价误差将随后载入（加载前的差分不代表完整评价协方差）。{{ else }}Loading nuclide masses/states first; evaluated AME reaction energies and uncertainties will follow. Recalculated quantities before hydration are not official covariance results.{{ end }}</p>
   {{ partial "zg/control-help.html" "chart" }}
   <div class="nc-bar">
     <label>{{ if hasPrefix site.Language.Lang "zh" }}核质量评价版本{{ else }}Mass / nuclear-state evaluation{{ end }} <select name="nc-edition" aria-label="AME and NUBASE evaluation edition"><option value="2026" selected>AME2026 + NUBASE2026 (default)</option><option value="2020">AME2020 + NUBASE2020 (historical)</option></select></label>
@@ -63,7 +64,8 @@
     <label>{{ $t.range_max }} <input type="number" name="nc-range-max" step="any" aria-label="{{ $t.range_max }}"></label>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-full">{{ $t.range_full }}</button>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
-    <small class="nc-range-note" role="status"></small>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-numeric" hidden>{{ $t.range_choose_numeric }}</button>
+    <small class="nc-range-note" role="status" aria-live="polite"></small>
   </div>
   <div class="nc-bar nc-classbar">
     <label class="nc-chk"><input type="checkbox" name="nc-classes"> {{ $t.cl_use }}</label>

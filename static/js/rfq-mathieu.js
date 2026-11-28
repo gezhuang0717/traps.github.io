@@ -4,6 +4,37 @@
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
   const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
   let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[],lastStageErrors=[],lastUncertainty=null;
+  let ionLookupGeneration=0;
+  const sourceLabel=root.querySelector('[data-ms-source]');
+  function editionURLs(){
+    return H.evaluationSources(field('evaluation')?.value||'2026',{
+      catalogue:root.dataset.catalogue,ame:root.dataset.ame,
+      catalogue2020:root.getAttribute?.('data-catalogue-2020'),
+      ame2020:root.getAttribute?.('data-ame-2020')
+    });
+  }
+  function sourceIsManual(){source={label:T.manual};if(sourceLabel)sourceLabel.textContent=T.manual;}
+  async function fillEvaluatedIon(){
+    const current=++ionLookupGeneration,selector=editionURLs(),species=field('species')?.value||'';
+    err.textContent=T.loading;
+    try{
+      const cat=await window.ZGPhysics.load(selector.catalogue,selector.ame);
+      if(current!==ionLookupGeneration||selector.edition!==(field('evaluation')?.value||'2026'))return;
+      if(cat.metadata.mass_edition!==selector.massEdition||cat.metadata.state_edition!==selector.stateEdition)
+        throw Error('AME/NUBASE edition mismatch');
+      const r=cat.resolve(species);
+      if(!Number.isInteger(r.q)||r.q<1||r.q>100||!(r.ionMassU>0))throw Error('charge');
+      field('mass').value=String(r.ionMassU);field('charge').value=String(r.q);
+      source={label:r.label,source:r.source,ionMassU:r.ionMassU,evaluation:selector.edition,metadata:r};
+      if(sourceLabel)sourceLabel.textContent=r.label+' · '+r.source+' · '+selector.massEdition+'/'+selector.stateEdition;
+      err.textContent='';refresh();
+    }catch(error){
+      if(current!==ionLookupGeneration)return;
+      sourceIsManual();
+      err.textContent=T.unavailable+' ('+selector.massEdition+'/'+selector.stateEdition+')';
+      refresh();
+    }
+  }
   const geoOpen={v:false};   /* the rod-geometry group starts folded and keeps the state the visitor chose */
   const defaults=Object.fromEntries([...root.querySelectorAll('[name^="ms-"]')].map(e=>[e.name,e.type==='checkbox'?e.checked:e.value]));
   const el=(tag,attrs={},txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!=null)e.textContent=txt;return e;};
@@ -306,8 +337,16 @@
   figure.addEventListener('pointermove',e=>{if(!drag)return;const m=drag.view,dq=-(e.clientX-drag.x)/drag.rect.width*m.W/m.w*(m.qmax-m.qmin),da=(e.clientY-drag.y)/drag.rect.height*m.H/m.h*(m.amax-m.amin);setView({qmin:m.qmin+dq,qmax:m.qmax+dq,amin:m.amin+da,amax:m.amax+da});});
   figure.addEventListener('pointerup',endDrag);figure.addEventListener('pointercancel',endDrag);figure.addEventListener('dblclick',resetView);
   if(window.ZGFigureStyle)styleControl=ZGFigureStyle.controls(root.querySelector('[data-ms-style]'),{lang:root.dataset.lang,prefix:'mathieu',baseline:{titleSize:20,axisSize:16,tickSize:13,legendSize:13,markerDiameter:10},onChange:queue});
-  root.addEventListener('input',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;}queue();});
-  root.addEventListener('change',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}queue();});
+  root.addEventListener('input',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.name==='ms-voltage-convention'){changeConvention(e.target.value);refresh();return;}if(['ms-mass','ms-charge','ms-species'].includes(e.target.name)){ionLookupGeneration++;sourceIsManual();}queue();});
+  root.addEventListener('change',e=>{if(e.target.closest?.('[data-rfq-extras-pane],[data-local-panel="resonance"]')||e.target.name?.startsWith('rx-'))return;e.stopPropagation();if(e.target.matches?.('[data-ms-file]'))return;if(e.target.name==='ms-voltage-convention'){if(e.target.value!==convention)changeConvention(e.target.value);refresh();return;}
+    if(e.target.name==='ms-evaluation'){
+      ++ionLookupGeneration;sourceIsManual();
+      try{editionURLs();}catch(_){err.textContent=T.unavailable;refresh();return;}
+      if(field('species')?.value?.trim()){void fillEvaluatedIon();}
+      else{err.textContent='';refresh();}
+      return;
+    }
+    queue();});
   root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)&&e.target.closest?.('[data-local-tab]'))queue();});
   const save=(blob,name)=>{if(window.zgExport?.save)zgExport.save(blob,name);else{const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
   root.addEventListener('click',async e=>{
@@ -333,9 +372,9 @@
    if(action==='voltage-mode'){field('geometry').value='linear';field('mode').value='voltage';refresh();return;}
    if(action==='stable-demo'){try{const unit=M.parameters(value('mass'),value('charge'),0,1,value('r0'),value('f'));field('geometry').value='linear';field('mode').value='voltage';field('rod-count').value='4';field('U').value='0';setPeak('main',0.4/unit.q);refresh();}catch(_){err.textContent=T.bad;}return;}
    if(action==='zoom-in'){zoom(.8);return;}if(action==='zoom-out'){zoom(1.25);return;}if(action==='reset-view'){resetView();return;}
-   if(action==='fill'){err.textContent=T.loading;try{const cat=await ZGPhysics.load(root.dataset.catalogue,root.dataset.ame),r=cat.resolve(field('species').value);if(!Number.isInteger(r.q)||r.q<1||r.q>100)throw Error('charge');field('mass').value=r.ionMassU;field('charge').value=r.q;source={label:r.label,source:r.source,ionMassU:r.ionMassU,metadata:r};root.querySelector('[data-ms-source]').textContent=r.label+' · '+r.source;refresh();}catch(_){err.textContent=T.unavailable;}return;}
+   if(action==='fill'){await fillEvaluatedIon();return;}
    if(action==='load'){root.querySelector('[data-ms-file]').click();return;}
-   if(action==='reset'){Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});restoreVoltages({voltage:{convention:'rod-peak',rod_peak_V:{}}});source={label:T.manual};root.querySelector('[data-ms-source]').textContent=T.manual;styleControl?.reset();refresh();return;}
+   if(action==='reset'){ionLookupGeneration++;Object.entries(defaults).forEach(([n,v])=>{const e=root.querySelector('[name="'+n+'"]');if(e.type==='checkbox')e.checked=v;else e.value=v;});restoreVoltages({voltage:{convention:'rod-peak',rod_peak_V:{}}});sourceIsManual();styleControl?.reset();refresh();return;}
    if(action==='save'){refresh();if(!last||styleControl?.valid&&!styleControl.valid())return;try{save(new Blob([JSON.stringify(state(),null,2)],{type:'application/json'}),'mathieu-settings.json');}catch(_){err.textContent=T.bad;}return;}
    refresh();
    const settings=()=>{try{return state();}catch(_){return null;}},log=()=>({...lastDesign,limits:lastDesign.limits.replace(', uncertainty propagation',''),q_uncertainty:lastUncertainty,display_voltage_convention:convention,stage_comparison:lastStages,stage_input_errors:[...lastStageErrors],settings:settings()});
@@ -356,11 +395,14 @@
    const applyInputs=values=>Object.entries(values).forEach(([name,v])=>{const input=field(name.slice(3));if(input.type==='checkbox')input.checked=v;else input.value=String(v);});
    try{
     if(file.size>300000)throw Error('size');const normalized=H.normalizeSettings(JSON.parse(await file.text()),defaults,T.manual);
+    ++ionLookupGeneration;
     applyInputs(normalized.inputs);restoreVoltages(normalized);inputs();
-    source=normalized.source;root.querySelector('[data-ms-source]').textContent=source.label;if(normalized.style)styleControl?.set(normalized.style);refresh();
+    source=normalized.source;if(sourceLabel)sourceLabel.textContent=source.label;
+    if(normalized.style)styleControl?.set(normalized.style);refresh();
    }catch(_){
     applyInputs(before.inputs);convention=before.convention;for(const key of Object.keys(peaks))delete peaks[key];Object.assign(peaks,before.peaks);for(const key of Object.keys(displayCache))delete displayCache[key];Object.assign(displayCache,before.displayCache);
-    source=before.source;root.querySelector('[data-ms-source]').textContent=source.label;if(before.style)styleControl?.set(before.style);refresh();err.textContent=T.badfile;
+    source=before.source;if(sourceLabel)sourceLabel.textContent=source.label;
+    if(before.style)styleControl?.set(before.style);refresh();err.textContent=T.badfile;
    }finally{e.target.value='';}
   });
   {const n=U?.notesBlock('mathieu');if(n)figure.after(n);const slot=root.querySelector('[data-ms-design-notes]'),dn=U?.notesBlock('rfq-design');if(slot&&dn)slot.append(dn);}

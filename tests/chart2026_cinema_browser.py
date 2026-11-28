@@ -143,7 +143,13 @@ with sync_playwright() as p:
     rp.uncheck()
     # Numerical-class checkbox must enable real controls in numeric color mode.
     colour=chart.locator("[name=nc-colour]")
-    colour.select_option("me")
+    # Default 'Decay mode' is categorical: numerical min/max cannot apply.
+    assert chart.locator("[name=nc-range-manual]").is_disabled()
+    choose_numeric=chart.locator('[data-nc="range-numeric"]')
+    assert choose_numeric.is_visible()
+    choose_numeric.click()
+    assert colour.input_value()=="me"
+    assert chart.locator("[name=nc-range-manual]").is_enabled()
     cl=chart.locator("[name=nc-classes]");cl.check()
     assert cl.is_checked()
     cls=chart.locator("[name=nc-class-n]")
@@ -154,11 +160,39 @@ with sync_playwright() as p:
     cl.uncheck();assert cls.is_disabled()
     # Manual color range must be genuinely editable when enabled.
     rangebox=chart.locator("[name=nc-range-manual]")
+    canvas=chart.locator("canvas.nc-canvas")
+    pixel_signature=lambda: canvas.evaluate("""el=>{
+      const d=el.getContext('2d').getImageData(0,0,el.width,el.height).data;
+      let h=2166136261;
+      for(let i=0;i<d.length;i+=43)h=Math.imul(h^d[i],16777619);
+      return h>>>0;
+    }""")
+    baseline_pixels=pixel_signature()
     rangebox.check();assert rangebox.is_checked()
+    assert chart.locator(".nc-range-note").get_attribute("data-range-state")=="manual"
     chart.locator("[name=nc-range-min]").fill("-70")
     chart.locator("[name=nc-range-max]").fill("50")
     chart.locator("[name=nc-range-min]").dispatch_event("input")
     assert chart.locator("[name=nc-range-min]").input_value()=="-70"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-unit")=="MeV"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-lo")=="-70"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-hi")=="50"
+    assert pixel_signature()!=baseline_pixels,"Manual range changed fields but NOT rendered nuclear-cell colours"
+    # Invalid input must not recolour the existing valid image.
+    valid_pixels=pixel_signature()
+    chart.locator("[name=nc-range-max]").fill("-100")
+    assert chart.locator("[name=nc-range-max]").get_attribute("aria-invalid")=="true"
+    assert pixel_signature()==valid_pixels
+    chart.locator("[name=nc-range-max]").fill("50")
+    assert chart.locator("[name=nc-range-max]").get_attribute("aria-invalid") is None
+    # Switching numeric quantities and back must not erase a visitor's range.
+    colour.select_option("sn")
+    assert not rangebox.is_checked()
+    colour.select_option("me")
+    assert rangebox.is_checked()
+    assert chart.locator("[name=nc-range-min]").input_value()=="-70"
+    assert chart.locator("[name=nc-range-max]").input_value()=="50"
+    assert pixel_signature()==valid_pixels
     rangebox.uncheck();assert not rangebox.is_checked()
     chart.locator("[name=nc-isomark]").check()
     assert chart.locator("[name=nc-isomark]").is_checked()
@@ -181,16 +215,51 @@ with sync_playwright() as p:
     page.wait_for_url(lambda u:"evaluation=2020" not in u,timeout=25000)
     chart=await_chart(page,3700)
     assert chart.get_attribute("data-active-evaluation")=="2026"
-    # Synchronized RFQ real animations: same ion samples, 2D and 3D.
+    # The RFQ uses the same 2026-default evaluated mass *and nuclear state*
+    # source as this chart. Historical 2020 selection must refresh the actual
+    # species mass, not merely rename a label or mix 2020 isomers with 2026 ME.
     root=page.locator("#rfq-workbench")
+    evaluation=root.locator('[name="ms-evaluation"]')
+    assert evaluation.input_value()=="2026"
+    ion=root.locator('[name="ms-species"]')
+    ion.fill("133Cs+")
+    root.locator('[data-ms-action="fill"]').click()
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2026/NUBASE2026')",
+        timeout=25000)
+    mass26=float(root.locator('[name="ms-mass"]').input_value())
+    assert 132 < mass26 < 134
+    assert "AME2020" not in root.locator('[data-ms-source]').inner_text()
+    evaluation.select_option("2020")
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2020/NUBASE2020')",
+        timeout=25000)
+    mass20=float(root.locator('[name="ms-mass"]').input_value())
+    assert 132 < mass20 < 134
+    evaluation.select_option("2026")
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2026/NUBASE2026')",
+        timeout=25000)
+    assert abs(float(root.locator('[name="ms-mass"]').input_value())-mass26)<1e-12
+    assert evaluation.input_value()=="2026"
+    snapshot(page,"rfq-ame2026-versus-historical-mass.png")
+    # Synchronized RFQ real animations: same ion samples, 2D and 3D.
     root.wait_for(state="visible",timeout=20000)
     cinema_button=root.locator('[data-local-tab="cinema"]')
     cinema_button.scroll_into_view_if_needed()
     cinema_button.click()
     cinema=root.locator('[data-local-panel="cinema"]')
     cinema.wait_for(state="visible",timeout=12000)
+    # A preset updates shared RFQ fields and schedules a fresh cinema render.
+    # Waiting only for iteration > 0 can leave the test holding a controller
+    # that is about to be destroyed and replaced by the scheduled render.
+    iteration_before=int(cinema.get_attribute("data-cinema-iteration") or "0")
     cinema.locator('[data-rfq-cinema-preset="flight"]').click()
-    page.wait_for_function("()=>Number(document.querySelector('[data-rfq-cinema]').dataset.cinemaIteration||0)>0",timeout=25000)
+    page.wait_for_function(
+        "(previous)=>Number(document.querySelector('[data-rfq-cinema]')?.dataset.cinemaIteration||0)>previous",
+        arg=iteration_before,timeout=25000)
+    page.wait_for_timeout(300)  # beyond the 170 ms coalescing debounce
+    assert int(cinema.get_attribute('data-cinema-iteration'))>iteration_before
     left=cinema.locator('[data-rfq-cinema-2d] .rfq-motion-stage svg')
     right=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-stage svg')
     assert left.count()==1 and right.count()==1
@@ -209,13 +278,27 @@ with sync_playwright() as p:
     assert not orbit.is_checked()
     orbit.check()
     initial_yaw=camera_yaw.input_value()
+    assert right.get_attribute('data-camera-orbit-active')=='true'
     assert "ideal" in cinema.locator('[data-rfq-cinema-warning]').inner_text().lower()
     snapshot(page,"rfq-2d3d-cinema-desktop.png")
     timeline=cinema.locator('[data-rfq-cinema-player]')
+    seek=timeline.locator('[data-playback-seek]')
+    # Deterministic seek tests camera–frame coupling independent of CPU load.
+    seek.evaluate("""el=>{el.value='250';el.dispatchEvent(new Event('input',{bubbles:true}));}""")
+    page.wait_for_function(
+        "()=>Math.abs(Number(document.querySelector('[data-rfq-cinema-3d] [data-motion-projection]')?.getAttribute('data-camera-azimuth-deg'))+35)>40",
+        timeout=12000)
+    assert orbit.is_checked()
+    yaw_after_seek=float(right.get_attribute('data-camera-azimuth-deg'))
+    assert abs(yaw_after_seek-float(initial_yaw))>40,{'initial':initial_yaw,'after':yaw_after_seek}
+    assert abs(float(timeline.locator('[data-rfq-playback]').get_attribute('data-fraction'))-.25)<.01
+    # The real timer must subsequently advance both ion trajectory and camera,
+    # not simply update a seek slider without changing the spatial SVG.
     play=timeline.locator('[data-playback-action="play"]');play.click()
-    page.wait_for_timeout(1050)
-    assert float(timeline.locator('[data-rfq-playback]').get_attribute("data-fraction"))>0
-    assert camera_yaw.input_value()!=initial_yaw,'The 3D camera did not orbit during playback'
+    page.wait_for_function(
+        "(previous)=>Number(document.querySelector('[data-rfq-playback]')?.dataset.fraction||0)>.275&&Math.abs(Number(document.querySelector('[data-rfq-cinema-3d] [data-motion-projection]')?.getAttribute('data-camera-azimuth-deg'))-previous)>2",
+        arg=yaw_after_seek,timeout=18000)
+    assert orbit.is_checked(),"The camera-orbit option must persist during playback"
     play.click()
     orbit.uncheck()
     cinema.locator('[data-rfq-cinema-left-view]').select_option('phase')

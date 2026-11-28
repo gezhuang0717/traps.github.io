@@ -16,12 +16,18 @@ on:
       - 'static/css/rfq-*'
       - 'tests/ame2026_chart.test.cjs'
       - 'tests/chart2026_cinema_browser.py'
+      - 'tests/chart_progressive_browser.py'
+      - 'tests/public_sections_browser.py'
+      - 'tests/games_2026_browser.py'
       - 'tests/databases_2026_browser.py'
       - 'static/js/databases.js'
       - 'layouts/_shortcodes/databases.html'
       - 'data/databases.yaml'
       - '.github/workflows/chart2026-cinema-e2e.yml'
   pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
@@ -73,8 +79,17 @@ jobs:
           for n in $(seq 1 30); do curl -fsS http://127.0.0.1:8770/lab/ >/dev/null && break; sleep 1; done
       - name: Real Chromium checkboxes, actual 2026/2020 dataset switch, 2D/3D motion and mobile
         run: python tests/chart2026_cinema_browser.py
+      - name: Prove AME2026 chart loads before delayed evaluated rct1/rct2, then hydrates
+        run: python tests/chart_progressive_browser.py
       - name: Databases lookup current/archival evaluation and other tab controls
         run: python tests/databases_2026_browser.py
+      - name: Check Games 2026/2020 actual data switch, quiz scoring and mobile interaction
+        env:
+          GAMES_E2E_BASE: http://127.0.0.1:8770/
+          GAMES_E2E_ARTIFACTS: chart-2026-browser-evidence/games
+        run: python tests/games_2026_browser.py
+      - name: Audit all twelve public tabs, publications search, language and mobile overflow
+        run: python tests/public_sections_browser.py
       - name: Full research-site Python, JS, publication and all-theme validation
         run: |
           set -euo pipefail

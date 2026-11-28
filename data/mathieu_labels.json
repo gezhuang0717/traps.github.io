@@ -191,7 +191,9 @@
     "rod_source_note": "Rod-ratio reference: 1.14510807 is this site’s free-space 2D numerical result for four rods. The rounded A₆-zero value is 1.14511 in the primary literature; cancelling one harmonic does not guarantee the best device performance.",
     "k_rod_count": "Rod count N",
     "geometry_circle": "Inscribed circle",
-    "geometry_dimension_note": "N = 2n counts the rods and has no length unit. The inscribed radius r₀ runs from the beam axis to the inner rod surface; 2r₀ is the diameter of the dashed inscribed circle. Lengths are in millimetres (mm)."
+    "geometry_dimension_note": "N = 2n counts the rods and has no length unit. The inscribed radius r₀ runs from the beam axis to the inner rod surface; 2r₀ is the diameter of the dashed inscribed circle. Lengths are in millimetres (mm).",
+    "evaluation_title": "Evaluated ion-mass source",
+    "evaluation_note": "The selected AME/NUBASE edition controls the Fill ion mass lookup. Published ground-state masses and isomer assignments come from the same edition; a manual mass stays manually entered. Ionization/binding corrections are not included in the simple electron-mass conversion."
   },
   "zh": {
     "title": "Mathieu 稳定性探索",
@@ -385,7 +387,9 @@
     "rod_source_note": "杆径比依据：1.14510807 为本站四杆自由空间二维模型的数值结果；原始文献给出的 A₆ 零点约为 1.14511。消除单个谐波不保证器件性能最优。",
     "k_rod_count": "电极杆数 N",
     "geometry_circle": "内切圆",
-    "geometry_dimension_note": "N = 2n 表示电极杆数，没有长度单位。内切半径 r₀ 从束轴量到杆的内表面；2r₀ 是虚线内切圆的直径。长度均以毫米（mm）表示。"
+    "geometry_dimension_note": "N = 2n 表示电极杆数，没有长度单位。内切半径 r₀ 从束轴量到杆的内表面；2r₀ 是虚线内切圆的直径。长度均以毫米（mm）表示。",
+    "evaluation_title": "离子质量评价数据版本",
+    "evaluation_note": "“填入离子质量”使用所选同一版本的 AME/NUBASE，基态质量与异能态归属不可混用。手动质量仍是手动输入；简化电子质量换算不包括电离能与束缚能修正。"
   },
   "fi": {
     "title": "Mathieu-vakauden tutkiminen",
@@ -579,7 +583,9 @@
     "rod_source_note": "Sauvasuhde 1,14510807 on tämän sivuston nelisauvamallin kaksiulotteinen vapaan tilan numeerinen tulos. Alkuperäisjulkaisun pyöristetty A₆-nollakohta on 1,14511. Yhden harmonisen poistaminen ei takaa laitteen parasta suorituskykyä.",
     "k_rod_count": "Sauvojen määrä N",
     "geometry_circle": "Sisään piirretty ympyrä",
-    "geometry_dimension_note": "N = 2n on sauvojen lukumäärä, eikä sillä ole pituusyksikköä. Sisäsäde r₀ ulottuu sädeakselilta sauvan sisäpintaan; 2r₀ on katkoviivalla merkityn sisään piirretyn ympyrän halkaisija. Pituudet ovat millimetreinä (mm)."
+    "geometry_dimension_note": "N = 2n on sauvojen lukumäärä, eikä sillä ole pituusyksikköä. Sisäsäde r₀ ulottuu sädeakselilta sauvan sisäpintaan; 2r₀ on katkoviivalla merkityn sisään piirretyn ympyrän halkaisija. Pituudet ovat millimetreinä (mm).",
+    "evaluation_title": "Ionimassan arviointiversio",
+    "evaluation_note": "Ionimassan haku käyttää valittua AME/NUBASE-versiota. Perustilan massat ja isomeerit tulevat samasta arviosta. Käsin syötetty massa pysyy käsin syötettynä; ionisaatioenergiaa ei huomioida."
   },
   "de": {
     "title": "Mathieu-Stabilität erkunden",
@@ -773,7 +779,9 @@
     "rod_source_note": "Stabradius: 1,14510807 ist das numerische Ergebnis dieses zweidimensionalen Freiraummodells für vier Stäbe. Die Primärliteratur gibt gerundet 1,14511 für A₆ = 0 an. Ein unterdrückter Oberwellenanteil garantiert keine optimale Geräteleistung.",
     "k_rod_count": "Stabzahl N",
     "geometry_circle": "Einbeschriebener Kreis",
-    "geometry_dimension_note": "N = 2n zählt die Stäbe und hat keine Längeneinheit. Der Innenradius r₀ reicht von der Strahlachse zur inneren Staboberfläche; 2r₀ ist der Durchmesser des gestrichelten einbeschriebenen Kreises. Längen sind in Millimetern (mm) angegeben."
+    "geometry_dimension_note": "N = 2n zählt die Stäbe und hat keine Längeneinheit. Der Innenradius r₀ reicht von der Strahlachse zur inneren Staboberfläche; 2r₀ ist der Durchmesser des gestrichelten einbeschriebenen Kreises. Längen sind in Millimetern (mm) angegeben.",
+    "evaluation_title": "Ausgabe der evaluierten Ionenmassen",
+    "evaluation_note": "Die Ionenmassensuche verwendet die gewählte AME/NUBASE-Ausgabe; Grundzustandsmassen und Isomerzuordnungen dürfen nicht gemischt werden. Manuelle Eingaben bleiben manuell; Ionisations- und Bindungsenergien fehlen im vereinfachten Elektronenmassenmodell."
   },
   "ja": {
     "title": "Mathieu 安定性エクスプローラー",
@@ -967,7 +975,9 @@
     "rod_source_note": "ロッド径比 1.14510807 は本サイトの四ロッド自由空間二次元モデルの数値結果です。一次文献の丸めた A₆ 零点は 1.14511 です。一つの高調波の消去が装置性能の最適化を保証するわけではありません。",
     "k_rod_count": "ロッド数 N",
     "geometry_circle": "内接円",
-    "geometry_dimension_note": "N = 2n はロッドの本数であり、長さの単位はありません。内接半径 r₀ はビーム軸からロッド内側表面までの距離、2r₀ は破線で示す内接円の直径です。長さの単位はミリメートル（mm）です。"
+    "geometry_dimension_note": "N = 2n はロッドの本数であり、長さの単位はありません。内接半径 r₀ はビーム軸からロッド内側表面までの距離、2r₀ は破線で示す内接円の直径です。長さの単位はミリメートル（mm）です。",
+    "evaluation_title": "評価イオン質量データの版",
+    "evaluation_note": "イオン質量を入力する際には選択した同一 AME/NUBASE 版の基底状態質量と核異性体情報を使います。手入力の質量は評価値として扱いません。簡略的な電子質量補正にはイオン化・結合エネルギーは含みません。"
   },
   "fr": {
     "title": "Explorer la stabilité de Mathieu",
@@ -1161,6 +1171,8 @@
     "rod_source_note": "Le rapport 1,14510807 est le résultat numérique de ce modèle 2D à quatre barreaux en espace libre. La littérature primaire donne 1,14511 après arrondi pour A₆ = 0. Annuler une seule harmonique ne garantit pas les meilleures performances du dispositif.",
     "k_rod_count": "Nombre de barreaux N",
     "geometry_circle": "Cercle inscrit",
-    "geometry_dimension_note": "N = 2n compte les barreaux et ne possède pas d’unité de longueur. Le rayon inscrit r₀ va de l’axe du faisceau à la surface interne d’un barreau ; 2r₀ est le diamètre du cercle inscrit en pointillés. Les longueurs sont en millimètres (mm)."
+    "geometry_dimension_note": "N = 2n compte les barreaux et ne possède pas d’unité de longueur. Le rayon inscrit r₀ va de l’axe du faisceau à la surface interne d’un barreau ; 2r₀ est le diamètre du cercle inscrit en pointillés. Les longueurs sont en millimètres (mm).",
+    "evaluation_title": "Édition des masses ioniques évaluées",
+    "evaluation_note": "Le remplissage de la masse utilise l’édition AME/NUBASE sélectionnée : masses fondamentales et états isomères de la même évaluation. Une masse saisie à la main reste manuelle. Le modèle électronique simple omet les énergies d’ionisation et de liaison."
   }
 }

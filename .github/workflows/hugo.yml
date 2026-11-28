@@ -24,6 +24,9 @@ permissions:
   contents: read
 concurrency:
   group: website-${{ github.ref }}
+  # A public Daily feed write and Pages publish must not be preempted. Keep
+  # the original safety invariant tested by tests/test_workflow_concurrency.py.
+  # PR-specific Chromium and fast-science workflows cancel obsolete runs.
   cancel-in-progress: false
   queue: max
 env:
