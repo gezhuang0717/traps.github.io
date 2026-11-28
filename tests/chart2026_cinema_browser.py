@@ -143,7 +143,13 @@ with sync_playwright() as p:
     rp.uncheck()
     # Numerical-class checkbox must enable real controls in numeric color mode.
     colour=chart.locator("[name=nc-colour]")
-    colour.select_option("me")
+    # Default 'Decay mode' is categorical: numerical min/max cannot apply.
+    assert chart.locator("[name=nc-range-manual]").is_disabled()
+    choose_numeric=chart.locator('[data-nc="range-numeric"]')
+    assert choose_numeric.is_visible()
+    choose_numeric.click()
+    assert colour.input_value()=="me"
+    assert chart.locator("[name=nc-range-manual]").is_enabled()
     cl=chart.locator("[name=nc-classes]");cl.check()
     assert cl.is_checked()
     cls=chart.locator("[name=nc-class-n]")
@@ -154,11 +160,39 @@ with sync_playwright() as p:
     cl.uncheck();assert cls.is_disabled()
     # Manual color range must be genuinely editable when enabled.
     rangebox=chart.locator("[name=nc-range-manual]")
+    canvas=chart.locator("canvas.nc-canvas")
+    pixel_signature=lambda: canvas.evaluate("""el=>{
+      const d=el.getContext('2d').getImageData(0,0,el.width,el.height).data;
+      let h=2166136261;
+      for(let i=0;i<d.length;i+=43)h=Math.imul(h^d[i],16777619);
+      return h>>>0;
+    }""")
+    baseline_pixels=pixel_signature()
     rangebox.check();assert rangebox.is_checked()
+    assert chart.locator(".nc-range-note").get_attribute("data-range-state")=="manual"
     chart.locator("[name=nc-range-min]").fill("-70")
     chart.locator("[name=nc-range-max]").fill("50")
     chart.locator("[name=nc-range-min]").dispatch_event("input")
     assert chart.locator("[name=nc-range-min]").input_value()=="-70"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-unit")=="MeV"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-lo")=="-70"
+    assert chart.locator(".nc-range-note").get_attribute("data-range-hi")=="50"
+    assert pixel_signature()!=baseline_pixels,"Manual range changed fields but NOT rendered nuclear-cell colours"
+    # Invalid input must not recolour the existing valid image.
+    valid_pixels=pixel_signature()
+    chart.locator("[name=nc-range-max]").fill("-100")
+    assert chart.locator("[name=nc-range-max]").get_attribute("aria-invalid")=="true"
+    assert pixel_signature()==valid_pixels
+    chart.locator("[name=nc-range-max]").fill("50")
+    assert chart.locator("[name=nc-range-max]").get_attribute("aria-invalid") is None
+    # Switching numeric quantities and back must not erase a visitor's range.
+    colour.select_option("sn")
+    assert not rangebox.is_checked()
+    colour.select_option("me")
+    assert rangebox.is_checked()
+    assert chart.locator("[name=nc-range-min]").input_value()=="-70"
+    assert chart.locator("[name=nc-range-max]").input_value()=="50"
+    assert pixel_signature()==valid_pixels
     rangebox.uncheck();assert not rangebox.is_checked()
     chart.locator("[name=nc-isomark]").check()
     assert chart.locator("[name=nc-isomark]").is_checked()
