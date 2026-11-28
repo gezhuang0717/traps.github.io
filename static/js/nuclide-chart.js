@@ -601,7 +601,10 @@
       ja:{published:'AME2020 公表質量と反応エネルギー · 基底状態',publishedNote:'AME2020 の公表値と評価不確かさは質量相関を含みます。新しい入力と模型の差分量は別に再計算し、未知の模型不確かさは未知のままです。Q 値は記載した反応経路に対応し、観測分岐比や電子殻固有の中微子エネルギーを表しません。',unavailable:'AME2020 公表反応表を読み込めません。再計算値は独立な質量不確かさを用い、AME の評価反応不確かさとは異なります。',referenceValue:'値 ± 不確かさ',notTabulated:'— = 公表表に値なし。各 # は隣接する値または不確かさに対応します。'}
     };
     const k=String(language).toLowerCase().split('-')[0];
-    return {...(labels[k]||labels.en),...(referenceLabels[k]||referenceLabels.en)};
+    // The card's source is the selected evaluation, not the historical 2020 default.
+    // Keep each language's original wording and replace only the edition tokens.
+    return Object.fromEntries(Object.entries({...labels[k]||labels.en,...referenceLabels[k]||referenceLabels.en})
+      .map(([name,value])=>[name,typeof value==='string'?editionText(value):value]));
   }
   function referenceMassText(value,unknown='?') {
     if(!value||!Number.isFinite(value.v))return '—';
@@ -1464,7 +1467,56 @@
     fileI.onchange = async () => { const f = fileI.files[0]; if (!f) return; try { if (f.size > 5000000) throw Error("file larger than 5 MB"); ta.value = await f.text(); apply(); } catch (e) { status.textContent = (T.error_prefix || "Check input: ") + e.message; } finally { fileI.value = ""; } };
   }
   if (msel) msel.onchange = () => setSource(msel.value);
-  if (ovl) ovl.addEventListener("change", e => { if (e.target.dataset.path && e.target.checked && !Object.keys(PATHS).length) loadIndex().then(draw).catch(modelFailure); draw(); });
+  /* Chart overlays deliberately distinguish checkboxes that alter a visible
+     contour from a selected overlay with no evaluated crossing points.
+     Without this feedback, valid zero-point drip lines look like broken UI. */
+  const ovlFeedback=root.querySelector('[data-nc-overlay-feedback]');
+  const reportOverlays=()=>{
+    if(!ovl||!ovlFeedback)return;
+    const active=[...ovl.querySelectorAll('input[data-drip]:checked,input[data-opt]:checked,input[data-path]:checked')];
+    const zh=document.documentElement.lang.startsWith('zh');
+    const total=active.length,parts=[];
+    for(const cb of active){
+      if(cb.dataset.opt){
+        parts.push(cb.dataset.opt==='nz'?'N = Z':zh?'幻数线':'Magic-number lines');
+      }else if(cb.dataset.drip){
+        const name='S'+(cb.dataset.drip.startsWith('s2')?'₂':'')+(cb.dataset.drip.endsWith('n')?'ₙ':'ₚ');
+        const n=rows.length?dripLine(cb.dataset.drip).length:null;
+        parts.push(name+' = 0: '+(n==null?'…':String(n))+
+          (n===0?(zh?'（没有可确认的零交叉）':' (no confirmed crossing)'):''));
+      }else if(cb.dataset.path){
+        const name=cb.dataset.path==='r'?'r':'rp',record=PATHS[name];
+        parts.push(name+'-path: '+(record?.pts?.length??(zh?'加载中':'loading'))+
+          (zh?' 个参考点':' reference points'));
+      }
+    }
+    ovlFeedback.textContent=(zh?'叠加层':'Overlays')+': '+total+' · '+
+      (parts.length?parts.join(' · '):(zh?'全部关闭':'all off'))+
+      (zh?'。仅画出已具备数据的线；零交叉未必存在。':
+        '. A selected contour may have no evaluated crossing points.');
+    ovlFeedback.dataset.count=String(total);
+    ovlFeedback.dataset.ready=rows.length?'true':'false';
+  };
+  if(ovl){
+    ovl.addEventListener('change',e=>{
+      const cb=e.target.closest('input[data-drip],input[data-opt],input[data-path]');
+      if(!cb)return;
+      if(cb.dataset.path&&cb.checked&&!Object.keys(PATHS).length){
+        loadIndex().then(()=>{draw();reportOverlays();}).catch(error=>{
+          modelFailure();if(ovlFeedback)ovlFeedback.textContent=(document.documentElement.lang.startsWith('zh')?'无法加载路径数据':'Reference paths unavailable')+': '+error.message;
+        });
+      }
+      draw();reportOverlays();
+    });
+    const setAll=(checked,defaultOnly=false)=>{
+      ovl.querySelectorAll('input[type=checkbox]').forEach(box=>{
+        box.checked=defaultOnly?box.dataset.opt==='nz':checked;
+      });
+      draw();reportOverlays();
+    };
+    root.querySelector('[data-nc-overlay-clear]')?.addEventListener('click',()=>setAll(false));
+    root.querySelector('[data-nc-overlay-default]')?.addEventListener('click',()=>setAll(false,true));
+  }
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");
   fsel.onchange = () => { filt = fsel.value; drawLegend(); draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
   search.addEventListener("keydown", e => {
@@ -1500,8 +1552,8 @@
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;
     measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{inputTable=table;memo.clear();plotChain();draw();if(pin)showCard(pin);impactRebuild();});
     inputTable=measured.table();
-    loadIndex().catch(modelFailure);
-    buildPT(); drawLegend(); fit(); fsel.onchange();
+    loadIndex().then(reportOverlays).catch(error=>{modelFailure();reportOverlays();});
+    buildPT(); drawLegend(); fit(); fsel.onchange(); reportOverlays();
     function openBookmark(){
       const params=new URLSearchParams(location.search),name=params.get('nuclide');if(!name)return false;
       const state=catalog.lookupState(name,params.get('state')||0),r=state&&M.get(key(state.Z,state.N));
