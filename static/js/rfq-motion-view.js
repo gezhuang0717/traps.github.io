@@ -12,6 +12,7 @@
     integrated:'Integrated trajectory', mean:'One-RF-period mean', residual:'RF-period residual',
     current:'Ion position', radius:'Circular aperture proxy', cycles:'RF cycles', position:'Position (mm)',
     yaw:'Camera azimuth', pitch:'Camera elevation', reset:'Reset camera', meanToggle:'Show RF-period mean',
+    perspective:'Perspective depth', turntable:'Orbit camera during playback',
     rotate:'Drag to rotate. Arrow keys rotate; R resets. Orthographic projection; all coordinates are in mm.',
     model:'Ideal four-rod field; axial free drift z = z₀ + v_z t. The cylinder marks the circular aperture proxy.',
     filterNote:'The mean is a centered one-RF-period filter; incomplete edge windows are omitted. It is not an exact Floquet decomposition.',
@@ -31,6 +32,7 @@
     spectrum:'轨迹频谱', integrated:'积分轨迹', mean:'一个射频周期均值', residual:'射频周期残差',
     current:'离子位置', radius:'圆形孔径近似', cycles:'射频周期数', position:'位置（mm）',
     yaw:'相机方位角', pitch:'相机仰角', reset:'重置视角', meanToggle:'显示射频周期均值',
+    perspective:'透视深度', turntable:'播放时自动旋转相机',
     rotate:'拖动旋转；方向键旋转；R 重置。采用正交投影，所有空间坐标均以 mm 表示。',
     model:'理想四杆电场；轴向自由漂移 z = z₀ + v_z t。圆柱表示圆形孔径近似。',
     filterNote:'采用居中的一个射频周期滤波；不完整的边缘窗口省略。这不是严格的 Floquet 分解。',
@@ -89,12 +91,18 @@
     const stage=make('div','rfq-motion-stage');stage.dataset.motionView=view;stage.tabIndex=0;
     stage.setAttribute('role','group');stage.setAttribute('aria-label',t[view]||t.time);
     const camera=make('div','rfq-motion-camera');camera.hidden=view!=='spatial';
-    let yaw=-35,pitch=25,fraction=1,currentSVG=null;
+    let yaw=-35,pitch=25,fraction=1,currentSVG=null,orbitBase=-35;
     const cameraInput=(label,min,max,value)=>{const box=make('label','',label),slider=make('input');slider.type='range';slider.min=min;slider.max=max;slider.value=value;slider.step=1;slider.setAttribute('aria-label',label);box.append(slider);camera.append(box);return slider;};
     const yawInput=cameraInput(t.yaw,-180,180,yaw),pitchInput=cameraInput(t.pitch,-80,80,pitch);
     const reset=make('button','zg-btn zg-btn-ghost',t.reset);reset.type='button';camera.append(reset);
     const toggleLabel=make('label','rfq-playback-check'),meanToggle=make('input');meanToggle.type='checkbox';meanToggle.checked=true;
     toggleLabel.append(meanToggle,document.createTextNode(t.meanToggle));camera.append(toggleLabel);
+    const perspectiveLabel=make('label','rfq-playback-check'),perspectiveToggle=make('input');
+    perspectiveToggle.type='checkbox';perspectiveToggle.dataset.motionProjectionToggle='';
+    perspectiveLabel.append(perspectiveToggle,document.createTextNode(t.perspective));camera.append(perspectiveLabel);
+    const orbitLabel=make('label','rfq-playback-check'),orbitToggle=make('input');
+    orbitToggle.type='checkbox';orbitToggle.dataset.motionCameraOrbit='';
+    orbitLabel.append(orbitToggle,document.createTextNode(t.turntable));camera.append(orbitLabel);
     const help=make('p','zg-muted zg-small',view==='spatial'?t.rotate:t.presetNote);
     const slot=make('div');slot.dataset.motionPlayback='';
     block.append(tools,note,camera,stage,help,slot);chart.replaceChildren(block);
@@ -113,17 +121,25 @@
       const legendLines=[t.integrated,t.mean,t.radius].map(x=>C.wrap(x,w-70,12)),legendHeight=legendLines.reduce((a,x)=>a+x.length*17+8,0);
       const h=footer+footerLines.length*17+legendHeight+18;
       const svg=element('svg',{xmlns:NS,viewBox:'0 0 '+w+' '+h,width:w,height:h,role:'img','aria-label':t.spatial,
-        style:'display:block;background:white;font-family:Arial,\"Noto Sans\",sans-serif','data-motion-projection':'orthographic'});
+        style:'display:block;background:white;font-family:Arial,\"Noto Sans\",sans-serif','data-motion-projection':perspectiveToggle.checked?'perspective':'orthographic'});
       svg.append(element('rect',{width:w,height:h,fill:'#ffffff'}));
       const text=(lines,x,y,size,attrs={})=>{const n=element('text',{x,y,'font-size':size,fill:'#243b56',...attrs});lines.forEach((s,i)=>n.append(element('tspan',{x,dy:i?size+4:0},s)));return n;};
       svg.append(text(titleLines,18,22,narrow?16:20,{'font-weight':600,'data-chart-label':'title'}));
       let zmin=Math.min(...raw.map(r=>r.z_mm)),zmax=Math.max(...raw.map(r=>r.z_mm));
       if(zmax-zmin<2*r0){const z=(zmin+zmax)/2;zmin=z-r0;zmax=z+r0;}
       const zmid=(zmin+zmax)/2,bounds=[];
-      for(const x of [-1.3*r0,1.3*r0])for(const y of [-1.3*r0,1.3*r0])for(const z of [zmin,zmax])bounds.push(project([x,y,z],yaw,pitch,zmid));
+      const cameraDistance=Math.max(6*r0,2.5*(zmax-zmin),1);
+      const renderPoint=p=>{
+        const [u,v,depth]=project(p,yaw,pitch,zmid);
+        if(!perspectiveToggle.checked)return[u,v];
+        // Pure visualization projection, not a 3-D electrode-field solution.
+        const magnification=cameraDistance/Math.max(cameraDistance*.2,cameraDistance-depth);
+        return[u*magnification,v*magnification];
+      };
+      for(const x of [-1.3*r0,1.3*r0])for(const y of [-1.3*r0,1.3*r0])for(const z of [zmin,zmax])bounds.push(renderPoint([x,y,z]));
       const loX=Math.min(...bounds.map(p=>p[0])),hiX=Math.max(...bounds.map(p=>p[0])),loY=Math.min(...bounds.map(p=>p[1])),hiY=Math.max(...bounds.map(p=>p[1]));
       const scale=Math.min((w-64)/(hiX-loX),(height-58)/(hiY-loY)),cx=w/2,cy=top+height/2;
-      const xy=p=>{const v=project(p,yaw,pitch,zmid);return [cx+(v[0]-(loX+hiX)/2)*scale,cy-(v[1]-(loY+hiY)/2)*scale];};
+      const xy=p=>{const v=renderPoint(p);return [cx+(v[0]-(loX+hiX)/2)*scale,cy-(v[1]-(loY+hiY)/2)*scale];};
       const path=(points,color,width=1,dash=null)=>{const n=element('polyline',{points:points.map(p=>xy(p).map(x=>x.toFixed(3)).join(',')).join(' '),fill:'none',stroke:color,'stroke-width':width,'stroke-linecap':'round','stroke-linejoin':'round'});if(dash)n.setAttribute('stroke-dasharray',dash);svg.append(n);return n;};
       svg.append(element('rect',{x:12,y:top+6,width:w-24,height:height-12,rx:8,fill:'#f3f8fc',stroke:'#dbe7f0'}));
       for(const z of [zmin,(zmin+zmax)/2,zmax])path(Array.from({length:97},(_,i)=>[r0*Math.cos(i*Math.PI/48),r0*Math.sin(i*Math.PI/48),z]),'#b0c4d6',1,'4 4');
@@ -143,6 +159,10 @@
     }
     function frame(f) {
       fraction=f;
+      if(view==='spatial'&&orbitToggle.checked){
+        yaw=((orbitBase+360*f+180)%360+360)%360-180;
+        yawInput.value=String(Math.round(yaw));
+      }
       const count=Math.max(1,Math.min(raw.length,1+Math.round(f*(raw.length-1)))),seen=raw.slice(0,count),last=seen.at(-1);
       const width=Math.max(200,stage.clientWidth||chart.clientWidth||800),options={width};
       let svg,title=t[view]||t.time,series=[],xlabel=t.cycles,ylabel=t.position;
@@ -195,11 +215,16 @@
       }
       currentSVG=svg;stage.replaceChildren(svg);return svg;
     }
-    const move=()=>{yaw=Number(yawInput.value);pitch=Number(pitchInput.value);frame(fraction);};
-    yawInput.addEventListener('input',move);pitchInput.addEventListener('input',move);meanToggle.addEventListener('change',()=>frame(fraction));
-    const resetCamera=()=>{yaw=-35;pitch=25;yawInput.value=yaw;pitchInput.value=pitch;frame(fraction);};reset.addEventListener('click',resetCamera);
+    const move=()=>{orbitToggle.checked=false;yaw=Number(yawInput.value);pitch=Number(pitchInput.value);frame(fraction);};
+    yawInput.addEventListener('input',move);pitchInput.addEventListener('input',move);
+    meanToggle.addEventListener('change',()=>frame(fraction));
+    perspectiveToggle.addEventListener('change',()=>frame(fraction));
+    orbitToggle.addEventListener('change',()=>{
+      orbitBase=yaw-360*fraction;frame(fraction);
+    });
+    const resetCamera=()=>{orbitToggle.checked=false;orbitBase=-35;yaw=-35;pitch=25;yawInput.value=yaw;pitchInput.value=pitch;frame(fraction);};reset.addEventListener('click',resetCamera);
     let pointer=null;
-    stage.addEventListener('pointerdown',e=>{if(view!=='spatial')return;pointer={x:e.clientX,y:e.clientY,yaw,pitch};stage.setPointerCapture(e.pointerId);});
+    stage.addEventListener('pointerdown',e=>{if(view!=='spatial')return;orbitToggle.checked=false;pointer={x:e.clientX,y:e.clientY,yaw,pitch};stage.setPointerCapture(e.pointerId);});
     stage.addEventListener('pointermove',e=>{if(!pointer)return;yaw=Math.max(-180,Math.min(180,pointer.yaw+(e.clientX-pointer.x)*.5));pitch=Math.max(-80,Math.min(80,pointer.pitch-(e.clientY-pointer.y)*.4));yawInput.value=yaw;pitchInput.value=pitch;frame(fraction);});
     stage.addEventListener('pointerup',()=>{pointer=null;});stage.addEventListener('pointercancel',()=>{pointer=null;});
     stage.addEventListener('keydown',e=>{if(view!=='spatial')return;if(e.key.toLowerCase()==='r'){resetCamera();return;}
