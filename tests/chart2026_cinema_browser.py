@@ -278,13 +278,27 @@ with sync_playwright() as p:
     assert not orbit.is_checked()
     orbit.check()
     initial_yaw=camera_yaw.input_value()
+    assert right.get_attribute('data-camera-orbit-active')=='true'
     assert "ideal" in cinema.locator('[data-rfq-cinema-warning]').inner_text().lower()
     snapshot(page,"rfq-2d3d-cinema-desktop.png")
     timeline=cinema.locator('[data-rfq-cinema-player]')
+    seek=timeline.locator('[data-playback-seek]')
+    # Deterministic seek tests camera–frame coupling independent of CPU load.
+    seek.evaluate("""el=>{el.value='250';el.dispatchEvent(new Event('input',{bubbles:true}));}""")
+    page.wait_for_function(
+        "()=>Math.abs(Number(document.querySelector('[data-rfq-cinema-3d] [data-motion-projection]')?.getAttribute('data-camera-azimuth-deg'))+35)>40",
+        timeout=12000)
+    assert orbit.is_checked()
+    yaw_after_seek=float(right.get_attribute('data-camera-azimuth-deg'))
+    assert abs(yaw_after_seek-float(initial_yaw))>40,{'initial':initial_yaw,'after':yaw_after_seek}
+    assert abs(float(timeline.locator('[data-rfq-playback]').get_attribute('data-fraction'))-.25)<.01
+    # The real timer must subsequently advance both ion trajectory and camera,
+    # not simply update a seek slider without changing the spatial SVG.
     play=timeline.locator('[data-playback-action="play"]');play.click()
-    page.wait_for_timeout(1050)
-    assert float(timeline.locator('[data-rfq-playback]').get_attribute("data-fraction"))>0
-    assert camera_yaw.input_value()!=initial_yaw,'The 3D camera did not orbit during playback'
+    page.wait_for_function(
+        "(previous)=>Number(document.querySelector('[data-rfq-playback]')?.dataset.fraction||0)>.275&&Math.abs(Number(document.querySelector('[data-rfq-cinema-3d] [data-motion-projection]')?.getAttribute('data-camera-azimuth-deg'))-previous)>2",
+        arg=yaw_after_seek,timeout=18000)
+    assert orbit.is_checked(),"The camera-orbit option must persist during playback"
     play.click()
     orbit.uncheck()
     cinema.locator('[data-rfq-cinema-left-view]').select_option('phase')
