@@ -1183,7 +1183,7 @@ items:
     fr:
     - Téléchargez les fichiers officiels mass.mas26 et nubase.mas26, ainsi que les tables de réactions non arrondies rct1.mas26 et rct2.mas26.
     - Respectez les colonnes fixes de 2026 et distinguez les valeurs estimées de leurs incertitudes ; * indique une valeur indisponible.
-    - Utilisez les incertitudes de réaction évaluées dans RCT1 et RCT2 : les masses évaluées sont corrélées.
+    - 'Utilisez les incertitudes de réaction évaluées dans RCT1 et RCT2 : les masses évaluées sont corrélées.'
     - Identifiez les éditions 2026 et 2020 lors de la comparaison ; ne supposez pas l'indépendance statistique des différences sans covariance.
   tips:
     en: Cite the evaluated 2026 primary papers and refer to the exact AMDC source-table hashes. The website's current Chart of Nuclides defaults to 2026 while preserving 2020 history.
