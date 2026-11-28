@@ -58,6 +58,31 @@ with sync_playwright() as p:
     assert "AME2026" in edition.inner_text()
     assert chart.locator("[name=nc-colour] option").count()>15
     snapshot(page,"chart2026-loaded-desktop.png")
+    # AME2026 versus AME2020 uses the *actual* archived ground-mass table,
+    # not an empty metadata-only edition list or an assumed mass covariance.
+    colours=chart.locator('[name=nc-colour]')
+    assert colours.locator('option[value=dame20]').count()==1
+    colours.select_option('dame20')
+    page.wait_for_function(
+        "()=>{const x=document.querySelector('#nuclide-chart .nc-edhint');"
+        "return x&&!x.hidden&&x.textContent.includes('AME2020')"
+        "&&!x.textContent.includes('Loading')}",
+        timeout=25000)
+    hint=chart.locator('.nc-edhint').inner_text()
+    assert 'AME2020' in hint
+    assert 'no 3σ significance' in hint or 'covariance' in hint
+    chart.locator('.nc-editions summary').click()
+    page.wait_for_function("()=>document.querySelector('#nuclide-chart .nc-ed-tab')?.textContent.includes('AME2026')",timeout=15000)
+    table=chart.locator('.nc-ed-tab')
+    assert 'AME2026' in table.inner_text() and 'AME2020' in table.inner_text()
+    chart.locator('.nc-editions summary').click()
+    chain_quantity=chart.locator('[name=nc-pq]')
+    assert chain_quantity.locator('option[value=dame20]').count()==1
+    chain_quantity.select_option('dame20')
+    snapshot(page,"chart2026-versus-2020.png")
+    # Restore the basic source colour for subsequent class/checkbox checks.
+    colours.select_option('decay')
+
     # User-reported checkbox controls: check and verify their real side effects.
     overlays=chart.locator(".nc-ovl")
     magic=overlays.locator("[data-opt=magic]")
