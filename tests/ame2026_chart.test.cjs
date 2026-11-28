@@ -96,4 +96,6 @@ test('changes to user-adopted measured masses invalidate automatic colour range 
  assert.match(script,/src = s; memo\.clear\(\); autoCache\.clear\(\); dripCache\.clear\(\)/);
  assert.match(script,/inputTable=table;memo\.clear\(\);autoCache\.clear\(\)/);
  assert.match(script,/drawLegend\(\);draw\(\);syncColourControls\(\);plotChain\(\)/);
+ assert.match(script,/rangeByQuantity\.delete\('mine'\)/);
+ assert.match(script,/manualRange=null;rangeByQuantity\.delete\('mine'\)/);
 });
