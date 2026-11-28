@@ -20,10 +20,21 @@ def console_watch(page):
 def await_chart(page,expected):
     root=page.locator("#nuclide-chart")
     root.wait_for(state="visible",timeout=30000)
-    page.wait_for_function(
-        "(min) => {const c=document.querySelector('#nuclide-chart .nc-count');"
-        "return c&&parseInt(c.textContent.replace(/[^0-9].*$/,''),10)>=min;}",
-        arg=expected,timeout=45000)
+    try:
+        page.wait_for_function(
+            "(min) => {const c=document.querySelector('#nuclide-chart .nc-count');"
+            "return c&&parseInt(c.textContent.replace(/[^0-9].*$/,''),10)>=min;}",
+            arg=expected,timeout=30000)
+    except Exception:
+        diag=page.evaluate("""()=>({
+          title:document.title,body:document.querySelector('#nuclide-chart .nc-card')?.innerText,
+          count:document.querySelector('#nuclide-chart .nc-count')?.textContent,
+          loaded:document.readyState,
+          source:document.querySelector('#nuclide-chart')?.dataset,
+          resources:performance.getEntriesByType('resource').filter(r=>r.name.includes('/data/')).map(r=>({url:r.name,status:r.responseStatus,size:r.transferSize,duration:r.duration})).slice(0,20)
+        })""")
+        log("FAILED NUCLEAR CHART INITIALIZATION DIAGNOSTIC",json.dumps(diag,default=str)[:7000])
+        raise
     count=root.locator(".nc-count").inner_text()
     log("NUCLIDES",count,"edition",root.get_attribute("data-active-evaluation"))
     return root
@@ -33,6 +44,8 @@ with sync_playwright() as p:
     ctx=browser.new_context(viewport={"width":1440,"height":990},device_scale_factor=1,
                             accept_downloads=True,locale="en-US")
     page=ctx.new_page();errors=console_watch(page)
+    page.on("console",lambda msg:log("BROWSER CONSOLE",msg.type,msg.text[:350]) if msg.type=="error" else None)
+    page.on("response",lambda resp:log("HTTP ERROR",resp.status,resp.url) if resp.status>=400 else None)
     r=page.goto(BASE+"lab/",wait_until="domcontentloaded",timeout=30000)
     assert r and r.status==200
     chart=await_chart(page,3700)
