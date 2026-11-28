@@ -204,7 +204,7 @@ def combine_reactions(parsed,amejson,raws):
                               **{k:"mass" for k in MASS_FIELDS_26},"BE":"mass"},
            "quantity_transformations":{"BE":"A × published BEA; not independently read from AME"},
            "value_columns":"A[1:4], element[5:8], Z[8:11]; reactions six 18-character blocks; each includes value and uncertainty tokens; * denotes missing",
-           "mass_value_columns":{k:list(v) for k,v in MASS_FIELDS.items()},
+           "mass_value_columns":{k:list(v) for k,v in MASS_FIELDS_26.items()},
            "flags":"# is source-estimated and replaces decimal point; * missing never equals zero",
            "uncertainty_scope":"Official evaluated marginal 1-sigma uncertainties with AME mass correlations retained; no diagonal-error substitution",
            "comparison_mass_catalogue_sha256":sha(encoded(amejson))},
