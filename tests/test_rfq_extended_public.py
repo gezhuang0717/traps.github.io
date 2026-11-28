@@ -27,7 +27,7 @@ def test_all_rfq_panels_labeled_and_mounted():
     extras=(ROOT / "layouts/_partials/zg/rfq-extras.html").read_text()
     data=json.loads((ROOT / "data/rfq_extras_labels.json").read_text())
     for language in ("en","zh","fi","de","ja","fr"):
-        for key in ("motion","gas","bunch","scan","data","scope","run","csv","json","svg","png","pdf"):
+        for key in ("motion","gas","bunch","scan","data","scope","run","csv","json","svg","png","pdf","active_length","axial_ke","transit_time","transit_cycles","transit_window","length_note"):
             assert data[language][key].strip(), (language,key)
     for key in ("motion","gas","bunch","scan","data"):
         assert f'data-local-tab="{{{{ . }}}}"' in partial
@@ -61,3 +61,16 @@ def test_no_private_repo_identifiers_or_private_manuals_in_public_new_files():
         text=(ROOT / name).read_text().lower()
         for forbidden in ("website_manuals", "heisol", "p s s d", "github_pat_", "sk-proj-"):
             assert forbidden not in text, (name,forbidden)
+
+
+def test_nominal_axial_length_is_public_ideal_reference_and_in_json():
+    layout=(ROOT / "layouts/_partials/zg/rfq-extras.html").read_text()
+    core=(ROOT / "static/js/rfq-extended-core.js").read_text()
+    ui=(ROOT / "static/js/rfq-extended-ui.js").read_text()
+    assert 'name="rx-length"' in layout
+    assert "function transitEstimate(input)" in core
+    assert "no axial end-plane clipping" in core
+    assert "const transit = X.transitEstimate(" in ui
+    assert "report = { ...run, transit," in ui
+    assert "msg('length_note')" in ui
+

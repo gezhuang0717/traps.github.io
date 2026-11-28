@@ -54,10 +54,19 @@ def check():
         # A noninteger cycle count and physical velocity survive export correctly.
         root.locator('[name="rx-cycles"]').fill('1.1')
         root.locator('[name="rx-vx"]').fill('0.01')
+        root.locator('[name="rx-vz"]').fill('3')
+        root.locator('[name="rx-length"]').fill('12')
         name, raw = download(page, root.locator('[data-rfx-action="json"][data-rfx-kind="motion"]'))
         saved = json.loads(raw)
         assert saved['inputs']['rx-cycles'] == '1.1'
         assert saved['inputs']['rx-vx'] == '0.01'
+        assert saved['inputs']['rx-length'] == '12'
+        transit = saved['result']['transit']
+        assert transit['schema'] == 'rfq-axial-transit-ideal-v1'
+        assert transit['transit_time_us'] == 4
+        assert abs(transit['transit_rf_cycles'] - 4 * saved['result']['shared']['f_MHz']) < 1e-10
+        assert transit['observation_covers_nominal_exit'] is False
+        expect(motion).to_contain_text('Nominal active length')
         assert abs(saved['result']['samples'][-1]['cycle'] - 1.1) < 1e-12
         for view in ('orbit', 'phase', 'time'):
             root.locator('[name="rx-motion-view"]').select_option(view)

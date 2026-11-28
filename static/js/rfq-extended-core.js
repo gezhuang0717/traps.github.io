@@ -43,6 +43,31 @@ function motion(input){
  }
  return{schema:'rfq-motion-ideal-v3',model:'infinite-length ideal four-rod Mathieu RK4 with exact free axial drift; no collisions or fringe fields',samples,alive:loss===null,loss_cycle:loss,r0_mm:r0,steps_per_rf_cycle:steps,effective_steps_per_rf_cycle:total/cycles,integration_steps:performed,sample_stride:stride,requested_cycles:cycles,completed_cycles:tau/Math.PI,step_tau:dt,loss_resolution_cycles:dt/Math.PI,axial_model:'free drift; no axial electric field',field_model:'ideal quadrupole; no round-rod fundamental normalization, higher multipoles or finite-electrode field map',average_method:'centered-one-RF-period-trapezoidal',average_window_cycles:1,average_edge_policy:'null unless full centered period is available',secular_approx_valid:Math.abs(a)<1e-12&&Math.abs(q)>0&&Math.abs(q)<=.3,units:{tau:'dimensionless; pi per RF cycle',cycle:'RF periods',x_mm:'mm',y_mm:'mm',z_mm:'mm',vx_mm_per_tau:'mm per unit tau',vy_mm_per_tau:'mm per unit tau',vz_mm_per_tau:'mm per unit tau',rf_average_mm:'mm; centered running mean',rf_residual_mm:'mm; raw minus running mean'},assumptions:['first RF phase explicitly selected','z=z0+vz*tau is free drift, not three-dimensional trapping','electrode drawings are schematic; actual round rods need their field normalization and higher multipoles','radial aperture proxy is circular; no axial end aperture','running mean and residual are filters, not an exact secular/micromotion decomposition','secular interpretation is only approximate at a=0 and small q; |q|<=0.3 is a screening criterion','loss is sampled at step endpoints; compare 32/64/128 steps for convergence','finite-time integration is not experimental transmission']};
 }
+// Ideal longitudinal flight through a user-defined *reference distance*.
+// This does not terminate the transverse Mathieu integration or model end fields.
+function transitEstimate(input){
+ const mass=n(input.mass_u,'mass',.001,1e6);
+ const length=n(input.active_length_mm,'active length',.001,1e7);
+ const vz=n(input.vz_mm_per_us,'axial velocity',-1000,1000);
+ const f=n(input.f_MHz,'RF frequency',.000001,1e6);
+ const cycles=n(input.observation_cycles,'requested RF cycles',.1,100);
+ const kinetic=0.5*mass*C.u*(vz*1000)**2/C.e;
+ const forward=vz>0,exitUs=forward?length/vz:null;
+ const exitCycles=forward?exitUs*f:null;
+ if(!Number.isFinite(kinetic)||(forward&&!Number.isFinite(exitCycles)))throw Error('transit model overflow');
+ return{schema:'rfq-axial-transit-ideal-v1',
+  model:'nonrelativistic constant-velocity free drift across a nominal active length; not a finite-electrode trajectory',
+  active_length_mm:length,velocity_mm_per_us:vz,axial_kinetic_eV:kinetic,
+  transit_time_us:exitUs,transit_rf_cycles:exitCycles,observation_rf_cycles:cycles,
+  forward_exit_possible:forward,
+  observation_covers_nominal_exit:forward&&cycles>=exitCycles,
+  observation_axial_distance_mm:vz*cycles/f,
+  assumptions:['active length is only a reference distance and does not alter the infinite-rod Mathieu field',
+   'positive z is the chosen exit direction; zero or negative axial velocity does not reach that exit',
+   'axial velocity is constant with no axial DC gradients, collisions, friction, energy spread or pulsed extraction',
+   'no axial end-plane clipping or finite-electrode field solution; transverse survival is separate',
+   'length, velocity and observation period do not predict measured RFQ transmission']};
+}
 function cooling(input){
  const mass=n(input.mass_u,'mass',.001,1e6),gas=n(input.gas_mass_u,'gas mass',.1,300),T=n(input.temperature_K,'temperature',1,2500),p=n(input.pressure_mbar,'pressure',0,10),sigma=n(input.cross_section_A2,'cross section',.01,1e6)*1e-20,energy=n(input.energy_eV,'energy',0,1e6),ms=n(input.residence_ms,'residence',0,1e5),coupling=n(input.transfer_efficiency??1,'transfer factor',0,1);
  const mi=mass*C.u,mg=gas*C.u,mu=mi*mg/(mi+mg),density=p*100/(C.k*T),v0=Math.sqrt(2*energy*C.e/mi),vgas=Math.sqrt(8*C.k*T/(Math.PI*mg)),vrel=Math.hypot(v0,vgas),nu=density*sigma*vrel;
@@ -139,6 +164,6 @@ function parseCSV(s){
   return obj;
  });
 }
-const api=Object.freeze({C,motion,cooling,bunch,inventory,parameterScan,voltageScan,analyzeSamples,parseCSV});
+const api=Object.freeze({C,motion,transitEstimate,cooling,bunch,inventory,parameterScan,voltageScan,analyzeSamples,parseCSV});
 host.ZGRFQExtras=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
