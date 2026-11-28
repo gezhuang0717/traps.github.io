@@ -181,8 +181,35 @@ with sync_playwright() as p:
     page.wait_for_url(lambda u:"evaluation=2020" not in u,timeout=25000)
     chart=await_chart(page,3700)
     assert chart.get_attribute("data-active-evaluation")=="2026"
-    # Synchronized RFQ real animations: same ion samples, 2D and 3D.
+    # The RFQ uses the same 2026-default evaluated mass *and nuclear state*
+    # source as this chart. Historical 2020 selection must refresh the actual
+    # species mass, not merely rename a label or mix 2020 isomers with 2026 ME.
     root=page.locator("#rfq-workbench")
+    evaluation=root.locator('[name="ms-evaluation"]')
+    assert evaluation.input_value()=="2026"
+    ion=root.locator('[name="ms-species"]')
+    ion.fill("133Cs+")
+    root.locator('[data-ms-action="fill"]').click()
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2026/NUBASE2026')",
+        timeout=25000)
+    mass26=float(root.locator('[name="ms-mass"]').input_value())
+    assert 132 < mass26 < 134
+    assert "AME2020" not in root.locator('[data-ms-source]').inner_text()
+    evaluation.select_option("2020")
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2020/NUBASE2020')",
+        timeout=25000)
+    mass20=float(root.locator('[name="ms-mass"]').input_value())
+    assert 132 < mass20 < 134
+    evaluation.select_option("2026")
+    page.wait_for_function(
+        "()=>document.querySelector('#rfq-workbench [data-ms-source]')?.textContent.includes('AME2026/NUBASE2026')",
+        timeout=25000)
+    assert abs(float(root.locator('[name="ms-mass"]').input_value())-mass26)<1e-12
+    assert evaluation.input_value()=="2026"
+    snapshot(page,"rfq-ame2026-versus-historical-mass.png")
+    # Synchronized RFQ real animations: same ion samples, 2D and 3D.
     root.wait_for(state="visible",timeout=20000)
     cinema_button=root.locator('[data-local-tab="cinema"]')
     cinema_button.scroll_into_view_if_needed()
