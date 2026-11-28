@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="{{ "css/databases.css" | relURL }}">
 <div class="zg-db" data-databases data-lang="{{ $lang }}"
      data-chart="{{ "lab/" | relLangURL }}"
-     data-nubase="{{ "data/nubase2020.json" | relURL }}"
+     data-nubase="{{ "data/nubase2026.json" | relURL }}"
+     data-nubase-history="{{ "data/nubase2020.json" | relURL }}"
      data-labels="{{ $L | jsonify }}">
   <p class="zg-db-note">{{ $L.title_note }}</p>
 
@@ -19,6 +20,12 @@
   <section class="zg-db-lookup" aria-labelledby="zg-db-lookup-t">
     <h2 id="zg-db-lookup-t">{{ $L.lookup_t }}</h2>
     <p>{{ $L.lookup_p }}</p>
+    <label>{{ if eq $lang "zh" }}核质量评价版本{{ else }}Nuclear evaluation edition{{ end }}
+      <select name="zg-db-edition">
+        <option value="2026" selected>AME2026 + NUBASE2026</option>
+        <option value="2020">AME2020 + NUBASE2020 (historical)</option>
+      </select>
+    </label>
     <form class="zg-db-lookup-f" onsubmit="return false">
       <input type="text" name="nuc" placeholder="100Sn" aria-label="{{ $L.lookup_t }}" autocomplete="off" spellcheck="false">
       <button type="submit">{{ $L.lookup_go }}</button>
