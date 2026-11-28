@@ -17,8 +17,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"tools"))
-from make_ame_reactions import (parse_mass,parse_reactions,comparison,
-    LABELS,MASS_FIELDS,TABLES)
+from make_ame_reactions import (comparison,row_identity,cell,binding_energy_cell,
+    LABELS,TABLES)
 from make_state_catalogue import parse as parse_states
 
 VERSION="2026"
@@ -40,6 +40,71 @@ EXPECTED={
  "rct2.mas26":("A T O M I C M A S S A D J U S T M E N T","6(f12.4,f10.4)","S(n)"),
  "nubase.mas26":("NUBASE2026","Data FORMAT","Mass Excess")
 }
+
+# Source table declares one older Fortran format in its commentary, but the
+# authoritative 2026 *data rows* are rendered at these observed positions.
+# Measured against exact AMDC bytes, not the whitespace-normalized HTML view.
+# Source mass lines 37+ are 118-123 chars, NOT the 135-char legacy layout.
+MASS_FIELDS_26={
+ "me":(28,42,42,54),
+ "BEA":(54,65,65,72),
+ "qbm":(75,86,86,96)
+}
+REACTION_BLOCK_START=12
+REACTION_BLOCK_WIDTH=18
+REACTION_BLOCKS=6
+
+def parse_mass_2026(source):
+    if "MASS EXCESS" not in source or "mass.mas26" not in source:
+        raise ValueError("Unexpected official 2026 mass table")
+    out={}
+    for line_number,line in enumerate(source.splitlines(),1):
+        identity=row_identity(line,False)
+        if identity is None:continue
+        z,n,a,element=identity
+        values={}
+        for key,(v0,v1,e0,e1) in MASS_FIELDS_26.items():
+            try:values[key]=cell(line[v0:v1],line[e0:e1])
+            except ValueError as error:
+                raise ValueError("AME2026 mass line "+str(line_number)+
+                                 ", "+key+", line="+repr(line[:110])) from error
+        values["BE"]=binding_energy_cell(values["BEA"],a)
+        key=str(z)+","+str(n)
+        if key in out:raise ValueError("Duplicate ground-state mass "+key)
+        out[key]={"Z":z,"N":n,"A":a,"element":element,
+                 "source_lines":{"mass":line_number},"values":values}
+    if len(out)<3300:raise ValueError("Too few AME2026 ground-state rows: "+str(len(out)))
+    return out
+
+def parse_reaction_2026(source,table):
+    if table not in TABLES or "6(f12.4,f10.4)" not in source:
+        raise ValueError("Unexpected official AME2026 reaction format")
+    keys=TABLES[table][1]
+    expected="Q(2B-)" if table=="rct1" else "Q(4B-)"
+    if expected not in source:raise ValueError("Incorrect 2026 reaction quantity header")
+    out={}
+    for line_number,line in enumerate(source.splitlines(),1):
+        identity=row_identity(line,True)
+        if identity is None:continue
+        z,n,a,element=identity
+        values={}
+        for i,key in enumerate(keys):
+            start=REACTION_BLOCK_START+i*REACTION_BLOCK_WIDTH
+            block=line[start:start+REACTION_BLOCK_WIDTH]
+            tokens=block.split()
+            if len(tokens) not in (1,2):
+                raise ValueError("AME2026 "+table+" line "+str(line_number)+
+                   ", "+key+", 18-column block="+repr(block))
+            try:values[key]=cell(tokens[0],tokens[1] if len(tokens)>1 else "")
+            except ValueError as error:
+                raise ValueError("AME2026 "+table+" line "+str(line_number)+
+                   ", "+key+", block="+repr(block)) from error
+        identity_key=str(z)+","+str(n)
+        if identity_key in out:raise ValueError("Duplicate 2026 reaction entry "+identity_key)
+        out[identity_key]={"Z":z,"N":n,"A":a,"element":element,
+            "source_lines":{table:line_number},"values":values}
+    if len(out)<3300:raise ValueError("Too few AME2026 reaction rows: "+str(len(out)))
+    return out
 
 def sha(blob):
     return hashlib.sha256(blob).hexdigest()
@@ -125,7 +190,7 @@ def combine_reactions(parsed,amejson,raws):
     validated=comparison(records,amejson)
     if validated["status"]!="PASS":
         raise ValueError("AME2026 independent central-value checks failed: "+str(validated["failures"][:8]))
-    keys=[*TABLES["rct1"][1],*TABLES["rct2"][1],*MASS_FIELDS,"BE"]
+    keys=[*TABLES["rct1"][1],*TABLES["rct2"][1],*MASS_FIELDS_26,"BE"]
     sources=[{"table":key,"filename":name,"url":BASE+name,"sha256":sha(raws[name]),
               "bytes":len(raws[name]),"format":"AME2026 published fixed-width, unrounded"}
              for key,name in (("mass","mass.mas26"),("rct1","rct1.mas26"),("rct2","rct2.mas26"))]
@@ -136,9 +201,9 @@ def combine_reactions(parsed,amejson,raws):
            "quantity_labels":LABELS,
            "quantity_units":{k:"keV/nucleon" if k=="BEA" else "keV" for k in keys},
            "quantity_sources":{**{k:t for t,(_,ks) in TABLES.items() for k in ks},
-                              **{k:"mass" for k in MASS_FIELDS},"BE":"mass"},
+                              **{k:"mass" for k in MASS_FIELDS_26},"BE":"mass"},
            "quantity_transformations":{"BE":"A × published BEA; not independently read from AME"},
-           "value_columns":"A[1:4], element[5:8], Z[8:11]; reactions six (value12,uncertainty10) fields",
+           "value_columns":"A[1:4], element[5:8], Z[8:11]; reactions six 18-character blocks; each includes value and uncertainty tokens; * denotes missing",
            "mass_value_columns":{k:list(v) for k,v in MASS_FIELDS.items()},
            "flags":"# is source-estimated and replaces decimal point; * missing never equals zero",
            "uncertainty_scope":"Official evaluated marginal 1-sigma uncertainties with AME mass correlations retained; no diagonal-error substitution",
@@ -206,9 +271,9 @@ def nubase_catalogue(raw,state_text,ame,raw_ame):
 def build(raw_dir):
     raws={name:(raw_dir/name).read_bytes() for name in FILES}
     text={name:validate_original(name,raw) for name,raw in raws.items()}
-    parsed={"mass":parse_mass(text["mass.mas26"]),
-            "rct1":parse_reactions(text["rct1.mas26"],"rct1"),
-            "rct2":parse_reactions(text["rct2.mas26"],"rct2")}
+    parsed={"mass":parse_mass_2026(text["mass.mas26"]),
+            "rct1":parse_reaction_2026(text["rct1.mas26"],"rct1"),
+            "rct2":parse_reaction_2026(text["rct2.mas26"],"rct2")}
     mass=mass_catalogue(parsed["mass"],raws["mass.mas26"])
     reaction=combine_reactions(parsed,mass,raws)
     chart,states=nubase_catalogue(raws["nubase.mas26"],text["nubase.mas26"],mass,raws["mass.mas26"])
