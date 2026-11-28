@@ -91,13 +91,17 @@
   /* ---------- nuclide look-up ---------- */
   const form = root.querySelector(".zg-db-lookup-f"), out = root.querySelector(".zg-db-lookup-out");
   const editionSelect=root.querySelector('[name=zg-db-edition]');
-  const edition=()=>editionSelect?.value==='2020'?'2020':'2026';
+  // Retain no-selector compatibility for older embedded cards and offline
+  // unit fixtures. The rendered current site explicitly selects 2026.
+  const edition=()=>editionSelect
+    ? (editionSelect.value==='2020'?'2020':'2026')
+    : (/nubase2020/i.test(root.dataset.nubase||'')?'2020':'2026');
   const NB=new Map(),jobs=new Map();
   const load = () => {
     const year=edition();if(NB.has(year))return Promise.resolve(NB.get(year));
     if(jobs.has(year))return jobs.get(year);
     const url=year==='2020'?root.dataset.nubaseHistory:root.dataset.nubase;
-    const work=fetch(url).then(r=>{if(!r.ok)throw Error('NUBASE'+year+' HTTP '+r.status);return r.json();})
+    const work=fetch(url).then(r=>{if('ok' in r && !r.ok)throw Error('NUBASE'+year+' HTTP '+r.status);return r.json();})
       .then(d=>{NB.set(year,d);jobs.delete(year);return d;})
       .catch(e=>{jobs.delete(year);throw e;});
     jobs.set(year,work);return work;
@@ -137,9 +141,9 @@
       const iso = (r[11] || []).map(m => `<li>${sup}<sup>${escH(m[0])}</sup>: E<sub>x</sub> = ${fmt(m[1], m[4], !!m[5], !!m[6])} keV · T½ ${escH(m[2] || "—")} · J<sup>π</sup> ${escH(m[3] || "—")}</li>`).join("");
       const api = `https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=${p.A}${p.sym.toLowerCase()}`;
       const wiki = p.Z > 0 ? `https://en.wikipedia.org/wiki/Isotopes_of_${encodeURIComponent(p.name.toLowerCase().replace("aluminum", "aluminium").replace("cesium", "caesium"))}` : "https://en.wikipedia.org/wiki/Free_neutron_decay";
-      const year=edition(),params=new URLSearchParams({nuclide:p.A+p.sym});
-      if(year==='2020')params.set('evaluation','2020');
-      const chart=root.dataset.chart+'?'+params.toString();
+      const year=edition();
+      const chart=root.dataset.chart+'?nuclide='+encodeURIComponent(p.A+p.sym)+
+        (year==='2020'?'&evaluation=2020':'');
       out.innerHTML = `<div class="zg-db-nuc">
         <h3>${sup} <small>(Z = ${p.Z}, N = ${N})</small></h3>
         <dl>
