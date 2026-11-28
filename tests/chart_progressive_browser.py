@@ -34,7 +34,13 @@ with sync_playwright() as playwright:
     assert chart.get_attribute("data-active-evaluation") == "2026"
     assert chart.locator("[name=nc-edition]").input_value() == "2026"
     assert "AME2026" in chart.locator("h2").inner_text()
-    assert int(re.search(r"\d+", chart.locator(".nc-count").inner_text()).group()) >= 3700
+    count_text=chart.locator(".nc-count").text_content() or ""
+    match=re.search(r"\d+",count_text)
+    assert match is not None and int(match.group())>=3700, {
+        "count_text":count_text,
+        "data_chart_ready":chart.get_attribute("data-chart-ready"),
+        "errors":errors,
+    }
     status = chart.locator("[data-nc-reaction-status]")
     assert status.get_attribute("data-ready") == "loading", status.inner_text()
     assert "provisional" in status.inner_text().lower()
