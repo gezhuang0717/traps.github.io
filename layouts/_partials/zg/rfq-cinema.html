@@ -1,0 +1,44 @@
+{{- $zh := hasPrefix site.Language.Lang "zh" -}}
+<div data-local-panel="cinema" data-rfq-cinema hidden>
+  <h3>{{ if $zh }}🎬 RFQ 二维/三维离子轨迹影院{{ else }}🎬 RFQ 2D/3D trajectory cinema{{ end }}</h3>
+  <p class="zg-muted">{{ if $zh }}同步显示 XY 横向轨道和可旋转三维正交投影。两幅动画来自同一次 Mathieu 方程数值积分，时间游标、播放速度和录像同步。{{ else }}Watch a transverse XY orbit and a rotatable 3D orthographic projection together. Both animations use the same ideal Mathieu integration and a synchronized timeline, speed, and real browser video recorder.{{ end }}</p>
+  <p class="zg-notice">{{ if $zh }}物理界限：横向为无限长理想四杆 RF 场，轴向为自由漂移；没有真实三维电极场、碰撞、空间电荷或原生 SIMION 轨迹。{{ else }}Physics boundary: ideal infinite-length four-rod RF field in x/y, with free axial drift z. No realistic 3D electrode field, collisions, space charge or native SIMION trajectory is claimed.{{ end }}</p>
+  <div class="rfq-cinema-scenes" role="group" aria-label="{{ if $zh }}选择初始离子运动场景{{ else }}Select an ion-trajectory scenario{{ end }}">
+    <button type="button" class="zg-btn" data-rfq-cinema-preset="flight">{{ if $zh }}🚀 三维飞行{{ else }}🚀 3D flight{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-preset="orbitPreset">{{ if $zh }}🌀 横向闭合轨道{{ else }}🌀 Radial orbit{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-preset="gentle">{{ if $zh }}低 q{{ else }}Low-q motion{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-preset="strong">{{ if $zh }}高 q{{ else }}Higher-q motion{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-preset="phases">{{ if $zh }}改变射频相位{{ else }}Injection phase{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-preset="unstable">{{ if $zh }}越界损失{{ else }}Aperture loss{{ end }}</button>
+  </div>
+  <div class="rfq-cinema-settings">
+    <label>{{ if $zh }}左侧二维视图{{ else }}Left 2D view{{ end }}
+      <select data-rfq-cinema-left-view>
+        <option value="orbit">{{ if $zh }}XY 轨道与径向边界{{ else }}XY orbit and radial aperture{{ end }}</option>
+        <option value="phase">{{ if $zh }}x–vx 相空间{{ else }}x–vx phase space{{ end }}</option>
+        <option value="time">{{ if $zh }}x(t)、y(t) 位置{{ else }}x(t), y(t) displacement{{ end }}</option>
+        <option value="filtered">{{ if $zh }}射频周期均值及微运动残差{{ else }}RF-period mean and residual{{ end }}</option>
+        <option value="axial">{{ if $zh }}z(t) 自由漂移{{ else }}z(t) free axial drift{{ end }}</option>
+      </select>
+    </label>
+    <button type="button" class="zg-btn zg-btn-ghost" data-rfq-cinema-run>{{ if $zh }}更新双视图{{ else }}Refresh both views{{ end }}</button>
+    <span class="zg-muted">{{ if $zh }}粒子质量、RF 参数、初始坐标与原 Motion 页共享{{ else }}Mass, RF voltage/frequency and initial coordinates are shared with the Motion workbench{{ end }}</span>
+  </div>
+  <div class="rfq-cinema-grid">
+    <div class="rfq-cinema-cell">
+      <h4>{{ if $zh }}二维时间轨迹 / 相空间{{ else }}2D orbit / phase space{{ end }}</h4>
+      <div data-rfq-cinema-2d></div>
+    </div>
+    <div class="rfq-cinema-cell">
+      <h4>{{ if $zh }}三维（可旋转）正交轨迹{{ else }}3D rotatable orthographic trajectory{{ end }}</h4>
+      <div data-rfq-cinema-3d></div>
+    </div>
+  </div>
+  <div class="rfq-cinema-timeline" data-rfq-cinema-player></div>
+  <p class="zg-muted" data-rfq-cinema-status role="status" aria-live="polite"></p>
+  <p class="zg-muted" data-rfq-cinema-warning role="alert"></p>
+  <details>
+    <summary>{{ if $zh }}模型、图像、动画和不确定度说明{{ else }}Model, movie and uncertainty explanation{{ end }}</summary>
+    <p>{{ if $zh }}保存帧可使用 SVG/PNG/PDF，浏览器支持时录像保存真实 MP4 或 WebM。二维与三维动画数据来自同一组离子。有限孔径生存不等于实际离子透过率，3D 是 (x,y,z) 数据投影而不是三维场计算。改变积分步长 32/64/128 做收敛检验。{{ else }}Export synchronized frames to SVG/PNG/PDF and, when supported, real MP4 or WebM browser recordings. Both plots show the same initial ion. Finite-aperture survival is not experimental transmission; the 3D view projects (x,y,z) coordinates and does not solve 3D electrode fields. Verify convergence with 32, 64 and 128 time steps per RF cycle.{{ end }}</p>
+  </details>
+</div>
