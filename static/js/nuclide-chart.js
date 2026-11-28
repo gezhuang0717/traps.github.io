@@ -35,8 +35,11 @@
   const sourceBadge=root.querySelector('.nc-evaluation-provenance');
   if(sourceBadge&&evaluationYear==='2020')sourceBadge.textContent='AME2020 + NUBASE2020 (historical evaluation)';
   const T = JSON.parse(root.dataset.labels || "{}");
-  if(evaluationYear==='2020')for(const key of Object.keys(T)){
-    if(typeof T[key]==='string')T[key]=T[key].replaceAll('AME2026','AME2020').replaceAll('NUBASE2026','NUBASE2020');
+  for(const key of Object.keys(T)){
+    if(typeof T[key]!=='string')continue;
+    T[key]=evaluationYear==='2026'?
+      T[key].replaceAll('AME2020','AME2026').replaceAll('NUBASE2020','NUBASE2026'):
+      T[key].replaceAll('AME2026','AME2020').replaceAll('NUBASE2026','NUBASE2020');
   }
   const title=root.querySelector('h2');if(title)title.textContent=T.title;
   const P=window.ZGPhysics; let catalog=null, selectedState=null;
