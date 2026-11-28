@@ -296,7 +296,7 @@
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
     dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
-    ...(evaluationYear==='2026' ? {dame20: {label: 'ΔME(AME2026 − AME2020) · keV',
+    ...(evaluationYear==='2026' ? {dame20: {label: T.m_dame20,
       aux:'ed',v:r=>{const d=edDiff('ame2020',r);return d?d.v:null;},
       lo:-30,hi:30,u:'keV',div:true,auto:true}} : {}),
     dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
@@ -585,7 +585,7 @@
   root.querySelector('[data-model-none]').onclick=()=>{root.querySelectorAll('[data-model-series]').forEach(el=>el.checked=false);plotChain();};
   function setSource(s) {
     const go = () => {
-      src = s; memo.clear(); dripCache.clear();
+      src = s; memo.clear(); autoCache.clear(); dripCache.clear();
       if(s!=="ame"){const box=root.querySelector('[data-model-series="'+s+'"]');if(box)box.checked=true;}
       extraRows = s === "ame" ? [] : [...MOD[s].map.keys()].filter(k => !M.has(k)).map(k => { const Z = Math.floor(k / 1000), N = k % 1000, el = EL.find(e => e[0] === Z);
         const r = [Z, N, el ? el[1] : "Z" + Z, null, null, 0, -97, "—", "", null, "", []]; r.mo = true; return r; });
@@ -820,7 +820,7 @@
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
   PQ.mine = [T.m_mine, () => null, ""]; // Custom values are an independent series, never an evaluated reference.
   for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"], ...(evaluationYear==='2026'?[["dame20","ame2020"]]:[])])
-    PQ[name] = [name==='dame20'?'ΔME(AME2026 − AME2020)':T["m_" + name],
+    PQ[name] = [T["m_" + name],
       (d,r)=>{const x=edDiff(ed,r);return x?{v:x.v*1000,e:null,est:x.est,
         uncertainty_model:x.uncertainty_model}:null;}, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
@@ -1547,7 +1547,10 @@
           try{preview.textContent=T.mine_conversion_preview+' '+TD.massRows(typed).slice(0,3).map((r,i)=>{const normalized=MM.normalize(r,i,catalog);return (r.Z+r.N)+(EL.find(e=>e[0]===r.Z)||[r.Z,'Z'+r.Z])[1]+': '+r.quantity+' = '+r.value+' ± '+(r.uncertainty??T.mine_unknown)+' '+r.unit+(r.quantity==='bea'?' · BE = '+Number((r.value*(r.Z+r.N)).toPrecision(10))+' '+r.unit.replace('/nucleon',''):'')+' → ME = '+Number(normalized.me.toPrecision(10))+' ± '+(normalized.e===null?T.mine_unknown:Number(normalized.e.toPrecision(8)))+' keV';}).join('; ');}catch(e){preview.textContent=T.mine_conversion_preview+' '+(T.loaded_errors[e.message]||e.message);appendB.disabled=replaceB.disabled=true;}
         }
         status.textContent=T.mine_status.replace('{m}',matched).replace('{n}',map.size).replace('{e}',USER.parsed.errors.length+typed.errors.length)+' · '+(typed.label||T.m_mine)+' · '+(typed.quantity==='custom'?T.mine_custom:PQ[typed.quantity][0])+' ('+typed.unit+') · '+T.mine_unknown_count.replace('{n}',typed.rows.filter(r=>r.sigma===null).length)+(USER.parsed.duplicates?' · '+T.mine_duplicates.replace('{n}',USER.parsed.duplicates):'');
-        manualRange=null;pq.value=typed.quantity==='custom'?'mine':typed.quantity;
+        // A replacement user table invalidates any remembered colour limits
+        // for the old table; other published-quantity preferences are retained.
+        manualRange=null;rangeByQuantity.delete('mine');
+        pq.value=typed.quantity==='custom'?'mine':typed.quantity;
         if(focus){const u=typed.rows[0];chainInput('range').checked=false;root.querySelector('.nc-prange-in').hidden=true;chainInput('xscale').value='data';chainInput('yscale').value='data';chain=M.get(key(u.Z,u.N))||[u.Z,u.N,(EL.find(e=>e[0]===u.Z)||[u.Z,'Z'+u.Z])[1]];}
         if(mode!=='mine'){sel.value='mine';sel.onchange();}else{syncRange();redraw();}
         pq.onchange();return true;
@@ -1570,7 +1573,7 @@
       }catch(e){inputError(e);}
     }
     root.querySelector('[data-nc="mine-apply"]').onclick = apply;
-    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = USER.typed = null; autoCache.clear(); manualRange = null; ta.value = ""; colS.replaceChildren();sigmaS.replaceChildren(option('',T.mine_unknown));appendB.disabled=replaceB.disabled=true; status.textContent = "";root.querySelector('.nc-mine-preview').textContent=''; if (mode === "mine") { syncRange(); redraw(); }plotChain(); };
+    root.querySelector('[data-nc="mine-clear"]').onclick = () => { USER.map = new Map(); USER.parsed = USER.typed = null; autoCache.clear(); manualRange = null; rangeByQuantity.delete('mine'); ta.value = ""; colS.replaceChildren();sigmaS.replaceChildren(option('',T.mine_unknown));appendB.disabled=replaceB.disabled=true; status.textContent = "";root.querySelector('.nc-mine-preview').textContent=''; if (mode === "mine") { syncRange(); redraw(); }plotChain(); };
     colS.onchange=()=>{if(sigmaS.value===colS.value)sigmaS.value='';build();};sigmaS.onchange=unitS.onchange=()=>build();
     quantityS.onchange=()=>{syncUnits();build();};for(const input of [customUnit,labelI,referenceI])input.addEventListener('change',()=>build());
     for(const [button,method]of [[appendB,'append'],[replaceB,'replace']])button.onclick=()=>{
@@ -1686,7 +1689,14 @@
     rows = d.rows; EL = d.elements; rows.forEach(r => M.set(key(r[0], r[1]), r));
     MEn = get(0, 1) || MEn; MEH = get(1, 0) || MEH; MEa = get(2, 2) || MEa;
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;
-    measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{inputTable=table;memo.clear();plotChain();draw();if(pin)showCard(pin);impactRebuild();});
+    measured=window.ZGMeasuredMassUI.attach(root,T,catalog,get,table=>{
+      // A newly adopted/removed input changes stencils and may shift the extrema.
+      // Clear the automatic range as well as derived-value memoization; otherwise
+      // the colourbar can reflect a previous imported mass table.
+      inputTable=table;memo.clear();autoCache.clear();
+      drawLegend();draw();syncColourControls();plotChain();
+      if(pin)showCard(pin);impactRebuild();
+    });
     inputTable=measured.table();
     loadIndex().then(reportOverlays).catch(error=>{modelFailure();reportOverlays();});
     buildPT(); drawLegend(); fit(); fsel.onchange(); reportOverlays();

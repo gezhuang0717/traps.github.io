@@ -73,3 +73,29 @@ test('AME2026 versus AME2020 uses authenticated masses, not a metadata-only empt
  assert.equal(overview[0].label,'AME2026');
  assert.equal(overview[0].nuclides,3723);
 });
+
+test('2026−2020 evaluation comparison has real localised quantities and no fabricated covariance',()=>{
+ const labels=fs.readFileSync(path.join(root,'data/nuclide_chart_labels.yaml'),'utf8');
+ const script=fs.readFileSync(path.join(root,'static/js/nuclide-chart.js'),'utf8');
+ const values=[...labels.matchAll(/^  m_dame20: "([^"]+)"/gm)].map(m=>m[1]);
+ assert.equal(values.length,6,'All six site languages must name the real comparison');
+ for(const value of values){
+   assert.match(value,/AME2026.*AME2020/);
+   assert.match(value,/keV/);
+   assert.doesNotMatch(value,/AME2020.*AME2016/);
+ }
+ assert.match(values[1],/质量过剩差/,'Chinese comparison must not silently fall back to English');
+ assert.match(values[4],/質量過剰差/,'Japanese comparison must not silently fall back to English');
+ assert.match(script,/dame20: \{label: T\.m_dame20/);
+ assert.match(script,/PQ\[name\] = \[T\["m_" \+ name\]/);
+ assert.match(script,/Cross-edition covariance unavailable/);
+ assert.match(script,/e:null/,'Mass differences are not assigned fake uncertainties');
+});
+test('changes to user-adopted measured masses invalidate automatic colour range and derived cache',()=>{
+ const script=fs.readFileSync(path.join(root,'static/js/nuclide-chart.js'),'utf8');
+ assert.match(script,/src = s; memo\.clear\(\); autoCache\.clear\(\); dripCache\.clear\(\)/);
+ assert.match(script,/inputTable=table;memo\.clear\(\);autoCache\.clear\(\)/);
+ assert.match(script,/drawLegend\(\);draw\(\);syncColourControls\(\);plotChain\(\)/);
+ assert.match(script,/rangeByQuantity\.delete\('mine'\)/);
+ assert.match(script,/manualRange=null;rangeByQuantity\.delete\('mine'\)/);
+});
