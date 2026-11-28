@@ -64,7 +64,8 @@
     <label>{{ $t.range_max }} <input type="number" name="nc-range-max" step="any" aria-label="{{ $t.range_max }}"></label>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-full">{{ $t.range_full }}</button>
     <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-auto">{{ $t.range_auto }}</button>
-    <small class="nc-range-note" role="status"></small>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc="range-numeric" hidden>{{ $t.range_choose_numeric }}</button>
+    <small class="nc-range-note" role="status" aria-live="polite"></small>
   </div>
   <div class="nc-bar nc-classbar">
     <label class="nc-chk"><input type="checkbox" name="nc-classes"> {{ $t.cl_use }}</label>
