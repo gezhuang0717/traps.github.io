@@ -67,6 +67,18 @@ with sync_playwright() as p:
     assert "AME2026" in card_text and "NUBASE2026" in card_text,card_text[:900]
     assert "Published AME2020 masses and reactions" not in card_text,card_text[:900]
     snapshot(page,"chart2026-card-edition-verified.png")
+    # Previously these checkboxes looked inert when no comparison input existed.
+    # They must now report the exact absence of compatible points, rather than
+    # silently drawing an empty band or residual pane.
+    band=chart.locator('[name=nc-band]');residual=chart.locator('[name=nc-residual]')
+    feedback=chart.locator('[data-nc-series-feedback]')
+    band.check()
+    assert feedback.get_attribute('data-band-count')=='0'
+    assert 'no applicable points' in feedback.inner_text()
+    residual.check()
+    assert feedback.get_attribute('data-residual-count')=='0'
+    assert 'choose another' in feedback.inner_text()
+    residual.uncheck();band.uncheck()
     # AME2026 versus AME2020 uses the *actual* archived ground-mass table,
     # not an empty metadata-only edition list or an assumed mass covariance.
     colours=chart.locator('[name=nc-colour]')
