@@ -30,8 +30,10 @@ def await_chart(page,expected):
           title:document.title,body:document.querySelector('#nuclide-chart .nc-card')?.innerText,
           count:document.querySelector('#nuclide-chart .nc-count')?.textContent,
           loaded:document.readyState,
-          source:document.querySelector('#nuclide-chart')?.dataset,
-          resources:performance.getEntriesByType('resource').filter(r=>r.name.includes('/data/')).map(r=>({url:r.name,status:r.responseStatus,size:r.transferSize,duration:r.duration})).slice(0,20)
+          source:Object.fromEntries(['src','catalogue','ame','reactions','activeEvaluation'].map(k=>[k,document.querySelector('#nuclide-chart')?.dataset[k]])),
+          scripts:[...document.scripts].map(s=>s.src).filter(x=>x.includes('nuclide-chart.js')||x.includes('physics.js')||x.includes('mass-surface.js')),
+          engine:{physics:!!window.ZGPhysics,chart:!!window.ZGChartStats,quantity:!!window.ZGMassQuantityMenu},
+          resources:performance.getEntriesByType('resource').filter(r=>r.name.includes('/data/')||r.name.includes('/js/nuclide-chart.js')).map(r=>({url:r.name,status:r.responseStatus,size:r.transferSize,duration:r.duration})).slice(0,28)
         })""")
         log("FAILED NUCLEAR CHART INITIALIZATION DIAGNOSTIC",json.dumps(diag,default=str)[:7000])
         raise
