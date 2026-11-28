@@ -1,9 +1,9 @@
-/* Summary statistics for the chart of nuclides: minimum / maximum / median of the plotted values, a comparison of one AME edition with
-   AME2020, and the per-edition table of measured / estimated masses and documented isomers (numbers computed by tools/make_chart_overlays.py
+/* Summary statistics for the chart of nuclides: minimum / maximum / median of the plotted values, a comparison of one published AME edition with
+   the selected edition; differences are central-value comparisons, not covariance-adjusted significance, and the per-edition table of measured / estimated masses and documented isomers (numbers computed by tools/make_chart_overlays.py
    from the original AME and NUBASE tables). Pure functions, no DOM. */
 (() => {
   'use strict';
-  const ORDER = ['ame1995', 'ame2003', 'ame2012', 'ame2016', 'ame2020'];
+  const ORDER = ['ame1995', 'ame2003', 'ame2012', 'ame2016', 'ame2020', 'ame2026'];
 
   /* items: [{ v: number|null, id: any }]; the first item wins a tie for min / max. Returns null when no finite value exists. */
   function summarize(items) {
