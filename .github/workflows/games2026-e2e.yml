@@ -1,0 +1,75 @@
+name: Games — evaluated nuclear data 2026/2020 browser acceptance
+on:
+  push:
+    branches: ['feature/games-nubase2026-default-20261128']
+    paths:
+      - 'static/js/games.js'
+      - 'layouts/_shortcodes/games.html'
+      - 'tests/games_evaluation.test.cjs'
+      - 'tests/games_2026_browser.py'
+      - '.github/workflows/games2026-e2e.yml'
+  pull_request:
+    paths:
+      - 'static/js/games.js'
+      - 'layouts/_shortcodes/games.html'
+      - 'tests/games_evaluation.test.cjs'
+      - 'tests/games_2026_browser.py'
+      - '.github/workflows/games2026-e2e.yml'
+permissions:
+  contents: read
+jobs:
+  games-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 32
+    env:
+      GAMES_E2E_BASE: http://127.0.0.1:8771/
+      GAMES_E2E_ARTIFACTS: games2026-browser-evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Nuclear dataset identity and pre-render JS
+        run: |
+          set -euo pipefail
+          node --check static/js/games.js
+          node --test tests/games_evaluation.test.cjs tests/physics.test.cjs tests/spectroscopy-games.test.cjs
+          python tools/import_ame2026.py --check
+      - name: Install pinned Hugo, website tools and real Chromium
+        run: |
+          set -euo pipefail
+          python -m pip install -r requirements-dev.txt
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          curl -fsSL -o "$RUNNER_TEMP/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v0.166.0/hugo_extended_0.166.0_linux-amd64.deb"
+          sudo dpkg -i "$RUNNER_TEMP/hugo.deb"
+      - name: Hugo built-site browser, in isolation from production
+        run: |
+          set -euo pipefail
+          python tools/site.py config
+          hugo --minify --configDir sites/congo --themesDir themes --destination "$RUNNER_TEMP/games2026-site" --baseURL http://127.0.0.1:8771/
+          python -m http.server 8771 --bind 127.0.0.1 --directory "$RUNNER_TEMP/games2026-site" > "$RUNNER_TEMP/games2026-http.log" 2>&1 &
+          for n in $(seq 1 40); do curl -fsS http://127.0.0.1:8771/games/ >/dev/null && break; sleep 1; done
+          python tests/games_2026_browser.py
+      - name: Full site and all three Hugo themes
+        run: |
+          set -euo pipefail
+          python tools/site.py check
+          python -m pytest tests -q
+          node --test tests/*.test.cjs
+          python tools/publish.py check --base-url http://127.0.0.1:8771/
+          for theme in congo blowfish papermod; do
+            hugo --minify --configDir "sites/$theme" --themesDir themes --destination "$RUNNER_TEMP/games-$theme" --baseURL http://127.0.0.1:8771/
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: games2026-edition-actual-browser-evidence
+          path: games2026-browser-evidence/
+          if-no-files-found: warn
+          retention-days: 60
