@@ -23,7 +23,7 @@ with sync_playwright() as playwright:
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
     held = []
-    page.route(re.compile(r"/data/ame2026-reactions\\.json"), lambda route: held.append(route))
+    page.route(re.compile(r"/data/ame2026-reactions\.json"), lambda route: held.append(route))
     response = page.goto(BASE + "lab/", wait_until="domcontentloaded", timeout=30000)
     assert response and response.status == 200
     page.wait_for_function(
@@ -34,7 +34,7 @@ with sync_playwright() as playwright:
     assert chart.get_attribute("data-active-evaluation") == "2026"
     assert chart.locator("[name=nc-edition]").input_value() == "2026"
     assert "AME2026" in chart.locator("h2").inner_text()
-    assert int(re.search(r"\\d+", chart.locator(".nc-count").inner_text()).group()) >= 3700
+    assert int(re.search(r"\d+", chart.locator(".nc-count").inner_text()).group()) >= 3700
     status = chart.locator("[data-nc-reaction-status]")
     assert status.get_attribute("data-ready") == "loading", status.inner_text()
     assert "provisional" in status.inner_text().lower()
