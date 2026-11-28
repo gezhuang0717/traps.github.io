@@ -24,7 +24,8 @@ permissions:
   contents: read
 concurrency:
   group: website-${{ github.ref }}
-  cancel-in-progress: false
+  # Discard superseded PR builds while preserving scheduled/main backup and feed jobs.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
   queue: max
 env:
   HUGO_VERSION: 0.166.0

@@ -25,6 +25,9 @@ on:
       - 'data/databases.yaml'
       - '.github/workflows/chart2026-cinema-e2e.yml'
   pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
