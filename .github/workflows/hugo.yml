@@ -24,7 +24,10 @@ permissions:
   contents: read
 concurrency:
   group: website-${{ github.ref }}
-  cancel-in-progress: false
+  # A replaced PR commit supersedes the old validation results. Cancel stale
+  # PR builds rather than queue every intermediate iteration; never cancel
+  # scheduled/main deployment or Daily writer jobs mid-flight.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
   queue: max
 env:
   HUGO_VERSION: 0.166.0
