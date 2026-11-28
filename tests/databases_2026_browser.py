@@ -35,7 +35,7 @@ with sync_playwright() as p:
     result.locator('dt').filter(has_text='AME2020').wait_for(timeout=15000)
     assert root.locator('a[href*="evaluation=2020"]').count()>=1
     root.locator('[name=zg-db-edition]').select_option('2026')
-    result.get_by_text('AME2026',exact=True).wait_for(timeout=15000)
+    result.locator('dt').filter(has_text='AME2026').wait_for(timeout=15000)
     assert not errors,errors
     print("PASS: Databases search, AMDC2026 source, 100Sn mass lookup, 2020 archive switch and favorites",flush=True)
     browser.close()
