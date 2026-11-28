@@ -221,6 +221,9 @@
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
     dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
+    ...(evaluationYear==='2026' ? {dame20: {label: 'ΔME(AME2026 − AME2020) · keV',
+      aux:'ed',v:r=>{const d=edDiff('ame2020',r);return d?d.v:null;},
+      lo:-30,hi:30,u:'keV',div:true,auto:true}} : {}),
     dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
     mine: { label: T.m_mine, user: true, v: r => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : x; }, lo: 0, hi: 1 },
     dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
@@ -315,7 +318,8 @@
   }
   /* ---------- label boxes: summary of the plotted values, AME edition hint and edition table ---------- */
   const statBox = root.querySelector(".nc-statbox"), edHint = root.querySelector(".nc-edhint"), edBox = root.querySelector(".nc-editions"), edTable = root.querySelector(".nc-ed-table");
-  const EDMODE = { dame95: "ame1995", dame03: "ame2003", dame12: "ame2012", dame16: "ame2016" };
+  const EDMODE = { dame95: "ame1995", dame03: "ame2003", dame12: "ame2012",
+    dame16: "ame2016", dame20: "ame2020" };
   const RNG_UNIT = { e2p: "keV", be2: "e²b²", dme: "keV" };   /* colour modes that store log10 of the quantity */
   const CATS = {
     decay: { of: r => decayClass(r), list: [["stable", T.stable], ["bm", "β⁻"], ["bp", "β⁺/EC"], ["a", "α"], ["sf", "SF"], ["p", "p"], ["n", "n"], ["it", "IT"], ["punst", T.punst]] },
