@@ -70,10 +70,14 @@ def test_actual_hugo_standalone_and_lab_chart_have_unique_scripts_and_safe_order
     i18n = {p.relative_to(ROOT).as_posix() for p in (ROOT / "i18n").iterdir()
             if p.is_file() and not p.name.startswith("._")}
     inputs = templates | data_files | hash_files | i18n
-    # The six-language RFQ guidance and its pure convention/uncertainty helper
-    # bring the discovered fixture just above 10 MiB. Keep a bounded fixture
-    # budget without copying unrelated public assets or reducing source clarity.
-    assert sum((ROOT / rel).stat().st_size for rel in inputs) < 12 * 1024 * 1024
+    # The official AME2026 evaluated reaction table is substantial (~9.5 MB).
+    # Retain exact data bytes when checking Hugo's sha256 shortcode expressions:
+    # this is published scientific data, not executable template growth.
+    evaluated_2026 = {p for p in inputs if p.startswith("static/data/ame2026")}
+    original_inputs = inputs - evaluated_2026
+    assert sum((ROOT / rel).stat().st_size for rel in original_inputs) < 12 * 1024 * 1024
+    assert sum((ROOT / rel).stat().st_size for rel in inputs) < 24 * 1024 * 1024
+    assert evaluated_2026, "New official published AME2026 data must be included in template verification"
     for rel in inputs:
         target = tmp_path / rel
         target.parent.mkdir(parents=True, exist_ok=True)
