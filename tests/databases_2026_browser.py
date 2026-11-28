@@ -17,7 +17,7 @@ with sync_playwright() as p:
     root.locator('.zg-db-lookup-f [name=nuc]').fill('100Sn')
     root.locator('.zg-db-lookup-f button[type=submit]').click()
     result=root.locator('.zg-db-lookup-out')
-    result.get_by_text('AME2026',exact=True).wait_for(timeout=15000)
+    result.locator('dt').filter(has_text='AME2026').wait_for(timeout=15000)
     assert '100' in result.inner_text()
     assert root.locator('a[href*="nuclide=100Sn"]').count()>=1
     assert root.locator('.zg-db-count').inner_text().strip()
@@ -32,7 +32,7 @@ with sync_playwright() as p:
     fav.click();assert fav.get_attribute('aria-pressed')=='false'
     # Historical NUBASE2020 is an explicit selection, not substituted for 2026.
     root.locator('[name=zg-db-edition]').select_option('2020')
-    result.get_by_text('AME2020',exact=True).wait_for(timeout=15000)
+    result.locator('dt').filter(has_text='AME2020').wait_for(timeout=15000)
     assert root.locator('a[href*="evaluation=2020"]').count()>=1
     root.locator('[name=zg-db-edition]').select_option('2026')
     result.get_by_text('AME2026',exact=True).wait_for(timeout=15000)
