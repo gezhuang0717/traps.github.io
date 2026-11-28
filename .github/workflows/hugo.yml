@@ -24,10 +24,10 @@ permissions:
   contents: read
 concurrency:
   group: website-${{ github.ref }}
-  # A replaced PR commit supersedes the old validation results. Cancel stale
-  # PR builds rather than queue every intermediate iteration; never cancel
-  # scheduled/main deployment or Daily writer jobs mid-flight.
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  # A public Daily feed write and Pages publish must not be preempted. Keep
+  # the original safety invariant tested by tests/test_workflow_concurrency.py.
+  # PR-specific Chromium and fast-science workflows cancel obsolete runs.
+  cancel-in-progress: false
   queue: max
 env:
   HUGO_VERSION: 0.166.0
