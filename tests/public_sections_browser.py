@@ -50,11 +50,16 @@ with sync_playwright() as playwright:
     assert not pub.locator("[data-pub-empty]").is_visible()
     assert pub.locator("[data-pub-count]").inner_text()==initial
     REPORT["publication_search"]={"initial":initial,"empty_query":True,"reset_restored":True}
-    # Explicit Mandarin edition for an important public research section.
-    zh=desktop.goto(BASE+"zh/research/",wait_until="domcontentloaded",timeout=35000)
-    REPORT["chinese_research"]={"http_status":zh.status if zh else None,
+    # This workflow builds Hugo Congo: site.yaml maps logical "zh" to
+    # "zh-hans" in Congo, "zh-cn" in Blowfish and "zh" in PaperMod.
+    # Check the REAL generated URL and title, not the raw content/zh folder.
+    chinese_route="zh-hans/research/"
+    zh=desktop.goto(BASE+chinese_route,wait_until="domcontentloaded",timeout=35000)
+    REPORT["chinese_research"]={"route":chinese_route,
+                                "http_status":zh.status if zh else None,
                                 "title":desktop.title()}
-    assert zh and zh.status==200,"Chinese research page missing"
+    assert zh and zh.status==200,"Chinese Research route unavailable: "+chinese_route
+    assert "研究" in desktop.locator("main").inner_text(),"Chinese Research contains no Chinese text"
     (ART/"public-section-viewport-audit.json").write_text(json.dumps(REPORT,ensure_ascii=False,indent=2)+"\n")
     mobile_flags=[(r["route"],r["mobile"]["overflow_px"]) for r in REPORT["sections"]
                   if r["mobile"]["overflow_px"]>36]
