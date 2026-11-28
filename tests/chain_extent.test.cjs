@@ -61,7 +61,7 @@ test('model export retains missing deformation and every model-only chart nucleu
  const modelOnly=Object.assign([130,200,'Z130',null,null,0,0,'','','','',[]],{mo:true});
  const button={},saved=[];
  const values=new Map([[50066,[-91210,null]],[130200,[315130,null]]]);
- const context={src:'ktuy05',window:{ZGMassSurface:require('../static/js/mass-surface.js')},MOD:{ktuy05:{map:values}},key:(z,n)=>z*1000+n,
+ const context={EDITION:{ame:'AME2020',nubase:'NUBASE2020'},src:'ktuy05',window:{ZGMassSurface:require('../static/js/mass-surface.js')},MOD:{ktuy05:{map:values}},key:(z,n)=>z*1000+n,
   derived:r=>r[3]==null?{}:{me:{v:r[3],e:r[4]}},rows:[reference],allRows:()=>[reference,modelOnly],pass:()=>true,filt:'all',
   root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
  vm.runInNewContext(source.slice(start,end)+'\n'+exportLine,context);
