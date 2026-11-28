@@ -10,10 +10,43 @@
 (() => {
   const root = document.querySelector("[data-nuclide-chart]");
   if (!root) return;
+  const evaluationYear=new URLSearchParams(window.location.search).get('evaluation')==='2020'?'2020':'2026';
+  const EDITION={year:evaluationYear,ame:'AME'+evaluationYear,nubase:'NUBASE'+evaluationYear};
+  const editionText=text=>String(text??'').replaceAll('AME2020',EDITION.ame).replaceAll('NUBASE2020',EDITION.nubase);
+  if(evaluationYear==='2020'){
+    // Explicit historical selection: refuse mixed AME2020/2026 data silently.
+    for(const name of ['ame','src','catalogue','reactions']){
+      // data-ame-2020 retains its hyphen before digits in DOMStringMap,
+      // so dataset.ame2020 is undefined. Read the exact HTML attribute.
+      const reference=root.getAttribute('data-'+name+'-2020');
+      if(!reference)throw Error('Historical '+name+' source unavailable');
+      root.dataset[name]=reference;
+    }
+  }
+  const editionSelect=root.querySelector('[name=nc-edition]');
+  if(editionSelect){
+    editionSelect.value=evaluationYear;
+    editionSelect.addEventListener('change',()=>{
+      const url=new URL(window.location.href);
+      if(editionSelect.value==='2020')url.searchParams.set('evaluation','2020');
+      else url.searchParams.delete('evaluation');
+      window.location.assign(url.href);
+    });
+  }
+  root.dataset.activeEvaluation=evaluationYear;
+  const sourceBadge=root.querySelector('.nc-evaluation-provenance');
+  if(sourceBadge&&evaluationYear==='2020')sourceBadge.textContent='AME2020 + NUBASE2020 (historical evaluation)';
   const T = JSON.parse(root.dataset.labels || "{}");
+  for(const key of Object.keys(T)){
+    if(typeof T[key]!=='string')continue;
+    T[key]=evaluationYear==='2026'?
+      T[key].replaceAll('AME2020','AME2026').replaceAll('NUBASE2020','NUBASE2026'):
+      T[key].replaceAll('AME2026','AME2020').replaceAll('NUBASE2026','NUBASE2020');
+  }
+  const title=root.querySelector('h2');if(title)title.textContent=T.title;
   const P=window.ZGPhysics; let catalog=null, selectedState=null;
   const unknown=T.state_unknown;
-  const cardT=cardLabels(document.documentElement.lang);
+  const cardT=Object.fromEntries(Object.entries(cardLabels(document.documentElement.lang)).map(([k,v])=>[k,editionText(v)]));
   const escape=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const cv = root.querySelector("canvas.nc-canvas"), g = cv.getContext("2d");
   const card = root.querySelector(".nc-card"), legend = root.querySelector(".nc-legend"), ptab = root.querySelector(".nc-ptable");
@@ -53,7 +86,7 @@
   const sizeCanvas = (c, w, h) => { const k = DPR(); c._cw = w; c._ch = h; c.width = Math.round(w * k); c.height = Math.round(h * k); c.style.aspectRatio = `${w} / ${h}`; };
 
   /* ---------- physics with uncertainties (keV); est = any input from systematics (#) ---------- */
-  const get = (Z, N) => { const r = M.get(key(Z, N)); return r && r[3] != null ? P.primitive("AME2020:"+key(Z,N),r[3],r[4],!!r[5],!!r[13]) : null; };
+  const get = (Z, N) => { const r = M.get(key(Z, N)); return r && r[3] != null ? P.primitive(EDITION.ame+":"+key(Z,N),r[3],r[4],!!r[5],!!r[13]) : null; };
   let MEn = { v: 8071.3181, e: 0.0004, est: false }, MEH = { v: 7288.971064, e: 0.000013, est: false }, MEa = { v: 2424.91587, e: 0.00015, est: false };
   /* combine a·x + b·y + … ; uncertainties in quadrature (AME correlations neglected) */
   const comb=P.combine;
@@ -102,14 +135,60 @@
   }
   function loadAux(name) {
     if (AUX[name]) return Promise.resolve();
-    return auxJobs[name] || (auxJobs[name] = fetch(auxBase + auxFile[name]).then(r => { if (!r.ok) throw Error("overlay data " + r.status); return r.json(); }).then(j => { AUX[name] = auxBuild(name, j); autoCache.clear(); if (name === "ed") titleEditionOptions(); }).catch(e => { delete auxJobs[name]; const box = root.querySelector(".nc-model-error"); if (box) box.textContent = (T.aux_error || "Could not load the overlay data.") + " " + e.message; throw e; }));
+    return auxJobs[name] || (auxJobs[name] = (async()=>{
+      const response=await fetch(auxBase+auxFile[name]);
+      if(!response.ok)throw Error("overlay data "+response.status);
+      const source=await response.json(),result=auxBuild(name,source);
+      if(name==='ed' && evaluationYear==='2026'){
+        // The historical compact overlay stores 1995/2003/2012/2016 masses
+        // but only 2020 *counts*. Load the actual 2020 published mass table
+        // before enabling the AME2026 - AME2020 comparison colour/chain.
+        const historical=root.getAttribute('data-ame-2020');
+        if(!historical)throw Error('Historical 2020 mass table URL is missing');
+        const [oldResp,newResp]=await Promise.all([fetch(historical),fetch(root.dataset.ame)]);
+        if(!oldResp.ok||!newResp.ok)throw Error('Evaluated mass comparison table unavailable');
+        const [oldMass,newMass]=await Promise.all([oldResp.json(),newResp.json()]);
+        if(oldMass.metadata?.name!=='AME2020'||newMass.metadata?.name!=='AME2026')
+          throw Error('Evaluation source identity mismatch');
+        result.ame2020=new Map(oldMass.rows.map(r=>[key(r[0],r[1]-r[0]),[r[3],r[4],r[5]]]));
+        const states=[...catalog.states.values()];
+        const isomers=states.filter(s=>s.kind==='isomer'&&s.existence!=='withdrawn');
+        const estimated=newMass.rows.filter(r=>r[5]).length;
+        EDSTATS.ame2026={
+          nuclides:newMass.rows.length,
+          measured:newMass.rows.length-estimated,estimated,
+          nubase:{
+            table:'NUBASE2026',url:catalog.metadata.url,
+            raw_sha256:catalog.metadata.sha256,
+            ground_states:rows.length,
+            ground_measured:rows.filter(r=>r[3]!=null&&!r[5]).length,
+            ground_estimated:rows.filter(r=>r[3]!=null&&r[5]).length,
+            ground_no_mass:rows.filter(r=>r[3]==null).length,
+            isomers:isomers.length,
+            nuclides_with_isomers:rows.filter(r=>r[11]?.length).length,
+            other_excited_states:states.filter(s=>s.source_state_index>0&&
+              !['isomer','analogue'].includes(s.kind)).length
+          }
+        };
+      }
+      AUX[name]=result;autoCache.clear();
+      if(name==='ed')titleEditionOptions();
+    })().catch(error=>{
+      delete auxJobs[name];
+      const box=root.querySelector('.nc-model-error');
+      if(box)box.textContent=(T.aux_error||'Could not load the overlay data.')+' '+error.message;
+      throw error;
+    }));
   }
   const auxGet = (name, r) => AUX[name] && AUX[name].get(key(r[0], r[1]));
   const edDiff = (ed, r) => {
     const m = AUX.ed && AUX.ed[ed] && AUX.ed[ed].get(key(r[0], r[1]));
     if (!m || r[3] == null) return null;
-    const known = r[4] != null && m[1] != null;
-    return { v: r[3] - m[0], e: known ? Math.hypot(r[4], m[1]) : null, est: !!(r[5] || m[2]) };
+    // Published editions share input data. Their cross-edition covariance is
+    // unknown: their difference has a well-defined central value, but not a
+    // statistically justified sigma from quadrature of marginal errors.
+    return { v: r[3] - m[0], e:null, est: !!(r[5] || m[2]),
+      uncertainty_model:'Cross-edition covariance unavailable; do not infer significance' };
   };
   const USER = { map: new Map(), column: "", rows: [], parsed: null, typed: null };  /* independent typed observable; mass adoption is explicit */
   let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
@@ -168,7 +247,7 @@
     qa: { label: T.m_qa, v: r => mv(D(r).qa), lo: 0, hi: 10, u: "MeV" },
     dme: { label: T.m_dme, v: r => r[4] == null ? null : Math.log10(Math.max(r[4], 1e-4)), lo: -3, hi: 3, rng: ["0.001 keV", "1 MeV"] },
     est: { label: T.m_est, f: r => r[3] == null ? "#868e96" : r[5] ? "#f59e0b" : "#0ea5e9" },
-    year: { label: T.m_year, v: r => r[9], lo: 1900, hi: 2020 },
+    year: { label: T.m_year, v: r => r[9], lo: 1900, hi: 2026 },
     iso: { label: T.m_iso, f: r => ["#e5e7eb", "#a78bfa", "#7c3aed", "#4c1d95"][Math.min(3, r[11].length)] },
     eo: { label: T.m_eo, f: r => ["#0ea5e9", "#f59e0b", "#22c55e", "#ef4444"][(r[0] % 2) * 2 + (r[1] % 2)] },
     s2p: { label: T.mf_s2p, v: r => mv(D(r).s2p), lo: 0, hi: 35, u: "MeV" },
@@ -190,6 +269,9 @@
     be2: { label: T.m_be2, aux: "be2", v: pick("be2", a => logPos(a.b)), lo: -3, hi: 1.3, rng: ["10⁻³ e²b²", "20 e²b²"] },
     beta2e: { label: T.m_beta2e, aux: "be2", v: pick("be2", a => a.beta), lo: 0, hi: 0.5 },
     dame16: { label: T.m_dame16, aux: "ed", v: r => { const d = edDiff("ame2016", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
+    ...(evaluationYear==='2026' ? {dame20: {label: 'ΔME(AME2026 − AME2020) · keV',
+      aux:'ed',v:r=>{const d=edDiff('ame2020',r);return d?d.v:null;},
+      lo:-30,hi:30,u:'keV',div:true,auto:true}} : {}),
     dame12: { label: T.m_dame12, aux: "ed", v: r => { const d = edDiff("ame2012", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
     mine: { label: T.m_mine, user: true, v: r => { const x = USER.map.get(key(r[0], r[1])); return x === undefined ? null : x; }, lo: 0, hi: 1 },
     dame03: { label: T.m_dame03, aux: "ed", v: r => { const d = edDiff("ame2003", r); return d ? d.v : null; }, lo: -30, hi: 30, u: "keV", div: true, auto: true },
@@ -284,7 +366,8 @@
   }
   /* ---------- label boxes: summary of the plotted values, AME edition hint and edition table ---------- */
   const statBox = root.querySelector(".nc-statbox"), edHint = root.querySelector(".nc-edhint"), edBox = root.querySelector(".nc-editions"), edTable = root.querySelector(".nc-ed-table");
-  const EDMODE = { dame95: "ame1995", dame03: "ame2003", dame12: "ame2012", dame16: "ame2016" };
+  const EDMODE = { dame95: "ame1995", dame03: "ame2003", dame12: "ame2012",
+    dame16: "ame2016", dame20: "ame2020" };
   const RNG_UNIT = { e2p: "keV", be2: "e²b²", dme: "keV" };   /* colour modes that store log10 of the quantity */
   const CATS = {
     decay: { of: r => decayClass(r), list: [["stable", T.stable], ["bm", "β⁻"], ["bp", "β⁺/EC"], ["a", "α"], ["sf", "SF"], ["p", "p"], ["n", "n"], ["it", "IT"], ["punst", T.punst]] },
@@ -371,14 +454,16 @@
     if (c.dropped) lines.push(fill(T.ed_hint_drop, { ed: label, n: c.dropped }));
     if (c.estimatedToMeasured || c.measuredToEstimated) lines.push(fill(T.ed_hint_stat, { a: c.estimatedToMeasured, b: c.measuredToEstimated }));
     if (c.largest) lines.push(fill(T.ed_hint_spread, { med: num(c.medianAbs), mean: num(c.meanDifference), max: num(c.largest.v), id: sup(c.largest.id[0] + c.largest.id[1]) + (EL.find(e => e[0] === c.largest.id[0]) || [0, "Z" + c.largest.id[0]])[1] }));
-    lines.push(fill(T.ed_hint_sigma, { n: c.beyond3Sigma }));
+    lines.push(document.documentElement.lang.startsWith('zh')
+      ? '不同评价版本共享部分实验数据，缺少跨评价协方差；不报告三倍标准差显著性。'
+      : 'Evaluations share experimental inputs. Cross-edition covariance is unavailable; no 3σ significance is claimed.');
     edHint.innerHTML = lines.map(l => `<p>${escape(l)}</p>`).join("");
   }
   function renderEditions() {
     if (!edTable || !edBox || !edBox.open) return;
     const ST = window.ZGChartStats;
     if (!EDSTATS) { edTable.textContent = T.ed_loading; return; }
-    const head = [T.ed_col_ed, T.ed_col_nub, T.ed_col_n, T.ed_col_meas, T.ed_col_est, T.ed_col_iso, T.ed_col_wiso, T.ed_col_oth], cur = EDMODE[mode] || "ame2020";
+    const head = [T.ed_col_ed, T.ed_col_nub, T.ed_col_n, T.ed_col_meas, T.ed_col_est, T.ed_col_iso, T.ed_col_wiso, T.ed_col_oth], cur = EDMODE[mode] || "ame"+evaluationYear;
     edTable.innerHTML = `<table class="nc-ed-tab"><thead><tr>${head.map(h => `<th scope="col">${escape(h)}</th>`).join("")}</tr></thead><tbody>` + ST.editionRows(EDSTATS).map(e =>
       `<tr${e.key === cur ? ' class="nc-ed-cur" aria-current="true"' : ""}><th scope="row">${e.label}</th><td>${escape(e.nubase)}</td><td>${e.nuclides}</td><td>${e.measured}</td><td>${e.estimated}</td><td>${e.isomers ?? "—"}</td><td>${e.withIsomers ?? "—"}</td><td>${e.other ?? "—"}</td></tr>`).join("") + "</tbody></table>";
   }
@@ -430,7 +515,7 @@
     if(indexLoading)return indexLoading;
     indexLoading=fetch(root.dataset.models).then(r=>{if(!r.ok)throw new Error('Model index');return r.json();}).then(d=>{
       modelIndex=d.models;PATHS=d.paths;
-      msel.innerHTML='<option value="ame">AME2020</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
+      msel.innerHTML='<option value="ame">'+EDITION.ame+'</option>'+Object.entries(modelIndex).map(([k,m])=>'<option value="'+escape(k)+'">'+escape(m.name)+'</option>').join('');
       root.querySelector('.nc-model-series').innerHTML=Object.entries(modelIndex).map(([k,m])=>{
         const table=m.source?.table_url||m.source?.url||new URL(m.data_url,new URL(root.dataset.models,location.href)).href;
         const paper=m.source?.doi?'https://doi.org/'+m.source.doi:m.url;
@@ -549,7 +634,7 @@
       const unit=data.metadata?.quantity_units?.[key]||(key==='BEA'?'keV/nucleon':'keV');
       return '<tr><th>'+escape(names[key]||key)+'</th><td>'+escape(value)+' '+escape(unit)+'</td></tr>';
     }).join('');
-    const links=(data.metadata?.sources||[]).map(source=>'<a href="'+escape(source.url)+'">'+escape(source.table||'AME2020')+'</a>').join(' · ');
+    const links=(data.metadata?.sources||[]).map(source=>'<a href="'+escape(source.url)+'">'+escape(source.table||EDITION.ame)+'</a>').join(' · ');
     return '<p>'+escape(labels.publishedNote)+'</p><table><thead><tr><th>'+escape(Z+N+' '+record.element+' [g]')+'</th><th>'+escape(labels.referenceValue)+'</th></tr></thead><tbody>'+body+'</tbody></table><p>'+escape(labels.notTabulated)+'</p><p>'+links+'</p>';
   }
 
@@ -617,7 +702,7 @@
       <details class="nc-explanation nc-published-reference"><summary>${cardT.published}</summary>${publishedReferenceHTML(evaluatedData,r[0],r[1],cardT,unknown)}</details>
       <div class="nc-cbtn"><button type="button" class="zg-btn" data-ch="Z">${T.p_iso}</button><button type="button" class="zg-btn" data-ch="N">${T.p_isot}</button><button type="button" class="zg-btn" data-ch="A">${T.p_isob}</button></div>
       <ul class="nc-facts">${facts(r, d).map(x => "<li>" + x + "</li>").join("")}</ul>
-      <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>AME2020 · NUBASE2020 (Chin. Phys. C 45, 030001–030003, 2021)</p>`;
+      <p class="nc-src"># ${T.hashnote} · ${T.errnote}<br>${EDITION.ame} · ${EDITION.nubase} (Chin. Phys. C ${evaluationYear==='2026'?'50, 120001–120003, 2026':'45, 030001–030003, 2021'})</p>`;
     card.insertAdjacentHTML("beforeend",measured?.annotation(r[0],r[1])||"");
     showStates(r);
     card.querySelector(".nc-close").onclick = () => { pin = null; showCard(null); draw(); };
@@ -694,10 +779,13 @@
   PQ.be2 = [linear(T.m_be2), (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.b, a.sb) : null; }, "e²b²"];
   PQ.beta2e = [T.m_beta2e, (d, r) => { const a = auxGet("be2", r); return a ? expObj(a.beta, a.sbeta) : null; }, ""];
   PQ.mine = [T.m_mine, () => null, ""]; // Custom values are an independent series, never an evaluated reference.
-  for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"]]) PQ[name] = [T["m_" + name], (d, r) => { const x = edDiff(ed, r); return x ? { v: x.v * 1000, e: x.e == null ? null : x.e * 1000, est: x.est } : null; }, "keV"];
+  for (const [name, ed] of [["dame16", "ame2016"], ["dame12", "ame2012"], ["dame03", "ame2003"], ["dame95", "ame1995"], ...(evaluationYear==='2026'?[["dame20","ame2020"]]:[])])
+    PQ[name] = [name==='dame20'?'ΔME(AME2026 − AME2020)':T["m_" + name],
+      (d,r)=>{const x=edDiff(ed,r);return x?{v:x.v*1000,e:null,est:x.est,
+        uncertainty_model:x.uncertainty_model}:null;}, "keV"];
   // A plotted standard uncertainty is not a linear mass expression. Keep its
   // underlying mass separate for filtering, input labels and CSV provenance.
-  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame16", "dame12", "dame03", "dame95", "mine"];
+  const EXPQ = ["rms", "mu", "qmom", "e2p", "be2", "beta2e", "dame20", "dame16", "dame12", "dame03", "dame95", "mine"];
   const dependencyValue=(quantity,derived,value)=>quantity==='dme'||EXPQ.includes(quantity)?derived.me:value;
   const formulaDefinitions={...extraFilters,...reactionDefinitions};
   const offsets=f=>f.terms.map(([z,n])=>'('+z+', '+n+')').join(' · ');
@@ -717,11 +805,11 @@
     return {key,...labelStyles.get(key)};
   }
   labelStyle();
-  const referenceName=()=>['rms','mu','qmom'].includes(pq.value)?'IAEA LiveChart':['e2p','be2','beta2e'].includes(pq.value)?'NNDC B(E2)':pq.value==='mine'?T.mine_no_reference:'AME2020';
+  const referenceName=()=>['rms','mu','qmom'].includes(pq.value)?'IAEA LiveChart':['e2p','be2','beta2e'].includes(pq.value)?'NNDC B(E2)':pq.value==='mine'?T.mine_no_reference:EDITION.ame;
   const seriesMeta=(k,labels)=>{
     if(k==='mine')return {id:k,key:k,name:USER.typed?.label||T.m_mine,short:USER.typed?.label||T.m_mine,color:'#b41c81',shape:'diamond'};
     if(['loaded','hybrid'].includes(k)){
-      const style=labelStyle(labels),name=style.labels.join(' / ')+(k==='hybrid'?' + AME2020':'');
+      const style=labelStyle(labels),name=style.labels.join(' / ')+(k==='hybrid'?' + '+EDITION.ame:'');
       return {id:k,key:k+':'+style.key,labelKey:style.key,name,short:name,color:style.color,shape:style[k],open:false};
     }
     return k==='ame'?{id:k,key:k,name:referenceName(),short:referenceName(),color:'#3b5bdb',shape:'circle'}:{id:k,key:k,name:MOD[k]?.name||modelIndex?.[k]?.name||k,short:(MOD[k]?.name||k).split(' (')[0],color:palette[Object.keys(modelIndex||{}).indexOf(k)%palette.length],shape:'model'};
@@ -838,7 +926,7 @@
     impactInputs();
     impactRows=window.ZGMassSurface.changes(rows,inputTable.active,derivedZN,MM.affected);
     for(const r of inputTable.active.values())if(r.state.source_state_index){
-      const s=r.state,m=s.mass_excess,old=m.value==null?null:P.primitive('NUBASE2020:'+s.id,m.value,m.uncertainty,m.value_extrapolated),gs=get(s.Z,s.N),newgs=getter('hybrid')(s.Z,s.N),centre=[s.Z,s.N,s.element];
+      const s=r.state,m=s.mass_excess,old=m.value==null?null:P.primitive(EDITION.nubase+':'+s.id,m.value,m.uncertainty,m.value_extrapolated),gs=get(s.Z,s.N),newgs=getter('hybrid')(s.Z,s.N),centre=[s.Z,s.N,s.element];
       for(const [quantity,before,after]of [['me',old,r.value],['ex',old&&gs?P.combine([1,old],[-1,gs]):null,newgs?P.combine([1,r.value],[-1,newgs]):null]])if(after)impactRows.push({r:centre,state:s.label,quantity,unit:'keV',before,after,delta:before?P.combine([1,after],[-1,before]):null});
     }
     impactRows.sort((a,b)=>a.r[0]-b.r[0]||a.r[1]-b.r[1]||a.quantity.localeCompare(b.quantity));impactRender();
@@ -950,7 +1038,7 @@
         const a=q[1](derived(p.r),p.r);if(!a)continue;
         const d=P.combine([1,p.valueObj],[-1,a]),model=!['loaded','hybrid'].includes(p.series);
         if(filter==='measured'&&d.est)continue;
-        residualPts.push({...p,y:d.v,e:model?a.e:d.e,...CP.residualStyle(d,a,model),valueObj:d,dependencyValue:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − AME2020'});
+        residualPts.push({...p,y:d.v,e:model?a.e:d.e,...CP.residualStyle(d,a,model),valueObj:d,dependencyValue:d,unit:pq.value==='bea'?'keV/nucleon':'keV',panel:'residual',source:p.source+' − '+EDITION.ame});
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
@@ -1066,7 +1154,7 @@
     c.lineWidth=lineWidth()*st.lineWidth;c.strokeStyle='rgba(127,127,160,.5)';c.strokeRect(L,top,width-L-R,height-B-top);c.fillStyle=exporting?'#222':ink;c.font=st.tickSize+'px system-ui';
     c.textAlign='right';niceTicks(domain.y0,domain.y1,4).forEach(y=>c.fillText(fmtTick(y),L-5,py(y)+3));c.textAlign='center';
     niceTicks(domain.x0,domain.x1,Math.max(2,Math.floor((width-L-R)/50))).filter(Number.isInteger).forEach(x=>c.fillText(x,px(x),height-B+15));
-    c.font=st.titleSize+'px system-ui';c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − AME2020',(L+width-R)/2,Math.max(12,st.titleSize+1));c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
+    c.font=st.titleSize+'px system-ui';c.fillText('Δ ('+(pq.value==='bea'?'keV/nucleon':'keV')+') = series − '+EDITION.ame,(L+width-R)/2,Math.max(12,st.titleSize+1));c.beginPath();c.moveTo(L,py(0));c.lineTo(width-R,py(0));c.stroke();
     c.save();c.beginPath();c.rect(L,top,width-L-R,height-B-top);c.clip();
     const showLine=chainInput('lines').checked,showErr=chainInput('err').checked;
     drawBands(c,residualPts,px,py);
@@ -1075,7 +1163,7 @@
       if(showLine&&s.id!=='loaded'){c.beginPath();ps.forEach((p,i)=>i&&CP.connects(ps[i-1],p)?c.lineTo(px(p.x),py(p.y)):c.moveTo(px(p.x),py(p.y)));c.stroke();}c.setLineDash([]);
       ps.forEach(p=>{const x=px(p.x+shiftOf(p.series)),y=py(p.y),background=exporting?'#fff':getComputedStyle(document.documentElement).getPropertyValue('--zg-card').trim()||'#fff';CP.paintMarker(c,s.shape,x,y,2.5*mark,s.color,p.est||s.open,background);if(showErr&&p.e>0){c.beginPath();c.moveTo(x,py(p.y-p.e));c.lineTo(x,py(p.y+p.e));c.stroke();}});
     }
-    c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − AME2020, keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
+    c.restore();if(c===rg)rc.setAttribute('aria-label','Δ = series − '+EDITION.ame+', keV; shared x '+domain.x0+'–'+domain.x1+'; '+residualPts.length+' points');
   }
   rc.addEventListener('mousemove',e=>{if(!residualDomain)return;const b=rc.getBoundingClientRect(),geom=residualGeom(residualDomain,rc._cw,rc._ch);pointDetail(CP.nearest(residualPts,(e.clientX-b.left)*rc._cw/b.width,(e.clientY-b.top)*rc._ch/b.height,geom));});
   function plotAt(e) {
@@ -1160,8 +1248,8 @@
   /* ---------- exports ---------- */
   const csvRow = r => {
     const d = derived(r), info = o => o ? [!!o.est, !!o.sigmaEst,
-      o.uncertainty_model || (o.e == null ? 'uncertainty unavailable' : 'AME2020 tabulated marginal mass uncertainty'),
-      o.source || (o.uncertainty_model ? 'AME2020 marginal masses; recalculated' : 'AME2020 mass table')] : ['', '', '', ''];
+      o.uncertainty_model || (o.e == null ? 'uncertainty unavailable' : EDITION.ame+' tabulated marginal mass uncertainty'),
+      o.source || (o.uncertainty_model ? EDITION.ame+' marginal masses; recalculated' : EDITION.ame+' mass table')] : ['', '', '', ''];
     const f = o => o ? [String(o.v / 1000), o.e == null ? '' : String(o.e / 1000), o.est ? '#' : '', ...info(o)] : ['', '', '', '', '', '', ''];
     const m = src !== "ame" && MOD[src] ? MOD[src].map.get(key(r[0], r[1])) : null;
     const modelInfo = m ? [false, false, 'model uncertainty unavailable', MOD[src].name || src] : ['', '', '', ''];
@@ -1174,7 +1262,7 @@
   };
   root.querySelector("[name=nc-line-width]").onchange = () => { draw(); drawPlot(); drawResidual(); };
   root.querySelector("[data-nc=png]").onclick = () => X.png(sc => { const o = document.createElement("canvas"); o.width = W() * sc; o.height = H() * sc; draw(o.getContext("2d"), o.width, o.height, sc); return o; }, "chart-of-nuclides", 6);
-  root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), allRows().filter(pass).map(csvRow), "ame2020-nubase2020" + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
+  root.querySelector("[data-nc=csv]").onclick = () => X.csv(csvHead(), allRows().filter(pass).map(csvRow), (EDITION.ame+"-"+EDITION.nubase).toLowerCase() + (filt === "all" ? "" : "-" + filt) + (src === "ame" ? "" : "-with-" + src));
   root.querySelector("[data-nc=video]").onclick = e => {
     const b = e.currentTarget, tour = [rows.find(r => r[0] === 50 && r[1] === 50), rows.find(r => r[0] === 55 && r[1] === 78), rows.find(r => r[0] === 82 && r[1] === 126)].filter(Boolean);
     const keep = [cv._cw, cv._ch], hi = () => { cv.width = Math.round(cv._cw * 3); cv.height = Math.round(cv._ch * 3); draw(); };
@@ -1194,7 +1282,7 @@
     if(!plotDomain||!chainFigureStyle.valid())return;
     const points=plotPts.concat(modPts).map(p=>({...p,panel:'value',unit:PQ[pq.value][2]})).concat(residualPts);
     X.csv(['panel','chain_type','chain','x','Z','N','A','element','quantity','unit','value','uncertainty','uncertainty_basis','flag','series','source','input_provenance','loaded_table_sha256','AME_version','model_source_url','model_raw_sha256','axis_x0','axis_x1','axis_y0','axis_y1','input_labels','marker','marker_open','color','AME_reference_extrapolated','experimental_band_lower','experimental_band_upper','value_extrapolated','uncertainty_extrapolated','figure_style_json','line_mode','marker_offset_N','AME_grey'],
-      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),'AME2020/NUBASE2020',MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst,JSON.stringify(chainStyle()),chainInput('lines').checked?(chainInput('linemode').value||'series'):'none',Number(chainInput('dodge').value)||0,!!chainInput('muteame').checked];}),FS.exportName(chainStyle(),'chain-'+pq.value));
+      points.map(p=>{const s=seriesMeta(p.series,p.labels);return [p.panel,pchain.value,p.g,p.x,p.r[0],p.r[1],p.r[0]+p.r[1],p.r[2],pq.value,p.unit,p.y,p.e??'',MOD[p.series]?(p.panel==='residual'?'AME only; model uncertainty unavailable':'unavailable model uncertainty'):(p.valueObj?.uncertainty_model||'independent primitives; shared terms cancelled'),p.est?'#':'',p.series,p.valueObj?.source||p.source,JSON.stringify(p.typed_provenance?[p.typed_provenance]:MM.provenance(p.dependencyValue||p.valueObj,inputTable)),measured.hash(),EDITION.ame+'/'+EDITION.nubase,MOD[p.series]?.url||'',MOD[p.series]?.source?.raw_sha256||MOD[p.series]?.source?.sha256||'',plotDomain.x0,plotDomain.x1,p.panel==='value'?plotDomain.y0:residualDomain?.y0??'',p.panel==='value'?plotDomain.y1:residualDomain?.y1??'',JSON.stringify(p.labels||[]),s.shape,!!(p.est||s.open),pointColor(p,s),!!p.referenceEstimated,chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y-p.e:'',chainInput('band').checked&&['ame','loaded','hybrid'].includes(p.series)&&!p.est&&p.e>0?p.y+p.e:'',!!p.est,!!p.valueObj?.sigmaEst,JSON.stringify(chainStyle()),chainInput('lines').checked?(chainInput('linemode').value||'series'):'none',Number(chainInput('dodge').value)||0,!!chainInput('muteame').checked];}),FS.exportName(chainStyle(),'chain-'+pq.value));
   };
 
   /* ---------- events ---------- */
@@ -1400,10 +1488,10 @@
   new MutationObserver(()=>{updateInk();draw();drawPlot();drawResidual();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
 
   const evaluatedRequest=fetch(root.dataset.reactions).then(response=>{
-    if(!response.ok)throw new Error('Published AME2020 reference table unavailable');
+    if(!response.ok)throw new Error('Published '+EDITION.ame+' reference table unavailable');
     return response.json();
   }).then(data=>({data,adapter:window.ZGAMEEvaluated.fromData(data)})).catch(error=>{
-    evaluatedWarning=true;console.warn('Published AME2020 reaction values unavailable; independent-mass fallback',error);return null;
+    evaluatedWarning=true;console.warn('Published '+EDITION.ame+' reaction values unavailable; independent-mass fallback',error);return null;
   });
   Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame),evaluatedRequest]).then(([d,c,reference]) => {
     catalog=c;evaluated=reference?.adapter||null;evaluatedData=reference?.data||null;

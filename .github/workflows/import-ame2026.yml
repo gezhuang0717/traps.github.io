@@ -1,0 +1,76 @@
+name: Import and validate official AME2026/NUBASE2026
+on:
+  push:
+    branches: ['feature/ame2026-nuclide-rfq-cinema-20261128']
+    paths:
+      - 'tools/import_ame2026.py'
+      - 'tests/test_ame2026_import.py'
+      - '.github/workflows/import-ame2026.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ame2026-official-ingest
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/ame2026-nuclide-rfq-cinema-20261128
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Acquire and preserve raw official AMDC 2026 source tables
+        run: |
+          set -euo pipefail
+          python tools/import_ame2026.py --download-only
+          git config user.name "Official AMDC source data bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/data/ame2026/
+          if ! git diff --cached --quiet; then
+            git commit -m "Pin four original official AMDC 2026 source tables verbatim and SHA256"
+            git pull --rebase origin feature/ame2026-nuclide-rfq-cinema-20261128
+            git push origin HEAD:feature/ame2026-nuclide-rfq-cinema-20261128
+          fi
+      - name: Convert complete tables without changing evaluated uncertainties
+        run: |
+          set -euo pipefail
+          python tools/import_ame2026.py
+          python tools/import_ame2026.py --check
+          python -m unittest discover -s tests -p 'test_ame2026_import.py' -v
+      - name: Cross-check evaluated inventory and raw file signatures
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          root=Path('static/data')
+          manifest=json.loads((root/'ame2026-source-manifest.json').read_text())
+          assert manifest['edition']=='AME2026+NUBASE2026'
+          assert manifest['validation']['status']=='PASS'
+          for src in manifest['sources']:
+              raw=Path('tools/data/ame2026')/src['name']
+              assert len(raw.read_bytes())==src['bytes']
+              assert hashlib.sha256(raw.read_bytes()).hexdigest()==src['sha256']
+          chart=json.loads((root/'nubase2026.json').read_text())
+          ref=json.loads((root/'ame2026.json').read_text())
+          states=json.loads((root/'nuclear-states2026.json').read_text())
+          assert len(chart['rows'])>=3300 and len(ref['rows'])>=3300
+          assert len(states['states'])>=5000
+          print('OFFICIAL 2026 verified:',manifest['counts'])
+          PY
+      - name: Commit raw ASCII, evaluated tables, and exact source manifest
+        run: |
+          set -euo pipefail
+          git config user.name "Official AMDC public-data import bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/data/ame2026/ static/data/ame2026.json \
+            static/data/ame2026-reactions.json static/data/nubase2026.json \
+            static/data/nuclear-states2026.json static/data/ame2026-source-manifest.json
+          if git diff --cached --quiet; then echo 'Official AMDC tables already identical'; exit 0; fi
+          git commit -m "Import official AME2026 NUBASE2026 mass and reaction tables with SHA256 and validation"
+          git pull --rebase origin feature/ame2026-nuclide-rfq-cinema-20261128
+          git push origin HEAD:feature/ame2026-nuclide-rfq-cinema-20261128

@@ -29,6 +29,8 @@
     return combine(...weights.map((w, i) => [parity * w, getMass(Z + (axis === "Z" ? i - half : 0), N + (axis === "N" ? i - half : 0))]));
   }
   function catalogue(data, ameData) {
+    const massEdition=/AME2026/i.test(ameData?.metadata?.name||ameData?.source||'')?'AME2026':'AME2020';
+    const stateEdition=/NUBASE2026/i.test(data?.source?.name||'')?'NUBASE2026':'NUBASE2020';
     const states = new Map(data.states.map(s => [s.id, s])), groups = new Map(), ground = new Map();
     data.states.forEach(s => { const k = s.element.toLowerCase() + s.A; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(s); if (!s.source_state_index) ground.set(k, s); });
     const ame = new Map(ameData.rows.map(r => [r[2].toLowerCase() + r[1], r]));
@@ -39,10 +41,10 @@
       const useAme = massSource === "ame" && am && numeric(am[3]);
       const me = useAme ? am[3] : gs.mass_excess.value, er = useAme ? am[4] : gs.mass_excess.uncertainty;
       if (!numeric(me) || (!useAme && gs.mass_excess.qualifier)) throw new Error(`Mass unavailable: ${A}${element}`);
-      const src = useAme ? "AME2020" : "NUBASE2020";
+      const src = useAme ? massEdition : stateEdition;
       let value = combine([1, constant(A)], [1 / C.uKeV, primitive(`${src}:${gs.id}`, me, er, useAme ? !!am[5] : gs.mass_excess.value_extrapolated, useAme ? !!am[6] : gs.mass_excess.uncertainty_extrapolated)]);
-      if (state) value = combine([1, value], [1 / C.uKeV, primitive(`NUBASE2020:Ex:${st.id}`, st.excitation.value, st.excitation.uncertainty, st.excitation.value_extrapolated, st.excitation.uncertainty_extrapolated)]);
-      return { value, state: st, A, Z: gs.Z, label: `${A}${gs.element}${state ? `[${st.label}]` : ""}`, source: src + (state ? " + NUBASE2020 excitation" : "") };
+      if (state) value = combine([1, value], [1 / C.uKeV, primitive(`${stateEdition}:Ex:${st.id}`, st.excitation.value, st.excitation.uncertainty, st.excitation.value_extrapolated, st.excitation.uncertainty_extrapolated)]);
+      return { value, state: st, A, Z: gs.Z, label: `${A}${gs.element}${state ? `[${st.label}]` : ""}`, source: src + (state ? " + "+stateEdition+" excitation" : "") };
     }
     /* Charge written as a suffix. With the letter e the sign is that of the electron change: 133Cs-e removes one electron (Cs+), 133Cs-2e two (Cs2+),
        133Cs+e adds one (Cs-, a negative ion). Without e the sign is that of the ion: 2+, +, 3-, -, +2, -2. Returns { q: magnitude, sign } or null. */
@@ -122,7 +124,7 @@
       const gs=m&&ground.get(m[2].toLowerCase()+Number(m[1]));
       return gs&&/^\d+$/.test(String(index))?states.get(`${gs.Z}-${gs.N}-${Number(index)}`)||null:null;
     }
-    return { states, groups, ground, resolve, atom, lookupState, metadata: {...data.source,ground_mass_source:ameData.metadata || {description:ameData.source}} };
+    return { states, groups, ground, resolve, atom, lookupState, metadata: {...data.source,ground_mass_source:ameData.metadata || {description:ameData.source},mass_edition:massEdition,state_edition:stateEdition} };
   }
   const loads = new Map();
   function load(catalogueUrl, ameUrl) {

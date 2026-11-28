@@ -1,0 +1,95 @@
+name: AME2026 chart and RFQ 2D/3D real-browser integration
+on:
+  push:
+    branches: ['feature/ame2026-nuclide-rfq-cinema-20261128']
+    paths:
+      - 'static/js/nuclide-*'
+      - 'static/js/chain-plot.js'
+      - 'static/js/ame-evaluated.js'
+      - 'static/js/physics.js'
+      - 'static/js/rfq-*'
+      - 'static/data/ame2026*'
+      - 'static/data/nubase2026*'
+      - 'static/data/nuclear-states2026*'
+      - 'layouts/_shortcodes/nuclide-chart.html'
+      - 'layouts/_partials/zg/rfq-*'
+      - 'static/css/rfq-*'
+      - 'tests/ame2026_chart.test.cjs'
+      - 'tests/chart2026_cinema_browser.py'
+      - 'tests/databases_2026_browser.py'
+      - 'static/js/databases.js'
+      - 'layouts/_shortcodes/databases.html'
+      - 'data/databases.yaml'
+      - '.github/workflows/chart2026-cinema-e2e.yml'
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  chart-and-movies:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      NUCLIDE_E2E_BASE: http://127.0.0.1:8770/
+      NUCLIDE_E2E_ARTIFACTS: chart-2026-browser-evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify full official AME2026 inventory and no unexpected edits
+        run: |
+          set -euo pipefail
+          python tools/import_ame2026.py --check
+          python -m unittest discover -s tests -p test_ame2026_import.py -v
+          node --check static/js/nuclide-chart.js
+          node --check static/js/rfq-trajectory-cinema.js
+          node --check static/js/physics.js
+          node --check static/js/ame-evaluated.js
+          node --test tests/ame2026_chart.test.cjs tests/ame_evaluated.test.cjs \
+            tests/chain_plot.test.cjs
+      - name: Install website and pinned Hugo Extended runtime
+        run: |
+          set -euo pipefail
+          python -m pip install -r requirements-dev.txt
+          curl -fsSL -o "$RUNNER_TEMP/hugo.deb" \
+             "https://github.com/gohugoio/hugo/releases/download/v0.166.0/hugo_extended_0.166.0_linux-amd64.deb"
+          sudo dpkg -i "$RUNNER_TEMP/hugo.deb"
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Rebuild site from original source and serve locally
+        run: |
+          set -euo pipefail
+          python tools/site.py config
+          hugo --minify --configDir sites/congo --themesDir themes \
+            --destination "$RUNNER_TEMP/chart2026-site" --baseURL http://127.0.0.1:8770/
+          python -m http.server 8770 --bind 127.0.0.1 --directory "$RUNNER_TEMP/chart2026-site" > "$RUNNER_TEMP/chart2026-http.log" 2>&1 &
+          for n in $(seq 1 30); do curl -fsS http://127.0.0.1:8770/lab/ >/dev/null && break; sleep 1; done
+      - name: Real Chromium checkboxes, actual 2026/2020 dataset switch, 2D/3D motion and mobile
+        run: python tests/chart2026_cinema_browser.py
+      - name: Databases lookup current/archival evaluation and other tab controls
+        run: python tests/databases_2026_browser.py
+      - name: Full research-site Python, JS, publication and all-theme validation
+        run: |
+          set -euo pipefail
+          python tools/site.py check
+          python -m pytest tests -q
+          node --test tests/*.test.cjs
+          python tools/publish.py check --base-url http://127.0.0.1:8770/
+          for theme in congo blowfish papermod; do
+             hugo --minify --configDir "sites/$theme" --themesDir themes \
+                 --destination "$RUNNER_TEMP/chart-$theme" --baseURL http://127.0.0.1:8770/
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: official-2026-nuclide-chart-rfq-cinema-evidence
+          path: chart-2026-browser-evidence/
+          if-no-files-found: warn
+          retention-days: 60

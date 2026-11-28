@@ -25,7 +25,7 @@ labels:
     close: Close
     kind: Type
     lookup_t: Quick nuclide look-up
-    lookup_p: Type a nuclide such as 100Sn, Sn-100 or 45Sc. Local values come from AME2020 and NUBASE2020; the buttons
+    lookup_p: Type a nuclide such as 100Sn, Sn-100 or 45Sc. Local values come from AME2026 and NUBASE2026; the buttons
       open the same nuclide in the external databases.
     lookup_go: Look up
     lookup_bad: Unknown nuclide — use mass number and element symbol, e.g. 100Sn.
@@ -36,12 +36,12 @@ labels:
     isomers: Isomers
     disc: Discovered
     est: '# = estimated (systematics), not measured'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: How to use this page
     help: Search or pick a category; ⓘ Guide opens a pop-up with what the database contains, when to use it, step-by-step
       use, tips and citation. ★ marks favourites (kept in this browser only). Copy the link of a card to share it.
-      The nuclide look-up gives AME2020/NUBASE2020 values directly and opens the same nuclide in IAEA LiveChart
+      The nuclide look-up gives AME2026/NUBASE2026 values directly and opens the same nuclide in IAEA LiveChart
       (CSV via the official API), Wikipedia and this site's chart. Text in dotted underline has an explanation pop-up.
     terms_t: Data terms explained
     networks_t: Data networks behind the databases
@@ -84,7 +84,7 @@ labels:
     close: 关闭
     kind: 类型
     lookup_t: 核素快速查询
-    lookup_p: 输入核素，例如 100Sn、Sn-100 或 45Sc。本地数值取自 AME2020 与 NUBASE2020；按钮会在外部数据库中打开同一核素。
+    lookup_p: 输入核素，例如 100Sn、Sn-100 或 45Sc。本地数值取自 AME2026 与 NUBASE2026；按钮会在外部数据库中打开同一核素。
     lookup_go: 查询
     lookup_bad: 未知核素——请输入质量数和元素符号，例如 100Sn。
     me: 质量过剩
@@ -94,10 +94,10 @@ labels:
     isomers: 同核异能态
     disc: 发现年份
     est: '# = 系统学外推值，非实验测量'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: 本页使用说明
-    help: 可搜索或选择类别；“ⓘ 指南”弹出窗口介绍数据库内容、适用场合、操作步骤、提示与引用方式。★ 标记收藏（仅保存在本浏览器）。可复制卡片链接分享。核素查询直接给出 AME2020/NUBASE2020 数值，并在
+    help: 可搜索或选择类别；“ⓘ 指南”弹出窗口介绍数据库内容、适用场合、操作步骤、提示与引用方式。★ 标记收藏（仅保存在本浏览器）。可复制卡片链接分享。核素查询直接给出 AME2026/NUBASE2026 数值，并在
       IAEA LiveChart（官方 API 的 CSV）、维基百科及本站核素图中打开同一核素。带虚线下划线的术语有解释弹窗。
     terms_t: 数据术语解释
     networks_t: 数据库背后的国际数据网络
@@ -140,7 +140,7 @@ labels:
     close: Sulje
     kind: Tyyppi
     lookup_t: Nopea nuklidihaku
-    lookup_p: Kirjoita nuklidi, esim. 100Sn, Sn-100 tai 45Sc. Paikalliset arvot ovat AME2020:sta ja NUBASE2020:sta;
+    lookup_p: Kirjoita nuklidi, esim. 100Sn, Sn-100 tai 45Sc. Paikalliset arvot ovat AME2026:sta ja NUBASE2026:sta;
       painikkeet avaavat saman nuklidin ulkoisissa tietokannoissa.
     lookup_go: Hae
     lookup_bad: Tuntematon nuklidi — anna massaluku ja alkuaineen tunnus, esim. 100Sn.
@@ -151,11 +151,11 @@ labels:
     isomers: Isomeerit
     disc: Löydetty
     est: '# = arvioitu (systematiikka), ei mitattu'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: Sivun käyttö
     help: Hae tai valitse luokka; ⓘ Opas avaa ikkunan, jossa kerrotaan sisältö, käyttötilanteet, vaiheet, vinkit
-      ja viittaus. ★ merkitsee suosikin (tallennetaan vain tähän selaimeen). Nuklidihaku antaa AME2020/NUBASE2020-arvot
+      ja viittaus. ★ merkitsee suosikin (tallennetaan vain tähän selaimeen). Nuklidihaku antaa AME2026/NUBASE2026-arvot
       ja avaa saman nuklidin IAEA LiveChartissa, Wikipediassa ja tämän sivuston kartassa. Oppaiden pitkät tekstit
       ovat englanniksi.
     terms_t: Tietotermit selitettynä
@@ -200,7 +200,7 @@ labels:
     close: Schließen
     kind: Typ
     lookup_t: Schnelle Nuklidsuche
-    lookup_p: Nuklid eingeben, z. B. 100Sn, Sn-100 oder 45Sc. Lokale Werte stammen aus AME2020 und NUBASE2020; die
+    lookup_p: Nuklid eingeben, z. B. 100Sn, Sn-100 oder 45Sc. Lokale Werte stammen aus AME2026 und NUBASE2026; die
       Knöpfe öffnen dasselbe Nuklid in externen Datenbanken.
     lookup_go: Suchen
     lookup_bad: Unbekanntes Nuklid — Massenzahl und Elementsymbol angeben, z. B. 100Sn.
@@ -211,11 +211,11 @@ labels:
     isomers: Isomere
     disc: Entdeckt
     est: '# = geschätzt (Systematik), nicht gemessen'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: So benutzen Sie diese Seite
     help: Suchen oder eine Kategorie wählen; ⓘ Anleitung öffnet ein Fenster mit Inhalt, Einsatzzweck, Schritten,
-      Tipps und Zitierweise. ★ markiert Favoriten (nur in diesem Browser gespeichert). Die Nuklidsuche liefert AME2020/NUBASE2020-Werte
+      Tipps und Zitierweise. ★ markiert Favoriten (nur in diesem Browser gespeichert). Die Nuklidsuche liefert AME2026/NUBASE2026-Werte
       und öffnet dasselbe Nuklid in IAEA LiveChart, Wikipedia und der Nuklidkarte dieser Website. Die ausführlichen
       Anleitungen sind auf Englisch.
     terms_t: Datenbegriffe erklärt
@@ -259,7 +259,7 @@ labels:
     close: 閉じる
     kind: 種類
     lookup_t: 核種クイック検索
-    lookup_p: 100Sn、Sn-100、45Sc のように核種を入力してください。数値は AME2020 と NUBASE2020 から表示し、ボタンで外部データベースの同じ核種を開きます。
+    lookup_p: 100Sn、Sn-100、45Sc のように核種を入力してください。数値は AME2026 と NUBASE2026 から表示し、ボタンで外部データベースの同じ核種を開きます。
     lookup_go: 検索
     lookup_bad: 不明な核種です — 質量数と元素記号を入力してください（例：100Sn）。
     me: 質量偏差
@@ -269,10 +269,10 @@ labels:
     isomers: 核異性体
     disc: 発見年
     est: '# = 系統性からの推定値（未測定）'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: このページの使い方
-    help: 検索またはカテゴリを選択し、ⓘ ガイドで内容・用途・手順・ヒント・引用方法を表示します。★ はお気に入り（このブラウザのみに保存）。核種検索は AME2020/NUBASE2020 の値を表示し、IAEA
+    help: 検索またはカテゴリを選択し、ⓘ ガイドで内容・用途・手順・ヒント・引用方法を表示します。★ はお気に入り（このブラウザのみに保存）。核種検索は AME2026/NUBASE2026 の値を表示し、IAEA
       LiveChart、Wikipedia、本サイトの核図表で同じ核種を開きます。詳しいガイド本文は英語です。
     terms_t: データ用語の解説
     networks_t: データベースを支える国際ネットワーク
@@ -315,7 +315,7 @@ labels:
     close: Fermer
     kind: Type
     lookup_t: Recherche rapide de nucléide
-    lookup_p: Saisissez 100Sn, Sn-100 ou 45Sc. Les valeurs locales proviennent d’AME2020 et NUBASE2020 ; les boutons
+    lookup_p: Saisissez 100Sn, Sn-100 ou 45Sc. Les valeurs locales proviennent d’AME2026 et NUBASE2026 ; les boutons
       ouvrent ce nucléide dans les bases externes.
     lookup_go: Rechercher
     lookup_bad: Nucléide inconnu ; utilisez nombre de masse et symbole, par exemple 100Sn.
@@ -326,11 +326,11 @@ labels:
     isomers: Isomères
     disc: Découverte
     est: '# = estimation systématique, pas mesure'
-    ame: AME2020
-    nubase: NUBASE2020
+    ame: AME2026
+    nubase: NUBASE2026
     help_t: Utiliser cette page
     help: Recherchez ou choisissez une catégorie. Guide explique contenu, usage, étapes, limites et citation. ★
-      conserve les favoris dans ce navigateur. Copiez le lien pour partager une fiche. La recherche affiche AME2020/NUBASE2020
+      conserve les favoris dans ce navigateur. Copiez le lien pour partager une fiche. La recherche affiche AME2026/NUBASE2026
       et ouvre LiveChart, Wikipédia ou la carte du site. Les termes soulignés en pointillé possèdent une explication.
     terms_t: Vocabulaire des données
     networks_t: Réseaux derrière les bases
@@ -1155,6 +1155,41 @@ items:
     en: Handy for a quick look; quote the underlying evaluation (ENSDF/ENDF) in publications.
     zh: 适合快速查看；发表时请引用其底层评价数据（ENSDF/ENDF）。
     fr: "Pratique pour une consultation rapide ; citez l’évaluation d’origine ENSDF/ENDF dans une publication."
+- id: amdc2026
+  name: AMDC — AME2026 & NUBASE2026 (current evaluation)
+  org: Atomic Mass Data Center (IMP-CAS / IAEA)
+  cat: masses
+  kind: evaluated
+  url: https://amdc.impcas.ac.cn/masstables/Ame2026/filel.html
+  short:
+    en: 'Official AME2026, NUBASE2026, and RCT1/RCT2 evaluated mass, nuclear-state, separation and decay energy tables.'
+    zh: AME2026、NUBASE2026 与 RCT1/RCT2 官方核质量、核态、粒子分离能和衰变能评价表。
+    fr: "Tables officielles AME2026, NUBASE2026, RCT1 et RCT2 pour les masses, états nucléaires et énergies de réaction."
+  what:
+    en: 'Current AMDC 2026 published unrounded masses and uncertainties, 6151 NUBASE2026 state records and evaluated separation/reaction energies. The chart uses the original ASCII fixed-width sources, with independent extrapolation flags for reported values and uncertainties. The previous AME2020/NUBASE2020 edition remains separately selectable.'
+    zh: 最新 AMDC 2026 非舍入质量及不确定度、6151 条 NUBASE2026 核态与已发表粒子分离/反应能。核素图直接使用官方定宽文本，分别标记数值和不确定度的外推状态，旧版 AME2020/NUBASE2020 仍可独立选择。
+    fr: "Évaluation publiée 2026 des masses, états NUBASE et énergies de réaction, avec indicateurs d'extrapolation. Les archives 2020 restent accessibles."
+  use:
+    en:
+    - Download the original official mass.mas26 and nubase.mas26 files, and the two unrounded reaction-energy tables rct1.mas26 and rct2.mas26.
+    - Preserve the 2026 column format and the distinction between estimated mass excess and estimated uncertainty; * denotes an unavailable field.
+    - Use the published RCT1/RCT2 reaction uncertainty, not a naive quadrature of correlated evaluated masses.
+    - Compare 2026 against 2020 with edition labels; never treat the inter-edition difference as statistically independent without the covariance.
+    zh:
+    - 从 AMDC 官方目录下载 mass.mas26、nubase.mas26、rct1.mas26、rct2.mas26 四个原始文件。
+    - 按原始 2026 定宽列解析，区分质量数值和不确定度的独立外推标记；* 表示缺失数据。
+    - 优先使用 RCT1/RCT2 发表的反应能不确定度，不直接对相关质量的误差作独立平方和。
+    - 与 2020 评价对照时保留版本来源；不能未经协方差校正就报告差异显著性。
+    fr:
+    - Téléchargez les fichiers officiels mass.mas26 et nubase.mas26, ainsi que les tables de réactions non arrondies rct1.mas26 et rct2.mas26.
+    - Respectez les colonnes fixes de 2026 et distinguez les valeurs estimées de leurs incertitudes ; * indique une valeur indisponible.
+    - 'Utilisez les incertitudes de réaction évaluées dans RCT1 et RCT2 : les masses évaluées sont corrélées.'
+    - Identifiez les éditions 2026 et 2020 lors de la comparaison ; ne supposez pas l'indépendance statistique des différences sans covariance.
+  tips:
+    en: Cite the evaluated 2026 primary papers and refer to the exact AMDC source-table hashes. The website's current Chart of Nuclides defaults to 2026 while preserving 2020 history.
+    zh: 引用 2026 年评价原始论文及官方源文件校验值；网站核素图默认 AME2026，历史 2020 可切换。
+    fr: "Citez les évaluations 2026 et conservez le manifeste SHA-256; la carte nucléaire utilise 2026 par défaut."
+  cite: 'F.G. Kondev et al., Chinese Phys. C 50, 120001 (2026), DOI 10.1088/1674-1137/aebced; W.J. Huang et al., Chinese Phys. C 50, 120002/120003 (2026), DOI 10.1088/1674-1137/aebcec and 10.1088/1674-1137/aebceb.'
 - id: amdc
   name: AMDC — AME2020 & NUBASE2020
   org: Atomic Mass Data Center (IAEA / IMP-CAS)

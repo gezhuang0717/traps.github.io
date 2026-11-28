@@ -8,7 +8,7 @@ function chartFixture({filter='all',sigmaEst=false,quantity='dme'}={}){
  const ame=P.primitive('AME2020:50066',-91525.979,.096,false,sigmaEst);
  const input=P.primitive('loaded:50-66-0:test',-91515.979,1,false);
  const inputTable={active:new Map([['50-66-0',{value:input,label:'JYFLTRAP',rows:[],references:[]}]])};
- const context={P,CP,MM,inputTable,filter,maxSigma:null,pq:{value:quantity},
+ const context={evaluationYear:'2020',P,CP,MM,inputTable,filter,maxSigma:null,pq:{value:quantity},
   T:new Proxy({}, {get:(o,k)=>String(k)}),reactionDefinitions:{},extraFilters:{},dmod:()=>null,
   derivedZN:(z,n,s)=>({me:s==='hybrid'?input:ame,s2n:P.combine([1,ame],[-1,s==='hybrid'?input:ame])}),
   get:()=>ame,getter:()=>()=>input,xv:(z,n)=>n,group:()=>50,
@@ -45,7 +45,7 @@ test('actual chain CSV uses mass provenance for the sigma diagnostic and residua
  const style=FS.normalize({filename:'diagnostic',markerDiameter:10});
  const residual=P.combine([1,f.input],[-1,f.ame]);
  const residualPoint={...p,valueObj:residual,dependencyValue:residual,panel:'residual',unit:'keV',y:10,e:residual.e};
- const button={},context={root:{querySelector:()=>button},plotDomain:{x0:60,x1:70,y0:0,y1:2},residualDomain:null,
+ const button={},context={evaluationYear:'2020',EDITION:{ame:'AME2020',nubase:'NUBASE2020'},root:{querySelector:()=>button},plotDomain:{x0:60,x1:70,y0:0,y1:2},residualDomain:null,
   plotPts:[p],modPts:[],residualPts:[residualPoint],pq:{value:'dme'},PQ:f.PQ,pchain:{value:'Z'},
   MOD:{},MM,inputTable:f.context.inputTable,measured:{hash:()=>''},seriesMeta:()=>({shape:'diamond'}),
   pointColor:()=> 'magenta',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},

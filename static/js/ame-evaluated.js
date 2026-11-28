@@ -1,10 +1,12 @@
-/* Published AME2020 values and evaluated uncertainties, in keV.
+/* Published AME2020 and AME2026 evaluated values/uncertainties, in keV.
    Raw mass/reaction tables are distinct from browser-local and model stencils. */
 (function(host){
   'use strict';
   function fromData(data){
     if(!data || !data.records || data.unit!=='keV')throw new Error('Invalid AME evaluated table');
-    const direct=(z,n,q)=>data.records[`${z},${n}`]?.values[q]||null;
+    const edition=/AME2026/i.test(data.metadata?.name||data.source||'')?'AME2026':'AME2020';
+    const direct=(z,n,q)=>{const entry=data.records[`${z},${n}`]?.values[q];
+      return entry?{...entry,evaluation_edition:edition}:null;};
     const reverse=(z,n,q,dz,dn)=>{
       const t=direct(z+dz,n+dn,q);
       return t&&{...t,value:t.value==null?null:-t.value,derived_from:`reverse ${q} at Z=${z+dz},N=${n+dn}`};
@@ -24,17 +26,18 @@
       }
       return null;
     }
-    return {get,metadata:data.metadata};
+    return {get,metadata:data.metadata,edition};
   }
   function apply(recomputed,tab){
     if(!tab || !Number.isFinite(tab.value))return null;
     // Retain mass identity terms for whole-stencil filters/provenance. They do
     // not represent the covariance of the published reaction uncertainty.
+    const edition=tab.evaluation_edition||'AME2020';
     const value={...(recomputed||{}),v:tab.value,e:tab.uncertainty,
       est:!!tab.value_extrapolated,sigmaEst:!!tab.uncertainty_extrapolated,
       offset:(recomputed?.offset||0)+tab.value-(recomputed?.v||0),
-      uncertainty_model:'AME2020 evaluated table; mass correlations retained',
-      source:tab.derived_from?'AME2020 evaluated mass difference':'AME2020 published table',published:true,
+      uncertainty_model:edition+' evaluated table; mass correlations retained',
+      source:tab.derived_from?edition+' evaluated mass difference':edition+' published table',published:true,
       table_source:tab.source_file||tab.source||null,derived_from:tab.derived_from||null,
       recomputed_value:recomputed?.v??null,recomputed_uncertainty:recomputed?.e??null};
     return value;

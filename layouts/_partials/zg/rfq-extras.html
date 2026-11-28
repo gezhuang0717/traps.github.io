@@ -14,7 +14,7 @@
 <label>{{ $t.vz0 }} <input name="rx-vz" type="number" value="1" step="any"></label>
 <label>{{ $t.active_length }} <input name="rx-length" type="number" value="20" min=".001" max="10000000" step="any"></label>
 <label>{{ $t.steps }} <select name="rx-steps"><option value="32">32</option><option value="64" selected>64</option><option value="128">128</option></select></label>
-<label>{{ $t.view }} <select name="rx-motion-view"><option value="time">{{ $t.view_time }}</option><option value="orbit">{{ $t.view_orbit }}</option><option value="phase">{{ $t.view_phase }}</option><option value="filtered">{{ $t.view_filtered }}</option><option value="axial">{{ $t.view_axial }}</option><option value="spatial">{{ $t.view_spatial }}</option><option value="comparison">{{ $t.view_comparison }}</option><option value="spectrum">{{ $t.view_spectrum }}</option></select></label></div>
+<label>{{ $t.view }} <select name="rx-motion-view"><option value="time">{{ $t.view_time }}</option><option value="orbit">{{ $t.view_orbit }}</option><option value="phase">{{ $t.view_phase }}</option><option value="xz">XZ (mm)</option><option value="yz">YZ (mm)</option><option value="rz">RZ (mm)</option><option value="filtered">{{ $t.view_filtered }}</option><option value="axial">{{ $t.view_axial }}</option><option value="spatial">{{ $t.view_spatial }}</option><option value="comparison">{{ $t.view_comparison }}</option><option value="spectrum">{{ $t.view_spectrum }}</option></select></label></div>
 <div class="rfq-equation">τ = Ωt/2; &nbsp; x″ + [a − 2q cos(2τ + φ)]x = 0; &nbsp; y″ + [−a + 2q cos(2τ + φ)]y = 0</div>
 <p class="zg-muted">{{ $t.axial_note }}</p>
 <div class="zg-row"><button type="button" class="zg-btn" data-rfx-action="run" data-rfx-kind="motion">{{ $t.run }}</button>

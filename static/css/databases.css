@@ -42,3 +42,7 @@ html.dark .zg-db-dialog{background:#1c1c24;color:#e8e8ef}
 .zg-db-bad{color:#e5484d}
 .zg-db-est{font-size:.88em;opacity:.8}
 @media print{.zg-db-tools,.zg-db-fav,.zg-db-lookup,.zg-db-link{display:none!important}.zg-db-guide{display:block}.zg-db-guide>*{display:block}}
+
+/* Explicit hidden-state contract: .zg-db-card display:flex otherwise overrides
+   the UA [hidden]{display:none} rule, leaving filtered-out cards visible. */
+.zg-db [hidden]{display:none!important}

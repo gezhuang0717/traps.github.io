@@ -6,6 +6,7 @@
   const NS = 'http://www.w3.org/2000/svg', BLUE = '#2475bd', TEAL = '#138575', GOLD = '#d17a22';
   const EN = {
     time:'Micromotion and secular motion', orbit:'Transverse orbit', phase:'Transverse phase space',
+    xz:'Axial-radial XZ projection', yz:'Axial-radial YZ projection', rz:'Radius vs axial position',
     filtered:'One-RF-period mean and residual', axial:'Axial flight in an ideal RFQ', spatial:'3D trajectory · ideal RFQ',
     comparison:'Launch at different RF phases', spectrum:'Trajectory frequency spectrum',
     integrated:'Integrated trajectory', mean:'One-RF-period mean', residual:'RF-period residual',
@@ -25,7 +26,7 @@
     presetNote:'Examples set direct Mathieu a, q and initial conditions. They are ideal-model teaching cases.'
   };
   const ZH = {
-    time:'微运动与久期运动', orbit:'横向轨道', phase:'横向相空间', filtered:'一个射频周期均值与残差',
+    time:'微运动与久期运动', orbit:'横向轨道', phase:'横向相空间', xz:'轴向 XZ 轨迹', yz:'轴向 YZ 轨迹', rz:'轴向半径 RZ 轨迹', filtered:'一个射频周期均值与残差',
     axial:'理想 RFQ 中的轴向飞行', spatial:'三维轨迹 · 理想 RFQ', comparison:'不同射频相位注入',
     spectrum:'轨迹频谱', integrated:'积分轨迹', mean:'一个射频周期均值', residual:'射频周期残差',
     current:'离子位置', radius:'圆形孔径近似', cycles:'射频周期数', position:'位置（mm）',
@@ -155,6 +156,20 @@
           series=[{name:'',color:'#d6e3ed',rows:raw.map(r=>({x:r.x_mm,y:r.y_mm}))},{name:t.integrated,color:BLUE,rows:seen.map(r=>({x:r.x_mm,y:r.y_mm}))},
             {name:t.mean,color:TEAL,rows:means.filter(r=>r.cycle<=last.cycle).map(r=>({x:r.x_rf_average_mm,y:r.y_rf_average_mm}))},{name:t.radius,color:'#97aabd',dash:'5 4',rows:ring}];
           xlabel='x (mm)';ylabel='y (mm)';options.equalAspect=true;options.markers=[{x:last.x_mm,y:last.y_mm,label:t.current,color:GOLD}];
+        }else if(['xz','yz','rz'].includes(view)){
+          // Source x, y and z are the same integrated phase-space sample.
+          // z is free flight; radial motion is from the ideal quadrupole,
+          // so the projection does not imply 3D electrostatic focusing.
+          const axis=view==='xz'?'x_mm':view==='yz'?'y_mm':'r_mm';
+          const coordinate=view==='xz'?'x':view==='yz'?'y':'r';
+          series=[
+            {name:'',color:'#d6e3ed',rows:raw.map(row=>({x:row.z_mm,y:row[axis]}))},
+            {name:t.integrated,color:BLUE,rows:seen.map(row=>({x:row.z_mm,y:row[axis]}))}
+          ];
+          xlabel='z (mm)';ylabel=coordinate+' (mm)';
+          options.equalAspect=true;
+          options.markers=[{x:last.z_mm,y:last[axis],label:t.current,color:GOLD}];
+          options.caption=caption+' · '+t.model;
         }else if(view==='phase'){
           series=[{name:'',color:'#d6e3ed',rows:raw.map(r=>({x:r.x_mm,y:r.vx_mm_per_us}))},{name:'x–vₓ',color:BLUE,rows:seen.map(r=>({x:r.x_mm,y:r.vx_mm_per_us}))}];
           xlabel='x (mm)';ylabel='vₓ (mm/µs)';options.markers=[{x:last.x_mm,y:last.vx_mm_per_us,label:t.current,color:GOLD}];

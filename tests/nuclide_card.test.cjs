@@ -5,7 +5,7 @@ const catalogue=JSON.parse(fs.readFileSync('static/data/nuclear-states.json'));
 const chart=JSON.parse(fs.readFileSync('static/data/nubase2020.json'));
 const states=new Map(catalogue.states.map(s=>[s.id,s]));
 function helpers(extra={}){
- const context={escape:s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),...extra};
+ const context={evaluationYear:'2020',EDITION:{ame:'AME2020',nubase:'NUBASE2020'},escape:s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),...extra};
  const defs=source.slice(source.indexOf('  const reactionDefinitions='),source.indexOf('  const MODES ='));
  const start=source.indexOf('  /* ---------- source/state presentation'),end=source.indexOf('  /* ---------- formatting:',start);
  assert.ok(start>0&&end>start);
@@ -63,7 +63,7 @@ test('chart CSV exports the published 155Eu Qβ uncertainty and every newly avai
  const get=(z,n)=>{const r=masses.get(z*1000+n);return r?P.primitive('AME2020:'+(z*1000+n),r[3],r[4],!!r[5],!!r[13]):null;};
  const surface=S.create(()=>get,{MEn:get(0,1),MEH:get(1,0),MEa:get(2,2)},()=>null,(z,n,q)=>evaluated.get(z,n,q));
  const eu=masses.get(63092),button={},saved=[];
- const context={window:{ZGMassSurface:S},src:'ame',MOD:{},key:(z,n)=>z*1000+n,derived:r=>surface.derive(r[0],r[1]),allRows:()=>[eu],pass:()=>true,filt:'all',root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
+ const context={evaluationYear:'2020',EDITION:{ame:'AME2020',nubase:'NUBASE2020'},window:{ZGMassSurface:S},src:'ame',MOD:{},key:(z,n)=>z*1000+n,derived:r=>surface.derive(r[0],r[1]),allRows:()=>[eu],pass:()=>true,filt:'all',root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
  const start=source.indexOf('  const csvRow ='),end=source.indexOf('  root.querySelector("[name=nc-line-width]")',start);
  const line=source.split('\n').find(x=>x.includes('root.querySelector("[data-nc=csv]").onclick'));
  vm.runInNewContext(source.slice(start,end)+'\n'+line,context);button.onclick();
@@ -83,7 +83,7 @@ test('actual chart CSV keeps asymmetric # flags, absent quantities and tabulated
  const d={me:{v:-91525.979,e:.096,est:false,sigmaEst:true,source:'AME2020 published table',uncertainty_model:'AME2020 evaluated table; mass correlations retained'},
   BEA:{v:8523.1166,e:.0009,est:true,sigmaEst:false,source:'AME2020 published table',uncertainty_model:'AME2020 evaluated table; mass correlations retained'},
   d3n:{v:100,e:2,est:false,sigmaEst:true,uncertainty_model:'diagonal primitive covariance; repeated inputs combined'}};
- const context={window:{ZGMassSurface:S},src:'ame',MOD:{},key:(z,n)=>z*1000+n,derived:()=>d,allRows:()=>[row],pass:()=>true,filt:'all',root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
+ const context={evaluationYear:'2020',EDITION:{ame:'AME2020',nubase:'NUBASE2020'},window:{ZGMassSurface:S},src:'ame',MOD:{},key:(z,n)=>z*1000+n,derived:()=>d,allRows:()=>[row],pass:()=>true,filt:'all',root:{querySelector:()=>button},X:{csv:(...args)=>saved.push(args)}};
  const start=source.indexOf('  const csvRow ='),end=source.indexOf('  root.querySelector("[name=nc-line-width]")',start);
  const line=source.split('\n').find(x=>x.includes('root.querySelector("[data-nc=csv]").onclick'));
  vm.runInNewContext(source.slice(start,end)+'\n'+line,context);button.onclick();
@@ -99,7 +99,7 @@ test('actual chart CSV keeps asymmetric # flags, absent quantities and tabulated
 test('chain CSV keeps evaluated and independent uncertainty provenance distinct',()=>{
  const button={},saved=[],base={r:[63,92,'Eu'],g:63,x:92,y:.2519612,e:.0008682,est:false,series:'ame',source:'AME2020',valueObj:{uncertainty_model:'AME2020 evaluated table; mass correlations retained',source:'AME2020 published table',sigmaEst:true}};
  const style=FS.normalize();
- const context={root:{querySelector:()=>button},plotDomain:{x0:90,x1:94,y0:0,y1:1},plotPts:[base],modPts:[],residualPts:[],PQ:{qbm:['Q(β⁻)',null,'MeV']},pq:{value:'qbm'},pchain:{value:'Z'},MOD:{},seriesMeta:()=>({shape:'circle'}),MM:{provenance:()=>[]},inputTable:null,measured:{hash:()=>''},residualDomain:null,pointColor:()=>'blue',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},FS,chainStyle:()=>style,chainFigureStyle:{valid:()=>true}};
+ const context={evaluationYear:'2020',EDITION:{ame:'AME2020',nubase:'NUBASE2020'},root:{querySelector:()=>button},plotDomain:{x0:90,x1:94,y0:0,y1:1},plotPts:[base],modPts:[],residualPts:[],PQ:{qbm:['Q(β⁻)',null,'MeV']},pq:{value:'qbm'},pchain:{value:'Z'},MOD:{},seriesMeta:()=>({shape:'circle'}),MM:{provenance:()=>[]},inputTable:null,measured:{hash:()=>''},residualDomain:null,pointColor:()=>'blue',chainInput:()=>({checked:false}),X:{csv:(...args)=>saved.push(args)},FS,chainStyle:()=>style,chainFigureStyle:{valid:()=>true}};
  const start=source.indexOf('  root.querySelector("[data-nc=pcsv]").onclick'),end=source.indexOf('  /* ---------- events',start);
  vm.runInNewContext(source.slice(start,end),context);button.onclick();
  let [header,rows]=saved[0];assert.equal(rows[0][header.indexOf('uncertainty_basis')],base.valueObj.uncertainty_model);

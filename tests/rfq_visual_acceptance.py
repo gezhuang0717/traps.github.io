@@ -22,6 +22,9 @@ from playwright.sync_api import expect, sync_playwright
 BASE = os.environ.get("RFQ_E2E_BASE", "http://127.0.0.1:8765/").rstrip("/") + "/"
 ART = Path(os.environ.get("RFQ_E2E_ARTIFACTS", "rfq-browser-evidence")) / "visual"
 TABS = ("classic", "design", "resonance", "motion", "gas", "bunch", "scan", "data")
+# The trajectory cinema is a ninth accessible keyboard tab. Existing eight
+# scientific chart groups retain their independent figure/export acceptance.
+KEY_TABS = TABS[:3] + ("cinema",) + TABS[3:]
 WIDTHS = (320, 390, 768, 1440)
 ART.mkdir(parents=True, exist_ok=True)
 
@@ -152,7 +155,7 @@ def run() -> dict:
                 try:
                     expect(root.locator('[data-local-tab="classic"]')).to_have_attribute("aria-selected", "true")
                     root.locator('[data-local-tab="classic"]').focus()
-                    for tab in TABS[1:]:
+                    for tab in KEY_TABS[1:]:
                         page.keyboard.press("ArrowRight")
                         expect(root.locator(f'[data-local-tab="{tab}"]')).to_be_focused()
                         expect(root.locator(f'[data-local-panel="{tab}"]')).to_be_visible()
