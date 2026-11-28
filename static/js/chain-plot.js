@@ -87,8 +87,14 @@
     const experimental=ids.filter(id=>id.startsWith('loaded:'));
     // Fixed n, 1H and alpha reference masses do not make an otherwise fully
     // new nuclide stencil mixed. They remain present in values/uncertainties.
-    const references=new Set(['AME2020:1','AME2020:1000','AME2020:1001','AME2020:2002']);
-    const ame=ids.filter(id=>id.startsWith('AME2020:')&&!references.has(id));
+    // Both published evaluations use the same isotopic identity keys, but
+    // evaluated 2020 and 2026 masses must remain distinct primitive IDs.
+    // Exclude the shared n/H/d/He4 mass anchors used by derived stencils.
+    const references=new Set([1,1000,1001,2002]);
+    const ame=ids.filter(id=>{
+      const match=/^AME(?:2020|2026):(\d+)$/.exec(id);
+      return match&&!references.has(Number(match[1]));
+    });
     return {experimental,ame,mixed:experimental.length>0&&ame.length>0};
   }
   const markers=Object.freeze({circle:['●','○'],diamond:['◆','◇'],square:['■','□'],triangle:['▲','△'],down:['▼','▽'],hexagon:['⬢','⬡'],star:['★','☆']});
