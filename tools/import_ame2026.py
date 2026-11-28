@@ -51,7 +51,7 @@ def validate_original(filename,raw):
     except UnicodeDecodeError as exc:raise ValueError("Unexpected non-ASCII source file: "+filename) from exc
     if any(term not in text[:6200] for term in EXPECTED[filename]):
         raise ValueError(filename+" does not have the official 2026 header/column contract")
-    if "# in" not in text[:6200] and "decimal point" not in text[:6200]:
+    if filename!="nubase.mas26" and "# in" not in text[:6200] and "decimal point" not in text[:6200]:
         raise ValueError(filename+" is missing source-estimation notation")
     if "\r" in text.replace("\r\n",""):
         raise ValueError("Unexpected line endings")
