@@ -208,14 +208,19 @@
       uncertainty_model:'Cross-edition covariance unavailable; do not infer significance' };
   };
   const USER = { map: new Map(), column: "", rows: [], parsed: null, typed: null };  /* independent typed observable; mass adoption is explicit */
-  let manualRange = null;  /* {lo, hi} set by the visitor; null = the default range of the quantity */
+  let manualRange = null;  /* {lo, hi} set by the visitor; null = default */
+  const rangeByQuantity=new Map();  /* restore user-defined bounds on returning to a quantity */
   /* Default scalar colour range: every finite available value, including extrema. The 2–98% window is an explicit opt-in button.
      Do not cache a fallback before an overlay/model table has loaded. Manual bounds always take precedence. */
   const autoCache = new Map();
   function autoBounds(m) {
-    const id = src + "|" + m.label, hit = autoCache.get(id); if (hit) return hit;
+    const id = [src,m.label,filt,zpar,npar].join('|'),hit=autoCache.get(id); if(hit)return hit;
     let lo = Infinity, hi = -Infinity;
-    for (const r of allRows()) { const v = m.v(r); if (v != null && Number.isFinite(v)) { if (v < lo) lo = v; if (v > hi) hi = v; } }
+    for (const r of allRows()) {
+      if(!pass(r))continue;
+      const v=m.v(r);
+      if(v!=null&&Number.isFinite(v)){if(v<lo)lo=v;if(v>hi)hi=v;}
+    }
     if (!(hi >= lo)) return null;
     if (hi === lo) { lo -= 0.5; hi += 0.5; }
     const b = { lo, hi }; autoCache.set(id, b); return b;
@@ -1356,7 +1361,10 @@
   sel.innerHTML = window.ZGMassQuantityMenu.html(Object.fromEntries(Object.entries(MODES).map(([k,m])=>[k,m.label])),T);
   sel.value=mode;
   function changeColourMode() {
-    mode = sel.value; manualRange = null; isolate.clear(); isolateMode = "";
+    if(manualRange)rangeByQuantity.set(mode,{...manualRange});
+    mode=sel.value;
+    manualRange=rangeByQuantity.has(mode)?{...rangeByQuantity.get(mode)}:null;
+    isolate.clear();isolateMode="";
     const refresh = () => { memo.clear(); drawLegend(); draw(); syncColourControls(); };
     if (MODES[mode].need && !Object.keys(MOD).length) loadModels().then(refresh).catch(modelFailure);
     const au = MODES[mode].aux;
@@ -1369,7 +1377,7 @@
   {
     const q = n => root.querySelector('[name="' + n + '"]'), zS = q("nc-zpar"), nS = q("nc-npar"), isoC = q("nc-isomark"), emC = q("nc-empty"), hk = root.querySelector(".nc-hotkey-status");
     const say = (key, v) => { if (hk) hk.textContent = fill(T[key], { v }); }, onoff = b => b ? T.hk_on : T.hk_off;
-    const refresh = () => { memo.clear(); fsel.onchange(); };
+    const refresh=()=>{memo.clear();autoCache.clear();fsel.onchange();};
     if (zS) zS.onchange = () => { zpar = zS.value; refresh(); };
     if (nS) nS.onchange = () => { npar = nS.value; refresh(); };
     if (isoC) isoC.onchange = () => { isoMark = isoC.checked; draw(); };
@@ -1414,16 +1422,36 @@
 
   /* ---- manual colour range and the visitor's own data layer ---- */
   {
-    const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]');
+    const q = n => root.querySelector('[name="' + n + '"]'), chk = q("nc-range-manual"), minI = q("nc-range-min"), maxI = q("nc-range-max"), note = root.querySelector(".nc-range-note"), autoB = root.querySelector('[data-nc="range-auto"]'), fullB = root.querySelector('[data-nc="range-full"]'), numericB=root.querySelector('[data-nc="range-numeric"]');
     const ta = q("nc-mine-text"), fileI = q("nc-mine-file"), colS = q("nc-mine-col"), status = root.querySelector(".nc-mine-status"), UD = window.ZGChartUserData, TD=window.ZGChartTypedData;
     const redraw = () => { memo.clear(); drawLegend(); draw(); };
     const clearValidity = () => { [minI, maxI].forEach(e => { e.setCustomValidity(""); e.removeAttribute("aria-invalid"); }); };
     function syncRange() {
-      const m = MODES[mode], off = !!m.f || !m.v; [chk, autoB, fullB].forEach(e => { if (e) e.disabled = off; });
-      minI.disabled = maxI.disabled = off || !manualRange;
+      const m=MODES[mode],off=!!m.f||!m.v;
+      [chk,autoB,fullB].forEach(e=>{if(e)e.disabled=off;});
+      if(numericB)numericB.hidden=!off;
+      minI.disabled=maxI.disabled=off||!manualRange;
       clearValidity();
-      const bd = bounds(m); chk.checked = !!manualRange; if (!off) { minI.value = rangeLabel(bd.lo); maxI.value = rangeLabel(bd.hi, true); }
-      note.textContent = off ? (T.range_off_mode || T.cl_off_mode) : m.rng ? T.range_log : "";
+      const bd=bounds(m);
+      chk.checked=!!manualRange&&!off;
+      if(off){
+        minI.value='';maxI.value='';
+        note.textContent=T.range_off_mode||T.cl_off_mode;
+        note.setAttribute('data-range-state','categorical');
+        note.setAttribute('data-range-unit','');
+      }else{
+        minI.value=manualRange?String(bd.lo):rangeLabel(bd.lo);
+        maxI.value=manualRange?String(bd.hi):rangeLabel(bd.hi,true);
+        const unit=m.rng?'log₁₀'+(rngUnit(m)?' ('+rngUnit(m)+')':''):(m.u||'');
+        note.setAttribute('data-range-unit',unit);
+        note.setAttribute('data-range-state',manualRange?'manual':'automatic');
+        note.setAttribute('data-range-lo',String(bd.lo));
+        note.setAttribute('data-range-hi',String(bd.hi));
+        note.textContent=(manualRange?(T.range_active||'Manual range applied'):(T.range_auto_info||'Automatic range'))+
+          ': '+rangeLabel(bd.lo)+' … '+rangeLabel(bd.hi,true)+(unit?' '+unit:'')+
+          (manualRange?' · '+(T.range_clip||'out-of-range values clipped'):'')+
+          (m.rng?' · '+T.range_log:'');
+      }
     }
     syncRangeControls = syncRange;
     function applyManual() {
@@ -1431,9 +1459,11 @@
       minI.disabled = maxI.disabled = false;
       const lo = Number(minI.value), hi = Number(maxI.value);
       if (minI.value === "" || maxI.value === "" || !Number.isFinite(lo) || !Number.isFinite(hi) || !(lo < hi)) { note.textContent = T.range_bad; [minI, maxI].forEach(e => { e.setCustomValidity(T.range_bad); e.setAttribute("aria-invalid", "true"); }); return; }
-      clearValidity(); manualRange = { lo, hi }; note.textContent = MODES[mode].rng ? T.range_log : ""; redraw(); syncClassControls();
+      clearValidity(); manualRange={lo,hi};rangeByQuantity.set(mode,{lo,hi});
+      syncRange();redraw();syncClassControls();
     }
-    chk.onchange = () => { if (!chk.checked) { manualRange = null; syncRange(); redraw(); } else applyManual(); };
+    chk.onchange=()=>{if(!chk.checked){manualRange=null;rangeByQuantity.delete(mode);syncRange();redraw();}
+      else applyManual();};
     minI.oninput = maxI.oninput = applyManual;
     const dataRange = full => {   /* full: the true minimum and maximum; otherwise the 2–98 % window that ignores a few outliers */
       const m = MODES[mode], vals = []; if (m.f) return;
@@ -1441,9 +1471,11 @@
       const rr = full ? UD.range(vals) : UD.robustRange(vals); if (!rr) { note.textContent = T.mine_empty || "no values"; return; }
       let [lo, hi] = rr; if (hi === lo) { lo -= 0.5; hi += 0.5; }
       if (m.div && !full) { const a = Math.max(Math.abs(lo), Math.abs(hi)); lo = -a; hi = a; }
-      manualRange = { lo, hi }; syncRange(); redraw(); syncClassControls();
+      manualRange={lo,hi};rangeByQuantity.set(mode,{lo,hi});
+      syncRange();redraw();syncClassControls();
     };
-    autoB.onclick = () => dataRange(false); if (fullB) fullB.onclick = () => dataRange(true);
+    autoB.onclick=()=>dataRange(false);if(fullB)fullB.onclick=()=>dataRange(true);
+    if(numericB)numericB.onclick=()=>{sel.value='me';sel.onchange();};
     syncRange();
     // own data
     const symbolMap = () => new Map((EL || []).map(e => [e[1], e[0]]));
@@ -1565,7 +1597,11 @@
     root.querySelector('[data-nc-overlay-default]')?.addEventListener('click',()=>setAll(false,true));
   }
   fsel.innerHTML = Object.entries(FILTERS).map(([k, f]) => `<option value="${k}">${f[0]}</option>`).join("");
-  fsel.onchange = () => { filt = fsel.value; drawLegend(); draw(); drawStats(); root.querySelector(".nc-fcount").textContent = `${rows.filter(pass).length} ${T.nuclides}`; };
+  fsel.onchange=()=>{
+    filt=fsel.value;autoCache.clear();drawLegend();draw();drawStats();
+    syncRangeControls();
+    root.querySelector('.nc-fcount').textContent=`${rows.filter(pass).length} ${T.nuclides}`;
+  };
   search.addEventListener("keydown", e => {
     if (e.key !== "Enter") return;
     try {
