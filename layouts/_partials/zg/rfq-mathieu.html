@@ -2,7 +2,7 @@
 {{- $t := index hugo.Data.mathieu_labels $k -}}
 {{- $r := index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en -}}
 <style>.zg-mathieu [hidden]{display:none!important}</style>
-<section id="rfq-workbench" class="zg-card zg-mathieu" data-mathieu data-local-tabs data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-extras-labels="{{ (index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en) | jsonify }}" data-scene-labels="{{ (index hugo.Data.rfq_scene_labels $k | default hugo.Data.rfq_scene_labels.en) | jsonify }}" data-examples-base="{{ "data/rfq-examples/" | relURL }}" data-catalogue="{{ "data/nuclear-states.json" | relURL }}" data-ame="{{ "data/ame2020.json" | relURL }}">
+<section id="rfq-workbench" class="zg-card zg-mathieu" data-mathieu data-local-tabs data-tool-steps="mathieu" data-lang="{{ $k }}" data-labels="{{ $t | jsonify }}" data-extras-labels="{{ (index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en) | jsonify }}" data-scene-labels="{{ (index hugo.Data.rfq_scene_labels $k | default hugo.Data.rfq_scene_labels.en) | jsonify }}" data-examples-base="{{ "data/rfq-examples/" | relURL }}" data-catalogue="{{ "data/nuclear-states2026.json" | relURL }}" data-ame="{{ "data/ame2026.json" | relURL }}" data-catalogue-2020="{{ "data/nuclear-states.json" | relURL }}" data-ame-2020="{{ "data/ame2020.json" | relURL }}">
 
 <header class="rfq-heading"><p class="rfq-eyebrow">{{ $r.workbench_kicker }}</p><h2>{{ $r.workbench_title }}</h2><p>{{ $r.workbench_lead }}</p></header>
 {{ partial "zg/rfq-foundations.html" . }}
@@ -11,7 +11,7 @@
 <div class="zg-form">
 <label>{{ $t.geometry }} <select name="ms-geometry"><option value="linear">{{ $t.linear }}</option><option value="paul3d">{{ $t.paul3d }}</option></select></label>
 <label>{{ $t.mode }} <select name="ms-mode"><option value="voltage">{{ $t.voltage }}</option><option value="direct">{{ $t.direct }}</option></select></label>
-<label>{{ $t.species }} <input name="ms-species" type="text" value="" placeholder="133Cs+" maxlength="100"></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
+<label>{{ $t.species }} <input name="ms-species" type="text" value="" placeholder="133Cs+" maxlength="100"></label><label>{{ $t.evaluation_title }} <select name="ms-evaluation" aria-label="{{ $t.evaluation_title }}"><option value="2026" selected>AME2026 / NUBASE2026</option><option value="2020">AME2020 / NUBASE2020</option></select></label><button type="button" class="zg-btn zg-btn-ghost" data-ms-action="fill">{{ $t.fill }}</button>
 <label>{{ $t.mass }} (u) <input name="ms-mass" type="number" min="0.000001" step="any" value="100"></label>
 <label>{{ $t.charge }} z <input name="ms-charge" type="number" min="1" max="100" step="1" value="1"></label>
 <label data-ms-voltage>{{ $t.dc }} U (V) <input name="ms-U" type="number" step="any" value="0"></label>
@@ -21,7 +21,7 @@
 <label>{{ $t.rf }} (MHz) <input name="ms-f" type="number" min="0.000001" step="any" value="0.7"></label>
 <label data-ms-direct hidden>a <input name="ms-a" type="number" step="any" value="0"></label>
 <label data-ms-direct hidden>q <input name="ms-q" type="number" min="-12" max="12" step="any" value="0.4"></label>
-</div><p class="zg-muted" data-ms-source>{{ $t.manual }}</p><p class="zg-muted" data-ms-conversions></p><p class="zg-muted zg-small" data-ms-voltage>{{ $t.voltage_conversion_note }}</p></fieldset>
+</div><p class="zg-muted zg-small">{{ $t.evaluation_note }}</p><p class="zg-muted" data-ms-source>{{ $t.manual }}</p><p class="zg-muted" data-ms-conversions></p><p class="zg-muted zg-small" data-ms-voltage>{{ $t.voltage_conversion_note }}</p></fieldset>
 <details data-ms-uncertainty><summary>{{ $t.uncertainty_title }}</summary>
 <label><input name="ms-uncertainty-on" type="checkbox"> {{ $t.uncertainty_on }}</label><p class="zg-muted">{{ $t.uncertainty_note }}</p>
 <div class="zg-form"><label>σ(m) (u) <input name="ms-sigma-mass" type="number" min="0" step="any" value="0"></label><label>{{ $t.sigma_voltage }} (V) <input name="ms-sigma-V" type="number" min="0" step="any" value="0"></label><label>σ(r₀) (mm) <input name="ms-sigma-r0" type="number" min="0" step="any" value="0"></label><label>σ(f) (MHz) <input name="ms-sigma-f" type="number" min="0" step="any" value="0"></label></div>
