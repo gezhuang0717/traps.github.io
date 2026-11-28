@@ -10,7 +10,35 @@
 (() => {
   const root = document.querySelector("[data-nuclide-chart]");
   if (!root) return;
+  const evaluationYear=new URLSearchParams(window.location.search).get('evaluation')==='2020'?'2020':'2026';
+  const EDITION={year:evaluationYear,ame:'AME'+evaluationYear,nubase:'NUBASE'+evaluationYear};
+  const editionText=text=>String(text??'').replaceAll('AME2020',EDITION.ame).replaceAll('NUBASE2020',EDITION.nubase);
+  if(evaluationYear==='2020'){
+    // Explicit historical selection: refuse mixed AME2020/2026 data silently.
+    for(const name of ['ame','src','catalogue','reactions']){
+      const reference=root.dataset[name+'2020'];
+      if(!reference)throw Error('Historical '+name+' source unavailable');
+      root.dataset[name]=reference;
+    }
+  }
+  const editionSelect=root.querySelector('[name=nc-edition]');
+  if(editionSelect){
+    editionSelect.value=evaluationYear;
+    editionSelect.addEventListener('change',()=>{
+      const url=new URL(window.location.href);
+      if(editionSelect.value==='2020')url.searchParams.set('evaluation','2020');
+      else url.searchParams.delete('evaluation');
+      window.location.assign(url.href);
+    });
+  }
+  root.dataset.activeEvaluation=evaluationYear;
+  const sourceBadge=root.querySelector('.nc-evaluation-provenance');
+  if(sourceBadge&&evaluationYear==='2020')sourceBadge.textContent='AME2020 + NUBASE2020 (historical evaluation)';
   const T = JSON.parse(root.dataset.labels || "{}");
+  if(evaluationYear==='2020')for(const key of Object.keys(T)){
+    if(typeof T[key]==='string')T[key]=T[key].replaceAll('AME2026','AME2020').replaceAll('NUBASE2026','NUBASE2020');
+  }
+  const title=root.querySelector('h2');if(title)title.textContent=T.title;
   const P=window.ZGPhysics; let catalog=null, selectedState=null;
   const unknown=T.state_unknown;
   const cardT=cardLabels(document.documentElement.lang);
