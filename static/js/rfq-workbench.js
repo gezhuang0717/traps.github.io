@@ -5,19 +5,34 @@
  const M=host.ZGMathieu||(typeof require==='function'?require('./mathieu-core.js'):null);
  const factors=Object.freeze({'rod-peak':1,'rod-pp':2,'differential-peak':2,'differential-pp':4});
  const voltageFields=Object.freeze({main:'ms-V',cooler:'ms-cooler-V',mf:'ms-mf-V',bun:'ms-bun-V',sigma:'ms-sigma-V'});
- const optional=new Set(['qmin','rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan','voltage-convention','uncertainty-on','sigma-mass','sigma-V','sigma-r0','sigma-f']);
+ const optional=new Set(['qmin','rod-count','rod-rule','rod-ratio','rod-radius','diameter-tolerance','radial-fraction','eta-target','vscan','voltage-convention','evaluation','uncertainty-on','sigma-mass','sigma-V','sigma-r0','sigma-f']);
  const finite=x=>typeof x==='number'&&Number.isFinite(x);
  function factor(convention){if(!Object.hasOwn(factors,convention))throw Error('voltage convention');return factors[convention];}
  function nonnegative(value){if(!finite(value)||value<0)throw Error('RF voltage');return value;}
  function toRodPeak(value,convention='rod-peak'){return nonnegative(value)/factor(convention);}
  function fromRodPeak(value,convention='rod-peak'){const result=nonnegative(value)*factor(convention);if(!finite(result))throw Error('RF voltage range');return result;}
  function conversions(peak){return Object.fromEntries(Object.keys(factors).map(c=>[c,fromRodPeak(peak,c)]));}
+ function evaluationSources(year,urls){
+  const edition=String(year);
+  if(!['2020','2026'].includes(edition))throw Error('nuclear evaluation edition');
+  const catalogue=edition==='2020'?urls?.catalogue2020:urls?.catalogue;
+  const ame=edition==='2020'?urls?.ame2020:urls?.ame;
+  if(typeof catalogue!=='string'||!catalogue||typeof ame!=='string'||!ame)
+    throw Error('matching AME and NUBASE URLs required');
+  return Object.freeze({edition,catalogue,ame,massEdition:'AME'+edition,stateEdition:'NUBASE'+edition});
+ }
  function sourceForInputs(source,inputs,manualLabel){
   // An imported name alone is not a catalogue lookup. Keep attribution only
   // when both numerical ion mass and charge match the recorded lookup.
   if(!source||typeof source!=='object'||typeof source.label!=='string'||source.label.length>300||
      !finite(source.ionMassU)||source.ionMassU!==Number(inputs['ms-mass'])||
      !source.metadata||!Number.isInteger(source.metadata.q)||source.metadata.q!==Number(inputs['ms-charge']))return{label:manualLabel};
+  if(Object.hasOwn(inputs,'ms-evaluation')){
+    const selected=String(inputs['ms-evaluation']);
+    if(!['2020','2026'].includes(selected))return{label:manualLabel};
+    const provenance=String(source.evaluation||source.metadata?.source||source.source||'');
+    if(!provenance.includes(selected))return{label:manualLabel};
+  }
   return JSON.parse(JSON.stringify(source));
  }
  function normalizeSettings(raw,defaults,manualLabel='User-entered ion mass'){
@@ -26,6 +41,12 @@
   for(const key of Object.keys(s.inputs))if(!Object.hasOwn(defaults,key))throw Error('settings field');
   for(const key of Object.keys(defaults))if(!optional.has(key.slice(3))&&!Object.hasOwn(s.inputs,key))throw Error('missing settings field');
   const inputs={...defaults,...s.inputs};
+  if(Object.hasOwn(defaults,'ms-evaluation')){
+    // Legacy website files predate the selector and always looked up AME2020.
+    // Preserve that provenance; never silently relabel their masses as 2026.
+    if(!Object.hasOwn(s.inputs,'ms-evaluation'))inputs['ms-evaluation']='2020';
+    if(!['2020','2026'].includes(String(inputs['ms-evaluation'])))throw Error('nuclear evaluation edition');
+  }
   for(const [key,v]of Object.entries(inputs)){
    if(typeof defaults[key]==='boolean'){if(typeof v!=='boolean')throw Error('settings boolean');}
    else if(!['number','string'].includes(typeof v)||String(v).length>500)throw Error('settings value');
@@ -62,6 +83,6 @@
    sensitivities:{mass_u:-1,V_rod_peak_V:1,r0_mm:-2,f_MHz:-2},contributions,
    assumptions:'Independent absolute 1-sigma input uncertainties; charge is exact. Zero sigma means treated as exact. No covariance, geometry-model error, higher-order terms or stability probability. Linearization may fail for large relative errors.'};
  }
- const api={factors,voltageFields,toRodPeak,fromRodPeak,conversions,normalizeSettings,sourceForInputs,uncertainty};
+ const api={factors,voltageFields,toRodPeak,fromRodPeak,conversions,evaluationSources,normalizeSettings,sourceForInputs,uncertainty};
  host.ZGRFQWorkbench=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
