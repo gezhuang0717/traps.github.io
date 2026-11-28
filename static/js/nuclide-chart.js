@@ -72,7 +72,24 @@
   const axisNumber = name => { const v = chainInput(name).value; return v === '' ? null : Number(v); };
   /* theory masses: MOD[key] = {name, ref, url, map: Map(key → [ME keV, β2·1000])}; src = "ame" or a model key */
   let MOD = {}, PATHS = {}, src = "ame", extraRows = [], modelIndex = null, indexLoading = null, modelLoads = new Map(), modelErrors = new Set(), measured = null, inputTable = null;
-  let evaluated=null,evaluatedData=null,evaluatedWarning=false;
+  let evaluated=null,evaluatedData=null,evaluatedWarning=false,chartReady=false;
+  const reactionStatus=root.querySelector('[data-nc-reaction-status]');
+  const zhReaction=document.documentElement.lang.startsWith('zh');
+  function updateReactionStatus(state,detail=''){
+    if(!reactionStatus)return;
+    reactionStatus.dataset.ready=state;
+    const titles=zhReaction?{
+      loading:'核质量/核态先显示；AME 原始反应能与评价不确定度仍在载入。当前重新计算值仅是临时独立质量近似，不是正式评价协方差。',
+      ready:EDITION.ame+' 官方 rct1/rct2 反应能及表列评价误差已载入；完整质量协方差矩阵未载入。',
+      error:EDITION.ame+' 反应表载入失败：差分反应能使用独立质量近似，不能当作已评价协方差。'
+    }:{
+      loading:'Mass/state chart available; evaluated AME reaction energies and uncertainties are still loading. Recalculated quantities in the meantime are provisional diagonal-mass approximations.',
+      ready:EDITION.ame+' rct1/rct2 reaction energies and published marginal uncertainties loaded. The full mass covariance matrix is not available here.',
+      error:EDITION.ame+' reaction tables unavailable; recalculated reaction energies use diagonal-mass approximations, not official covariance.'
+    };
+    reactionStatus.textContent=titles[state]+(detail?' '+detail:'');
+  }
+  updateReactionStatus('loading');
   const MM=window.ZGMeasuredMasses;
   const msel = root.querySelector("[name=nc-model]"), ovl = root.querySelector(".nc-ovl");
   const key = (Z, N) => Z * 1000 + N;
@@ -1569,14 +1586,31 @@
   new ResizeObserver(resize).observe(cv); new ResizeObserver(resize).observe(pc); addEventListener("resize", resize);
   new MutationObserver(()=>{updateInk();draw();drawPlot();drawResidual();}).observe(document.documentElement,{attributes:true,attributeFilter:['class','data-theme']});
 
-  const evaluatedRequest=fetch(root.dataset.reactions).then(response=>{
+  // Fetch the published rct1/rct2 Q tables in parallel, but do NOT block
+  // displaying the mass/state chart on a ~9.5 MB reaction-energy JSON payload.
+  // A recorded evaluated Q uncertainty only becomes available after hydration.
+  void fetch(root.dataset.reactions).then(response=>{
     if(!response.ok)throw new Error('Published '+EDITION.ame+' reference table unavailable');
     return response.json();
-  }).then(data=>({data,adapter:window.ZGAMEEvaluated.fromData(data)})).catch(error=>{
-    evaluatedWarning=true;console.warn('Published '+EDITION.ame+' reaction values unavailable; independent-mass fallback',error);return null;
+  }).then(data=>{
+    const adapter=window.ZGAMEEvaluated.fromData(data);
+    if(!adapter)throw Error('Invalid evaluated reaction table');
+    evaluated=adapter;evaluatedData=data;evaluatedWarning=false;
+    updateReactionStatus('ready');
+    if(chartReady){
+      memo.clear();autoCache.clear();dripCache.clear();
+      drawLegend();draw();
+      if(chain)plotChain();
+      if(pin)showCard(pin);
+    }
+  }).catch(error=>{
+    evaluatedWarning=true;
+    updateReactionStatus('error',error.message);
+    console.warn('Published '+EDITION.ame+' reaction values unavailable; independent-mass fallback',error);
+    if(chartReady&&pin)showCard(pin);
   });
-  Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame),evaluatedRequest]).then(([d,c,reference]) => {
-    catalog=c;evaluated=reference?.adapter||null;evaluatedData=reference?.data||null;
+  Promise.all([fetch(root.dataset.src).then(r=>{if(!r.ok)throw new Error("Nuclear data unavailable");return r.json();}),P.load(root.dataset.catalogue,root.dataset.ame)]).then(([d,c]) => {
+    catalog=c;
     rows = d.rows; EL = d.elements; rows.forEach(r => M.set(key(r[0], r[1]), r));
     MEn = get(0, 1) || MEn; MEH = get(1, 0) || MEH; MEa = get(2, 2) || MEa;
     root.querySelector(".nc-count").textContent = `${rows.length} ${T.nuclides} · ${rows.reduce((a,r)=>a+r[11].length,0)} ${T.state_count}`;
@@ -1584,6 +1618,7 @@
     inputTable=measured.table();
     loadIndex().then(reportOverlays).catch(error=>{modelFailure();reportOverlays();});
     buildPT(); drawLegend(); fit(); fsel.onchange(); reportOverlays();
+    chartReady=true;root.dataset.chartReady='true';
     function openBookmark(){
       const params=new URLSearchParams(location.search),name=params.get('nuclide');if(!name)return false;
       const state=catalog.lookupState(name,params.get('state')||0),r=state&&M.get(key(state.Z,state.N));
