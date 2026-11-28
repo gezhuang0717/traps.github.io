@@ -121,7 +121,9 @@
       const legendLines=[t.integrated,t.mean,t.radius].map(x=>C.wrap(x,w-70,12)),legendHeight=legendLines.reduce((a,x)=>a+x.length*17+8,0);
       const h=footer+footerLines.length*17+legendHeight+18;
       const svg=element('svg',{xmlns:NS,viewBox:'0 0 '+w+' '+h,width:w,height:h,role:'img','aria-label':t.spatial,
-        style:'display:block;background:white;font-family:Arial,\"Noto Sans\",sans-serif','data-motion-projection':perspectiveToggle.checked?'perspective':'orthographic'});
+        style:'display:block;background:white;font-family:Arial,\"Noto Sans\",sans-serif','data-motion-projection':perspectiveToggle.checked?'perspective':'orthographic',
+        'data-camera-azimuth-deg':yaw.toFixed(4),'data-camera-elevation-deg':pitch.toFixed(4),
+        'data-camera-orbit-active':orbitToggle.checked?'true':'false'});
       svg.append(element('rect',{width:w,height:h,fill:'#ffffff'}));
       const text=(lines,x,y,size,attrs={})=>{const n=element('text',{x,y,'font-size':size,fill:'#243b56',...attrs});lines.forEach((s,i)=>n.append(element('tspan',{x,dy:i?size+4:0},s)));return n;};
       svg.append(text(titleLines,18,22,narrow?16:20,{'font-weight':600,'data-chart-label':'title'}));
