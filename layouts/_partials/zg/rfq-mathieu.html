@@ -43,6 +43,7 @@
 <button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-design-tab" role="tab" data-local-tab="design" aria-selected="false">{{ $t.design_title }}</button>
 <button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-resonance-tab" role="tab" data-local-tab="resonance" aria-selected="false">{{ $r.resonance }}</button>
 {{- $extra := index hugo.Data.rfq_extras_labels $k | default hugo.Data.rfq_extras_labels.en -}}
+<button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-cinema-tab" role="tab" data-local-tab="cinema" aria-selected="false">{{ if hasPrefix site.Language.Lang "zh" }}🎬 2D/3D 轨迹影院{{ else }}🎬 2D/3D Trajectory Cinema{{ end }}</button>
 {{ range slice "motion" "gas" "bunch" "scan" "data" }}<button class="zg-btn zg-btn-ghost" type="button" id="lab-rfq-{{ . }}-tab" role="tab" data-local-tab="{{ . }}" aria-selected="false">{{ index $extra . }}</button>{{ end }}
 </div>
 <div class="rfq-active-point" data-rfx-shared-summary role="status" aria-live="polite"></div>
@@ -90,6 +91,7 @@
 <p data-ms-design-error class="g-warn" role="alert" aria-live="polite"></p>
 </div>
 {{ partial "zg/rfq-extras.html" . }}
+{{ partial "zg/rfq-cinema.html" . }}
 {{ partial "zg/rfq-resonance.html" . }}
 <details class="zg-rfq-quick-guide"><summary>{{ $t.guide_title }}</summary>
 <ol><li>{{ $t.guide_voltage }}</li><li>{{ $t.guide_steps }}</li><li>{{ $t.guide_boundary }}</li></ol>
@@ -110,11 +112,13 @@
 <script defer src="{{ "js/rfq-extended-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-extended-core.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-chart.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-chart.js")) 0 10 }}"></script>
 <link rel="stylesheet" href="{{ "css/rfq-motion.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/rfq-motion.css")) 0 10 }}">
+<link rel="stylesheet" href="{{ "css/rfq-cinema.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/rfq-cinema.css")) 0 10 }}">
 <link rel="stylesheet" href="{{ "css/rfq-lab-scenes.css" | relURL }}?v={{ substr (md5 (os.ReadFile "static/css/rfq-lab-scenes.css")) 0 10 }}">
 <script defer src="{{ "js/rfq-playback.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-playback.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-motion-view.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-motion-view.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-lab-scenes.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-lab-scenes.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-extended-ui.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-extended-ui.js")) 0 10 }}"></script>
+<script defer src="{{ "js/rfq-trajectory-cinema.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-trajectory-cinema.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-data-examples.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-data-examples.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-resonance-core.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-resonance-core.js")) 0 10 }}"></script>
 <script defer src="{{ "js/rfq-resonance-ui.js" | relURL }}?v={{ substr (md5 (os.ReadFile "static/js/rfq-resonance-ui.js")) 0 10 }}"></script>
