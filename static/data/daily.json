@@ -11080,18 +11080,18 @@
     }
   ],
   "health": {
-    "checked_at": "2026-11-27T23:42:53+00:00",
+    "checked_at": "2026-11-28T11:54:26+00:00",
     "feeds": [
       {
         "source": "arXiv — ion traps & mass spectrometry",
         "status": "PASS",
-        "matched": 2,
+        "matched": 1,
         "new": 0
       },
       {
         "source": "arXiv — nuclear masses, Q-values & astrophysics",
         "status": "PASS",
-        "matched": 3,
+        "matched": 1,
         "new": 0
       },
       {
@@ -11110,7 +11110,7 @@
         "source": "Phys.org — nuclear physics",
         "status": "PASS",
         "matched": 30,
-        "new": 2
+        "new": 0
       },
       {
         "source": "Physical Review Letters — Nuclear Physics",
