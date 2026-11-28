@@ -158,6 +158,17 @@ with sync_playwright() as p:
     play.click()
     cinema.locator('[data-rfq-cinema-left-view]').select_option('phase')
     assert 'phase' in cinema.locator('[data-rfq-cinema-left-view]').input_value()
+    for view in ('xz','yz','rz'):
+        count_before=int(cinema.get_attribute('data-cinema-iteration'))
+        cinema.locator('[data-rfq-cinema-left-view]').select_option(view)
+        page.wait_for_function(
+            "(previous)=>Number(document.querySelector('[data-rfq-cinema]').dataset.cinemaIteration)>previous",
+            arg=count_before,timeout=12000)
+        assert left.count()==1
+        assert left.locator('text').count()>2
+    # Save a radial/axial XZ movie alongside the orthographic 3D projected path.
+    cinema.locator('[data-rfq-cinema-left-view]').select_option('xz')
+
     camera=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-camera input[type=range]').first
     camera.evaluate("(node)=>{node.value='65';node.dispatchEvent(new Event('input',{bubbles:true}));}")
     assert right.count()==1
