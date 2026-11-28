@@ -1045,6 +1045,32 @@
       }
     }
     root.querySelector('.nc-residual-panel').hidden=!chainInput('residual').checked;
+    const seriesFeedback=root.querySelector('[data-nc-series-feedback]');
+    if(seriesFeedback){
+      const zh=document.documentElement.lang.startsWith('zh'),messages=[];
+      const activeModels=selectedModels();
+      if(chainInput('band').checked){
+        messages.push((zh?'实验/导入不确定度带':'Imported/experimental uncertainty bands')+': '+bands.length+
+          (bands.length?'':(zh?'（当前没有适用点，请先导入带不确定度的数据）':
+            ' (no applicable points; add data with reported uncertainties)')));
+      }
+      if(chainInput('residual').checked){
+        messages.push((zh?'对 AME 的残差点':'Residual points against AME')+': '+residualPts.length+
+          (residualPts.length?'':(zh?'（需要可比较的非参比数据）':
+            ' (choose another evaluated/model or loaded comparison series)')));
+      }
+      if(!hasNewGround&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)){
+        messages.push(zh?'当前没有导入新的基态质量，相关系列不会显示。':
+          'No new ground-state mass data are loaded; selected input series cannot appear.');
+      }
+      if(activeModels.length&&!advanced){
+        messages.push(zh?'模型比较需要少于或等于 6 条同时选择的核素链。':
+          'Model comparison requires at most six simultaneously selected nuclide chains.');
+      }
+      seriesFeedback.textContent=messages.join(' · ');
+      seriesFeedback.dataset.bandCount=String(bands.length);
+      seriesFeedback.dataset.residualCount=String(residualPts.length);
+    }
     root.querySelector('.nc-series-legend').innerHTML=visibleSeries.map(s=>'<span style="--series-color:'+legendColor(s)+'"><b aria-hidden="true">'+legendGlyph(s)+'</b> '+escape(s.name)+' ('+plotPts.concat(modPts).filter(p=>inSeries(p,s)).length+')</span>').join('');
     const label=(ch==='Z'?T.p_iso:ch==='N'?T.p_isot:T.p_isob)+': '+ch+' = '+first+(shown>1?'–'+(first+shown-1):'');
     pinfo.textContent=label+' · '+q[0]+' · '+(plotPts.length+modPts.length)+' '+T.points+' · '+T.chain_count.replace('{shown}',shown).replace('{total}',total)+(modelReason?' · '+modelReason:'')+(!advanced&&modelReason!==T.loaded_cap&&['loaded','hybrid'].some(s=>root.querySelector('[data-series='+s+']').checked)?' · '+T.loaded_cap:'')+' · '+bands.length+' '+T.loaded_band_points+(hasNewGround&&root.querySelector('[data-series=hybrid]').checked&&!plotPts.some(p=>p.series==='hybrid')?' · '+T.loaded_no_mixed:'');
