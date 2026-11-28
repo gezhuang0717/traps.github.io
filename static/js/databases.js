@@ -1,6 +1,6 @@
 /* Databases page — progressive enhancement of the server-rendered cards in layouts/_shortcodes/databases.html.
    Search, category chips, favourites (this browser only), pop-up guides, card links, CSV export and a nuclide look-up
-   (AME2020 / NUBASE2020 values from static/data/nubase2020.json; external links only to verified URL patterns). */
+   (AME2026/NUBASE2026 by default, NUBASE2020 explicitly historical; external links use verified patterns). */
 (function () {
   "use strict";
   const root = document.querySelector("[data-databases]");
@@ -90,8 +90,22 @@
 
   /* ---------- nuclide look-up ---------- */
   const form = root.querySelector(".zg-db-lookup-f"), out = root.querySelector(".zg-db-lookup-out");
-  let NB = null;
-  const load = () => NB ? Promise.resolve(NB) : fetch(root.dataset.nubase).then(r => r.json()).then(d => (NB = d));
+  const editionSelect=root.querySelector('[name=zg-db-edition]');
+  const edition=()=>editionSelect?.value==='2020'?'2020':'2026';
+  const NB=new Map(),jobs=new Map();
+  const load = () => {
+    const year=edition();if(NB.has(year))return Promise.resolve(NB.get(year));
+    if(jobs.has(year))return jobs.get(year);
+    const url=year==='2020'?root.dataset.nubaseHistory:root.dataset.nubase;
+    const work=fetch(url).then(r=>{if(!r.ok)throw Error('NUBASE'+year+' HTTP '+r.status);return r.json();})
+      .then(d=>{NB.set(year,d);jobs.delete(year);return d;})
+      .catch(e=>{jobs.delete(year);throw e;});
+    jobs.set(year,work);return work;
+  };
+  editionSelect?.addEventListener('change',()=>{
+    out.textContent='';const value=form.querySelector('[name=nuc]').value.trim();
+    if(value)lookup();
+  });
   /* accepts 100Sn, 100sn, Sn-100, Sn100, sn 100, 100-Sn; isomer suffixes are shown in the list, the look-up is per nuclide */
   function parse(s, els) {
     s = s.trim().replace(/\s+/g, "");
@@ -104,10 +118,10 @@
     if (!e || A < e[0]) return null;
     return { Z: e[0], A, sym, name: e[2] };
   }
-  const fmt = (v, e, est) => {
+  const fmt = (v, e, est, sigmaEst = est) => {
     if (v == null) return "—";
     const d = e > 0 ? Math.max(0, Math.min(6, -Math.floor(Math.log10(e)) + 1)) : 3;
-    return `${v.toFixed(d)}${est ? "#" : ""}${e > 0 ? " ± " + e.toFixed(d) + (est ? "#" : "") : ""}`;
+    return `${v.toFixed(d)}${est ? "#" : ""}${e > 0 ? " ± " + e.toFixed(d) + (sigmaEst ? "#" : "") : ""}`;
   };
   /* NUBASE decay-mode codes → readable symbols (the raw string is kept in the title attribute) */
   const decay = s => String(s || "").split(";").map(t => t.replace(/^IS=([\d.]+) (\d+)$/, "IS $1($2) %").replace(/^IS=/, "IS ").replace(/\bB\+/g, "β⁺").replace(/\bB-/g, "β⁻").replace(/2B-/g, "2β⁻").replace(/^A(?=[=~<>\s])/, "α").replace(/\bEC\b/g, "EC").replace(/\bSF\b/g, "SF")).join("; ");
@@ -120,20 +134,22 @@
       const N = p.A - p.Z, r = d.rows.find(x => x[0] === p.Z && x[1] === N);
       if (!r) { out.innerHTML = `<p class="zg-db-bad">${escH(L.lookup_bad)}</p>`; return; }
       const sup = `<sup>${p.A}</sup>${escH(p.sym)}`;
-      const iso = (r[11] || []).map(m => `<li>${sup}<sup>${escH(m[0])}</sup>: E<sub>x</sub> = ${fmt(m[1], m[4], !!m[5])} keV · T½ ${escH(m[2] || "—")} · J<sup>π</sup> ${escH(m[3] || "—")}</li>`).join("");
+      const iso = (r[11] || []).map(m => `<li>${sup}<sup>${escH(m[0])}</sup>: E<sub>x</sub> = ${fmt(m[1], m[4], !!m[5], !!m[6])} keV · T½ ${escH(m[2] || "—")} · J<sup>π</sup> ${escH(m[3] || "—")}</li>`).join("");
       const api = `https://nds.iaea.org/relnsd/v1/data?fields=ground_states&nuclides=${p.A}${p.sym.toLowerCase()}`;
       const wiki = p.Z > 0 ? `https://en.wikipedia.org/wiki/Isotopes_of_${encodeURIComponent(p.name.toLowerCase().replace("aluminum", "aluminium").replace("cesium", "caesium"))}` : "https://en.wikipedia.org/wiki/Free_neutron_decay";
-      const chart = `${root.dataset.chart}?nuclide=${p.A}${p.sym}`;
+      const year=edition(),params=new URLSearchParams({nuclide:p.A+p.sym});
+      if(year==='2020')params.set('evaluation','2020');
+      const chart=root.dataset.chart+'?'+params.toString();
       out.innerHTML = `<div class="zg-db-nuc">
         <h3>${sup} <small>(Z = ${p.Z}, N = ${N})</small></h3>
         <dl>
-          <dt>${escH(L.me)} (${escH(L.ame)})</dt><dd>${fmt(r[3], r[4], !!r[5])} keV</dd>
+          <dt>${escH(L.me)} (${year==='2020'?'AME2020':'AME2026'})</dt><dd>${fmt(r[3], r[4], !!r[5], !!r[13])} keV</dd>
           <dt>${escH(L.hl)}</dt><dd>${escH(r[7] || "—")}</dd>
           <dt>${escH(L.jp)}</dt><dd>${escH(r[8] || "—")}</dd>
           <dt>${escH(L.dm)}</dt><dd title="${escH(r[10] || "")}">${escH(decay(r[10]) || "—")}</dd>
           <dt>${escH(L.disc)}</dt><dd>${escH(r[9] || "—")}</dd>
         </dl>
-        ${iso ? `<p><b>${escH(L.isomers)} (${escH(L.nubase)})</b></p><ul>${iso}</ul>` : ""}
+        ${iso ? `<p><b>${escH(L.isomers)} (${year==='2020'?'NUBASE2020':'NUBASE2026'})</b></p><ul>${iso}</ul>` : ""}
         ${r[5] ? `<p class="zg-db-est">${escH(L.est)}</p>` : ""}
         <p class="zg-db-ext">
           <a class="zg-db-btn" href="${api}" target="_blank" rel="noopener">${escH(L.lookup_api)} ↗</a>
@@ -141,7 +157,10 @@
           <a class="zg-db-btn" href="${wiki}" target="_blank" rel="noopener">${escH(L.lookup_wiki)} ↗</a>
           <a class="zg-db-btn" href="${chart}">${escH(L.chart_link || "Chart")} →</a>
         </p></div>`;
-    }).catch(() => { out.textContent = "—"; });
+    }).catch(error => {
+      out.textContent = (L.lookup_bad||'Lookup unavailable')+
+        ' · NUBASE'+edition()+' '+error.message;
+    });
   }
   form.addEventListener("submit", lookup);
 })();
