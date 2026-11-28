@@ -49,8 +49,19 @@ def validate_original(filename,raw):
     if len(raw)<180000 or len(raw)>1800000:raise ValueError(filename+" has implausible byte count")
     try:text=raw.decode("ascii")
     except UnicodeDecodeError as exc:raise ValueError("Unexpected non-ASCII source file: "+filename) from exc
-    if any(term not in text[:6200] for term in EXPECTED[filename]):
-        raise ValueError(filename+" does not have the official 2026 header/column contract")
+    header=text[:12000]
+    # AME listings occasionally vary in decorative header whitespace. Require
+    # authoritative filename/year, fixed-width signature and scientific column.
+    required={
+      "mass.mas26":("mass.mas26","2026","f14.6","MASS EXCESS"),
+      "rct1.mas26":("rct1.mas26","2026","6(f12.4,f10.4)","S(2n)"),
+      "rct2.mas26":("rct2.mas26","2026","6(f12.4,f10.4)","S(n)"),
+      "nubase.mas26":("NUBASE2026","Data FORMAT","Mass Excess"),
+    }[filename]
+    missing=[term for term in required if term.lower() not in header.lower()]
+    if missing:
+        raise ValueError(filename+" official 2026 header mismatch: "+repr(missing)+
+          "; prefix="+repr(text[:160]))
     if filename!="nubase.mas26" and "# in" not in text[:6200] and "decimal point" not in text[:6200]:
         raise ValueError(filename+" is missing source-estimation notation")
     if "\r" in text.replace("\r\n",""):
