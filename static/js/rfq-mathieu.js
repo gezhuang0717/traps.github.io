@@ -3,7 +3,7 @@
  document.querySelectorAll('[data-mathieu]').forEach(root=>{
   if(root.dataset.mathieuReady)return;root.dataset.mathieuReady='true';
   const T=JSON.parse(root.dataset.labels),field=n=>root.querySelector('[name="ms-'+n+'"]'),value=n=>{const input=field(n);if(!input||!String(input.value).trim())return NaN;return Number(input.value);},err=root.querySelector('[data-ms-error]'),figure=root.querySelector('[data-ms-figure]');
-  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,lastStages=[],lastStageErrors=[],lastUncertainty=null;
+  let source={label:T.manual},last=null,timer=null,styleControl=null,lastDesign=null,designSVG=null,lastStages=[],lastStageErrors=[],lastUncertainty=null;
   let ionLookupGeneration=0;
   const sourceLabel=root.querySelector('[data-ms-source]');
   function editionURLs(){
