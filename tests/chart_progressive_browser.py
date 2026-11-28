@@ -34,7 +34,6 @@ with sync_playwright() as playwright:
     assert chart.get_attribute("data-active-evaluation") == "2026"
     assert chart.locator("[name=nc-edition]").input_value() == "2026"
     assert "AME2026" in chart.locator("h2").inner_text()
-    assert "3700"[:2] or chart.locator(".nc-count").inner_text()  # count below checked
     assert int(re.search(r"\\d+", chart.locator(".nc-count").inner_text()).group()) >= 3700
     status = chart.locator("[data-nc-reaction-status]")
     assert status.get_attribute("data-ready") == "loading", status.inner_text()
