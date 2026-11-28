@@ -58,6 +58,31 @@ with sync_playwright() as p:
     assert "AME2026" in edition.inner_text()
     assert chart.locator("[name=nc-colour] option").count()>15
     snapshot(page,"chart2026-loaded-desktop.png")
+    # Nuclear detail cards must never carry historical 2020 source labels while
+    # the active evaluation is the authoritative AME/NUBASE 2026 edition.
+    chart.locator('[name=nc-search]').fill('100Sn')
+    chart.locator('[name=nc-search]').press('Enter')
+    page.wait_for_function("()=>!document.querySelector('#nuclide-chart .nc-card').hidden",timeout=15000)
+    card_text=chart.locator('.nc-card').inner_text()
+    assert "AME2026" in card_text and "NUBASE2026" in card_text,card_text[:900]
+    assert "Published AME2020 masses and reactions" not in card_text,card_text[:900]
+    snapshot(page,"chart2026-card-edition-verified.png")
+    # Previously these checkboxes looked inert when no comparison input existed.
+    # They must now report the exact absence of compatible points, rather than
+    # silently drawing an empty band or residual pane.
+    band=chart.locator('[name=nc-band]');residual=chart.locator('[name=nc-residual]')
+    feedback=chart.locator('[data-nc-series-feedback]')
+    band.check()
+    bands=int(feedback.get_attribute('data-band-count'))
+    assert bands>=0 and 'uncertainty bands' in feedback.inner_text()
+    if bands==0:
+        assert 'no applicable points' in feedback.inner_text()
+    residual.check()
+    residuals=int(feedback.get_attribute('data-residual-count'))
+    assert residuals>=0 and 'Residual points' in feedback.inner_text()
+    if residuals==0:
+        assert 'choose another' in feedback.inner_text()
+    residual.uncheck();band.uncheck()
     # AME2026 versus AME2020 uses the *actual* archived ground-mass table,
     # not an empty metadata-only edition list or an assumed mass covariance.
     colours=chart.locator('[name=nc-colour]')
@@ -95,6 +120,27 @@ with sync_playwright() as p:
     overlay=overlays.locator("[data-opt=nz]")
     overlay.uncheck();assert not overlay.is_checked()
     overlay.check();assert overlay.is_checked()
+    # User-facing feedback distinguishes working overlays from physically absent
+    # zero crossings; the controls really change the canvas or active state.
+    status=chart.locator('[data-nc-overlay-feedback]')
+    assert status.get_attribute('data-count')=='1'   # N=Z only
+    magic.check()
+    assert status.get_attribute('data-count')=='2'
+    chart.locator('[data-nc-overlay-clear]').click()
+    assert status.get_attribute('data-count')=='0'
+    assert not overlays.locator('[data-opt=nz]').is_checked()
+    chart.locator('[data-nc-overlay-default]').click()
+    assert status.get_attribute('data-count')=='1'
+    assert overlays.locator('[data-opt=nz]').is_checked()
+    contour=overlays.locator('[data-drip=sn]')
+    contour.check()
+    assert 'Sₙ = 0:' in status.inner_text()
+    contour.uncheck()
+    rp=overlays.locator('[data-path=rp]')
+    rp.check()
+    page.wait_for_function("()=>document.querySelector('[data-nc-overlay-feedback]')?.textContent.includes('111 reference points')",timeout=20000)
+    assert status.get_attribute('data-count')=='2'
+    rp.uncheck()
     # Numerical-class checkbox must enable real controls in numeric color mode.
     colour=chart.locator("[name=nc-colour]")
     colour.select_option("me")
@@ -149,13 +195,29 @@ with sync_playwright() as p:
     right=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-stage svg')
     assert left.count()==1 and right.count()==1
     assert right.get_attribute("data-motion-projection")=="orthographic"
+    # Perspective is a camera transformation of the same ideal 3D coordinates;
+    # it must visibly change the SVG without changing model results.
+    p_toggle=cinema.locator('[data-rfq-cinema-3d] [data-motion-projection-toggle]')
+    p_toggle.check()
+    assert right.get_attribute('data-motion-projection')=='perspective'
+    perspective_svg=right.evaluate('(node)=>node.outerHTML')
+    p_toggle.uncheck()
+    assert right.get_attribute('data-motion-projection')=='orthographic'
+    assert right.evaluate('(node)=>node.outerHTML')!=perspective_svg
+    orbit=cinema.locator('[data-rfq-cinema-3d] [data-motion-camera-orbit]')
+    camera_yaw=cinema.locator('[data-rfq-cinema-3d] .rfq-motion-camera input[type=range]').first
+    assert not orbit.is_checked()
+    orbit.check()
+    initial_yaw=camera_yaw.input_value()
     assert "ideal" in cinema.locator('[data-rfq-cinema-warning]').inner_text().lower()
     snapshot(page,"rfq-2d3d-cinema-desktop.png")
     timeline=cinema.locator('[data-rfq-cinema-player]')
     play=timeline.locator('[data-playback-action="play"]');play.click()
-    page.wait_for_timeout(750)
+    page.wait_for_timeout(1050)
     assert float(timeline.locator('[data-rfq-playback]').get_attribute("data-fraction"))>0
+    assert camera_yaw.input_value()!=initial_yaw,'The 3D camera did not orbit during playback'
     play.click()
+    orbit.uncheck()
     cinema.locator('[data-rfq-cinema-left-view]').select_option('phase')
     assert 'phase' in cinema.locator('[data-rfq-cinema-left-view]').input_value()
     for view in ('xz','yz','rz'):

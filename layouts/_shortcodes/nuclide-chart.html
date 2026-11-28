@@ -117,7 +117,10 @@
       <label class="nc-chk"><input type="checkbox" data-path="r"><i style="background:#d97706;border-radius:50%"></i>{{ $t.rpath }}</label>
       <label class="nc-chk"><input type="checkbox" data-path="rp"><i style="background:#00873e;border-radius:50%"></i>{{ $t.rppath }}</label>
     </span>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc-overlay-default>{{ if hasPrefix site.Language.Lang "zh" }}恢复 N=Z{{ else }}Reset overlays{{ end }}</button>
+    <button type="button" class="zg-btn zg-btn-ghost" data-nc-overlay-clear>{{ if hasPrefix site.Language.Lang "zh" }}清除叠加{{ else }}Clear overlays{{ end }}</button>
   </div>
+  <p class="nc-overlay-status zg-small zg-muted" data-nc-overlay-feedback role="status" aria-live="polite"></p>
   <div class="nc-bar"><label>{{ $t.line_width }} <select name="nc-line-width"><option value="0.5">0.50 px</option><option value="1" selected>1.00 px</option><option value="1.5">1.50 px</option><option value="2">2.00 px</option></select></label><small>{{ $t.export_hint }}</small></div>
   <p class="nc-mref zg-small zg-muted"></p>
   <div class="nc-stage">
@@ -164,6 +167,7 @@
       <div class="nc-series-option"><label><input type="checkbox" name="nc-band" aria-describedby="nc-band-hint"><span>{{ $t.loaded_band }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-band-hint">{{ $t.loaded_band_hint }}</p></details></div>
       <div class="nc-series-option"><label><input type="checkbox" name="nc-residual" aria-describedby="nc-residual-hint"><span>{{ $t.loaded_residual }}</span></label><details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }}</summary><p id="nc-residual-hint">{{ $t.loaded_residual_hint }}</p></details></div>
     </div>
+    <p class="nc-series-feedback zg-small zg-muted" data-nc-series-feedback role="status" aria-live="polite"></p>
   </fieldset>
   <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · {{ $t.loaded_reference_ring }}</summary><p id="nc-ring-hint">{{ $t.loaded_ring_hint }}</p></details>
   <details class="nc-explanation"><summary>{{ $t.loaded_hint_toggle }} · ● ○# ◆ ◇# ■ □#</summary><p class="zg-small nc-series-key">{{ $t.loaded_style_key }} {{ $t.loaded_requires_ground }}</p></details>
