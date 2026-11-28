@@ -11,6 +11,18 @@ function helpers(extra={}){
  assert.ok(start>0&&end>start);
  vm.createContext(context);vm.runInContext(defs+source.slice(start,end),context);return context;
 }
+test('all five localized nuclide cards switch 2020/2026 source labels without mixing evaluations',()=>{
+ for(const edition of ['2020','2026'])for(const lang of ['en','zh','fi','de','ja']){
+   const h=helpers({evaluationYear:edition,EDITION:{ame:'AME'+edition,nubase:'NUBASE'+edition}});
+   const labels=h.cardLabels(lang);
+   for(const key of ['ame','selected','published','publishedNote','rounding']){
+     assert.match(labels[key],new RegExp('(?:AME|NUBASE)'+edition),lang+' / '+key);
+     assert.doesNotMatch(labels[key],new RegExp('(?:AME|NUBASE)'+(edition==='2020'?'2026':'2020')),
+       lang+' / '+key);
+   }
+ }
+});
+
 test('AME mass display retains source precision and independent value/uncertainty flags',()=>{
  const h=helpers();
  assert.equal(h.referenceMassText({v:-91525.979,e:.096,est:false,sigmaEst:false}),'-91525.979 ± 0.096');
