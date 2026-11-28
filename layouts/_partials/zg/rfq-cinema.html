@@ -1,7 +1,7 @@
 {{- $zh := hasPrefix site.Language.Lang "zh" -}}
 <div data-local-panel="cinema" data-rfq-cinema hidden>
   <h3>{{ if $zh }}🎬 RFQ 二维/三维离子轨迹影院{{ else }}🎬 RFQ 2D/3D trajectory cinema{{ end }}</h3>
-  <p class="zg-muted">{{ if $zh }}同步显示 XY 横向轨道和可旋转三维正交投影。两幅动画来自同一次 Mathieu 方程数值积分，时间游标、播放速度和录像同步。{{ else }}Watch a transverse XY orbit and a rotatable 3D orthographic projection together. Both animations use the same ideal Mathieu integration and a synchronized timeline, speed, and real browser video recorder.{{ end }}</p>
+  <p class="zg-muted">{{ if $zh }}同步显示 XY 横向轨道和可旋转的 3D 轨迹投影；右侧可以切换正交/透视模式，也可播放时自动旋转相机。两幅动画来自同一次 Mathieu 数值积分，时间游标、速度和录像同步。{{ else }}Watch a transverse XY orbit and a rotatable 3D trajectory projection with orthographic/perspective depth and optional camera orbit. Both animations use the same ideal Mathieu integration and a synchronized timeline, speed, and real browser video recorder.{{ end }}</p>
   <p class="zg-notice">{{ if $zh }}物理界限：横向为无限长理想四杆 RF 场，轴向为自由漂移；没有真实三维电极场、碰撞、空间电荷或原生 SIMION 轨迹。{{ else }}Physics boundary: ideal infinite-length four-rod RF field in x/y, with free axial drift z. No realistic 3D electrode field, collisions, space charge or native SIMION trajectory is claimed.{{ end }}</p>
   <div class="rfq-cinema-scenes" role="group" aria-label="{{ if $zh }}选择初始离子运动场景{{ else }}Select an ion-trajectory scenario{{ end }}">
     <button type="button" class="zg-btn" data-rfq-cinema-preset="flight">{{ if $zh }}🚀 三维飞行{{ else }}🚀 3D flight{{ end }}</button>
@@ -33,7 +33,7 @@
       <div data-rfq-cinema-2d></div>
     </div>
     <div class="rfq-cinema-cell">
-      <h4>{{ if $zh }}三维（可旋转）正交轨迹{{ else }}3D rotatable orthographic trajectory{{ end }}</h4>
+      <h4>{{ if $zh }}三维（可旋转 / 透视）轨迹{{ else }}3D rotatable / perspective trajectory{{ end }}</h4>
       <div data-rfq-cinema-3d></div>
     </div>
   </div>
